@@ -7,7 +7,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            new Finder(@"C:\Users\matt\Documents\visual studio 2010\Projects\SampleSpecs\SampleSpecs\bin\Debug\SampleSpecs.dll").Run();
+            new Finder(@"C:\Users\matt\Documents\visual studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll").Run();
             Console.Read();
         }
     }

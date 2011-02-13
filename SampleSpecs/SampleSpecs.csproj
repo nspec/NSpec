@@ -52,7 +52,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Users\matt\Documents\visual studio 2010\Projects\SampleSpecs\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe"</PostBuildEvent>
+    <PostBuildEvent>"C:\Users\matt\Documents\visual studio 2010\Projects\NSpec\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

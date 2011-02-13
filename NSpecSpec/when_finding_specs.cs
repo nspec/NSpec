@@ -12,7 +12,7 @@ namespace NSpecSpec
         [SetUp]
         public void setup()
         {
-            finder = new Finder(@"C:\Users\matt\Documents\visual studio 2010\Projects\SampleSpecs\SampleSpecs\bin\Debug\SampleSpecs.dll");
+            finder = new Finder(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll");
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace NSpecSpec
         [SetUp]
         public void setup()
         {
-            finder = new Finder(@"C:\Users\matt\Documents\visual studio 2010\Projects\SampleSpecs\SampleSpecs\bin\Debug\SampleSpecs.dll");
+            finder = new Finder(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll");
             finder.Run();
         }
         [Test]

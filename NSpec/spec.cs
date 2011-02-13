@@ -19,6 +19,8 @@ namespace NSpec
             var spec = body.Substring(cut+1, body.Length - cut-1).Replace(")"," ").Replace("."," ").Replace("(","").Replace("  "," ").Trim();
 
             Exercise(new Example( spec),exp.Compile());
+
+            soon = new DynamicSpec();
         }
 
         private void Exercise(Example example, Action action)
@@ -68,10 +70,6 @@ namespace NSpec
             currentContext = beforeContext;
         }
 
-        protected void xshould(Expression<Action<object>> expr)
-        {
-        }
-
         protected void xshould(string format, Action action)
         {
         }
@@ -79,6 +77,8 @@ namespace NSpec
         private Context currentContext;
 
         private int level;
+
+        public dynamic soon;
 
         public void SetContext(Context context)
         {

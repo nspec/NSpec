@@ -16,8 +16,8 @@ namespace SampleSpecs
                     {4, new[] {2,2}},
                     {5, new[] {5}},
                     {6, new[] {2,3}},
-                }.Do( (given, expected) => 
-                    xshould( "be {0} given {1} ".With(expected,given), ()=> given.Primes().ShouldBe(expected))
+                }.Do((given, expected) =>
+                    xshould("be {0} given {1} ".With(expected, given), () => given.Primes().ShouldBe(expected))
                 );
 
             //should("determine primes of 1 ", () => 1.Primes().ShouldBe(new int[] {}));
@@ -26,7 +26,7 @@ namespace SampleSpecs
 
         public void describe_specs_not_implemented()
         {
-            xshould("this spec and context should be skipped entirely",()=> { });
+            xshould("this spec and context should be skipped entirely", () => { });
         }
     }
     public static class Extensions

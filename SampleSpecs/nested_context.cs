@@ -1,5 +1,4 @@
 using System;
-using System.Linq.Expressions;
 using NSpec;
 
 namespace SampleSpecs
@@ -14,13 +13,13 @@ namespace SampleSpecs
 
             specify(() => user.Id.should_not_be_null());
 
-            when( "user is admin",() =>
+            when("user is admin", () =>
             {
                 before(() => user.Admin = true);
 
                 specify(() => user.Admin.should_be_true());
 
-                when( "user is terminated",() =>
+                when("user is terminated", () =>
                 {
                     before(() => user.Terminated = true);
 
@@ -31,7 +30,7 @@ namespace SampleSpecs
             specify(() => user.Admin.should_be_false());
 
             //not impl
-            xshould( user_should_not_have_default_password => no_op());
+            //soon.user_should_not_have_default_password();
         }
     }
 
