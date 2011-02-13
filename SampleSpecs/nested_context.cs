@@ -1,5 +1,5 @@
-using System;
 using NSpec;
+using NSpec.Extensions;
 
 namespace SampleSpecs
 {

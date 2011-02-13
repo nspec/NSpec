@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using NSpec.Extensions;
 
 namespace NSpec
 {
@@ -27,9 +28,10 @@ namespace NSpec
         {
             var s = "";
 
-            Extensions.Do<string>(exception.Message
-                                .Split(Environment.NewLine.ToCharArray()[0])
-                                .Where(l => !string.IsNullOrEmpty(l.Trim())), l => s+=l.Trim()+ " ");
+            exception
+                .Message
+                .Split(Environment.NewLine.ToCharArray()[0])
+                .Where(l => !string.IsNullOrEmpty(l.Trim())).Do( l => s+=l.Trim()+ " ");
 
             return s;
         }
