@@ -9,27 +9,19 @@ namespace SampleSpecs
 
         public void a_user()
         {
-            before["each"] = () => user = new User();
+            before[each] = () => user = new User();
 
             specify(() => user.Id.should_not_be_null());
 
-            when["user is admin"] = ()=> 
-            {
-                before["each"] = ()=> user.Admin = true;
-
-                specify(() => user.Admin.should_be_true());
-            };
-
-            //given.user_is_admin( () =>
             when["user is admin"] = () =>
             {
-                before["each"] = ()=> user.Admin = true;
+                before[each] = ()=> user.Admin = true;
 
                 specify(() => user.Admin.should_be_true());
 
                 when["user is terminated"] = () =>
                 {
-                    before["each"] =() => user.Terminated = true;
+                    before[each] =() => user.Terminated = true;
 
                     specify(() => user.Terminated.should_be_true());
                 };

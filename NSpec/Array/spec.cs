@@ -7,6 +7,8 @@ namespace NSpec.Array
     {
         protected ActionRegister before;
         protected ActionRegister when;
+        protected string each="each";
+        private string all="all";
 
         protected void specify(Expression<Action> exp)
         {
