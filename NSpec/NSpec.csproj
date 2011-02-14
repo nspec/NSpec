@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Array\ActionRegister.cs" />
     <Compile Include="Array\spec.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DynamicSpec.cs" />

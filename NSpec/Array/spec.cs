@@ -5,6 +5,9 @@ namespace NSpec.Array
 {
     public class spec
     {
+        protected ActionRegister before;
+        protected ActionRegister when;
+
         protected void specify(Expression<Action> exp)
         {
             var body = exp.Body.ToString();
