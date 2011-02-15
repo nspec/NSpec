@@ -1,6 +1,6 @@
 using System;
 
-namespace NSpec.Interpreter.Array
+namespace NSpec.Interpreter.Indexer
 {
     public class When
     {
@@ -13,11 +13,6 @@ namespace NSpec.Interpreter.Array
 
         public Action this[string indexer]
         {
-            get
-            {
-                //not sure what needs to happen here?
-                return new Action(() => { });
-            } 
             set
             {
                 name = indexer;

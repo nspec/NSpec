@@ -1,6 +1,6 @@
 using System;
 
-namespace NSpec.Interpreter.Array
+namespace NSpec.Interpreter.Indexer
 {
     public class spec : SpecInterpreterBase
     {

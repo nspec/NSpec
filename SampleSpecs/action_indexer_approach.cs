@@ -1,9 +1,9 @@
 ﻿using NSpec.Extensions;
-using NSpec.Interpreter.Array;
+using NSpec.Interpreter.Indexer;
 
 namespace SampleSpecs
 {
-    public class array_of_action_approach : spec
+    public class action_indexer_approach: spec
     {
         private User user;
 

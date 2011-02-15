@@ -10,7 +10,7 @@ namespace NSpecSpec
         [Test]
         public void should_work()
         {
-            var spec = new array_of_action_approach();
+            var spec = new action_indexer_approach();
 
             spec.Context = new Context("test");
 
