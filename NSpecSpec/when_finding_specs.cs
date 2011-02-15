@@ -7,12 +7,12 @@ namespace NSpecSpec
     [TestFixture]
     public class when_finding_specs
     {
-        protected Finder finder;
+        protected SpecFinder finder;
 
         [SetUp]
         public void setup()
         {
-            finder = new Finder(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll");
+            finder = new SpecFinder();
         }
 
         [Test]
@@ -25,12 +25,12 @@ namespace NSpecSpec
     [TestFixture]
     public class after_running_the_sample_spec 
     {
-        private Finder finder;
+        private SpecFinder finder;
 
         [SetUp]
         public void setup()
         {
-            finder = new Finder(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll");
+            finder = new SpecFinder();
             finder.Run();
         }
         [Test]

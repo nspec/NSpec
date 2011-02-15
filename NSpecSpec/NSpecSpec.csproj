@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="when_customizing_dictionary.cs" />
+    <Compile Include="when_executing_a_spec_method_directly.cs" />
     <Compile Include="when_finding_specs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +52,10 @@
     <ProjectReference Include="..\NSpec\NSpec.csproj">
       <Project>{36862628-1F0C-4EA5-8963-C79BAF958DC1}</Project>
       <Name>NSpec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SampleSpecs\SampleSpecs.csproj">
+      <Project>{DCE738AF-2C14-4279-96FB-16930BD1F459}</Project>
+      <Name>SampleSpecs</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

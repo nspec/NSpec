@@ -44,16 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Array\ActionRegister.cs" />
-    <Compile Include="Array\spec.cs" />
+    <Compile Include="Interpreter\Array\ActionRegister.cs" />
+    <Compile Include="Interpreter\Array\spec.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DynamicSpec.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="Extensions\AssertionExtensions.cs" />
     <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Finder.cs" />
+    <Compile Include="Interpreter\SpecInterpreterBase.cs" />
+    <Compile Include="SpecFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="spec.cs" />
+    <Compile Include="Interpreter\Method\spec.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

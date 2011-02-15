@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NSpec;
 using NSpec.Extensions;
+using NSpec.Interpreter.Method;
 
 namespace SampleSpecs
 {

@@ -13,6 +13,11 @@ namespace NSpec.Extensions
             Assert.IsNotNull(o);
         }
 
+        public static void should_not_be_default<T>(this T t)
+        {
+            Assert.AreNotEqual(default(T),t);
+        }
+
         public static void should_be_true(this bool actual)
         {
             Assert.IsTrue(actual);
