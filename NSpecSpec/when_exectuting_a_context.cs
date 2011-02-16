@@ -10,8 +10,6 @@ namespace NSpecSpec
 
         public void a_context()
         {
-            var beforeAllCount = 0;
-
             before.each = () => context = new Context("test");
 
             with["no examples of its own, but a subcontext with an example"] = () =>
@@ -30,6 +28,8 @@ namespace NSpecSpec
 
             given["before all"] = () =>
             {
+                var beforeAllCount = 0;
+
                 context.Before = () => beforeAllCount++;
 
                 context.BeforeFrequency = "all";
