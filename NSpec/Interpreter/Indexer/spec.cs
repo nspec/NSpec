@@ -8,7 +8,7 @@ namespace NSpec.Interpreter.Indexer
         protected ActionRegister when;
         protected ActionRegister given;
         protected ActionRegister with;
-        private ActionRegister after;
+        protected ActionRegister after;
 
         public spec()
         {
@@ -32,6 +32,10 @@ namespace NSpec.Interpreter.Indexer
         private Action<string, Action> AddContext(string prefix)
         {
             return (name, action) => AddContext(name, action, prefix);
+        }
+
+        protected void shoulda(Action p0)
+        {
         }
     }
 }
