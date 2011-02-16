@@ -1,7 +1,5 @@
-using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
-using SampleSpecs;
 
 namespace NSpecSpec
 {
@@ -11,11 +9,11 @@ namespace NSpecSpec
         [Test]
         public void should_work()
         {
-            var spec = new action_indexer_approach();
+            var spec = new when_executing_a_context();
 
             spec.Context = new Context("test");
 
-            spec.a_user();
+            spec.a_context();
         }
     }
 }

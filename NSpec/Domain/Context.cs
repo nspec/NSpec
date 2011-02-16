@@ -14,7 +14,7 @@ namespace NSpec.Domain
 
         public override string ToString()
         {
-            if (Examples.Count == 0) return "";
+            if (AllExamples().Count() == 0) return "";
 
             var context = string.Format("\t".Times(Level) + "{0}", Name);
 
@@ -38,6 +38,9 @@ namespace NSpec.Domain
 
             if (Before != null)
                 Before();
+
+            if (BeforeFrequency == "all")
+                Before = null;
         }
 
         public IEnumerable<Example> AllExamples()

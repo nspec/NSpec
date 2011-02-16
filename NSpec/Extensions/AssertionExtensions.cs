@@ -18,6 +18,11 @@ namespace NSpec.Extensions
             Assert.AreNotEqual(default(T),t);
         }
 
+        public static void is_not_null_or_empty(this string source)
+        {
+            Assert.IsNotNullOrEmpty(source);
+        }
+
         public static void should_be_true(this bool actual)
         {
             Assert.IsTrue(actual);

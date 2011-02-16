@@ -61,7 +61,8 @@ namespace NSpec
             Types = Assembly.LoadFrom(specDLL).GetTypes();
         }
 
-        public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll"){}
+        //public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll") { }
+        public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\NSpecSpec\bin\Debug\NSpecSpec.dll") { }
 
         private IList<Context> Contexts { get; set; }
         private IEnumerable<string> except;

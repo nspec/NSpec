@@ -7,6 +7,7 @@ namespace NSpec.Interpreter.Indexer
         protected ActionRegister before;
         protected ActionRegister when;
         protected ActionRegister given;
+        protected ActionRegister with;
         private ActionRegister after;
 
         public spec()
@@ -24,6 +25,7 @@ namespace NSpec.Interpreter.Indexer
             });
 
             when = new ActionRegister(AddContext("when"));
+            with = new ActionRegister(AddContext("with"));
             given = new ActionRegister(AddContext("given"));
         }
 
