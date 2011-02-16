@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using NSpec.Domain;
+using NSpec.Extensions;
 
 namespace NSpec.Interpreter
 {
@@ -29,15 +30,25 @@ namespace NSpec.Interpreter
             Context.Afters();
         }
 
+        protected void xspecify(Expression<Action> exp)
+        {
+            Console.WriteLine("PENDING - {0}".With(Parse(exp)));
+        }
+
         protected void specify(Expression<Action> exp)
+        {
+            var spec = Parse(exp);
+
+            Exercise(new Example( spec),exp.Compile());
+        }
+
+        private string Parse(Expression<Action> exp)
         {
             var body = exp.Body.ToString();
 
             var cut = body.IndexOf(").");
 
-            var spec = body.Substring(cut+1, body.Length - cut-1).Replace(")"," ").Replace("."," ").Replace("(","").Replace("  "," ").Trim();
-
-            Exercise(new Example( spec),exp.Compile());
+            return body.Substring(cut+1, body.Length - cut-1).Replace(")"," ").Replace("."," ").Replace("(","").Replace("  "," ").Trim();
         }
 
         protected void AddContext(string name, Action action, string prefix)
