@@ -20,11 +20,11 @@ namespace NSpec.Interpreter.Indexer
             }
         }
     }
-    public class ActionRegister 
+    public class ActionIndexer 
     {
         private readonly Action<Action> setter;
 
-        public ActionRegister(Action<Action> setter)
+        public ActionIndexer(Action<Action> setter)
         {
             this.setter = setter;
         }

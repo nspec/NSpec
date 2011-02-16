@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interpreter\Indexer\ActionRegister.cs" />
+    <Compile Include="Interpreter\Indexer\ActionIndexer .cs" />
     <Compile Include="Interpreter\Indexer\spec.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DynamicSpec.cs" />

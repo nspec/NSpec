@@ -4,7 +4,7 @@ namespace NSpec.Interpreter.Indexer
 {
     public class spec : SpecInterpreterBase
     {
-        protected ActionRegister before;
+        protected ActionIndexer before;
         protected When when;
         protected When given;
         protected string each;
@@ -15,7 +15,7 @@ namespace NSpec.Interpreter.Indexer
             each = "each";
             all = "all";
 
-            before = new ActionRegister( b => Context.Before = b);
+            before = new ActionIndexer( b => Context.Before = b);
             when = new When(AddContext("when"));
             given = new When(AddContext("given"));
         }
