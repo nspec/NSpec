@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="action_indexer_approach.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sample.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

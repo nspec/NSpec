@@ -24,6 +24,8 @@ namespace NSpec.Interpreter
             {
                 example.Exception = e;
             }
+
+            Context.Afters();
         }
 
         protected void specify(Expression<Action> exp)

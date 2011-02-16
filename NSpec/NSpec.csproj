@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interpreter\Indexer\ActionIndexer .cs" />
+    <Compile Include="Interpreter\Indexer\ActionIndexer.cs" />
     <Compile Include="Interpreter\Indexer\spec.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DynamicSpec.cs" />
@@ -54,7 +54,6 @@
     <Compile Include="Interpreter\SpecInterpreterBase.cs" />
     <Compile Include="SpecFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interpreter\Method\spec.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

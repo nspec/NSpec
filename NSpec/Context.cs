@@ -45,6 +45,7 @@ namespace NSpec
         public List<Context> Contexts { get; set; }
 
         public Action Before { get; set; }
+        public Action After { get; set; }
 
         public Context Parent { get; set; }
 
@@ -60,6 +61,12 @@ namespace NSpec
         public IEnumerable<Example> AllExamples()
         {
             return Contexts.SelectMany(c => c.AllExamples()).Union(Examples);
+        }
+
+        public void Afters()
+        {
+            if (After != null)
+                After();
         }
     }
 }
