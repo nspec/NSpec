@@ -45,8 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="when_exectuting_a_context.cs" />
-    <Compile Include="when_executing_a_spec_method_directly.cs" />
-    <Compile Include="when_finding_specs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
