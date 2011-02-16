@@ -2,42 +2,32 @@ using System;
 
 namespace NSpec.Interpreter.Indexer
 {
-    public class When
+    public class ActionRegister
     {
-        private readonly Action<string, Action> setter;
-        public When(Action<string,Action> setter)
+        private readonly Action<string, Action> actionSetter;
+        public ActionRegister(Action<string,Action> actionSetter)
         {
-            this.setter = setter;
+            this.actionSetter = actionSetter;
         }
-        private string name;
+        private string key;
 
         public Action this[string indexer]
         {
             set
             {
-                name = indexer;
-                setter(name,value);
+                key = indexer;
+                actionSetter(key,value);
             }
         }
-    }
-    public class ActionIndexer 
-    {
-        private readonly Action<Action> setter;
-
-        public ActionIndexer(Action<Action> setter)
-        {
-            this.setter = setter;
-        }
-
         public Action each
         {
-            set { setter(value); }
+            set { actionSetter("each",value); }
         }
 
         //TODO:make it behave differently as expected
         public Action all
         {
-            set { setter(value); }
+            set { actionSetter("all",value); }
         }
     }
 }

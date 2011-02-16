@@ -2,13 +2,10 @@
 using System.Linq;
 using NSpec.Extensions;
 
-namespace NSpec
+namespace NSpec.Domain
 {
     public class Example
     {
-        public string Spec { get; set; }
-        public Exception Exception { get; set; }
-
         public Example(string spec)
         {
             Spec = spec;
@@ -35,5 +32,8 @@ namespace NSpec
 
             return s;
         }
+
+        public string Spec { get; set; }
+        public Exception Exception { get; set; }
     }
 }

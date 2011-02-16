@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NSpec.Domain;
 using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
 
@@ -9,19 +10,6 @@ namespace NSpec
 {
     public class SpecFinder
     {
-        public SpecFinder(string specDLL)
-        {
-            except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context","get_Context" });
-
-            Contexts = new List<Context>();
-
-            Types = Assembly.LoadFrom(specDLL).GetTypes();
-        }
-
-        public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll")
-        {
-        }
-
         public IEnumerable<Type> SpecClasses()
         {
             return Types.Where(t => t.IsClass && t.BaseType == typeof (spec));
@@ -63,6 +51,17 @@ namespace NSpec
         {
             return Examples().Where(e => e.Exception != null).Select(e => e.Exception);
         }
+
+        public SpecFinder(string specDLL)
+        {
+            except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context","get_Context" });
+
+            Contexts = new List<Context>();
+
+            Types = Assembly.LoadFrom(specDLL).GetTypes();
+        }
+
+        public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll"){}
 
         private IList<Context> Contexts { get; set; }
         private IEnumerable<string> except;

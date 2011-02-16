@@ -46,9 +46,9 @@
   <ItemGroup>
     <Compile Include="Interpreter\Indexer\ActionIndexer.cs" />
     <Compile Include="Interpreter\Indexer\spec.cs" />
-    <Compile Include="Context.cs" />
+    <Compile Include="Domain\Context.cs" />
     <Compile Include="DynamicSpec.cs" />
-    <Compile Include="Example.cs" />
+    <Compile Include="Domain\Example.cs" />
     <Compile Include="Extensions\AssertionExtensions.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Interpreter\SpecInterpreterBase.cs" />

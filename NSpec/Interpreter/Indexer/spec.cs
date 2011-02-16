@@ -4,22 +4,27 @@ namespace NSpec.Interpreter.Indexer
 {
     public class spec : SpecInterpreterBase
     {
-        protected ActionIndexer before;
-        protected When when;
-        protected When given;
-        protected string each;
-        private string all;
-        private ActionIndexer after;
+        protected ActionRegister before;
+        protected ActionRegister when;
+        protected ActionRegister given;
+        private ActionRegister after;
 
         public spec()
         {
-            each = "each";
-            all = "all";
+            before = new ActionRegister( (f,b) =>
+            {
+                Context.BeforeFrequency = f;
+                Context.Before = b;
+            });
 
-            before = new ActionIndexer( b => Context.Before = b);
-            after = new ActionIndexer( a => Context.After = a);
-            when = new When(AddContext("when"));
-            given = new When(AddContext("given"));
+            after = new ActionRegister( (f, a) =>
+            {
+                Context.AfterFrequency = f;
+                Context.After = a;
+            });
+
+            when = new ActionRegister(AddContext("when"));
+            given = new ActionRegister(AddContext("given"));
         }
 
         private Action<string, Action> AddContext(string prefix)

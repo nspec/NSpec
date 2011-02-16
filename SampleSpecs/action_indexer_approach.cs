@@ -1,5 +1,4 @@
-﻿using System;
-using NSpec.Extensions;
+﻿using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
 
 namespace SampleSpecs
@@ -10,11 +9,7 @@ namespace SampleSpecs
 
         public void a_user()
         {
-            before.all = () =>
-                             {
-                                 Console.WriteLine("before");
-                                 user = new User();
-                             };
+            before.all = () => user = new User();
 
             specify(() => user.Id.should_not_be_default());
 
@@ -26,7 +21,7 @@ namespace SampleSpecs
 
                 when["user is terminated"] = () =>
                 {
-                    //before.each = () => user.Terminated = true;
+                    before.each = () => user.Terminated = true;
 
                     specify(() => user.Terminated.should_be_true());
                 };
