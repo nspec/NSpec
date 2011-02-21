@@ -33,14 +33,14 @@ namespace NSpec.Extensions
             Assert.IsFalse(actual);
         }
 
-        public static void ShouldBe(this object actual, object expected)
+        public static void should_be(this object actual, object expected)
         {
             Assert.AreEqual(expected, actual);
         }
 
-        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
+        public static void should_be<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
         {
-            CollectionAssert.AreEqual(expected,actual);
+            CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());
         }
         public static IEnumerable<MethodInfo> Methods(this Type type, IEnumerable<string> exclusions)
         {

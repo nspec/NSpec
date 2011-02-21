@@ -17,13 +17,26 @@ namespace NSpec
 
         public void Run()
         {
+            Execute(SpecClasses());
+        }
+
+        private void Execute(IEnumerable<Type> specClasses)
+        {
             Contexts.Clear();
 
-            SpecClasses().Do(RunSpecClass);
+            specClasses.Do(RunSpecClass);
 
             Contexts.Where(c=>c.Examples.Count()>0 || c.Contexts.Count()>0).Do(e => e.Print());
 
             Console.WriteLine( string.Format("{0} Examples, {1} Failures", Examples().Count(), Failures().Count()));
+        }
+
+        public void Run(string class_filter)
+        {
+            if(SpecClasses().Any(c => c.Name == class_filter))
+                Execute(SpecClasses().Where(c => c.Name == class_filter));
+            else
+                Run();
         }
 
         private void RunSpecClass(Type specClass)
@@ -62,10 +75,13 @@ namespace NSpec
         }
 
         //public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll") { }
+
         public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\NSpecSpec\bin\Debug\NSpecSpec.dll") { }
 
         private IList<Context> Contexts { get; set; }
+
         private IEnumerable<string> except;
+
         private Type[] Types { get; set; }
     }
 }

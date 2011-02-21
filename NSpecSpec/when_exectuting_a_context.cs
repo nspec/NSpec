@@ -25,13 +25,13 @@ namespace NSpecSpec
             {
                 context.Befores();
 
-                specify(() => beforeAllCount.ShouldBe(1));
+                specify(() => beforeAllCount.should_be(1));
 
                 when["the Befores run the second time"] = () =>
                 {
                     context.Befores();
 
-                    specify(() => beforeAllCount.ShouldBe(1));
+                    specify(() => beforeAllCount.should_be(1));
                 };
             };
         }

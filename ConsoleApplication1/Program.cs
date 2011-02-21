@@ -7,8 +7,10 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            new SpecFinder().Run();
-            Console.Read();
+            if(args.Length>1)
+                new SpecFinder(args[0]).Run(args[1]);
+            else
+                new SpecFinder(args[0]).Run();
         }
     }
 }

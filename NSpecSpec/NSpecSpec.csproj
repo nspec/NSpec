@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="prime_kata.cs" />
     <Compile Include="when_exectuting_a_context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="when_parsing_specification_expressions.cs" />

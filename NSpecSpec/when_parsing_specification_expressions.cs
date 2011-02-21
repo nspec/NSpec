@@ -13,10 +13,10 @@ namespace NSpecSpec
             var someCounter=0;
             new Dictionary<Expression<Action>, string>
                 {
-                    {() => someCounter.ShouldBe(0), "someCounter ShouldBe 0"},
-                    {() => 1.Primes().ShouldBe(0), "1 ShouldBe {}"},
+                    {() => someCounter.should_be(0), "someCounter should_be 0"},
+                    {() => 1.Primes().should_be(0), "1 should_be {}"},
                 }
-            .Do((exp, sentence) => xspecify( ()=>exp.ToSentence().ShouldBe(sentence)));
+            .Do((exp, sentence) => xspecify( ()=>exp.ToSentence().should_be(sentence)));
         }
     }
     public static class Extensions

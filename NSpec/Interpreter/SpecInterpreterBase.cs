@@ -37,9 +37,12 @@ namespace NSpec.Interpreter
 
         protected void specify(Expression<Action> exp)
         {
-            var spec = Parse(exp);
+            specify(Parse(exp),exp);
+        }
 
-            Exercise(new Example( spec),exp.Compile());
+        protected void specify(string name,Expression<Action> exp)
+        {
+            Exercise(new Example( name),exp.Compile());
         }
 
         private string Parse(Expression<Action> exp)
