@@ -66,10 +66,19 @@ class RakeBuilder
     @sh = CommandShell.new
     @failed = false
     @folder = folder
+    @@rake_command = "rake"
+  end
+
+  def self.rake_command
+    @@rake_command
+  end
+
+  def self.rake_command= command
+    @@rake_command = command
   end
 
   def execute
-    output = @sh.execute "rake"
+    output = @sh.execute @@rake_command 
     @failed = output.match(/rake aborted/)
     filtered_output = ""
 
@@ -132,7 +141,6 @@ class LambSpecRunner < TestRunner
   end
 
   def execute test_name
-    puts "execute #{test_name}"
     @test_results = ""
 
     test_dlls.each do |dll| 
@@ -592,6 +600,18 @@ class WatcherDotNet
     @test_runner
   end
 	
+  def notifier
+    @notifier
+  end
+
+  def sh
+    @sh
+  end
+
+  def spec_finder
+    @spec_finder
+  end
+
   def require_build file
     false == EXCLUDES.any? { |pattern| file.match(pattern) }
   end

@@ -6,26 +6,27 @@ LambSpecRunner.lamb_spec_path =
   "C:\\Users\\matt\\Documents\\Visual Studio 2010\\Projects\\NSpec\\ConsoleApplication1\\bin\\Debug\\ConsoleApplication1.exe"
 
 MSTestRunner.ms_test_path = 
-  "C:\\program files (x86)\\microsoft visual studio 10.0\\common7\\ide\\mstest.exe"
-
-MSBuilder.ms_build_path =
-  "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\MSBuild.exe"
+  'C:\program files (x86)\microsoft visual studio 10.0\common7\ide\mstest.exe'
 
 NUnitRunner.nunit_path = 
-  "C:\\program files (x86)\\nunit 2.5.9\\bin\\net-2.0\\nunit-console-x86.exe"
+  'C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe'
+
+MSBuilder.ms_build_path =
+  'C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe'
+
+RakeBuilder.rake_command = 'rake'
 
 #set to empty string if you dont have growl installed
 GrowlNotifier.growl_path = 
-  "C:\\program files (x86)\\Growl for Windows\\growlnotify.exe"
+  'C:\program files (x86)\Growl for Windows\growlnotify.exe'
 
 #use/uncomment the following to override test dll finding behavior
 @dw.test_runner.test_dlls = ['NSpecSpec\bin\Debug\NSpecSpec.dll']
 
 sf = @dw.spec_finder
-def sf.find file
+def sf.find file  
   file.split('/').last.split('.cs').first
 end
-
 def handle filename
 	@dw.consider filename
 end
