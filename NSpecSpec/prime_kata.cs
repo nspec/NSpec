@@ -9,8 +9,9 @@ namespace NSpecSpec
     {
         public void prime_factors()
         {
-            //throwing an exception in a contextmethod is not handled gracefully
-            //var dict = new Dictionary<int, string> {{1, "1"}, {1, "sdfg"}};
+            //throwing an unhandled exception should now not cause the runner to crash
+            //var dict = new Dictionary<int, string> { { 1, "1" }, { 1, "sdfg" } };
+
             new Tuples<int, int[]>
             {
                 {1,new int[]{}},

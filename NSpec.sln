@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSpecs", "SampleSpecs\SampleSpecs.csproj", "{DCE738AF-2C14-4279-96FB-16930BD1F459}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{24F513D3-3D65-42B9-893A-0D3196E45043}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpecRunner", "ConsoleApplication1\NSpecRunner.csproj", "{24F513D3-3D65-42B9-893A-0D3196E45043}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec", "NSpec\NSpec.csproj", "{36862628-1F0C-4EA5-8963-C79BAF958DC1}"
 EndProject
