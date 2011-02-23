@@ -25,7 +25,7 @@ namespace NSpecSpec
                 { 8, new[]{ 2,2,2 }},
                 { 9, new[]{ 3,3 }},
             }.Do((given, expected) =>
-                specify("{0} should be {1}".With(given, expected), () => Primes(given).should_be(expected))
+                specify["{0} should be {1}".With(given, expected)] = () => Primes(given).should_be(expected)
                 );
         }
 

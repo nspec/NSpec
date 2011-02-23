@@ -1,4 +1,5 @@
 using System;
+using NSpec.Domain;
 
 namespace NSpec.Interpreter.Indexer
 {
@@ -6,6 +7,7 @@ namespace NSpec.Interpreter.Indexer
     {
         protected ActionRegister before;
         protected ActionRegister when;
+        protected ActionRegister specify;
         protected ActionRegister given;
         protected ActionRegister with;
         protected ActionRegister after;
@@ -27,15 +29,13 @@ namespace NSpec.Interpreter.Indexer
             when = new ActionRegister(AddContext("when"));
             with = new ActionRegister(AddContext("with"));
             given = new ActionRegister(AddContext("given"));
+
+            specify = new ActionRegister((name,action)=> Exercise(new Example(name),action));
         }
 
         private Action<string, Action> AddContext(string prefix)
         {
             return (name, action) => AddContext(name, action, prefix);
-        }
-
-        protected void shoulda(Action p0)
-        {
         }
     }
 }
