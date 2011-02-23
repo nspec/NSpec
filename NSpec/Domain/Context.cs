@@ -66,5 +66,10 @@ namespace NSpec.Domain
         public Context Parent { get; set; }
         public string AfterFrequency { get; set; }
         public string BeforeFrequency { get; set; }
+
+        public IEnumerable<Example> Failures()
+        {
+            return Examples.Where(e => e.Exception != null);
+        }
     }
 }

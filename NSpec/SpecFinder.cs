@@ -24,11 +24,28 @@ namespace NSpec
         {
             Contexts.Clear();
 
-            specClasses.Do(RunSpecClass);
+            try
+            {
+                specClasses.Do(RunSpecClass);
 
-            Contexts.Where(c=>c.Examples.Count()>0 || c.Contexts.Count()>0).Do(e => e.Print());
+                if (Failures().Count() == 0)
+                    Contexts.Where(c => c.Examples.Count() > 0 || c.Contexts.Count() > 0).Do(e => e.Print());
+                else
+                    Failures().First().Print();
 
-            Console.WriteLine( string.Format("{0} Examples, {1} Failures", Examples().Count(), Failures().Count()));
+                Summarize(Failures().Count());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+
+                Summarize(Failures().Count() > 0 ? Failures().Count() : 1);
+            }
+        }
+
+        private void Summarize(int failures)
+        {
+            Console.WriteLine( string.Format("{0} Examples, {1} Failures", Examples().Count(), failures));
         }
 
         public void Run(string class_filter)
@@ -51,7 +68,16 @@ namespace NSpec
 
                 Contexts.Add(context);
 
-                contextMethod.Invoke(spec, null);
+                try
+                {
+                    contextMethod.Invoke(spec, null);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception executing context: {0}".With(context.Name));
+
+                    throw e;
+                }
             });
         }
 
@@ -60,9 +86,9 @@ namespace NSpec
             return Contexts.SelectMany(c => c.AllExamples());
         }
 
-        public IEnumerable<Exception> Failures()
+        public IEnumerable<Example> Failures()
         {
-            return Examples().Where(e => e.Exception != null).Select(e => e.Exception);
+            return Contexts.SelectMany(c => c.Failures());
         }
 
         public SpecFinder(string specDLL)
