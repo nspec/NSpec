@@ -33,6 +33,11 @@ namespace NSpec.Extensions
             Assert.IsFalse(actual);
         }
 
+        public static void should_be_greater_than(this int greater, int lesser)
+        {
+            Assert.Greater(greater, lesser);
+        }
+
         public static void should_be(this object actual, object expected)
         {
             Assert.AreEqual(expected, actual);

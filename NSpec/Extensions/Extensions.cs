@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NSpecSpec;
 
 namespace NSpec.Extensions
 {
@@ -30,6 +31,13 @@ namespace NSpec.Extensions
 
             return source;
         }
+
+        public static void Do<T, U>(this Tuples<T, U> source, Action<T, U> action)
+        {
+            foreach (var tup in source)
+                action(tup.Item1, tup.Item2);
+        }
+
         public static void Do<T, U>(this Dictionary<T, U> source, Action<T, U> action)
         {
             foreach (var kvp in source)

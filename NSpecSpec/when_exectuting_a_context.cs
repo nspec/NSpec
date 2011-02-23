@@ -7,7 +7,7 @@ namespace NSpecSpec
     public class when_executing_a_context : spec
     {
         private Context context;
-
+        
         public void a_context_with_a_before_all()
         {
             //couldn't use before all when testing before all.
