@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
+using NSpecSpec;
 
-namespace NSpecSpec
+namespace SampleSpecs
 {
     public class prime_kata : spec
     {
