@@ -1,7 +1,7 @@
 ﻿using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
 
-namespace SampleSpecs
+namespace SampleSpecs.Demo
 {
     public class action_indexer_approach: spec
     {

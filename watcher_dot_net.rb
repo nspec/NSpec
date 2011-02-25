@@ -121,15 +121,28 @@ class TestRunner
     dlls
   end
 
+  def find file
+    return nil if [/\.sln$/, /\.csproj$/].any? { |pattern| file.match(pattern) }
+    return nil if !file.match(/\./)
+    just_file_name = File.basename(file, ".cs")
+    if(just_file_name.match(/Spec$/))
+      return just_file_name
+    else
+      return just_file_name + "Spec"
+    end
+  end
+
   def usage
     "no usage defined"
   end
 end
 
 class LambSpecRunner < TestRunner
+  attr_accessor :dll
   def initialize folder
     super folder
     @sh = CommandShell.new
+    @dll = Dir["**/*.*"].select {|f| f =~ /^(.{2,}spec[s]?)\/bin\/debug\/\1.dll/i}.first
   end
 
   def self.lamb_spec_path
@@ -143,9 +156,13 @@ class LambSpecRunner < TestRunner
   def execute test_name
     @test_results = ""
 
-    test_dlls.each do |dll| 
-      @test_results += @sh.execute(test_cmd(dll, test_name))
-    end
+    #skipping exotic specfinding incantations and instead
+    #using dlls discovered in initialize
+    #@dlls.each do |dll| 
+      @test_results += @sh.execute(test_cmd(@dll, test_name))
+    #end
+
+    puts @test_results
   end
 
   def test_results
@@ -162,6 +179,11 @@ class LambSpecRunner < TestRunner
 
   def inconclusive
     false
+  end
+  
+  def usage
+    puts
+    puts "Discovered and using: #{@dll}"
   end
 end
 
@@ -330,6 +352,10 @@ OUTPUT
       end
 
       @test_results += test_output
+    end
+
+    if(!@inconclusive && !@failed)
+      @test_results += "#{@tests.count} tests ran and passed\n"
     end
 
     puts @test_results
@@ -538,6 +564,10 @@ OUTPUT
       @failed = @failed || value[:failed]
     end
 
+    if(!@inconclusive && !@failed)
+      @test_results += "#{@passed_tests.count} tests ran and passed\n"
+    end
+
     @test_results
   end
   
@@ -564,21 +594,8 @@ class CommandShell
   end
 end
 
-class SpecFinder
-  def find file
-    return nil if [/\.sln$/, /\.csproj$/].any? { |pattern| file.match(pattern) }
-    return nil if !file.match(/\./)
-    just_file_name = File.basename(file, ".cs")
-    if(just_file_name.match(/Spec$/))
-      return just_file_name
-    else
-      return just_file_name + "Spec"
-    end
-  end
-end
-
 class WatcherDotNet
-  attr_accessor :spec_finder
+  attr_accessor :notifier, :test_runner, :builder, :sh
   require 'find'
 
   EXCLUDES = [/\.dll$/, /debug/i, /TestResult.xml/, /testresults/i, /\.rb$/, /\.suo$/]
@@ -589,27 +606,6 @@ class WatcherDotNet
     @notifier = GrowlNotifier.new
     @builder = Kernel.const_get(config[:builder].to_s).new folder
     @test_runner = Kernel.const_get(config[:test_runner].to_s).new folder
-    @spec_finder = SpecFinder.new
-  end
-
-  def builder
-    @builder
-  end
-
-  def test_runner
-    @test_runner
-  end
-	
-  def notifier
-    @notifier
-  end
-
-  def sh
-    @sh
-  end
-
-  def spec_finder
-    @spec_finder
   end
 
   def require_build file
@@ -637,7 +633,7 @@ class WatcherDotNet
 
     test_results = ""
 
-    spec = @spec_finder.find file
+    spec = @test_runner.find file
 
     if(!spec)
       puts "===================== done consider ========================"
@@ -648,7 +644,7 @@ class WatcherDotNet
     
     test_output = @test_runner.execute spec
 
-    puts @test_runner.test_results
+    puts test_output
     
     if @test_runner.inconclusive
       @notifier.execute "no spec found", "create spec #{spec}", 'red'

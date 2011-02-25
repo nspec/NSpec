@@ -1,4 +1,4 @@
-﻿namespace SampleSpecs
+﻿namespace SampleSpecs.Demo
 {
     public class User
     {

@@ -4,7 +4,7 @@ using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
 using NSpecSpec;
 
-namespace SampleSpecs
+namespace SampleSpecs.Demo
 {
     public class prime_kata : spec
     {

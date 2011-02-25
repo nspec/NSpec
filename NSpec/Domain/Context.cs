@@ -33,7 +33,7 @@ namespace NSpec.Domain
 
         public void Befores()
         {
-            if (Parent != null && Parent.Before != null)
+            if (Parent != null && Parent.Before!=null)
                 Parent.Befores();
 
             if (Before != null)
@@ -70,6 +70,12 @@ namespace NSpec.Domain
         public IEnumerable<Example> Failures()
         {
             return Examples.Where(e => e.Exception != null);
+        }
+
+        public void AddContext(Context child)
+        {
+            child.Parent = this;
+            Contexts.Add(child);
         }
     }
 }

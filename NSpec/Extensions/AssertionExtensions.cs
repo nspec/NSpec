@@ -43,6 +43,11 @@ namespace NSpec.Extensions
             Assert.AreEqual(expected, actual);
         }
 
+        public static void should_be(this string actual, string expected)
+        {
+            Assert.AreEqual(expected, actual);
+        }
+
         public static void should_be<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
         {
             CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());

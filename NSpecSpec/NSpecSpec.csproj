@@ -44,10 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="nspec_bug.cs" />
     <Compile Include="when_exectuting_a_context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="when_nesting_contexts.cs" />
     <Compile Include="when_parsing_specification_expressions.cs" />
+    <Compile Include="when_running_befores.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
