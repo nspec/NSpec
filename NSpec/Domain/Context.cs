@@ -33,8 +33,16 @@ namespace NSpec.Domain
 
         public void Befores()
         {
-            if (Parent != null && Parent.Before != null)
-                Parent.Before();
+            var parent = Parent;
+            while (parent != null)
+            {
+                if (parent.Before != null)
+                {
+                    parent.Before();
+                }
+
+                parent = parent.Parent;
+            }
 
             if (Before != null)
                 Before();

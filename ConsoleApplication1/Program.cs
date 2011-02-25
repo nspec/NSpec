@@ -9,10 +9,12 @@ namespace ConsoleApplication1
         {
             try
             {
-                if(args.Length>1)
+                if (args.Length > 1)
                     new SpecFinder(args[0]).Run(args[1]);
-                else
+                else if (args.Length == 1)
                     new SpecFinder(args[0]).Run();
+                else
+                    new SpecFinder(@"C:\Users\Amir\NSpec\NSpecSpec\bin\Debug\nspecspec.dll").Run("nspec_bug");
             }
             catch (Exception e)
             {
