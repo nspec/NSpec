@@ -24,9 +24,9 @@ namespace NSpecSpec
 
                 grandParent.BeforeFrequency = "each";
 
-                parent.Before = () => executionOrder += "parent";
+                //parent.Before = () => executionOrder += "parent";
 
-                parent.BeforeFrequency = "each";
+                //parent.BeforeFrequency = "each";
 
                 firstChild.Before = () => executionOrder += "child";
 
@@ -35,6 +35,8 @@ namespace NSpecSpec
                 sibling.Before = () => executionOrder += "sibling";
 
                 sibling.BeforeFrequency = "each";
+
+                grandParent.AddContext(parent);
 
                 parent.AddContext(firstChild);
 
@@ -48,7 +50,7 @@ namespace NSpecSpec
 
                     sibling.Befores();
                         
-                    specify(() => executionOrder.should_be("grandParentparentsibling"));
+                    specify(() => executionOrder.should_be("grandParentsibling"));
                 };
             };
         }
