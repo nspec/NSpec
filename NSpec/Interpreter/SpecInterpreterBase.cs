@@ -60,9 +60,7 @@ namespace NSpec.Interpreter
 
             var newContext = new Context(name,level,prefix);
 
-            Context.Contexts.Add(newContext);
-
-            newContext.Parent = Context;
+            Context.AddContext(newContext);
 
             var beforeContext = Context;
 

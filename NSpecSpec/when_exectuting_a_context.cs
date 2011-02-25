@@ -48,7 +48,7 @@ namespace NSpecSpec
 
                     sub.AddExample(new Example("example"));
 
-                    context.Contexts.Add(sub);
+                    context.AddContext(sub);
                 };
 
                 specify(() => context.ToString().is_not_null_or_empty());

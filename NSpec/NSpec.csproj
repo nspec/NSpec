@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interpreter\Indexer\Before.cs" />
     <Compile Include="Domain\Tuples.cs" />
     <Compile Include="Interpreter\Indexer\ActionIndexer.cs" />
     <Compile Include="Interpreter\Indexer\spec.cs" />
