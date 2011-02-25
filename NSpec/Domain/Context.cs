@@ -33,15 +33,21 @@ namespace NSpec.Domain
 
         public void Befores()
         {
+            Stack<Action> befores = new Stack<Action>();
             var parent = Parent;
             while (parent != null)
             {
                 if (parent.Before != null)
                 {
-                    parent.Before();
+                    befores.Push(parent.Before);
                 }
 
                 parent = parent.Parent;
+            }
+
+            while(befores.Count > 0)
+            {
+                befores.Pop().Invoke();
             }
 
             if (Before != null)

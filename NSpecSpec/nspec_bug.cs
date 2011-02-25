@@ -38,6 +38,8 @@ namespace NSpecSpec
 
             when["something that works in rspec but not nspec"] = () =>    //  context "something that works in rspec but not nspec" do
             {
+                before.each = () => ints.Add(1);
+
                 given["sibling context"] = () =>                           //    context "sibling context" do
                 {
                     before.each = () => ints.Add(1);                       //      before(:each) { @array << "sibling 1" }
