@@ -60,9 +60,33 @@ namespace NSpec
         {
             var spec = specClass.GetConstructors()[0].Invoke(new object[0]) as spec;
 
+            var classContext = new Context(specClass.Name);
+
+            var fields = specClass.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
+            before<dynamic> beforeEach = null;
+
+            foreach (FieldInfo field in fields)
+            {
+                if(field.Name.Contains("each"))
+                {
+                    beforeEach = (field.GetValue(spec) as before<dynamic>);
+
+                    if (beforeEach != null)
+                        break;
+                }
+            }
+
+            if(beforeEach != null)
+            {
+                classContext.Before = () => beforeEach(spec);
+            }
+
             specClass.Methods(except).Do(contextMethod =>
             {
                 var context = new Context(contextMethod.Name);
+
+                context.Parent = classContext;
 
                 spec.Context = context;
 

@@ -11,6 +11,7 @@ namespace NSpec.Interpreter.Indexer
         protected ActionRegister given;
         protected ActionRegister with;
         protected ActionRegister after;
+        protected ActionRegister scenario;
 
         public spec()
         {
@@ -29,6 +30,7 @@ namespace NSpec.Interpreter.Indexer
             when = new ActionRegister(AddContext("when"));
             with = new ActionRegister(AddContext("with"));
             given = new ActionRegister(AddContext("given"));
+            scenario = new ActionRegister(AddContext("scenario"));
 
             specify = new ActionRegister((name,action)=> Exercise(new Example(name),action));
         }

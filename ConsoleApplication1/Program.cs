@@ -14,7 +14,8 @@ namespace ConsoleApplication1
                 else if (args.Length == 1)
                     new SpecFinder(args[0]).Run();
                 else
-                    new SpecFinder(@"C:\Users\Amir\NSpec\NSpecSpec\bin\Debug\nspecspec.dll").Run("nspec_bug");
+                    //new SpecFinder(@"C:\Users\Amir\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll").Run("before_each_on_the_class_level");
+                    new SpecFinder(@"C:\Development\GameTrader\GameTrader.UnitTests\bin\Debug\GameTrader.UnitTests.dll").Run("describe_AuthenticationController");
             }
             catch (Exception e)
             {

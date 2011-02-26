@@ -37,12 +37,12 @@ namespace NSpec.Interpreter
 
         protected void specify(Expression<Action> exp)
         {
-            specify(Parse(exp),exp);
+            specify(Parse(exp), exp.Compile());
         }
 
-        protected void specify(string name,Expression<Action> exp)
+        protected void specify(string name, Action exp)
         {
-            Exercise(new Example( name),exp.Compile());
+            Exercise(new Example(name), exp);
         }
 
         private string Parse(Expression<Action> exp)

@@ -3,7 +3,7 @@ using NSpec.Interpreter.Indexer;
 
 namespace SampleSpecs.Demo
 {
-    public class action_indexer_approach: spec
+    public class action_indexer_approach : spec
     {
         private User user;
 
