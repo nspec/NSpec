@@ -12,7 +12,22 @@ namespace NSpec
     {
         public IEnumerable<Type> SpecClasses()
         {
-            return Types.Where(t => t.IsClass && t.BaseType == typeof (spec));
+            return Types.Where(t => t.IsClass && BaseTypes(t).Any(s => s == typeof(spec)));
+        }
+
+        public IEnumerable<Type> BaseTypes(Type type)
+        {
+            var types = new List<Type>();
+
+            var currentType = type.BaseType;
+
+            while(currentType != null)
+            {
+                types.Add(currentType);
+                currentType = currentType.BaseType;
+            }
+
+            return types;
         }
 
         public void Run()
