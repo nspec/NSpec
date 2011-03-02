@@ -77,6 +77,8 @@ namespace NSpec
 
             var classContext = new Context(specClass.Name);
 
+            Contexts.Add(classContext);
+
             var fields = specClass.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
 
             before<dynamic> beforeEach = null;
@@ -101,11 +103,9 @@ namespace NSpec
             {
                 var context = new Context(contextMethod.Name);
 
-                context.Parent = classContext;
+                classContext.AddContext(context);
 
                 spec.Context = context;
-
-                Contexts.Add(context);
 
                 try
                 {

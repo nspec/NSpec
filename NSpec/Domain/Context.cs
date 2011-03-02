@@ -69,7 +69,7 @@ namespace NSpec.Domain
 
         public IEnumerable<Example> Failures()
         {
-            return Examples.Where(e => e.Exception != null).Union(Contexts.SelectMany(s => s.Failures()));
+            return AllExamples().Where(e => e.Exception != null);
         }
 
         public void AddContext(Context child)

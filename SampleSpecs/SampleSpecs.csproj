@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bug\given_a_subcontext_that_fails.cs" />
     <Compile Include="Demo\action_indexer_approach.cs" />
     <Compile Include="Bug\grandparents_run_first.cs" />
     <Compile Include="Demo\before_each_on_the_class_level.cs" />
