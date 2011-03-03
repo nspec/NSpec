@@ -9,12 +9,19 @@ namespace NSpec.Interpreter.Indexer
         protected ActionRegister when;
         protected ActionRegister specify;
         protected ActionRegister given;
+        protected ActionRegister _given;
         protected ActionRegister with;
         protected ActionRegister after;
         protected ActionRegister scenario;
 
         public spec()
         {
+            _given = new ActionRegister( (f,b) =>
+            {
+                //Context.BeforeFrequency = "each";
+                //Context.Before = b;
+            });
+
             before = new ActionRegister( (f,b) =>
             {
                 Context.BeforeFrequency = f;

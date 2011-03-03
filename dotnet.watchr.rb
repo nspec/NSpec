@@ -23,7 +23,7 @@ GrowlNotifier.growl_path =
 #use/uncomment the following to override test dll finding behavior
 #@dw.test_runner.test_dlls = ['.\SampleSpecs\bin\Debug\SampleSpecs.dll']
 
-@dw.test_runner.dll = '.\SampleSpecs\bin\Debug\SampleSpecs.dll'
+#@dw.test_runner.dll = '.\SampleSpecs\bin\Debug\SampleSpecs.dll'
 
 runner = @dw.test_runner
 def runner.find file

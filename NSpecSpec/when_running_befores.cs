@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NSpec.Domain;
 using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
@@ -6,49 +7,57 @@ namespace NSpecSpec
 {
     public class when_running_befores : spec
     {
-        private string executionOrder;
+        List<string> executionOrder;
+
+        before<dynamic> each = c => c.executionOrder = new List<string>();
+        private Context sibling;
 
         public void parents_before_should_execute_before_siblings()
         {
-            given["a parent with two children"] = () =>
-            {
-                var grandParent = new Context("grandParent");
+            executionOrder = new List<string>();
 
+            given["a parent with no before"] = () =>
+            {
                 var parent = new Context("parent");
 
-                var firstChild = new Context("child");
-
-                var sibling = new Context("sibling");
-
-                grandParent.Before = () => executionOrder += "grandParent";
-
-                grandParent.BeforeFrequency = "each";
-
-                firstChild.Before = () => executionOrder += "child";
-
-                firstChild.BeforeFrequency = "each";
-
-                sibling.Before = () => executionOrder += "sibling";
-
-                sibling.BeforeFrequency = "each";
+                var grandParent = ContextWithBeforeEach("grandParent");
 
                 grandParent.AddContext(parent);
 
-                parent.AddContext(firstChild);
+                //var firstChild = SubContextWithBeforeEach(parent, "firstchild");
 
-                parent.AddContext(sibling);
+                sibling = SubContextWithBeforeEach(parent, "sibling");
 
-                given["the first child's befores have executed"] = () => firstChild.Befores();
+                //firstChild.Befores();
 
-                when["the siblings befores execute"] = ()=>
+                //given["the first child's befores have executed"] = () => firstChild.Befores();
+                when["the siblings befores execute"] = () =>
                 {
-                    executionOrder = "";
+                    before.each = () => sibling.Befores();
 
-                    sibling.Befores();
-                        
-                    specify(() => executionOrder.should_be("grandParentsibling"));
+                    specify(() => executionOrder.should_be(new[] { "grandParent", "sibling" }));
                 };
             };
+        }
+
+        Context SubContextWithBeforeEach(Context parent, string name)
+        {
+            var context = ContextWithBeforeEach(name);
+
+            parent.AddContext(context);
+
+            return context;
+        }
+
+        private Context ContextWithBeforeEach(string name)
+        {
+            var context = new Context(name);
+
+            context.Before = () => executionOrder.Add(name);
+
+            context.BeforeFrequency = "each";
+
+            return context;
         }
     }
 }

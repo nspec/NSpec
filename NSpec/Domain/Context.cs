@@ -33,7 +33,7 @@ namespace NSpec.Domain
 
         public void Befores()
         {
-            if (Parent != null)
+            if (Parent != null )
                 Parent.Befores();
 
             if (Before != null)
