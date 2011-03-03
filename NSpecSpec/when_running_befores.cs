@@ -24,10 +24,6 @@ namespace NSpecSpec
 
                 grandParent.BeforeFrequency = "each";
 
-                //parent.Before = () => executionOrder += "parent";
-
-                //parent.BeforeFrequency = "each";
-
                 firstChild.Before = () => executionOrder += "child";
 
                 firstChild.BeforeFrequency = "each";
