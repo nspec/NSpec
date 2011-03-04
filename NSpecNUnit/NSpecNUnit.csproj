@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DB8E9C04-1C46-4A4D-B53C-59D8DD4B6B89}</ProjectGuid>
+    <ProjectGuid>{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NSpecSpec</RootNamespace>
-    <AssemblyName>NSpecSpec</AssemblyName>
+    <RootNamespace>NSpecNUnit</RootNamespace>
+    <AssemblyName>NSpecNUnit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\nunit.framework.dll</HintPath>
     </Reference>
@@ -44,24 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="when_exectuting_a_context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="when_nesting_contexts.cs" />
-    <Compile Include="when_parsing_specification_expressions.cs" />
-    <Compile Include="when_running_befores.cs" />
+    <Compile Include="Context\when_counting_failures.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
       <Project>{36862628-1F0C-4EA5-8963-C79BAF958DC1}</Project>
       <Name>NSpec</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SampleSpecs\SampleSpecs.csproj">
-      <Project>{DCE738AF-2C14-4279-96FB-16930BD1F459}</Project>
-      <Name>SampleSpecs</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NUnit\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -377,7 +377,7 @@ OUTPUT
     #replace the word Spec in test name....move SpecFinder somewhere inside of each test runner
 
     p "testcmd #{test_name}"
-    run = test_name.gsub(".cs","").gsub("/",".") if test_name =~ /nspecspec/i
+    run = test_name.gsub(".cs","").gsub("/",".") if test_name =~ /nspecnunit/i
     puts "\"#{@@nunit_path}\" \"#{test_dll}\" /nologo /labels /run=#{run}"# /include=#{test_name.gsub(/spec/, "").gsub(/Spec/, "")}"
     "\"#{@@nunit_path}\" \"#{test_dll}\" /nologo /labels /run=#{run}"# /include=#{test_name.gsub(/spec/, "").gsub(/Spec/, "")}"
   end

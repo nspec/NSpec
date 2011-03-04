@@ -21,7 +21,7 @@ GrowlNotifier.growl_path =
   'C:\program files (x86)\Growl for Windows\growlnotify.exe'
 
 #use/uncomment the following to override test dll finding behavior
-@dw.test_runner.test_dlls = ['.\NSpecSpec\bin\Debug\NspecSpec.dll']
+@dw.test_runner.test_dlls = ['.\NSpecNUnit\bin\Debug\NSpecNUnit.dll']
 
 #@dw.test_runner.dll = '.\SampleSpecs\bin\Debug\SampleSpecs.dll'
 
