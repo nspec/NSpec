@@ -198,6 +198,10 @@ class NUnitRunner < TestRunner
     @@nunit_path = "C:\\program files (x86)\\nunit 2.5.9\\bin\\net-2.0\\nunit-console-x86.exe"
   end
 
+  def find file
+    file
+  end
+
   def usage
     <<-OUTPUT
 NUnitRunner runner will use the following exe to run your tests: 
@@ -370,8 +374,12 @@ OUTPUT
   end
 
   def test_cmd test_dll, test_name
-     #replace the word Spec in test name....move SpecFinder somewhere inside of each test runner
-    "\"#{@@nunit_path}\" \"#{test_dll}\" /nologo /labels /include=#{test_name.gsub(/spec/, "").gsub(/Spec/, "")}"
+    #replace the word Spec in test name....move SpecFinder somewhere inside of each test runner
+
+    p "testcmd #{test_name}"
+    run = test_name.gsub(".cs","").gsub("/",".") if test_name =~ /nspecspec/i
+    puts "\"#{@@nunit_path}\" \"#{test_dll}\" /nologo /labels /run=#{run}"# /include=#{test_name.gsub(/spec/, "").gsub(/Spec/, "")}"
+    "\"#{@@nunit_path}\" \"#{test_dll}\" /nologo /labels /run=#{run}"# /include=#{test_name.gsub(/spec/, "").gsub(/Spec/, "")}"
   end
 
   def inconclusive
@@ -613,6 +621,7 @@ class WatcherDotNet
   end
     
   def consider file
+
     puts "====================== changed: #{file} ===================="
     puts "====================== excluded ============================" if false == require_build(file)		
 
@@ -633,7 +642,8 @@ class WatcherDotNet
 
     test_results = ""
 
-    spec = @test_runner.find file
+    #spec = @test_runner.find file
+    spec = file
 
     if(!spec)
       puts "===================== done consider ========================"
@@ -642,7 +652,7 @@ class WatcherDotNet
    
     puts "=========== running spec: #{spec} ====="
     
-    test_output = @test_runner.execute spec
+    test_output = @test_runner.execute file
 
     puts test_output
     

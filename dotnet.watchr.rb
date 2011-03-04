@@ -1,6 +1,6 @@
 require './watcher_dot_net.rb'
 
-@dw = WatcherDotNet.new ".", { :builder => :MSBuilder, :test_runner => :LambSpecRunner}
+@dw = WatcherDotNet.new ".", { :builder => :MSBuilder, :test_runner => :NUnitRunner}
 
 LambSpecRunner.lamb_spec_path = 
   '.\ConsoleApplication1\bin\Debug\NSpecRunner.exe'
@@ -21,7 +21,7 @@ GrowlNotifier.growl_path =
   'C:\program files (x86)\Growl for Windows\growlnotify.exe'
 
 #use/uncomment the following to override test dll finding behavior
-#@dw.test_runner.test_dlls = ['.\SampleSpecs\bin\Debug\SampleSpecs.dll']
+@dw.test_runner.test_dlls = ['.\NSpecSpec\bin\Debug\NspecSpec.dll']
 
 #@dw.test_runner.dll = '.\SampleSpecs\bin\Debug\SampleSpecs.dll'
 
