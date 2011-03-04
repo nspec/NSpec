@@ -16,4 +16,4 @@ obj
 *_ReSharper*
 *.trx
 *.patch
-TestResults.xml
+TestResult.xml

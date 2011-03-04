@@ -376,9 +376,8 @@ OUTPUT
   def test_cmd test_dll, test_name
     #replace the word Spec in test name....move SpecFinder somewhere inside of each test runner
 
-    p "testcmd #{test_name}"
-    run = test_name.gsub(".cs","").gsub("/",".") if test_name =~ /nspecnunit/i
-    puts "\"#{@@nunit_path}\" \"#{test_dll}\" /nologo /labels /run=#{run}"# /include=#{test_name.gsub(/spec/, "").gsub(/Spec/, "")}"
+    run = (test_name =~ /NSpecNUnit/i) ? test_name.gsub(".cs","").gsub("/",".")  : "NSpecNUnit.#{test_name.split("/").last.gsub(".cs","")}" 
+
     "\"#{@@nunit_path}\" \"#{test_dll}\" /nologo /labels /run=#{run}"# /include=#{test_name.gsub(/spec/, "").gsub(/Spec/, "")}"
   end
 
