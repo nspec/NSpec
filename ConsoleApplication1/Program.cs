@@ -15,7 +15,7 @@ namespace ConsoleApplication1
                     new SpecFinder(args[0]).Run();
                 else
                     //new SpecFinder(@"C:\Users\Amir\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll").Run("when_inherting_from_some_shared_spec");
-                    new SpecFinder(@"D:\Development\GameTrader\GameTrader.UnitTests\bin\Debug\GameTrader.UnitTests.dll").Run("describe_AuthenticationController");
+                    new SpecFinder(@"C:\Development\GameTrader\GameTrader.UnitTests\bin\Debug\GameTrader.UnitTests.dll").Run("describe_AuthenticationController");
             }
             catch (Exception e)
             {

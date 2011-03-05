@@ -29,6 +29,11 @@ namespace SampleSpecs.Demo
 
             specify(() => user.Admin.should_be_false());
 
+            this.specify["should work"] = () =>
+            {
+
+            };
+
             //soon.user_should_not_have_default_password();
         }
     }

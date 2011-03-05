@@ -71,39 +71,64 @@ namespace NSpec
                 Run();
         }
 
-        private void RunSpecClass(Type specClass)
+        public Context ConstructRootContext(spec instance, Type specClass, Context instanceContext)
         {
-            var spec = specClass.GetConstructors()[0].Invoke(new object[0]) as spec;
+            var rootContext = instanceContext;
+            var rootType = specClass;
 
-            var classContext = new Context(specClass.Name);
+            rootContext.Before = GetBefore(rootContext, instance, instance.GetType());
 
-            Contexts.Add(classContext);
+            while (rootType.BaseType != typeof(spec))
+            {
+                var childSpec = rootContext;
+                rootType = rootType.BaseType;
+                rootContext = new Context(rootType.Name);
+                rootContext.AddContext(childSpec);
 
-            var fields = specClass.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+                rootContext.Before = GetBefore(rootContext, instance, rootType);
+            }
 
+            return rootContext;
+        }
+
+        public Action GetBefore(Context context, spec instance, Type instanceType)
+        {
+            var fields = instanceType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
             before<dynamic> beforeEach = null;
 
             foreach (FieldInfo field in fields)
             {
-                if(field.Name.Contains("each"))
+                if (field.Name.Contains("each"))
                 {
-                    beforeEach = (field.GetValue(spec) as before<dynamic>);
+                    beforeEach = (field.GetValue(instance) as before<dynamic>);
 
                     if (beforeEach != null)
                         break;
                 }
             }
 
-            if(beforeEach != null)
+            if (beforeEach != null)
             {
-                classContext.Before = () => beforeEach(spec);
+                return () => beforeEach(instance);
             }
+
+            return null;
+        }
+
+        private void RunSpecClass(Type specClass)
+        {
+            var spec = specClass.GetConstructors()[0].Invoke(new object[0]) as spec;
+
+            var thisContext = new Context(specClass.Name);
+            var rootContext = ConstructRootContext(spec, specClass, thisContext);
+
+            Contexts.Add(rootContext);
 
             specClass.Methods(except).Do(contextMethod =>
             {
                 var context = new Context(contextMethod.Name);
 
-                classContext.AddContext(context);
+                thisContext.AddContext(context);
 
                 spec.Context = context;
 
@@ -137,6 +162,15 @@ namespace NSpec
             Contexts = new List<Context>();
 
             Types = Assembly.LoadFrom(specDLL).GetTypes();
+        }
+
+        public SpecFinder(params Type []types)
+        {
+            except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context", "get_Context" });
+
+            Contexts = new List<Context>();
+
+            Types = types;
         }
 
         //public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll") { }
