@@ -43,6 +43,18 @@ namespace NSpec.Domain
                 Before = null;
         }
 
+        public void Acts()
+        {
+            if (Parent != null)
+                Parent.Acts();
+
+            if (Act != null)
+                Act();
+
+            if (ActFrequency == "all")
+                Act = null;
+        }
+
         public IEnumerable<Example> AllExamples()
         {
             return Contexts.SelectMany(c => c.AllExamples()).Union(Examples);
@@ -62,10 +74,12 @@ namespace NSpec.Domain
         public List<Example> Examples { get; set; }
         public List<Context> Contexts { get; set; }
         public Action Before { get; set; }
+        public Action Act { get; set; }
         public Action After { get; set; }
         public Context Parent { get; set; }
         public string AfterFrequency { get; set; }
         public string BeforeFrequency { get; set; }
+        public string ActFrequency { get; set; }
 
         public IEnumerable<Example> Failures()
         {

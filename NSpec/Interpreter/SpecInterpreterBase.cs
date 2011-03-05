@@ -16,6 +16,8 @@ namespace NSpec.Interpreter
         {
             Context.Befores();
 
+            Context.Acts();
+
             Context.AddExample(example);
 
             try

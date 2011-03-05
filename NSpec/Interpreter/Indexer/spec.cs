@@ -13,6 +13,7 @@ namespace NSpec.Interpreter.Indexer
         protected ActionRegister with;
         protected ActionRegister after;
         protected ActionRegister scenario;
+        protected ActionRegister act;
 
         public spec()
         {
@@ -32,6 +33,12 @@ namespace NSpec.Interpreter.Indexer
             {
                 Context.AfterFrequency = f;
                 Context.After = a;
+            });
+
+            act = new ActionRegister((f, a) =>
+            {
+                Context.Act = a;
+                Context.ActFrequency = f;
             });
 
             when = new ActionRegister(AddContext("when"));
