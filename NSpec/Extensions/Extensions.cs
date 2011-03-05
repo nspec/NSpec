@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NSpecSpec;
+using NSpec.Domain;
 
 namespace NSpec.Extensions
 {
