@@ -71,7 +71,7 @@ namespace NSpec
                 Run();
         }
 
-        public Context ConstructRootContext(spec instance, Type specClass, Context instanceContext)
+        public Context RootContext(spec instance, Type specClass, Context instanceContext)
         {
             var rootContext = instanceContext;
             var rootType = specClass;
@@ -120,9 +120,8 @@ namespace NSpec
             var spec = specClass.GetConstructors()[0].Invoke(new object[0]) as spec;
 
             var thisContext = new Context(specClass.Name);
-            var rootContext = ConstructRootContext(spec, specClass, thisContext);
 
-            Contexts.Add(rootContext);
+            Contexts.Add(RootContext(spec, specClass, thisContext));
 
             specClass.Methods(except).Do(contextMethod =>
             {
