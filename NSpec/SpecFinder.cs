@@ -154,9 +154,11 @@ namespace NSpec
             return Contexts.SelectMany(c => c.Failures());
         }
 
-        public SpecFinder(string specDLL) : this()
+        public SpecFinder(string specDLL, IReflector reflector) : this()
         {
-            Types = Assembly.LoadFrom(specDLL).GetTypes();
+            this.reflector = reflector;
+
+            Types = reflector.GetTypesFrom(specDLL);
         }
 
         public SpecFinder(params Type []types) : this()
@@ -174,7 +176,8 @@ namespace NSpec
         private IList<Context> Contexts { get; set; }
 
         private IEnumerable<string> except;
+        private IReflector reflector;
 
-        private Type[] Types { get; set; }
+        public Type[] Types { get; set; }
     }
 }

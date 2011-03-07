@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using N = NSpec;
-using I = NSpec.Interpreter.Indexer;    
-using D = NSpec.Domain;
+using NSpec;
+using NSpec.Interpreter.Indexer;
 using NSpec.Extensions;
 
-namespace NSpecNUnit.SpecFinder
+namespace NSpecNUnit
 {
     [TestFixture]
     public class when_finding_root_context
@@ -51,22 +50,22 @@ namespace NSpecNUnit.SpecFinder
             root.Contexts.First().Before.should_not_be_null();
         }
 
-        private N.SpecFinder _specFinder;
+        private SpecFinder _specFinder;
         private void GivenSpecFinderForTypes(params Type[] args)
         {
-            _specFinder = new N.SpecFinder(args);
+            _specFinder = new SpecFinder(args);
         }
 
-        private N.Domain.Context TheRootContextFor<T>() where T : I.spec, new()
+        private NSpec.Domain.Context TheRootContextFor<T>() where T : spec, new()
         {
             T spec = new T();
-            return _specFinder.RootContext(spec, typeof(T), new D.Context(spec.GetType().Name));
+            return _specFinder.RootContext(spec, typeof(T), new NSpec.Domain.Context(spec.GetType().Name));
         }
     }
 
-    public class parent_spec : I.spec
+    public class parent_spec : spec
     {
-        I.before<dynamic> each = (d) =>
+        before<object> each = (d) =>
         {
 
         };
@@ -74,7 +73,7 @@ namespace NSpecNUnit.SpecFinder
 
     public class child_sample_spec : parent_spec
     {
-        I.before<dynamic> each = (d) =>
+        before<object> each = (d) =>
         {
 
         };
