@@ -9,7 +9,6 @@
 *.webinfo
 bin
 obj
-*.dll
 *.pdb
 *.exe
 *resharper*
