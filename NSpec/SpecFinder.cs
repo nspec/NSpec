@@ -154,27 +154,22 @@ namespace NSpec
             return Contexts.SelectMany(c => c.Failures());
         }
 
-        public SpecFinder(string specDLL)
+        public SpecFinder(string specDLL) : this()
         {
-            except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context","get_Context" });
-
-            Contexts = new List<Context>();
-
             Types = Assembly.LoadFrom(specDLL).GetTypes();
         }
 
-        public SpecFinder(params Type []types)
+        public SpecFinder(params Type []types) : this()
         {
-            except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context", "get_Context" });
-
-            Contexts = new List<Context>();
-
             Types = types;
         }
 
-        //public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\bin\Debug\SampleSpecs.dll") { }
+        public SpecFinder() 
+        { 
+            except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context", "get_Context" });
 
-        public SpecFinder() : this(@"C:\Users\matt\Documents\Visual Studio 2010\Projects\NSpec\NSpecSpec\bin\Debug\NSpecSpec.dll") { }
+            Contexts = new List<Context>();
+        }
 
         private IList<Context> Contexts { get; set; }
 
