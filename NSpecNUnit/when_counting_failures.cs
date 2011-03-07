@@ -4,7 +4,7 @@ using NSpec.Domain;
 using NSpec.Extensions;
 using NUnit.Framework;
 
-namespace NSpecNUnit.Context
+namespace NSpecNUnit
 {
     [TestFixture]
     public class when_counting_failures
@@ -12,11 +12,11 @@ namespace NSpecNUnit.Context
         [Test]
         public void given_nested_contexts_and_the_child_has_a_failure()
         {
-            var child = new NSpec.Domain.Context("child"); 
+            var child = new Context("child"); 
 
             child.AddExample(new Example("") {Exception = new Exception()});
 
-            var parent = new NSpec.Domain.Context("parent");
+            var parent = new Context("parent");
 
             parent.AddContext(child);
 

@@ -48,9 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Context\when_counting_failures.cs" />
+    <Compile Include="when_counting_failures.cs" />
     <Compile Include="when_finding_root_context.cs" />
-    <Compile Include="when_finding_specs.cs" />
+    <Compile Include="when_running_specs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">

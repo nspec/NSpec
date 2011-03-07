@@ -173,7 +173,7 @@ namespace NSpec
             Contexts = new List<Context>();
         }
 
-        private IList<Context> Contexts { get; set; }
+        public IList<Context> Contexts { get; set; }
 
         private IEnumerable<string> except;
         private IReflector reflector;

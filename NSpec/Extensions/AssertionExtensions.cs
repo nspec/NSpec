@@ -48,10 +48,26 @@ namespace NSpec.Extensions
             Assert.AreEqual(expected, actual);
         }
 
+        public static void should_not_contain<T>(this IEnumerable<T> collection, Func<T,bool> predicate)
+        {
+            Assert.IsTrue( !collection.Any(predicate),"collection contains an item it should not.".With(collection,predicate));
+        }
+
+        public static void should_contain<T>(this IEnumerable<T> collection, Func<T,bool> predicate)
+        {
+            Assert.IsTrue( collection.Any(predicate),"collection does not contain an item it should.".With(collection,predicate));
+        }
+
+        public static void should_contain<T>(this IEnumerable<T> collection, T t)
+        {
+            CollectionAssert.Contains(collection, t);
+        }
+
         public static void should_be<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
         {
             CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());
         }
+
         public static IEnumerable<MethodInfo> Methods(this Type type, IEnumerable<string> exclusions)
         {
             return type.GetMethods().Where(m => !exclusions.Contains(m.Name));
