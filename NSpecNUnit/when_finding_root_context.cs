@@ -20,17 +20,17 @@ namespace NSpecNUnit
         [Test]
         public void should_be_root_class_that_inherits_directly_from_spec()
         {
-            GivenSpecFinderForTypes(typeof(parent_spec), typeof(child_sample_spec));
-            TheRootContextFor<child_sample_spec>().Name.should_be("given parent_spec");
+            GivenSpecFinderForTypes(typeof(parent_spec), typeof(child_spec));
+            TheRootContextFor<child_spec>().Name.should_be("given parent_spec");
         }
 
         [Test]
         public void derived_spec_class_should_be_contained_in_root_context_as_child()
         {
-            GivenSpecFinderForTypes(typeof(parent_spec), typeof(child_sample_spec));
-            var root = TheRootContextFor<child_sample_spec>();
+            GivenSpecFinderForTypes(typeof(parent_spec), typeof(child_spec));
+            var root = TheRootContextFor<child_spec>();
 
-            root.Contexts.First().Name.should_be("given child_sample_spec");
+            root.Contexts.First().Name.should_be("given child_spec");
         }
 
         [Test]
@@ -44,8 +44,8 @@ namespace NSpecNUnit
         [Test]
         public void should_capture_before_each_private_member_on_derived_class()
         {
-            GivenSpecFinderForTypes(typeof(parent_spec), typeof(child_sample_spec));
-            var root = TheRootContextFor<child_sample_spec>();
+            GivenSpecFinderForTypes(typeof(parent_spec), typeof(child_spec));
+            var root = TheRootContextFor<child_spec>();
 
             root.Contexts.First().Before.should_not_be_null();
         }
@@ -65,17 +65,14 @@ namespace NSpecNUnit
 
     public class parent_spec : spec
     {
-        before<object> each = (d) =>
+        before<object> each = d =>
         {
 
         };
     }
 
-    public class child_sample_spec : parent_spec
+    public class child_spec : parent_spec
     {
-        before<object> each = (d) =>
-        {
-
-        };
+        before<object> each = d =>{};
     }
 }

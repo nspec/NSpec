@@ -39,7 +39,7 @@ namespace NSpecNUnit
         [Test]
         public void it_should_create_a_context_for_the_specClass_using_a_naming_convention()
         {
-            finder.Contexts.should_contain(c=>c.Name=="given specClass");
+            finder.Contexts.should_contain(c => c.Name == "given specClass");
         }
 
         [Test]
