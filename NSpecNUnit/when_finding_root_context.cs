@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using NSpec.Domain;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Interpreter.Indexer;
 using NSpec.Extensions;
+using Rhino.Mocks;
 
 namespace NSpecNUnit
 {
@@ -50,16 +52,21 @@ namespace NSpecNUnit
             root.Contexts.First().Before.should_not_be_null();
         }
 
-        private SpecFinder _specFinder;
+        private ContextBuilder builder;
+
         private void GivenSpecFinderForTypes(params Type[] args)
         {
-            _specFinder = new SpecFinder(args);
+            var finder = MockRepository.GenerateMock<ISpecFinder>();
+
+            finder.Stub(f => f.SpecClasses()).Return(args);
+
+            builder = new ContextBuilder(finder);
         }
 
-        private NSpec.Domain.Context TheRootContextFor<T>() where T : spec, new()
+        private Context TheRootContextFor<T>() where T : spec, new()
         {
             T spec = new T();
-            return _specFinder.RootContext(spec, typeof(T), new NSpec.Domain.Context(spec.GetType().Name));
+            return builder.RootContext(spec, typeof(T), new NSpec.Domain.Context(spec.GetType().Name));
         }
     }
 

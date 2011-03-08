@@ -1,5 +1,6 @@
 ﻿using System;
 using NSpec;
+using NSpec.Domain;
 
 namespace ConsoleApplication1
 {
@@ -9,12 +10,14 @@ namespace ConsoleApplication1
         {
             try
             {
+                var finder = new SpecFinder(args[0], new Reflector());
+
                 if (args.Length > 1)
-                    new SpecFinder(args[0],new Reflector()).Run(args[1]);
+                    new ContextBuilder(finder).Run(args[1]);
                 else if (args.Length == 1)
-                    new SpecFinder(args[0], new Reflector()).Run();
+                    new ContextBuilder(finder).Run();
                 else
-                    new SpecFinder(@"C:\Development\GameTrader\GameTrader.UnitTests\bin\Debug\GameTrader.UnitTests.dll",new Reflector()).Run("describe_UserController");
+                    new ContextBuilder(new SpecFinder(@"C:\Development\GameTrader\GameTrader.UnitTests\bin\Debug\GameTrader.UnitTests.dll",new Reflector())).Run();
             }
             catch (Exception e)
             {
