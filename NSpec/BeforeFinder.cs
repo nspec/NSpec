@@ -9,27 +9,14 @@ namespace NSpec
 {
     public class BeforeFinder
     {
-        private List<Action<object>> befores;
-
-        public BeforeFinder()
-        {
-            befores = new List<Action<object>>();
-        }
-
         public IEnumerable<Action<object>> GetBefores(Type type) 
         {
-            if( type.BaseType == typeof(spec))
-                befores.Add(GetBefore(type));
+            if (type.BaseType == typeof(spec))
+                return new[] { GetBefore(type) };
 
-            if (type.BaseType != typeof(spec))
-            {
-                GetBefores(type.BaseType);
-                
-                befores.Add(GetBefore(type));
-            }
-
-            return befores;
+            return GetBefores(type.BaseType).Concat( new []{GetBefore(type)});
         }
+
         public Action<object> GetBefore(Type type)
         {
             var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);

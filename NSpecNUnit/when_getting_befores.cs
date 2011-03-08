@@ -1,3 +1,4 @@
+using System.Linq;
 using NSpec;
 using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
@@ -22,6 +23,8 @@ namespace NSpecNUnit
         public void should_get_the_field_befores_in_correct_order_from_base_types()
         {
             var instance = new ChildSpec();
+
+            new BeforeFinder().GetBefores(typeof(ChildSpec)).Count().should_be(2);
 
             new BeforeFinder().GetBefores(typeof(ChildSpec)).Do(b => b(instance));
             
