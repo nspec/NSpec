@@ -13,13 +13,13 @@ namespace SampleSpecs.Demo
 
             specify(() => user.Id.should_not_be_default());
 
-            when["user is admin"] = () =>
+            context["user is admin"] = () =>
             {
                 before.each = () => user.Admin = true;
 
                 specify(() => user.Admin.should_be_true());
 
-                when["user is terminated"] = () =>
+                context["user is terminated"] = () =>
                 {
                     before.each = () => user.Terminated = true;
 

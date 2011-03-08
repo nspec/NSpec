@@ -12,18 +12,18 @@ namespace SampleSpecs.Bug
         {
             before.each = () => ints = new List<int>();                    //  before(:each) { @array = Array.new }
 
-            when["something that works in rspec but not nspec"] = () =>    //  context "something that works in rspec but not nspec" do
+            context["something that works in rspec but not nspec"] = () =>    //  context "something that works in rspec but not nspec" do
             {
                 before.each = () => ints.Add(1);
 
-                given["sibling context"] = () =>                           //    context "sibling context" do
+                describe["sibling context"] = () =>                           //    context "sibling context" do
                 {
                     before.each = () => ints.Add(1);                       //      before(:each) { @array << "sibling 1" }
 
                     specify(() => ints.Count.should_be(1));                //        it { @array.count.should == 1 }
                 };                                                         //    end
 
-                given["another sibling context"] = () =>                   //    context "another sibling context" do
+                describe["another sibling context"] = () =>                   //    context "another sibling context" do
                 {
                     before.each = () => ints.Add(1);                       //      before(:each) { @array << "sibling 2" }
 

@@ -5,13 +5,14 @@ namespace NSpec.Interpreter.Indexer
     public class spec : SpecInterpreterBase
     {
         protected ActionRegister before;
-        protected ActionRegister when;
-        protected ActionRegister specify;
-        protected ActionRegister given;
-        protected ActionRegister with;
         protected ActionRegister after;
-        protected ActionRegister scenario;
         protected ActionRegister act;
+
+        protected ActionRegister context;
+        protected ActionRegister describe;
+
+        protected ActionRegister specify;
+        protected ActionRegister it;
 
         public spec()
         {
@@ -33,12 +34,11 @@ namespace NSpec.Interpreter.Indexer
                 Context.ActFrequency = f;
             });
 
-            when = new ActionRegister(AddContext);
-            with = new ActionRegister(AddContext);
-            given = new ActionRegister(AddContext);
-            scenario = new ActionRegister(AddContext);
+            context = new ActionRegister(AddContext);
+            describe = new ActionRegister(AddContext);
 
             specify = new ActionRegister((name,action)=> Exercise(new Example(name),action));
+            it = new ActionRegister((name,action)=> Exercise(new Example(name),action));
         }
     }
 }

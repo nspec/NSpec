@@ -21,13 +21,13 @@ namespace NSpecSpec
 
             context.BeforeFrequency = "all";
 
-            when["the Befores run the first time"] = () =>
+            base.context["the Befores run the first time"] = () =>
             {
                 context.Befores();
 
                 specify(() => beforeAllCount.should_be(1));
 
-                when["the Befores run the second time"] = () =>
+                base.context["the Befores run the second time"] = () =>
                 {
                     context.Befores();
 
@@ -40,7 +40,7 @@ namespace NSpecSpec
         {
             before.each = () => context = new Context("test");
 
-            with["no examples of its own, but a subcontext with an example"] = () =>
+            describe["no examples of its own, but a subcontext with an example"] = () =>
             {
                 before.each = () =>
                 {

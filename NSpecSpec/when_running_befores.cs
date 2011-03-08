@@ -16,7 +16,7 @@ namespace NSpecSpec
         {
             executionOrder = new List<string>();
 
-            given["a parent with no before"] = () =>
+            describe["a parent with no before"] = () =>
             {
                 var parent = new Context("parent");
 
@@ -31,7 +31,7 @@ namespace NSpecSpec
                 //firstChild.Befores();
 
                 //given["the first child's befores have executed"] = () => firstChild.Befores();
-                when["the siblings befores execute"] = () =>
+                context["the siblings befores execute"] = () =>
                 {
                     before.each = () => sibling.Befores();
 
