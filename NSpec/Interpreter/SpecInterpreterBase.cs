@@ -56,7 +56,7 @@ namespace NSpec.Interpreter
             return body.Substring(cut+1, body.Length - cut-1).Replace(")"," ").Replace("."," ").Replace("(","").Replace("  "," ").Trim();
         }
 
-        protected void AddContext(string name, Action action, string prefix)
+        protected void AddContext(string name, Action action)
         {
             level++;
 
