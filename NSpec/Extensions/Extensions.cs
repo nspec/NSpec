@@ -1,12 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using NSpec.Domain;
 
 namespace NSpec.Extensions
 {
     public static class Extensions
     {
+        public static T Instance<T>(this Type type) where T : class
+        {
+            return type.GetConstructors()[0].Invoke(new object[0]) as T;
+        }
+
+        public static IEnumerable<MethodInfo> Methods(this Type type, IEnumerable<string> exclusions)
+        {
+            return type.GetMethods().Where(m => !exclusions.Contains(m.Name));
+        }
+
         public static string Times(this string source,int times)
         {
             if (times == 0) return "";

@@ -4,7 +4,6 @@ using NSpec.Domain;
 using NSpec.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
-using ContextBuilder = NSpec.Domain.ContextBuilder;
 
 namespace NSpecNUnit
 {
@@ -19,6 +18,8 @@ namespace NSpecNUnit
             var finder = MockRepository.GenerateMock<ISpecFinder>();
 
             finder.Stub(f => f.SpecClasses()).Return(new[] { typeof(SpecClass) });
+
+            finder.Stub(f => f.Except).Return(new SpecFinder().Except);
 
             builder = new ContextBuilder(finder);
 

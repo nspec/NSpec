@@ -77,10 +77,5 @@ namespace NSpec.Extensions
         {
             CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());
         }
-
-        public static IEnumerable<MethodInfo> Methods(this Type type, IEnumerable<string> exclusions)
-        {
-            return type.GetMethods().Where(m => !exclusions.Contains(m.Name));
-        }
     }
 }

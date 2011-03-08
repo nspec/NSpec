@@ -56,7 +56,7 @@
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Interpreter\SpecInterpreterBase.cs" />
     <Compile Include="IReflector.cs" />
-    <Compile Include="SpecFinder .cs" />
+    <Compile Include="SpecFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

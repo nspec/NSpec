@@ -15,28 +15,39 @@ namespace NSpec.Domain
             Contexts = new List<Context>();
         }
 
-        public IList<Context> Contexts{get;set;}
-
         public void Build()
         {
             finder.SpecClasses().Do(Run);
         }
 
+        public void Run()
+        {
+            Execute(finder.SpecClasses());
+        }
+
+        public void Run(string class_filter)
+        {
+            if(finder.SpecClasses().Any(c => c.Name == class_filter))
+                Execute(finder.SpecClasses().Where(c => c.Name == class_filter));
+            else
+                Run();
+        }
+
         private void Run(Type specClass)
         {
-            var spec = specClass.GetConstructors()[0].Invoke(new object[0]) as spec;
+            var spec = specClass.Instance<spec>();
 
-            var thisContext = new Context(specClass.Name);
+            var classContext = new Context(specClass.Name);
 
-            Contexts.Add(RootContext(spec, specClass, thisContext));
+            Contexts.Add(RootContext(spec, specClass, classContext));
 
             specClass.Methods(finder.Except).Do(contextMethod =>
             {
-                var context = new Context(contextMethod.Name);
+                var methodContext = new Context(contextMethod.Name);
 
-                thisContext.AddContext(context);
+                classContext.AddContext(methodContext);
 
-                spec.Context = context;
+                spec.Context = methodContext;
 
                 try
                 {
@@ -44,19 +55,19 @@ namespace NSpec.Domain
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Exception executing context: {0}".With(context.Name));
+                    Console.WriteLine("Exception executing context: {0}".With(methodContext.Name));
 
                     throw e;
                 }
             });
         }
 
-        public Context RootContext(spec instance, Type specClass, Context instanceContext)
+        public Context RootContext(spec instance, Type specClass, Context classContext)
         {
-            var rootContext = instanceContext;
+            var rootContext = classContext;
             var rootType = specClass;
 
-            rootContext.Before = GetBefore(rootContext, instance, instance.GetType());
+            rootContext.Before = GetBefore(instance, instance.GetType());
 
             while (rootType.BaseType != typeof(spec))
             {
@@ -65,13 +76,13 @@ namespace NSpec.Domain
                 rootContext = new Context(rootType.Name);
                 rootContext.AddContext(childSpec);
 
-                rootContext.Before = GetBefore(rootContext, instance, rootType);
+                rootContext.Before = GetBefore(instance, rootType);
             }
 
             return rootContext;
         }
 
-        public Action GetBefore(Context context, spec instance, Type instanceType)
+        public Action GetBefore(spec instance, Type instanceType)
         {
             var fields = instanceType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
             before<dynamic> beforeEach = null;
@@ -93,11 +104,6 @@ namespace NSpec.Domain
             }
 
             return null;
-        }
-
-        public void Run()
-        {
-            Execute(finder.SpecClasses());
         }
 
         private void Execute(IEnumerable<Type> specClasses)
@@ -122,6 +128,7 @@ namespace NSpec.Domain
                 Summarize(Failures().Count() > 0 ? Failures().Count() : 1);
             }
         }
+
         private void Summarize(int failures)
         {
             Console.WriteLine( string.Format("{0} Examples, {1} Failures", Examples().Count(), failures));
@@ -137,14 +144,7 @@ namespace NSpec.Domain
             return Contexts.SelectMany(c => c.Failures());
         }
 
-
-        public void Run(string class_filter)
-        {
-            if(finder.SpecClasses().Any(c => c.Name == class_filter))
-                Execute(finder.SpecClasses().Where(c => c.Name == class_filter));
-            else
-                Run();
-        }
+        public IList<Context> Contexts{get;set;}
 
         private readonly ISpecFinder finder;
     }

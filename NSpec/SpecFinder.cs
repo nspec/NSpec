@@ -29,11 +29,14 @@ namespace NSpec
             return types;
         }
 
-        public SpecFinder(string specDLL, IReflector reflector) 
+        public SpecFinder()
+        {
+            Except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context", "get_Context" });
+        }
+
+        public SpecFinder(string specDLL, IReflector reflector) : this()
         {
             Types = reflector.GetTypesFrom(specDLL);
-
-            Except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context", "get_Context" });
         }
 
         public IEnumerable<string> Except { get; set; }
