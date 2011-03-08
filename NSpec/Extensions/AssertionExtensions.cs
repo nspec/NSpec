@@ -63,6 +63,16 @@ namespace NSpec.Extensions
             CollectionAssert.Contains(collection, t);
         }
 
+        public static void should_not_contain<T>(this IEnumerable<T> collection, T t)
+        {
+            CollectionAssert.DoesNotContain(collection, t);
+        }
+
+        public static void should_be_empty<T>(this IEnumerable<T> collection)
+        {
+            CollectionAssert.IsEmpty(collection);
+        }
+
         public static void should_be<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
         {
             CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());
