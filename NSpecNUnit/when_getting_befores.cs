@@ -12,14 +12,28 @@ namespace NSpecNUnit
         {
             var instance = new BeforeClass();
 
-            typeof(BeforeClass).GetBefore<BeforeClass>()(instance);
+            typeof(BeforeClass).GetBefore()(instance);
 
             instance.beforeResult.should_be("BeforeClass");
         }
+
+        [Test,Ignore]
+        public void should_get_the_field_()
+        {
+            var instance = new ChildSpec();
+
+            typeof(ChildSpec).GetBefore()(instance);
+
+            instance.beforeResult.should_be("BeforeClassChildSpec");
+        }
+    }
+    public class ChildSpec : BeforeClass
+    {
+        before<dynamic> each = childSpec => childSpec.beforeResult += "ChildSpec";
     }
     public class BeforeClass : spec
     {
-        before<dynamic> each = specClass => specClass.beforeResult = "BeforeClass";
+        before<dynamic> each = beforeClass => beforeClass.beforeResult = "BeforeClass";
         public string beforeResult;
 
         public void public_method() { }

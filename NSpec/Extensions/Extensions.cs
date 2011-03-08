@@ -9,9 +9,10 @@ namespace NSpec.Extensions
 {
     public static class Extensions
     {
-        public static Action<T> GetBefore<T>(this Type type) where T : class, new()
+        public static Action<object> GetBefore(this Type type) 
         {
             var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
             before<dynamic> beforeEach = null;
 
             var instance = type.Instance<spec>();
@@ -20,10 +21,7 @@ namespace NSpec.Extensions
 
             if(eachField!=null) beforeEach = eachField.GetValue(instance) as before<dynamic>;
 
-            if (beforeEach != null)
-            {
-                return t => beforeEach(t);
-            }
+            if (beforeEach != null) return t => beforeEach(t);
 
             return null;
         }
