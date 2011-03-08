@@ -30,6 +30,16 @@ namespace NSpecNUnit
             
             instance.beforeResult.should_be("BeforeClassChildSpec");
         }
+
+        [Test]
+        public void should_create_contexts_with_the_befores()
+        {
+            var context = new BeforeFinder().GetContexts(typeof(ChildSpec));
+
+            context.Name.should_be("BeforeClass");
+
+            context.Contexts.First().Name.should_be("ChildSpec");
+        }
     }
 
     public class ChildSpec : BeforeClass
