@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSpecs", "SampleSpecs\SampleSpecs.csproj", "{DCE738AF-2C14-4279-96FB-16930BD1F459}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpecRunner", "ConsoleApplication1\NSpecRunner.csproj", "{24F513D3-3D65-42B9-893A-0D3196E45043}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec", "NSpec\NSpec.csproj", "{36862628-1F0C-4EA5-8963-C79BAF958DC1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpecSpec", "NSpecSpec\NSpecSpec.csproj", "{DB8E9C04-1C46-4A4D-B53C-59D8DD4B6B89}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpecNUnit", "NSpecNUnit\NSpecNUnit.csproj", "{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpecRunner", "NSpecRunner\NSpecRunner.csproj", "{24F513D3-3D65-42B9-893A-0D3196E45043}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +31,6 @@ Global
 		{DCE738AF-2C14-4279-96FB-16930BD1F459}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DCE738AF-2C14-4279-96FB-16930BD1F459}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DCE738AF-2C14-4279-96FB-16930BD1F459}.Release|x86.ActiveCfg = Release|Any CPU
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|x86.ActiveCfg = Debug|x86
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|x86.Build.0 = Debug|x86
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|Any CPU.ActiveCfg = Release|x86
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|Mixed Platforms.Build.0 = Release|x86
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|x86.ActiveCfg = Release|x86
-		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|x86.Build.0 = Release|x86
 		{36862628-1F0C-4EA5-8963-C79BAF958DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36862628-1F0C-4EA5-8963-C79BAF958DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36862628-1F0C-4EA5-8963-C79BAF958DC1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -71,6 +61,16 @@ Global
 		{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}.Release|x86.ActiveCfg = Release|Any CPU
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|x86.ActiveCfg = Debug|x86
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Debug|x86.Build.0 = Debug|x86
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|Any CPU.ActiveCfg = Release|x86
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|Mixed Platforms.Build.0 = Release|x86
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|x86.ActiveCfg = Release|x86
+		{24F513D3-3D65-42B9-893A-0D3196E45043}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
