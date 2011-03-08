@@ -9,23 +9,6 @@ namespace NSpec.Extensions
 {
     public static class Extensions
     {
-        public static Action<object> GetBefore(this Type type) 
-        {
-            var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-
-            before<dynamic> beforeEach = null;
-
-            var instance = type.Instance<spec>();
-
-            var eachField = fields.FirstOrDefault(f => f.Name.Contains("each"));
-
-            if(eachField!=null) beforeEach = eachField.GetValue(instance) as before<dynamic>;
-
-            if (beforeEach != null) return t => beforeEach(t);
-
-            return null;
-        }
-
         public static T Instance<T>(this Type type) where T : class
         {
             return type.GetConstructors()[0].Invoke(new object[0]) as T;
@@ -36,7 +19,7 @@ namespace NSpec.Extensions
             return type.GetMethods().Where(m => !exclusions.Contains(m.Name));
         }
 
-        public static string Times(this string source,int times)
+        public static string Times(this string source, int times)
         {
             if (times == 0) return "";
 

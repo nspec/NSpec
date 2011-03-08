@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BeforeFinder.cs" />
     <Compile Include="Domain\ContextBuilder.cs" />
     <Compile Include="Interpreter\Indexer\Before.cs" />
     <Compile Include="Domain\Tuples.cs" />
