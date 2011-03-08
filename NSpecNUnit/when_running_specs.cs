@@ -39,24 +39,24 @@ namespace NSpecNUnit
         [Test]
         public void it_should_create_a_context_for_the_specClass_using_a_naming_convention()
         {
-            finder.Contexts.should_contain(c => c.Name == "given specClass");
+            finder.Contexts.should_contain(c => c.Name == "specClass");
         }
 
         [Test]
         public void it_should_add_the_public_method_as_a_sub_context()
         {
-            TheRootContext().Contexts.should_contain( c=>c.Name=="given public_method");
+            TheRootContext().Contexts.should_contain( c=>c.Name=="public_method");
         }
 
         [Test]
         public void it_should_not_create_a_sub_context_for_private_methods()
         {
-            TheRootContext().Contexts.should_not_contain(c=>c.Name=="given private_method");
+            TheRootContext().Contexts.should_not_contain(c=>c.Name=="private_method");
         }
 
         private Context TheRootContext()
         {
-            return finder.Contexts.First(c=>c.Name=="given specClass");
+            return finder.Contexts.First(c=>c.Name=="specClass");
         }
     }
 

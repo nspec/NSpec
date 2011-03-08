@@ -60,11 +60,11 @@ namespace NSpec.Domain
             return Contexts.SelectMany(c => c.AllExamples()).Union(Examples);
         }
 
-        public Context(string name) :this(name,0, "given") { }
+        public Context(string name) :this(name,0) { }
 
-        public Context(string name, int level, string prefix)
+        public Context(string name, int level)
         {
-            Name = "{0} {1}".With(prefix,name);
+            Name = name;
             Level = level;
             Examples = new List<Example>();
             Contexts = new List<Context>();

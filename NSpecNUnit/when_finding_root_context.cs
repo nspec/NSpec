@@ -14,14 +14,14 @@ namespace NSpecNUnit
         public void should_be_class_that_inherits_directly_from_spec_as_root_context()
         {
             GivenSpecFinderForTypes(typeof(parent_spec));
-            TheRootContextFor<parent_spec>().Name.should_be("given parent_spec");
+            TheRootContextFor<parent_spec>().Name.should_be("parent_spec");
         }
 
         [Test]
         public void should_be_root_class_that_inherits_directly_from_spec()
         {
             GivenSpecFinderForTypes(typeof(parent_spec), typeof(child_spec));
-            TheRootContextFor<child_spec>().Name.should_be("given parent_spec");
+            TheRootContextFor<child_spec>().Name.should_be("parent_spec");
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace NSpecNUnit
             GivenSpecFinderForTypes(typeof(parent_spec), typeof(child_spec));
             var root = TheRootContextFor<child_spec>();
 
-            root.Contexts.First().Name.should_be("given child_spec");
+            root.Contexts.First().Name.should_be("child_spec");
         }
 
         [Test]

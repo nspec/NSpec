@@ -60,7 +60,7 @@ namespace NSpec.Interpreter
         {
             level++;
 
-            var newContext = new Context(name,level,prefix);
+            var newContext = new Context(name,level);
 
             Context.AddContext(newContext);
 
