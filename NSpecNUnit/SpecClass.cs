@@ -1,4 +1,5 @@
-﻿using NSpec.Interpreter.Indexer;
+﻿using System;
+using NSpec.Interpreter.Indexer;
 
 namespace NSpecNUnit
 {

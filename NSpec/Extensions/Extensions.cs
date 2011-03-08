@@ -3,11 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NSpec.Domain;
+using NSpec.Interpreter.Indexer;
 
 namespace NSpec.Extensions
 {
     public static class Extensions
     {
+        public static Action<T> GetBefore<T>(this Type type) where T : class, new()
+        {
+            var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+            before<dynamic> beforeEach = null;
+
+            var instance = type.Instance<spec>();
+
+            var eachField = fields.FirstOrDefault(f => f.Name.Contains("each"));
+
+            if(eachField!=null) beforeEach = eachField.GetValue(instance) as before<dynamic>;
+
+            if (beforeEach != null)
+            {
+                return t => beforeEach(t);
+            }
+
+            return null;
+        }
+
         public static T Instance<T>(this Type type) where T : class
         {
             return type.GetConstructors()[0].Invoke(new object[0]) as T;
