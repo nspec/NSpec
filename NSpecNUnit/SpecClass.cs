@@ -1,5 +1,6 @@
 ﻿using System;
 using NSpec.Interpreter.Indexer;
+using NSpec;
 
 namespace NSpecNUnit
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NSpec.Domain
+namespace NSpec
 {
     public class Tuples<T, U> : List<Tuple<T,U>> 
     {

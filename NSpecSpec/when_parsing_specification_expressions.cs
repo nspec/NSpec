@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
+using NSpec;
 
 namespace NSpecSpec
 {

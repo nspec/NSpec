@@ -3,6 +3,7 @@ using System.Linq;
 using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
 using NSpec.Domain;
+using NSpec;
 
 namespace SampleSpecs.Demo
 {

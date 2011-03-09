@@ -1,6 +1,8 @@
 using NSpec.Domain;
+using NSpec.Interpreter;
+using NSpec.Interpreter.Indexer;
 
-namespace NSpec.Interpreter.Indexer
+namespace NSpec
 {
     public class spec : SpecInterpreterBase
     {

@@ -1,6 +1,7 @@
 using NSpec.Domain;
 using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
+using NSpec;
 
 namespace NSpecSpec
 {
