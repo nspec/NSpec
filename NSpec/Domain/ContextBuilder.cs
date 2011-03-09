@@ -35,11 +35,13 @@ namespace NSpec.Domain
 
         private void Run(Type specClass)
         {
+            Contexts.Add(specClass.GetContexts());
+
             var spec = specClass.Instance<spec>();
 
-            var classContext = new Context(specClass.Name);
+            Contexts.First().SetInstanceContext(spec);
 
-            Contexts.Add(RootContext(spec, specClass, classContext));
+            var classContext = Contexts.First(c => c.Type == specClass);
 
             specClass.Methods(finder.Except).Do(contextMethod =>
             {
@@ -60,50 +62,6 @@ namespace NSpec.Domain
                     throw e;
                 }
             });
-        }
-
-        public Context RootContext(spec instance, Type specClass, Context classContext)
-        {
-            var rootContext = classContext;
-            var rootType = specClass;
-
-            rootContext.Before = GetBefore(instance, instance.GetType());
-
-            while (rootType.BaseType != typeof(spec))
-            {
-                var childSpec = rootContext;
-                rootType = rootType.BaseType;
-                rootContext = new Context(rootType.Name);
-                rootContext.AddContext(childSpec);
-
-                rootContext.Before = GetBefore(instance, rootType);
-            }
-
-            return rootContext;
-        }
-
-        public Action GetBefore(spec instance, Type instanceType)
-        {
-            var fields = instanceType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-            before<dynamic> beforeEach = null;
-
-            foreach (FieldInfo field in fields)
-            {
-                if (field.Name.Contains("each"))
-                {
-                    beforeEach = (field.GetValue(instance) as before<dynamic>);
-
-                    if (beforeEach != null)
-                        break;
-                }
-            }
-
-            if (beforeEach != null)
-            {
-                return () => beforeEach(instance);
-            }
-
-            return null;
         }
 
         private void Execute(IEnumerable<Type> specClasses)

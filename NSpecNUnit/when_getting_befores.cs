@@ -1,5 +1,6 @@
 using System.Linq;
 using NSpec;
+using NSpec.Domain;
 using NSpec.Extensions;
 using NSpec.Interpreter.Indexer;
 using NUnit.Framework;
@@ -12,47 +13,81 @@ namespace NSpecNUnit
         [Test]
         public void should_get_the_field_named_each_declared_as_before_dynamic()
         {
-            var instance = new BeforeClass();
+            var instance = new parent();
 
-            new BeforeFinder().GetBefore(typeof(BeforeClass))(instance);
+            var beforeAction = typeof(parent).GetBefore();
 
-            instance.beforeResult.should_be("BeforeClass");
+            beforeAction(instance);
+
+            instance.beforeResult.should_be("parent");
         }
 
         [Test]
-        public void should_get_the_field_befores_in_correct_order_from_base_types()
+        public void should_get_all_the_field_befores_from_ancestors()
         {
-            var instance = new ChildSpec();
+            var instance = new child();
 
-            new BeforeFinder().GetBefores(typeof(ChildSpec)).Count().should_be(2);
+            var befores = typeof(child).GetBefores();
 
-            new BeforeFinder().GetBefores(typeof(ChildSpec)).Do(b => b(instance));
+            befores.Count().should_be(2);
+
+            befores.Do(b => b(instance));
             
-            instance.beforeResult.should_be("BeforeClassChildSpec");
+            instance.beforeResult.should_be("parentchild");
         }
 
         [Test]
         public void should_create_contexts_with_the_befores()
         {
-            var context = new BeforeFinder().GetContexts(typeof(ChildSpec));
+            var context = typeof(child).GetContexts();
 
-            context.Name.should_be("BeforeClass");
+            ExecuteBefore(context, new child()).should_be("parent");
 
-            context.Contexts.First().Name.should_be("ChildSpec");
+            ExecuteBefore(context.Contexts.First(), new child()).should_be("child");
+        }
+
+        private string ExecuteBefore(Context context, child instance)
+        {
+            context.SetInstanceContext(instance);
+
+            context.Before();
+
+            return instance.beforeResult;
+        }
+
+        [Test]
+        public void should_create_contexts()
+        {
+            var context = typeof(child).GetContexts();
+
+            context.Name.should_be("parent");
+
+            context.Contexts.First().Name.should_be("child");
+        }
+
+        [Test]
+        public void setting_the_parent_context_instanceContext_should_set_childrens()
+        {
+            var context = typeof(child).GetContexts();
+
+            var instance = new child();
+
+            context.SetInstanceContext(instance);
+
+            context.Contexts.First().Before();
+
+            instance.beforeResult.should_be("child");
         }
     }
 
-    public class ChildSpec : BeforeClass
+    public class child : parent
     {
-        before<dynamic> each = childSpec => childSpec.beforeResult += "ChildSpec";
+        before<dynamic> each = childSpec => childSpec.beforeResult += "child";
     }
 
-    public class BeforeClass : spec
+    public class parent : spec
     {
-        before<dynamic> each = beforeClass => beforeClass.beforeResult = "BeforeClass";
+        before<dynamic> each = beforeClass => beforeClass.beforeResult = "parent";
         public string beforeResult;
-
-        public void public_method() { }
-        private void private_method() { }
     }
 }

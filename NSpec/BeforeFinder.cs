@@ -8,36 +8,30 @@ using NSpec.Interpreter.Indexer;
 
 namespace NSpec
 {
-    public class BeforeFinder
+    public static class BeforeFinder
     {
-        public Context GetContexts(Type type, Context childContext=null)
+        public static Context GetContexts(this Type type, Context childContext=null)
         {
             if (type.BaseType == typeof(spec))
             {
-                var context = new Context( type.Name );
+                var context = new Context( type );
 
-                if(childContext!=null)
-                    context.AddContext(childContext);
+                if(childContext!=null) context.AddContext(childContext);
 
                 return context;
             }
 
-            return GetContexts(type.BaseType, new Context(type.Name));
-
-            //context.AddContext( new Context(type.Name));
-
-            //return context;
+            return GetContexts(type.BaseType, new Context(type));
         }
 
-        public IEnumerable<Action<object>> GetBefores(Type type) 
+        public static  IEnumerable<Action<object>> GetBefores(this Type type) 
         {
-            if (type.BaseType == typeof(spec))
-                return new[] { GetBefore(type) };
+            if (type.BaseType == typeof(spec)) return new[] { GetBefore(type) };
 
-            return GetBefores(type.BaseType).Concat( new []{GetBefore(type)});
+            return GetBefores(type.BaseType).Concat(new[] { GetBefore(type) });
         }
 
-        public Action<object> GetBefore(Type type)
+        public static Action<object> GetBefore(this Type type)
         {
             var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
 

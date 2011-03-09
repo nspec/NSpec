@@ -24,7 +24,6 @@ namespace ConsoleApplication1
                 //hopefully this is handled before here, but if not, this is better than crashing the runner
                 Console.WriteLine(e);
             }
-            Console.ReadLine();
         }
     }
 }

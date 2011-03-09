@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSpec.Extensions;
+using NSpec.Interpreter.Indexer;
 
 namespace NSpec.Domain
 {
     public class Context
     {
+        public Type Type { get; set; }
+        private readonly Action<spec> beforeInstance;
+
         public void AddExample(Example example)
         {
             Examples.Add(example);
@@ -62,6 +66,12 @@ namespace NSpec.Domain
 
         public Context(string name) :this(name,0) { }
 
+        public Context(Type type) :this(type.Name,0)
+        {
+            Type = type;
+            BeforeInstance = type.GetBefore();
+        }
+
         public Context(string name, int level)
         {
             Name = name;
@@ -90,6 +100,14 @@ namespace NSpec.Domain
         {
             child.Parent = this;
             Contexts.Add(child);
+        }
+
+        public Action<spec> BeforeInstance { get; set; }
+
+        public void SetInstanceContext(spec instance)
+        {
+            if (BeforeInstance != null) Before = () => BeforeInstance(instance);
+            Contexts.Do(c => c.SetInstanceContext(instance));
         }
     }
 }
