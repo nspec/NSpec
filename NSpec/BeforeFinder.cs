@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NSpec.Domain;
@@ -22,13 +21,6 @@ namespace NSpec
             }
 
             return GetContexts(type.BaseType, new Context(type));
-        }
-
-        public static  IEnumerable<Action<object>> GetBefores(this Type type) 
-        {
-            if (type.BaseType == typeof(spec)) return new[] { GetBefore(type) };
-
-            return GetBefores(type.BaseType).Concat(new[] { GetBefore(type) });
         }
 
         public static Action<object> GetBefore(this Type type)
