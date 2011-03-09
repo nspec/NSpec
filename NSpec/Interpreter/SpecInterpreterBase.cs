@@ -7,11 +7,6 @@ namespace NSpec.Interpreter
 {
     public class SpecInterpreterBase
     {
-        public SpecInterpreterBase()
-        {
-            soon = new DynamicSpec();
-        }
-
         protected void Exercise(Example example, Action action)
         {
             Context.Befores();
@@ -32,9 +27,14 @@ namespace NSpec.Interpreter
             Context.Afters();
         }
 
-        protected void xspecify(Expression<Action> exp)
+        protected void xspecify(string pending)
         {
-            Console.WriteLine("PENDING - {0}".With(Parse(exp)));
+            Console.WriteLine("PENDING - {0}".With(pending));
+        }
+
+        protected void xit(string pending)
+        {
+            xspecify(pending);
         }
 
         protected void specify(Expression<Action> exp)
@@ -76,7 +76,6 @@ namespace NSpec.Interpreter
         }
 
         private int level;
-        public dynamic soon;
         public Context Context { get; set; }
     }
 }

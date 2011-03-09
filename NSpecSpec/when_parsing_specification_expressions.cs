@@ -16,7 +16,7 @@ namespace NSpecSpec
                     {() => someCounter.should_be(0), "someCounter should_be 0"},
                     {() => 1.Primes().should_be(0), "1 should_be {}"},
                 }
-            .Do((exp, sentence) => xspecify( ()=>exp.ToSentence().should_be(sentence)));
+            .Do((exp, sentence) => xit(exp.ToSentence()));
         }
     }
     public static class Extensions

@@ -44,6 +44,7 @@
     <Compile Include="Demo\action_indexer_approach.cs" />
     <Compile Include="Bug\grandparents_run_first.cs" />
     <Compile Include="Demo\before_each_on_the_class_level.cs" />
+    <Compile Include="Demo\Class1.cs" />
     <Compile Include="Demo\inherited_spec_class.cs" />
     <Compile Include="Demo\prime_kata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
