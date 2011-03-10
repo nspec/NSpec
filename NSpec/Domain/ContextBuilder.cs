@@ -41,7 +41,7 @@ namespace NSpec.Domain
 
             Contexts.First().SetInstanceContext(spec);
 
-            var classContext = Contexts.SelectMany(c=>c.Contexts).First(c => c.Type == specClass);
+            var classContext = Contexts.First().SelfAndDescendants().First(c => c.Type == specClass);
 
             specClass.Methods(finder.Except).Do(contextMethod =>
             {

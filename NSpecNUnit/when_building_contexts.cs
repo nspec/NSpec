@@ -12,6 +12,12 @@ namespace NSpecNUnit
     {
         private ContextBuilder builder;
 
+        private class SpecClass : spec
+        {
+            public void public_method() { }
+            private void private_method() { }
+        }
+
         [SetUp]
         public void setup()
         {
@@ -35,13 +41,13 @@ namespace NSpecNUnit
         [Test]
         public void it_should_add_the_public_method_as_a_sub_context()
         {
-            builder.Contexts.First().Contexts.should_contain( c=>c.Name=="public_method");
+            builder.Contexts.First().Contexts.should_contain(c => c.Name == "public_method");
         }
 
         [Test]
         public void it_should_not_create_a_sub_context_for_the_private_method()
         {
-            builder.Contexts.should_not_contain(c=>c.Name=="private_method");
+            builder.Contexts.should_not_contain(c => c.Name == "private_method");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
-    public class when_creating_contexts_for_a_class
+    public class given_a_type
     {
         [Test]
         public void should_get_the_proper_before_action_defined_on_the_class()
@@ -32,6 +32,11 @@ namespace NSpecNUnit
 
             instance.beforeResult.should_be("parent");
         }
+    }
+
+    [TestFixture]
+    public class when_creating_contexts_for_a_class
+    {
 
         [SetUp]
         public void setup()

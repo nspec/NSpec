@@ -109,5 +109,10 @@ namespace NSpec.Domain
             if (BeforeInstance != null) Before = () => BeforeInstance(instance);
             Contexts.Do(c => c.SetInstanceContext(instance));
         }
+
+        public IEnumerable<Context> SelfAndDescendants()
+        {
+            return new[] { this }.Concat(Contexts.SelectMany(c => c.SelfAndDescendants()));
+        }
     }
 }
