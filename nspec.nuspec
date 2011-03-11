@@ -13,6 +13,9 @@
     <tags>testing, bdd, tdd</tags>
   </metadata>
   <files>
-  	<files src="NSpecRunner/bin/debug/">
+    <file src="NSpecRunner/bin/Debug/*.*" target="tools/" />
+    <file src="NSpec/bin/debug/NSpec.dll" target="lib/NSpec.dll" />
+    <file src="NSpec/bin/debug/nunit.framework.dll" target="lib/nunit.framework.dll" />
+
   </files>
 </package>
