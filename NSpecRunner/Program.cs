@@ -17,13 +17,16 @@ namespace ConsoleApplication1
                 else if (args.Length == 1)
                     new ContextBuilder(finder).Run();
                 else
-                    new ContextBuilder(new SpecFinder(@"C:\Development\GameTrader\GameTrader.UnitTests\bin\Debug\GameTrader.UnitTests.dll",new Reflector())).Run("describe_AuthenticationController");
+                    //new ContextBuilder(new SpecFinder(@"c:\users\amir\nspec\samplespecs\bin\debug\samplespecs.dll", new Reflector())).Run();
+                    new ContextBuilder(new SpecFinder(@"C:\Development\GameTrader\GameTrader.Specs\bin\Debug\GameTrader.Specs.dll", new Reflector())).Run();
             }
             catch (Exception e)
             {
                 //hopefully this is handled before here, but if not, this is better than crashing the runner
                 Console.WriteLine(e);
             }
+
+            Console.Read();
         }
     }
 }

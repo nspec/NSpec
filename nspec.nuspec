@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>nspec</id>
+    <version>0.5.3</version>
+    <authors>Matt Florence, Amir Rajan</authors>
+    <owners>Matt Florence, Amir Rajan</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>http://www.nspecdriven.net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A testing framework that allows you to write BDD tests.</description>
+    <language>en-US</language>
+    <tags>testing, bdd, tdd</tags>
+  </metadata>
+  <files>
+  	<files src="NSpecRunner/bin/debug/">
+  </files>
+</package>

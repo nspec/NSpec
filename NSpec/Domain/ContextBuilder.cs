@@ -35,13 +35,15 @@ namespace NSpec.Domain
 
         private void Run(Type specClass)
         {
-            Contexts.Add(specClass.GetContexts());
+            var root = specClass.GetContexts();
 
             var spec = specClass.Instance<spec>();
 
-            Contexts.First().SetInstanceContext(spec);
+            root.SetInstanceContext(spec);
 
-            var classContext = Contexts.First().SelfAndDescendants().First(c => c.Type == specClass);
+            var classContext = root.SelfAndDescendants().First(c => c.Type == specClass);
+
+            Contexts.Add(classContext);
 
             specClass.Methods(finder.Except).Do(contextMethod =>
             {
