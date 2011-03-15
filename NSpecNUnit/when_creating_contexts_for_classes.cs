@@ -37,11 +37,10 @@ namespace NSpecNUnit
     [TestFixture]
     public class when_creating_contexts_for_a_class
     {
-
         [SetUp]
         public void setup()
         {
-            context = typeof(child).GetContexts();
+            context = typeof(child).RootContext();
         }
 
         [Test]
@@ -56,27 +55,6 @@ namespace NSpecNUnit
             context.Contexts.First().Name.should_be(typeof(child).Name);
         }
 
-        [Test]
-        public void the_child_should_have_the_correct_before()
-        {
-            ExecuteBefore(context.Contexts.First(), new child()).should_be("child");
-        }
-
-        [Test]
-        public void the_parent_should_have_the_correct_before()
-        {
-            ExecuteBefore(context, new child()).should_be("parent");
-        }
-
-        private string ExecuteBefore(Context context, child instance)
-        {
-            context.SetInstanceContext(instance);
-
-            context.Before();
-
-            return instance.beforeResult;
-        }
-
         private Context context;
     }
 
@@ -86,7 +64,7 @@ namespace NSpecNUnit
         [SetUp]
         public void setup()
         {
-            context = typeof(child).GetContexts();
+            context = typeof(child).RootContext();
 
             instance = new child();
 
@@ -102,7 +80,7 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_should_also_set_the_proper_childrens_before()
+        public void it_should_also_set_the_proper_before_on_children()
         {
             context.Contexts.First().Before();
 

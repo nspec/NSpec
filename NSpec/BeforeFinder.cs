@@ -9,7 +9,7 @@ namespace NSpec
 {
     public static class BeforeFinder
     {
-        public static Context GetContexts(this Type type, Context childContext=null)
+        public static Context RootContext(this Type type, Context childContext=null)
         {
             if (type.BaseType == typeof(spec))
             {
@@ -20,7 +20,7 @@ namespace NSpec
                 return context;
             }
 
-            return GetContexts(type.BaseType, new Context(type));
+            return RootContext(type.BaseType, new Context(type));
         }
 
         public static Action<object> GetBefore(this Type type)

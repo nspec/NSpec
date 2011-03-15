@@ -48,7 +48,7 @@ namespace NSpecNUnit
         {
             T spec = new T();
 
-            var context = typeof(T).GetContexts();
+            var context = typeof(T).RootContext();
 
             context.SetInstanceContext(spec);
 

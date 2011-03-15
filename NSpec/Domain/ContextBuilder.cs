@@ -35,7 +35,7 @@ namespace NSpec.Domain
 
         private void Run(Type specClass)
         {
-            var root = specClass.GetContexts();
+            var root = specClass.RootContext();
 
             var spec = specClass.Instance<spec>();
 
