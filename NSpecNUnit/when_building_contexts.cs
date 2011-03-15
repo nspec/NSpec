@@ -33,12 +33,6 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_should_create_a_context_for_the_spec_class()
-        {
-            builder.Contexts.should_contain(c => c.Name == "SpecClass");
-        }
-
-        [Test]
         public void it_should_add_the_public_method_as_a_sub_context()
         {
             builder.Contexts.First().Contexts.should_contain(c => c.Name == "public_method");

@@ -51,7 +51,6 @@
     <Compile Include="SpecClass.cs" />
     <Compile Include="when_building_contexts.cs" />
     <Compile Include="when_counting_failures.cs" />
-    <Compile Include="when_finding_root_context.cs" />
     <Compile Include="when_finding_specs.cs" />
     <Compile Include="when_creating_contexts_for_classes.cs" />
   </ItemGroup>
