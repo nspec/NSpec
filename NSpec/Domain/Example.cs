@@ -35,5 +35,26 @@ namespace NSpec.Domain
 
         public string Spec { get; set; }
         public Exception Exception { get; set; }
+
+        public Action Action { get; set; }
+
+        public void Run(Context context)
+        {
+            context.Befores();
+
+            context.Acts();
+
+            try
+            {
+                Action();
+            }
+            catch (Exception e)
+            {
+                Exception = e;
+            }
+
+            context.Afters();
+
+        }
     }
 }

@@ -9,22 +9,11 @@ namespace NSpec.Interpreter
     {
         protected void Exercise(Example example, Action action)
         {
-            Context.Befores();
-
-            Context.Acts();
+            example.Action = action;
 
             Context.AddExample(example);
 
-            try
-            {
-                action();
-            }
-            catch (Exception e)
-            {
-                example.Exception = e;
-            }
-
-            Context.Afters();
+            example.Run(Context);
         }
 
         protected void xspecify(string pending)
