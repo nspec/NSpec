@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSpec.Domain;
-using NSpec.Interpreter.Indexer;
 
 namespace NSpec.Extensions
 {
