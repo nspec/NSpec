@@ -1,46 +1,74 @@
+using System;
+using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NSpec.Extensions;
+using NSpec.Interpreter.Indexer;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace NSpecNUnit
+namespace NSpecNUnit.when_building_contexts
 {
+    public class child : parent{}
+    public class sibling: parent{}
+    public class parent : spec{}
+
     [TestFixture]
     public class when_building_contexts
     {
-        private Context classContext;
-
-        private class SpecClass : spec
-        {
-            public void public_method() { }
-            private void private_method() { }
-        }
+        private ISpecFinder finder;
+        private ContextBuilder2 context;
 
         [SetUp]
         public void setup()
-        {
-            var finder = MockRepository.GenerateMock<ISpecFinder>();
+        { 
+            finder = MockRepository.GenerateMock<ISpecFinder>();
+
+            finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(new[] { typeof(child), typeof(parent), typeof(sibling) });
 
             finder.Stub(f => f.Except).Return(new SpecFinder().Except);
 
-            var builder = new ContextBuilder(finder);
-
-            classContext = new Context("class");
-
-            builder.BuildMethodContexts(classContext,typeof(SpecClass));
+            context = new ContextBuilder2(finder);
         }
 
         [Test]
-        public void it_should_add_the_public_method_as_a_sub_context()
+        public void should_get_specs_from_specFinder()
         {
-            classContext.Contexts.should_contain(c => c.Name == "public_method");
+            finder.AssertWasCalled(f => f.SpecClasses());
         }
 
         [Test]
-        public void it_should_not_create_a_sub_context_for_the_private_method()
+        public void should_pass_the_filter_to_specFinder()
         {
-            classContext.Contexts.should_not_contain(c => c.Name == "private_method");
+            var filter = "spec_filter";
+
+            context = new ContextBuilder2(finder,filter);
+
+            finder.AssertWasCalled(f=>f.SpecClasses(filter));
+        }
+
+        [Test]
+        public void the_primary_context_should_be_parent()
+        {
+            context.First().Name.should_be(typeof(parent).Name);
+        }
+
+        [Test]
+        public void the_child_should_have_a_context()
+        {
+            context.First().Contexts.First().Name.should_be(typeof(child).Name);
+        }
+
+        [Test]
+        public void it_should_only_have_the_parent_once()
+        {
+            context.Count().should_be(1);
+        }
+
+        [Test]
+        public void it_should_have_the_sibling()
+        {
+            context.First().Contexts.should_contain(c=>c.Name==typeof(sibling).Name);
         }
     }
 }

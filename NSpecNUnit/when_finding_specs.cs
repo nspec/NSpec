@@ -6,6 +6,21 @@ using Rhino.Mocks;
 
 namespace NSpecNUnit
 {
+    public class SpecClass : spec
+    {
+        public void public_method() { }
+        private void private_method() { }
+    }
+    public class AnotherSpecClass : spec 
+    {
+        public void public_method() { }
+    }
+    public class NonSpecClass{}
+    public class SpecClassWithNoPublicMethods : spec 
+    {
+        private void private_method() { }
+    }
+
     [TestFixture]
     public class when_finding_specs
     {
@@ -58,6 +73,22 @@ namespace NSpecNUnit
             GivenDllContains(typeof(NonSpecClass));
 
             finder.SpecClasses().should_be_empty();
+        }
+
+        [Test]
+        public void it_should_filter_in()
+        {
+            GivenDllContains(typeof(AnotherSpecClass));
+
+            finder.SpecClasses("AnotherSpecClass").should_contain(typeof(AnotherSpecClass));
+        }
+
+        [Test]
+        public void it_should_filter_out()
+        {
+            GivenDllContains(typeof(SpecClass));
+
+            finder.SpecClasses("AnotherClass").should_be_empty();
         }
     }
 }
