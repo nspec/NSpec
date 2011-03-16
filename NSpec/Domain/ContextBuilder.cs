@@ -13,54 +13,37 @@ namespace NSpec.Domain
             Contexts = new List<Context>();
         }
 
-        public void Build()
-        {
-            finder.SpecClasses().Do(Run);
-        }
-
         public void Run()
         {
             Execute(finder.SpecClasses());
         }
 
-        public void Run(string class_filter)
+        public void Run(string classFilter)
         {
-            if(finder.SpecClasses().Any(c => c.Name == class_filter))
-                Execute(finder.SpecClasses().Where(c => c.Name == class_filter));
+            if(finder.SpecClasses().Any(c => c.Name == classFilter))
+                Execute(finder.SpecClasses().Where(c => c.Name == classFilter));
             else
                 Run();
         }
 
-        private void Run(Type specClass)
+        private void Build(Type specClass)
         {
             var root = specClass.RootContext();
-
-            var spec = specClass.Instance<spec>();
-
-            root.SetInstanceContext(spec);
 
             var classContext = root.SelfAndDescendants().First(c => c.Type == specClass);
 
             Contexts.Add(classContext);
 
+            BuildMethodContexts(classContext, specClass);
+        }
+
+        public void BuildMethodContexts(Context classContext, Type specClass)
+        {
             specClass.Methods(finder.Except).Do(contextMethod =>
             {
-                var methodContext = new Context(contextMethod.Name);
+                var methodContext = new Context(contextMethod);
 
                 classContext.AddContext(methodContext);
-
-                spec.Context = methodContext;
-
-                try
-                {
-                    contextMethod.Invoke(spec, null);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Exception executing context: {0}".With(methodContext.Name));
-
-                    throw e;
-                }
             });
         }
 
@@ -70,7 +53,9 @@ namespace NSpec.Domain
 
             try
             {
-                specClasses.Do(Run);
+                specClasses.Do(Build);
+
+                Contexts.Do(c => c.Run());
 
                 if (Failures().Count() == 0)
                     Contexts.Where(c => c.Examples.Count() > 0 || c.Contexts.Count() > 0).Do(e => e.Print());

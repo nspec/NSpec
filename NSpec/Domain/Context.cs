@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using NSpec.Extensions;
-using NSpec.Interpreter.Indexer;
 
 namespace NSpec.Domain
 {
     public class Context
     {
         public Type Type { get; set; }
-        private readonly Action<spec> beforeInstance;
 
         public void AddExample(Example example)
         {
@@ -79,6 +78,14 @@ namespace NSpec.Domain
             Examples = new List<Example>();
             Contexts = new List<Context>();
         }
+
+        public Context(MethodInfo method) : this(method.Name,0)
+        {
+            Method = method;
+        }
+
+        protected MethodInfo Method { get; set; }
+
         public string Name { get; set; }
         public int Level { get; set; }
         public List<Example> Examples { get; set; }
@@ -107,12 +114,45 @@ namespace NSpec.Domain
         public void SetInstanceContext(spec instance)
         {
             if (BeforeInstance != null) Before = () => BeforeInstance(instance);
-            Contexts.Do(c => c.SetInstanceContext(instance));
+
+            if(Parent!=null) Parent.SetInstanceContext(instance);
         }
 
         public IEnumerable<Context> SelfAndDescendants()
         {
             return new[] { this }.Concat(Contexts.SelectMany(c => c.SelfAndDescendants()));
+        }
+
+        public void Run()
+        {
+            Contexts.Do(c => c.Run());
+
+            if (Method != null)
+            {
+                var instance = GetSpecType().Instance<spec>();
+
+                SetInstanceContext(instance);
+
+                instance.Context = this;
+
+                try
+                {
+                    Method.Invoke(instance, null);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception executing context: {0}".With(Method.Name));
+
+                    throw e;
+                }
+            }
+        }
+
+        private Type GetSpecType()
+        {
+            if (Type != null) return Type;
+
+            return Parent.GetSpecType();
         }
     }
 }

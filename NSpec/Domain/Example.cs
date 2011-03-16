@@ -54,7 +54,6 @@ namespace NSpec.Domain
             }
 
             context.Afters();
-
         }
     }
 }

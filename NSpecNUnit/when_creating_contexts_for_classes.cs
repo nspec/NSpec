@@ -59,7 +59,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
-    public class when_setting_the_instance_context
+    public class when_setting_the_instance_context_on_the_child
     {
         [SetUp]
         public void setup()
@@ -68,23 +68,23 @@ namespace NSpecNUnit
 
             instance = new child();
 
-            context.SetInstanceContext(instance);
+            context.Contexts.First().SetInstanceContext(instance);
         }
 
         [Test]
         public void should_set_the_proper_before()
         {
-            context.Before();
-
-            instance.beforeResult.should_be("parent");
-        }
-
-        [Test]
-        public void it_should_also_set_the_proper_before_on_children()
-        {
             context.Contexts.First().Before();
 
             instance.beforeResult.should_be("child");
+        }
+
+        [Test]
+        public void it_should_also_set_the_proper_before_on_ancestors()
+        {
+            context.Before();
+
+            instance.beforeResult.should_be("parent");
         }
 
         private Context context;
