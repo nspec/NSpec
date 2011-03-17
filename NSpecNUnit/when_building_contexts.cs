@@ -35,23 +35,13 @@ namespace NSpecNUnit.when_building_contexts
         }
 
         [Test]
-        public void should_pass_the_filter_to_specFinder()
-        {
-            var filter = "spec_filter";
-
-            builder = new ContextBuilder(finder,filter);
-
-            finder.AssertWasCalled(f=>f.SpecClasses());
-        }
-
-        [Test]
         public void the_primary_context_should_be_parent()
         {
             builder.Contexts().First().Name.should_be(typeof(parent).Name);
         }
 
         [Test]
-        public void the_child_should_have_a_context()
+        public void the_parent_should_have_the_child_context()
         {
             builder.Contexts().First().Contexts.First().Name.should_be(typeof(child).Name);
         }

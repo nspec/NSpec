@@ -7,7 +7,7 @@ namespace NSpec.Domain
 {
     public class ContextBuilder : IContextBuilder
     {
-        public ContextBuilder(ISpecFinder finder, string spec = "")
+        public ContextBuilder(ISpecFinder finder)
         {
             this.finder = finder;
 
