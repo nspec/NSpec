@@ -26,9 +26,11 @@ namespace NSpec.Domain
 
                 Contexts.Do(c => c.Run());
 
-                if (Failures().Count() == 0)
-                    Contexts.Where(c => c.Examples.Count() > 0 || c.Contexts.Count() > 0).Do(e => e.Print());
-                else
+                var formatter = new ConsoleFormatter();
+
+                formatter.Write(Contexts);
+
+                if (Failures().Count() > 0)
                     Failures().First().Print();
 
                 Summarize(Failures().Count());

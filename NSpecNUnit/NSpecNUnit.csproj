@@ -53,6 +53,7 @@
     <Compile Include="when_counting_failures.cs" />
     <Compile Include="when_finding_specs.cs" />
     <Compile Include="when_creating_contexts_for_classes.cs" />
+    <Compile Include="when_formatting_console_output.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
