@@ -11,7 +11,7 @@ namespace NSpec.Domain
 
         public string Write(Context context, int level = 1)
         {
-            var result = context.Name;
+            var result = context.Name.Replace("_", " ");
 
             context.Examples.Do(e => result += Write(e, level));
 
@@ -53,7 +53,7 @@ namespace NSpec.Domain
 
         private string WriteFailure(Example example)
         {
-            var failure = example.FullSpec() + Environment.NewLine;
+            var failure = example.FullSpec().Replace("_"," ") + Environment.NewLine;
 
             failure += example.Exception + Environment.NewLine + Environment.NewLine;
 

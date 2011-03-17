@@ -17,7 +17,7 @@ namespace NSpecNUnit
         [Test]
         public void given_a_context()
         {
-            formatter.Write(new Context("hello world")).should_be_of_form("hello world");
+            formatter.Write(new Context("hello_world")).should_be_of_form("hello world");
         }
 
         [Test]

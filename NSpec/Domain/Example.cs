@@ -63,7 +63,7 @@ namespace NSpec.Domain
 
         private string fullContext;
 
-        public object FullSpec()
+        public string FullSpec()
         {
             return fullContext + " - " + Spec;
         }
