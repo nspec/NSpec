@@ -26,6 +26,8 @@ namespace SampleSpecs.Demo
             }.Do((given, expected) =>
                 specify["{0} should be {1}".With(given, expected)] = () => Primes(given).should_be(expected)
                 );
+
+            xspecify("almost");
         }
 
         private IEnumerable<int> Primes(int num)

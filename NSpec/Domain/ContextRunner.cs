@@ -29,23 +29,11 @@ namespace NSpec.Domain
                 var formatter = new ConsoleFormatter();
 
                 formatter.Write(Contexts);
-
-                if (Failures().Count() > 0)
-                    Failures().First().Print();
-
-                Summarize(Failures().Count());
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-
-                Summarize(Failures().Count() > 0 ? Failures().Count() : 1);
             }
-        }
-
-        private void Summarize(int failures)
-        {
-            Console.WriteLine( string.Format("{0} Examples, {1} Failures", Examples().Count(), failures));
         }
 
         public IEnumerable<Example> Examples()

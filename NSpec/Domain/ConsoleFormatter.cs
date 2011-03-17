@@ -1,33 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NSpec.Extensions;
 
 namespace NSpec.Domain
 {
     public class ConsoleFormatter
     {
-        public ConsoleFormatter()
-        {
-        }
+        private string indent = "  ";
 
-        public string Write(Context context, int times=1)
+        public string Write(Context context, int level = 1)
         {
             var result = context.Name;
 
-            context.Examples.Do(e => 
-            {
-                var failure = e.Exception == null ? "" : " - FAILED - {0}".With(e.Exception.Message.Replace(Environment.NewLine,", ").Trim());
-                result += Environment.NewLine + "\t".Times(times) + e.Spec + failure;
-            });
+            context.Examples.Do(e => result += Write(e, level));
 
-            context.Contexts.Do(c => result += Environment.NewLine + "\t".Times(times) + Write(c,times+1));
+            context.Contexts.Do(c => result += Environment.NewLine + indent.Times(level) + Write(c, level + 1));
 
             return result;
         }
 
+        public string Write(Example e, int level = 1)
+        {
+            var failure = e.Exception == null ? "" : " - FAILED - {0}".With(e.Exception.Message.Replace(Environment.NewLine, ", ").Trim());
+
+            var whiteSpace = Environment.NewLine + indent.Times(level);
+
+            return e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failure;
+        }
+
         public void Write(IList<Context> contexts)
         {
-            contexts.Do( c=> Console.WriteLine(Write(c)));
+            contexts.Do(c => Console.WriteLine(Write(c)));
+
+            Console.WriteLine();
+
+            Console.WriteLine(FailureSummary(contexts));
+
+            Console.WriteLine(Summary(contexts));
+        }
+
+        private string FailureSummary(IList<Context> contexts)
+        {
+            if (contexts.SelectMany(c => c.Failures()).Count() == 0) return Environment.NewLine;
+
+            var summary = "**** FAILURES ****" + Environment.NewLine + Environment.NewLine;
+
+            contexts.SelectMany(c => c.Failures()).Do(f => summary += WriteFailure(f));
+
+            return summary;
+        }
+
+        private string WriteFailure(Example example)
+        {
+            var failure = example.FullSpec() + Environment.NewLine;
+
+            failure += example.Exception + Environment.NewLine + Environment.NewLine;
+
+            return failure;
+        }
+
+        public string Summary(IList<Context> contexts)
+        {
+            return "{0} Examples, {1} Failed, {2} Pending".With(
+                contexts.SelectMany(c => c.AllExamples()).Count(),
+                contexts.SelectMany(c => c.Failures()).Count(),
+                contexts.SelectMany(c => c.AllPendings()).Count()
+            );
         }
     }
 }

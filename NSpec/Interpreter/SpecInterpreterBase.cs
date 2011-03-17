@@ -16,9 +16,9 @@ namespace NSpec.Interpreter
             example.Run(Context);
         }
 
-        protected void xspecify(string pending)
+        protected void xspecify(string name)
         {
-            Console.WriteLine("PENDING - {0}".With(pending));
+            Context.AddExample(new Example(name,pending:true));
         }
 
         protected void xit(string pending)

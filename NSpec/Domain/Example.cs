@@ -6,10 +6,13 @@ namespace NSpec.Domain
 {
     public class Example
     {
-        public Example(string spec)
+        public Example(string spec, bool pending=false)
         {
             Spec = spec;
+            Pending = pending;
         }
+
+        public bool Pending { get; set; }
 
         public override string ToString()
         {
@@ -40,6 +43,8 @@ namespace NSpec.Domain
 
         public void Run(Context context)
         {
+            fullContext = context.FullContext();
+
             context.Befores();
 
             context.Acts();
@@ -54,6 +59,13 @@ namespace NSpec.Domain
             }
 
             context.Afters();
+        }
+
+        private string fullContext;
+
+        public object FullSpec()
+        {
+            return fullContext + " - " + Spec;
         }
     }
 }
