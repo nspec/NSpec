@@ -24,7 +24,7 @@ namespace NSpecNUnit
 
             finder.Stub(f => f.Except).Return(new SpecFinder().Except);
 
-            var builder = new ContextBuilder(finder);
+            var builder =  new ContextBuilder( finder);
 
             classContext = new Context("class");
 

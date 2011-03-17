@@ -1,9 +1,7 @@
-using System;
 using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NSpec.Extensions;
-using NSpec.Interpreter.Indexer;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -16,9 +14,6 @@ namespace NSpecNUnit.when_building_contexts
     [TestFixture]
     public class when_building_contexts
     {
-        private ISpecFinder finder;
-        private ContextBuilder2 context;
-
         [SetUp]
         public void setup()
         { 
@@ -28,7 +23,9 @@ namespace NSpecNUnit.when_building_contexts
 
             finder.Stub(f => f.Except).Return(new SpecFinder().Except);
 
-            context = new ContextBuilder2(finder);
+            builder = new ContextBuilder(finder);
+
+            builder.Contexts();
         }
 
         [Test]
@@ -42,33 +39,36 @@ namespace NSpecNUnit.when_building_contexts
         {
             var filter = "spec_filter";
 
-            context = new ContextBuilder2(finder,filter);
+            builder = new ContextBuilder(finder,filter);
 
-            finder.AssertWasCalled(f=>f.SpecClasses(filter));
+            finder.AssertWasCalled(f=>f.SpecClasses());
         }
 
         [Test]
         public void the_primary_context_should_be_parent()
         {
-            context.First().Name.should_be(typeof(parent).Name);
+            builder.Contexts().First().Name.should_be(typeof(parent).Name);
         }
 
         [Test]
         public void the_child_should_have_a_context()
         {
-            context.First().Contexts.First().Name.should_be(typeof(child).Name);
+            builder.Contexts().First().Contexts.First().Name.should_be(typeof(child).Name);
         }
 
         [Test]
         public void it_should_only_have_the_parent_once()
         {
-            context.Count().should_be(1);
+            builder.Contexts().Count().should_be(1);
         }
 
         [Test]
         public void it_should_have_the_sibling()
         {
-            context.First().Contexts.should_contain(c=>c.Name==typeof(sibling).Name);
+            builder.Contexts().First().Contexts.should_contain(c=>c.Name==typeof(sibling).Name);
         }
+
+        private ISpecFinder finder;
+        private ContextBuilder builder;
     }
 }

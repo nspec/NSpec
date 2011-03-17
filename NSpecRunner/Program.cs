@@ -10,15 +10,15 @@ namespace ConsoleApplication1
         {
             try
             {
-                var finder = new SpecFinder(args[0], new Reflector());
+                var classFilter = args.Length > 1 ? args[1] : "";
 
-                if (args.Length > 1)
-                    new ContextBuilder(finder).Run(args[1]);
-                else if (args.Length == 1)
-                    new ContextBuilder(finder).Run();
-                else
-                    //new ContextBuilder(new SpecFinder(@"c:\users\amir\nspec\samplespecs\bin\debug\samplespecs.dll", new Reflector())).Run();
-                    new ContextBuilder(new SpecFinder(@"C:\Development\GameTrader\GameTrader.Specs\bin\Debug\GameTrader.Specs.dll", new Reflector())).Run();
+                var finder = new SpecFinder(args[0], new Reflector(), classFilter);
+
+                var builder = new ContextBuilder(finder);
+
+                new ContextRunner(builder).Run();
+
+                //new ContextRunner(new ContextBuilder(new SpecFinder(@"C:\Development\GameTrader\GameTrader.Specs\bin\Debug\GameTrader.Specs.dll", new Reflector()))).Run();
             }
             catch (Exception e)
             {

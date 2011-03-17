@@ -7,13 +7,15 @@ namespace NSpec
 {
     public class SpecFinder : ISpecFinder
     {
-        public IEnumerable<Type> SpecClasses(string filter = "")
+        private readonly string classFilter;
+
+        public IEnumerable<Type> SpecClasses()
         {
             return Types
                 .Where(t => t.IsClass
                     && BaseTypes(t).Any(s => s == typeof(spec))
                     && t.Methods(Except).Count() > 0
-                    && (string.IsNullOrEmpty(filter) || t.Name == filter));
+                    && (string.IsNullOrEmpty(classFilter) || t.Name == classFilter));
         }
 
         public IEnumerable<Type> BaseTypes(Type type)
@@ -36,9 +38,10 @@ namespace NSpec
             Except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context", "get_Context" });
         }
 
-        public SpecFinder(string specDLL, IReflector reflector)
+        public SpecFinder(string specDLL, IReflector reflector, string classFilter="")
             : this()
         {
+            this.classFilter = classFilter;
             Types = reflector.GetTypesFrom(specDLL);
         }
 
@@ -49,7 +52,7 @@ namespace NSpec
 
     public interface ISpecFinder
     {
-        IEnumerable<Type> SpecClasses(string filter = "");
+        IEnumerable<Type> SpecClasses();
         IEnumerable<string> Except { get; set; }
     }
 }

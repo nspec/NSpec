@@ -5,34 +5,34 @@ using NSpec.Extensions;
 
 namespace NSpec.Domain
 {
-    public class ContextBuilder
+    public class ContextBuilder : IContextBuilder
     {
-        public ContextBuilder(ISpecFinder finder)
+        public ContextBuilder(ISpecFinder finder, string spec = "")
         {
             this.finder = finder;
-            Contexts = new List<Context>();
+
+            contexts = new List<Context>();
         }
 
-        public void Run()
+        public IList<Context> Contexts()
         {
-            Execute(finder.SpecClasses());
-        }
-
-        public void Run(string classFilter)
-        {
-            if(finder.SpecClasses().Any(c => c.Name == classFilter))
-                Execute(finder.SpecClasses().Where(c => c.Name == classFilter));
-            else
-                Run();
+            contexts.Clear();
+            finder.SpecClasses().Do(Build);
+            return contexts;
         }
 
         private void Build(Type specClass)
         {
             var root = specClass.RootContext();
 
+            var parent = contexts.FirstOrDefault(c=>c.Name==root.Name);
+
             var classContext = root.SelfAndDescendants().First(c => c.Type == specClass);
 
-            Contexts.Add(classContext);
+            if(parent == null) 
+                contexts.Add(root);
+            else
+                parent.AddContext(classContext);
 
             BuildMethodContexts(classContext, specClass);
         }
@@ -40,55 +40,20 @@ namespace NSpec.Domain
         public void BuildMethodContexts(Context classContext, Type specClass)
         {
             specClass.Methods(finder.Except).Do(contextMethod =>
-            {
-                var methodContext = new Context(contextMethod);
+                                                    {
+                                                        var methodContext = new Context(contextMethod);
 
-                classContext.AddContext(methodContext);
-            });
+                                                        classContext.AddContext(methodContext);
+                                                    });
         }
-
-        private void Execute(IEnumerable<Type> specClasses)
-        {
-            Contexts.Clear();
-
-            try
-            {
-                specClasses.Do(Build);
-
-                Contexts.Do(c => c.Run());
-
-                if (Failures().Count() == 0)
-                    Contexts.Where(c => c.Examples.Count() > 0 || c.Contexts.Count() > 0).Do(e => e.Print());
-                else
-                    Failures().First().Print();
-
-                Summarize(Failures().Count());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-
-                Summarize(Failures().Count() > 0 ? Failures().Count() : 1);
-            }
-        }
-
-        private void Summarize(int failures)
-        {
-            Console.WriteLine( string.Format("{0} Examples, {1} Failures", Examples().Count(), failures));
-        }
-
-        public IEnumerable<Example> Examples()
-        {
-            return Contexts.SelectMany(c => c.AllExamples());
-        }
-
-        public IEnumerable<Example> Failures()
-        {
-            return Contexts.SelectMany(c => c.Failures());
-        }
-
-        public IList<Context> Contexts{get;set;}
 
         private readonly ISpecFinder finder;
+
+        private IList<Context> contexts;
+    }
+
+    public interface IContextBuilder
+    {
+        IList<Context> Contexts();
     }
 }

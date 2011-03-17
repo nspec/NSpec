@@ -22,27 +22,12 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
-    public class when_finding_specs
+    public class without_filtering : when_finding_specs
     {
-        private ISpecFinder finder;
-        private IReflector reflector;
-        private string someDLL;
-
         [SetUp]
         public void setup()
         {
             GivenDllContains();
-        }
-
-        private void GivenDllContains(params Type[] types)
-        {
-            reflector = MockRepository.GenerateMock<IReflector>();
-
-            reflector.Stub(r => r.GetTypesFrom("")).IgnoreArguments().Return(types);
-
-            someDLL = "an nspec project dll";
-
-            finder = new SpecFinder(someDLL, reflector);
         }
 
         [Test]
@@ -74,13 +59,18 @@ namespace NSpecNUnit
 
             finder.SpecClasses().should_be_empty();
         }
+    }
 
+    public class when_filtering_specs : when_finding_specs
+    {
         [Test]
         public void it_should_filter_in()
         {
             GivenDllContains(typeof(AnotherSpecClass));
 
-            finder.SpecClasses("AnotherSpecClass").should_contain(typeof(AnotherSpecClass));
+            GivenFilter(typeof(AnotherSpecClass).Name);
+
+            finder.SpecClasses().should_contain(typeof(AnotherSpecClass));
         }
 
         [Test]
@@ -88,7 +78,32 @@ namespace NSpecNUnit
         {
             GivenDllContains(typeof(SpecClass));
 
-            finder.SpecClasses("AnotherClass").should_be_empty();
+            GivenFilter(typeof(AnotherSpecClass).Name);
+
+            finder.SpecClasses().should_be_empty();
         }
+    }
+
+    public class when_finding_specs
+    {
+        protected void GivenDllContains(params Type[] types)
+        {
+            reflector = MockRepository.GenerateMock<IReflector>();
+
+            RhinoMocksExtensions.Stub(reflector, r => r.GetTypesFrom("")).IgnoreArguments().Return(types);
+
+            someDLL = "an nspec project dll";
+
+            finder = new SpecFinder(someDLL, reflector);
+        }
+
+        protected void GivenFilter(string filter)
+        {
+            finder = new SpecFinder(someDLL, reflector, filter);
+        }
+
+        protected ISpecFinder finder;
+        protected IReflector reflector;
+        protected string someDLL;
     }
 }
