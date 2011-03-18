@@ -35,12 +35,27 @@ namespace NSpec.Extensions
         }
 
         /// <summary>
-        /// Action(T) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
+        /// Action(T) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be executed across a common set of examples.
         /// </summary>
         public static IEnumerable<T> Do<T>(this IEnumerable<T> source, Action<T> action)
         {
             foreach (var t in source)
                 action(t);
+
+            return source;
+        }
+
+        /// <summary>
+        /// Action(T, T) will get executed for each consecutive 2 items in a list.  You can use this to specify a suite of data that needs to be executed across a common set of examples.
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<T> EachConsecutive2<T>(this IEnumerable<T> source, Action<T, T> action)
+        {
+            var array = source.ToArray();
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                action(array[i], array[i + 1]);
+            }
 
             return source;
         }
