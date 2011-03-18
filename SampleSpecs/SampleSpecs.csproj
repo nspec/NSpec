@@ -48,6 +48,11 @@
     <Compile Include="Demo\prime_kata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Demo\User.cs" />
+    <Compile Include="WebSite\describe_PrimeFactors.cs" />
+    <Compile Include="WebSite\multiple_befores.cs" />
+    <Compile Include="WebSite\my_first_test.cs" />
+    <Compile Include="WebSite\my_second_test.cs" />
+    <Compile Include="WebSite\simple_before.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
