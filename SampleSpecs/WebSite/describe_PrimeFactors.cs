@@ -1,6 +1,7 @@
 ﻿using NSpec;
 using NSpec.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 
 public class describe_PrimeFactors : spec
 {
@@ -26,10 +27,11 @@ public class describe_PrimeFactors : spec
 
     private IEnumerable<int> Primes(int number)
     {
-        List<int> results = new List<int>();
+        if (number == 1) return new int[] { };
 
-        
+        for (int i = 2; i < number; i++)
+            if (number % i == 0) return new[] { i }.Concat(Primes(number / i));
 
-        return results;
+        return new[] { number };
     }
 }

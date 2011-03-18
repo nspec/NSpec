@@ -34,6 +34,9 @@ namespace NSpec.Extensions
             Console.WriteLine(o.ToString());
         }
 
+        /// <summary>
+        /// Action(T) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
+        /// </summary>
         public static IEnumerable<T> Do<T>(this IEnumerable<T> source, Action<T> action)
         {
             foreach (var t in source)
@@ -42,18 +45,46 @@ namespace NSpec.Extensions
             return source;
         }
 
+        /// <summary>
+        /// Action(T, U) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
+        /// </summary>
         public static void Do<T, U>(this Tuples<T, U> source, Action<T, U> action)
         {
             foreach (var tup in source)
                 action(tup.Item1, tup.Item2);
         }
 
+        /// <summary>
+        /// Action(T, U) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
+        /// </summary>
         public static void Do<T, U>(this Dictionary<T, U> source, Action<T, U> action)
         {
             foreach (var kvp in source)
                 action(kvp.Key, kvp.Value);
         }
 
+        /// <summary>
+        /// Action(T, U, V) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
+        /// </summary>
+        public static void Do<T, U, V>(this Tuples<T, U, V> source, Action<T, U, V> action)
+        {
+            foreach (var tup in source)
+                action(tup.Item1, tup.Item2, tup.Item3);
+        }
+
+        /// <summary>
+        /// Action(T, U, V, W) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
+        /// </summary>
+        public static void Do<T, U, V, W>(this Tuples<T, U, V, W> source, Action<T, U, V, W> action)
+        {
+            foreach (var tup in source)
+                action(tup.Item1, tup.Item2, tup.Item3, tup.Item4);
+        }
+
+        /// <summary>
+        /// Extension method that wraps String.Format.
+        /// <para>Usage: string result = "{0} {1}".With("hello", "world");</para>
+        /// </summary>
         public static string With(this string source, params object[] objects)
         {
             var o = Sanitize(objects);
@@ -79,7 +110,5 @@ namespace NSpec.Extensions
                 return o.ToString();
             }).ToArray();
         }
-
-
     }
 }
