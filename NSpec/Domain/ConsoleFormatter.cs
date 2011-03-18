@@ -22,11 +22,20 @@ namespace NSpec.Domain
 
         public string Write(Example e, int level = 1)
         {
-            var failure = e.Exception == null ? "" : " - FAILED - {0}".With(e.Exception.Message.Replace(Environment.NewLine, ", ").Trim());
+            var failure = e.Exception == null ? "" : " - FAILED - {0}".With(WriteException(e));
 
             var whiteSpace = Environment.NewLine + indent.Times(level);
 
             return e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failure;
+        }
+
+        private string WriteException(Example e)
+        {
+            var exc = e.Exception.Message.Trim().Replace(Environment.NewLine, ", ").Trim();
+
+            while (exc.Contains("  ")) exc=exc.Replace("  ", " ");
+
+            return exc;
         }
 
         public void Write(IList<Context> contexts)
@@ -53,7 +62,7 @@ namespace NSpec.Domain
 
         private string WriteFailure(Example example)
         {
-            var failure = example.FullSpec().Replace("_"," ") + Environment.NewLine;
+            var failure = example.FullSpec().Replace("_", " ") + Environment.NewLine;
 
             failure += example.Exception + Environment.NewLine + Environment.NewLine;
 
