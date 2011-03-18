@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>nspec</id>
-    <version>0.5.5</version>
+    <version>0.9.1</version>
     <authors>Matt Florence, Amir Rajan</authors>
     <owners>Matt Florence, Amir Rajan</owners>
     <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
@@ -16,6 +16,5 @@
     <file src="NSpecRunner/bin/Debug/*.*" target="tools/" />
     <file src="NSpec/bin/debug/NSpec.dll" target="lib/NSpec.dll" />
     <file src="NSpec/bin/debug/nunit.framework.dll" target="lib/nunit.framework.dll" />
-
   </files>
 </package>
