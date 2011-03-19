@@ -92,5 +92,10 @@ namespace NSpec.Assertions
         {
             CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());
         }
+
+        public static T cast_to<T>(this object valueToCast)
+        {
+            return (T)valueToCast;
+        }
     }
 }

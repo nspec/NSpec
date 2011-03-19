@@ -66,6 +66,15 @@ namespace NSpec
         /// </summary>
         protected ActionRegister it;
 
+        /// <summary>
+        /// This is your pending examples registry.  If you have an example already specified that you want to ignore,
+        /// do so by putting the letter x infront of it.
+        /// <para>For Example:</para>
+        /// <para>xit["should return false"] = () => _controller.should_be(false);</para>
+        /// <para>(the example will be marked as pending any lambda provided will not be executed)</para>
+        /// </summary>
+        protected ActionRegister xit;
+
         public spec()
         {
             context = new ActionRegister(AddContext);
@@ -73,6 +82,7 @@ namespace NSpec
 
             specify = new ActionRegister((name, action) => Exercise(new Example(name), action));
             it = new ActionRegister((name, action) => Exercise(new Example(name), action));
+            xit = new ActionRegister((name, action) => Pending(new Example(name, pending: true)));
         }
     }
 }
