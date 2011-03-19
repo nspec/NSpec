@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using NSpec;
-using Rhino.Mocks;
 using NSpec.Domain;
+using Rhino.Mocks;
 using NSpec.Extensions;
 
 namespace NSpecNUnit
 {
     [TestFixture]
-    public class describe_method_level_befores
+    public class describe_x_it
     {
         private class SpecClass : spec
         {
@@ -20,11 +20,9 @@ namespace NSpecNUnit
 
             public void method_level_context()
             {
-                before = MethodLevelBefore;
-
-                context["sub context"] = () => 
+                xit["should be pending"] = () =>
                 {
-                    before = SubContextBefore;
+
                 };
             }
         }
@@ -52,20 +50,9 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_should_set_method_level_before()
+        public void should_contain_pending_test()
         {
-            TheMethodLevelContext().Before.should_be(SpecClass.MethodLevelBefore);
-        }
-
-        [Test]
-        public void it_should_set_before_on_sub_context()
-        {
-            TheMethodLevelContext().Contexts.First().Before.should_be(SpecClass.SubContextBefore);
-        }
-
-        public Context TheMethodLevelContext()
-        {
-            return classContext.Contexts.First();
+            classContext.Contexts.First().AllPendings().Count().should_be(1);
         }
     }
 }
