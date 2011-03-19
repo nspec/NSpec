@@ -89,7 +89,7 @@ namespace NSpec
 
             specify = new ActionRegister((name, action) => Exercise(new Example(name), action));
             it = new ActionRegister((name, action) => Exercise(new Example(name), action));
-            xit = new ActionRegister((name, action) => Pending(new Example(name, todo: true)));
+            xit = new ActionRegister((name, action) => Pending(new Example(name, pending: true)));
         }
     }
 }
