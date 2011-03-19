@@ -14,6 +14,8 @@ namespace ConsoleApplication1
 
                 var finder = new SpecFinder(args[0], new Reflector(), classFilter);
 
+                //var finder = new SpecFinder(@"C:\Development\GameTrader\GameTrader.Specs\bin\Debug\GameTrader.Specs.dll", new Reflector(), "desribe_AuthenticationController");
+
                 var builder = new ContextBuilder(finder);
 
                 new ContextRunner(builder).Run();

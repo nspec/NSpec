@@ -16,7 +16,7 @@ namespace SampleSpecs.Demo
 
         public void it_should_run_before_on_class_level()
         {
-            before.each = () => ints.Add(12);
+            before = () => ints.Add(12);
             
             specify(() => ints.Count.should_be(1));
         }

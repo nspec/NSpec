@@ -41,9 +41,6 @@ namespace NSpec.Domain
 
             if (Before != null)
                 Before();
-
-            if (BeforeFrequency == "all")
-                Before = null;
         }
 
         public void Acts()
@@ -53,9 +50,6 @@ namespace NSpec.Domain
 
             if (Act != null)
                 Act();
-
-            if (ActFrequency == "all")
-                Act = null;
         }
 
         public IEnumerable<Example> AllExamples()
@@ -63,9 +57,9 @@ namespace NSpec.Domain
             return Contexts.SelectMany(c => c.AllExamples()).Union(Examples);
         }
 
-        public Context(string name) :this(name,0) { }
+        public Context(string name) : this(name,0) { }
 
-        public Context(Type type) :this(type.Name,0)
+        public Context(Type type) : this(type.Name,0)
         {
             Type = type;
             BeforeInstance = type.GetBefore();
@@ -94,9 +88,6 @@ namespace NSpec.Domain
         public Action Act { get; set; }
         public Action After { get; set; }
         public Context Parent { get; set; }
-        public string AfterFrequency { get; set; }
-        public string BeforeFrequency { get; set; }
-        public string ActFrequency { get; set; }
 
         public IEnumerable<Example> Failures()
         {

@@ -9,7 +9,7 @@ public class simple_before : spec
 
     public void list_manipulation()
     {
-        before.each = () => ints = new List<int>();
+        before = () => ints = new List<int>();
 
         it["the ints collection should not be null"] = () => ints.should_not_be_null();
     }

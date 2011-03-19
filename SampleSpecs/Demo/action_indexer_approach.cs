@@ -10,19 +10,19 @@ namespace SampleSpecs.Demo
 
         public void a_user()
         {
-            before.all = () => user = new User();
+            before = () => user = new User();
 
             specify(() => user.Id.should_not_be_default());
 
             context["user is admin"] = () =>
             {
-                before.each = () => user.Admin = true;
+                before = () => user.Admin = true;
 
                 specify(() => user.Admin.should_be_true());
 
                 context["user is terminated"] = () =>
                 {
-                    before.each = () => user.Terminated = true;
+                    before = () => user.Terminated = true;
 
                     specify(() => user.Terminated.should_be_true());
                 };

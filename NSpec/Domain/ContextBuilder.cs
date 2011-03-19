@@ -39,12 +39,13 @@ namespace NSpec.Domain
 
         public void BuildMethodContexts(Context classContext, Type specClass)
         {
-            specClass.Methods(finder.Except).Do(contextMethod =>
-                                                    {
-                                                        var methodContext = new Context(contextMethod);
+            specClass.Methods(finder.Except).Do(
+                contextMethod =>
+                {
+                    var methodContext = new Context(contextMethod);
 
-                                                        classContext.AddContext(methodContext);
-                                                    });
+                    classContext.AddContext(methodContext);
+                });
         }
 
         private readonly ISpecFinder finder;

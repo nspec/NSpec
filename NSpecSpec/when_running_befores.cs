@@ -34,7 +34,7 @@ namespace NSpecSpec
                 //given["the first child's befores have executed"] = () => firstChild.Befores();
                 context["the siblings befores execute"] = () =>
                 {
-                    before.each = () => sibling.Befores();
+                    before = () => sibling.Befores();
 
                     specify(() => executionOrder.should_be(new[] { "grandParent", "sibling" }));
                 };
@@ -55,8 +55,6 @@ namespace NSpecSpec
             var context = new Context(name);
 
             context.Before = () => executionOrder.Add(name);
-
-            context.BeforeFrequency = "each";
 
             return context;
         }

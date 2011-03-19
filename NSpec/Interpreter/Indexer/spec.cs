@@ -1,6 +1,7 @@
 using NSpec.Domain;
 using NSpec.Interpreter;
 using NSpec.Interpreter.Indexer;
+using System;
 
 namespace NSpec
 {
@@ -17,18 +18,30 @@ namespace NSpec
         /// <para>before.each = () => someList = new List&lt;int&gt;();</para>
         /// <para>The before.each can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspecdriven.net</para>
         /// </summary>
-        protected ActionRegister before;
+        protected Action before
+        {
+            get { return Context.Before; }
+            set { Context.Before = value; }
+        }
 
         /// <summary>
         /// In development.
         /// </summary>
-        protected ActionRegister after;
+        protected Action after
+        {
+            get { return Context.After; }
+            set { Context.After = value; }
+        }
 
         /// <summary>
         /// Assign this member within your context.  The Action that is assigned to this member variable will get executed
         /// with ever example in scope.  Befores will run first, then Acts will run, then your examples will be executed.  It's a way for you to specify a common Act in Arrange-Act-Assert.  For more information visit http://www.nspecdriven.net
         /// </summary>
-        protected ActionRegister act;
+        protected Action act
+        {
+            get { return Context.Act; }
+            set { Context.Act = value; }
+        }
 
         /// <summary>
         /// This is your context registry.  Use this to create sub contexts within your methods.
@@ -57,29 +70,11 @@ namespace NSpec
 
         public spec()
         {
-            before = new ActionRegister( (f,b) =>
-            {
-                Context.BeforeFrequency = f;
-                Context.Before = b;
-            });
-
-            after = new ActionRegister( (f, a) =>
-            {
-                Context.AfterFrequency = f;
-                Context.After = a;
-            });
-
-            act = new ActionRegister((f, a) =>
-            {
-                Context.Act = a;
-                Context.ActFrequency = f;
-            });
-
             context = new ActionRegister(AddContext);
             describe = new ActionRegister(AddContext);
 
-            specify = new ActionRegister((name,action)=> Exercise(new Example(name),action));
-            it = new ActionRegister((name,action)=> Exercise(new Example(name),action));
+            specify = new ActionRegister((name, action) => Exercise(new Example(name), action));
+            it = new ActionRegister((name, action) => Exercise(new Example(name), action));
         }
     }
 }

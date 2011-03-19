@@ -9,13 +9,13 @@ public class multiple_befores : spec
 
     public void list_manipulation()
     {
-        before.each = () => ints = new List<int>();
+        before = () => ints = new List<int>();
 
         it["the ints collection should not be null"] = () => ints.should_not_be_null();
 
         context["one item in list"] = () =>
         {
-            before.each = () => ints.Add(99);
+            before = () => ints.Add(99);
 
             it["should have 1 item in list"] = () => ints.Count.should_be(1);
 
@@ -23,7 +23,7 @@ public class multiple_befores : spec
 
             context["another item in list"] = () =>
             {
-                before.each = () => ints.Add(26);
+                before = () => ints.Add(26);
 
                 it["should have 2 items in list"] = () => ints.Count.should_be(2);
 
