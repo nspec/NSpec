@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using NSpec.Interpreter.Indexer;
+using NSpec.Assertions;
 using NSpec.Extensions;
 using NSpec;
 

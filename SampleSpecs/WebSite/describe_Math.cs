@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NSpec;
+using NSpec.Assertions;
 using NSpec.Extensions;
 
 public class describe_Math : spec

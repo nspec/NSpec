@@ -1,7 +1,8 @@
 using System.Linq;
 using NSpec;
+using NSpec.Assertions;
 using NSpec.Domain;
-using NSpec.Interpreter.Indexer;
+using NSpec.Extensions;
 using NUnit.Framework;
 
 namespace NSpecNUnit
@@ -29,7 +30,7 @@ namespace NSpecNUnit
 
             beforeAction(instance);
 
-            instance.beforeResult.should_be_of_form("parent");
+            instance.beforeResult.should_be("parent");
         }
     }
 
@@ -45,13 +46,13 @@ namespace NSpecNUnit
         [Test]
         public void the_root_context_should_be_the_be_the_parent()
         {
-            context.Name.should_be_of_form(typeof(parent).Name);
+            context.Name.should_be(typeof(parent).Name);
         }
 
         [Test]
         public void it_should_have_the_child_as_a_context()
         {
-            context.Contexts.First().Name.should_be_of_form(typeof(child).Name);
+            context.Contexts.First().Name.should_be(typeof(child).Name);
         }
 
         private Context context;
@@ -75,7 +76,7 @@ namespace NSpecNUnit
         {
             context.Contexts.First().Before();
 
-            instance.beforeResult.should_be_of_form("child");
+            instance.beforeResult.should_be("child");
         }
 
         [Test]
@@ -83,7 +84,7 @@ namespace NSpecNUnit
         {
             context.Before();
 
-            instance.beforeResult.should_be_of_form("parent");
+            instance.beforeResult.should_be("parent");
         }
 
         private Context context;
