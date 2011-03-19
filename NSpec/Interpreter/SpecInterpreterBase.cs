@@ -16,14 +16,14 @@ namespace NSpec.Interpreter
             example.Run(Context);
         }
 
-        protected void Pending(Example example)
-        {
-            Context.AddExample(example);
-        }
-
         protected void xspecify(string name)
         {
             Context.AddExample(new Example(name,pending:true));
+        }
+
+        protected void xit(string pending)
+        {
+            xspecify(pending);
         }
 
         protected void specify(Expression<Action> exp)

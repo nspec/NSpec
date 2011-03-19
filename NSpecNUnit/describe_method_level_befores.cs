@@ -13,6 +13,8 @@ namespace NSpecNUnit
     [TestFixture]
     public class describe_method_level_befores
     {
+        private Context classContext;
+
         private class SpecClass : spec
         {
             public static Action MethodLevelBefore = () => { };
@@ -28,8 +30,6 @@ namespace NSpecNUnit
                 };
             }
         }
-
-        private Context classContext;
 
         [SetUp]
         public void setup()

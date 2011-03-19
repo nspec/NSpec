@@ -68,14 +68,6 @@ namespace NSpec
         /// </summary>
         protected ActionRegister it;
 
-        /// <summary>
-        /// This is your specification/examples registry for pending examples.  Within your contexts, you can exlude a given example by setting this indexer.  
-        /// <para>For Example:</para>
-        /// <para>xit["should return false"] = () => _controller.should_be(false);</para>
-        /// <para>(the example will be marked as pending, any lambda specified will be disregarded)</para>
-        /// </summary>
-        protected ActionRegister xit;
-
         public spec()
         {
             context = new ActionRegister(AddContext);
@@ -83,7 +75,6 @@ namespace NSpec
 
             specify = new ActionRegister((name, action) => Exercise(new Example(name), action));
             it = new ActionRegister((name, action) => Exercise(new Example(name), action));
-            xit = new ActionRegister((name, action) => Pending(new Example(name, pending: true)));
         }
     }
 }
