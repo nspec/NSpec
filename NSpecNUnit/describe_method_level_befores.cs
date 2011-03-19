@@ -58,7 +58,7 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_should_set_sub_context()
+        public void it_should_set_before_on_sub_context()
         {
             TheMethodLevelContext().Contexts.First().Before.should_be(SpecClass.SubContextBefore);
         }
