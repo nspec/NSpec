@@ -44,23 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BeforeFinder.cs" />
+    <Compile Include="Domain\BeforeFinder.cs" />
     <Compile Include="Domain\ConsoleFormatter.cs" />
     <Compile Include="Domain\ContextRunner.cs" />
     <Compile Include="Domain\ContextBuilder.cs" />
     <Compile Include="Interpreter\Indexer\Before.cs" />
-    <Compile Include="Domain\Tuples.cs" />
-    <Compile Include="Interpreter\Indexer\ActionIndexer.cs" />
-    <Compile Include="Interpreter\Indexer\spec.cs" />
+    <Compile Include="Tuples.cs" />
+    <Compile Include="Domain\ActionIndexer.cs" />
+    <Compile Include="spec.cs" />
     <Compile Include="Domain\Context.cs" />
     <Compile Include="Domain\Example.cs" />
     <Compile Include="Extensions\AssertionExtensions.cs" />
     <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Interpreter\SpecInterpreterBase.cs" />
-    <Compile Include="IReflector.cs" />
-    <Compile Include="SpecFinder.cs" />
+    <Compile Include="Domain\SpecInterpreterBase.cs" />
+    <Compile Include="Domain\IReflector.cs" />
+    <Compile Include="Domain\SpecFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using NSpec.Interpreter.Indexer;
+using NSpec.Domain;
 using NSpec.Extensions;
 using NSpec;
+using NSpec.Interpreter.Indexer;
 
 namespace SampleSpecs.Demo
 {
@@ -9,7 +10,7 @@ namespace SampleSpecs.Demo
     {
         private List<int> ints = null;
 
-        before<dynamic> each = (c) =>
+        before<object> each = (c) =>
         {
             c.ints = new List<int>();
         };

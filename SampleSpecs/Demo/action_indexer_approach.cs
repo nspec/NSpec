@@ -1,5 +1,4 @@
 ﻿using NSpec.Extensions;
-using NSpec.Interpreter.Indexer;
 using NSpec;
 
 namespace SampleSpecs.Demo
