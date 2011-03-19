@@ -47,6 +47,21 @@ namespace NSpec.Extensions
             Assert.AreEqual(expected, actual);
         }
 
+        public static void should_end_with(this string actual, string end)
+        {
+            StringAssert.EndsWith(end,actual);
+        }
+
+        public static void should_start_with(this string actual, string start)
+        {
+            StringAssert.StartsWith(start,actual);
+        }
+
+        public static void should_contain(this string actual, string expected)
+        {
+            StringAssert.Contains(expected, actual);
+        }
+
         public static void should_not_contain<T>(this IEnumerable<T> collection, Func<T,bool> predicate)
         {
             Assert.IsTrue( !collection.Any(predicate),"collection contains an item it should not.".With(collection,predicate));

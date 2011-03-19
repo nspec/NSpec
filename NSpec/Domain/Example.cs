@@ -6,7 +6,7 @@ namespace NSpec.Domain
 {
     public class Example
     {
-        public Example(string spec, bool pending=false)
+        public Example(string spec="", bool pending=false)
         {
             Spec = spec;
             Pending = pending;

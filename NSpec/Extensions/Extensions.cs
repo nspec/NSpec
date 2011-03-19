@@ -12,9 +12,9 @@ namespace NSpec.Extensions
             return type.GetConstructors()[0].Invoke(new object[0]) as T;
         }
 
-        public static IEnumerable<MethodInfo> Methods(this Type type, IEnumerable<string> exclusions)
+        public static IEnumerable<MethodInfo> Methods(this Type type, IEnumerable<string> exclusions=null)
         {
-            return type.GetMethods().Where(m => !exclusions.Contains(m.Name));
+            return type.GetMethods().Where(m => exclusions == null ||  !exclusions.Contains(m.Name));
         }
 
         public static string Times(this string source, int times)
