@@ -2,7 +2,6 @@
 using NSpec.Domain;
 using NSpec.Extensions;
 using NSpec;
-using NSpec.Interpreter.Indexer;
 
 namespace SampleSpecs.Demo
 {

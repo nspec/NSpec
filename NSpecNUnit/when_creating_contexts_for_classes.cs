@@ -2,7 +2,6 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NSpec.Extensions;
-using NSpec.Interpreter.Indexer;
 using NUnit.Framework;
 
 namespace NSpecNUnit
