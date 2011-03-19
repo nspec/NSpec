@@ -6,7 +6,7 @@ namespace NSpec.Domain
 {
     public class Example
     {
-        public Example(string spec="", bool pending=false)
+        public Example(string spec = "", bool pending = false)
         {
             Spec = spec;
             Pending = pending;
@@ -31,7 +31,7 @@ namespace NSpec.Domain
             exception
                 .Message
                 .Split(Environment.NewLine.ToCharArray()[0])
-                .Where(l => !string.IsNullOrEmpty(l.Trim())).Do( l => s+=l.Trim()+ " ");
+                .Where(l => !string.IsNullOrEmpty(l.Trim())).Do(l => s += l.Trim() + " ");
 
             return s;
         }
@@ -52,6 +52,10 @@ namespace NSpec.Domain
             try
             {
                 Action();
+            }
+            catch(PendingExampleException)
+            {
+                Pending = true;
             }
             catch (Exception e)
             {

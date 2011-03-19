@@ -75,6 +75,13 @@ namespace NSpec
         /// </summary>
         protected ActionRegister xit;
 
+        /// <summary>
+        /// Set a registry entry to this lambda if you want to mark a test as todo.
+        /// <para>For Example:</para>
+        /// <para>it["a test i haven't flushed out yet, but need to"] = todo;</para>
+        /// </summary>
+        protected readonly Action todo = () => { throw new PendingExampleException(); };
+
         public spec()
         {
             context = new ActionRegister(AddContext);
@@ -82,7 +89,7 @@ namespace NSpec
 
             specify = new ActionRegister((name, action) => Exercise(new Example(name), action));
             it = new ActionRegister((name, action) => Exercise(new Example(name), action));
-            xit = new ActionRegister((name, action) => Pending(new Example(name, pending: true)));
+            xit = new ActionRegister((name, action) => Pending(new Example(name, todo: true)));
         }
     }
 }
