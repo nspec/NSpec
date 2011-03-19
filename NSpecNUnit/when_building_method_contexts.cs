@@ -1,4 +1,5 @@
 using NSpec;
+using NSpec.Assertions;
 using NSpec.Domain;
 using NSpec.Extensions;
 using NUnit.Framework;

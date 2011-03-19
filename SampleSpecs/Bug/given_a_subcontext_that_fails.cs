@@ -1,3 +1,4 @@
+using NSpec.Assertions;
 using NSpec.Extensions;
 using NSpec;
 
