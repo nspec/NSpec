@@ -54,11 +54,6 @@ namespace NSpec
         protected ActionRegister describe;
 
         /// <summary>
-        /// In development.
-        /// </summary>
-        protected ActionRegister specify;
-
-        /// <summary>
         /// This is your specification/examples registry.  Within your contexts, specify assersions via this member.  
         /// <para>For Example:</para>
         /// <para>it["should return false"] = () => _controller.should_be(false);</para>
@@ -87,7 +82,6 @@ namespace NSpec
             context = new ActionRegister(AddContext);
             describe = new ActionRegister(AddContext);
 
-            specify = new ActionRegister((name, action) => Exercise(new Example(name), action));
             it = new ActionRegister((name, action) => Exercise(new Example(name), action));
             xit = new ActionRegister((name, action) => Pending(new Example(name, pending: true)));
         }

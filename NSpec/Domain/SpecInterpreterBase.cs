@@ -19,16 +19,6 @@ namespace NSpec.Domain
             Context.AddExample(example);
         }
 
-        protected void xspecify(string name)
-        {
-            Context.AddExample(new Example(name,pending:true));
-        }
-
-        protected void specify(Expression<Action> exp)
-        {
-            specify(Parse(exp), exp.Compile());
-        }
-
         protected void specify(string name, Action exp)
         {
             Exercise(new Example(name), exp);

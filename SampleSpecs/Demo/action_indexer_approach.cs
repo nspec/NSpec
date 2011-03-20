@@ -12,25 +12,25 @@ namespace SampleSpecs.Demo
         {
             before = () => user = new User();
 
-            specify(() => user.Id.should_not_be_default());
+            it += () => user.Id.should_not_be_default();
 
             context["user is admin"] = () =>
             {
                 before = () => user.Admin = true;
 
-                specify(() => user.Admin.should_be_true());
+                it += () => user.Admin.should_be_true();
 
                 context["user is terminated"] = () =>
                 {
                     before = () => user.Terminated = true;
 
-                    specify(() => user.Terminated.should_be_true());
+                    it += () => user.Terminated.should_be_true();
                 };
             };
 
-            specify(() => user.Admin.should_be_false());
+            it += () => user.Admin.should_be_false();
 
-            this.specify["should work"] = () =>
+            it["should work"] = () =>
             {
 
             };

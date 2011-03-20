@@ -12,7 +12,7 @@ namespace SampleSpecs.Demo
     {
         public void should_still_run_tests()
         {
-            specify(() => "Test".should_be("Test"));
+            it += () => "Test".should_be("Test");
         }
     }
 }
