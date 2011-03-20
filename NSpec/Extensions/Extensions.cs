@@ -97,6 +97,17 @@ namespace NSpec.Extensions
         }
 
         /// <summary>
+        /// Action will be executed n number of times.
+        /// </summary>
+        public static void Times(this int number, Action action)
+        {
+            for (int i = 1; i <= number; i++)
+            {
+                action();
+            }
+        }
+
+        /// <summary>
         /// Extension method that wraps String.Format.
         /// <para>Usage: string result = "{0} {1}".With("hello", "world");</para>
         /// </summary>
