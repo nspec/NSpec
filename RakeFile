@@ -1,0 +1,3 @@
+task :samples do
+  sh 'NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll'
+end
