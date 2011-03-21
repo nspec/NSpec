@@ -18,7 +18,7 @@ class describe_car : spec
             {
                 before = () => car.FillTank(gallons: 0);
 
-                it += () => car.IsOnEmpty.should_be_true();
+                specify = () => car.IsOnEmpty.should_be_true();
             };
 
             context["turning car on"] = () =>
@@ -29,14 +29,14 @@ class describe_car : spec
                 {
                     before = () => car.FillTank(gallons: 0);
 
-                    it += () => car.IsRunning.should_be_false();
+                    specify = () => car.IsRunning.should_be_false();
                 };
 
                 context["car has gas"] = () =>
                 {
                     before = () => car.FillTank(gallons: 10);
 
-                    it += () => car.IsRunning.should_be_true();
+                    specify = () => car.IsRunning.should_be_true();
                 };
             };
 
@@ -44,21 +44,21 @@ class describe_car : spec
             {
                 before = () => car.FillTank(gallons: 10 * .1);
 
-                it += () => car.IsLowOnFuel.should_be_true();
+                specify = () => car.IsLowOnFuel.should_be_true();
             };
 
             context["less than 10% of gas is left"] = () =>
             {
                 before = () => car.FillTank(gallons: 10 * .01);
 
-                it += () => car.IsLowOnFuel.should_be_true();
+                specify = () => car.IsLowOnFuel.should_be_true();
             };
 
             context["more than 10% of gas is left"] = () =>
             {
                 before = () => car.FillTank(gallons: 9);
 
-                it += () => car.IsLowOnFuel.should_be_false();
+                specify = () => car.IsLowOnFuel.should_be_false();
             };
         };
     }

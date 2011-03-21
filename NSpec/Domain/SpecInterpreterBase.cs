@@ -5,10 +5,8 @@ namespace NSpec.Domain
 {
     public class SpecInterpreterBase
     {
-        protected void Exercise(Example example, Action action)
+        protected void Exercise(Example example)
         {
-            example.Action = action;
-
             Context.AddExample(example);
 
             example.Run(Context);
@@ -17,11 +15,6 @@ namespace NSpec.Domain
         protected void Pending(Example example)
         {
             Context.AddExample(example);
-        }
-
-        protected void specify(string name, Action exp)
-        {
-            Exercise(new Example(name), exp);
         }
 
         private string Parse(Expression<Action> exp)

@@ -1,5 +1,4 @@
 using NSpec.Assertions;
-using NSpec.Extensions;
 using NSpec;
 
 namespace SampleSpecs.Bug
@@ -12,7 +11,7 @@ namespace SampleSpecs.Bug
             //that didn't require using the broken behavior
             //which led to an impossibility of getting the spec to fail with the broken code
             //and pass with the correct code.... NUnit???
-            specify("should count this failure", () => 1.should_be(2));
+            it["should count this failure"] = () => 1.should_be(2);
         }
     }
 }

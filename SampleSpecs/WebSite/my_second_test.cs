@@ -1,9 +1,7 @@
 using NSpec;
 using NSpec.Assertions;
-using NSpec.Extensions;
 
-
-public class my_second_test : spec
+class my_second_test : spec
 {
     public void i_am_a_method_level_context()
     {
@@ -25,5 +23,3 @@ public class my_second_test : spec
         };
     }
 }
-
-

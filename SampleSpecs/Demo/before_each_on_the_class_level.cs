@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using NSpec;
 using NSpec.Assertions;
-using NSpec.Domain;
 
 namespace SampleSpecs.Demo
 {
@@ -18,7 +17,7 @@ namespace SampleSpecs.Demo
         {
             before = () => ints.Add(12);
 
-            it += () => ints.Count.should_be(1);
+            specify = () => ints.Count.should_be(1);
         }
     }
 }

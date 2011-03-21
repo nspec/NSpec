@@ -1,10 +1,8 @@
 using NSpec;
 using NSpec.Assertions;
-using NSpec.Extensions;
 using System.Collections.Generic;
 
-
-public class simple_before : spec
+class simple_before : spec
 {
     private List<int> ints = null;
 

@@ -1,5 +1,4 @@
 ﻿using NSpec.Assertions;
-using NSpec.Extensions;
 using NSpec;
 
 namespace SampleSpecs.Demo
@@ -12,23 +11,23 @@ namespace SampleSpecs.Demo
         {
             before = () => user = new User();
 
-            it += () => user.Id.should_not_be_default();
+            specify = () => user.Id.should_not_be_default();
 
             context["user is admin"] = () =>
             {
                 before = () => user.Admin = true;
 
-                it += () => user.Admin.should_be_true();
+                specify = () => user.Admin.should_be_true();
 
                 context["user is terminated"] = () =>
                 {
                     before = () => user.Terminated = true;
 
-                    it += () => user.Terminated.should_be_true();
+                    specify = () => user.Terminated.should_be_true();
                 };
             };
 
-            it += () => user.Admin.should_be_false();
+            specify = () => user.Admin.should_be_false();
 
             it["should work"] = () =>
             {
@@ -38,7 +37,7 @@ namespace SampleSpecs.Demo
             //soon.user_should_not_have_default_password();
         }
     }
-    
+
     //output from above
     //given a_user
     //    user Id should_not_be_default

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NSpec;
+﻿using NSpec;
 using NSpec.Assertions;
 using NSpec.Extensions;
 
-public class describe_Math : spec
+class describe_Math : spec
 {
     public void verify_strictly_increasing_numbers()
     {

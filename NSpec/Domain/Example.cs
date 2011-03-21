@@ -1,15 +1,32 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using NSpec.Extensions;
 
 namespace NSpec.Domain
 {
     public class Example
     {
-        public Example(string spec = "", bool pending = false)
+        public Example(Expression<Action> expr) : this(Parse(expr), expr.Compile()){ }
+
+        public Example(string name = "", Action action=null, bool pending = false)
         {
-            Spec = spec;
+            Action = action;
+            Spec = name;
             Pending = pending;
+        }
+
+        public static string Parse(Expression<Action> exp)
+        {
+            var body = exp.Body.ToString();
+
+            var cut = body.IndexOf(").");
+
+            var sentance = body.Substring(cut + 1, body.Length - cut - 1).Replace(")", " ").Replace(".", " ").Replace("(", " ").Replace("  ", " ").Trim().Replace("_", " ").Replace("\"", " ");
+
+            while (sentance.Contains("  ")) sentance = sentance.Replace("  ", " ");
+
+            return sentance.Trim();
         }
 
         public bool Pending { get; set; }

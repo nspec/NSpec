@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using NSpec.Domain;
 using System;
 
@@ -9,6 +10,20 @@ namespace NSpec
     /// </summary>
     public class spec : SpecInterpreterBase
     {
+        public spec()
+        {
+            context = new ActionRegister(AddContext);
+            describe = new ActionRegister(AddContext);
+
+            it = new ActionRegister((name, action) => Exercise(new Example(name, action)));
+            xit = new ActionRegister((name, action) => Pending(new Example(name, action, pending: true)));
+        }
+
+        protected Expression<Action> specify
+        {
+            set{ Exercise(new Example(value));}
+        }
+
         /// <summary>
         /// Assign this member within your context.  The Action that is assigned to this member variable will get executed
         /// before an example is run.
@@ -76,14 +91,5 @@ namespace NSpec
         /// <para>it["a test i haven't flushed out yet, but need to"] = todo;</para>
         /// </summary>
         protected readonly Action todo = () => { throw new PendingExampleException(); };
-
-        public spec()
-        {
-            context = new ActionRegister(AddContext);
-            describe = new ActionRegister(AddContext);
-
-            it = new ActionRegister((name, action) => Exercise(new Example(name), action));
-            xit = new ActionRegister((name, action) => Pending(new Example(name, pending: true)));
-        }
     }
 }

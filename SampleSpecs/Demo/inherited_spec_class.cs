@@ -1,5 +1,4 @@
 ﻿using NSpec.Assertions;
-using NSpec.Extensions;
 using NSpec;
 
 namespace SampleSpecs.Demo
@@ -12,7 +11,7 @@ namespace SampleSpecs.Demo
     {
         public void should_still_run_tests()
         {
-            it += () => "Test".should_be("Test");
+            specify = () => "Test".should_be("Test");
         }
     }
 }

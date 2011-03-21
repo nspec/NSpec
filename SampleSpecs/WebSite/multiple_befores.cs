@@ -1,10 +1,8 @@
 using NSpec;
 using NSpec.Assertions;
-using NSpec.Extensions;
 using System.Collections.Generic;
 
-
-public class multiple_befores : spec
+class multiple_befores : spec
 {
     private List<int> ints = null;
 

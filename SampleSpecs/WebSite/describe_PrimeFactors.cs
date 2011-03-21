@@ -4,7 +4,7 @@ using NSpec.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
-public class describe_PrimeFactors : spec
+class describe_PrimeFactors : spec
 {
     public void when_factoring_primes()
     {
