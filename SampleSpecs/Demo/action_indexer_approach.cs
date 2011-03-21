@@ -1,5 +1,4 @@
-﻿using NSpec.Assertions;
-using NSpec;
+﻿using NSpec;
 
 namespace SampleSpecs.Demo
 {

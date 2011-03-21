@@ -3,7 +3,6 @@ using System.Linq;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
-using NSpec.Assertions;
 using Rhino.Mocks;
 
 namespace NSpecNUnit

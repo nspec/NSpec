@@ -1,6 +1,4 @@
 ﻿using NSpec;
-using NSpec.Assertions;
-using NSpec.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 

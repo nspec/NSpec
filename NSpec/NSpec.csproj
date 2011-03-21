@@ -56,8 +56,8 @@
     <Compile Include="spec.cs" />
     <Compile Include="Domain\Context.cs" />
     <Compile Include="Domain\Example.cs" />
-    <Compile Include="Assertions\AssertionExtensions.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="AssertionExtensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Domain\SpecInterpreterBase.cs" />
     <Compile Include="Domain\IReflector.cs" />
     <Compile Include="Domain\SpecFinder.cs" />

@@ -1,7 +1,5 @@
 ﻿using System;
 using NSpec;
-using NSpec.Assertions;
-using NSpec.Extensions;
 using System.Collections.Generic;
 
 class describe_car : spec
@@ -104,8 +102,7 @@ class describe_car : spec
 
             new { gasInTank = 10, mpg = 10, miles = 10.0, expectedDistance = 10.0, 
                   gasLeft = 9.0, running = true, lowfuel = false, onEmpty = false }
-        }.Do(
-        (d) =>
+        }.Do( d =>
         {
             int gasInTank = d.gasInTank;
             int mpg = d.mpg;

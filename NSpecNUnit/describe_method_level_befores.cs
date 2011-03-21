@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using NSpec.Assertions;
 using NSpec.Domain.Extensions;
 using NUnit.Framework;
 using NSpec;

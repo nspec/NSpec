@@ -1,5 +1,4 @@
 using NSpec;
-using NSpec.Assertions;
 using NSpec.Domain;
 using NUnit.Framework;
 using Rhino.Mocks;

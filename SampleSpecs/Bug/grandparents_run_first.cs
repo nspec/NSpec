@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using NSpec.Assertions;
-using NSpec.Extensions;
 using NSpec;
 
 namespace SampleSpecs.Bug

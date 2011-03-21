@@ -1,4 +1,3 @@
-using NSpec.Assertions;
 using NSpec;
 
 namespace SampleSpecs.Bug

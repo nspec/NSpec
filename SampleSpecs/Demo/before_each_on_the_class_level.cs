@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using NSpec;
-using NSpec.Assertions;
 
 namespace SampleSpecs.Demo
 {

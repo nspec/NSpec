@@ -1,5 +1,4 @@
 ﻿using NSpec;
-using NSpec.Assertions;
 
 class my_first_test : spec
 {

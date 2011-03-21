@@ -1,6 +1,4 @@
 ﻿using NSpec;
-using NSpec.Assertions;
-using NSpec.Extensions;
 
 class describe_Math : spec
 {

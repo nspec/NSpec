@@ -1,5 +1,4 @@
 using NSpec;
-using NSpec.Assertions;
 using System.Collections.Generic;
 
 class simple_before : spec

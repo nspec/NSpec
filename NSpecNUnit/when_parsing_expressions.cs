@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using NSpec;
+using NUnit.Framework;
 using NSpec.Domain;
-using NSpec.Assertions;
 
 namespace NSpecNUnit
 {

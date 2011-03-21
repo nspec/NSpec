@@ -4,7 +4,6 @@ using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
 using Rhino.Mocks;
-using NSpec.Assertions;
 
 namespace NSpecNUnit
 {
