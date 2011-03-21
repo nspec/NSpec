@@ -68,11 +68,11 @@ class describe_car : nspec
             { 8, 92, .30 }, 
             { 9, 96, .32 }
         }.Do(
-        (compression, octane, effeciency) =>
+        (compressionRatio, octane, effeciency) =>
         {
-            context["car has compression ratio of {0} to 1".With(compression)] = () =>
+            context["car has compression ratio of {0} to 1".With(compressionRatio)] = () =>
             {
-                before = () => car = new Car(compression);
+                before = () => car = new Car(compressionRatio);
 
                 it["should have octane requirement of {0}".With(octane)] = () =>
                 {

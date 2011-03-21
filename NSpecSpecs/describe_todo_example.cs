@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using NSpec.Domain.Extensions;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
-using Rhino.Mocks;
+using System.Collections.Generic;
 
 namespace NSpecNUnit
 {
@@ -19,23 +20,18 @@ namespace NSpecNUnit
         }
 
         private Context classContext;
+        private Context methodContext;
 
         [SetUp]
         public void setup()
         {
-            var finder = MockRepository.GenerateMock<ISpecFinder>();
+            classContext = new Context(typeof(SpecClass));
 
-            finder.Stub(f => f.Except).Return(new SpecFinder().Except);
+            var method = typeof(SpecClass).Methods().Single(m => m.Name == "method_level_context");
 
-            finder.Stub(s => s.SpecClasses()).Return(new[] { typeof(SpecClass) });
+            methodContext = new Context(method);
 
-            var builder = new ContextBuilder(finder);
-
-            classContext = new Context("class");
-
-            classContext.Type = typeof(SpecClass);
-
-            builder.BuildMethodContexts(classContext, typeof(SpecClass));
+            classContext.AddContext(methodContext);
 
             classContext.Run();
         }
