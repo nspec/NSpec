@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using NSpec.Assertions;
+using NSpec.Domain.Extensions;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
-using NSpec.Extensions;
 
 namespace NSpecNUnit
 {

@@ -1,22 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace NSpec.Extensions
 {
     public static class Extensions
     {
-        public static T Instance<T>(this Type type) where T : class
-        {
-            return type.GetConstructors()[0].Invoke(new object[0]) as T;
-        }
-
-        public static IEnumerable<MethodInfo> Methods(this Type type, IEnumerable<string> exclusions=null)
-        {
-            return type.GetMethods().Where(m => exclusions == null ||  !exclusions.Contains(m.Name));
-        }
-
+        /// <summary>
+        /// string will be repeated n number of times.
+        /// </summary>
         public static string Times(this string source, int times)
         {
             if (times == 0) return "";
@@ -27,11 +19,6 @@ namespace NSpec.Extensions
                 s += source;
 
             return s;
-        }
-
-        public static void Print(this object o)
-        {
-            Console.WriteLine(o.ToString());
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using NSpec.Extensions;
+using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {
