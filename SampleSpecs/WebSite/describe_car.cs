@@ -1,8 +1,7 @@
 ﻿using System;
 using NSpec;
-using System.Collections.Generic;
 
-class describe_car : spec
+class describe_car : nspec
 {
     public void describe_fuel_requirements()
     {
@@ -25,8 +24,6 @@ class describe_car : spec
 
                 context["car does not have gas"] = () =>
                 {
-                    before = () => car.FillTank(gallons: 0);
-
                     specify = () => car.IsRunning.should_be_false();
                 };
 
@@ -75,7 +72,7 @@ class describe_car : spec
         {
             context["car has compression ratio of {0} to 1".With(compression)] = () =>
             {
-                before = () => car = new Car(compression: compression);
+                before = () => car = new Car(compression);
 
                 it["should have octane requirement of {0}".With(octane)] = () =>
                 {
@@ -92,8 +89,7 @@ class describe_car : spec
 
     public void when_driving_car()
     {
-        new List<dynamic>()
-        {
+        new[]{
             new { gasInTank = 10, mpg = 1,  miles = 10.0, expectedDistance = 10.0, 
                   gasLeft = 0.0, running = false, lowfuel = true, onEmpty = true },
 
@@ -102,48 +98,39 @@ class describe_car : spec
 
             new { gasInTank = 10, mpg = 10, miles = 10.0, expectedDistance = 10.0, 
                   gasLeft = 9.0, running = true, lowfuel = false, onEmpty = false }
-        }.Do( d =>
+        }.Do(example =>
         {
-            int gasInTank = d.gasInTank;
-            int mpg = d.mpg;
-            double miles = d.miles;
-            double expectedDistance = d.expectedDistance;
-            double gasLeft = d.gasLeft;
-            bool isRunning = d.running;
-            bool isLowFuel = d.lowfuel;
-            bool onEmpty = d.onEmpty;
-
             context["with {0} gallon(s) of gas, mpg: {1}, driving: {2} miles"
-                .With(gasInTank, mpg, miles)] = () =>
+                .With(example.gasInTank, example.mpg, example.miles)] = () =>
             {
                 Car car = null;
 
                 before = () =>
                 {
-                    car = new Car(tankSize: gasInTank, mpg: mpg);
-                    car.FillTank(gasInTank);
+                    car = new Car(example.gasInTank, example.mpg);
+                    car.FillTank(example.gasInTank);
                 };
 
-                act = () => car.Drive(miles);
+                act = () => car.Drive(example.miles);
 
-                it["should have made it {0} miles".With(expectedDistance)] = () =>
+                it["should have made it {0} miles".With(example.expectedDistance)] = () =>
                 {
-                    car.Odometer.should_be(expectedDistance);
+                    car.Odometer.should_be(example.expectedDistance);
                 };
 
-                it["should have {0} gallons left in tank".With(gasLeft)] = () =>
+                it["should have {0} gallons left in tank".With(example.gasLeft)] = () =>
                 {
-                    car.GasInTank.should_be(gasLeft);
+                    car.GasInTank.should_be(example.gasLeft);
                 };
 
-                it["should {0} running".With(isRunning ? "be" : "not be")] = () =>
+                it["should {0} running".With(example.running ? "be" : "not be")] = () =>
                 {
-                    car.IsRunning.should_be(isRunning);
+                    car.IsRunning.should_be(example.running);
                 };
 
-                it["should {0} low fuel".With(isLowFuel ? "have" : "not have")] = () =>
+                it["should {0} low fuel".With(example.lowfuel ? "have" : "not have")] = () =>
                 {
-                    car.IsLowOnFuel.should_be(isLowFuel);
+                    car.IsLowOnFuel.should_be(example.lowfuel);
                 };
             };
         });
@@ -152,7 +139,12 @@ class describe_car : spec
 
 public class Car
 {
-    public Car(double tankSize = 0, int compression = 0, int mpg = 0)
+    public Car(int compression = 0) : this(0, 0, compression)
+    {
+        
+    }
+
+    public Car(double tankSize = 0, int mpg = 0, int compression = 0)
     {
         TankSize = tankSize;
         Mpg = mpg;

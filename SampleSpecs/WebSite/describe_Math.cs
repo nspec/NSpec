@@ -1,6 +1,6 @@
 ﻿using NSpec;
 
-class describe_Math : spec
+class describe_Math : nspec
 {
     public void verify_strictly_increasing_numbers()
     {

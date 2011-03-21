@@ -2,7 +2,7 @@
 
 namespace SampleSpecs.Demo
 {
-    public class action_indexer_approach : spec
+    public class action_indexer_approach : nspec
     {
         private User user;
 

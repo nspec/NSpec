@@ -10,7 +10,7 @@ namespace NSpecNUnit
     {
         private Context classContext;
 
-        private class SpecClass : spec
+        private class SpecClass : nspec
         {
             public void public_method() { }
             private void private_method() { }

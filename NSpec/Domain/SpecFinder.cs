@@ -13,7 +13,7 @@ namespace NSpec.Domain
         {
             return Types
                 .Where(t => t.IsClass
-                    && BaseTypes(t).Any(s => s == typeof(spec))
+                    && BaseTypes(t).Any(s => s == typeof(nspec))
                     && t.Methods(Except).Count() > 0
                     && (string.IsNullOrEmpty(classFilter) || t.Name == classFilter));
         }

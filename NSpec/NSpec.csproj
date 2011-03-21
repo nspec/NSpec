@@ -48,12 +48,12 @@
     <Compile Include="Domain\ConsoleFormatter.cs" />
     <Compile Include="Domain\ContextRunner.cs" />
     <Compile Include="Domain\ContextBuilder.cs" />
-    <Compile Include="Domain\Before.cs" />
+    <Compile Include="Before.cs" />
     <Compile Include="Domain\Extensions\DomainExtensions.cs" />
     <Compile Include="Domain\PendingExampleException.cs" />
     <Compile Include="Tuples.cs" />
     <Compile Include="Domain\ActionIndexer.cs" />
-    <Compile Include="spec.cs" />
+    <Compile Include="nspec.cs" />
     <Compile Include="Domain\Context.cs" />
     <Compile Include="Domain\Example.cs" />
     <Compile Include="AssertionExtensions.cs" />

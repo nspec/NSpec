@@ -3,7 +3,7 @@ using NSpec;
 
 namespace SampleSpecs.Demo
 {
-    public class before_each_on_the_class_level : spec
+    public class before_each_on_the_class_level : nspec
     {
         private List<int> ints = null;
 

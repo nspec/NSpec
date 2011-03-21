@@ -10,7 +10,7 @@ namespace NSpecNUnit
     [TestFixture]
     public class describe_method_level_befores
     {
-        private class SpecClass : spec
+        private class SpecClass : nspec
         {
             public static Action MethodLevelBefore = () => { };
             public static Action SubContextBefore = () => { };

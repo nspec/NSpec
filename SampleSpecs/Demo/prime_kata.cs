@@ -4,7 +4,7 @@ using NSpec;
 
 namespace SampleSpecs.Demo
 {
-    public class prime_kata : spec
+    public class prime_kata : nspec
     {
         public void prime_factors()
         {

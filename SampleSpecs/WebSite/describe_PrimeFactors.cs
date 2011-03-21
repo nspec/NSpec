@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-class describe_PrimeFactors : spec
+class describe_PrimeFactors : nspec
 {
     public void when_factoring_primes()
     {

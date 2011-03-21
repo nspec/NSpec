@@ -6,17 +6,17 @@ using Rhino.Mocks;
 
 namespace NSpecNUnit
 {
-    public class SpecClass : spec
+    public class SpecClass : nspec
     {
         public void public_method() { }
         private void private_method() { }
     }
-    public class AnotherSpecClass : spec 
+    public class AnotherSpecClass : nspec 
     {
         public void public_method() { }
     }
     public class NonSpecClass{}
-    public class SpecClassWithNoPublicMethods : spec 
+    public class SpecClassWithNoPublicMethods : nspec 
     {
         private void private_method() { }
     }

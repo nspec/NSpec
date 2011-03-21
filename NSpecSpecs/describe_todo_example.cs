@@ -10,7 +10,7 @@ namespace NSpecNUnit
     [TestFixture]
     public class describe_todo_example
     {
-        private class SpecClass : spec
+        private class SpecClass : nspec
         {
             public void method_level_context()
             {

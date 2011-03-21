@@ -8,7 +8,7 @@ namespace NSpecNUnit.when_building_contexts
 {
     public class child : parent{}
     public class sibling: parent{}
-    public class parent : spec{}
+    public class parent : nspec{}
 
     [TestFixture]
     public class when_building_contexts

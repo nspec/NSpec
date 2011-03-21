@@ -10,7 +10,7 @@ namespace NSpecNUnit
     [TestFixture]
     public class describe_action_indexer_add_operator
     {
-        private class SpecClass : spec
+        private class SpecClass : nspec
         {
             public void method_level_context()
             {

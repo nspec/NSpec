@@ -9,7 +9,7 @@ namespace NSpec.Domain
     {
         public static Context RootContext(this Type type, Context childContext=null)
         {
-            if (type.BaseType == typeof(spec))
+            if (type.BaseType == typeof(nspec))
             {
                 var context = new Context( type );
 
@@ -27,7 +27,7 @@ namespace NSpec.Domain
 
             before<object> beforeEach = null;
 
-            var instance = type.Instance<spec>();
+            var instance = type.Instance<nspec>();
 
             var eachField = fields.FirstOrDefault(f => f.Name.Contains("each"));
 

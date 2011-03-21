@@ -2,7 +2,7 @@
 
 namespace SampleSpecs.Demo
 {
-    public class SomeSharedSpec : spec
+    public class SomeSharedSpec : nspec
     {
     }
 

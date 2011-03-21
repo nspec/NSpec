@@ -3,7 +3,7 @@ using NSpec;
 
 namespace SampleSpecs.Bug
 {
-    public class grandparents_run_first : spec
+    public class grandparents_run_first : nspec
     {
         private List<int> ints = null;
 

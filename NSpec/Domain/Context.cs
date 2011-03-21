@@ -100,9 +100,9 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
-        public Action<spec> BeforeInstance { get; set; }
+        public Action<nspec> BeforeInstance { get; set; }
 
-        public void SetInstanceContext(spec instance)
+        public void SetInstanceContext(nspec instance)
         {
             if (BeforeInstance != null) Before = () => BeforeInstance(instance);
 
@@ -120,7 +120,7 @@ namespace NSpec.Domain
 
             if (Method != null)
             {
-                var instance = GetSpecType().Instance<spec>();
+                var instance = GetSpecType().Instance<nspec>();
 
                 SetInstanceContext(instance);
 

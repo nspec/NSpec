@@ -1,7 +1,7 @@
 using NSpec;
 using System.Collections.Generic;
 
-class simple_before : spec
+class simple_before : nspec
 {
     private List<int> ints = null;
 

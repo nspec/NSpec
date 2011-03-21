@@ -10,7 +10,7 @@ namespace NSpecNUnit
         before<dynamic> each = childSpec => childSpec.beforeResult += "child";
     }
 
-    public class parent : spec
+    public class parent : nspec
     {
         before<dynamic> each = beforeClass => beforeClass.beforeResult = "parent";
         public string beforeResult;

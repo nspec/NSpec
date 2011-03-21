@@ -8,9 +8,9 @@ namespace NSpec
     /// Inherit from this class to create your own specifications.  NSpecRunner will look through your project for 
     /// classes that derive from this class (inheritance chain is taken into consideration).
     /// </summary>
-    public class spec : SpecInterpreterBase
+    public class nspec : SpecInterpreterBase
     {
-        public spec()
+        public nspec()
         {
             context = new ActionRegister(AddContext);
             describe = new ActionRegister(AddContext);
