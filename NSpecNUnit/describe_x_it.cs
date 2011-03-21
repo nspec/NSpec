@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
@@ -17,10 +15,7 @@ namespace NSpecNUnit
         {
             public void method_level_context()
             {
-                xit["should be pending"] = () =>
-                {
-
-                };
+                xit["should be pending"] = () => { };
             }
         }
 

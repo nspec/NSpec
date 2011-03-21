@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using NSpec.Assertions;
 using NSpec.Domain;
-using NSpec.Extensions;
 using NUnit.Framework;
 
 namespace NSpecNUnit
