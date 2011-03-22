@@ -26,7 +26,7 @@ class describe_PrimeFactors : nspec
 
     private IEnumerable<int> Primes(int number)
     {
-        if (number == 1) return new int[] { };
+        if (number == 1 || number == 0) return new int[] { };
 
         for (int i = 2; i < number; i++)
             if (number % i == 0) return new[] { i }.Concat(Primes(number / i));

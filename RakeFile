@@ -1,3 +1,65 @@
+require 'nokogiri'
+require 'cgi'
+
 task :samples do
   sh 'NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll'
+end
+
+task :website do
+  if File.exists? 'source.html'
+    @doc = Nokogiri::HTML.fragment(`cat source.html`)
+
+    Dir['SampleSpecs/WebSite/**/*.*'].each {|f| run f}
+
+    File.open('new.html', 'w') {|f| f.write(@doc) } 
+  else
+    puts 'you must download the current markup into source.html'
+  end
+end
+
+def run file
+  node = @doc.at("\##{class_for(file)}_code")
+
+  if node.nil?
+    puts "can't find pre with id = #{class_for(file)}_code"
+  else
+    node.add_next_sibling code_markup file 
+
+    node.remove
+  end
+
+  node = nil
+
+  node = @doc.at("\##{class_for(file)}_output")
+
+  if node.nil?
+    puts "can't find pre with id = #{class_for(file)}_output"
+  else
+    node.add_next_sibling output_markup file 
+
+    node.remove
+  end
+end
+
+def class_for file
+  file.split('/').last.split('.').first
+end
+
+def ensure_newline string
+  while !(string =~ /\n\n$/)
+    string += "\n"
+  end  
+  string
+end
+
+def code_markup file
+  out = "<pre id=\"#{class_for(file)}_code\" data-autogen-timestamp=\"#{Time.new.inspect}\" class=\"brush: csharp;\">"
+  out += CGI::escapeHTML(`cat #{file}`)
+  out += '</pre>'
+end
+
+def output_markup file
+  out = "<pre id=\"#{class_for(file)}_output\" data-autogen-timestamp=\"#{Time.new.inspect}\" style=\"font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;\">"
+  out += CGI::escapeHTML(`nspecrunner/bin/debug/nspecrunner.exe samplespecs/bin/debug/samplespecs.dll #{class_for(file)}`.strip)
+  out += '</pre>'
 end
