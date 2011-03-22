@@ -21,7 +21,7 @@ namespace NSpec
 
         protected Expression<Action> specify
         {
-            set{ Exercise(new Example(value));}
+            set { Exercise(new Example(value)); }
         }
 
         /// <summary>
@@ -91,5 +91,39 @@ namespace NSpec
         /// <para>it["a test i haven't flushed out yet, but need to"] = todo;</para>
         /// </summary>
         protected readonly Action todo = () => { throw new PendingExampleException(); };
+
+        /// <summary>
+        /// Set an it registry value returned by this method if you want to test for an exception.
+        /// <para>For Example:</para>
+        /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;(() => SomeMethodThatThrowsException());</para>
+        /// </summary>
+        protected Action expect<T>(Action action) where T : Exception
+        {
+            return () => 
+            {
+                var closureType = typeof(T);
+
+                try
+                {
+                    action();
+                    throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
+                }
+                catch (Exception ex)
+                {
+                    if (ex.GetType() != closureType)
+                    {
+                        throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
+                    }
+                }
+            };
+        }
+    }
+
+    public class ExceptionNotThrown : Exception
+    {
+        public ExceptionNotThrown(string message) : base(message)
+        {
+            
+        }
     }
 }

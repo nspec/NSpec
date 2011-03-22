@@ -42,6 +42,11 @@ namespace NSpec
             Assert.AreEqual(expected, actual);
         }
 
+        public static void should_not_be(this object actual, object expected)
+        {
+            Assert.AreNotEqual(expected, actual);
+        }
+
         public static void should_be(this string actual, string expected)
         {
             Assert.AreEqual(expected, actual);

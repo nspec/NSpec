@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="describe_action_indexer_add_operator.cs" />
+    <Compile Include="describe_expected_exception.cs" />
+    <Compile Include="describe_implicit_befores.cs" />
     <Compile Include="describe_todo_example.cs" />
     <Compile Include="describe_x_it.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
