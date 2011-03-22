@@ -1,6 +1,5 @@
 ﻿using NSpec;
 using System.Collections.Generic;
-using System.Linq;
 
 class describe_PrimeFactors : nspec
 {
@@ -18,9 +17,8 @@ class describe_PrimeFactors : nspec
                 { 7, new[] { 7 }},
                 { 8, new[] { 2, 2, 2 } },
                 { 9, new[] { 3, 3 } },
-            }.Do(
-                (given, expected) => 
-                    it["{0} should be {1}".With(given, expected)] = () => Primes(given).should_be(expected)
+            }.Do( (given, expected) => 
+                it["{0} should be {1}".With(given, expected)] = () => Primes(given).should_be(expected)
             );
     }
 

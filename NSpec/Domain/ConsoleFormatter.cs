@@ -10,8 +10,6 @@ namespace NSpec.Domain
         {
             contexts.Do(c => Console.WriteLine(Write(c)));
 
-            Console.WriteLine();
-
             Console.WriteLine(FailureSummary(contexts));
 
             Console.WriteLine(Summary(contexts));
@@ -19,7 +17,11 @@ namespace NSpec.Domain
 
         public string Write(Context context, int level = 1)
         {
-            var result = context.Name.Replace("_", " ");
+            var result = "";
+
+            if (level == 1) result += Environment.NewLine;
+
+            result += context.Name.Replace("_", " ");
 
             context.Examples.Do(e => result += Write(e, level));
 
@@ -37,15 +39,6 @@ namespace NSpec.Domain
             return e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failure;
         }
 
-        public string WriteFailure(Example example)
-        {
-            var failure = example.FullSpec().Replace("_", " ") + Environment.NewLine;
-
-            failure += example.Exception + Environment.NewLine + Environment.NewLine;
-
-            return failure;
-        }
-
         public string WriteException(Exception e)
         {
             var exc = e.Message.Trim().Replace(Environment.NewLine, ", ").Trim();
@@ -57,13 +50,22 @@ namespace NSpec.Domain
 
         private string FailureSummary(IEnumerable<Context> contexts)
         {
-            if (contexts.SelectMany(c => c.Failures()).Count() == 0) return Environment.NewLine;
+            if (contexts.SelectMany(c => c.Failures()).Count() == 0) return "";
 
-            var summary = "**** FAILURES ****" + Environment.NewLine + Environment.NewLine;
+            var summary = Environment.NewLine + "**** FAILURES ****" + Environment.NewLine;
 
             contexts.SelectMany(c => c.Failures()).Do(f => summary += WriteFailure(f));
 
             return summary;
+        }
+
+        public string WriteFailure(Example example)
+        {
+            var failure = Environment.NewLine + example.FullSpec().Replace("_", " ") + Environment.NewLine;
+
+            failure += example.Exception + Environment.NewLine;
+
+            return failure;
         }
 
         public string Summary(IList<Context> contexts)

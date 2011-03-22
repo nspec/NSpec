@@ -17,7 +17,7 @@ namespace NSpecNUnit
         [Test]
         public void given_a_context()
         {
-            formatter.Write(new Context("hello_world")).should_be("hello world");
+            formatter.Write(new Context("hello_world")).should_be_of_form("{0}hello world");
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace NSpecNUnit
 
             child.AddContext(grandChild);
 
-            formatter.Write(parent).should_be_of_form("parent context{0}{1}child context{0}{1}{1}grandchild context");
+            formatter.Write(parent).should_be_of_form("{0}parent context{0}{1}child context{0}{1}{1}grandchild context");
         }
 
         private ConsoleFormatter formatter;

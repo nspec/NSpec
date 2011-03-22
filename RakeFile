@@ -1,10 +1,14 @@
 require 'nokogiri'
 require 'cgi'
 
-task :samples do
-  sh 'NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll'
+desc 'run SampleSpecs with NSpecRunner. you can supply a single spec like so -> rake samples[spec_name]'
+task :samples, :spec do |t,args| 
+  spec = args[:spec] || ''
+
+  sh "NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll #{spec}"
 end
 
+desc 'supply the current tutorial markup in source.html and generate new.html containing current source code and output'
 task :website do
   if File.exists? 'source.html'
     @doc = Nokogiri::HTML.fragment(`cat source.html`)
