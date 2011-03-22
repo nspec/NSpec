@@ -1,6 +1,6 @@
 using NSpec;
 
-class my_second_test : nspec
+class my_second_spec : nspec
 {
     public void i_am_a_method_level_context()
     {

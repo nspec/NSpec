@@ -52,8 +52,8 @@
     <Compile Include="WebSite\describe_Math.cs" />
     <Compile Include="WebSite\describe_PrimeFactors.cs" />
     <Compile Include="WebSite\multiple_befores.cs" />
-    <Compile Include="WebSite\my_first_test.cs" />
-    <Compile Include="WebSite\my_second_test.cs" />
+    <Compile Include="WebSite\my_first_spec.cs" />
+    <Compile Include="WebSite\my_second_spec.cs" />
     <Compile Include="WebSite\simple_before.cs" />
   </ItemGroup>
   <ItemGroup>

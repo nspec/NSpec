@@ -1,6 +1,6 @@
 ﻿using NSpec;
 
-class my_first_test : nspec
+class my_first_spec : nspec
 {
     public void given_i_am_awesome()
     {
