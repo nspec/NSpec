@@ -49,13 +49,6 @@ def class_for file
   file.split('/').last.split('.').first
 end
 
-def ensure_newline string
-  while !(string =~ /\n\n$/)
-    string += "\n"
-  end  
-  string
-end
-
 def code_markup file
   out = "<pre id=\"#{class_for(file)}_code\" data-timestamp=\"#{Time.new.inspect}\" class=\"brush: csharp;\">"
   out += CGI::escapeHTML(`cat #{file}`)

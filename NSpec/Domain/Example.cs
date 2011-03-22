@@ -85,7 +85,7 @@ namespace NSpec.Domain
 
         public string FullSpec()
         {
-            return fullContext + " - " + Spec;
+            return fullContext + ". " + Spec;
         }
     }
 }

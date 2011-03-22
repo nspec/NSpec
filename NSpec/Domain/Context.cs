@@ -154,7 +154,7 @@ namespace NSpec.Domain
         public string FullContext()
         {
             if (Parent != null)
-                return Parent.FullContext() + " - " + Name;
+                return Parent.FullContext() + ". " + Name;
 
             return Name;
         }
