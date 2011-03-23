@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NSpec;
 using NUnit.Framework;
 using NSpec.Domain.Extensions;
@@ -23,9 +21,6 @@ namespace NSpecNUnit
                 it["should fail if wrong exception thrown"] = expect<InvalidOperationException>(() => { throw new ArgumentException(); });
             }
         }
-
-        private Context classContext;
-        private Context methodContext;
 
         [SetUp]
         public void setup()
@@ -64,5 +59,8 @@ namespace NSpecNUnit
         {
             return classContext.Contexts.First().AllExamples().Single(s => s.Spec == name);
         }
+
+        private Context classContext;
+        private Context methodContext;
     }
 }

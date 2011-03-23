@@ -25,8 +25,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Assign this member within your context.  The Action that is assigned to this member variable will get executed
-        /// before an example is run.
+        /// This Action get executed before each example is run.
         /// <para>For Example:</para>
         /// <para>before.each = () => someList = new List&lt;int&gt;();</para>
         /// <para>The before.each can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspecdriven.net</para>
@@ -47,8 +46,8 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Assign this member within your context.  The Action that is assigned to this member variable will get executed
-        /// with ever example in scope.  Befores will run first, then Acts will run, then your examples will be executed.  It's a way for you to specify a common Act in Arrange-Act-Assert.  For more information visit http://www.nspecdriven.net
+        /// Assign this member within your context.  The Action assigned will get executed
+        /// with every example in scope.  Befores will run first, then Acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-Assert for all subcontexts.  For more information visit http://www.nspecdriven.net
         /// </summary>
         protected Action act
         {
@@ -57,19 +56,19 @@ namespace NSpec
         }
 
         /// <summary>
-        /// This is your context registry.  Use this to create sub contexts within your methods.
+        /// Create a subcontext.
         /// <para>For Examples see http://www.nspecdriven.net</para>
         /// </summary>
         protected ActionRegister context;
 
         /// <summary>
-        /// This is an alias for the context registry.  Use this to create sub contexts within your methods.
+        /// This is an alias for creating a subcontext.  Use this to create sub contexts within your methods.
         /// <para>For Examples see http://www.nspecdriven.net</para>
         /// </summary>
         protected ActionRegister describe;
 
         /// <summary>
-        /// This is your specification/examples registry.  Within your contexts, specify assersions via this member.  
+        /// Create a specification/example. Within your contexts, specify assersions (shoulds) within this member.  
         /// <para>For Example:</para>
         /// <para>it["should return false"] = () => _controller.should_be(false);</para>
         /// <para>(Extension methods are in the NSpec.Extensions namespace)</para>
@@ -77,8 +76,7 @@ namespace NSpec
         protected ActionRegister it;
 
         /// <summary>
-        /// This is your pending examples registry.  If you have an example already specified that you want to ignore,
-        /// do so by putting the letter x infront of it.
+        /// Mark a spec as pending 
         /// <para>For Example:</para>
         /// <para>xit["should return false"] = () => _controller.should_be(false);</para>
         /// <para>(the example will be marked as pending any lambda provided will not be executed)</para>
@@ -86,14 +84,14 @@ namespace NSpec
         protected ActionRegister xit;
 
         /// <summary>
-        /// Set a registry entry to this lambda if you want to mark a test as todo.
+        /// Set up a pending spec.
         /// <para>For Example:</para>
         /// <para>it["a test i haven't flushed out yet, but need to"] = todo;</para>
         /// </summary>
         protected readonly Action todo = () => { throw new PendingExampleException(); };
 
         /// <summary>
-        /// Set an it registry value returned by this method if you want to test for an exception.
+        /// Set up an expectation for a particular exception type to be thrown.
         /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;(() => SomeMethodThatThrowsException());</para>
         /// </summary>
