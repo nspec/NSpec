@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {
@@ -32,23 +33,14 @@ namespace NSpec.Domain
 
         public string Write(Example e, int level = 1)
         {
-            var failure = e.Exception == null ? "" : " - FAILED - {0}".With(WriteException(e.Exception));
+            var failure = e.Exception == null ? "" : " - FAILED - {0}".With(e.Exception.CleanMessage());
 
             var whiteSpace = Environment.NewLine + indent.Times(level);
 
             return e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failure;
         }
 
-        public string WriteException(Exception e)
-        {
-            var exc = e.Message.Trim().Replace(Environment.NewLine, ", ").Trim();
-
-            while (exc.Contains("  ")) exc = exc.Replace("  ", " ");
-
-            return exc;
-        }
-
-        private string FailureSummary(IEnumerable<Context> contexts)
+        public string FailureSummary(IEnumerable<Context> contexts)
         {
             if (contexts.SelectMany(c => c.Failures()).Count() == 0) return "";
 
@@ -61,9 +53,9 @@ namespace NSpec.Domain
 
         public string WriteFailure(Example example)
         {
-            var failure = Environment.NewLine + example.FullSpec().Replace("_", " ") + Environment.NewLine;
+            var failure = Environment.NewLine + example.FullName().Replace("_", " ") + Environment.NewLine;
 
-            failure += example.Exception + Environment.NewLine;
+            failure += example.Exception.CleanMessage() + Environment.NewLine + example.Exception.StackTrace + Environment.NewLine;
 
             return failure;
         }

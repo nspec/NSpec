@@ -49,10 +49,15 @@
   <ItemGroup>
     <Compile Include="describe_action_indexer_add_operator.cs" />
     <Compile Include="describe_Context.cs" />
+    <Compile Include="describe_Example.cs" />
     <Compile Include="describe_expected_exception.cs" />
     <Compile Include="describe_implicit_befores.cs" />
     <Compile Include="describe_todo_example.cs" />
     <Compile Include="describe_x_it.cs" />
+    <Compile Include="Formatting\when_formatting_a_failure.cs" />
+    <Compile Include="Formatting\when_formatting_examples.cs" />
+    <Compile Include="Formatting\when_formatting_exceptions.cs" />
+    <Compile Include="Formatting\when_formatting_failure_summary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="when_building_contexts.cs" />
     <Compile Include="when_building_method_contexts.cs" />
@@ -60,7 +65,7 @@
     <Compile Include="when_counting_failures.cs" />
     <Compile Include="when_finding_specs.cs" />
     <Compile Include="when_creating_contexts_for_classes.cs" />
-    <Compile Include="describe_ConsoleFormatter.cs" />
+    <Compile Include="Formatting\describe_ConsoleFormatter.cs" />
     <Compile Include="when_parsing_expressions.cs" />
   </ItemGroup>
   <ItemGroup>

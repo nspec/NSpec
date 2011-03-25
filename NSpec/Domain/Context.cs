@@ -13,6 +13,7 @@ namespace NSpec.Domain
 
         public void AddExample(Example example)
         {
+            example.Context = this;
             Examples.Add(example);
         }
 
@@ -58,12 +59,17 @@ namespace NSpec.Domain
             return Contexts.SelectMany(c => c.AllExamples()).Union(Examples);
         }
 
-        public Context(string name) : this(name,0) { }
+        public Context(string name="") : this(name,0) { }
 
         public Context(Type type) : this(type.Name,0)
         {
             Type = type;
             BeforeInstance = type.GetBefore();
+        }
+
+        public Context(MethodInfo method) : this(method.Name,0)
+        {
+            Method = method;
         }
 
         public Context(string name, int level)
@@ -79,11 +85,6 @@ namespace NSpec.Domain
             name = name.Replace("_", " ");
 
             return Regex.Replace(name, "[a-z][A-Z]", m => m.Value[0] + " " + char.ToLower(m.Value[1]));
-        }
-
-        public Context(MethodInfo method) : this(method.Name,0)
-        {
-            Method = method;
         }
 
         protected MethodInfo Method { get; set; }

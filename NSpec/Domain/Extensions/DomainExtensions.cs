@@ -16,5 +16,14 @@ namespace NSpec.Domain.Extensions
         {
             return type.GetMethods().Where(m => exclusions == null ||  !exclusions.Contains(m.Name));
         }
+
+        public static string CleanMessage(this Exception excpetion)
+        {
+            var exc = excpetion.Message.Trim().Replace(Environment.NewLine, ", ").Trim();
+
+            while (exc.Contains("  ")) exc = exc.Replace("  ", " ");
+
+            return exc;
+        }
     }
 }

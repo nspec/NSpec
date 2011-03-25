@@ -57,10 +57,10 @@ namespace NSpec.Domain
 
         public Action Action { get; set; }
 
+        public Context Context{get;set;}
+
         public void Run(Context context)
         {
-            fullContext = context.FullContext();
-
             context.Befores();
 
             context.Acts();
@@ -81,11 +81,9 @@ namespace NSpec.Domain
             context.Afters();
         }
 
-        private string fullContext;
-
-        public string FullSpec()
+        public string FullName()
         {
-            return fullContext + ". " + Spec;
+            return Context.FullContext() + ". " + Spec + ".";
         }
     }
 }
