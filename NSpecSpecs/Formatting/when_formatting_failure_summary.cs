@@ -55,10 +55,10 @@ namespace NSpecNUnit
             output.should_contain(smash.Message);
         }
 
-        [Test,Ignore]
+        [Test]
         public void should_separate_failures_with_two_newlines()
         {
-            output.should_contain(boom.Message + Environment.NewLine + boom.StackTrace + Environment.NewLine.Times(2) + smash.Message);
+            output.should_contain(boom.Message + Environment.NewLine + boom.StackTrace + Environment.NewLine.Times(2) );
         }
 
         string output;
