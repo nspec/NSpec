@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'cgi'
 
 desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. DOES NOT autoincrement version number.'
-task :pushNuget do
+task :nuget do
 
   xml = Nokogiri::XML(File.read 'nspec.nuspec')
   xml.root.default_namespace = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"
