@@ -1,6 +1,12 @@
 require 'nokogiri'
 require 'cgi'
 
+task :pushNuget do
+  Dir['nspec*{nupkg}'].each {|f| File.delete(f)}
+  sh 'nuget.exe pack nspec.nuspec'
+  sh "deployNuget.bat #{Dir['*{nupkg}'][0]}"
+end
+
 desc 'run SampleSpecs with NSpecRunner. you can supply a single spec like so -> rake samples[spec_name]'
 task :samples, :spec do |t,args| 
   spec = args[:spec] || ''
