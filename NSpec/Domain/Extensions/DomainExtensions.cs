@@ -14,7 +14,7 @@ namespace NSpec.Domain.Extensions
 
         public static IEnumerable<MethodInfo> Methods(this Type type, IEnumerable<string> exclusions=null)
         {
-            return type.GetMethods().Where(m => exclusions == null ||  !exclusions.Contains(m.Name));
+            return type.GetMethods().Where(m => exclusions == null || !exclusions.Contains(m.Name)).Where(m => !typeof(object).GetMethods().Contains(m));
         }
 
         public static string CleanMessage(this Exception excpetion)

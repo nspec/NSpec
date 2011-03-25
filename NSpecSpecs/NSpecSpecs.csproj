@@ -52,8 +52,7 @@
     <Compile Include="describe_Example.cs" />
     <Compile Include="describe_expected_exception.cs" />
     <Compile Include="describe_implicit_befores.cs" />
-    <Compile Include="describe_todo_example.cs" />
-    <Compile Include="describe_x_it.cs" />
+    <Compile Include="describe_todo.cs" />
     <Compile Include="Formatting\when_formatting_a_failure.cs" />
     <Compile Include="Formatting\when_formatting_examples.cs" />
     <Compile Include="Formatting\when_formatting_exceptions.cs" />
