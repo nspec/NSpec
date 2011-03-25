@@ -17,19 +17,6 @@ namespace NSpec.Domain
             Examples.Add(example);
         }
 
-        public override string ToString()
-        {
-            if (AllExamples().Count() == 0) return "";
-
-            var context = string.Format("\t".Times(Level) + "{0}", Name);
-
-            Examples.Do(e => context += Environment.NewLine + "\t".Times(Level) + e );
-
-            Contexts.Do(c => context += Environment.NewLine + c.ToString());
-
-            return context;
-        }
-
         public void Afters()
         {
             if (After != null)
@@ -56,7 +43,7 @@ namespace NSpec.Domain
 
         public IEnumerable<Example> AllExamples()
         {
-            return Contexts.SelectMany(c => c.AllExamples()).Union(Examples);
+            return Contexts.Examples().Union(Examples);
         }
 
         public Context(string name="") : this(name,0) { }
@@ -77,7 +64,7 @@ namespace NSpec.Domain
             Name = MakeSentence(name);
             Level = level;
             Examples = new List<Example>();
-            Contexts = new List<Context>();
+            Contexts = new ContextCollection();
         }
 
         private string MakeSentence(string name)
@@ -92,7 +79,7 @@ namespace NSpec.Domain
         public string Name { get; set; }
         public int Level { get; set; }
         public List<Example> Examples { get; set; }
-        public List<Context> Contexts { get; set; }
+        public ContextCollection Contexts { get; set; }
         public Action Before { get; set; }
         public Action Act { get; set; }
         public Action After { get; set; }
