@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 class multiple_befores : nspec
 {
-    private List<int> ints = null;
+    List<int> ints;
 
     public void list_manipulation()
     {

@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'cgi'
 
+desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. DOES NOT autoincrement version number.'
 task :pushNuget do
   Dir['nspec*{nupkg}'].each {|f| File.delete(f)}
   sh 'nuget.exe pack nspec.nuspec'
@@ -17,7 +18,7 @@ end
 desc 'supply the current tutorial markup in source.html and generate new.html containing current source code and output'
 task :website do
   if File.exists? 'source.html'
-    @doc = Nokogiri::HTML.fragment(`cat source.html`)
+    @doc = Nokogiri::HTML.fragment(File.read 'source.html')
 
     Dir['SampleSpecs/WebSite/**/*.*'].each {|f| run f}
 
@@ -36,6 +37,8 @@ def run file
     node.add_next_sibling code_markup file 
 
     node.remove
+
+    puts "pre with id = #{class_for(file)}_code replaced successfully"
   end
 
   node = nil
@@ -48,6 +51,8 @@ def run file
     node.add_next_sibling output_markup file 
 
     node.remove
+
+    puts "pre with id = #{class_for(file)}_outputreplaced successfully"
   end
 end
 
@@ -57,7 +62,7 @@ end
 
 def code_markup file
   out = "<pre id=\"#{class_for(file)}_code\" data-timestamp=\"#{Time.new.inspect}\" class=\"brush: csharp;\">"
-  out += CGI::escapeHTML(`cat #{file}`)
+  out += CGI::escapeHTML(File.read file)
   out += '</pre>'
 end
 

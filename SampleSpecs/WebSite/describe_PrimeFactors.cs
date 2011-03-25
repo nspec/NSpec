@@ -22,7 +22,7 @@ class describe_PrimeFactors : nspec
             );
     }
 
-    private IEnumerable<int> Primes(int number)
+    IEnumerable<int> Primes(int number)
     {
         //prime factors solution would be here
         return new PrimeFactors().Factor(number);
