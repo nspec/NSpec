@@ -19,6 +19,12 @@ namespace NSpec
             xit = new ActionRegister((name, action) => Pending(new Example(name, action, pending: true)));
         }
 
+        /// <summary>
+        /// Create a specification/example using a single line lambda with an assertion(should). 
+        /// The name of the specification will be parsed from the Expression
+        /// <para>For Example:</para>
+        /// <para>specify = () => _controller.should_be(false);</para>
+        /// </summary>
         protected Expression<Action> specify
         {
             set { Exercise(new Example(value)); }
@@ -68,10 +74,9 @@ namespace NSpec
         protected ActionRegister describe;
 
         /// <summary>
-        /// Create a specification/example. Within your contexts, specify assersions (shoulds) within this member.  
+        /// Create a specification/example using a name and a lambda with an assertion(should).
         /// <para>For Example:</para>
         /// <para>it["should return false"] = () => _controller.should_be(false);</para>
-        /// <para>(Extension methods are in the NSpec.Extensions namespace)</para>
         /// </summary>
         protected ActionRegister it;
 
