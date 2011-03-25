@@ -8,8 +8,8 @@
     <ProjectGuid>{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NSpecNUnit</RootNamespace>
-    <AssemblyName>NSpecNUnit</AssemblyName>
+    <RootNamespace>NSpecSpecs</RootNamespace>
+    <AssemblyName>NSpecSpecs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
