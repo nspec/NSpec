@@ -29,13 +29,15 @@ namespace NSpec.Domain
 
         public void Run(Context context)
         {
-            context.Befores();
-
-            context.Acts();
-
             try
             {
+                context.Befores();
+
+                context.Acts();
+            
                 Action();
+                
+                context.Afters();
             }
             catch(PendingExampleException)
             {
@@ -45,8 +47,6 @@ namespace NSpec.Domain
             {
                 Exception = e;
             }
-
-            context.Afters();
         }
 
         public string FullName()
