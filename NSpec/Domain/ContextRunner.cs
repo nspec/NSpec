@@ -27,7 +27,7 @@ namespace NSpec.Domain
 
                 var formatter = new ConsoleFormatter();
 
-                formatter.Write(Contexts);
+                formatter.Write( new ContextCollection( Contexts));
             }
             catch (Exception e)
             {

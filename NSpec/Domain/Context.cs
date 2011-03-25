@@ -155,11 +155,6 @@ namespace NSpec.Domain
             return Parent.GetSpecType();
         }
 
-        public IEnumerable<object> AllPendings()
-        {
-            return Contexts.SelectMany(c => c.AllPendings()).Union(Examples.Where(e=>e.Pending));
-        }
-
         public string FullContext()
         {
             if (Parent != null)

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Domain\BeforeFinder.cs" />
     <Compile Include="Domain\ConsoleFormatter.cs" />
+    <Compile Include="Domain\ContextCollection.cs" />
     <Compile Include="Domain\ContextRunner.cs" />
     <Compile Include="Domain\ContextBuilder.cs" />
     <Compile Include="Before.cs" />

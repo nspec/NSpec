@@ -58,6 +58,7 @@
     <Compile Include="Formatting\when_formatting_examples.cs" />
     <Compile Include="Formatting\when_formatting_exceptions.cs" />
     <Compile Include="Formatting\when_formatting_failure_summary.cs" />
+    <Compile Include="describe_ContextCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="when_building_contexts.cs" />
     <Compile Include="when_building_method_contexts.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NSpec.Domain.Extensions;
 using NUnit.Framework;
 using NSpec;
@@ -50,7 +49,7 @@ namespace NSpecNUnit
 
         private IEnumerable<object> PendingExamples()
         {
-            return classContext.Contexts.First().AllPendings();
+            return classContext.Contexts.First().Examples.Where(e => e.Pending);
         }
     }
 }

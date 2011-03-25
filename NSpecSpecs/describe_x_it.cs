@@ -48,9 +48,9 @@ namespace NSpecNUnit
             PendingExamples().First().cast_to<Example>().Spec.should_be("should be pending");
         }
 
-        private IEnumerable<object> PendingExamples()
+        private IEnumerable<Example> PendingExamples()
         {
-            return classContext.Contexts.First().AllPendings();
+            return classContext.Contexts.First().Examples.Where(e => e.Pending);
         }
     }
 }

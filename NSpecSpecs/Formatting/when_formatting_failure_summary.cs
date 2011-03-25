@@ -78,7 +78,7 @@ namespace NSpecNUnit
         }
         protected string Given(params Context[] contexts)
         {
-            return new ConsoleFormatter().FailureSummary(contexts);
+            return new ConsoleFormatter().FailureSummary( new ContextCollection( contexts));
         }
     }
 }
