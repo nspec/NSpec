@@ -3,6 +3,17 @@ require 'cgi'
 
 desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. DOES NOT autoincrement version number.'
 task :pushNuget do
+
+  xml = Nokogiri::XML(File.read 'nspec.nuspec')
+  xml.root.default_namespace = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"
+  node =  xml.root.xpath('//xmlns:version')[0]
+
+  nextVer = "0.9." + (node.text.split('.').last.to_i + 1).to_s
+
+  node.inner_html = nextVer
+
+  File.open("nspec.nuspec", 'w') {|f| f.write(xml.to_xml) }
+
   Dir['nspec*{nupkg}'].each {|f| File.delete(f)}
   sh 'nuget.exe pack nspec.nuspec'
   sh "deployNuget.bat #{Dir['*{nupkg}'][0]}"

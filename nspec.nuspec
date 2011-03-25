@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>nspec</id>
-    <version>0.9.9</version>
+    <version>0.9.10</version>
     <iconUrl>http://nspecdriven.net/themes/contoso/content/images/logo.png</iconUrl>
     <licenseUrl>https://github.com/mattflo/NSpec/blob/master/license.txt</licenseUrl>
     <authors>Matt Florence, Amir Rajan</authors>
@@ -14,8 +14,8 @@
     <tags>testing, bdd, tdd</tags>
   </metadata>
   <files>
-    <file src="NSpecRunner/bin/Debug/*.*" target="tools/" />
-    <file src="NSpec/bin/debug/NSpec.dll" target="lib/NSpec.dll" />
-    <file src="NSpec/bin/debug/nunit.framework.dll" target="lib/nunit.framework.dll" />
+    <file src="NSpecRunner/bin/Debug/*.*" target="tools/"/>
+    <file src="NSpec/bin/debug/NSpec.dll" target="lib/NSpec.dll"/>
+    <file src="NSpec/bin/debug/nunit.framework.dll" target="lib/nunit.framework.dll"/>
   </files>
 </package>
