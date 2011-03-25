@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
@@ -67,10 +68,17 @@ namespace NSpec.Domain
 
         public Context(string name, int level)
         {
-            Name = name;
+            Name = MakeSentence(name);
             Level = level;
             Examples = new List<Example>();
             Contexts = new List<Context>();
+        }
+
+        private string MakeSentence(string name)
+        {
+            name = name.Replace("_", " ");
+
+            return Regex.Replace(name, "[a-z][A-Z]", m => m.Value[0] + " " + char.ToLower(m.Value[1]));
         }
 
         public Context(MethodInfo method) : this(method.Name,0)

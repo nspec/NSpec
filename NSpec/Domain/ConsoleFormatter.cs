@@ -21,7 +21,7 @@ namespace NSpec.Domain
 
             if (level == 1) result += Environment.NewLine;
 
-            result += context.Name.Replace("_", " ");
+            result += context.Name;//.Replace("_", " ");
 
             context.Examples.Do(e => result += Write(e, level));
 

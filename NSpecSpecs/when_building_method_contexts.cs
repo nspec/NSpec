@@ -33,13 +33,13 @@ namespace NSpecNUnit
         [Test]
         public void it_should_add_the_public_method_as_a_sub_context()
         {
-            classContext.Contexts.should_contain(c => c.Name == "public_method");
+            classContext.Contexts.should_contain(c => c.Name == "public method");
         }
 
         [Test]
         public void it_should_not_create_a_sub_context_for_the_private_method()
         {
-            classContext.Contexts.should_not_contain(c => c.Name == "private_method");
+            classContext.Contexts.should_not_contain(c => c.Name == "private method");
         }
     }
 }

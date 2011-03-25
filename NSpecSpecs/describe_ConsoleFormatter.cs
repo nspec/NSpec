@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace NSpecNUnit
 {
     [TestFixture]
-    public class when_formatting_console_output
+    public class describe_ConsoleFormatter
     {
         [SetUp]
         public void setup()
