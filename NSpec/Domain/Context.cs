@@ -72,6 +72,8 @@ namespace NSpec.Domain
             name = name.Replace("_", " ");
 
             return Regex.Replace(name, "[a-z][A-Z]", m => m.Value[0] + " " + char.ToLower(m.Value[1]));
+            //supplied generously by Steven on stackoverflow
+            //http://stackoverflow.com/questions/323314/best-way-to-convert-pascal-case-to-a-sentence/1211435#1211435
         }
 
         protected MethodInfo Method { get; set; }
