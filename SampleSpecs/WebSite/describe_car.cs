@@ -103,7 +103,8 @@ class describe_car : nspec
                 car.Drive(10);
             });
 
-        new[]{
+        new[]
+        {
             new { gasInTank = 10, mpg = 1,  miles = 10.0, expectedDistance = 10.0, 
                   gasLeft = 0.0, running = false, lowfuel = true, onEmpty = true },
 
