@@ -4,7 +4,7 @@ using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
 
-namespace NSpecSpecs
+namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
     public class describe_implicit_befores : when_running_specs

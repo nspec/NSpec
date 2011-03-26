@@ -4,7 +4,7 @@ using NSpec;
 using NSpec.Domain;
 using System.Collections.Generic;
 
-namespace NSpecSpecs
+namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
     public class describe_action_indexer_add_operator : when_running_specs

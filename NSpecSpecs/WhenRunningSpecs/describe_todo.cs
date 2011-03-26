@@ -4,7 +4,7 @@ using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
 
-namespace NSpecSpecs
+namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
     public class using_todo : describe_todo

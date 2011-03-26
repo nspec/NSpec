@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using NSpec;
 
-namespace NSpecSpecs
+namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
     public class describe_method_level_befores : when_running_specs

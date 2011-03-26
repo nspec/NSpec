@@ -4,7 +4,7 @@ using System.Reflection;
 using NSpec.Domain;
 using NSpec.Domain.Extensions;
 
-namespace NSpecSpecs
+namespace NSpecSpecs.WhenRunningSpecs
 {
     public class when_running_specs
     {

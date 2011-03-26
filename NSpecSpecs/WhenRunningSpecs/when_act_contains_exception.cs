@@ -4,7 +4,7 @@ using NSpec;
 using NUnit.Framework;
 using NSpec.Domain;
 
-namespace NSpecSpecs
+namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
     public class when_act_contains_exception : when_running_specs
