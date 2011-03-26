@@ -3,12 +3,11 @@ using System.Linq;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
-using NSpec.Domain.Extensions;
 
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     [TestFixture]
-    public class describe_implicit_befores
+    public class describe_implicit_befores : when_running_specs
     {
         private class SpecClass : nspec
         {
@@ -33,15 +32,7 @@ namespace NSpecNUnit
         [SetUp]
         public void setup()
         {
-            classContext = new Context(typeof(SpecClass));
-
-            var method = typeof(SpecClass).Methods().Single(m => m.Name == "method_level_context");
-
-            methodContext = new Context(method);
-
-            classContext.AddContext(methodContext);
-
-            classContext.Run();
+            Run(typeof(SpecClass));
         }
 
         [Test]

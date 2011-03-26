@@ -1,16 +1,13 @@
-﻿using System;
-using System.Linq;
-using NSpec.Domain.Extensions;
+﻿using System.Linq;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
 using System.Collections.Generic;
 
-
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     [TestFixture]
-    public class describe_action_indexer_add_operator
+    public class describe_action_indexer_add_operator : when_running_specs
     {
         private class SpecClass : nspec
         {
@@ -20,21 +17,10 @@ namespace NSpecNUnit
             }
         }
 
-        private Context classContext;
-        private Context methodContext;
-
         [SetUp]
         public void setup()
         {
-            classContext = new Context(typeof(SpecClass));
-
-            var method = typeof(SpecClass).Methods().Single(m => m.Name == "method_level_context");
-
-            methodContext = new Context(method);
-
-            classContext.AddContext(methodContext);
-
-            classContext.Run();
+            Run(typeof(SpecClass));
         }
 
         [Test]

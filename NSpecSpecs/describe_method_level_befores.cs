@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
-using NSpec.Domain.Extensions;
 using NUnit.Framework;
 using NSpec;
-using NSpec.Domain;
 
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     [TestFixture]
-    public class describe_method_level_befores
+    public class describe_method_level_befores : when_running_specs
     {
         private class SpecClass : nspec
         {
@@ -29,15 +27,7 @@ namespace NSpecNUnit
         [SetUp]
         public void setup()
         {
-            classContext = new Context(typeof(SpecClass));
-
-            var method = typeof(SpecClass).Methods().Single(m=>m.Name=="method_level_context");
-
-            methodContext = new Context(method);
-
-            classContext.AddContext( methodContext);
-
-            classContext.Run();
+            Run(typeof(SpecClass));
         }
 
         [Test]
@@ -51,8 +41,5 @@ namespace NSpecNUnit
         {
             methodContext.Contexts.First().Before.should_be(SpecClass.SubContextBefore);
         }
-
-        private Context classContext;
-        private Context methodContext;
     }
 }

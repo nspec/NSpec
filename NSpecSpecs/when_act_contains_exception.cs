@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NSpec;
 using NUnit.Framework;
 using NSpec.Domain;
-using NSpec.Domain.Extensions;
 
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     [TestFixture]
-    public class when_act_contains_exception
+    public class when_act_contains_exception : when_running_specs
     {
         private class SpecClass : nspec
         {
@@ -24,21 +21,10 @@ namespace NSpecNUnit
             }
         }
 
-        private Context classContext;
-        private Context methodContext;
-
         [SetUp]
         public void setup()
         {
-            classContext = new Context(typeof(SpecClass));
-
-            var method = typeof(SpecClass).Methods().Single(m => m.Name == "method_level_context");
-
-            methodContext = new Context(method);
-
-            classContext.AddContext(methodContext);
-
-            classContext.Run();
+            Run(typeof(SpecClass));
         }
 
         [Test]

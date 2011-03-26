@@ -2,13 +2,12 @@
 using System.Linq;
 using NSpec;
 using NUnit.Framework;
-using NSpec.Domain.Extensions;
 using NSpec.Domain;
 
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     [TestFixture]
-    public class describe_expected_exception
+    public class describe_expected_exception : when_running_specs
     {
         private class SpecClass : nspec
         {
@@ -25,15 +24,7 @@ namespace NSpecNUnit
         [SetUp]
         public void setup()
         {
-            classContext = new Context(typeof(SpecClass));
-
-            var method = typeof(SpecClass).Methods().Single(m => m.Name == "method_level_context");
-
-            methodContext = new Context(method);
-
-            classContext.AddContext(methodContext);
-
-            classContext.Run();
+            Run(typeof(SpecClass));
         }
 
         [Test]
@@ -59,8 +50,5 @@ namespace NSpecNUnit
         {
             return classContext.Contexts.First().AllExamples().Single(s => s.Spec == name);
         }
-
-        private Context classContext;
-        private Context methodContext;
     }
 }

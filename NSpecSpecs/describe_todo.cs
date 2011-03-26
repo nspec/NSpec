@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
-using NSpec.Domain.Extensions;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
 
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     [TestFixture]
     public class using_todo : describe_todo
@@ -42,17 +41,11 @@ namespace NSpecNUnit
         }
     }
 
-    public class describe_todo
+    public class describe_todo : when_running_specs
     {
         protected Example ExampleFrom(Type type)
         {
-            var classContext = new Context(type);
-
-            var methodContext = new Context(type.Methods().First());
-
-            classContext.AddContext(methodContext);
-
-            classContext.Run();
+            Run(type);
 
             return classContext.AllExamples().First();
         }

@@ -70,6 +70,7 @@
     <Compile Include="when_creating_contexts_for_classes.cs" />
     <Compile Include="Formatting\describe_ConsoleFormatter.cs" />
     <Compile Include="when_parsing_expressions.cs" />
+    <Compile Include="when_running_specs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
