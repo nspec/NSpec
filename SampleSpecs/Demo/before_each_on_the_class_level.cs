@@ -7,10 +7,10 @@ namespace SampleSpecs.Demo
     {
         private List<int> ints = null;
 
-        before<dynamic> each = c =>
+        public void before_each()
         {
-            c.ints = new List<int>();
-        };
+            ints = new List<int>();
+        }
 
         public void it_should_run_before_on_class_level()
         {

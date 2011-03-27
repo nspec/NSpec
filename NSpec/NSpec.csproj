@@ -45,12 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\BeforeFinder.cs" />
+    <Compile Include="Domain\ClassContext.cs" />
     <Compile Include="Domain\ConsoleFormatter.cs" />
     <Compile Include="Domain\ContextCollection.cs" />
     <Compile Include="Domain\ContextRunner.cs" />
     <Compile Include="Domain\ContextBuilder.cs" />
-    <Compile Include="Before.cs" />
     <Compile Include="Domain\Extensions\DomainExtensions.cs" />
+    <Compile Include="Domain\MethodContext.cs" />
     <Compile Include="Domain\PendingExampleException.cs" />
     <Compile Include="Tuples.cs" />
     <Compile Include="Domain\ActionIndexer.cs" />

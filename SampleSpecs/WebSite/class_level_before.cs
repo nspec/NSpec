@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using NSpec;
 
 namespace SampleSpecs.WebSite
 {
     class class_level_before : nspec
     {
-        List<int> ints = null;
+        List<int> ints;
 
-        before<dynamic> each = (s) =>
+        public void before_each()
         {
-            s.ints = new List<int>();
-        };
+            ints = new List<int>();
+        }
 
         public void list_manipulations()
         {

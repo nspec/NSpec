@@ -42,7 +42,7 @@ namespace NSpec.Domain
             specClass.Methods(finder.Except).Do(
                 contextMethod =>
                 {
-                    var methodContext = new Context(contextMethod);
+                    var methodContext = new MethodContext(contextMethod);
 
                     classContext.AddContext(methodContext);
                 });

@@ -48,17 +48,6 @@ namespace NSpec.Domain
 
         public Context(string name="") : this(name,0) { }
 
-        public Context(Type type) : this(type.Name,0)
-        {
-            Type = type;
-            BeforeInstance = type.GetBefore();
-        }
-
-        public Context(MethodInfo method) : this(method.Name,0)
-        {
-            Method = method;
-        }
-
         public Context(string name, int level)
         {
             Name = MakeSentence(name);

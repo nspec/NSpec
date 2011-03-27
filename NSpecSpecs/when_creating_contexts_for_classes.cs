@@ -7,28 +7,18 @@ namespace NSpecNUnit
 {
     public class child : parent
     {
-        before<dynamic> each = childSpec => childSpec.beforeResult += "child";
+        public void before_each()
+        {
+            beforeResult += "child";
+        }
     }
 
     public class parent : nspec
     {
-        before<dynamic> each = beforeClass => beforeClass.beforeResult = "parent";
         public string beforeResult;
-    }
-
-    [TestFixture]
-    public class given_a_type
-    {
-        [Test]
-        public void should_get_the_proper_before_action_defined_on_the_class()
+        public void before_each()
         {
-            var instance = new parent();
-
-            var beforeAction = typeof(parent).GetBefore();
-
-            beforeAction(instance);
-
-            instance.beforeResult.should_be("parent");
+            beforeResult = "parent";
         }
     }
 

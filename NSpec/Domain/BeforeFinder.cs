@@ -1,7 +1,4 @@
 using System;
-using System.Linq;
-using System.Reflection;
-using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {
@@ -11,31 +8,14 @@ namespace NSpec.Domain
         {
             if (type.BaseType == typeof(nspec))
             {
-                var context = new Context( type );
+                var context = new ClassContext( type );
 
                 if(childContext!=null) context.AddContext(childContext);
 
                 return context;
             }
 
-            return RootContext(type.BaseType, new Context(type));
-        }
-
-        public static Action<object> GetBefore(this Type type)
-        {
-            var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-
-            before<object> beforeEach = null;
-
-            var instance = type.Instance<nspec>();
-
-            var eachField = fields.FirstOrDefault(f => f.Name.Contains("each"));
-
-            if (eachField != null) beforeEach = eachField.GetValue(instance) as before<object>;
-
-            if (beforeEach != null) return t => beforeEach(t);
-
-            return null;
+            return RootContext(type.BaseType, new ClassContext(type));
         }
     }
 }

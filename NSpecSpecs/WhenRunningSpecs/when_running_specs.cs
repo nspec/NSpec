@@ -10,11 +10,11 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         protected void Run(Type type)
         {
-            classContext = new Context(type);
+            classContext = new ClassContext(type);
 
             var method = Enumerable.First<MethodInfo>(type.Methods());
 
-            methodContext = new Context(method);
+            methodContext = new MethodContext(method);
 
             classContext.AddContext(methodContext);
 

@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>nspec</id>
-    <version>0.9.13</version>
+    <version>0.9.15</version>
     <iconUrl>http://nspecdriven.net/themes/contoso/content/images/logo.png</iconUrl>
     <licenseUrl>https://github.com/mattflo/NSpec/blob/master/license.txt</licenseUrl>
     <authors>Matt Florence, Amir Rajan</authors>
