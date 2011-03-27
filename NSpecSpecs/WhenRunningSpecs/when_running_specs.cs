@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using NSpec.Domain;
 using NSpec.Domain.Extensions;
 
@@ -12,7 +11,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             classContext = new ClassContext(type);
 
-            var method = Enumerable.First<MethodInfo>(type.Methods());
+            var method = type.Methods().First();
 
             methodContext = new MethodContext(method);
 

@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="describe_reflecting_methods.cs" />
     <Compile Include="WhenRunningSpecs\describe_action_indexer_add_operator.cs" />
     <Compile Include="describe_Context.cs" />
     <Compile Include="describe_Example.cs" />

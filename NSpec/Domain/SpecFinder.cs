@@ -14,7 +14,7 @@ namespace NSpec.Domain
             return Types
                 .Where(t => t.IsClass
                     && BaseTypes(t).Any(s => s == typeof(nspec))
-                    && t.Methods(Except).Count() > 0
+                    && t.Methods().Count() > 0
                     && (string.IsNullOrEmpty(classFilter) || t.Name == classFilter));
         }
 
@@ -35,7 +35,6 @@ namespace NSpec.Domain
 
         public SpecFinder()
         {
-            Except = typeof(object).GetMethods().Select(m => m.Name).Union(new[] { "ClearExamples", "Examples", "set_Context", "get_Context" });
         }
 
         public SpecFinder(string specDLL, IReflector reflector, string classFilter="")
@@ -45,14 +44,11 @@ namespace NSpec.Domain
             Types = reflector.GetTypesFrom(specDLL);
         }
 
-        public IEnumerable<string> Except { get; set; }
-
         public Type[] Types { get; set; }
     }
 
     public interface ISpecFinder
     {
         IEnumerable<Type> SpecClasses();
-        IEnumerable<string> Except { get; set; }
     }
 }

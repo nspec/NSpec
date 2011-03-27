@@ -12,9 +12,15 @@ namespace NSpec.Domain.Extensions
             return type.GetConstructors()[0].Invoke(new object[0]) as T;
         }
 
-        public static IEnumerable<MethodInfo> Methods(this Type type, IEnumerable<string> exclusions=null)
+        public static IEnumerable<MethodInfo> Methods(this Type type)
         {
-            return type.GetMethods().Where(m => exclusions == null || !exclusions.Contains(m.Name)).Where(m => !typeof(object).GetMethods().Contains(m));
+            var flags = BindingFlags.Public | BindingFlags.Instance;// | BindingFlags.NonPublic;
+
+            var exclusions = typeof(nspec).GetMethods(flags).Select(m => m.Name);
+
+            return type.GetMethods(flags)
+                .Where(m => !exclusions.Contains(m.Name))
+                .Where(m =>m.GetParameters().Count()==0);
         }
 
         public static string CleanMessage(this Exception excpetion)

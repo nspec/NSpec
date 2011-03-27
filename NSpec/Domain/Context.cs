@@ -103,7 +103,7 @@ namespace NSpec.Domain
 
         public void Run()
         {
-            Contexts.Do(c => c.Run());
+            Contexts.Do(c => c.Run() );
 
             if (Method != null)
             {
@@ -119,7 +119,7 @@ namespace NSpec.Domain
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Exception executing context: {0}".With(Method.Name));
+                    Console.WriteLine("Exception executing context: {0}".With(FullContext()));
 
                     throw e;
                 }

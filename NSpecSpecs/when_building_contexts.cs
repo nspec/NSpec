@@ -20,8 +20,6 @@ namespace NSpecNUnit.when_building_contexts
 
             finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(new[] { typeof(child), typeof(parent), typeof(sibling) });
 
-            finder.Stub(f => f.Except).Return(new SpecFinder().Except);
-
             builder = new ContextBuilder(finder);
 
             builder.Contexts();

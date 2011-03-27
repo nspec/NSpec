@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Reflection;
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
@@ -20,8 +23,6 @@ namespace NSpecNUnit
         public void setup()
         {
             var finder = MockRepository.GenerateMock<ISpecFinder>();
-
-            finder.Stub(f => f.Except).Return(new SpecFinder().Except);
 
             var builder =  new ContextBuilder( finder);
 

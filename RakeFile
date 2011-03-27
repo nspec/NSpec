@@ -6,13 +6,13 @@ task :build do
   sh 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe NSpec.sln'
 end
 
-desc 'test'
-task :test => :build do
+desc 'run specs'
+task :spec => :build do
   sh '"C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe" NSpecSpecs/bin/Debug/NSpecSpecs.dll'
 end
 
 desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. DOES NOT autoincrement version number.'
-task :nuget => :test do
+task :nuget => :spec do
 
   xml = Nokogiri::XML(File.read 'nspec.nuspec')
   xml.root.default_namespace = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"
@@ -37,7 +37,7 @@ task :samples, :spec do |t,args|
 end
 
 desc 'supply the current tutorial markup in source.html and generate new.html containing current source code and output'
-task :website => :test do
+task :website => :spec do
   if File.exists? 'source.html'
     @doc = Nokogiri::HTML.fragment(File.read 'source.html')
 

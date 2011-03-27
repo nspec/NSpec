@@ -5,7 +5,7 @@ namespace NSpec.Domain
 {
     public class ContextCollection : List<Context>
     {
-        public ContextCollection(IList<Context> contexts) :base(contexts){}
+        public ContextCollection(IEnumerable<Context> contexts) :base(contexts){}
 
         public ContextCollection(){}
 

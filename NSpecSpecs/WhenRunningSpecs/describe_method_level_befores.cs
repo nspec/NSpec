@@ -20,6 +20,8 @@ namespace NSpecSpecs.WhenRunningSpecs
                 context["sub context"] = () => 
                 {
                     before = SubContextBefore;
+
+                    it["needs an example or it gets filtered"] = todo;
                 };
             }
         }
