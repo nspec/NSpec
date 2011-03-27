@@ -9,9 +9,9 @@ namespace NSpecSpecs.WhenRunningSpecs
     [TestFixture]
     public class describe_implicit_befores : when_running_specs
     {
-        private class SpecClass : nspec
+        class SpecClass : nspec
         {
-            public void method_level_context()
+            void method_level_context()
             {
                 List<int> ints = new List<int>();
                 ints.Add(5);

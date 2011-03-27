@@ -13,12 +13,14 @@ namespace NSpecNUnit
     }
     public class AnotherSpecClass : nspec 
     {
-        public void public_method() { }
+        void public_method() { }
     }
+
     public class NonSpecClass{}
-    public class SpecClassWithNoPublicMethods : nspec 
+
+    public class SpecClassWithNoPrivateMethods : nspec 
     {
-        private void private_method() { }
+        public void private_method() { }
     }
 
     [TestFixture]
@@ -45,9 +47,9 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_should_exclude_classes_that_inherit_from_spec_but_have_no_public_methods()
+        public void it_should_exclude_classes_that_inherit_from_spec_but_have_no_private_methods()
         {
-            GivenDllContains(typeof(SpecClassWithNoPublicMethods));
+            GivenDllContains(typeof(SpecClassWithNoPrivateMethods));
 
             finder.SpecClasses().should_be_empty();
         }
@@ -61,6 +63,7 @@ namespace NSpecNUnit
         }
     }
 
+    [TestFixture]
     public class when_filtering_specs : when_finding_specs
     {
         [Test]

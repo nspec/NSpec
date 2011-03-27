@@ -11,7 +11,7 @@ namespace SampleSpecs.WebSite
     {
         TicTacToGame ticTacToGame = null;
 
-        public void when_players_try_to_take_the_same_square()
+        void when_players_try_to_take_the_same_square()
         {
             before = () => ticTacToGame = new TicTacToGame();
 
@@ -22,7 +22,7 @@ namespace SampleSpecs.WebSite
             });
         }
 
-        public void describe_a_finished_game()
+        void describe_a_finished_game()
         {
             before = () => ticTacToGame = new TicTacToGame();
 

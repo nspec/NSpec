@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 class describe_PrimeFactors : nspec
 {
-    public void when_factoring_primes()
+    void when_factoring_primes()
     {
         new Tuples<int, int[]>
             {

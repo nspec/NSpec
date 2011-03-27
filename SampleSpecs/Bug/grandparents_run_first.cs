@@ -3,11 +3,11 @@ using NSpec;
 
 namespace SampleSpecs.Bug
 {
-    public class grandparents_run_first : nspec
+    class grandparents_run_first : nspec
     {
-        private List<int> ints = null;
+        List<int> ints = null;
 
-        public void describe_NSpec()                                       //describe RSpec do
+        void describe_NSpec()                                       //describe RSpec do
         {
             before = () => ints = new List<int>();                    //  before(:each) { @array = Array.new }
 

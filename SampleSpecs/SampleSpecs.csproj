@@ -49,7 +49,7 @@
     <Compile Include="Demo\todo_example.cs" />
     <Compile Include="Model\TicTacToeGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Demo\User.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Model\Car.cs" />
     <Compile Include="WebSite\class_level_before.cs" />
     <Compile Include="WebSite\decribe_TicTacToeGame.cs" />

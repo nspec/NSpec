@@ -8,12 +8,12 @@ namespace NSpecSpecs.WhenRunningSpecs
     [TestFixture]
     public class describe_method_level_befores : when_running_specs
     {
-        private class SpecClass : nspec
+        class SpecClass : nspec
         {
             public static Action MethodLevelBefore = () => { };
             public static Action SubContextBefore = () => { };
 
-            public void method_level_context()
+            void method_level_context()
             {
                 before = MethodLevelBefore;
 

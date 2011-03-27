@@ -1,12 +1,13 @@
 ﻿using NSpec;
+using SampleSpecs.Model;
 
 namespace SampleSpecs.Demo
 {
-    public class action_indexer_approach : nspec
+    class action_indexer_approach : nspec
     {
-        private User user;
+        User user;
 
-        public void a_user()
+        void a_user()
         {
             before = () => user = new User();
 

@@ -2,9 +2,9 @@ using NSpec;
 
 namespace SampleSpecs.Bug
 {
-    public class given_a_subcontext_that_fails : nspec
+    class given_a_subcontext_that_fails : nspec
     {
-        public void when_totaling_failures()
+        void when_totaling_failures()
         {
             //could not find a way to exercise this requirement using nspec
             //that didn't require using the broken behavior

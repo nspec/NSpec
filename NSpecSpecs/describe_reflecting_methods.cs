@@ -10,7 +10,7 @@ namespace NSpecSpecs
     {
         class parent : nspec
         {
-            public void parent_method() { }
+            void parent_method() { }
         }
 
         class child : nspec
@@ -21,11 +21,19 @@ namespace NSpecSpecs
         }
 
         [Test]
-        public void should_only_include_direct_public_and_private_methods()
+        public void should_only_include_direct_private_methods()
         {
             var methodInfos = typeof(child).Methods();
 
-            methodInfos.Select(m => m.Name).should_be(new[] { "public_child_method"});//, "private_child_method" });
+            methodInfos.Select(m => m.Name).should_be(new[] { "private_child_method" });
+        }
+
+        [Test]
+        public void should_exclude_weird_methods()
+        {
+            var methodInfos = typeof(child).Methods();
+
+            methodInfos.Count().should_be(1);
         }
     }
 }

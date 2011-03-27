@@ -11,7 +11,7 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         class TodoClass : nspec
         {
-            public void method_level_context()
+            void method_level_context()
             {
                 it["should be pending"] = todo;
             }
@@ -29,11 +29,12 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         class XitClass : nspec
         {
-            public void method_level_context()
+            void method_level_context()
             {
                 xit["should be pending"] = () => { };
             }
         }
+
         [Test]
         public void example_should_be_pending()
         {

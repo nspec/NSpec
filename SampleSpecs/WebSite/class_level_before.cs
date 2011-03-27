@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
 using NSpec;
+using System;
 
 namespace SampleSpecs.WebSite
 {
     class class_level_before : nspec
     {
-        List<int> ints;
+        Guid id = Guid.NewGuid();
 
-        public void before_each()
+        List<int> ints = null;
+
+        void before_each()
         {
             ints = new List<int>();
         }
 
-        public void list_manipulations()
+        void list_manipulations()
         {
             specify = () => ints.Count.should_be(0);
 

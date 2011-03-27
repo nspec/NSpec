@@ -10,7 +10,7 @@ public class Car
 
 class describe_car : nspec
 {
-    public void describe_fuel_requirements()
+    void describe_fuel_requirements()
     {
         Car car = null;
 
@@ -65,7 +65,7 @@ class describe_car : nspec
         };
     }
 
-    public void describe_compression_ratio()
+    void describe_compression_ratio()
     {
         Car car = null;
 
@@ -94,7 +94,7 @@ class describe_car : nspec
         });
     }
 
-    public void when_driving_car()
+    void when_driving_car()
     {
         it["should throw error if car isn't started"] = 
             expect<InvalidOperationException>(() => 

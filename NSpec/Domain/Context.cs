@@ -89,9 +89,13 @@ namespace NSpec.Domain
 
         public Action<nspec> BeforeInstance { get; set; }
 
+        public Action<nspec> ActInstance { get; set; }
+
         public void SetInstanceContext(nspec instance)
         {
             if (BeforeInstance != null) Before = () => BeforeInstance(instance);
+
+            if (ActInstance != null) Act = () => ActInstance(instance);
 
             if(Parent!=null) Parent.SetInstanceContext(instance);
         }

@@ -2,7 +2,7 @@
 
 class describe_Math : nspec
 {
-    public void verify_strictly_increasing_numbers()
+    void verify_strictly_increasing_numbers()
     {
         new[]
         { 

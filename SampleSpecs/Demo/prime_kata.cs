@@ -4,9 +4,9 @@ using NSpec;
 
 namespace SampleSpecs.Demo
 {
-    public class prime_kata : nspec
+    class prime_kata : nspec
     {
-        public void prime_factors()
+        void prime_factors()
         {
             //throwing an unhandled exception should now not cause the runner to crash
             //var dict = new Dictionary<int, string> { { 1, "1" }, { 1, "sdfg" } };
@@ -27,7 +27,7 @@ namespace SampleSpecs.Demo
                 );
         }
 
-        private IEnumerable<int> Primes(int num)
+        IEnumerable<int> Primes(int num)
         {
             if (num == 1) return new int[] { };
 

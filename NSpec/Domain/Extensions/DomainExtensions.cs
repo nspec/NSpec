@@ -14,13 +14,13 @@ namespace NSpec.Domain.Extensions
 
         public static IEnumerable<MethodInfo> Methods(this Type type)
         {
-            var flags = BindingFlags.Public | BindingFlags.Instance;// | BindingFlags.NonPublic;
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
 
             var exclusions = typeof(nspec).GetMethods(flags).Select(m => m.Name);
 
             return type.GetMethods(flags)
-                .Where(m => !exclusions.Contains(m.Name))
-                .Where(m =>m.GetParameters().Count()==0);
+                .Where(m => !exclusions.Contains(m.Name) && !m.Name.Contains("<"))
+                .Where(m => m.GetParameters().Count() == 0);
         }
 
         public static string CleanMessage(this Exception excpetion)

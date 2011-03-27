@@ -25,11 +25,11 @@ namespace NSpec.Domain
         {
             var root = specClass.RootContext();
 
-            var parent = contexts.FirstOrDefault(c=>c.Name==root.Name);
+            var parent = contexts.FirstOrDefault(c => c.Name == root.Name);
 
             var classContext = root.SelfAndDescendants().First(c => c.Type == specClass);
 
-            if(parent == null) 
+            if (parent == null)
                 contexts.Add(root);
             else
                 parent.AddContext(classContext);
@@ -39,7 +39,7 @@ namespace NSpec.Domain
 
         public void BuildMethodContexts(Context classContext, Type specClass)
         {
-            specClass.Methods().Do(
+            specClass.Methods().Where(s => !reservedMethods.Contains(s.Name)).Do(
                 contextMethod =>
                 {
                     var methodContext = new MethodContext(contextMethod);
@@ -49,6 +49,8 @@ namespace NSpec.Domain
         }
 
         private readonly ISpecFinder finder;
+
+        private readonly string[] reservedMethods = new[] { "before_each", "act_each" };
 
         private IList<Context> contexts;
     }

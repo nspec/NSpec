@@ -11,7 +11,7 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         private class SpecClass : nspec
         {
-            public void method_level_context()
+            void method_level_context()
             {
                 specify = () => "Hello".should_be("Hello");
             }

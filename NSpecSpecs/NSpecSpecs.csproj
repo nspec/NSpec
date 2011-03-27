@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WhenRunningSpecs\describe_class_level_before.cs" />
+    <Compile Include="when_creating_act_contexts_for_classes.cs" />
     <Compile Include="describe_reflecting_methods.cs" />
     <Compile Include="WhenRunningSpecs\describe_action_indexer_add_operator.cs" />
     <Compile Include="describe_Context.cs" />
@@ -68,7 +70,7 @@
     <Compile Include="WhenRunningSpecs\describe_method_level_befores.cs" />
     <Compile Include="when_counting_failures.cs" />
     <Compile Include="when_finding_specs.cs" />
-    <Compile Include="when_creating_contexts_for_classes.cs" />
+    <Compile Include="when_creating_before_contexts_for_classes.cs" />
     <Compile Include="Formatting\describe_ConsoleFormatter.cs" />
     <Compile Include="when_parsing_expressions.cs" />
     <Compile Include="WhenRunningSpecs\when_running_specs.cs" />

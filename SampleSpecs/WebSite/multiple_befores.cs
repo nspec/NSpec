@@ -5,7 +5,7 @@ class multiple_befores : nspec
 {
     List<int> ints;
 
-    public void list_manipulation()
+    void list_manipulation()
     {
         before = () => ints = new List<int>();
 

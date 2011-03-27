@@ -11,7 +11,7 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         private class SpecClass : nspec
         {
-            public void method_level_context()
+            void method_level_context()
             {
                 it["should throw exception"] = expect<InvalidOperationException>(() => { throw new InvalidOperationException(); });
 

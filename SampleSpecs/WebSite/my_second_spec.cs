@@ -2,7 +2,7 @@ using NSpec;
 
 class my_second_spec : nspec
 {
-    public void i_am_a_method_level_context()
+    void i_am_a_method_level_context()
     {
         it["should execute at this level"] = () => "Hello World".should_be("Hello World");
 

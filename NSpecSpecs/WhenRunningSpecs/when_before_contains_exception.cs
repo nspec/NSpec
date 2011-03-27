@@ -9,9 +9,9 @@ namespace NSpecSpecs.WhenRunningSpecs
     [TestFixture]
     public class when_before_contains_exception : when_running_specs
     {
-        private class SpecClass : nspec
+        class SpecClass : nspec
         {
-            public void method_level_context()
+            void method_level_context()
             {
                 before = () => { throw new InvalidOperationException(); };
 
