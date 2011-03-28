@@ -1,28 +1,24 @@
 ﻿using System.Collections.Generic;
 using NSpec;
-using System;
 
-namespace SampleSpecs.WebSite
+class class_level_before : nspec
 {
-    class class_level_before : nspec
+    List<int> ints;
+
+    void before_each()
     {
-        List<int> ints = null;
+        ints = new List<int>();
+    }
 
-        void before_each()
+    void list_manipulations()
+    {
+        specify = () => ints.Count.should_be(0);
+
+        context["number in collection"] = () =>
         {
-            ints = new List<int>();
-        }
+            before = () => ints.Add(15);
 
-        void list_manipulations()
-        {
-            specify = () => ints.Count.should_be(0);
-
-            context["number in collection"] = () =>
-            {
-                before = () => ints.Add(15);
-
-                specify = () => ints.Count.should_be(1);
-            };
-        }
+            specify = () => ints.Count.should_be(1);
+        };
     }
 }

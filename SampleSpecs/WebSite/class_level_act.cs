@@ -1,42 +1,37 @@
-﻿using System.Collections.Generic;
-using NSpec;
-using System;
+﻿using NSpec;
 
-namespace SampleSpecs.WebSite
+class class_level_act : nspec
 {
-    class class_level_act : nspec
+    string sentence = null;
+
+    void before_each()
     {
-        string sentence = null;
+        sentence = string.Empty;
 
-        void before_each()
+        sentence += "before | ";
+    }
+
+    void act_each()
+    {
+        sentence += "act | ";
+    }
+
+    void sentance_manipulation()
+    {
+        specify = () => sentence.should_be("before | act | ");
+
+        context["acts go in order"] = () =>
         {
-            sentence = string.Empty;
+            act = () => sentence += "context level act | ";
 
-            sentence += "before | ";
-        }
+            specify = () => sentence.should_be("before | act | context level act | ");
 
-        void act_each()
-        {
-            sentence += "act | ";
-        }
-
-        void sentance_manipulation()
-        {
-            specify = () => sentence.should_be("before | act | ");
-
-            context["acts go in order"] = () =>
+            context["befores execute before acts"] = () =>
             {
-                act = () => sentence += "context level act | ";
+                before = () => sentence += "context before | ";
 
-                specify = () => sentence.should_be("before | act | context level act | ");
-
-                context["befores execute before acts"] = () =>
-                {
-                    before = () => sentence += "context before | ";
-
-                    specify = () => sentence.should_be("before | context before | act | context level act | ");
-                };
+                specify = () => sentence.should_be("before | context before | act | context level act | ");
             };
-        }
+        };
     }
 }
