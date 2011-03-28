@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Car.cs" />
+    <Compile Include="WebSite\class_level_act.cs" />
     <Compile Include="WebSite\class_level_before.cs" />
     <Compile Include="WebSite\decribe_TicTacToeGame.cs" />
     <Compile Include="WebSite\describe_car.cs" />

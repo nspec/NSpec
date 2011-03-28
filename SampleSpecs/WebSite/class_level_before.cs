@@ -6,8 +6,6 @@ namespace SampleSpecs.WebSite
 {
     class class_level_before : nspec
     {
-        Guid id = Guid.NewGuid();
-
         List<int> ints = null;
 
         void before_each()
