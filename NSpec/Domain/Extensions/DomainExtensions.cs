@@ -20,7 +20,7 @@ namespace NSpec.Domain.Extensions
 
             var methodInfos = type.GetMethods(flags);
             return methodInfos
-                .Where(m => !exclusions.Contains(m.Name) && !m.Name.Contains("<"))
+                .Where(m => !exclusions.Contains(m.Name) && !m.Name.Contains("<") && m.Name.Contains("_"))
                 .Where(m => m.GetParameters().Count() == 0)
                 .Where(m => m.ReturnType.ToString() == "System.Void");
         }

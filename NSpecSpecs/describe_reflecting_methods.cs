@@ -18,6 +18,7 @@ namespace NSpecSpecs
             public void public_child_method() { }
             void private_child_method() { }
             void helper_method_with_paramter(int i) { }
+            void NoUnderscores() { }
         }
 
         [Test]
@@ -32,11 +33,24 @@ namespace NSpecSpecs
             ShouldContain("public_child_method");
         }
 
+        [Test]
+        public void should_disregard_methods_with_out_underscores()
+        {
+            ShouldNotContain("NoUnderscores");
+        }
+
         public void ShouldContain(string name)
         {
             var methodInfos = typeof(child).Methods();
 
             methodInfos.Any(m => m.Name == name).should_be(true);
+        }
+
+        public void ShouldNotContain(string name)
+        {
+            var methodInfos = typeof(child).Methods();
+
+            methodInfos.Any(m => m.Name == name).should_be(false);
         }
     }
 }
