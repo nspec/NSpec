@@ -39,7 +39,7 @@ namespace NSpecNUnit
         [Test]
         public void it_should_add_the_public_method_as_a_sub_context()
         {
-            classContext.Contexts.should_not_contain(c => c.Name == "public method");
+            classContext.Contexts.should_contain(c => c.Name == "public method");
         }
 
         [Test]

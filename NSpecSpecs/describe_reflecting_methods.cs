@@ -21,19 +21,22 @@ namespace NSpecSpecs
         }
 
         [Test]
-        public void should_only_include_direct_private_methods()
+        public void should_include_direct_private_methods()
         {
-            var methodInfos = typeof(child).Methods();
-
-            methodInfos.Select(m => m.Name).should_be(new[] { "private_child_method" });
+            ShouldContain("private_child_method");
         }
 
         [Test]
-        public void should_exclude_weird_methods()
+        public void should_include_direct_public_methods()
+        {
+            ShouldContain("public_child_method");
+        }
+
+        public void ShouldContain(string name)
         {
             var methodInfos = typeof(child).Methods();
 
-            methodInfos.Count().should_be(1);
+            methodInfos.Any(m => m.Name == name).should_be(true);
         }
     }
 }

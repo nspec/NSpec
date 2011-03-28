@@ -20,7 +20,9 @@ namespace NSpecNUnit
 
     public class SpecClassWithNoPrivateMethods : nspec 
     {
-        public void private_method() { }
+        void private_method(string parameter) { }
+
+        public void public_method(string parameter) { }
     }
 
     [TestFixture]
@@ -47,7 +49,7 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_should_exclude_classes_that_inherit_from_spec_but_have_no_private_methods()
+        public void it_should_exclude_classes_that_inherit_from_spec_but_have_no_parameterless_public_private_methods()
         {
             GivenDllContains(typeof(SpecClassWithNoPrivateMethods));
 
