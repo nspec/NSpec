@@ -18,9 +18,11 @@ namespace NSpec.Domain.Extensions
 
             var exclusions = typeof(nspec).GetMethods(flags).Select(m => m.Name);
 
-            return type.GetMethods(flags)
+            var methodInfos = type.GetMethods(flags);
+            return methodInfos
                 .Where(m => !exclusions.Contains(m.Name) && !m.Name.Contains("<"))
-                .Where(m => m.GetParameters().Count() == 0);
+                .Where(m => m.GetParameters().Count() == 0)
+                .Where(m => m.ReturnType.ToString() == "System.Void");
         }
 
         public static string CleanMessage(this Exception excpetion)

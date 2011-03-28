@@ -18,7 +18,11 @@ namespace NSpecNUnit
 
     public class NonSpecClass{}
 
-    public class SpecClassWithNoPrivateMethods : nspec 
+    public class SpecClassWithNoVoidMethods : nspec
+    {
+        string parameter_less_method(){return "";}
+    }
+    public class SpecClassWithNoParameterLessMethods : nspec 
     {
         void private_method(string parameter) { }
 
@@ -41,7 +45,7 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_should_include_classes_that_implement_spec_and_have_public_methods()
+        public void it_should_include_classes_that_implement_nspec_and_have_paramterless_void_methods()
         {
             GivenDllContains(typeof(SpecClass));
 
@@ -49,17 +53,25 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_should_exclude_classes_that_inherit_from_spec_but_have_no_parameterless_public_private_methods()
+        public void it_should_exclude_classes_that_inherit_from_nspec_but_have_no_parameterless_methods()
         {
-            GivenDllContains(typeof(SpecClassWithNoPrivateMethods));
+            GivenDllContains(typeof(SpecClassWithNoParameterLessMethods));
 
             finder.SpecClasses().should_be_empty();
         }
 
         [Test]
-        public void it_should_exclude_classes_that_do_not_inherit_from_spec()
+        public void it_should_exclude_classes_that_do_not_inherit_from_nspec()
         {
             GivenDllContains(typeof(NonSpecClass));
+
+            finder.SpecClasses().should_be_empty();
+        }
+
+        [Test]
+        public void it_should_exclude_classes_that_have_no_void_methods()
+        {
+            GivenDllContains(typeof(SpecClassWithNoVoidMethods));
 
             finder.SpecClasses().should_be_empty();
         }
