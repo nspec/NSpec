@@ -92,12 +92,19 @@ end
 
 def code_markup file
   out = "<pre id=\"#{class_for(file)}_code\" data-timestamp=\"#{Time.new.inspect}\" class=\"brush: csharp;\">"
-  out += CGI::escapeHTML(File.read file)
+  out += CGI::escapeHTML(File.read file).gsub('', "")
   out += '</pre>'
 end
 
 def output_markup file
   out = "<pre id=\"#{class_for(file)}_output\" data-timestamp=\"#{Time.new.inspect}\" style=\"font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;\">"
-  out += CGI::escapeHTML(`nspecrunner/bin/debug/nspecrunner.exe samplespecs/bin/debug/samplespecs.dll #{class_for(file)}`.strip)
+  output =  CGI::escapeHTML(`nspecrunner/bin/debug/nspecrunner.exe samplespecs/bin/debug/samplespecs.dll #{class_for(file)}`.strip)
+  output.each_line do |line|
+    if line.length < 93
+      out += line
+    else
+      out += line[0..93-line.length] + "...\n"
+    end
+  end
   out += '</pre>'
 end

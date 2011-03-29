@@ -51,19 +51,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Car.cs" />
+    <Compile Include="Model\Account.cs" />
     <Compile Include="WebSite\class_level_act.cs" />
     <Compile Include="WebSite\class_level_before.cs" />
-    <Compile Include="WebSite\decribe_TicTacToeGame.cs" />
-    <Compile Include="WebSite\describe_car.cs" />
+    <Compile Include="Demo\decribe_TicTacToeGame.cs" />
+    <Compile Include="Demo\describe_car.cs" />
     <Compile Include="WebSite\describe_Math.cs" />
     <Compile Include="WebSite\describe_pending.cs" />
-    <Compile Include="WebSite\describe_Prime.cs" />
+    <Compile Include="WebSite\describe_PrimeFactors.cs" />
     <Compile Include="WebSite\describe_specifications.cs" />
     <Compile Include="WebSite\multiple_befores.cs" />
     <Compile Include="WebSite\my_first_spec.cs" />
-    <Compile Include="WebSite\my_second_spec.cs" />
-    <Compile Include="Model\Prime.cs" />
-    <Compile Include="WebSite\simple_before.cs" />
+    <Compile Include="WebSite\describe_contexts.cs" />
+    <Compile Include="Model\PrimeFactors.cs" />
+    <Compile Include="WebSite\describe_before.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">

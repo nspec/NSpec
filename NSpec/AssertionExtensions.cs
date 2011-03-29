@@ -92,6 +92,11 @@ namespace NSpec
             CollectionAssert.IsEmpty(collection);
         }
 
+        public static void should_be<T>(this IEnumerable<T> actual, params T[] expected)
+        {
+            CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());
+        }
+
         public static void should_be<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
         {
             CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());

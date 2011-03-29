@@ -1,6 +1,6 @@
 ﻿using NSpec;
 
-class describe_Prime : nspec
+class describe_PrimeFactors : nspec
 {
     void when_factoring_primes()
     {
@@ -18,7 +18,7 @@ class describe_Prime : nspec
             { 9, new[] { 3, 3 } },
         }.Do((given, expected) =>
             it["{0} should be {1}".With(given, expected)] = () =>
-                Prime.Factors(given).should_be(expected)
+                given.Primes().should_be(expected)
         );
     }
 }
