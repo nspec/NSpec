@@ -56,7 +56,9 @@
     <Compile Include="WebSite\decribe_TicTacToeGame.cs" />
     <Compile Include="WebSite\describe_car.cs" />
     <Compile Include="WebSite\describe_Math.cs" />
+    <Compile Include="WebSite\describe_pending.cs" />
     <Compile Include="WebSite\describe_PrimeFactors.cs" />
+    <Compile Include="WebSite\describe_specifications.cs" />
     <Compile Include="WebSite\multiple_befores.cs" />
     <Compile Include="WebSite\my_first_spec.cs" />
     <Compile Include="WebSite\my_second_spec.cs" />
