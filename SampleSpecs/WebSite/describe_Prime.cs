@@ -1,7 +1,6 @@
 ﻿using NSpec;
-using System.Collections.Generic;
 
-class describe_PrimeFactors : nspec
+class describe_Prime : nspec
 {
     void when_factoring_primes()
     {
@@ -18,13 +17,8 @@ class describe_PrimeFactors : nspec
                 { 8, new[] { 2, 2, 2 } },
                 { 9, new[] { 3, 3 } },
             }.Do( (given, expected) => 
-                it["{0} should be {1}".With(given, expected)] = () => Primes(given).should_be(expected)
+                it["{0} should be {1}".With(given, expected)] = () => 
+                    Prime.Factors(given).should_be(expected)
             );
-    }
-
-    IEnumerable<int> Primes(int number)
-    {
-        //prime factors solution would be here
-        return new PrimeFactors().Factor(number);
     }
 }

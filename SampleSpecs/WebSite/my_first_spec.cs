@@ -2,8 +2,8 @@
 
 class my_first_spec : nspec
 {
-    void given_i_am_awesome()
+    void given_the_world_has_not_come_to_an_end()
     {
-        it["should pass"] = () => "Hello World".should_be("Hello World");
+        it["Hello World should be Hello World"] = () => "Hello World".should_be("Hello World");
     }
 }
