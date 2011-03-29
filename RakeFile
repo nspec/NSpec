@@ -100,7 +100,12 @@ def output_markup file
   out = "<pre id=\"#{class_for(file)}_output\" data-timestamp=\"#{Time.new.inspect}\" style=\"font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;\">"
   output =  `nspecrunner/bin/debug/nspecrunner.exe samplespecs/bin/debug/samplespecs.dll #{class_for(file)}`.strip#.gsub("\ï\»\¿","")
   output.each_line do |line|
+    cleanLine = line.rstrip
+    if cleanLine.length <= 94
+      out += CGI::escapeHTML(line.rstrip) + "\n"
+    else
       out += CGI::escapeHTML(line.rstrip[0..94-line.length] + "...\n")
+    end
   end
   out += '</pre>'
 end

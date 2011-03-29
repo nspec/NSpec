@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using NSpec;
 
 class describe_contexts : nspec
@@ -21,6 +20,5 @@ class describe_contexts : nspec
             };
         };
     }
-    List<int> fibonaccis;
     private Account account;
 }
