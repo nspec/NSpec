@@ -95,6 +95,16 @@ namespace NSpec
         }
 
         /// <summary>
+        /// Create an IEnumerable<int> range from x to y 
+        /// eg. 1.To(3) would be [1,2,3]
+        /// </summary>
+        public static IEnumerable<int> To(this int start, int end)
+        {
+            for (int i = start; i <= end; i++)
+                yield return i;
+        }
+
+        /// <summary>
         /// Extension method that wraps String.Format.
         /// <para>Usage: string result = "{0} {1}".With("hello", "world");</para>
         /// </summary>

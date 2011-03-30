@@ -17,7 +17,7 @@ namespace SampleSpecs.Model
             };
         }
 
-        public bool Done { get; private set; }
+        public bool Finished { get; private set; }
         public string[,] Board { get; set; }
 
         public void Play(string xo, int row, int column)
@@ -51,7 +51,7 @@ namespace SampleSpecs.Model
         {
             if (Board[column, 0] == xo && Board[column, 1] == xo && Board[column, 2] == xo)
             {
-                Done = true;
+                Finished = true;
                 Winner = xo;
             }
         }
@@ -60,7 +60,7 @@ namespace SampleSpecs.Model
         {
             if (Board[0, row] == xo && Board[1, row] == xo && Board[2, row] == xo)
             {
-                Done = true;
+                Finished = true;
                 Winner = xo;
             }
         }
@@ -69,7 +69,7 @@ namespace SampleSpecs.Model
         {
             if (Board[0, 0] == xo && Board[1, 1] == xo && Board[2, 2] == xo)
             {
-                Done = true;
+                Finished = true;
                 Winner = xo;
             }
         }
@@ -78,7 +78,7 @@ namespace SampleSpecs.Model
         {
             if (Board[2, 0] == xo && Board[1, 1] == xo && Board[0, 2] == xo)
             {
-                Done = true;
+                Finished = true;
                 Winner = xo;
             }
         }
@@ -92,7 +92,7 @@ namespace SampleSpecs.Model
 
             if (val.Count() == 0)
             {
-                Done = true;
+                Finished = true;
                 if (string.IsNullOrEmpty(Winner)) Draw = true;
             }
         }
