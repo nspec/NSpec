@@ -20,7 +20,7 @@ namespace SampleSpecs.Model
         public bool Done { get; private set; }
         public string[,] Board { get; set; }
 
-        public void Place(string xo, int row, int column)
+        public void Play(string xo, int row, int column)
         {
             if (string.IsNullOrEmpty(Board[row, column]) == false) throw new InvalidOperationException();
 
