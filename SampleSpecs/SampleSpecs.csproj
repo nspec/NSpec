@@ -54,8 +54,8 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Car.cs" />
     <Compile Include="Model\Account.cs" />
-    <Compile Include="WebSite\class_level_act.cs" />
-    <Compile Include="WebSite\class_level_before.cs" />
+    <Compile Include="WebSite\describe_act.cs" />
+    <Compile Include="WebSite\describe_class_level_before.cs" />
     <Compile Include="Demo\decribe_TicTacToeGame.cs" />
     <Compile Include="Demo\describe_car.cs" />
     <Compile Include="WebSite\describe_helpers.cs" />
