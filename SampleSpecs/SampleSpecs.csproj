@@ -58,15 +58,17 @@
     <Compile Include="WebSite\class_level_before.cs" />
     <Compile Include="Demo\decribe_TicTacToeGame.cs" />
     <Compile Include="Demo\describe_car.cs" />
+    <Compile Include="WebSite\describe_helpers.cs" />
     <Compile Include="WebSite\describe_Math.cs" />
     <Compile Include="WebSite\describe_pending.cs" />
     <Compile Include="WebSite\describe_PrimeFactors.cs" />
     <Compile Include="WebSite\describe_specifications.cs" />
-    <Compile Include="WebSite\multiple_befores.cs" />
+    <Compile Include="Demo\multiple_befores.cs" />
     <Compile Include="WebSite\my_first_spec.cs" />
     <Compile Include="WebSite\describe_contexts.cs" />
     <Compile Include="Model\PrimeFactors.cs" />
     <Compile Include="WebSite\describe_before.cs" />
+    <Compile Include="Model\Tea.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
