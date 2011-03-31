@@ -95,6 +95,33 @@ namespace NSpec
         }
 
         /// <summary>
+        /// Flattens an Enumerable<string> into one string with optional separator
+        /// </summary>
+        public static string Flatten(this IEnumerable<string> source, string separator="")
+        {
+            return source.Aggregate( (acc, s) => acc = acc + separator + s);
+        }
+
+        /// <summary>
+        /// Safely access a property or method of type T. If it is null or throws
+        /// the fallback will be used instead
+        /// </summary>
+        public static U GetOrFallback<T,U>(this T t, Func<T,U> func, U fallback)
+        {
+            try
+            {
+                if (func(t) == null)
+                    return fallback;
+
+                return func(t);
+            }
+            catch
+            {
+                return default(U);
+            }
+        }
+
+        /// <summary>
         /// Create an IEnumerable<int> range from x to y 
         /// eg. 1.To(3) would be [1,2,3]
         /// </summary>

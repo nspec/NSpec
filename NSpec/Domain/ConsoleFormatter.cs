@@ -54,7 +54,10 @@ namespace NSpec.Domain
         {
             var failure = Environment.NewLine + example.FullName().Replace("_", " ") + Environment.NewLine;
 
-            failure += example.Exception.CleanMessage() + Environment.NewLine + example.Exception.StackTrace + Environment.NewLine;
+            failure += example.Exception.CleanMessage() +
+                Environment.NewLine + example.Exception.GetOrFallback( e=> e.StackTrace,"").Split('\n')
+                    .Where(l => !new[] { "NSpec.Domain","NSpec.AssertionExtensions","NUnit.Framework" }.Any(l.Contains))
+                    .Flatten("\n") + Environment.NewLine;
 
             return failure;
         }

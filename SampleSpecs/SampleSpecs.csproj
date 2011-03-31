@@ -45,7 +45,7 @@
     <Compile Include="Bug\grandparents_run_first.cs" />
     <Compile Include="Demo\before_each_on_the_class_level.cs" />
     <Compile Include="Demo\describe_a_finished_TicTacToeGame.cs" />
-    <Compile Include="Demo\describe_To.cs" />
+    <Compile Include="Demo\describe_Extensions.cs" />
     <Compile Include="Demo\inherited_spec_class.cs" />
     <Compile Include="Demo\prime_kata.cs" />
     <Compile Include="Demo\todo_example.cs" />

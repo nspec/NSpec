@@ -13,7 +13,13 @@ end
 
 desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. DOES NOT autoincrement version number.'
 task :nuget => :spec do
-  nextVer = "0.9." + (get_version.split('.').last.to_i + 1).to_s
+  node = get_version_node
+
+  nextVer = "0.9." + (node.text.split('.').last.to_i + 1).to_s
+
+  xml = Nokogiri::XML(File.read 'nspec.nuspec')
+  xml.root.default_namespace = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"
+  node =  xml.root.xpath('//xmlns:version')[0]
 
   node.inner_html = nextVer
 
@@ -24,10 +30,10 @@ task :nuget => :spec do
   sh "deployNuget.bat #{Dir['*{nupkg}'][0]}"
 end
 
-def get_version
+def get_version_node
   xml = Nokogiri::XML(File.read 'nspec.nuspec')
   xml.root.default_namespace = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"
-  xml.root.xpath('//xmlns:version')[0].text
+  xml.root.xpath('//xmlns:version')[0]
 end
 
 desc 'run SampleSpecs with NSpecRunner. you can supply a single spec like so -> rake samples[spec_name]'
@@ -48,7 +54,7 @@ task :website => :spec do
 
     time = t.strftime("on %m/%d/%Y") + t.strftime(" at %I:%M%p")
     
-    timestamp = "Sample code and output automatically executed against nspec version #{get_version} #{time}"
+    timestamp = "Sample code and output automatically executed against nspec version #{get_version_node.text} #{time}"
 
     @doc.at('#timestamp').inner_html = timestamp
 
