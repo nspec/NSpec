@@ -11,6 +11,20 @@ task :spec => :build do
   sh '"C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe" NSpecSpecs/bin/Debug/NSpecSpecs.dll'
 end
 
+task :pull do
+   result = `git pull`
+
+   raise 'Merge Required' if result.include? 'Aborting'
+end
+
+task :commit => :pull do
+  `git add -A .`
+  `"git commit -m "#{ENV['m']}"`
+end
+
+task :all => [:pull,:nuget,:commit,:website]
+
+
 desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. DOES NOT autoincrement version number.'
 task :nuget => :spec do
   node = get_version_node

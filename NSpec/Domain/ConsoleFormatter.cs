@@ -58,7 +58,7 @@ namespace NSpec.Domain
             failure += example.Exception.CleanMessage() +
                 Environment.NewLine + example.Exception.GetOrFallback( e=> e.StackTrace,"").Split('\n')
                     .Where(l => !new[] { "NSpec.Domain","NSpec.AssertionExtensions","NUnit.Framework" }.Any(l.Contains))
-                    .Flatten("\n") + Environment.NewLine;
+                    .Flatten(Environment.NewLine).TrimEnd() + Environment.NewLine;
 
             return failure;
         }
