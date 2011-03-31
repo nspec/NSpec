@@ -1,6 +1,6 @@
 ﻿using NSpec;
 
-class class_level_act : nspec
+class describe_act : nspec
 {
     string sentence = null;
 
