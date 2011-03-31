@@ -2,6 +2,7 @@
 using System.Linq;
 using NSpec.Domain.Extensions;
 
+
 namespace NSpec.Domain
 {
     public class ConsoleFormatter
