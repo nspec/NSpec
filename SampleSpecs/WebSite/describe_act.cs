@@ -2,36 +2,22 @@
 
 class describe_act : nspec
 {
-    string sentence = null;
-
-    void before_each()
-    {
-        sentence = string.Empty;
-
-        sentence += "before | ";
-    }
-
+    //class level act
     void act_each()
     {
-        sentence += "act | ";
+        executionSequence += "3";
     }
 
-    void sentance_manipulation()
+    void acts_are_executed_after_all_befores()
     {
-        specify = () => sentence.should_be("before | act | ");
-
-        context["acts go in order"] = () =>
+        before = () => executionSequence = "1";
+        act = () => executionSequence += "4";
+        context["even if before is in a nested context"] = () =>
         {
-            act = () => sentence += "context level act | ";
-
-            specify = () => sentence.should_be("before | act | context level act | ");
-
-            context["befores execute before acts"] = () =>
-            {
-                before = () => sentence += "context before | ";
-
-                specify = () => sentence.should_be("before | context before | act | context level act | ");
-            };
+            before = () => executionSequence += "2";
+            it["the execution sequence should be \"1234\""] = 
+                () => executionSequence.should_be("1234");
         };
     }
+    string executionSequence;
 }

@@ -11,18 +11,18 @@ namespace NSpecNUnit
         public void public_method() { }
         private void private_method() { }
     }
-    public class AnotherSpecClass : nspec 
+    public class AnotherSpecClass : nspec
     {
         void public_method() { }
     }
 
-    public class NonSpecClass{}
+    public class NonSpecClass { }
 
     public class SpecClassWithNoVoidMethods : nspec
     {
-        string parameter_less_method(){return "";}
+        string parameter_less_method() { return ""; }
     }
-    public class SpecClassWithNoParameterLessMethods : nspec 
+    public class SpecClassWithNoParameterLessMethods : nspec
     {
         void private_method(string parameter) { }
 
@@ -41,7 +41,7 @@ namespace NSpecNUnit
         [Test]
         public void it_should_get_types_from_reflection()
         {
-            reflector.AssertWasCalled(r=>r.GetTypesFrom(someDLL));
+            reflector.AssertWasCalled(r => r.GetTypesFrom(someDLL));
         }
 
         [Test]

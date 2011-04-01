@@ -11,14 +11,12 @@ namespace SampleSpecs.WebSite
                 before = () => tea = MakeTea(215);
                 it["should be hot"] = () => tea.Taste().should_be("hot");
             };
-
             context["that is too cold"] = ()=>
             {
                 before = () => tea = MakeTea(90);
                 it["should be cold"] = () => tea.Taste().should_be("cold");
             };
         }
-
         Tea MakeTea(int temperature)
         {
             return new Tea(temperature);

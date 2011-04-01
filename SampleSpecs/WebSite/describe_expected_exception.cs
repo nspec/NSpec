@@ -8,13 +8,11 @@ namespace SampleSpecs.WebSite
 {
     class describe_expected_exception : nspec
     {
-        void when_withdrawing_a_negative_amount()
+        void when_expecting_exception()
         {
-            account = new Account();
-
-            it["should throw exception"] = 
-                expect<InvalidOperationException>(() => account.Withdraw(-200));
+            it["exception being thrown should pass test"] = 
+                expect<NullReferenceException>(() => someNullString.Trim());
         }
-        Account account;
+        string someNullString = null;
     }
 }

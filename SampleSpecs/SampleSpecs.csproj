@@ -61,6 +61,7 @@
     <Compile Include="Demo\describe_car.cs" />
     <Compile Include="WebSite\describe_expected_exception.cs" />
     <Compile Include="WebSite\describe_helpers.cs" />
+    <Compile Include="WebSite\describe_inheritance.cs" />
     <Compile Include="WebSite\describe_Math.cs" />
     <Compile Include="WebSite\describe_pending.cs" />
     <Compile Include="WebSite\describe_PrimeFactors.cs" />
