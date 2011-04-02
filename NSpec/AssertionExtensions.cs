@@ -102,9 +102,10 @@ namespace NSpec
             CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());
         }
 
-        public static T cast_to<T>(this object valueToCast)
+        public static T should_cast_to<T>(this object value)
         {
-            return (T)valueToCast;
+            Assert.IsInstanceOf<T>(value);
+            return (T)value;
         }
     }
 }

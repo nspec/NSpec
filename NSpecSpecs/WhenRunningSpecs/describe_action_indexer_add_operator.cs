@@ -32,7 +32,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void spec_name_should_reflect_name_specified_in_ActionRegister()
         {
-            TheExamples().First().cast_to<Example>().Spec.should_be("Hello should be Hello");
+            TheExamples().First().should_cast_to<Example>().Spec.should_be("Hello should be Hello");
         }
 
         private IEnumerable<object> TheExamples()
