@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'cgi'
+require 'zip/zipfilesystem'
 
 desc 'build'
 task :build do
@@ -25,8 +26,19 @@ end
 
 task :all => [:pull,:nuget,:commit,:website]
 
+task :zip do
+  fileName = "NSpec-#{get_version_node.text}.zip"
+  File.delete(fileName) if File.exists? fileName
+  Zip::ZipFile.open(fileName, Zip::ZipFile::CREATE) { 
+  |zipfile|
+    zipfile.add 'NSpecRunner.exe', 'NSpecRunner\bin\Debug\NSpecRunner.exe'
+    zipfile.add 'NSpec.dll', 'NSpecRunner\bin\Debug\NSpec.dll'
+    zipfile.add 'nunit.framework.dll', 'NSpecRunner\bin\Debug\nunit.framework.dll'
+  }
+end
 
-desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. DOES NOT autoincrement version number.'
+
+desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. autoincrements version number.'
 task :nuget => :spec do
   node = get_version_node
 
