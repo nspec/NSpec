@@ -11,7 +11,7 @@
 
         public string Taste()
         {
-            return temperature >= 215 ? "hot" : "cold";
+            return temperature >= 210 ? "hot" : "cold";
         }
         public double Temperature { get; set; }
     }

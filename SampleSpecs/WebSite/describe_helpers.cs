@@ -1,26 +1,24 @@
 using NSpec;
+using SampleSpecs.WebSite;
 
-namespace SampleSpecs.WebSite
+public class describe_helpers : nspec
 {
-    public class describe_helpers : nspec
+    void when_making_tea()
     {
-        void when_making_tea()
+        context["that is 210 degrees"] = () =>
         {
-            context["that is too hot"] = () =>
-            {
-                before = () => tea = MakeTea(215);
-                it["should be hot"] = () => tea.Taste().should_be("hot");
-            };
-            context["that is too cold"] = ()=>
-            {
-                before = () => tea = MakeTea(90);
-                it["should be cold"] = () => tea.Taste().should_be("cold");
-            };
-        }
-        Tea MakeTea(int temperature)
+            before = () => tea = MakeTea(210);
+            it["should be hot"] = () => tea.Taste().should_be("hot");
+        };
+        context["that is 90 degrees"] = () =>
         {
-            return new Tea(temperature);
-        }
-        Tea tea;
+            before = () => tea = MakeTea(90);
+            it["should be cold"] = () => tea.Taste().should_be("cold");
+        };
     }
+    Tea MakeTea(int temperature)
+    {
+        return new Tea(temperature);
+    }
+    Tea tea;
 }

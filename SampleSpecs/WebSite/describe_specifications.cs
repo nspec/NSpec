@@ -4,7 +4,7 @@ class describe_specifications : nspec
 {
     void when_creating_specifications()
     {
-        //some of these examples/assertions are meant to fail so you can see what the output looks like
+        //some of these specifications are meant to fail so you can see what the output looks like
         it["true should be false"] = () => true.should_be_false();
         it["enumerable should be empty"] = () => new int[] { }.should_be_empty();
         it["enumerable should contain 1"] = () => new[] { 1 }.should_contain(1);

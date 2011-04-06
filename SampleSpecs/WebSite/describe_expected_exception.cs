@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NSpec;
 
-namespace SampleSpecs.WebSite
+class describe_expected_exception : nspec
 {
-    class describe_expected_exception : nspec
+    void given_a_null_string()
     {
-        void when_expecting_exception()
-        {
-            it["exception being thrown should pass test"] = 
-                expect<NullReferenceException>(() => someNullString.Trim());
-        }
-        string someNullString = null;
+        it["should throw nullref"] =
+            expect<NullReferenceException>(() => nullString.Trim());
     }
+    string nullString;
 }
