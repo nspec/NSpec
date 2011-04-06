@@ -53,6 +53,7 @@
     <Compile Include="Domain\Extensions\DomainExtensions.cs" />
     <Compile Include="Domain\MethodContext.cs" />
     <Compile Include="Domain\PendingExampleException.cs" />
+    <Compile Include="Domain\ExceptionNotThrown.cs" />
     <Compile Include="Tuples.cs" />
     <Compile Include="Domain\ActionIndexer.cs" />
     <Compile Include="nspec.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="Domain\Example.cs" />
     <Compile Include="AssertionExtensions.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Domain\SpecInterpreterBase.cs" />
     <Compile Include="Domain\IReflector.cs" />
     <Compile Include="Domain\SpecFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

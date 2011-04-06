@@ -8,7 +8,7 @@ namespace NSpec
     /// Inherit from this class to create your own specifications.  NSpecRunner will look through your project for 
     /// classes that derive from this class (inheritance chain is taken into consideration).
     /// </summary>
-    public class nspec : SpecInterpreterBase
+    public class nspec
     {
         public nspec()
         {
@@ -120,13 +120,36 @@ namespace NSpec
                 }
             };
         }
-    }
 
-    public class ExceptionNotThrown : Exception
-    {
-        public ExceptionNotThrown(string message) : base(message)
+        private void Exercise(Example example)
         {
-            
+            Context.AddExample(example);
+
+            if (!example.Pending)
+                example.Run(Context);
         }
+
+        private void AddContext(string name, Action action)
+        {
+            level++;
+
+            var newContext = new Context(name, level);
+
+            Context.AddContext(newContext);
+
+            var beforeContext = Context;
+
+            Context = newContext;
+
+            action();
+
+            level--;
+
+            Context = beforeContext;
+        }
+
+        private int level;
+
+        internal Context Context { get; set; }
     }
 }
