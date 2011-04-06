@@ -24,7 +24,7 @@ task :commit => :pull do
   `git push`
 end
 
-task :all => [:pull,:nuget,:commit,:website]
+task :all => [:pull,:nuget,:commit,:website,:zip]
 
 task :zip do
   fileName = "NSpec-#{get_version_node.text}.zip"
