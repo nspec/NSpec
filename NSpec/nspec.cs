@@ -15,8 +15,8 @@ namespace NSpec
             context = new ActionRegister(AddContext);
             describe = new ActionRegister(AddContext);
 
-            it = new ActionRegister((name, action) => Exercise(new Example(name, action)));
-            xit = new ActionRegister((name, action) => Pending(new Example(name, action, pending: true)));
+            it = new ActionRegister((name, action) => Exercise(new Example(name,action,pending:action==todo)));
+            xit = new ActionRegister((name, action) => Exercise(new Example(name, action, pending: true)));
         }
 
         /// <summary>

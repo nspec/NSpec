@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 
 namespace NSpec.Domain
 {
@@ -9,21 +8,8 @@ namespace NSpec.Domain
         {
             Context.AddExample(example);
 
-            example.Run(Context);
-        }
-
-        protected void Pending(Example example)
-        {
-            Context.AddExample(example);
-        }
-
-        private string Parse(Expression<Action> exp)
-        {
-            var body = exp.Body.ToString();
-
-            var cut = body.IndexOf(").");
-
-            return body.Substring(cut+1, body.Length - cut-1).Replace(")"," ").Replace("."," ").Replace("(","").Replace("  "," ").Trim();
+            if(!example.Pending)
+                example.Run(Context);
         }
 
         protected void AddContext(string name, Action action)

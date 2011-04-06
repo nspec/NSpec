@@ -7,6 +7,24 @@ using NSpec.Domain;
 namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
+    public class using_xit : describe_todo
+    {
+        class XitClass : nspec
+        {
+            void method_level_context()
+            {
+                xit["should be pending"] = () => { };
+            }
+        }
+
+        [Test]
+        public void example_should_be_pending()
+        {
+            ExampleFrom(typeof(XitClass)).Pending.should_be_true();
+        }
+    }
+
+    [TestFixture]
     public class using_todo : describe_todo
     {
         class TodoClass : nspec
@@ -25,20 +43,21 @@ namespace NSpecSpecs.WhenRunningSpecs
     }
 
     [TestFixture]
-    public class using_xit : describe_todo
+    public class using_todo_with_throwing_before : describe_todo
     {
-        class XitClass : nspec
+        class TodoClass : nspec
         {
             void method_level_context()
             {
-                xit["should be pending"] = () => { };
+                before = () => { throw new Exception(); };
+                it["should be pending"] = todo;
             }
         }
 
         [Test]
-        public void example_should_be_pending()
+        public void example_should_not_fail_but_be_pending()
         {
-            ExampleFrom(typeof(XitClass)).Pending.should_be_true();
+            ExampleFrom(typeof(TodoClass)).Pending.should_be_true();
         }
     }
 
