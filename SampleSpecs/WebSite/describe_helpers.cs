@@ -1,5 +1,4 @@
 using NSpec;
-using SampleSpecs.WebSite;
 
 public class describe_helpers : nspec
 {
@@ -7,18 +6,18 @@ public class describe_helpers : nspec
     {
         context["that is 210 degrees"] = () =>
         {
-            before = () => tea = MakeTea(210);
+            before = () => MakeTea(210);
             it["should be hot"] = () => tea.Taste().should_be("hot");
         };
         context["that is 90 degrees"] = () =>
         {
-            before = () => tea = MakeTea(90);
+            before = () => MakeTea(90);
             it["should be cold"] = () => tea.Taste().should_be("cold");
         };
     }
-    Tea MakeTea(int temperature)
+    void MakeTea(int temperature)
     {
-        return new Tea(temperature);
+        tea = new Tea(temperature);
     }
     Tea tea;
 }
