@@ -87,6 +87,11 @@ namespace NSpec
             CollectionAssert.DoesNotContain(collection, t);
         }
 
+        public static void should_not_be_empty<T>(this IEnumerable<T> collection)
+        {
+            CollectionAssert.IsNotEmpty(collection);
+        }
+
         public static void should_be_empty<T>(this IEnumerable<T> collection)
         {
             CollectionAssert.IsEmpty(collection);
