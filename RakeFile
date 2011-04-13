@@ -24,7 +24,7 @@ task :commit => :pull do
   `git push`
 end
 
-task :all => [:pull,:nuget,:commit,:website,:zip,:upload]
+task :all => [:pull,:version,:nuget,:commit,:website,:zip,:upload]
 
 task :zip do
   fileName = create_zip_filename 
@@ -37,6 +37,18 @@ task :zip do
   }
 end
 
+task :version => :bump_version do
+  lines = ["[assembly: AssemblyVersion(\"#{get_version_node.text}\")]",
+           "[assembly: AssemblyFileVersion(\"#{get_version_node.text}\")]"]
+  Dir['NSpec*/**/AssemblyInfo.cs'].each {|f| update_version f,lines}
+end
+
+def update_version file, version_lines
+  newlines =  (File.read file).split("\n")[0..-3] + version_lines
+
+  File.open(file, 'w') {|f| f.write(newlines.join("\n"))}
+end
+
 def create_zip_filename
   "NSpec-#{get_version_node.text}.zip"
 end
@@ -45,8 +57,8 @@ task :upload do
   sh "upload.bat #{create_zip_filename}"
 end
 
-desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. autoincrements version number.'
-task :nuget => :spec do
+desc 'Increments version number.'
+task :bump_version do
   node = get_version_node
 
   nextVer = "0.9." + (node.text.split('.').last.to_i + 1).to_s
@@ -58,7 +70,10 @@ task :nuget => :spec do
   node.inner_html = nextVer
 
   File.open("nspec.nuspec", 'w') {|f| f.write(xml.to_xml) }
+end
 
+desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. autoincrements version number.'
+task :nuget => :spec do
   Dir['nspec*{nupkg}'].each {|f| File.delete(f)}
   sh 'nuget.exe pack nspec.nuspec'
   sh "deployNuget.bat #{Dir['*{nupkg}'][0]}"
