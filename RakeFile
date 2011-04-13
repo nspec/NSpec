@@ -24,10 +24,10 @@ task :commit => :pull do
   `git push`
 end
 
-task :all => [:pull,:nuget,:commit,:website,:zip]
+task :all => [:pull,:nuget,:commit,:website,:zip,:upload]
 
 task :zip do
-  fileName = "NSpec-#{get_version_node.text}.zip"
+  fileName = create_zip_filename 
   File.delete(fileName) if File.exists? fileName
   Zip::ZipFile.open(fileName, Zip::ZipFile::CREATE) { 
   |zipfile|
@@ -37,6 +37,13 @@ task :zip do
   }
 end
 
+def create_zip_filename
+  "NSpec-#{get_version_node.text}.zip"
+end
+
+task :upload do
+  sh "upload.bat #{create_zip_filename}"
+end
 
 desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. autoincrements version number.'
 task :nuget => :spec do
