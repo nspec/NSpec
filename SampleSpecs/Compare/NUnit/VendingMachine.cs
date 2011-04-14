@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SampleSpecs.Compare.NUnit
 {
@@ -6,14 +7,26 @@ namespace SampleSpecs.Compare.NUnit
     {
         public VendingMachine()
         {
-            Items = new List<Item>();
+            items = new Dictionary<string, Item>();
         }
 
-        public void RegisterItem(string name, string slot, decimal price)
+        public void RegisterItem(string slot, string name, decimal price)
         {
-            Items.Add(new Item() { Name = name, Slot = slot, Price = price });
+            if (items.ContainsKey(slot)) throw new SlotAlreadyTakenException();
+
+            items.Add(slot, new Item() { Name = name, Slot = slot, Price = price });
         }
 
-        public IList<Item> Items { get; set; }
+        Dictionary<string, Item> items;
+
+        public IList<Item> Items()
+        {
+            return items.Values.ToList();
+        }
+
+        public void Clear(string slot)
+        {
+            items.Remove(slot);
+        }
     }
 }

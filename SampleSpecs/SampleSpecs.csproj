@@ -45,6 +45,7 @@
     <Compile Include="Compare\NUnit\Describe_VendingMachine.cs" />
     <Compile Include="Compare\NUnit\Extensions.cs" />
     <Compile Include="Compare\NUnit\Item.cs" />
+    <Compile Include="Compare\NUnit\SlotAlreadyTakenException.cs" />
     <Compile Include="Compare\NUnit\VendingMachine.cs" />
     <Compile Include="Demo\action_indexer_approach.cs" />
     <Compile Include="Bug\grandparents_run_first.cs" />
