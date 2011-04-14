@@ -4,10 +4,8 @@ using System.Linq;
 namespace SampleSpecs.Compare.NUnit
 {
     [TestFixture]
-    public class given_dortitos_are_registered_in_A1_for_50_cents
+    public class given_dortitos_are_registered_in_A1_for_50_cents 
     {
-        private VendingMachine machine;
-
         [SetUp]
         public void setup()
         {
@@ -15,7 +13,12 @@ namespace SampleSpecs.Compare.NUnit
 
             machine.RegisterItem("A1", "Doritos", .5m);
         }
+        protected VendingMachine machine;
+    }
 
+    [TestFixture]
+    public class Describe_RegisterItem : given_dortitos_are_registered_in_A1_for_50_cents
+    {
         [Test]
         public void should_be_1_item_in_the_vending_machine()
         {
@@ -46,17 +49,25 @@ namespace SampleSpecs.Compare.NUnit
             machine.RegisterItem("A1", "cheetos", .5m);
         }
 
-        [Test]
-        public void after_clearing_slot_A1_there_should_be_no_items()
-        {
-            machine.Clear("A1");
-
-            machine.Items().Count().ShouldBe(0);
-        }
-
         private Item TheFirstItem()
         {
             return machine.Items().First();
+        }
+    }
+
+    [TestFixture]
+    public class Describe_Clear : given_dortitos_are_registered_in_A1_for_50_cents
+    {
+        [SetUp]
+        public void after_clearing_slot_A1()
+        {
+            machine.Clear("A1");
+        }
+
+        [Test]
+        public void there_should_be_no_items_in_the_vending_machine()
+        {
+            machine.Items().Count().ShouldBe(0);
         }
     }
 }
