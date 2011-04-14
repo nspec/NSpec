@@ -1,4 +1,5 @@
 ﻿using NSpec;
+using SampleSpecs.Model;
 
 class describe_VendingMachine : nspec
 {

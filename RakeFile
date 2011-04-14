@@ -21,7 +21,8 @@ end
 task :commit => :pull do
   `git add -A .`
   `git commit -m "#{ENV['m']}`
-  `git push`
+  `git tag -a v#{get_version_node.text} -m "#{get_version_node.text}"`
+  `git push --tags`
 end
 
 task :all => [:pull,:version,:nuget,:commit,:website,:zip,:upload]

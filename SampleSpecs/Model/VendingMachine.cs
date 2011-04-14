@@ -1,45 +1,48 @@
 ﻿using System.Collections.Generic;
 
-public class VendingMachine
+namespace SampleSpecs.Model
 {
-    private Dictionary<string, int> _inventory;
-    private Dictionary<string, double> _pricePoint;
-
-    public VendingMachine()
+    public class VendingMachine
     {
-        _inventory = new Dictionary<string, int>();
-        _pricePoint = new Dictionary<string, double>();
-    }
+        private Dictionary<string, int> _inventory;
+        private Dictionary<string, double> _pricePoint;
 
-    public void AddInventory(string item)
-    {
-        if (_inventory.ContainsKey(item) == false) _inventory.Add(item, 0);
-
-        _inventory[item] += 1;
-    }
-
-    public void Buy(string item)
-    {
-        _inventory[item] -= 1;
-        _cash += _pricePoint[item];
-    }
-
-    public int Inventory(string item)
-    {
-        return _inventory[item];
-    }
-
-    private double _cash;
-    public double Cash
-    {
-        get
+        public VendingMachine()
         {
-            return _cash;
+            _inventory = new Dictionary<string, int>();
+            _pricePoint = new Dictionary<string, double>();
         }
-    }
 
-    public void PricePoint(string item, double amount)
-    {
-        _pricePoint.Add(item, amount);
+        public void AddInventory(string item)
+        {
+            if (_inventory.ContainsKey(item) == false) _inventory.Add(item, 0);
+
+            _inventory[item] += 1;
+        }
+
+        public void Buy(string item)
+        {
+            _inventory[item] -= 1;
+            _cash += _pricePoint[item];
+        }
+
+        public int Inventory(string item)
+        {
+            return _inventory[item];
+        }
+
+        private double _cash;
+        public double Cash
+        {
+            get
+            {
+                return _cash;
+            }
+        }
+
+        public void PricePoint(string item, double amount)
+        {
+            _pricePoint.Add(item, amount);
+        }
     }
 }
