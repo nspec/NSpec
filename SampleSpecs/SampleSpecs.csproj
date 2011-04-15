@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bug\given_a_subcontext_that_fails.cs" />
+    <Compile Include="Compare\NSpec\VendingMachineSpec.cs" />
     <Compile Include="Compare\NUnit\Describe_VendingMachine\DescribeVendingMachine.cs" />
     <Compile Include="Compare\NUnit\Describe_VendingMachine\given_a_registered_item_has_been_stocked.cs" />
     <Compile Include="Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" />
