@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSpec;
@@ -10,7 +11,9 @@ namespace SampleSpecs.Compare.NSpec
         {
             before = () => machine = new VendingMachine();
 
-            it["should have no items"] = ()=> machine.Items().should_be_empty();
+            specify = ()=> machine.Items().should_be_empty();
+
+            it["getting item A1 should throw ItemNotRegistered"] = expect<ItemNotRegisteredException>(() => machine.Item("A1"));
 
             context["given doritos are registered in A1 for 50 cents"] = () =>
             {
@@ -24,6 +27,10 @@ namespace SampleSpecs.Compare.NSpec
             };
         }
         private VendingMachine machine;
+    }
+
+    public class ItemNotRegisteredException : Exception
+    {
     }
 
     internal class VendingMachine
@@ -45,6 +52,7 @@ namespace SampleSpecs.Compare.NSpec
 
         public Item Item(string slot)
         {
+            if(!items.Any(i=> i.Slot==slot))
             return items.First();
         }
         private Item[] items;
@@ -55,5 +63,7 @@ namespace SampleSpecs.Compare.NSpec
         public string Name { get; set; }
 
         public decimal Price { get; set; }
+
+        public string Slot { get; set; }
     }
 }

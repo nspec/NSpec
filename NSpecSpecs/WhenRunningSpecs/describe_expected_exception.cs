@@ -13,6 +13,8 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void method_level_context()
             {
+                before = () => { };
+
                 it["should throw exception"] = expect<InvalidOperationException>(() => { throw new InvalidOperationException(); });
 
                 it["should fail if no exception thrown"] = expect<InvalidOperationException>(() => { });
@@ -25,6 +27,12 @@ namespace NSpecSpecs.WhenRunningSpecs
         public void setup()
         {
             Run(typeof(SpecClass));
+        }
+
+        [Test]
+        public void should_be_two_failures()
+        {
+            classContext.Failures().Count().should_be(2);
         }
 
         [Test]
