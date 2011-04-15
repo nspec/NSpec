@@ -42,8 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bug\given_a_subcontext_that_fails.cs" />
-    <Compile Include="Compare\NUnit\Describe_VendingMachine\given_A1_has_been_registered.cs" />
+    <Compile Include="Compare\NUnit\Describe_VendingMachine\DescribeVendingMachine.cs" />
+    <Compile Include="Compare\NUnit\Describe_VendingMachine\given_a_registered_item_has_been_stocked.cs" />
     <Compile Include="Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" />
+    <Compile Include="Compare\NUnit\Describe_VendingMachine\given_nothing_has_been_registered.cs" />
+    <Compile Include="Compare\NUnit\Describe_VendingMachine\given_previously_registered_items_are_cleared.cs" />
+    <Compile Include="Compare\NUnit\Describe_VendingMachine\given_two_items_are_registered.cs" />
     <Compile Include="Compare\NUnit\NothingRegisteredException.cs" />
     <Compile Include="Compare\NUnit\Extensions.cs" />
     <Compile Include="Compare\NUnit\Item.cs" />

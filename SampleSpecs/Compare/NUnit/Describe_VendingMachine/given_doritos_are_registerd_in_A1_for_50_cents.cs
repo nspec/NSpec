@@ -4,28 +4,26 @@ using System.Linq;
 namespace SampleSpecs.Compare.NUnit.Describe_VendingMachine
 {
     [TestFixture]
-    public class given_doritos_are_registerd_in_A1_for_50_cents 
+    public class given_doritos_are_registerd_in_A1_for_50_cents : DescribeVendingMachine
     {
         [SetUp]
         public void setup()
         {
-            machine = new VendingMachine();
+            given_a_new_VendingMachine();
 
-            machine.RegisterItem("A1", "Doritos", .5m);
+            given_doritos_are_registerd_in_A1_for_50_cents();
+        }
+
+        [Test]
+        public void should_not_be_InStock()
+        {
+            machine.InStock("A1").ShouldBeFalse();
         }
         
         [Test]
         public void should_be_1_item_in_the_vending_machine()
         {
             machine.Items().Count().ShouldBe(1);
-        }
-
-        [Test]
-        public void given_mountain_dew_is_registered_in_A2_should_be_2_items_in_the_vending_machine()
-        {
-            machine.RegisterItem("A2","mountain dew",.5m);
-
-            machine.Items().Count().ShouldBe(2);
         }
 
         [Test]
@@ -52,18 +50,9 @@ namespace SampleSpecs.Compare.NUnit.Describe_VendingMachine
             machine.RegisterItem("A1", "cheetos", .5m);
         }
 
-        [Test]
-        public void there_should_be_no_items_in_the_vending_machine()
-        {
-            machine.Clear("A1");
-
-            machine.Items().Count().ShouldBe(0);
-        }
-
         private Item TheFirstItem()
         {
             return machine.Items().First();
         }
-        protected VendingMachine machine;
     }
 }
