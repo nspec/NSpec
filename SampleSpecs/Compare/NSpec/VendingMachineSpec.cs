@@ -24,6 +24,13 @@ namespace SampleSpecs.Compare.NSpec
                 specify = () => machine.Item("A1").Name.should_be("doritos");
 
                 specify = () => machine.Item("A1").Price.should_be(.5m);
+
+                context["given a second item is registered"] = () =>
+                {
+                    before = () => machine.RegisterItem("A2", "mountain dew", .6m);
+
+                    specify = () => machine.Items().Count().should_be(2);
+                };
             };
         }
         private VendingMachine machine;
@@ -37,7 +44,7 @@ namespace SampleSpecs.Compare.NSpec
     {
         public VendingMachine()
         {
-            items = new Item[] { };
+            items = new List<Item>();
         }
 
         public IEnumerable<Item> Items()
@@ -47,15 +54,16 @@ namespace SampleSpecs.Compare.NSpec
 
         public void RegisterItem(string slot, string name, decimal price)
         {
-            items = new[]{new Item{Name = name,Price = price}};
+            items.Add(new Item{Name = name,Price = price,Slot = slot});
         }
 
         public Item Item(string slot)
         {
-            if(!items.Any(i=> i.Slot==slot))
+            if (!items.Any(i => i.Slot == slot)) throw new ItemNotRegisteredException();
+
             return items.First();
         }
-        private Item[] items;
+        private List<Item> items;
     }
 
     internal class Item
