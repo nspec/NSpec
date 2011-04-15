@@ -1,13 +1,13 @@
 using NUnit.Framework;
 using System.Linq;
 
-namespace SampleSpecs.Compare.NUnit
+namespace SampleSpecs.Compare.NUnit.Describe_VendingMachine
 {
     [TestFixture]
-    public class Describe_RegisterItem 
+    public class given_doritos_are_registerd_in_A1_for_50_cents 
     {
         [SetUp]
-        public void given_doritos_are_registerd_in_A1_for_50_cents()
+        public void setup()
         {
             machine = new VendingMachine();
 

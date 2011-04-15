@@ -4,6 +4,10 @@ namespace SampleSpecs.Compare.NUnit
 {
     public static class Extensions
     {
+        public static void ShouldBeFalse(this bool actual)
+        {
+            Assert.IsFalse( actual);
+        }
         public static void ShouldBeTrue(this bool actual)
         {
             Assert.IsTrue( actual);

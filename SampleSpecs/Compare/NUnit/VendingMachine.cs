@@ -29,13 +29,14 @@ namespace SampleSpecs.Compare.NUnit
             items.Remove(slot);
         }
 
-        public void Stock(string a1, int i)
+        public void Stock(string slot, int count)
         {
+            items[slot].Quantity = count;
         }
 
-        public bool InStock(string a1)
+        public bool InStock(string slot)
         {
-            return false;
+            return items[slot].Quantity>0;
         }
     }
 }
