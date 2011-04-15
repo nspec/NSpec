@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bug\given_a_subcontext_that_fails.cs" />
+    <Compile Include="Compare\NUnit\Describe_StockItem.cs" />
     <Compile Include="Compare\NUnit\Describe_VendingMachine.cs" />
     <Compile Include="Compare\NUnit\Extensions.cs" />
     <Compile Include="Compare\NUnit\Item.cs" />

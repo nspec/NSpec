@@ -28,5 +28,14 @@ namespace SampleSpecs.Compare.NUnit
         {
             items.Remove(slot);
         }
+
+        public void Stock(string a1, int i)
+        {
+        }
+
+        public bool InStock(string a1)
+        {
+            return false;
+        }
     }
 }

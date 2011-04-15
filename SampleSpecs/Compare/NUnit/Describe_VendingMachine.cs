@@ -7,7 +7,7 @@ namespace SampleSpecs.Compare.NUnit
     public class Describe_RegisterItem 
     {
         [SetUp]
-        public void setup()
+        public void given_doritos_are_registerd_in_A1_for_50_cents()
         {
             machine = new VendingMachine();
 
@@ -21,7 +21,7 @@ namespace SampleSpecs.Compare.NUnit
         }
 
         [Test]
-        public void should_be_2_items_in_the_vending_machine()
+        public void given_mountain_dew_is_registered_in_A2_should_be_2_items_in_the_vending_machine()
         {
             machine.RegisterItem("A2","mountain dew",.5m);
 
