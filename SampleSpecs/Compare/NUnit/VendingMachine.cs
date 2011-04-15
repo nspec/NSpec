@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using SampleSpecs.Compare.NUnit.Describe_VendingMachine;
 
 namespace SampleSpecs.Compare.NUnit
 {
@@ -31,6 +32,7 @@ namespace SampleSpecs.Compare.NUnit
 
         public void Stock(string slot, int count)
         {
+            if (!items.ContainsKey(slot)) throw new NothingRegisteredException();
             items[slot].Quantity = count;
         }
 

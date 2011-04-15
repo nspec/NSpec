@@ -44,6 +44,7 @@
     <Compile Include="Bug\given_a_subcontext_that_fails.cs" />
     <Compile Include="Compare\NUnit\Describe_VendingMachine\given_A1_has_been_registered.cs" />
     <Compile Include="Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" />
+    <Compile Include="Compare\NUnit\NothingRegisteredException.cs" />
     <Compile Include="Compare\NUnit\Extensions.cs" />
     <Compile Include="Compare\NUnit\Item.cs" />
     <Compile Include="Compare\NUnit\SlotAlreadyTakenException.cs" />

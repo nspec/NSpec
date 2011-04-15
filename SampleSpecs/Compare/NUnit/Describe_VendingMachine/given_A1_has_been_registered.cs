@@ -26,6 +26,13 @@ namespace SampleSpecs.Compare.NUnit.Describe_VendingMachine
 
             machine.InStock("A1").ShouldBeTrue();
         }
+
+        [Test, ExpectedException(typeof(NothingRegisteredException))]
+        public void when_stocking_a_slot_that_has_nothing_registered_should_throw_NothingRegisteredException()
+        {
+            machine.Stock("A2",1);
+        }
+
         private VendingMachine machine;
     }
 }
