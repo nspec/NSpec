@@ -8,21 +8,14 @@ using NSpec;
 namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
-    class describe_xdescribe : when_running_specs
+    public class describe_xdescribe : when_running_specs
     {
         class SpecClass : nspec
         {
-            public static Action MethodLevelBefore = () => { };
-            public static Action SubContextBefore = () => { };
-
             void method_level_context()
             {
-                before = MethodLevelBefore;
-
                 xdescribe["sub context"] = () =>
                 {
-                    before = SubContextBefore;
-
                     it["needs an example or it gets filtered"] =
                         () => "Hello World".should_be("Hello World");
                 };
@@ -36,7 +29,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void it_should_set_method_level_before()
+        public void the_example_should_be_pending()
         {
             methodContext.Contexts.First().Examples.First().Pending.should_be(true);
         }
