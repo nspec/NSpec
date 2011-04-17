@@ -18,5 +18,35 @@ namespace NSpecNUnit
 
             example.FullName().should_be("context name. example name.");
         }
+
+        [Test]
+        public void should_be_marked_as_pending_if_parent_context_is_pending()
+        {
+            var context = new Context("pending context", 0, isPending: true);
+
+            var example = new Example("example name");
+
+            context.AddExample(example);
+
+            example.Run(context);
+
+            example.Pending.should_be_true();
+        }
+
+        [Test]
+        public void should_be_marked_as_pending_if_any_parent_context_is_pending()
+        {
+            var parentContext = new Context("parent pending context", 0, isPending: true);
+            var context = new Context("not pending");
+            var example = new Example("example name");
+
+            parentContext.AddContext(context);
+
+            context.AddExample(example);
+
+            example.Run(context);
+
+            example.Pending.should_be_true();
+        }
     }
 }
