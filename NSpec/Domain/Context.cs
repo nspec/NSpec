@@ -24,7 +24,7 @@ namespace NSpec.Domain
 
         public void Befores()
         {
-            if (Parent != null )
+            if (Parent != null)
                 Parent.Befores();
 
             if (Before != null)
@@ -45,14 +45,20 @@ namespace NSpec.Domain
             return Contexts.Examples().Union(Examples);
         }
 
-        public Context(string name="") : this(name,0) { }
+        public Context(string name = "") : this(name, 0) { }
 
-        public Context(string name, int level)
+        public Context(string name, int level) : this(name, level, false)
+        {
+            
+        }
+
+        public Context(string name, int level, bool isPending)
         {
             Name = name.Replace("_", " ");
             Level = level;
             Examples = new List<Example>();
             Contexts = new ContextCollection();
+            this.isPending = isPending;
         }
 
         protected MethodInfo Method { get; set; }
@@ -65,6 +71,17 @@ namespace NSpec.Domain
         public Action Act { get; set; }
         public Action After { get; set; }
         public Context Parent { get; set; }
+
+        private bool isPending;
+        public bool IsPending()
+        {
+            if(Parent != null)
+            {
+                return isPending || Parent.IsPending();
+            };
+            
+            return isPending;
+        }
 
         public IEnumerable<Example> Failures()
         {
@@ -87,7 +104,7 @@ namespace NSpec.Domain
 
             if (ActInstance != null) Act = () => ActInstance(instance);
 
-            if(Parent!=null) Parent.SetInstanceContext(instance);
+            if (Parent != null) Parent.SetInstanceContext(instance);
         }
 
         public IEnumerable<Context> SelfAndDescendants()
@@ -97,7 +114,7 @@ namespace NSpec.Domain
 
         public void Run()
         {
-            Contexts.Do(c => c.Run() );
+            Contexts.Do(c => c.Run());
 
             if (Method != null)
             {
