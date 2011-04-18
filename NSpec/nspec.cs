@@ -13,9 +13,11 @@ namespace NSpec
         public nspec()
         {
             context = new ActionRegister(AddContext);
+            xcontext = new ActionRegister(AddIgnoredContext);
             describe = new ActionRegister(AddContext);
+            xdescribe = new ActionRegister(AddIgnoredContext);
 
-            it = new ActionRegister((name, action) => Exercise(new Example(name,action,pending:action==todo)));
+            it = new ActionRegister((name, action) => Exercise(new Example(name, action, pending: action == todo)));
             xit = new ActionRegister((name, action) => Exercise(new Example(name, action, pending: true)));
         }
 
@@ -34,7 +36,7 @@ namespace NSpec
         /// This Action get executed before each example is run.
         /// <para>For Example:</para>
         /// <para>before.each = () => someList = new List&lt;int&gt;();</para>
-        /// <para>The before.each can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspecdriven.net</para>
+        /// <para>The before.each can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
         /// </summary>
         protected Action before
         {
@@ -53,7 +55,7 @@ namespace NSpec
 
         /// <summary>
         /// Assign this member within your context.  The Action assigned will get executed
-        /// with every example in scope.  Befores will run first, then Acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-Assert for all subcontexts.  For more information visit http://www.nspecdriven.net
+        /// with every example in scope.  Befores will run first, then Acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-Assert for all subcontexts.  For more information visit http://www.nspec.org
         /// </summary>
         protected Action act
         {
@@ -63,15 +65,26 @@ namespace NSpec
 
         /// <summary>
         /// Create a subcontext.
-        /// <para>For Examples see http://www.nspecdriven.net</para>
+        /// <para>For Examples see http://www.nspec.org</para>
         /// </summary>
         protected ActionRegister context;
 
         /// <summary>
+        /// Mark a subcontext as pending (add all child contexts as pending)
+        /// </summary>
+        protected ActionRegister xcontext;
+
+        /// <summary>
         /// This is an alias for creating a subcontext.  Use this to create sub contexts within your methods.
-        /// <para>For Examples see http://www.nspecdriven.net</para>
+        /// <para>For Examples see http://www.nspec.org</para>
         /// </summary>
         protected ActionRegister describe;
+
+        /// <summary>
+        /// This is an alias for creating a xcontext.
+        /// <para>For Examples see http://www.nspec.org</para>
+        /// </summary>
+        protected ActionRegister xdescribe;
 
         /// <summary>
         /// Create a specification/example using a name and a lambda with an assertion(should).
@@ -102,7 +115,7 @@ namespace NSpec
         /// </summary>
         protected Action expect<T>(Action action) where T : Exception
         {
-            return () => 
+            return () =>
             {
                 var closureType = typeof(T);
 
@@ -131,15 +144,27 @@ namespace NSpec
 
         private void AddContext(string name, Action action)
         {
+            var contextToRun = new Context(name, level);
+
+            RunContext(contextToRun, action);
+        }
+
+        private void AddIgnoredContext(string name, Action action)
+        {
+            var ignored = new Context(name, level, isPending: true);
+
+            RunContext(ignored, action);
+        }
+
+        private void RunContext(Context context, Action action)
+        {
             level++;
 
-            var newContext = new Context(name, level);
-
-            Context.AddContext(newContext);
+            Context.AddContext(context);
 
             var beforeContext = Context;
 
-            Context = newContext;
+            Context = context;
 
             action();
 

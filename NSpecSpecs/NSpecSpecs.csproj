@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WhenRunningSpecs\describe_xdescribe.cs" />
     <Compile Include="WhenRunningSpecs\describe_class_level_before.cs" />
+    <Compile Include="WhenRunningSpecs\describe_xcontext.cs" />
     <Compile Include="when_creating_act_contexts_for_classes.cs" />
     <Compile Include="describe_reflecting_methods.cs" />
     <Compile Include="WhenRunningSpecs\describe_action_indexer_add_operator.cs" />
