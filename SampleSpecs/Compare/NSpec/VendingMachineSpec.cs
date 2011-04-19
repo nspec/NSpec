@@ -32,6 +32,7 @@ namespace SampleSpecs.Compare.NSpec
                     specify = () => machine.Items().Count().should_be(2);
                 };
             };
+            //got to force/refactor getting rid of the dictionary soon
         }
         private VendingMachine machine;
     }

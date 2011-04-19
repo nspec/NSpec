@@ -31,12 +31,6 @@ namespace NSpec.Domain
         {
             try
             {
-                if(context.IsPending())
-                {
-                    Pending = true;
-                    return;
-                }
-
                 context.Befores();
 
                 context.Acts();

@@ -14,6 +14,8 @@ namespace NSpec.Domain
         {
             example.Context = this;
             Examples.Add(example);
+
+            example.Pending |= example.Context.IsPending();
         }
 
         public void Afters()
