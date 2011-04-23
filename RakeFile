@@ -21,10 +21,11 @@ end
 task :commit => :pull do
   `git add -A .`
   `git commit -m "#{ENV['m']}`
-  `git tag -a v#{get_version_node.text} -m "#{get_version_node.text}"`
+  `git tag -a v#{get_version_node.text} -m "#{get_version_node.text}" HEAD`
   `git push --tags`
 end
 
+desc 'supply commit message as parameter - rake all m="commit message" - version bump, nuget, zip and everything shall be done for you'
 task :all => [:pull,:version,:nuget,:commit,:website,:zip,:upload]
 
 task :zip do

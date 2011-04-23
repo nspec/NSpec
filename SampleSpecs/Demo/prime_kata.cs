@@ -11,7 +11,7 @@ namespace SampleSpecs.Demo
             //throwing an unhandled exception should now not cause the runner to crash
             //var dict = new Dictionary<int, string> { { 1, "1" }, { 1, "sdfg" } };
 
-            new Tuples<int, int[]>
+            new Dictionary<int, int[]>
             {
                 { 1, new int[]{}},
                 { 2, new[]{ 2 }},
