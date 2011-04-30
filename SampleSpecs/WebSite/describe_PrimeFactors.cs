@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using NSpec;
+﻿using NSpec;
 
 class describe_PrimeFactors : nspec
 {
     void when_determining_prime_factors()
     {
-        new Dictionary<int,int[]>
+        new Tuples<int,int[]>
             {
             { 0, new int[] { } },
             { 1, new int[] { } },

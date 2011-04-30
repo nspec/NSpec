@@ -50,11 +50,11 @@ namespace NSpec
         /// <summary>
         /// Action(T, U) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
         /// </summary>
-        //public static void Do<T, U>(this Tuples<T, U> source, Action<T, U> action)
-        //{
-        //    foreach (var tup in source)
-        //        action(tup.Item1, tup.Item2);
-        //}
+        public static void Do<T, U>(this Tuples<T, U> source, Action<T, U> action)
+        {
+            foreach (var tup in source)
+                action(tup.Item1, tup.Item2);
+        }
 
         /// <summary>
         /// Action(T, U) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
