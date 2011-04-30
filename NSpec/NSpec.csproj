@@ -54,7 +54,7 @@
     <Compile Include="Domain\MethodContext.cs" />
     <Compile Include="Domain\PendingExampleException.cs" />
     <Compile Include="Domain\ExceptionNotThrown.cs" />
-    <Compile Include="Tuples.cs" />
+    <Compile Include="Each.cs" />
     <Compile Include="Domain\ActionIndexer.cs" />
     <Compile Include="nspec.cs" />
     <Compile Include="Domain\Context.cs" />

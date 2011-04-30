@@ -69,29 +69,29 @@ class describe_car : nspec
     {
         Car car = null;
 
-        //new Tuples<int, int, double> 
-        //{ 
-        //    { 7, 87, .28 }, 
-        //    { 8, 92, .30 }, 
-        //    { 9, 96, .32 }
-        //}.Do(
-        //(compressionRatio, octane, effeciency) =>
-        //{
-        //    context["car has compression ratio of {0} to 1".With(compressionRatio)] = () =>
-        //    {
-        //        before = () => car = new Car(compressionRatio);
+        new Each<int, int, double> 
+        { 
+            { 7, 87, .28 }, 
+            { 8, 92, .30 }, 
+            { 9, 96, .32 }
+        }.Do(
+        (compressionRatio, octane, effeciency) =>
+        {
+            context["car has compression ratio of {0} to 1".With(compressionRatio)] = () =>
+            {
+                before = () => car = new Car(compressionRatio);
 
-        //        it["should have octane requirement of {0}".With(octane)] = () =>
-        //        {
-        //            car.OctaneRequirement.should_be(octane);
-        //        };
+                it["should have octane requirement of {0}".With(octane)] = () =>
+                {
+                    car.OctaneRequirement.should_be(octane);
+                };
 
-        //        it["should have brake thermal efficiency of {0}%".With(effeciency * 100)] = () =>
-        //        {
-        //            car.BrakeThermalEffeciency.should_be(effeciency);
-        //        };
-        //    };
-        //});
+                it["should have brake thermal efficiency of {0}%".With(effeciency * 100)] = () =>
+                {
+                    car.BrakeThermalEffeciency.should_be(effeciency);
+                };
+            };
+        });
     }
 
     void when_driving_car()

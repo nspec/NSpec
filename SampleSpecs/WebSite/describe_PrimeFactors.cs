@@ -4,7 +4,7 @@ class describe_PrimeFactors : nspec
 {
     void when_determining_prime_factors()
     {
-        new Tuples<int,int[]>
+        new Each<int,int[]>
             {
             { 0, new int[] { } },
             { 1, new int[] { } },

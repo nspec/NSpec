@@ -50,7 +50,7 @@ namespace NSpec
         /// <summary>
         /// Action(T, U) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
         /// </summary>
-        public static void Do<T, U>(this Tuples<T, U> source, Action<T, U> action)
+        public static void Do<T, U>(this Each<T, U> source, Action<T, U> action)
         {
             foreach (var tup in source)
                 action(tup.Item1, tup.Item2);
@@ -68,20 +68,20 @@ namespace NSpec
         /// <summary>
         /// Action(T, U, V) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
         /// </summary>
-        //public static void Do<T, U, V>(this Tuples<T, U, V> source, Action<T, U, V> action)
-        //{
-        //    foreach (var tup in source)
-        //        action(tup.Item1, tup.Item2, tup.Item3);
-        //}
+        public static void Do<T, U, V>(this Each<T, U, V> source, Action<T, U, V> action)
+        {
+            foreach (var tup in source)
+                action(tup.Item1, tup.Item2, tup.Item3);
+        }
 
         /// <summary>
         /// Action(T, U, V, W) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
         /// </summary>
-        //public static void Do<T, U, V, W>(this Tuples<T, U, V, W> source, Action<T, U, V, W> action)
-        //{
-        //    foreach (var tup in source)
-        //        action(tup.Item1, tup.Item2, tup.Item3, tup.Item4);
-        //}
+        public static void Do<T, U, V, W>(this Each<T, U, V, W> source, Action<T, U, V, W> action)
+        {
+            foreach (var tup in source)
+                action(tup.Item1, tup.Item2, tup.Item3, tup.Item4);
+        }
 
         /// <summary>
         /// Action will be executed n number of times.

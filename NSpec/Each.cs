@@ -6,7 +6,7 @@ namespace NSpec
     /// This is a way for you to specify a collection of test data that needs to be asserted over a common set of examples.  New one of these up inline and tack on the .Do extension method for some
     /// powerful ways to execute examples across the collection.  For more information, visit http://www.nspedriven.net.
     /// </summary>
-    public class Tuples<T, U> : List<NSpecTuple<T, U>>
+    public class Each<T, U> : List<NSpecTuple<T, U>>
     {
         public void Add(T t, U u)
         {
@@ -18,7 +18,7 @@ namespace NSpec
     /// This is a way for you to specify a collection of test data that needs to be asserted over a common set of examples.  New one of these up inline and tack on the .Do extension method for some
     /// powerful ways to execute examples across the collection.  For more information, visit http://www.nspedriven.net.
     /// </summary>
-    public class Tuples<T, U, V> : List<NSpecTuple<T, U, V>>
+    public class Each<T, U, V> : List<NSpecTuple<T, U, V>>
     {
         public void Add(T t, U u, V v)
         {
@@ -30,7 +30,7 @@ namespace NSpec
     /// This is a way for you to specify a collection of test data that needs to be asserted over a common set of examples.  New one of these up inline and tack on the .Do extension method for some
     /// powerful ways to execute examples across the collection.  For more information, visit http://www.nspedriven.net.
     /// </summary>
-    public class Tuples<T, U, V, W> : List<NSpecTuple<T, U, V, W>>
+    public class Each<T, U, V, W> : List<NSpecTuple<T, U, V, W>>
     {
         public void Add(T t, U u, V v, W w)
         {
