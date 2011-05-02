@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSpec.Domain.Extensions;
+using System.Text.RegularExpressions;
 
 namespace NSpec.Domain
 {
@@ -11,11 +12,13 @@ namespace NSpec.Domain
 
         public IEnumerable<Type> SpecClasses()
         {
+            var regex = new Regex(classFilter);
+
             return Types
                 .Where(t => t.IsClass
                     && BaseTypes(t).Any(s => s == typeof(nspec))
                     && t.Methods().Count() > 0
-                    && (string.IsNullOrEmpty(classFilter) || t.Name == classFilter));
+                    && (string.IsNullOrEmpty(classFilter) || regex.IsMatch(t.FullName)));
         }
 
         public IEnumerable<Type> BaseTypes(Type type)
@@ -37,7 +40,7 @@ namespace NSpec.Domain
         {
         }
 
-        public SpecFinder(string specDLL, IReflector reflector, string classFilter="")
+        public SpecFinder(string specDLL, IReflector reflector, string classFilter = "")
             : this()
         {
             this.classFilter = classFilter;

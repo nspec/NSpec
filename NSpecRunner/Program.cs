@@ -43,9 +43,9 @@ namespace ConsoleApplication1
             Console.WriteLine();
             Console.WriteLine("Example usage:");
             Console.WriteLine();
-            Console.WriteLine("nspecrunner path_to_spec_dll [name_of_spec_class_to_run]");
+            Console.WriteLine("nspecrunner path_to_spec_dll [regex pattern]");
             Console.WriteLine();
-            Console.WriteLine("The second parameter is optional. If supplied only the single class will be run. Otherwise all spec classes in the dll will be run.");
+            Console.WriteLine("The second parameter is optional. If supplied, only the classes that match the regex will be run.  The full class name including namespace is considered. Otherwise all spec classes in the dll will be run.");
         }
     }
 }

@@ -3,6 +3,9 @@ using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
 using Rhino.Mocks;
+using describe_SomeNameSpace;
+using describe_OtherNameSpace;
+using System.Collections.Generic;
 
 namespace NSpecNUnit
 {
@@ -11,6 +14,7 @@ namespace NSpecNUnit
         public void public_method() { }
         private void private_method() { }
     }
+
     public class AnotherSpecClass : nspec
     {
         void public_method() { }
@@ -101,6 +105,51 @@ namespace NSpecNUnit
         }
     }
 
+    [TestFixture]
+    public class when_finding_specs_based_on_regex : when_finding_specs
+    {
+        [SetUp]
+        public void Setup()
+        {
+            GivenDllContains(typeof(SomeClass),
+                typeof(SomeOtherClass),
+                typeof(SomeClassInOtherNameSpace));
+        }
+
+        [Test]
+        public void it_should_find_all_specs_if_regex_is_not_specified()
+        {
+            GivenFilter("");
+
+            TheSpecClasses()
+                .should_contain(typeof(SomeClass))
+                .should_contain(typeof(SomeOtherClass))
+                .should_contain(typeof(SomeClassInOtherNameSpace));
+        }
+
+        [Test]
+        public void it_should_find_specs_that_end_with_specified_regex()
+        {
+            GivenFilter("OtherClass$");
+
+            TheSpecClasses()
+                .should_not_contain(typeof(SomeClass))
+                .should_contain(typeof(SomeOtherClass))
+                .should_not_contain(typeof(SomeClassInOtherNameSpace));
+        }
+
+        [Test]
+        public void it_should_find_specs_that_contain_namespace()
+        {
+            GivenFilter("describe_SomeNameSpace");
+
+            TheSpecClasses()
+                .should_contain(typeof(SomeClass))
+                .should_contain(typeof(SomeOtherClass))
+                .should_not_contain(typeof(SomeClassInOtherNameSpace));
+        }
+    }
+
     public class when_finding_specs
     {
         protected void GivenDllContains(params Type[] types)
@@ -119,8 +168,43 @@ namespace NSpecNUnit
             finder = new SpecFinder(someDLL, reflector, filter);
         }
 
+        protected IEnumerable<Type> TheSpecClasses()
+        {
+            return finder.SpecClasses();
+        }
+
         protected ISpecFinder finder;
         protected IReflector reflector;
         protected string someDLL;
+    }
+}
+
+namespace describe_SomeNameSpace
+{
+    class SomeClass : nspec
+    {
+        void context_method()
+        {
+            
+        }
+    }
+
+    class SomeOtherClass : nspec
+    {
+        void context_method()
+        {
+
+        }
+    }
+}
+
+namespace describe_OtherNameSpace
+{
+    class SomeClassInOtherNameSpace : nspec
+    {
+        void context_method()
+        {
+
+        }
     }
 }

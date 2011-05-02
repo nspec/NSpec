@@ -67,44 +67,60 @@ namespace NSpec
             StringAssert.Contains(expected, actual);
         }
 
-        public static void should_not_contain<T>(this IEnumerable<T> collection, Func<T,bool> predicate)
+        public static IEnumerable<T> should_not_contain<T>(this IEnumerable<T> collection, Func<T, bool> predicate)
         {
             Assert.IsTrue( !collection.Any(predicate),"collection contains an item it should not.".With(collection,predicate));
+
+            return collection;
         }
 
-        public static void should_contain<T>(this IEnumerable<T> collection, Func<T,bool> predicate)
+        public static IEnumerable<T> should_contain<T>(this IEnumerable<T> collection, Func<T, bool> predicate)
         {
             Assert.IsTrue( collection.Any(predicate),"collection does not contain an item it should.".With(collection,predicate));
+
+            return collection;
         }
 
-        public static void should_contain<T>(this IEnumerable<T> collection, T t)
+        public static IEnumerable<T> should_contain<T>(this IEnumerable<T> collection, T t)
         {
             CollectionAssert.Contains(collection, t);
+
+            return collection;
         }
 
-        public static void should_not_contain<T>(this IEnumerable<T> collection, T t)
+        public static IEnumerable<T> should_not_contain<T>(this IEnumerable<T> collection, T t)
         {
             CollectionAssert.DoesNotContain(collection, t);
+
+            return collection;
         }
 
-        public static void should_not_be_empty<T>(this IEnumerable<T> collection)
+        public static IEnumerable<T> should_not_be_empty<T>(this IEnumerable<T> collection)
         {
             CollectionAssert.IsNotEmpty(collection);
+
+            return collection;
         }
 
-        public static void should_be_empty<T>(this IEnumerable<T> collection)
+        public static IEnumerable<T> should_be_empty<T>(this IEnumerable<T> collection)
         {
             CollectionAssert.IsEmpty(collection);
+
+            return collection;
         }
 
-        public static void should_be<T>(this IEnumerable<T> actual, params T[] expected)
+        public static IEnumerable<T> should_be<T>(this IEnumerable<T> actual, params T[] expected)
         {
             CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());
+
+            return actual;
         }
 
-        public static void should_be<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
+        public static IEnumerable<T> should_be<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
         {
             CollectionAssert.AreEqual(expected.ToArray(),actual.ToArray());
+
+            return actual;
         }
 
         public static T should_cast_to<T>(this object value)
