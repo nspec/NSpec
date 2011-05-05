@@ -75,6 +75,9 @@
     <Compile Include="Demo\describe_car.cs" />
     <Compile Include="WebSite\describe_expected_exception.cs" />
     <Compile Include="WebSite\describe_helpers.cs" />
+    <Compile Include="WebSite\describe_method_level_examples.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="WebSite\given_the_sequence_continues_with_2.cs" />
     <Compile Include="WebSite\describe_Math.cs" />
     <Compile Include="WebSite\describe_pending.cs" />
