@@ -8,7 +8,7 @@ namespace NSpec.Domain
         {
             if (type.BaseType == typeof(nspec))
             {
-                var context = new ClassContext( type );
+                var context = new ClassContext(type);
 
                 if(childContext!=null) context.AddContext(childContext);
 

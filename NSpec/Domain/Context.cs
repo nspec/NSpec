@@ -73,6 +73,7 @@ namespace NSpec.Domain
         public Action Act { get; set; }
         public Action After { get; set; }
         public Context Parent { get; set; }
+        public nspec NSpecInstance { get; set; }
 
         private bool isPending;
         public bool IsPending()
@@ -102,6 +103,8 @@ namespace NSpec.Domain
 
         public void SetInstanceContext(nspec instance)
         {
+            NSpecInstance = instance;
+
             if (BeforeInstance != null) Before = () => BeforeInstance(instance);
 
             if (ActInstance != null) Act = () => ActInstance(instance);
@@ -120,11 +123,7 @@ namespace NSpec.Domain
 
             if (Method != null)
             {
-                var instance = GetSpecType().Instance<nspec>();
-
-                SetInstanceContext(instance);
-
-                instance.Context = this;
+                nspec instance = CreateNSpecInstance();
 
                 try
                 {
@@ -137,6 +136,32 @@ namespace NSpec.Domain
                     throw e;
                 }
             }
+
+            if (IsClassLevelContext())
+            {
+                Examples.Do(
+                e => 
+                {
+                    nspec instance = CreateNSpecInstance();
+                    e.Run(this);
+                });
+            }
+        }
+
+        private nspec CreateNSpecInstance()
+        {
+            var instance = GetSpecType().Instance<nspec>();
+
+            SetInstanceContext(instance);
+
+            instance.Context = this;
+
+            return instance;
+        }
+
+        private bool IsClassLevelContext()
+        {
+            return this is ClassContext;
         }
 
         private Type GetSpecType()

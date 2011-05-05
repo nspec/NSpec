@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="describe_RegexSpecFinder.cs" />
+    <Compile Include="Formatting\when_formatting_a_class_level_example_failure.cs" />
+    <Compile Include="WhenRunningSpecs\describe_method_level_examples.cs" />
     <Compile Include="WhenRunningSpecs\describe_xdescribe.cs" />
     <Compile Include="WhenRunningSpecs\describe_class_level_before.cs" />
     <Compile Include="WhenRunningSpecs\describe_xcontext.cs" />
@@ -68,7 +70,7 @@
     <Compile Include="WhenRunningSpecs\when_act_contains_exception.cs" />
     <Compile Include="WhenRunningSpecs\when_after_contains_exception.cs" />
     <Compile Include="WhenRunningSpecs\when_before_contains_exception.cs" />
-    <Compile Include="when_building_contexts.cs" />
+    <Compile Include="describe_ContextBulider.cs" />
     <Compile Include="when_building_method_contexts.cs" />
     <Compile Include="WhenRunningSpecs\describe_method_level_befores.cs" />
     <Compile Include="when_counting_failures.cs" />

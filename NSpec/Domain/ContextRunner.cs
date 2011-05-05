@@ -27,7 +27,7 @@ namespace NSpec.Domain
 
                 var formatter = new ConsoleFormatter();
 
-                formatter.Write( new ContextCollection( Contexts));
+                formatter.Write(new ContextCollection(Contexts));
             }
             catch (Exception e)
             {
@@ -45,6 +45,6 @@ namespace NSpec.Domain
             return Contexts.SelectMany(c => c.Failures());
         }
 
-        public IList<Context> Contexts{get;set;}
+        public IList<Context> Contexts { get; set; }
     }
 }

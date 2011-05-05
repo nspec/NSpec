@@ -25,9 +25,9 @@ namespace NSpec.Domain.Extensions
                 .Where(m => m.ReturnType.ToString() == "System.Void");
         }
 
-        public static string CleanMessage(this Exception excpetion)
+        public static string CleanMessage(this Exception exception)
         {
-            var exc = excpetion.Message.Trim().Replace(Environment.NewLine, ", ").Trim();
+            var exc = exception.Message.Trim().Replace(Environment.NewLine, ", ").Trim();
 
             while (exc.Contains("  ")) exc = exc.Replace("  ", " ");
 

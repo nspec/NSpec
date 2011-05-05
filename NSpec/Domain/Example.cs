@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace NSpec.Domain
 {
     public class Example
     {
-        public Example(Expression<Action> expr) : this(Parse(expr), expr.Compile()){ }
+        public Example(Expression<Action> expr) : this(Parse(expr), expr.Compile()) { }
 
-        public Example(string name = "", Action action=null, bool pending = false)
+        public Example(string name = "", Action action = null, bool pending = false)
         {
-            Action = action;
+            this.action = action;
             Spec = name;
             Pending = pending;
+        }
+
+        public Example(MethodInfo methodLevelExample)
+        {
+            Spec = methodLevelExample.Name.Replace("_", " ");
+            MethodLevelExample = methodLevelExample;
         }
 
         public static string Parse(Expression<Action> exp)
@@ -34,12 +41,12 @@ namespace NSpec.Domain
                 context.Befores();
 
                 context.Acts();
-            
-                Action();
-                
+
+                ExecuteAction(context);
+
                 context.Afters();
             }
-            catch(PendingExampleException)
+            catch (PendingExampleException)
             {
                 Pending = true;
             }
@@ -55,9 +62,38 @@ namespace NSpec.Domain
         }
 
         public bool Pending { get; set; }
+
         public string Spec { get; set; }
+
         public Exception Exception { get; set; }
-        public Action Action { get; set; }
-        public Context Context{get;set;}
+
+        private Action action;
+
+        public void ExecuteAction(Context context)
+        {
+            WasExecuted = true;
+
+            if(MethodLevelExample != null)
+            {
+                try
+                {
+                    MethodLevelExample.Invoke(context.NSpecInstance, null);    
+                }
+                catch (Exception e)
+                {
+                    Exception = e.InnerException;
+                }
+            }
+            else
+            {
+                action();    
+            }
+        }
+
+        public Context Context { get; set; }
+
+        public MethodInfo MethodLevelExample { get; set; }
+
+        public bool WasExecuted { get; private set; }
     }
 }

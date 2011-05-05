@@ -97,16 +97,16 @@ namespace NSpec
         /// <summary>
         /// Flattens an Enumerable<string> into one string with optional separator
         /// </summary>
-        public static string Flatten(this IEnumerable<string> source, string separator="")
+        public static string Flatten(this IEnumerable<string> source, string separator = "")
         {
-            return source.Aggregate( (acc, s) => acc = acc + separator + s);
+            return source.Aggregate((acc, s) => acc = acc + separator + s);
         }
 
         /// <summary>
         /// Safely access a property or method of type T. If it is null or throws
         /// the fallback will be used instead
         /// </summary>
-        public static U GetOrFallback<T,U>(this T t, Func<T,U> func, U fallback)
+        public static U GetOrFallback<T, U>(this T t, Func<T, U> func, U fallback)
         {
             try
             {

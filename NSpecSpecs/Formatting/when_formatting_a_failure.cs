@@ -39,6 +39,12 @@ namespace NSpecNUnit
             output.should_contain(example.Exception.StackTrace);
         }
 
+        [Test]
+        public void should_exclude_stack_trace_elements_that_have_an_empty_line()
+        {
+            
+        }
+
         private string output;
         private Example example;
     }

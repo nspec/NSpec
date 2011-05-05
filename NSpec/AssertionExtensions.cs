@@ -128,5 +128,10 @@ namespace NSpec
             Assert.IsInstanceOf<T>(value);
             return (T)value;
         }
+
+        public static void should_not_match(this string value, string pattern)
+        {
+            StringAssert.DoesNotMatch(pattern, value);
+        }
     }
 }

@@ -55,10 +55,16 @@ namespace NSpec.Domain
         {
             var failure = Environment.NewLine + example.FullName().Replace("_", " ") + Environment.NewLine;
 
-            failure += example.Exception.CleanMessage() +
-                Environment.NewLine + example.Exception.GetOrFallback( e=> e.StackTrace,"").Split('\n')
-                    .Where(l => !new[] { "NSpec.Domain","NSpec.AssertionExtensions","NUnit.Framework" }.Any(l.Contains))
-                    .Flatten(Environment.NewLine).TrimEnd() + Environment.NewLine;
+            failure += example.Exception.CleanMessage() + Environment.NewLine;
+
+            var stackTrace = 
+                example.Exception
+                       .GetOrFallback(e => e.StackTrace, "").Split('\n')
+                       .Where(l => !internalNameSpaces.Any(l.Contains));
+
+            var flattenedStackTrace = stackTrace.Flatten(Environment.NewLine).TrimEnd() + Environment.NewLine;
+
+            failure += flattenedStackTrace;
 
             return failure;
         }
@@ -73,5 +79,13 @@ namespace NSpec.Domain
         }
 
         private string indent = "  ";
+
+        private string[] internalNameSpaces =
+            new[] 
+            { 
+                "NSpec.Domain", 
+                "NSpec.AssertionExtensions", 
+                "NUnit.Framework" 
+            };
     }
 }
