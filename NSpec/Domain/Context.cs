@@ -139,12 +139,11 @@ namespace NSpec.Domain
 
             if (IsClassLevelContext())
             {
-                Examples.Do(
-                e => 
+                for (int i = 0; i < Examples.Count; i++)
                 {
                     nspec instance = CreateNSpecInstance();
-                    e.Run(this);
-                });
+                    Examples[i].Run(this);
+                }
             }
         }
 

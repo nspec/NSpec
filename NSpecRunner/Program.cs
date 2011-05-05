@@ -19,11 +19,11 @@ namespace ConsoleApplication1
             {
                 var classFilter = args.Length > 1 ? args[1] : "";
 
-                var finder = new SpecFinder(args[0], new Reflector(), classFilter);
+                //var finder = new SpecFinder(args[0], new Reflector(), classFilter);
 
                 //var finder = new SpecFinder(@"C:\Development\GameTrader\GameTrader.Specs\bin\Debug\GameTrader.Specs.dll", new Reflector(), "describe_AuthenticationController");
 
-                //var finder = new SpecFinder(@"C:\users\amir\nspec\samplespecs\bin\debug\samplespecs.dll", new Reflector(), "class_level_before");
+                var finder = new SpecFinder(@"C:\Development\nspec\samplespecs\bin\debug\samplespecs.dll", new Reflector(), "");
 
                 var builder = new ContextBuilder(finder);
 
