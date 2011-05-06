@@ -22,7 +22,7 @@ namespace NSpec.Domain.Extensions
             return methodInfos
                 .Where(m => !exclusions.Contains(m.Name) && !m.Name.Contains("<") && m.Name.Contains("_"))
                 .Where(m => m.GetParameters().Count() == 0)
-                .Where(m => m.ReturnType.ToString() == "System.Void");
+                .Where(m => m.ReturnType.ToString() == "System.Void").ToList();
         }
 
         public static string CleanMessage(this Exception exception)

@@ -70,6 +70,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         private Context classContext;
+
         private IReflector reflector;
     }
 }

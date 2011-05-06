@@ -18,26 +18,41 @@ namespace NSpec.Domain
         public IList<Context> Contexts()
         {
             contexts.Clear();
-            finder.SpecClasses().Do(Build);
+
+            var specClasses = finder.SpecClasses();
+
+            var container = new ClassContext(typeof(nspec));
+
+            Build(container, specClasses);
+
+            contexts.AddRange(container.Contexts);
+
             return contexts;
         }
 
-        private void Build(Type specClass)
+        private void Build(Context parent, IEnumerable<Type> allSpecClasses)
         {
-            var root = specClass.RootContext();
+            var derivedTypes = allSpecClasses.Where(s => s.BaseType == parent.Type);
 
-            var parent = contexts.FirstOrDefault(c => c.Name == root.Name);
+            foreach (var derived in derivedTypes)
+            {
+                var classContext = CreateClassContext(derived);
 
-            var classContext = root.SelfAndDescendants().First(c => c.Type == specClass);
-
-            if (parent == null)
-                contexts.Add(root);
-            else
                 parent.AddContext(classContext);
 
-            BuildMethodContexts(classContext, specClass);
+                Build(classContext, allSpecClasses);
+            }
+        }
 
-            BuildMethodLevelExamples(classContext, specClass);
+        private ClassContext CreateClassContext(Type type)
+        {
+            var context = new ClassContext(type);
+
+            BuildMethodContexts(context, type);
+
+            BuildMethodLevelExamples(context, type);
+
+            return context;
         }
 
         public void BuildMethodContexts(Context classContext, Type specClass)
@@ -80,7 +95,7 @@ namespace NSpec.Domain
 
         private readonly string[] reservedMethods = new[] { "before_each", "act_each" };
 
-        private IList<Context> contexts;
+        private List<Context> contexts;
     }
 
     public interface IContextBuilder

@@ -3,26 +3,60 @@ using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
 using Rhino.Mocks;
+using System.Collections.Generic;
+using System;
 
 namespace NSpecNUnit.when_building_contexts
 {
     [TestFixture]
-    public class when_building_contexts
+    public class describe_ContextBuilder
+    {
+        protected ISpecFinder finder;
+
+        protected ContextBuilder builder;
+
+        protected List<Type> typesForFinder;
+
+        protected List<Context> contexts;
+
+        [SetUp]
+        public void setup_base()
+        {
+            finder = MockRepository.GenerateMock<ISpecFinder>();
+
+            typesForFinder = new List<Type>();
+
+            finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(typesForFinder);
+
+            builder = new ContextBuilder(finder);
+        }
+
+        public void GivenTypes(params Type[] types)
+        {
+            typesForFinder.AddRange(types);
+        }
+
+        public IList<Context> TheContexts()
+        {
+            return builder.Contexts();
+        }
+    }
+
+    [TestFixture]
+    public class when_building_contexts : describe_ContextBuilder
     {
         public class child : parent { }
+
         public class sibling : parent { }
+
         public class parent : nspec { }
 
         [SetUp]
         public void setup()
-        { 
-            finder = MockRepository.GenerateMock<ISpecFinder>();
+        {
+            GivenTypes(typeof(child), typeof(sibling), typeof(parent));
 
-            finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(new[] { typeof(child), typeof(parent), typeof(sibling) });
-
-            builder = new ContextBuilder(finder);
-
-            builder.Contexts();
+            TheContexts();
         }
 
         [Test]
@@ -34,64 +68,47 @@ namespace NSpecNUnit.when_building_contexts
         [Test]
         public void the_primary_context_should_be_parent()
         {
-            builder.Contexts().First().Name.should_be(typeof(parent).Name);
+            TheContexts().First().Name.should_be(typeof(parent).Name);
         }
 
         [Test]
         public void the_parent_should_have_the_child_context()
         {
-            builder.Contexts().First().Contexts.First().Name.should_be(typeof(child).Name);
+            TheContexts().First().Contexts.First().Name.should_be(typeof(child).Name);
         }
 
         [Test]
         public void it_should_only_have_the_parent_once()
         {
-            builder.Contexts().Count().should_be(1);
+            TheContexts().Count().should_be(1);
         }
 
         [Test]
         public void it_should_have_the_sibling()
         {
-            builder.Contexts().First().Contexts.should_contain(c=>c.Name==typeof(sibling).Name);
+            TheContexts().First().Contexts.should_contain(c => c.Name == typeof(sibling).Name);
         }
 
-        private ISpecFinder finder;
-        private ContextBuilder builder;
     }
 
     [TestFixture]
-    public class when_finding_method_level_examples
+    public class when_finding_method_level_examples : describe_ContextBuilder
     {
         class class_with_method_level_example : nspec
         {
-            void it_should_be_considered_an_example()
-            {
+            void it_should_be_considered_an_example() { }
 
-            }
+            void specify_should_be_considered_as_an_example() { }
 
-            void specify_should_be_considered_as_an_example()
-            {
-                
-            }
-
-            void IT_SHOULD_BE_CASE_INSENSITIVE()
-            {
-                
-            }
+            void IT_SHOULD_BE_CASE_INSENSITIVE() { }
         }
 
         [SetUp]
         public void setup()
         {
-            finder = MockRepository.GenerateMock<ISpecFinder>();
-
-            finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(new[] { typeof(class_with_method_level_example) });
-
-            builder = new ContextBuilder(finder);
-
-            builder.Contexts();
+            GivenTypes(typeof(class_with_method_level_example));
         }
-        	
+
         [Test]
         public void should_find_method_level_example_if_the_method_name_starts_with_the_word_IT()
         {
@@ -113,16 +130,13 @@ namespace NSpecNUnit.when_building_contexts
         [Test]
         public void should_exclude_methods_that_start_with_ITs_from_child_context()
         {
-            builder.Contexts().First().Contexts.Count.should_be(0);
+            TheContexts().First().Contexts.Count.should_be(0);
         }
 
         private void ShouldContainExample(string exampleName)
         {
-            builder.Contexts().First().Examples.Any(s => s.Spec == exampleName);
+            TheContexts().First().Examples.Any(s => s.Spec == exampleName);
         }
-
-        private ISpecFinder finder;
-        private ContextBuilder builder;
     }
 
     [TestFixture]
@@ -175,6 +189,42 @@ namespace NSpecNUnit.when_building_contexts
         public void it_should_disregard_method_called_act_each()
         {
             classContext.Contexts.should_not_contain(c => c.Name == "act each");
+        }
+    }
+
+    [TestFixture]
+    public class describe_second_order_inheritance : describe_ContextBuilder
+    {
+        class base_spec : nspec { }
+
+        class child_spec : base_spec { }
+
+        class derived_from_child_spec : child_spec { }
+
+        [SetUp]
+        public void setup()
+        {
+            GivenTypes(typeof(base_spec), 
+                typeof(child_spec), 
+                typeof(derived_from_child_spec));
+        }
+
+        [Test]
+        public void the_root_context_should_be_base_spec()
+        {
+            TheContexts().First().Type.should_be(typeof(base_spec));
+        }
+
+        [Test]
+        public void the_next_context_should_be_derived_spec()
+        {
+            TheContexts().First().Contexts.First().Type.should_be(typeof(child_spec));
+        }
+
+        [Test]
+        public void the_next_next_context_should_be_derived_spec()
+        {
+            TheContexts().First().Contexts.First().Contexts.First().Type.should_be(typeof(derived_from_child_spec));
         }
     }
 }
