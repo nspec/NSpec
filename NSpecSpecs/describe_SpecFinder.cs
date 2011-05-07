@@ -133,7 +133,7 @@ namespace NSpecNUnit
         [Test]
         public void it_should_find_specs_for_derived_class_and_include_base_class()
         {
-            GivenFilter("OtherClass$");
+            GivenFilter("DerivedClass$");
 
             TheSpecClasses()
                 .should_contain(typeof(SomeClass))
