@@ -51,6 +51,7 @@
     <Compile Include="Domain\ContextRunner.cs" />
     <Compile Include="Domain\ContextBuilder.cs" />
     <Compile Include="Domain\Extensions\DomainExtensions.cs" />
+    <Compile Include="Domain\IEqualityComparor.cs" />
     <Compile Include="Domain\MethodContext.cs" />
     <Compile Include="Domain\PendingExampleException.cs" />
     <Compile Include="Domain\ExceptionNotThrown.cs" />

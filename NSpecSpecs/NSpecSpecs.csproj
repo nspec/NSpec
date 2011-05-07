@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="describe_RegexSpecFinder.cs" />
     <Compile Include="WhenRunningSpecs\describe_method_level_examples.cs" />
     <Compile Include="WhenRunningSpecs\describe_xdescribe.cs" />
     <Compile Include="WhenRunningSpecs\describe_class_level_before.cs" />

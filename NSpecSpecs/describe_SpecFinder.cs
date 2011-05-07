@@ -6,6 +6,7 @@ using Rhino.Mocks;
 using describe_SomeNameSpace;
 using describe_OtherNameSpace;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NSpecNUnit
 {
@@ -26,6 +27,7 @@ namespace NSpecNUnit
     {
         string parameter_less_method() { return ""; }
     }
+
     public class SpecClassWithNoParameterLessMethods : nspec
     {
         void private_method(string parameter) { }
@@ -112,8 +114,9 @@ namespace NSpecNUnit
         public void Setup()
         {
             GivenDllContains(typeof(SomeClass),
-                typeof(SomeOtherClass),
-                typeof(SomeClassInOtherNameSpace));
+                typeof(SomeDerivedClass),
+                typeof(SomeClassInOtherNameSpace),
+                typeof(SomeDerivedDerivedClass));
         }
 
         [Test]
@@ -123,19 +126,21 @@ namespace NSpecNUnit
 
             TheSpecClasses()
                 .should_contain(typeof(SomeClass))
-                .should_contain(typeof(SomeOtherClass))
+                .should_contain(typeof(SomeDerivedClass))
                 .should_contain(typeof(SomeClassInOtherNameSpace));
         }
 
         [Test]
-        public void it_should_find_specs_that_end_with_specified_regex()
+        public void it_should_find_specs_for_derived_class_and_include_base_class()
         {
             GivenFilter("OtherClass$");
 
             TheSpecClasses()
-                .should_not_contain(typeof(SomeClass))
-                .should_contain(typeof(SomeOtherClass))
+                .should_contain(typeof(SomeClass))
+                .should_contain(typeof(SomeDerivedClass))
                 .should_not_contain(typeof(SomeClassInOtherNameSpace));
+
+            TheSpecClasses().Count().should_be(2);
         }
 
         [Test]
@@ -145,8 +150,21 @@ namespace NSpecNUnit
 
             TheSpecClasses()
                 .should_contain(typeof(SomeClass))
-                .should_contain(typeof(SomeOtherClass))
+                .should_contain(typeof(SomeDerivedClass))
                 .should_not_contain(typeof(SomeClassInOtherNameSpace));
+        }
+
+        [Test]
+        public void it_should_find_distinct_specs()
+        {
+            GivenFilter("Derived");
+
+            TheSpecClasses()
+                .should_contain(typeof(SomeClass))
+                .should_contain(typeof(SomeDerivedClass))
+                .should_contain(typeof(SomeDerivedDerivedClass));
+
+            TheSpecClasses().Count().should_be(3);
         }
     }
 
@@ -189,7 +207,15 @@ namespace describe_SomeNameSpace
         }
     }
 
-    class SomeOtherClass : nspec
+    class SomeDerivedClass : SomeClass
+    {
+        void context_method()
+        {
+
+        }
+    }
+
+    class SomeDerivedDerivedClass : SomeClass
     {
         void context_method()
         {

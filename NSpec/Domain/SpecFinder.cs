@@ -14,11 +14,21 @@ namespace NSpec.Domain
         {
             var regex = new Regex(classFilter);
 
-            return Types
-                .Where(t => t.IsClass
+            var leafTypes = 
+                Types.Where(t => t.IsClass
                     && BaseTypes(t).Any(s => s == typeof(nspec))
                     && t.Methods().Count() > 0
                     && (string.IsNullOrEmpty(classFilter) || regex.IsMatch(t.FullName)));
+
+            var finalList = new List<Type>();
+            finalList.AddRange(leafTypes);
+
+            foreach (var leafType in leafTypes)
+            {
+                finalList.AddRange(BaseTypes(leafType));
+            }
+
+            return finalList.Distinct(new TypeComparer()).Where(s => s != typeof(nspec) && s != typeof(object));
         }
 
         public IEnumerable<Type> BaseTypes(Type type)
@@ -48,6 +58,20 @@ namespace NSpec.Domain
         }
 
         public Type[] Types { get; set; }
+    }
+
+    public class TypeComparer : IEqualityComparer<Type>
+    {
+
+        public bool Equals(Type x, Type y)
+        {
+            return x.FullName == y.FullName;
+        }
+
+        public int GetHashCode(Type obj)
+        {
+            return obj.FullName.GetHashCode();
+        }
     }
 
     public interface ISpecFinder
