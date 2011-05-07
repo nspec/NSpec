@@ -138,9 +138,10 @@ namespace NSpecNUnit
             TheSpecClasses()
                 .should_contain(typeof(SomeClass))
                 .should_contain(typeof(SomeDerivedClass))
+                .should_contain(typeof(SomeDerivedDerivedClass))
                 .should_not_contain(typeof(SomeClassInOtherNameSpace));
 
-            TheSpecClasses().Count().should_be(2);
+            TheSpecClasses().Count().should_be(3);
         }
 
         [Test]
