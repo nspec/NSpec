@@ -7,6 +7,7 @@ using NSpec.Domain;
 namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
+    [Category("RunningSpecs")]
     public class using_xit : describe_todo
     {
         class XitClass : nspec
@@ -25,6 +26,7 @@ namespace NSpecSpecs.WhenRunningSpecs
     }
 
     [TestFixture]
+    [Category("RunningSpecs")]
     public class using_todo : describe_todo
     {
         class TodoClass : nspec
@@ -43,6 +45,7 @@ namespace NSpecSpecs.WhenRunningSpecs
     }
 
     [TestFixture]
+    [Category("RunningSpecs")]
     public class using_todo_with_throwing_before : describe_todo
     {
         class TodoClass : nspec

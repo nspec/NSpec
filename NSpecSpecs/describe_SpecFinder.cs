@@ -36,6 +36,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
+    [Category("SpecFinder")]
     public class without_filtering : when_finding_specs
     {
         [SetUp]
@@ -84,6 +85,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
+    [Category("SpecFinder")]
     public class when_filtering_specs : when_finding_specs
     {
         [Test]
@@ -108,6 +110,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
+    [Category("SpecFinder")]
     public class when_finding_specs_based_on_regex : when_finding_specs
     {
         [SetUp]
@@ -186,7 +189,7 @@ namespace NSpecNUnit
         {
             finder = new SpecFinder(someDLL, reflector, filter);
         }
-
+        
         protected IEnumerable<Type> TheSpecClasses()
         {
             return finder.SpecClasses();

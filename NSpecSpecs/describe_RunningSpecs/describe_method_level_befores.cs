@@ -6,6 +6,7 @@ using NSpec;
 namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
+    [Category("RunningSpecs")]
     public class describe_method_level_befores : when_running_specs
     {
         class SpecClass : nspec

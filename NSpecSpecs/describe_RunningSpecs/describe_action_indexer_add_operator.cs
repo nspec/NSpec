@@ -7,6 +7,7 @@ using System.Collections.Generic;
 namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
+    [Category("RunningSpecs")]
     public class describe_action_indexer_add_operator : when_running_specs
     {
         private class SpecClass : nspec

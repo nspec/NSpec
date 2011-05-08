@@ -5,6 +5,18 @@ using NUnit.Framework;
 namespace NSpecNUnit
 {
     [TestFixture]
+    [Category("Example")]
+    public class when_parsing_expressions
+    {
+        [Test]
+        public void should_clear_quotes()
+        {
+            new Example(() => "hello".should_be("hello")).Spec.should_be("hello should be hello");
+        }
+    }
+
+    [TestFixture]
+    [Category("Example")]
     public class describe_Example
     {
         [Test]

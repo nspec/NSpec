@@ -47,36 +47,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WhenRunningSpecs\describe_method_level_examples.cs" />
-    <Compile Include="WhenRunningSpecs\describe_xdescribe.cs" />
-    <Compile Include="WhenRunningSpecs\describe_class_level_before.cs" />
-    <Compile Include="WhenRunningSpecs\describe_xcontext.cs" />
-    <Compile Include="when_creating_act_contexts_for_classes.cs" />
-    <Compile Include="describe_reflecting_methods.cs" />
-    <Compile Include="WhenRunningSpecs\describe_action_indexer_add_operator.cs" />
+    <Compile Include="describe_RunningSpecs\describe_method_level_examples.cs" />
+    <Compile Include="describe_RunningSpecs\describe_xdescribe.cs" />
+    <Compile Include="describe_RunningSpecs\describe_class_level_before.cs" />
+    <Compile Include="describe_RunningSpecs\describe_xcontext.cs" />
+    <Compile Include="describe_DomainExtensions.cs" />
+    <Compile Include="describe_RunningSpecs\describe_action_indexer_add_operator.cs" />
     <Compile Include="describe_Context.cs" />
     <Compile Include="describe_Example.cs" />
-    <Compile Include="WhenRunningSpecs\describe_expected_exception.cs" />
-    <Compile Include="WhenRunningSpecs\describe_implicit_befores.cs" />
-    <Compile Include="WhenRunningSpecs\describe_todo.cs" />
-    <Compile Include="Formatting\when_formatting_a_failure.cs" />
-    <Compile Include="Formatting\when_formatting_examples.cs" />
-    <Compile Include="Formatting\when_formatting_exceptions.cs" />
-    <Compile Include="Formatting\when_formatting_failure_summary.cs" />
+    <Compile Include="describe_RunningSpecs\describe_expected_exception.cs" />
+    <Compile Include="describe_RunningSpecs\describe_implicit_befores.cs" />
+    <Compile Include="describe_RunningSpecs\describe_todo.cs" />
     <Compile Include="describe_ContextCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WhenRunningSpecs\when_act_contains_exception.cs" />
-    <Compile Include="WhenRunningSpecs\when_after_contains_exception.cs" />
-    <Compile Include="WhenRunningSpecs\when_before_contains_exception.cs" />
-    <Compile Include="describe_ContextBulider.cs" />
-    <Compile Include="when_building_method_contexts.cs" />
-    <Compile Include="WhenRunningSpecs\describe_method_level_befores.cs" />
-    <Compile Include="when_counting_failures.cs" />
+    <Compile Include="describe_RunningSpecs\when_act_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\when_after_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\when_before_contains_exception.cs" />
+    <Compile Include="describe_ContextBuilder.cs" />
+    <Compile Include="describe_RunningSpecs\describe_method_level_befores.cs" />
     <Compile Include="describe_SpecFinder.cs" />
-    <Compile Include="when_creating_before_contexts_for_classes.cs" />
-    <Compile Include="Formatting\describe_ConsoleFormatter.cs" />
-    <Compile Include="when_parsing_expressions.cs" />
-    <Compile Include="WhenRunningSpecs\when_running_specs.cs" />
+    <Compile Include="describe_ConsoleFormatter.cs" />
+    <Compile Include="describe_RunningSpecs\when_running_specs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">

@@ -10,6 +10,7 @@ using Rhino.Mocks;
 namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
+    [Category("RunningSpecs")]
     public class describe_method_level_examples
     {
         class SpecClass : nspec

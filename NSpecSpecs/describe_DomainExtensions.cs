@@ -6,7 +6,8 @@ using NUnit.Framework;
 namespace NSpecSpecs
 {
     [TestFixture]
-    public class describe_reflecting_methods
+    [Category("DomainExtensions")]
+    public class describe_DomainExtensions
     {
         class parent : nspec
         {

@@ -7,6 +7,7 @@ using NSpec.Domain;
 namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
+    [Category("RunningSpecs")]
     public class describe_expected_exception : when_running_specs
     {
         private class SpecClass : nspec

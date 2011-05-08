@@ -7,6 +7,7 @@ using NUnit.Framework;
 namespace NSpecNUnit
 {
     [TestFixture]
+    [Category("ContextCollection")]
     public class describe_ContextCollection
     {
         private ContextCollection contexts;

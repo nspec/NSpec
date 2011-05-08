@@ -9,6 +9,7 @@ using NSpec.Domain;
 namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
+    [Category("RunningSpecs")]
     public class describe_class_level_before : when_running_specs
     {
         class SpecClass : nspec
