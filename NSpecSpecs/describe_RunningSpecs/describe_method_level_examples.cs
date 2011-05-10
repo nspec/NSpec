@@ -33,7 +33,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             RhinoMocksExtensions.Stub(reflector, r => r.GetTypesFrom("")).IgnoreArguments().Return(new[] { typeof(SpecClass) });
 
-            var contextBuilder = new ContextBuilder(new SpecFinder("", reflector), new UnderScore());
+            var contextBuilder = new ContextBuilder(new SpecFinder("", reflector), new DefaultConvention());
 
             classContext = contextBuilder.Contexts().First();
 

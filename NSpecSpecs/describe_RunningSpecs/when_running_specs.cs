@@ -11,7 +11,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [SetUp]
         public void setup_base()
         {
-            convention = new UnderScore();
+            convention = new DefaultConvention();
 
             convention.Initialize();
         }
@@ -43,7 +43,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         protected ClassContext classContext;
-        private UnderScore convention;
+        private DefaultConvention convention;
         protected Context methodContext;
     }
 }

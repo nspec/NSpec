@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Mime;
 using System.Reflection;
 using NSpec;
 using NSpec.Domain;
@@ -21,15 +20,9 @@ namespace ConsoleApplication1
 
                 var finder = new SpecFinder(args[0], new Reflector(), classFilter);
 
-                //var finder = new SpecFinder(@"C:\Development\GameTrader\GameTrader.Specs\bin\Debug\GameTrader.Specs.dll", new Reflector(), "describe_AuthenticationController");
-
-                //var finder = new SpecFinder(@"C:\Development\nspec\samplespecs\bin\debug\samplespecs.dll", new Reflector(), "");
-
-                var builder = new ContextBuilder(finder, new UnderScore());
+                var builder = new ContextBuilder(finder, new DefaultConvention());
 
                 new ContextRunner(builder).Run();
-
-                //new ContextRunner(new ContextBuilder(new SpecFinder(@"C:\Development\GameTrader\GameTrader.Specs\bin\Debug\GameTrader.Specs.dll", new Reflector()))).Run();
             }
             catch (Exception e)
             {

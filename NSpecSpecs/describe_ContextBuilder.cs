@@ -28,7 +28,7 @@ namespace NSpecNUnit.when_building_contexts
 
             finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(typesForFinder);
 
-            UnderScore conventions =  new UnderScore();
+            DefaultConvention conventions =  new DefaultConvention();
 
             conventions.Initialize();
 
@@ -43,17 +43,6 @@ namespace NSpecNUnit.when_building_contexts
         public IList<Context> TheContexts()
         {
             return builder.Contexts();
-        }
-    }
-
-    [TestFixture]
-    [Category("ContextBuilder")]
-    public class when_finding_method_level_befores
-    {
-        [SetUp]
-        public void Setup()
-        {
-
         }
     }
 
@@ -170,11 +159,11 @@ namespace NSpecNUnit.when_building_contexts
         {
             var finder = MockRepository.GenerateMock<ISpecFinder>();
 
-            UnderScore underScoreConventions = new UnderScore();
+            DefaultConvention defaultConvention = new DefaultConvention();
 
-            underScoreConventions.Initialize();
+            defaultConvention.Initialize();
 
-            var builder = new ContextBuilder(finder, underScoreConventions);
+            var builder = new ContextBuilder(finder, defaultConvention);
 
             classContext = new Context("class");
 
