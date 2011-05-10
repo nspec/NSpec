@@ -2,26 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSpec.Domain.Extensions;
-using System.Text.RegularExpressions;
 
 namespace NSpec.Domain
 {
-    public class ContextBuilder : IContextBuilder
+    public class ContextBuilder
     {
-        public ContextBuilder(ISpecFinder finder)
+        public ContextBuilder(ISpecFinder finder, Conventions convensions)
         {
             this.finder = finder;
 
             contexts = new List<Context>();
+
+            this.conventions = convensions;
         }
 
         public IList<Context> Contexts()
         {
             contexts.Clear();
 
+            conventions.Initialize();
+
             var specClasses = finder.SpecClasses();
 
-            var container = new ClassContext(typeof(nspec));
+            var container = new ClassContext(typeof(nspec), conventions);
 
             Build(container, specClasses);
 
@@ -36,7 +39,7 @@ namespace NSpec.Domain
 
             foreach (var derived in derivedTypes)
             {
-                var classContext = CreateClassContext(derived);
+                var classContext = CreateClassContext(derived, conventions);
 
                 parent.AddContext(classContext);
 
@@ -44,9 +47,11 @@ namespace NSpec.Domain
             }
         }
 
-        private ClassContext CreateClassContext(Type type)
+        private ClassContext CreateClassContext(Type type, Conventions conventions)
         {
-            var context = new ClassContext(type);
+            var context = new ClassContext(type, conventions);
+
+            context.Build();
 
             BuildMethodContexts(context, type);
 
@@ -59,12 +64,10 @@ namespace NSpec.Domain
         {
             specClass
                 .Methods()
-                .Where(s => IsMethodLevelContext(s.Name)).Do(
+                .Where(s => conventions.IsMethodLevelContext(s.Name)).Do(
                 contextMethod =>
                 {
-                    var methodContext = new MethodContext(contextMethod);
-
-                    classContext.AddContext(methodContext);
+                    classContext.AddContext(new MethodContext(contextMethod));
                 });
         }
 
@@ -72,34 +75,17 @@ namespace NSpec.Domain
         {
             specClass
                 .Methods()
-                .Where(s => IsMethodLevelExample(s.Name)).Do(
+                .Where(s => conventions.IsMethodLevelExample(s.Name)).Do(
                 methodInfo =>
                 {
-                    var example = new Example(methodInfo);
-
-                    classContext.AddExample(example);
+                    classContext.AddExample(new Example(methodInfo));
                 });
         }
 
-        private bool IsMethodLevelContext(string name)
-        {
-            return !reservedMethods.Contains(name) && !IsMethodLevelExample(name);
-        }
-
-        private bool IsMethodLevelExample(string name)
-        {
-            return Regex.IsMatch(name.ToLower(), "(^it_)|(^specify_)");
-        }
-
-        private readonly ISpecFinder finder;
-
-        private readonly string[] reservedMethods = new[] { "before_each", "act_each" };
+        private Conventions conventions;
+        
+        private ISpecFinder finder;
 
         private List<Context> contexts;
-    }
-
-    public interface IContextBuilder
-    {
-        IList<Context> Contexts();
     }
 }

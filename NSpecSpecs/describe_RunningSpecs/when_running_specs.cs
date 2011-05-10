@@ -2,14 +2,25 @@
 using System.Linq;
 using NSpec.Domain;
 using NSpec.Domain.Extensions;
+using NUnit.Framework;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
     public class when_running_specs
     {
+        [SetUp]
+        public void setup_base()
+        {
+            convention = new UnderScore();
+
+            convention.Initialize();
+        }
+
         protected void Run(Type type)
         {
-            classContext = new ClassContext(type);
+            classContext = new ClassContext(type, convention);
+
+            classContext.Build();
 
             var method = type.Methods().First().Name;
 
@@ -18,7 +29,9 @@ namespace NSpecSpecs.WhenRunningSpecs
 
         protected void Run(Type type, string methodName)
         {
-            classContext = new ClassContext(type);
+            classContext = new ClassContext(type, convention);            
+
+            classContext.Build();
 
             var method = type.Methods().Single(s => s.Name == methodName);
 
@@ -29,7 +42,8 @@ namespace NSpecSpecs.WhenRunningSpecs
             classContext.Run();
         }
 
-        protected Context classContext;
+        protected ClassContext classContext;
+        private UnderScore convention;
         protected Context methodContext;
     }
 }

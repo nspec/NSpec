@@ -28,7 +28,11 @@ namespace NSpecNUnit.when_building_contexts
 
             finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(typesForFinder);
 
-            builder = new ContextBuilder(finder);
+            UnderScore conventions =  new UnderScore();
+
+            conventions.Initialize();
+
+            builder = new ContextBuilder(finder, conventions);
         }
 
         public void GivenTypes(params Type[] types)
@@ -39,6 +43,17 @@ namespace NSpecNUnit.when_building_contexts
         public IList<Context> TheContexts()
         {
             return builder.Contexts();
+        }
+    }
+
+    [TestFixture]
+    [Category("ContextBuilder")]
+    public class when_finding_method_level_befores
+    {
+        [SetUp]
+        public void Setup()
+        {
+
         }
     }
 
@@ -101,8 +116,6 @@ namespace NSpecNUnit.when_building_contexts
             void it_should_be_considered_an_example() { }
 
             void specify_should_be_considered_as_an_example() { }
-
-            void IT_SHOULD_BE_CASE_INSENSITIVE() { }
         }
 
         [SetUp]
@@ -121,12 +134,6 @@ namespace NSpecNUnit.when_building_contexts
         public void should_find_method_level_example_if_the_method_starts_with_SPECIFY()
         {
             ShouldContainExample("specify should be considered as an example");
-        }
-
-        [Test]
-        public void should_match_method_level_example_ignoring_case()
-        {
-            ShouldContainExample("IT SHOULD BE CASE INSENSITIVE");
         }
 
         [Test]
@@ -163,13 +170,17 @@ namespace NSpecNUnit.when_building_contexts
         {
             var finder = MockRepository.GenerateMock<ISpecFinder>();
 
-            var builder = new ContextBuilder(finder);
+            UnderScore underScoreConventions = new UnderScore();
+
+            underScoreConventions.Initialize();
+
+            var builder = new ContextBuilder(finder, underScoreConventions);
 
             classContext = new Context("class");
 
             builder.BuildMethodContexts(classContext, typeof(SpecClass));
         }
-
+        
         [Test]
         public void it_should_add_the_public_method_as_a_sub_context()
         {

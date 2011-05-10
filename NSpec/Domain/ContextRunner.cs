@@ -6,9 +6,9 @@ namespace NSpec.Domain
 {
     public class ContextRunner
     {
-        private readonly IContextBuilder builder;
+        private ContextBuilder builder;
 
-        public ContextRunner(IContextBuilder builder)
+        public ContextRunner(ContextBuilder builder)
         {
             this.builder = builder;
 

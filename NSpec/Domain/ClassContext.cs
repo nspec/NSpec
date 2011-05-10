@@ -2,21 +2,41 @@
 using System.Linq;
 using System.Reflection;
 using NSpec.Domain.Extensions;
+using System.Text.RegularExpressions;
 
 namespace NSpec.Domain
 {
     public class ClassContext : Context
     {
-        public ClassContext(Type type)
+        Conventions conventions;
+
+        public ClassContext(Type type, Conventions conventions)
             : base(type.Name, 0)
         {
             Type = type;
 
-            var before = Enumerable.FirstOrDefault<MethodInfo>(Type.Methods(), m => m.Name == "before_each");
-            var act = Enumerable.FirstOrDefault<MethodInfo>(Type.Methods(), m => m.Name == "act_each");
+            this.conventions = conventions;
+        }
+
+        public void Build()
+        {
+            BuildMethodLevelBefore();
+
+            BuildMethodLevelAct();
+        }
+
+        private void BuildMethodLevelBefore()
+        {
+            var before = conventions.GetMethodLevelBefore(Type);
 
             if (before != null) BeforeInstance = i => before.Invoke(i, null);
-            if (act != null) ActInstance = i => act.Invoke(i, null);
+        }
+
+        private void BuildMethodLevelAct()
+        {
+            var act = conventions.GetMethodLevelAct(Type);
+
+            if (act != null) ActInstance = i => act.Invoke(i, null);               
         }
     }
 }

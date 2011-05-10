@@ -25,7 +25,7 @@ namespace ConsoleApplication1
 
                 //var finder = new SpecFinder(@"C:\Development\nspec\samplespecs\bin\debug\samplespecs.dll", new Reflector(), "");
 
-                var builder = new ContextBuilder(finder);
+                var builder = new ContextBuilder(finder, new UnderScore());
 
                 new ContextRunner(builder).Run();
 
