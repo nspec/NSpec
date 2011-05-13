@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
@@ -15,13 +12,17 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         class SpecClass : nspec
         {
+            public static bool first_example_executed, last_example_executed;
+
             void it_should_be_an_example()
             {
+                first_example_executed = true;
                 "hello".should_be("hello");
             }
 
             void it_should_be_failing()
             {
+                last_example_executed = true;
                 "hello".should_not_be("hello");
             }
         }
@@ -47,15 +48,15 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void the_first_example_should_have_been_executed()
+        public void should_execute_first_example()
         {
-            classContext.Examples.First().WasExecuted.should_be_true();
+            SpecClass.first_example_executed.should_be_true();
         }
 
         [Test]
-        public void the_last_example_should_have_been_executed()
+        public void should_execute_last_example()
         {
-            classContext.Examples.First().WasExecuted.should_be_true();
+            SpecClass.last_example_executed.should_be_true();
         }
 
         [Test]

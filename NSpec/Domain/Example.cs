@@ -21,8 +21,6 @@ namespace NSpec.Domain
 
         public void Run()
         {
-            WasExecuted = true;
-
             if (MethodLevelExample != null)
             {
                 try
@@ -63,12 +61,11 @@ namespace NSpec.Domain
             MethodLevelExample = methodLevelExample;
         }
 
-        public bool Pending { get; set; }
-        public string Spec { get; set; }
-        public Exception Exception { get; set; }
-        public Context Context { get; set; }
-        public MethodInfo MethodLevelExample { get; set; }
-        public bool WasExecuted { get; private set; }
+        public bool Pending;
+        public string Spec;
+        public Exception Exception;
+        public Context Context;
+        public MethodInfo MethodLevelExample;
 
         Action action;
     }
