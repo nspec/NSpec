@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using System.Linq.Expressions;
+using NSpec.Domain;
 
 namespace NSpec
 {
     public static class AssertionExtensions
     {
+        public static void should<T>(this T o, Expression<Predicate<T>> predicate)
+        {
+            Assert.IsTrue(predicate.Compile()(o), Example.Parse(predicate.Body));
+        }
+
         public static void should_not_be_null(this object o)
         {
             Assert.IsNotNull(o);

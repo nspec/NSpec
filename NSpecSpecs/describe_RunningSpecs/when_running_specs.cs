@@ -3,6 +3,7 @@ using System.Linq;
 using NSpec.Domain;
 using NSpec.Domain.Extensions;
 using NUnit.Framework;
+using NSpec;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -11,7 +12,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [SetUp]
         public void setup_base()
         {
-            convention = new DefaultConvention();
+            convention = new DefaultConventions();
 
             convention.Initialize();
         }
@@ -43,7 +44,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         protected ClassContext classContext;
-        private DefaultConvention convention;
+        private DefaultConventions convention;
         protected Context methodContext;
     }
 }

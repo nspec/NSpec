@@ -20,7 +20,7 @@ namespace ConsoleApplication1
 
                 var finder = new SpecFinder(args[0], new Reflector(), classFilter);
 
-                var builder = new ContextBuilder(finder, new DefaultConvention());
+                var builder = new ContextBuilder(finder, new DefaultConventions());
 
                 new ContextRunner(builder).Run();
             }

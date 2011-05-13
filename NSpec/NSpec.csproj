@@ -50,11 +50,11 @@
     <Compile Include="Domain\ContextCollection.cs" />
     <Compile Include="Domain\ContextRunner.cs" />
     <Compile Include="Domain\ContextBuilder.cs" />
-    <Compile Include="Domain\Conventions.cs" />
+    <Compile Include="Conventions.cs" />
     <Compile Include="Domain\Extensions\DomainExtensions.cs" />
     <Compile Include="Domain\MethodContext.cs" />
     <Compile Include="Domain\ExceptionNotThrown.cs" />
-    <Compile Include="Domain\DefaultConvention.cs" />
+    <Compile Include="DefaultConventions.cs" />
     <Compile Include="Each.cs" />
     <Compile Include="Domain\ActionIndexer.cs" />
     <Compile Include="nspec.cs" />

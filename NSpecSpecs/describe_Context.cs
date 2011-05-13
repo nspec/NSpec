@@ -60,7 +60,7 @@ namespace NSpecNUnit
         [SetUp]
         public void setup()
         {
-            conventions = new DefaultConvention();
+            conventions = new DefaultConventions();
 
             conventions.Initialize();
 
@@ -99,7 +99,7 @@ namespace NSpecNUnit
 
         private ClassContext childContext;
 
-        private DefaultConvention conventions;
+        private DefaultConventions conventions;
 
         private ClassContext parentContext;
 
@@ -130,7 +130,7 @@ namespace NSpecNUnit
         [SetUp]
         public void setup()
         {
-            conventions = new DefaultConvention();
+            conventions = new DefaultConventions();
 
             conventions.Initialize();
 
@@ -159,7 +159,7 @@ namespace NSpecNUnit
 
         private ClassContext childContext;
 
-        private DefaultConvention conventions;
+        private DefaultConventions conventions;
 
         private ClassContext parentContext;
     }
@@ -171,7 +171,7 @@ namespace NSpecNUnit
         [SetUp]
         public void setup()
         {
-            conventions = new DefaultConvention();
+            conventions = new DefaultConventions();
 
             conventions.Initialize();
 
@@ -210,7 +210,7 @@ namespace NSpecNUnit
 
         private ClassContext childContext;
 
-        private DefaultConvention conventions;
+        private DefaultConventions conventions;
 
         private ClassContext parentContext;
 

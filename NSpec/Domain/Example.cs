@@ -6,9 +6,9 @@ namespace NSpec.Domain
 {
     public class Example
     {
-        public static string Parse(Expression<Action> exp)
+        public static string Parse(Expression expressionBody)
         {
-            var body = exp.Body.ToString();
+            var body = expressionBody.ToString();
 
             var cut = body.IndexOf(").");
 
@@ -17,6 +17,11 @@ namespace NSpec.Domain
             while (sentence.Contains("  ")) sentence = sentence.Replace("  ", " ");
 
             return sentence.Trim();
+        }
+
+        public static string Parse(Expression<Action> exp)
+        {
+            return Parse(exp.Body);
         }
 
         public void Run()

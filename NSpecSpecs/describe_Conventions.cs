@@ -25,7 +25,7 @@ namespace NSpecSpecs
         [SetUp]
         public void Setup()
         {
-            convensions = new DefaultConvention();
+            convensions = new DefaultConventions();
         }
     }
 

@@ -27,7 +27,7 @@ namespace NSpec
         /// <para>For Example:</para>
         /// <para>specify = () => _controller.should_be(false);</para>
         /// </summary>
-        protected Expression<Action> specify
+        public virtual Expression<Action> specify
         {
             set { AddExample(new Example(value)); }
         }
@@ -38,7 +38,7 @@ namespace NSpec
         /// <para>before.each = () => someList = new List&lt;int&gt;();</para>
         /// <para>The before.each can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
         /// </summary>
-        protected Action before
+        public virtual Action before
         {
             get { return Context.Before; }
             set { Context.Before = value; }
@@ -47,7 +47,7 @@ namespace NSpec
         /// <summary>
         /// In development.
         /// </summary>
-        protected Action after
+        public virtual Action after
         {
             get { return Context.After; }
             set { Context.After = value; }
@@ -57,7 +57,7 @@ namespace NSpec
         /// Assign this member within your context.  The Action assigned will get executed
         /// with every example in scope.  Befores will run first, then acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-Assert for all subcontexts.  For more information visit http://www.nspec.org
         /// </summary>
-        protected Action act
+        public virtual Action act
         {
             get { return Context.Act; }
             set { Context.Act = value; }
@@ -67,31 +67,31 @@ namespace NSpec
         /// Create a subcontext.
         /// <para>For Examples see http://www.nspec.org</para>
         /// </summary>
-        protected ActionRegister context;
+        public ActionRegister context;
 
         /// <summary>
         /// Mark a subcontext as pending (add all child contexts as pending)
         /// </summary>
-        protected ActionRegister xcontext;
+        public ActionRegister xcontext;
 
         /// <summary>
         /// This is an alias for creating a subcontext.  Use this to create sub contexts within your methods.
         /// <para>For Examples see http://www.nspec.org</para>
         /// </summary>
-        protected ActionRegister describe;
+        public ActionRegister describe;
 
         /// <summary>
         /// This is an alias for creating a xcontext.
         /// <para>For Examples see http://www.nspec.org</para>
         /// </summary>
-        protected ActionRegister xdescribe;
+        public ActionRegister xdescribe;
 
         /// <summary>
         /// Create a specification/example using a name and a lambda with an assertion(should).
         /// <para>For Example:</para>
         /// <para>it["should return false"] = () => _controller.should_be(false);</para>
         /// </summary>
-        protected ActionRegister it;
+        public ActionRegister it;
 
         /// <summary>
         /// Mark a spec as pending 
@@ -99,21 +99,21 @@ namespace NSpec
         /// <para>xit["should return false"] = () => _controller.should_be(false);</para>
         /// <para>(the example will be marked as pending any lambda provided will not be executed)</para>
         /// </summary>
-        protected ActionRegister xit;
+        public ActionRegister xit;
 
         /// <summary>
         /// Set up a pending spec.
         /// <para>For Example:</para>
         /// <para>it["a test i haven't flushed out yet, but need to"] = todo;</para>
         /// </summary>
-        protected readonly Action todo = () => { };
+        public readonly Action todo = () => { };
 
         /// <summary>
         /// Set up an expectation for a particular exception type to be thrown.
         /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;(() => SomeMethodThatThrowsException());</para>
         /// </summary>
-        protected Action expect<T>(Action action) where T : Exception
+        public virtual Action expect<T>(Action action) where T : Exception
         {
             return () =>
             {

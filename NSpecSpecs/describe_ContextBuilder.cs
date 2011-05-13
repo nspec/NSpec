@@ -28,7 +28,7 @@ namespace NSpecNUnit.when_building_contexts
 
             finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(typesForFinder);
 
-            DefaultConvention conventions =  new DefaultConvention();
+            DefaultConventions conventions =  new DefaultConventions();
 
             conventions.Initialize();
 
@@ -159,7 +159,7 @@ namespace NSpecNUnit.when_building_contexts
         {
             var finder = MockRepository.GenerateMock<ISpecFinder>();
 
-            DefaultConvention defaultConvention = new DefaultConvention();
+            DefaultConventions defaultConvention = new DefaultConventions();
 
             defaultConvention.Initialize();
 
