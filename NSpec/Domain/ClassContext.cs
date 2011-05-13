@@ -22,7 +22,7 @@ namespace NSpec.Domain
         {
             var act = conventions.GetMethodLevelAct(Type);
 
-            if (act != null) ActInstance = i => act.Invoke(i, null);               
+            if (act != null) ActInstance = i => act.Invoke(i, null);
         }
 
         public ClassContext(Type type, Conventions conventions) : base(type.Name, 0)
@@ -30,6 +30,17 @@ namespace NSpec.Domain
             Type = type;
 
             this.conventions = conventions;
+        }
+
+        public override void Run()
+        {
+            base.Run();
+
+            //haven't figured out how to write a failing test but
+            //using regular iteration causes Collection was modified
+            //exception when running samples (rake samples)
+            for (int i = 0; i < Examples.Count; i++)
+                CreateNSpecInstance().Exercise(Examples[i]);
         }
 
         Conventions conventions;

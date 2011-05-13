@@ -58,37 +58,12 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
-        public void Run()
+        public virtual void Run()
         {
             Contexts.Do(c => c.Run());
-
-            if (Method != null)
-            {
-                nspec instance = CreateNSpecInstance();
-
-                try
-                {
-                    Method.Invoke(instance, null);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Exception executing context: {0}".With(FullContext()));
-
-                    throw e;
-                }
-            }
-
-            if (this is ClassContext)
-            {
-                //haven't figured out how to write a failing test but
-                //using regular iteration causes Collection was modified
-                //exception when running samples (rake samples)
-                for (int i = 0; i < Examples.Count; i++)
-                    CreateNSpecInstance().Exercise(Examples[i]);
-            }
         }
 
-        private nspec CreateNSpecInstance()
+        protected nspec CreateNSpecInstance()
         {
             NSpecInstance = GetSpecType().Instance<nspec>();
 
@@ -99,6 +74,11 @@ namespace NSpec.Domain
             return NSpecInstance;
         }
 
+        private Type GetSpecType()
+        {
+            return Type ?? Parent.GetSpecType();
+        }
+
         public void SetInstanceContext(nspec instance)
         {
             if (BeforeInstance != null) Before = () => BeforeInstance(instance);
@@ -106,11 +86,6 @@ namespace NSpec.Domain
             if (ActInstance != null) Act = () => ActInstance(instance);
 
             if (Parent != null) Parent.SetInstanceContext(instance);
-        }
-
-        private Type GetSpecType()
-        {
-            return Type ?? Parent.GetSpecType();
         }
 
         public string FullContext()
@@ -131,20 +106,17 @@ namespace NSpec.Domain
             this.isPending = isPending;
         }
 
-        protected MethodInfo Method { get; set; }
+        protected MethodInfo Method;
 
-        public Type Type { get; set; }
-        public string Name { get; set; }
-        public int Level { get; set; }
-        public List<Example> Examples { get; set; }
-        public ContextCollection Contexts { get; set; }
-        public Action Before { get; set; }
-        public Action Act { get; set; }
-        public Action After { get; set; }
-        public Context Parent { get; set; }
-        public nspec NSpecInstance { get; set; }
-        public Action<nspec> BeforeInstance { get; set; }
-        public Action<nspec> ActInstance { get; set; }
+        public Type Type;
+        public string Name;
+        public int Level;
+        public List<Example> Examples;
+        public ContextCollection Contexts;
+        public Action Before, Act, After;
+        public Action<nspec> BeforeInstance, ActInstance;
+        public Context Parent;
+        public nspec NSpecInstance;
 
         private bool isPending;
     }

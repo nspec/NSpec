@@ -134,14 +134,7 @@ namespace NSpec
             };
         }
 
-        void AddExample(Example example)
-        {
-            Context.AddExample(example);
-
-            Exercise(example);
-        }
-
-        public void Exercise(Example example)
+        internal void Exercise(Example example)
         {
             if (example.Pending) return;
 
@@ -159,6 +152,13 @@ namespace NSpec
             {
                 example.Exception = e;
             }
+        }
+
+        void AddExample(Example example)
+        {
+            Context.AddExample(example);
+
+            Exercise(example);
         }
 
         void AddContext(string name, Action action)
