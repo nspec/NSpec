@@ -27,18 +27,10 @@ namespace NSpecSpecs.WhenRunningSpecs
             }
         }
 
-        private Context classContext;
-        private Context methodContext;
-
-        [SetUp]
-        public void setup()
-        {
-            Run(typeof(SpecClass));
-        }
-
-        [Test]
+        [Test,Ignore]
         public void should_give_each_specify_a_new_instance_of_spec()
         {
+            Run(typeof(SpecClass));
             Assert.Inconclusive("I dont think this is possible....");
             TheMethodContextExamples().First().Exception.should_be(null);
             TheMethodContextExamples().Last().Exception.should_be(null);
@@ -48,5 +40,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             return classContext.Contexts.First().AllExamples();
         }
+        private Context classContext;
     }
 }

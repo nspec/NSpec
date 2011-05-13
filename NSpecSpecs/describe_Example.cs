@@ -40,8 +40,6 @@ namespace NSpecNUnit
 
             context.AddExample(example);
 
-            example.Run(context);
-
             example.Pending.should_be_true();
         }
 
@@ -55,8 +53,6 @@ namespace NSpecNUnit
             parentContext.AddContext(context);
 
             context.AddExample(example);
-
-            example.Run(context);
 
             example.Pending.should_be_true();
         }

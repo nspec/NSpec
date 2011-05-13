@@ -1,23 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
-using NSpec.Domain.Extensions;
-using System.Text.RegularExpressions;
 
 namespace NSpec.Domain
 {
     public class ClassContext : Context
     {
-        Conventions conventions;
-
-        public ClassContext(Type type, Conventions conventions)
-            : base(type.Name, 0)
-        {
-            Type = type;
-
-            this.conventions = conventions;
-        }
-
         public void Build()
         {
             BuildMethodLevelBefore();
@@ -38,5 +24,14 @@ namespace NSpec.Domain
 
             if (act != null) ActInstance = i => act.Invoke(i, null);               
         }
+
+        public ClassContext(Type type, Conventions conventions) : base(type.Name, 0)
+        {
+            Type = type;
+
+            this.conventions = conventions;
+        }
+
+        Conventions conventions;
     }
 }

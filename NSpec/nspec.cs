@@ -17,8 +17,8 @@ namespace NSpec
             describe = new ActionRegister(AddContext);
             xdescribe = new ActionRegister(AddIgnoredContext);
 
-            it = new ActionRegister((name, action) => Exercise(new Example(name, action, pending: action == todo)));
-            xit = new ActionRegister((name, action) => Exercise(new Example(name, action, pending: true)));
+            it = new ActionRegister((name, action) => AddExample(new Example(name, action, pending: action == todo)));
+            xit = new ActionRegister((name, action) => AddExample(new Example(name, action, pending: true)));
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace NSpec
         /// </summary>
         protected Expression<Action> specify
         {
-            set { Exercise(new Example(value)); }
+            set { AddExample(new Example(value)); }
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace NSpec
         /// <para>For Example:</para>
         /// <para>it["a test i haven't flushed out yet, but need to"] = todo;</para>
         /// </summary>
-        protected readonly Action todo = () => { throw new PendingExampleException(); };
+        protected readonly Action todo = () => { };
 
         /// <summary>
         /// Set up an expectation for a particular exception type to be thrown.
@@ -134,29 +134,48 @@ namespace NSpec
             };
         }
 
-        private void Exercise(Example example)
+        void AddExample(Example example)
         {
             Context.AddExample(example);
 
-            if (!example.Pending)
-                example.Run(Context);
+            Exercise(example);
         }
 
-        private void AddContext(string name, Action action)
+        public void Exercise(Example example)
+        {
+            if (example.Pending) return;
+
+            try
+            {
+                Context.Befores();
+
+                Context.Acts();
+
+                example.Run();
+
+                Context.Afters();
+            }
+            catch (Exception e)
+            {
+                example.Exception = e;
+            }
+        }
+
+        void AddContext(string name, Action action)
         {
             var contextToRun = new Context(name, level);
 
             RunContext(contextToRun, action);
         }
 
-        private void AddIgnoredContext(string name, Action action)
+        void AddIgnoredContext(string name, Action action)
         {
             var ignored = new Context(name, level, isPending: true);
 
             RunContext(ignored, action);
         }
 
-        private void RunContext(Context context, Action action)
+        void RunContext(Context context, Action action)
         {
             level++;
 
@@ -173,8 +192,9 @@ namespace NSpec
             Context = beforeContext;
         }
 
-        private int level;
+        int level;
 
+        //needs to be internal for one caller
         internal Context Context { get; set; }
     }
 }

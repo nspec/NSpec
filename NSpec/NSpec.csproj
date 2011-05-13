@@ -53,7 +53,6 @@
     <Compile Include="Domain\Conventions.cs" />
     <Compile Include="Domain\Extensions\DomainExtensions.cs" />
     <Compile Include="Domain\MethodContext.cs" />
-    <Compile Include="Domain\PendingExampleException.cs" />
     <Compile Include="Domain\ExceptionNotThrown.cs" />
     <Compile Include="Domain\DefaultConvention.cs" />
     <Compile Include="Each.cs" />

@@ -20,3 +20,4 @@ new.html
 source.html
 *.nupkg
 *.zip
+*crunchsolution*
