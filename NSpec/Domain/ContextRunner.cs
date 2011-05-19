@@ -1,33 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NSpec.Domain
 {
     public class ContextRunner
     {
-        private ContextBuilder builder;
-
         public ContextRunner(ContextBuilder builder)
         {
             this.builder = builder;
-
-            Contexts = new List<Context>();
         }
 
         public void Run()
         {
-            Contexts.Clear();
+            var contexts = new ContextCollection();
 
             try
             {
-                Contexts = builder.Contexts();
+                contexts = builder.Contexts();
 
-                Contexts.Do(c => c.Run());
+                contexts.Do(c => c.Run());
 
-                var formatter = new ConsoleFormatter();
-
-                formatter.Write(new ContextCollection(Contexts));
+                new ConsoleFormatter().Write(contexts);
             }
             catch (Exception e)
             {
@@ -35,16 +27,6 @@ namespace NSpec.Domain
             }
         }
 
-        public IEnumerable<Example> Examples()
-        {
-            return Contexts.SelectMany(c => c.AllExamples());
-        }
-
-        public IEnumerable<Example> Failures()
-        {
-            return Contexts.SelectMany(c => c.Failures());
-        }
-
-        public IList<Context> Contexts { get; set; }
+        private ContextBuilder builder;
     }
 }

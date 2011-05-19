@@ -11,12 +11,12 @@ namespace NSpec.Domain
         {
             this.finder = finder;
 
-            contexts = new List<Context>();
+            contexts = new ContextCollection();
 
             this.conventions = convensions;
         }
 
-        public IList<Context> Contexts()
+        public ContextCollection Contexts()
         {
             contexts.Clear();
 
@@ -86,6 +86,6 @@ namespace NSpec.Domain
         
         private ISpecFinder finder;
 
-        private List<Context> contexts;
+        private ContextCollection contexts;
     }
 }
