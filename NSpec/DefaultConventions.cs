@@ -7,13 +7,18 @@ namespace NSpec
     {
         public override void SpecifyConventions(ConventionSpecification specification)
         {
-            specification.SetBefore(new Regex("before_each", RegexOptions.IgnoreCase));
+            specification.SetBefore(RegexInsensitive("^before_each"));
 
-            specification.SetAct(new Regex("act_each", RegexOptions.IgnoreCase));
+            specification.SetAct(RegexInsensitive("^act_each"));
 
-            specification.SetExample(new Regex("(^it_)|(^specify_)", RegexOptions.IgnoreCase));
+            specification.SetExample(RegexInsensitive("(^it_)|(^specify_)"));
 
-            specification.SetContext(new Regex("_", RegexOptions.IgnoreCase));
+            specification.SetContext(RegexInsensitive("_"));
+        }
+
+        Regex RegexInsensitive(string pattern)
+        {
+            return new Regex(pattern, RegexOptions.IgnoreCase);
         }
     }
 }

@@ -4,8 +4,8 @@ class describe_batman_sound_effects_as_text : nspec
 {
     void they_are_loud_and_emphatic()
     {
-        //"when" runs after all the befores, and before each spec
-        //allows you to declare a common "when" 
+        //act runs after all the befores, and before each spec
+        //declares a common act (arrange, act, assert) for all subcontexts
         act = () => sound = sound.ToUpper() + "!!!";
         context["given bam"] = () =>
         {
