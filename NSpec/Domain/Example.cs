@@ -24,13 +24,13 @@ namespace NSpec.Domain
             return Parse(exp.Body);
         }
 
-        public void Run()
+        public void Run(nspec nspec)
         {
             if (MethodLevelExample != null)
             {
                 try
                 {
-                    MethodLevelExample.Invoke(Context.NSpecInstance, null);
+                    MethodLevelExample.Invoke(nspec, null);
                 }
                 catch (Exception e)
                 {

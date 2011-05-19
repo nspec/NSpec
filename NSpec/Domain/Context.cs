@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {
     public class Context
     {
-        public void Befores()
+        public void RunBefores(nspec instance)
         {
-            if (Parent != null) Parent.Befores();
+            if (Parent != null) Parent.RunBefores(instance);
+
+            if (BeforeInstance != null) BeforeInstance(instance);
 
             if (Before != null) Before();
         }
 
-        public void Acts()
+        public void RunActs(nspec instance)
         {
-            if (Parent != null) Parent.Acts();
+            if (Parent != null) Parent.RunActs(instance);
+
+            if (ActInstance != null) ActInstance(instance);
 
             if (Act != null) Act();
         }
@@ -58,39 +61,41 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
-        public virtual void Run()
+        public virtual void Run(nspec instance=null)
         {
-            Contexts.Do(c => c.Run());
-        }
+            instance.Context = this;
 
-        protected nspec CreateNSpecInstance()
-        {
-            NSpecInstance = GetSpecType().Instance<nspec>();
-
-            SetInstanceContext(NSpecInstance);
-
-            NSpecInstance.Context = this;
-
-            return NSpecInstance;
-        }
-
-        private Type GetSpecType()
-        {
-            return Type ?? Parent.GetSpecType();
-        }
-
-        public void SetInstanceContext(nspec instance)
-        {
-            if (BeforeInstance != null) Before = () => BeforeInstance(instance);
-
-            if (ActInstance != null) Act = () => ActInstance(instance);
-
-            if (Parent != null) Parent.SetInstanceContext(instance);
+            Contexts.Do(c => c.Run(instance));
         }
 
         public string FullContext()
         {
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
+        }
+
+        public void Run(Example example, nspec nspec)
+        {
+            if (example.Pending) return;
+
+            try
+            {
+                RunBefores(nspec);
+
+                RunActs(nspec);
+
+                example.Run(nspec);
+
+                Afters();
+            }
+            catch (Exception e)
+            {
+                example.Exception = e;
+            }
+        }
+
+        public virtual bool IsSub(Type baseType)
+        {
+            return false;
         }
 
         public Context(string name = "") : this(name, 0) { }
@@ -108,7 +113,6 @@ namespace NSpec.Domain
 
         protected MethodInfo Method;
 
-        public Type Type;
         public string Name;
         public int Level;
         public List<Example> Examples;
@@ -116,8 +120,8 @@ namespace NSpec.Domain
         public Action Before, Act, After;
         public Action<nspec> BeforeInstance, ActInstance;
         public Context Parent;
-        public nspec NSpecInstance;
 
         private bool isPending;
+
     }
 }

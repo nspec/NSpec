@@ -35,7 +35,7 @@ namespace NSpec.Domain
 
         private void Build(Context parent, IEnumerable<Type> allSpecClasses)
         {
-            var derivedTypes = allSpecClasses.Where(s => s.BaseType == parent.Type);
+            var derivedTypes = allSpecClasses.Where(s => parent.IsSub( s.BaseType) );
 
             foreach (var derived in derivedTypes)
             {

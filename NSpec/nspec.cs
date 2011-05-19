@@ -134,31 +134,11 @@ namespace NSpec
             };
         }
 
-        internal void Exercise(Example example)
-        {
-            if (example.Pending) return;
-
-            try
-            {
-                Context.Befores();
-
-                Context.Acts();
-
-                example.Run();
-
-                Context.Afters();
-            }
-            catch (Exception e)
-            {
-                example.Exception = e;
-            }
-        }
-
         void AddExample(Example example)
         {
             Context.AddExample(example);
 
-            Exercise(example);
+            Context.Run(example, this);
         }
 
         void AddContext(string name, Action action)

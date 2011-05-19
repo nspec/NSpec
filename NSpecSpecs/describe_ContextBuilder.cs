@@ -203,32 +203,40 @@ namespace NSpecNUnit.when_building_contexts
 
         class child_spec : base_spec { }
 
-        class derived_from_child_spec : child_spec { }
+        class grand_child_spec : child_spec { }
 
         [SetUp]
         public void setup()
         {
             GivenTypes(typeof(base_spec), 
                 typeof(child_spec), 
-                typeof(derived_from_child_spec));
+                typeof(grand_child_spec));
         }
 
         [Test]
         public void the_root_context_should_be_base_spec()
         {
-            TheContexts().First().Type.should_be(typeof(base_spec));
+            TheContexts().First().Name.should_be(typeof(base_spec));
         }
 
         [Test]
         public void the_next_context_should_be_derived_spec()
         {
-            TheContexts().First().Contexts.First().Type.should_be(typeof(child_spec));
+            TheContexts().First().Contexts.First().Name.should_be(typeof(child_spec));
         }
 
         [Test]
         public void the_next_next_context_should_be_derived_spec()
         {
-            TheContexts().First().Contexts.First().Contexts.First().Type.should_be(typeof(derived_from_child_spec));
+            TheContexts().First().Contexts.First().Contexts.First().Name.should_be(typeof(grand_child_spec));
         }
+    }
+    public static class InheritanceExtentions
+    {
+        public static void should_be(this string actualName, Type expectedType)
+        {
+            Assert.AreEqual(expectedType.Name.Replace("_"," "),actualName);
+        }
+
     }
 }

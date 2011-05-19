@@ -60,13 +60,9 @@ namespace NSpecNUnit
         [SetUp]
         public void setup()
         {
-            conventions = new DefaultConventions();
+            parentContext = new ClassContext(typeof(parent_act));
 
-            conventions.Initialize();
-
-            parentContext = new ClassContext(typeof(parent_act), conventions);
-
-            childContext = new ClassContext(typeof(child_act), conventions);
+            childContext = new ClassContext(typeof(child_act));
 
             parentContext.AddContext(childContext);
 
@@ -75,35 +71,19 @@ namespace NSpecNUnit
             childContext.Build();
 
             instance = new child_act();
-
-            parentContext.SetInstanceContext(instance);
-
-            childContext.SetInstanceContext(instance);
         }
 
         [Test]
-        public void should_set_the_proper_before()
+        public void should_run_the_acts_in_the_right_order()
         {
-            childContext.Act();
+            childContext.RunActs(instance);
 
-            instance.actResult.should_be("child");
+            instance.actResult.should_be("parentchild");
         }
 
-        [Test]
-        public void it_should_also_set_the_proper_before_on_ancestors()
-        {
-            parentContext.Act();
+        ClassContext childContext, parentContext;
 
-            instance.actResult.should_be("parent");
-        }
-
-        private ClassContext childContext;
-
-        private DefaultConventions conventions;
-
-        private ClassContext parentContext;
-
-        private child_act instance;
+        child_act instance;
     }
 
     public class child_before : parent_before
@@ -171,13 +151,9 @@ namespace NSpecNUnit
         [SetUp]
         public void setup()
         {
-            conventions = new DefaultConventions();
+            parentContext = new ClassContext(typeof(parent_before));
 
-            conventions.Initialize();
-
-            parentContext = new ClassContext(typeof(parent_before), conventions);
-
-            childContext = new ClassContext(typeof(child_before), conventions);
+            childContext = new ClassContext(typeof(child_before));
 
             parentContext.AddContext(childContext);
 
@@ -186,34 +162,18 @@ namespace NSpecNUnit
             parentContext.Build();
 
             instance = new child_before();
-
-            childContext.SetInstanceContext(instance);
-
-            parentContext.SetInstanceContext(instance);
         }
         
         [Test]
-        public void should_set_the_proper_before()
+        public void should_run_the_befores_in_the_proper_order()
         {
-            childContext.Before();
+            childContext.RunBefores(instance);
 
-            instance.beforeResult.should_be("child");
+            instance.beforeResult.should_be("parentchild");
         }
 
-        [Test]
-        public void it_should_also_set_the_proper_before_on_ancestors()
-        {
-            parentContext.Before();
+        ClassContext childContext, parentContext;
 
-            instance.beforeResult.should_be("parent");
-        }
-
-        private ClassContext childContext;
-
-        private DefaultConventions conventions;
-
-        private ClassContext parentContext;
-
-        private child_before instance;
+        child_before instance;
     }
 }

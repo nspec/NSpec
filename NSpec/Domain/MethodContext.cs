@@ -10,13 +10,13 @@ namespace NSpec.Domain
             Method = method;
         }
 
-        public override void Run()
+        public override void Run(nspec instance)
         {
-            base.Run();
+            base.Run(instance);
 
             try
             {
-                Method.Invoke(CreateNSpecInstance(), null);
+                Method.Invoke(instance, null);
             }
             catch (Exception e)
             {

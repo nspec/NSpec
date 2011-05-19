@@ -59,10 +59,11 @@ namespace NSpec.Domain
 
     public abstract class Conventions
     {
-        public void Initialize()
+        public Conventions Initialize()
         {
             specification = new ConventionSpecification();
             SpecifyConventions(specification);
+            return this;
         }
 
         public abstract void SpecifyConventions(ConventionSpecification specification);
