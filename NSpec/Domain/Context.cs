@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace NSpec.Domain
 {
@@ -98,11 +97,7 @@ namespace NSpec.Domain
             return false;
         }
 
-        public Context(string name = "") : this(name, 0) { }
-
-        public Context(string name, int level) : this(name, level, false){ }
-
-        public Context(string name, int level, bool isPending)
+        public Context(string name="", int level=0, bool isPending=false)
         {
             Name = name.Replace("_", " ");
             Level = level;
@@ -110,8 +105,6 @@ namespace NSpec.Domain
             Contexts = new ContextCollection();
             this.isPending = isPending;
         }
-
-        protected MethodInfo Method;
 
         public string Name;
         public int Level;
@@ -122,6 +115,5 @@ namespace NSpec.Domain
         public Context Parent;
 
         private bool isPending;
-
     }
 }

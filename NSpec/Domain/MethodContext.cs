@@ -7,7 +7,7 @@ namespace NSpec.Domain
     {
         public MethodContext(MethodInfo method) : base(method.Name, 0)
         {
-            Method = method;
+            this.method = method;
         }
 
         public override void Run(nspec instance)
@@ -16,7 +16,7 @@ namespace NSpec.Domain
 
             try
             {
-                Method.Invoke(instance, null);
+                method.Invoke(instance, null);
             }
             catch (Exception e)
             {
@@ -25,5 +25,6 @@ namespace NSpec.Domain
                 throw e;
             }
         }
+        private MethodInfo method;
     }
 }
