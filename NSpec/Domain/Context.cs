@@ -62,9 +62,21 @@ namespace NSpec.Domain
 
         public virtual void Run(nspec instance=null)
         {
+            var nspec = savedInstance ?? instance;
+
+            Contexts.Do(c => c.Run(nspec));
+
+            for (int i = 0; i < Examples.Count; i++)
+                Build(Examples[i], nspec);
+        }
+
+        public virtual void Build(nspec instance=null)
+        {
             instance.Context = this;
 
-            Contexts.Do(c => c.Run(instance));
+            savedInstance = instance;
+
+            Contexts.Do(c => c.Build(instance));
         }
 
         public string FullContext()
@@ -72,7 +84,7 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        public void Run(Example example, nspec nspec)
+        public void Build(Example example, nspec nspec)
         {
             if (example.Pending) return;
 
@@ -115,5 +127,6 @@ namespace NSpec.Domain
         public Context Parent;
 
         private bool isPending;
+        nspec savedInstance;
     }
 }

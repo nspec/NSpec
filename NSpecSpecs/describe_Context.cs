@@ -66,11 +66,9 @@ namespace NSpecNUnit
 
             parentContext.AddContext(childContext);
 
-            parentContext.Build();
-
-            childContext.Build();
-
             instance = new child_act();
+
+            parentContext.Build();
         }
 
         [Test]
@@ -119,10 +117,6 @@ namespace NSpecNUnit
             childContext = new ClassContext(typeof(child_before), conventions);
 
             parentContext.AddContext(childContext);
-
-            parentContext.Build();
-
-            childContext.Build();
         }
 
         [Test]
@@ -157,11 +151,9 @@ namespace NSpecNUnit
 
             parentContext.AddContext(childContext);
 
-            childContext.Build();
+            instance = new child_before();
 
             parentContext.Build();
-
-            instance = new child_before();
         }
         
         [Test]

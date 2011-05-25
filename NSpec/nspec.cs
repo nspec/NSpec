@@ -137,8 +137,6 @@ namespace NSpec
         void AddExample(Example example)
         {
             Context.AddExample(example);
-
-            Context.Run(example, this);
         }
 
         void AddContext(string name, Action action)

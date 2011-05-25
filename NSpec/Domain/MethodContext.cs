@@ -10,9 +10,9 @@ namespace NSpec.Domain
             this.method = method;
         }
 
-        public override void Run(nspec instance)
+        public override void Build(nspec instance)
         {
-            base.Run(instance);
+            base.Build(instance);
 
             try
             {
