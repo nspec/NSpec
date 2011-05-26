@@ -29,11 +29,13 @@ namespace NSpec
             Assert.IsNotNullOrEmpty(source);
         }
 
+        public static void is_true(this bool actual) { actual.should_be_true(); }
         public static void should_be_true(this bool actual)
         {
             Assert.IsTrue(actual);
         }
 
+        public static void is_false(this bool actual) { actual.should_be_false(); }
         public static void should_be_false(this bool actual)
         {
             Assert.IsFalse(actual);
