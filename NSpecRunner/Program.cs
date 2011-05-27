@@ -2,6 +2,7 @@
 using System.Reflection;
 using NSpec;
 using NSpec.Domain;
+using NSpec.Domain.Formatters;
 
 namespace ConsoleApplication1
 {
@@ -9,20 +10,21 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0)
-            {
-                ShowUsage();
-                return;
-            }
+            CommandLineArgs commandLineArgs = CommandLineArgs.Parse( args );
+
             try
             {
-                var classFilter = args.Length > 1 ? args[1] : "";
-
-                var finder = new SpecFinder(args[0], new Reflector(), classFilter);
+                var finder = new SpecFinder(args[0], new Reflector(), commandLineArgs.ClassFilter);
 
                 var builder = new ContextBuilder(finder, new DefaultConventions());
 
-                new ContextRunner(builder).Run();
+                IFormatter outputFormatter = new ConsoleFormatter();
+                if( commandLineArgs.TiddlyWikiOutput )
+                {
+                    outputFormatter = new TiddlyWikiFormatter( commandLineArgs.OutputFileName );
+                }
+
+                new ContextRunner(builder, outputFormatter).Run();
             }
             catch (Exception e)
             {
@@ -30,16 +32,58 @@ namespace ConsoleApplication1
                 Console.WriteLine(e);
             }
         }
+    }
 
-        private static void ShowUsage()
+
+    class CommandLineArgs
+    {
+        public static CommandLineArgs Parse( string[] args )
         {
-            Console.WriteLine("VERSION: {0}".With(Assembly.GetExecutingAssembly().GetName().Version));
+            CommandLineArgs commandLineArgs = new CommandLineArgs();
+
+            if( args.Length == 0 )
+            {
+                PrintUsage();
+            }
+
+            for( int i = 0; i < args.Length; i++ )
+            {
+                if( args[i] == "-classFilter" )
+                {
+                    commandLineArgs.ClassFilter = args[++i];
+                    continue;
+                }
+                if( args[i] == "-tiddlyWikiOutput" )
+                {
+                    commandLineArgs.TiddlyWikiOutput = true;
+                    commandLineArgs.OutputFileName = args[++i];
+                    continue;
+                }
+            }
+
+            return commandLineArgs;
+        }
+
+        static void PrintUsage()
+        {
+            Console.WriteLine( "VERSION: {0}".With( Assembly.GetExecutingAssembly().GetName().Version ) );
             Console.WriteLine();
-            Console.WriteLine("Example usage:");
+            Console.WriteLine( "Usage: NSpecRunner path_to_spec_dll [options]" );
             Console.WriteLine();
-            Console.WriteLine("nspecrunner path_to_spec_dll [regex pattern]");
-            Console.WriteLine();
-            Console.WriteLine("The second parameter is optional. If supplied, only the classes that match the regex will be run.  The full class name including namespace is considered. Otherwise all spec classes in the dll will be run.");
+            Console.WriteLine( "  -classFilter [regex pattern]" );
+            Console.WriteLine( "  -tiddlyWikiOutput [output filename]" );
+            System.Environment.Exit( 1 );
+        }
+
+        public string ClassFilter { get; set; }
+        public bool TiddlyWikiOutput { get; set; }
+        public string OutputFileName { get; set; }
+
+        private CommandLineArgs()
+        {
+            this.ClassFilter = "";
+            this.TiddlyWikiOutput = false;
+            this.OutputFileName = "";
         }
     }
 }

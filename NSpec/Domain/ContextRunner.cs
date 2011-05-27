@@ -1,12 +1,14 @@
 ﻿using System;
+using NSpec.Domain.Formatters;
 
 namespace NSpec.Domain
 {
     public class ContextRunner
     {
-        public ContextRunner(ContextBuilder builder)
+        public ContextRunner( ContextBuilder builder, IFormatter formatter )
         {
             this.builder = builder;
+            this.formatter = formatter;
         }
 
         public void Run()
@@ -19,7 +21,7 @@ namespace NSpec.Domain
 
                 contexts.Do(c => c.Run());
 
-                new ConsoleFormatter().Write(contexts);
+                formatter.Write(contexts);
             }
             catch (Exception e)
             {
@@ -28,5 +30,6 @@ namespace NSpec.Domain
         }
 
         private ContextBuilder builder;
+        private IFormatter formatter;
     }
 }
