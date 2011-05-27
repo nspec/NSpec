@@ -2127,7 +2127,7 @@ window.createTiddlyLink=function(place,title,includeText,theClass,isStatic,linke
 <pre>[[Overview]]
 [tag[startup]]</pre>
 </div>
-<div title="DisableWikiLinksPlugin" modifier="YourName" created="201105262227" tags="systemConfig" changecount="1">
+<div title="DisableWikiLinksPlugin" modifier="YourName" created="201105262227" modified="201105271505" tags="systemConfig" changecount="2">
 <pre>/***
 |Name|DisableWikiLinksPlugin|
 |Source|http://www.TiddlyTools.com/#DisableWikiLinksPlugin|
@@ -2170,11 +2170,11 @@ Disable automatic WikiWord links for tiddlers tagged with: &lt;&lt;option txtDis
 //{{{
 version.extensions.DisableWikiLinksPlugin= {major: 1, minor: 6, revision: 0, date: new Date(2008,7,22)};
 
-if (config.options.chkDisableNonExistingWikiLinks==undefined) config.options.chkDisableNonExistingWikiLinks= false;
+if (config.options.chkDisableNonExistingWikiLinks==undefined) config.options.chkDisableNonExistingWikiLinks= true;
 if (config.options.chkDisableWikiLinks==undefined) config.options.chkDisableWikiLinks=false;
 if (config.options.txtDisableWikiLinksList==undefined) config.options.txtDisableWikiLinksList=&quot;DisableWikiLinksList&quot;;
 if (config.options.chkAllowLinksFromShadowTiddlers==undefined) config.options.chkAllowLinksFromShadowTiddlers=true;
-if (config.options.txtDisableWikiLinksTag==undefined) config.options.txtDisableWikiLinksTag=&quot;excludeWikiWords&quot;;
+if (config.options.txtDisableWikiLinksTag==undefined) config.options.txtDisableWikiLinksTag=&quot;excludeWikiWords systemConfig menu&quot;;
 
 // find the formatter for wikiLink and replace handler with 'pass-thru' rendering
 initDisableWikiLinksFormatter();
@@ -8885,7 +8885,7 @@ config.options = {
 	chkCaseSensitiveSearch: false,
 	chkIncrementalSearch: true,
 	chkAnimate: true,
-	chkSaveBackups: true,
+	chkSaveBackups: false,
 	chkAutoSave: false,
 	chkGenerateAnRssFeed: false,
 	chkSaveEmptyTemplate: false,
