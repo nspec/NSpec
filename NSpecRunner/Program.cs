@@ -21,7 +21,7 @@ namespace ConsoleApplication1
                 IFormatter outputFormatter = new ConsoleFormatter();
                 if( commandLineArgs.TiddlyWikiOutput )
                 {
-                    outputFormatter = new TiddlyWikiFormatter( commandLineArgs.OutputFileName );
+                    outputFormatter = new TiddlyWikiFormatter( commandLineArgs.TemplateFileName, commandLineArgs.OutputFileName );
                 }
 
                 new ContextRunner(builder, outputFormatter).Run();
@@ -34,7 +34,6 @@ namespace ConsoleApplication1
         }
     }
 
-
     class CommandLineArgs
     {
         public static CommandLineArgs Parse( string[] args )
@@ -46,16 +45,18 @@ namespace ConsoleApplication1
                 PrintUsage();
             }
 
-            for( int i = 0; i < args.Length; i++ )
+            for( int i = 1; i < args.Length; i++ )
             {
-                if( args[i] == "-classFilter" )
+                if( args[i] == "--classFilter" ||
+                    args[i] == "-cf" )
                 {
                     commandLineArgs.ClassFilter = args[++i];
                     continue;
                 }
-                if( args[i] == "-tiddlyWikiOutput" )
+                if( args[i] == "--tiddlyWiki" )
                 {
                     commandLineArgs.TiddlyWikiOutput = true;
+                    commandLineArgs.TemplateFileName = args[++i];
                     commandLineArgs.OutputFileName = args[++i];
                     continue;
                 }
@@ -70,13 +71,19 @@ namespace ConsoleApplication1
             Console.WriteLine();
             Console.WriteLine( "Usage: NSpecRunner path_to_spec_dll [options]" );
             Console.WriteLine();
-            Console.WriteLine( "  -classFilter [regex pattern]" );
-            Console.WriteLine( "  -tiddlyWikiOutput [output filename]" );
+            Console.WriteLine( "Options:");
+            Console.WriteLine( " -cf, --classFilter <regex pattern>       Only the classes that match the" );
+            Console.WriteLine( "                                          regex will be run.  The full class name" );
+            Console.WriteLine( "                                          including namespace is considered." );
+            Console.WriteLine( " --tiddlyWiki <template> <destination>    Redirects the output to the file name" );
+            Console.WriteLine( "                                          provided in a TiddyWiki format using" );
+            Console.WriteLine("                                           the template provided" );
             System.Environment.Exit( 1 );
         }
 
         public string ClassFilter { get; set; }
         public bool TiddlyWikiOutput { get; set; }
+        public string TemplateFileName { get; set; }
         public string OutputFileName { get; set; }
 
         private CommandLineArgs()

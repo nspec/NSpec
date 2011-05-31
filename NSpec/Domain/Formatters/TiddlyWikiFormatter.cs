@@ -12,8 +12,9 @@ namespace NSpec.Domain.Formatters
         private TiddlyWikiFormatter()
         {
         }
-        public  TiddlyWikiFormatter( string outputFile )
+        public  TiddlyWikiFormatter( string templateFile, string outputFile )
         {
+            this.templateFile = templateFile;
             this.outputFile = outputFile;
         }
 
@@ -21,20 +22,20 @@ namespace NSpec.Domain.Formatters
         {
             contexts.Do( c => this.tiddlers.Add( c.Name, this.BuildTiddlerFrom( c ) ) );
 
-            StringBuilder menuItems = new StringBuilder();
-            StringBuilder tiddlers = new StringBuilder();
+            StringBuilder menuItemsOutput = new StringBuilder();
+            StringBuilder tiddlersOutput = new StringBuilder();
             foreach( var context in this.tiddlers.Keys )
             {
-                menuItems.AppendFormat( "[[{0}]]", context );
-                menuItems.AppendLine();
+                menuItemsOutput.AppendFormat( "[[{0}]]", context );
+                menuItemsOutput.AppendLine();
 
-                tiddlers.Append( this.tiddlers[context] );
+                tiddlersOutput.Append( this.tiddlers[context] );
             }
             int examplesCount = contexts.Examples().Count();
             int failuresCount = contexts.Failures().Count();
             int pendingsCount = contexts.Pendings().Count();
 
-            this.WriteTiddlyWiki( menuItems.ToString(), tiddlers.ToString(),
+            this.WriteTiddlyWiki( menuItemsOutput.ToString(), tiddlersOutput.ToString(),
                 examplesCount, failuresCount, pendingsCount ); 
         }
 
@@ -42,12 +43,12 @@ namespace NSpec.Domain.Formatters
             string menuItems, string tiddlerItems, 
             int examplesCount, int failuresCount, int pendingCount )
         {
-            StreamReader streamReader = new StreamReader( @"Domain\Formatters\Templates\TiddlyWiki_Template.html" );
-            StreamWriter streamWriter = new StreamWriter( outputFile );
+            StreamReader templateReader = new StreamReader( templateFile );
+            StreamWriter outputWriter = new StreamWriter( outputFile );
 
-            while( !streamReader.EndOfStream )
+            while( !templateReader.EndOfStream )
             {
-                string data = streamReader.ReadLine();
+                string data = templateReader.ReadLine();
                 if( !String.IsNullOrEmpty( data ) )
                 {
                     data = data.Replace( "$MAIN_MENU_CONTEXT_NAMES_GO_HERE$", menuItems );
@@ -56,11 +57,11 @@ namespace NSpec.Domain.Formatters
                     data = data.Replace( "$TOTAL_FAILED_SPECS$", failuresCount.ToString() );
                     data = data.Replace( "$TOTAL_PENDING_SPECS$", pendingCount.ToString() );
                 }
-                streamWriter.WriteLine( data );
+                outputWriter.WriteLine( data );
             }
 
-            streamReader.Close();
-            streamWriter.Close();
+            templateReader.Close();
+            outputWriter.Close();
         }
 
         private string BuildTiddlerFrom( Context context )
@@ -115,6 +116,7 @@ namespace NSpec.Domain.Formatters
         }
 
         private SortedList<string, string> tiddlers = new SortedList<string, string>();
+        private string templateFile;
         private string outputFile;
     }
 }
