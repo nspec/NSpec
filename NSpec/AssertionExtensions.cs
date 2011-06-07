@@ -48,8 +48,14 @@ namespace NSpec
 
         public static void should_be(this object actual, object expected)
         {
+            expected.Is(actual);
+        }
+
+        public static void Is(this object actual, object expected)
+        {
             Assert.AreEqual(expected, actual);
         }
+
 
         public static void should_not_be(this object actual, object expected)
         {
