@@ -23,6 +23,10 @@ namespace ConsoleApplication1
                 {
                     outputFormatter = new TiddlyWikiFormatter( commandLineArgs.TemplateFileName, commandLineArgs.OutputFileName );
                 }
+                else if( commandLineArgs.XmlOutput )
+                {
+                    outputFormatter = new XmlFormatter();
+                }
 
                 new ContextRunner(builder, outputFormatter).Run();
             }
@@ -60,6 +64,11 @@ namespace ConsoleApplication1
                     commandLineArgs.OutputFileName = args[++i];
                     continue;
                 }
+                if( args[i] == "--xml" )
+                {
+                    commandLineArgs.XmlOutput = true;
+                    continue;
+                }
             }
 
             return commandLineArgs;
@@ -77,12 +86,14 @@ namespace ConsoleApplication1
             Console.WriteLine( "                                          including namespace is considered." );
             Console.WriteLine( " --tiddlyWiki <template> <destination>    Redirects the output to the file name" );
             Console.WriteLine( "                                          provided in a TiddyWiki format using" );
-            Console.WriteLine("                                           the template provided" );
+            Console.WriteLine( "                                          the template provided" );
+            Console.WriteLine( " --xml                                    The output will be in xml format" );
             System.Environment.Exit( 1 );
         }
 
         public string ClassFilter { get; set; }
         public bool TiddlyWikiOutput { get; set; }
+        public bool XmlOutput { get; set; }
         public string TemplateFileName { get; set; }
         public string OutputFileName { get; set; }
 
@@ -90,6 +101,7 @@ namespace ConsoleApplication1
         {
             this.ClassFilter = "";
             this.TiddlyWikiOutput = false;
+            this.XmlOutput = false;
             this.OutputFileName = "";
         }
     }

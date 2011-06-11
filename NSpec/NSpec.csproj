@@ -55,6 +55,7 @@
     <Compile Include="Domain\Formatters\IFormatter.cs" />
     <Compile Include="Domain\Formatters\TiddlyWikiFormatter.cs" />
     <Compile Include="Domain\Extensions\DomainExtensions.cs" />
+    <Compile Include="Domain\Formatters\XmlFormatter.cs" />
     <Compile Include="Domain\MethodContext.cs" />
     <Compile Include="Domain\ExceptionNotThrown.cs" />
     <Compile Include="DefaultConventions.cs" />
