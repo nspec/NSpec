@@ -52,6 +52,7 @@
     <Compile Include="Domain\ContextRunner.cs" />
     <Compile Include="Domain\ContextBuilder.cs" />
     <Compile Include="Conventions.cs" />
+    <Compile Include="Domain\Formatters\HtmlFormatter.cs" />
     <Compile Include="Domain\Formatters\IFormatter.cs" />
     <Compile Include="Domain\Formatters\TiddlyWikiFormatter.cs" />
     <Compile Include="Domain\Extensions\DomainExtensions.cs" />

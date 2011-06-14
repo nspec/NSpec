@@ -27,6 +27,10 @@ namespace ConsoleApplication1
                 {
                     outputFormatter = new XmlFormatter();
                 }
+                else if( commandLineArgs.HtmlOutput )
+                {
+                    outputFormatter = new HtmlFormatter();
+                }
 
                 new ContextRunner(builder, outputFormatter).Run();
             }
@@ -69,6 +73,11 @@ namespace ConsoleApplication1
                     commandLineArgs.XmlOutput = true;
                     continue;
                 }
+                if( args[i] == "--html" )
+                {
+                    commandLineArgs.HtmlOutput = true;
+                    continue;
+                }
             }
 
             return commandLineArgs;
@@ -88,12 +97,14 @@ namespace ConsoleApplication1
             Console.WriteLine( "                                          provided in a TiddyWiki format using" );
             Console.WriteLine( "                                          the template provided" );
             Console.WriteLine( " --xml                                    The output will be in xml format" );
+            Console.WriteLine( " --html                                   The output will be in html format" );
             System.Environment.Exit( 1 );
         }
 
         public string ClassFilter { get; set; }
         public bool TiddlyWikiOutput { get; set; }
         public bool XmlOutput { get; set; }
+        public bool HtmlOutput { get; set; }
         public string TemplateFileName { get; set; }
         public string OutputFileName { get; set; }
 
@@ -102,6 +113,7 @@ namespace ConsoleApplication1
             this.ClassFilter = "";
             this.TiddlyWikiOutput = false;
             this.XmlOutput = false;
+            this.HtmlOutput = false;
             this.OutputFileName = "";
         }
     }
