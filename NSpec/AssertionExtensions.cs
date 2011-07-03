@@ -148,5 +148,15 @@ namespace NSpec
         {
             StringAssert.DoesNotMatch(pattern, value);
         }
+
+        public static void should_be_same(this object actual, object expected)
+        {
+            Assert.AreSame(expected, actual);
+        }
+
+        public static void should_not_be_same(this object actual, object expected)
+        {
+            Assert.AreNotSame(expected, actual);
+        }
     }
 }
