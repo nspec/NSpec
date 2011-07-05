@@ -18,8 +18,10 @@ namespace ConsoleApplication1
             {
                 var classFilter = args.Length > 1 ? args[1] : "";
 
-                var finder = new SpecFinder(args[0], new Reflector(), classFilter);
+                string specDLL = args[0];
 
+                var finder = new SpecFinder(specDLL, new Reflector(), classFilter);
+                
                 var builder = new ContextBuilder(finder, new DefaultConventions());
 
                 new ContextRunner(builder).Run();
