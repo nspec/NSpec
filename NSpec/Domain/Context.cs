@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace NSpec.Domain
 {
@@ -60,11 +61,25 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
-        public virtual void Run(nspec instance=null)
+        public virtual void Run(nspec instance = null)
         {
             instance.Context = this;
 
-            Contexts.Do(c => c.Run(instance));
+            Contexts.Do(c => 
+            {
+                try
+                {
+                    c.Run(instance);    
+                }
+                catch(TargetInvocationException ex)
+                {
+                    contextLevelFailure = ex.InnerException;
+                }
+                catch (Exception ex)
+                {
+                    contextLevelFailure = ex;
+                }
+            });
         }
 
         public string FullContext()
@@ -76,6 +91,12 @@ namespace NSpec.Domain
         {
             if (example.Pending) return;
 
+            if (contextLevelFailure != null)
+            {
+                example.Exception = contextLevelFailure;
+                return;
+            }
+
             try
             {
                 RunBefores(nspec);
@@ -85,6 +106,10 @@ namespace NSpec.Domain
                 example.Run(nspec);
 
                 Afters();
+            }
+            catch (TargetInvocationException e)
+            {
+                example.Exception = e.InnerException;
             }
             catch (Exception e)
             {
@@ -97,7 +122,7 @@ namespace NSpec.Domain
             return false;
         }
 
-        public Context(string name="", int level=0, bool isPending=false)
+        public Context(string name = "", int level = 0, bool isPending = false)
         {
             Name = name.Replace("_", " ");
             Level = level;
@@ -113,7 +138,7 @@ namespace NSpec.Domain
         public Action Before, Act, After;
         public Action<nspec> BeforeInstance, ActInstance;
         public Context Parent;
-
+        public Exception contextLevelFailure;
         private bool isPending;
     }
 }

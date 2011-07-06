@@ -26,14 +26,15 @@ namespace NSpec.Domain
             if (act != null) ActInstance = i => act.Invoke(i, null);
         }
 
-        public ClassContext(Type type, Conventions conventions=null) : base(type.Name, 0)
+        public ClassContext(Type type, Conventions conventions = null)
+            : base(type.Name, 0)
         {
             this.type = type;
 
             this.conventions = conventions ?? new DefaultConventions().Initialize();
         }
 
-        public override void Run(nspec instance=null)
+        public override void Run(nspec instance = null)
         {
             var nspec = type.Instance<nspec>();
 

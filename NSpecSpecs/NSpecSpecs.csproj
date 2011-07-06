@@ -61,6 +61,7 @@
     <Compile Include="describe_RunningSpecs\describe_todo.cs" />
     <Compile Include="describe_ContextCollection.cs" />
     <Compile Include="describe_DefaultConventions.cs" />
+    <Compile Include="describe_RunningSpecs\when_method_level_before_contains_exception.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="describe_RunningSpecs\when_act_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\when_after_contains_exception.cs" />
