@@ -3,7 +3,7 @@ using System.Reflection;
 using NSpec;
 using NSpec.Domain;
 
-namespace ConsoleApplication1
+namespace NSpecRunner
 {
     class Program
     {
@@ -18,16 +18,20 @@ namespace ConsoleApplication1
             {
                 var classFilter = args.Length > 1 ? args[1] : "";
 
-                string specDLL = args[0];
+                var specDLL = args[0];
 
-                var finder = new SpecFinder(specDLL, new Reflector(), classFilter);
+                var domain = new NSpecDomain(specDLL + ".config");
 
-                var builder = new ContextBuilder(finder, new DefaultConventions());
+                domain.Run(specDLL, classFilter, (dll, filter) =>
+                {
+                    var finder = new SpecFinder(dll, new Reflector(), filter);
 
-                var runner = new ContextRunner(builder);
+                    var builder = new ContextBuilder(finder, new DefaultConventions());
 
-                AppDomainHelper.ExecuteInNewAppDomain(runner.Run);
-                //runner.Run();
+                    var runner = new ContextRunner(builder);
+
+                    runner.Run();
+                });
             }
             catch (Exception e)
             {

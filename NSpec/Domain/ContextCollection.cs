@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace NSpec.Domain
 {
-    [Serializable]
     public class ContextCollection : List<Context>
     {
         public ContextCollection(IEnumerable<Context> contexts) :base(contexts){}

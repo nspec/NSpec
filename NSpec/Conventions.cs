@@ -57,7 +57,6 @@ namespace NSpec.Domain
         public Regex Context { get; private set; }
     }
 
-    [Serializable]
     public abstract class Conventions
     {
         public Conventions Initialize()
