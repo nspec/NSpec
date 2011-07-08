@@ -5,6 +5,7 @@ using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {
+    [Serializable]
     public class ContextBuilder
     {
         public ContextBuilder(ISpecFinder finder, Conventions convensions)

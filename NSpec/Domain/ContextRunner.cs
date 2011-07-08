@@ -2,6 +2,7 @@
 
 namespace NSpec.Domain
 {
+    [Serializable]
     public class ContextRunner
     {
         public ContextRunner(ContextBuilder builder)

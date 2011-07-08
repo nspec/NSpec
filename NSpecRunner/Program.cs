@@ -21,10 +21,13 @@ namespace ConsoleApplication1
                 string specDLL = args[0];
 
                 var finder = new SpecFinder(specDLL, new Reflector(), classFilter);
-                
+
                 var builder = new ContextBuilder(finder, new DefaultConventions());
 
-                new ContextRunner(builder).Run();
+                var runner = new ContextRunner(builder);
+
+                AppDomainHelper.ExecuteInNewAppDomain(runner.Run);
+                //runner.Run();
             }
             catch (Exception e)
             {

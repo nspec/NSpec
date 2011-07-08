@@ -1,8 +1,10 @@
+using System;
 using System.Text.RegularExpressions;
 using NSpec.Domain;
 
 namespace NSpec
 {
+    [Serializable]
     public class DefaultConventions : Conventions
     {
         public override void SpecifyConventions(ConventionSpecification specification)

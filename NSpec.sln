@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpecRunner", "NSpecRunner\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpecSpecs", "NSpecSpecs\NSpecSpecs.csproj", "{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpecVSExtension", "NSpecVSExtension\NSpecVSExtension.csproj", "{12D545CF-74B0-4617-BB13-B88F4505AD59}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,16 +59,6 @@ Global
 		{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}.Release|x86.ActiveCfg = Release|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Release|Any CPU.Build.0 = Release|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{12D545CF-74B0-4617-BB13-B88F4505AD59}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
