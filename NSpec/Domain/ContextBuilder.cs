@@ -7,13 +7,13 @@ namespace NSpec.Domain
 {
     public class ContextBuilder
     {
-        public ContextBuilder(ISpecFinder finder, Conventions convensions)
+        public ContextBuilder(ISpecFinder finder, Conventions conventions)
         {
             this.finder = finder;
 
             contexts = new ContextCollection();
 
-            this.conventions = convensions;
+            this.conventions = conventions;
         }
 
         public ContextCollection Contexts()
