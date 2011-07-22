@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle( "NSpec.GallioAdapter.TestResources" )]
+[assembly: AssemblyTitle( "NSpec.GallioAdapter" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "" )]
-[assembly: AssemblyProduct( "NSpec.GallioAdapter.TestResources" )]
+[assembly: AssemblyProduct( "NSpec.GallioAdapter" )]
 [assembly: AssemblyCopyright( "Copyright ©  2011" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible( false )]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid( "5c550af0-dc0b-45e5-8c92-517f31752fe2" )]
+[assembly: Guid( "174dfed8-ac2e-4047-9604-9b21c88cb0b1" )]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "1.0.0.0" )]
-[assembly: AssemblyFileVersion( "1.0.0.0" )]
+[assembly: AssemblyVersion("0.9.42")]
+[assembly: AssemblyFileVersion("0.9.42")]
