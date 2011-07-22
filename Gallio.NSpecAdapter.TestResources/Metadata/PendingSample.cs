@@ -1,6 +1,6 @@
 using NSpec;
 
-namespace Gallio.NSpecAdapter.TestResources.Metadata
+namespace NSpec.GallioAdapter.TestResources.Metadata
 {
     /// <summary>
     /// A simple test fixture
