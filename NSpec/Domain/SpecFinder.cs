@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using NSpec.Domain.Extensions;
 using System.Text.RegularExpressions;
 
@@ -55,6 +56,12 @@ namespace NSpec.Domain
         {
             this.classFilter = classFilter;
             Types = reflector.GetTypesFrom(specDLL);
+        }
+        public SpecFinder(Assembly assembly, IReflector reflector, string classFilter = "")
+            : this()
+        {
+            this.classFilter = classFilter;
+            Types = reflector.GetTypesFrom( assembly );
         }
 
         public Type[] Types { get; set; }
