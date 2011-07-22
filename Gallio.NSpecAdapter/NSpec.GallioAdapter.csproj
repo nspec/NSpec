@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AB994BF6-32A4-456D-8BE1-552ADF2011C6}</ProjectGuid>
+    <ProjectGuid>{25B0B581-D3DD-4FE8-B7E9-DA6F86622E17}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gallio.NSpecAdapter.TestResources</RootNamespace>
-    <AssemblyName>Gallio.NSpecAdapter.TestResources</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>NSpec.GallioAdapter</RootNamespace>
+    <AssemblyName>NSpec.GallioAdapter</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gallio, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Gallio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,9 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Metadata\PendingSample.cs" />
+    <Compile Include="Model\NSpecAssemblyTest.cs" />
+    <Compile Include="Model\NSpecContextTest.cs" />
+    <Compile Include="Model\NSpecExampleTest.cs" />
+    <Compile Include="Model\NSpecTest.cs" />
+    <Compile Include="Services\NSpecController.cs" />
+    <Compile Include="Services\NSpecTestDriver.cs" />
+    <Compile Include="Services\NSpecTestExplorer.cs" />
+    <Compile Include="NSpecTestFramework.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
@@ -51,7 +61,16 @@
       <Name>NSpec</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="NSpec.GallioAdapter.plugin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /y $(TargetDir)*.* D:\GallioAdapters\NSpec</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
