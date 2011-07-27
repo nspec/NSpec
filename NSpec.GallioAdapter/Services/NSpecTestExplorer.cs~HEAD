@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using Gallio.Common.Reflection;
 using Gallio.Model;
 using Gallio.Model.Helpers;
@@ -57,49 +58,37 @@ namespace NSpec.GallioAdapter.Services
                 var finder = new SpecFinder( resolvedAssembly, new NSpec.Domain.Reflector() );
                 var builder = new ContextBuilder( finder, new DefaultConventions() );
 
-                builder.Contexts()
-                    .Select( context => this.GetContextTest( context ) )
-                    .Each( test => assemblyTest.AddChild( test ) );
+                ContextCollection contexts = builder.Contexts();
+                contexts.Do(c => c.Run());
+                contexts.Do( c => assemblyTest.AddChild( this.CreateGallioTestFrom( c ) ) );
             }
 
             return assemblyTest;
         }
 
-        NSpecContextTest GetContextTest( Context context )
+        NSpecContextTest CreateGallioTestFrom( Context nspecContext )
         {
-            NSpecContextTest contextTest = new NSpecContextTest( context );
+            NSpecContextTest contextTest = new NSpecContextTest( nspecContext );
 
-            context.AllExamples()
-                .Select( spec => this.GetSpecificationTest( context, spec ) )
-                .Each( test => contextTest.AddChild( test ) );
+            nspecContext.Examples.Do( e => contextTest.AddChild( this.CreateGallioTestFrom( e ) ) );
+            nspecContext.Contexts.Do( c => contextTest.AddChild( this.CreateGallioTestFrom( c ) ) );
 
-            AddXmlComment( contextTest, Reflector.Wrap( context.GetType() ) );
             return contextTest;
         }
 
-        NSpecExampleTest GetSpecificationTest( Context context, Example example )
+        NSpecExampleTest CreateGallioTestFrom( Example nspecExample )
         {
-            NSpecExampleTest specificationTest = new NSpecExampleTest( example );
-
-            if( example.Pending )
+            try
             {
-                string reason = "This example is pending";
-                specificationTest.Metadata.Add( MetadataKeys.IgnoreReason, reason );
+                NSpecExampleTest exampleTest = new NSpecExampleTest( nspecExample );
+
+                return exampleTest;
             }
-
-            AddXmlComment( specificationTest, Reflector.Wrap( example.MethodLevelExample ) );
-
-            return specificationTest;
+            catch( Exception ex )
+            {
+                throw new Exception(String.Format( "Error adding example {0}", nspecExample.Spec ));
+            }
         }
-
-        void AddXmlComment( Test test, ICodeElementInfo element )
-        {
-            string xml = element.GetXmlDocumentation();
-            if( !string.IsNullOrEmpty( xml ) )
-            {
-                test.Metadata.Add( MetadataKeys.XmlDocumentation, xml );
-            }
-        }  
 
         Version GetFrameworkVersion( IAssemblyInfo assembly )
         {

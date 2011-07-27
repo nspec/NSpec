@@ -82,6 +82,11 @@ namespace NSpec.GallioAdapter.Services
             {
                 NSpecExampleTest exampleTest = new NSpecExampleTest( nspecExample );
 
+                //if( nspecExample.Pending )
+                //{
+                //    exampleTest.Metadata.Add( MetadataKeys.IgnoreReason, "Pending" );
+                //}
+
                 return exampleTest;
             }
             catch( Exception ex )

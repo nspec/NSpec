@@ -4,7 +4,7 @@
         xmlns="http://www.gallio.org/">
   <traits>
     <name>NSpec Adapter Plugin</name>
-    <version>0.1.0.0</version>
+    <version>0.9.42.0</version>
     <description>Provides support for running NSpec within Gallio. Requires the assemblies from NSpec.</description>
   </traits>
 
@@ -20,7 +20,7 @@
   </files>
 
   <assemblies>
-    <assembly fullName="NSpec.GallioAdapter, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null"
+    <assembly fullName="NSpec.GallioAdapter, Version=0.9.42.0, Culture=neutral, PublicKeyToken=null"
               codeBase="NSpec.GallioAdapter.dll"
               qualifyPartialName="true" />
 
