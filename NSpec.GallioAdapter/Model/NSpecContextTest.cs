@@ -14,7 +14,7 @@ namespace NSpec.GallioAdapter.Model
         }
 
         public NSpecContextTest( Context context )
-            : base( context.Name, Reflector.Wrap( context.GetType() ) )
+            : base( context.Name, null )
         {
             this.Kind = TestKinds.Fixture;
             this._context = context;
