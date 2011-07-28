@@ -21,3 +21,4 @@ source.html
 *.nupkg
 *.zip
 *crunchsolution*
+*crunchproject*

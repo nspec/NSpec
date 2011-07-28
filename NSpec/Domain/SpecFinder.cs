@@ -58,6 +58,7 @@ namespace NSpec.Domain
         }
 
         public Type[] Types { get; set; }
+
     }
 
     public class TypeComparer : IEqualityComparer<Type>

@@ -4,6 +4,7 @@ using System.Reflection;
 
 namespace NSpecRunner
 {
+    [Serializable]
     public class NSpecDomain
     {
         //largely inspired from:
@@ -16,13 +17,15 @@ namespace NSpecRunner
 
         public void Run(string dll, string filter, Action<string, string> action)
         {
+            this.dll = dll;
+
             var setup = new AppDomainSetup();
 
             setup.ConfigurationFile = Path.GetFullPath(config);
 
             setup.ApplicationBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            var domain = AppDomain.CreateDomain("NSpecDomain.Run", null, setup);
+            domain = AppDomain.CreateDomain("NSpecDomain.Run", null, setup);
 
             var type = typeof(Wrapper);
 
@@ -30,12 +33,31 @@ namespace NSpecRunner
 
             var typeName = type.FullName;
 
+            domain.AssemblyResolve += Resolve;
+
             var wrapper = (Wrapper)domain.CreateInstanceAndUnwrap(assemblyName, typeName);
 
             wrapper.Execute(dll, filter, action);
 
             AppDomain.Unload(domain);
         }
+
+        Assembly Resolve(object sender, ResolveEventArgs args)
+        {
+            var name = args.Name;
+
+            if (!args.Name.ToLower().EndsWith(".dll"))
+                name += ".dll";
+
+            var missing = Path.Combine(Path.GetDirectoryName(dll), name);
+
+            var assembly = Assembly.LoadFrom(missing);
+
+            return assembly;
+        }
+
         string config;
+        AppDomain domain;
+        string dll;
     }
 }
