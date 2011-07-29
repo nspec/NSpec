@@ -7,6 +7,7 @@ using System.Web;
 
 namespace NSpec.Domain.Formatters
 {
+    [Serializable]
     public class TiddlyWikiFormatter : IFormatter
     {
         private TiddlyWikiFormatter()

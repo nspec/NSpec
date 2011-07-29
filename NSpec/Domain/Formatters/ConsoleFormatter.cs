@@ -4,6 +4,7 @@ using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain.Formatters
 {
+    [Serializable]
     public class ConsoleFormatter : IFormatter
     {
         public void Write( ContextCollection contexts )
