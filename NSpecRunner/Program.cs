@@ -15,18 +15,17 @@ namespace NSpecRunner
 
             try
             {
-                Console.WriteLine( commandLineArgs.SpecDll);
+				Thread.Sleep( commandLineArgs.DebugWaitTimeInSeconds * 1000 );
+
                 var domain = new NSpecDomain(commandLineArgs.SpecDll + ".config");
 
-                domain.Run(commandLineArgs.SpecDll, commandLineArgs.ClassFilter, (dll, filter) =>
+                domain.Run(commandLineArgs.SpecDll, commandLineArgs.ClassFilter, commandLineArgs.OutputFormatter, (dll, filter, outputFormatter) =>
                 {
-                    var finder = new SpecFinder(dll, new Reflector(), filter);
+                    var finder = new SpecFinder( dll, new Reflector(), filter );
 
-                    var builder = new ContextBuilder(finder, new DefaultConventions());
+                    var builder = new ContextBuilder( finder, new DefaultConventions() );
 
-					Thread.Sleep( commandLineArgs.DebugWaitTimeInSeconds * 1000 );
-
-                    var runner = new ContextRunner(builder, commandLineArgs.OutputFormatter);
+                    var runner = new ContextRunner( builder, outputFormatter );
                     runner.Run();
                 });
             }
@@ -63,18 +62,17 @@ namespace NSpecRunner
                 {
                     commandLineArgs.TemplateFileName = args[++i];
                     commandLineArgs.OutputFileName = args[++i];
-                    commandLineArgs.OutputFormatter = new TiddlyWikiFormatter( commandLineArgs.TemplateFileName,
-                                                                               commandLineArgs.OutputFileName );
+                    commandLineArgs.OutputFormatter = new TiddlyWikiFormatter( commandLineArgs.TemplateFileName, commandLineArgs.OutputFileName ); 
                     continue;
                 }
                 if( args[i] == "--xml" )
                 {
-                    commandLineArgs.OutputFormatter = new XmlFormatter();
+                    commandLineArgs.OutputFormatter = new XmlFormatter(); 
                     continue;
                 }
                 if( args[i] == "--html" )
                 {
-                    commandLineArgs.OutputFormatter = new HtmlFormatter();
+                    commandLineArgs.OutputFormatter = new HtmlFormatter(); 
                     continue;
                 }
                 if( args[i] == "--debug" )
@@ -119,7 +117,7 @@ namespace NSpecRunner
         {
             this.SpecDll = "";
             this.ClassFilter = "";
-            this.OutputFormatter = new ConsoleFormatter();
+            this.OutputFormatter = new ConsoleFormatter(); 
             this.OutputFileName = "";
             this.DebugWaitTimeInSeconds = 0;
         }
