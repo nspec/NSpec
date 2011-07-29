@@ -24,10 +24,10 @@
               codeBase="NSpec.GallioAdapter.dll"
               qualifyPartialName="true" />
 
-    <assembly fullName="NSpec, Version=0.9.42.0, Culture=neutral, PublicKeyToken=null"
+    <assembly fullName="NSpec, Version=0.9.44.0, Culture=neutral, PublicKeyToken=null"
               codeBase="NSpec.dll">
       <bindingRedirects>
-        <bindingRedirect oldVersion="0.9.42.0-0.9.65535.65535" />
+        <bindingRedirect oldVersion="0.9.44.0-0.9.65535.65535" />
       </bindingRedirects>
     </assembly>
     
@@ -41,8 +41,8 @@
                componentType="NSpec.GallioAdapter.NSpecTestFramework, NSpec.GallioAdapter">
       <traits>
         <name>NSpec</name>        
-        <frameworkAssemblies>NSpec, Version=0.9.42.0-0.9.65535.65535</frameworkAssemblies>
-        <version>0.9.42.0</version>
+        <frameworkAssemblies>NSpec, Version=0.9.44.0-0.9.65535.65535</frameworkAssemblies>
+        <version>0.9.44.0</version>
         <fileTypes>Assembly</fileTypes>
       </traits>
     </component>
