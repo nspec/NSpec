@@ -115,6 +115,16 @@ namespace NSpec
         /// </summary>
         public virtual Action expect<T>(Action action) where T : Exception
         {
+            return expect<T>( null, action );
+        }
+
+        /// <summary>
+        /// Set up an expectation for a particular exception type to be thrown with an expected message.
+        /// <para>For Example:</para>
+        /// <para>it["should throw exception with message Error"] = expect&lt;InvalidOperationException&gt;("Error", () => SomeMethodThatThrowsException());</para>
+        /// </summary>
+        public virtual Action expect<T>(string expectedMessage, Action action) where T : Exception
+        {
             return () =>
             {
                 var closureType = typeof(T);
@@ -129,6 +139,11 @@ namespace NSpec
                     if (ex.GetType() != closureType)
                     {
                         throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
+                    }
+
+                    if( expectedMessage != null && expectedMessage != ex.Message )
+                    {
+                        throw new ExceptionNotThrown( String.Format( "Expected message: \"{0}\" But was: \"{1}\"", expectedMessage, ex.Message ) );
                     }
                 }
             };
