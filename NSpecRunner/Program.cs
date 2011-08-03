@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading;
 using NSpec;
 using NSpec.Domain;
+using NSpec.Domain.Formatters;
 
 namespace NSpecRunner
 {
@@ -9,27 +11,21 @@ namespace NSpecRunner
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0)
-            {
-                ShowUsage();
-                return;
-            }
+            CommandLineArgs commandLineArgs = CommandLineArgs.Parse( args );
+
             try
             {
-                var classFilter = args.Length > 1 ? args[1] : "";
+				Thread.Sleep( commandLineArgs.DebugWaitTimeInSeconds * 1000 );
 
-                var specDLL = args[0];
+                var domain = new NSpecDomain(commandLineArgs.SpecDll + ".config");
 
-                var domain = new NSpecDomain(specDLL + ".config");
-
-                domain.Run(specDLL, classFilter, (dll, filter) =>
+                domain.Run(commandLineArgs.SpecDll, commandLineArgs.ClassFilter, commandLineArgs.OutputFormatter, (dll, filter, outputFormatter) =>
                 {
-                    var finder = new SpecFinder(dll, new Reflector(), filter);
+                    var finder = new SpecFinder( dll, new Reflector(), filter );
 
-                    var builder = new ContextBuilder(finder, new DefaultConventions());
+                    var builder = new ContextBuilder( finder, new DefaultConventions() );
 
-                    var runner = new ContextRunner(builder);
-
+                    var runner = new ContextRunner( builder, outputFormatter );
                     runner.Run();
                 });
             }
@@ -39,16 +35,91 @@ namespace NSpecRunner
                 Console.WriteLine(e);
             }
         }
+    }
 
-        private static void ShowUsage()
+    class CommandLineArgs
+    {
+        public static CommandLineArgs Parse( string[] args )
+        {
+            CommandLineArgs commandLineArgs = new CommandLineArgs();
+
+            if( args.Length == 0 )
+            {
+                PrintUsage();
+            }
+
+            commandLineArgs.SpecDll = args[0];
+
+            for( int i = 1; i < args.Length; i++ )
+            {
+                if( args[i] == "--classFilter" ||
+                    args[i] == "-cf" )
+                {
+                    commandLineArgs.ClassFilter = args[++i];
+                    continue;
+                }
+                if( args[i] == "--tiddlyWiki" )
+                {
+                    commandLineArgs.TemplateFileName = args[++i];
+                    commandLineArgs.OutputFileName = args[++i];
+                    commandLineArgs.OutputFormatter = new TiddlyWikiFormatter( commandLineArgs.TemplateFileName, commandLineArgs.OutputFileName ); 
+                    continue;
+                }
+                if( args[i] == "--xml" )
+                {
+                    commandLineArgs.OutputFormatter = new XmlFormatter(); 
+                    continue;
+                }
+                if( args[i] == "--html" )
+                {
+                    commandLineArgs.OutputFormatter = new HtmlFormatter(); 
+                    continue;
+                }
+                if( args[i] == "--debug" )
+                {
+                    int waitTime = 0;
+                    Int32.TryParse( args[++i], out waitTime );
+                    commandLineArgs.DebugWaitTimeInSeconds = waitTime;
+                    continue;
+                }
+            }
+
+            return commandLineArgs;
+        }
+
+        static void PrintUsage()
         {
             Console.WriteLine("VERSION: {0}".With(Assembly.GetExecutingAssembly().GetName().Version));
             Console.WriteLine();
-            Console.WriteLine("Example usage:");
+            Console.WriteLine( "Usage: NSpecRunner path_to_spec_dll [options]" );
             Console.WriteLine();
-            Console.WriteLine("nspecrunner path_to_spec_dll [regex pattern]");
-            Console.WriteLine();
-            Console.WriteLine("The second parameter is optional. If supplied, only the classes that match the regex will be run.  The full class name including namespace is considered. Otherwise all spec classes in the dll will be run.");
+            Console.WriteLine( "Options:");
+            Console.WriteLine( " -cf, --classFilter <regex pattern>       Only the classes that match the" );
+            Console.WriteLine( "                                          regex will be run.  The full class name" );
+            Console.WriteLine( "                                          including namespace is considered." );
+            Console.WriteLine( " --tiddlyWiki <template> <destination>    Redirects the output to the file name" );
+            Console.WriteLine( "                                          provided in a TiddyWiki format using" );
+            Console.WriteLine( "                                          the template provided" );
+            Console.WriteLine( " --xml                                    The output will be in xml format" );
+            Console.WriteLine( " --html                                   The output will be in html format" );
+            Console.WriteLine( " --debug <wait time in seconds>           Delays the execution of the specs so you can attach a debugger to the runner" );
+            System.Environment.Exit( 1 );
+        }
+
+        public string SpecDll { get; set; }
+        public string ClassFilter { get; set; }
+        public IFormatter OutputFormatter { get; set; }
+        public string TemplateFileName { get; set; }
+        public string OutputFileName { get; set; }
+        public int DebugWaitTimeInSeconds { get; set; }
+
+        private CommandLineArgs()
+        {
+            this.SpecDll = "";
+            this.ClassFilter = "";
+            this.OutputFormatter = new ConsoleFormatter(); 
+            this.OutputFileName = "";
+            this.DebugWaitTimeInSeconds = 0;
         }
     }
 }
