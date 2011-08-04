@@ -51,8 +51,6 @@ namespace NSpec.Domain
         {
             var context = new ClassContext(type, conventions);
 
-            context.Build();
-
             BuildMethodContexts(context, type);
 
             BuildMethodLevelExamples(context, type);

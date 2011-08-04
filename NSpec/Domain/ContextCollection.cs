@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NSpec.Domain
@@ -22,6 +23,16 @@ namespace NSpec.Domain
         public IEnumerable<Example> Pendings()
         {
             return Examples().Where(e => e.Pending);
+        }
+
+        public void Build()
+        {
+            this.Do(c => c.Build());
+        }
+
+        public void Run()
+        {
+            this.Do(c => c.Run());
         }
     }
 }

@@ -19,7 +19,9 @@ namespace NSpec.Domain
             {
                 contexts = builder.Contexts();
 
-                contexts.Do(c => c.Run());
+                contexts.Build();
+
+                contexts.Run();
 
                 formatter.Write(contexts);
             }

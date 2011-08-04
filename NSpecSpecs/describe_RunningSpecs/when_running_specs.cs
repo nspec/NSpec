@@ -21,8 +21,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             classContext = new ClassContext(type, convention);
 
-            classContext.Build();
-
             var method = type.Methods().First().Name;
 
             Run(type, method);
@@ -32,13 +30,13 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             classContext = new ClassContext(type, convention);            
 
-            classContext.Build();
-
             var method = type.Methods().Single(s => s.Name == methodName);
 
             methodContext = new MethodContext(method);
 
             classContext.AddContext(methodContext);
+
+            classContext.Build();
 
             classContext.Run();
         }

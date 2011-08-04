@@ -1,0 +1,432 @@
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<p>NSpec is a <a href="http://blog.daveastels.com/files/BDD_Intro.pdf">BDD</a> framework for .NET of the xSpec (context/specification) flavor. NSpec is intended to be used to drive development through specifying behavior at the unit level. NSpec is heavily inspired by <a href="http://rspec.info/">RSpec</a> and built upon the <a href="http://www.nunit.org/">NUnit</a> assertion library.</p>
+<div style="float: left;">
+<ul>
+<li><a href="/#helloworld">Getting Started</a></li>
+<li><a href="/#specifications">Specifications</a></li>
+<li><a href="/#befores">Befores</a></li>
+</ul>
+</div>
+<div style="float: left;">
+<ul>
+<li><a href="/#contexts">Contexts</a></li>
+<li><a href="/#pendings">Pendings</a></li>
+<li><a href="/#helpers">Helpers</a></li>
+</ul>
+</div>
+<div style="float: left;">
+<ul>
+<li><a href="/#act">Act</a></li>
+<li><a href="/#classlevel">Class Level</a></li>
+<li><a href="/#inheritance">Inheritance</a></li>
+</ul>
+</div>
+<div style="float: left;">
+<ul>
+<li><a href="/#exceptions">Exceptions</a></li>
+<li><a href="/#summary">Summary</a></li>
+</ul>
+</div>
+</div>
+<div id="layout-content" class="group">
+<p id="timestamp">Sample code and output automatically executed against nspec version 0.9.45 on 08/03/2011 at 06:28PM</p>
+</div>
+<p><a name="helloworld"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Getting Started</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<h2>Write Your First Spec</h2>
+<p>This tutorial will walk you through installing NSpec and running a simple spec.</p>
+<ol>
+<li>Open Visual Studio 2010.</li>
+<li>Ensure that you have <a href="http://nuget.org/" target="_blank">NuGet</a> installed. (NuGet only works with VS2010. To use NSpec with VS2008, you must <a href="https://github.com/mattflo/NSpec/downloads">download</a> the binaries zip.)</li>
+<li>Create a <strong>.Net 4.0 or .Net 3.5 </strong>class library project.</li>
+<li>Open the Package Manager Console and type the following command:
+<div class="commandWrapper">
+<div class="commandPrompt">
+<p class="command">PM&gt; Install-Package nspec</p>
+</div>
+</div>
+</li>
+<li>After installation completes, create a class with the following code:</li>
+</ol>
+<pre id="my_first_spec_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+
+class my_first_spec : nspec
+{
+    void given_the_world_has_not_come_to_an_end()
+    {
+        it["Hello World should be Hello World"] = () =&gt; "Hello World".should_be("Hello World");
+    }
+}</pre>
+<h2>Run Your First Spec</h2>
+<p>Nuget placed NSpecRunner.exe in your PATH on the Package Manager Console.</p>
+<ol>
+<li>Build the class library.</li>
+<li>Run the following command in the Package Manager Console:</li>
+</ol>
+<pre style="font-size: 1.2em !important;"> NSpecRunner.exe <em>YourClassLibraryName</em>\bin\debug\<em>YourClassLibraryName</em>.dll</pre>
+<pre id="my_first_spec_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">my first spec
+  given the world has not come to an end
+    Hello World should be Hello World
+
+1 Examples, 0 Failed, 0 Pending
+</pre>
+</div>
+<p><a name="specifications"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Specifications</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_specifications_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+
+class describe_specifications : nspec
+{
+    void when_creating_specifications()
+    {
+        //some of these specifications are meant to fail so you can see what the output looks like
+        it["true should be false"] = () =&gt; true.should_be_false();
+        it["enumerable should be empty"] = () =&gt; new int[] { }.should_be_empty();
+        it["enumerable should contain 1"] = () =&gt; new[] { 1 }.should_contain(1);
+        it["enumerable should not contain 1"] = () =&gt; new[] { 1 }.should_not_contain(1);
+        it["1 should be 2"] = () =&gt; 1.should_be(2);
+        it["1 should be 1"] = () =&gt; 1.should_be(1);
+        it["1 should not be 1"] = () =&gt; 1.should_not_be(1);
+        it["1 should not be 2"] = () =&gt; 1.should_not_be(2);
+        it["\"\" should not be null"] = () =&gt; "".should_not_be_null();
+        it["some object should not be null"] = () =&gt; someObject.should_not_be_null();
+        //EXPERIMENTAL - specify only takes a lambda and does 
+        //its best to make a sentence out of the code. YMMV.
+        specify = ()=&gt; "ninja".should_not_be("pirate");
+    }
+    object someObject = null;
+}</pre>
+<pre id="describe_specifications_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe specifications
+  when creating specifications
+    true should be false - FAILED - Expected: False, But was: True
+    enumerable should be empty
+    enumerable should contain 1
+    enumerable should not contain 1 - FAILED - Expected: not collection containing 1, But was:...
+    1 should be 2 - FAILED - Expected: 2, But was: 1
+    1 should be 1
+    1 should not be 1 - FAILED - Expected: not 1, But was: 1
+    1 should not be 2
+    "" should not be null
+    some object should not be null - FAILED - Expected: not null, But was: null
+    ninja should not be pirate
+
+**** FAILURES ****
+
+nspec. describe specifications. when creating specifications. true should be false.
+Expected: False, But was: True
+   at describe_specifications.&lt;when_creating_specifications&gt;b__0() in c:\Users\Administrator\D...
+
+nspec. describe specifications. when creating specifications. enumerable should not contain 1.
+Expected: not collection containing 1, But was: &lt; 1 &gt;
+   at describe_specifications.&lt;when_creating_specifications&gt;b__3() in c:\Users\Administrator\D...
+
+nspec. describe specifications. when creating specifications. 1 should be 2.
+Expected: 2, But was: 1
+   at describe_specifications.&lt;when_creating_specifications&gt;b__4() in c:\Users\Administrator\D...
+
+nspec. describe specifications. when creating specifications. 1 should not be 1.
+Expected: not 1, But was: 1
+   at describe_specifications.&lt;when_creating_specifications&gt;b__6() in c:\Users\Administrator\D...
+
+nspec. describe specifications. when creating specifications. some object should not be null.
+Expected: not null, But was: null
+   at describe_specifications.&lt;when_creating_specifications&gt;b__9() in c:\Users\Administrator\D...
+
+11 Examples, 5 Failed, 0 Pending
+</pre>
+</div>
+<p><a name="befores"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Befores</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_before_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using NSpec;
+
+class describe_before : nspec
+{
+    void they_run_before_each_example()
+    {
+        before = () =&gt; number = 1;
+        it["number should be 2"] = () =&gt; (number = number + 1).should_be(2);
+        //even though it was incremented in the previous example
+        //the before runs again for each spec resetting it to 1
+        it["number should be 1"] = () =&gt; number.should_be(1);
+    }
+    int number;
+}</pre>
+<pre id="describe_before_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe before
+  they run before each example
+    number should be 2
+    number should be 1
+
+2 Examples, 0 Failed, 0 Pending
+</pre>
+</div>
+<p><a name="contexts"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Contexts</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_contexts_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using NSpec;
+
+class describe_contexts : nspec
+{
+    void describe_Account()
+    {
+        //contexts can be nested n-deep and contain befores and specifications
+        context["when withdrawing cash"] = () =&gt;
+        {
+            before = () =&gt; account = new Account();
+            context["account is in credit"] = () =&gt;
+            {
+                before = () =&gt; account.Balance = 500;
+                it["the Account dispenses cash"] = () =&gt; account.CanWithdraw(60).should_be_true();
+            };
+            context["account is overdrawn"] = () =&gt;
+            {
+                before = () =&gt; account.Balance = -500;
+                it["the Account does not dispense cash"] = () =&gt; account.CanWithdraw(60).should_be_false();
+            };
+        };
+    }
+    private Account account;
+}</pre>
+<pre id="describe_contexts_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe contexts
+  describe Account
+    when withdrawing cash
+      account is in credit
+        the Account dispenses cash
+      account is overdrawn
+        the Account does not dispense cash
+
+2 Examples, 0 Failed, 0 Pending
+</pre>
+</div>
+<p><a name="pendings"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Pendings</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_pending_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+
+class describe_pending : nspec
+{
+    void when_creating_pending_specifications()
+    {
+        it["pending spec"] = todo;
+        //or just add an 'x' at the beginning of a specification that isn't quite ready
+        xit["\"\" should be \"something else\""] = () =&gt; "".should_be("something else");
+    }
+}</pre>
+<pre id="describe_pending_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe pending
+  when creating pending specifications
+    pending spec - PENDING
+    "" should be "something else" - PENDING
+
+2 Examples, 0 Failed, 2 Pending
+</pre>
+</div>
+<p><a name="helpers"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Helpers</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_helpers_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+
+public class describe_helpers : nspec
+{
+    void when_making_tea()
+    {
+        context["that is 210 degrees"] = () =&gt;
+        {
+            before = () =&gt; MakeTea(210);
+            it["should be hot"] = () =&gt; tea.Taste().should_be("hot");
+        };
+        context["that is 90 degrees"] = () =&gt;
+        {
+            before = () =&gt; MakeTea(90);
+            it["should be cold"] = () =&gt; tea.Taste().should_be("cold");
+        };
+    }
+    void MakeTea(int temperature)
+    {
+        tea = new Tea(temperature);
+    }
+    Tea tea;
+}</pre>
+<pre id="describe_helpers_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe helpers
+  when making tea
+    that is 210 degrees
+      should be hot
+    that is 90 degrees
+      should be cold
+
+2 Examples, 0 Failed, 0 Pending
+</pre>
+</div>
+<p><a name="act"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Act</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_batman_sound_effects_as_text_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using NSpec;
+
+class describe_batman_sound_effects_as_text : nspec
+{
+    void they_are_loud_and_emphatic()
+    {
+        //act runs after all the befores, and before each spec
+        //declares a common act (arrange, act, assert) for all subcontexts
+        act = () =&gt; sound = sound.ToUpper() + "!!!";
+        context["given bam"] = () =&gt;
+        {
+            before = () =&gt; sound = "bam";
+            it["should be BAM!!!"] = 
+                () =&gt; sound.should_be("BAM!!!");
+        };
+        context["given whack"] = () =&gt;
+        {
+            before = () =&gt; sound = "whack";
+            it["should be WHACK!!!"] = 
+                () =&gt; sound.should_be("WHACK!!!");
+        };
+    }
+    string sound;
+}</pre>
+<pre id="describe_batman_sound_effects_as_text_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe batman sound effects as text
+  they are loud and emphatic
+    given bam
+      should be BAM!!!
+    given whack
+      should be WHACK!!!
+
+2 Examples, 0 Failed, 0 Pending
+</pre>
+</div>
+<p><a name="classlevel"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Class Level</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_class_level_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using NSpec;
+
+class describe_class_level : nspec
+{
+    //before and act can also be declared at the class level like so
+    void before_each()
+    {
+        sequence = "arrange, ";
+    }
+    void act_each()
+    {
+        sequence += "act";
+    }
+    void given_befores_and_acts_run_in_the_correct_sequence()
+    {
+        specify = () =&gt; sequence.should_be("arrange, act");
+    }
+    string sequence;
+}</pre>
+<pre id="describe_class_level_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe class level
+  given befores and acts run in the correct sequence
+    sequence should be arrange, act
+
+1 Examples, 0 Failed, 0 Pending
+</pre>
+</div>
+<p><a name="inheritance"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Inheritance</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="given_the_sequence_continues_with_2_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+
+class given_the_sequence_continues_with_2 : given_the_sequence_starts_with_1
+{
+    void before_each()
+    {
+        sequence += "2";
+    }
+    void given_the_sequence_continues_with_3()
+    {
+        before = () =&gt; sequence += "3";
+
+        //the befores run in the order you would expect
+        it["sequence should be \"123\""] =
+            () =&gt; sequence.should_be("123");
+    }
+}
+
+class given_the_sequence_starts_with_1 : nspec
+{
+    void before_each()
+    {
+        sequence = "1";
+    }
+    protected string sequence;
+}
+</pre>
+<pre id="given_the_sequence_continues_with_2_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">given the sequence starts with 1
+  given the sequence continues with 2
+    given the sequence continues with 3
+      sequence should be "123"
+
+1 Examples, 0 Failed, 0 Pending
+</pre>
+</div>
+<p><a name="exceptions"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Exceptions</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_expected_exception_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using System;
+using NSpec;
+
+class describe_expected_exception : nspec
+{
+    void given_a_null_string()
+    {
+        it["should throw null-ref"] =
+            expect&lt;NullReferenceException&gt;(() =&gt; nullString.Trim());
+    }
+    string nullString;
+}</pre>
+<pre id="describe_expected_exception_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe expected exception
+  given a null string
+    should throw null-ref
+
+1 Examples, 0 Failed, 0 Pending
+</pre>
+</div>
+<p><a name="summary"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>Summary</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<ul>
+<li>Install via NuGet (VS2010 only)</li>
+<li>or download zip from github -ÿhttps://github.com/mattflo/NSpec/downloads</li>
+<li>Requires .NET 3.5</li>
+<li>Classes inherit from nspec</li>
+<li>Classes and methods                                                                                                                                                  
+<ul>
+<li>are contexts</li>
+<li>do not require an access modifier</li>
+</ul>
+</li>
+<li>Inside methods                                                                                                                                                 
+<ul>
+<li>sub contexts are created (context/describe)</li>
+<li>specifications are declared (it/specify)</li>
+<li>before lambdas are assigned that run before each specification</li>
+<li>act lambdas are assigned that run after befores but before specifications</li>
+</ul>
+</li>
+</ul>
+</div>

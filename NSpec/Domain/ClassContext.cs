@@ -5,13 +5,6 @@ namespace NSpec.Domain
 {
     public class ClassContext : Context
     {
-        public void Build()
-        {
-            BuildMethodLevelBefore();
-
-            BuildMethodLevelAct();
-        }
-
         private void BuildMethodLevelBefore()
         {
             var before = conventions.GetMethodLevelBefore(type);
@@ -34,17 +27,15 @@ namespace NSpec.Domain
             this.conventions = conventions ?? new DefaultConventions().Initialize();
         }
 
-        public override void Run(nspec instance = null)
+        public override void Build(nspec instance=null)
         {
+            BuildMethodLevelBefore();
+
+            BuildMethodLevelAct();
+
             var nspec = type.Instance<nspec>();
 
-            base.Run(nspec);
-
-            //haven't figured out how to write a failing test but
-            //using regular iteration causes Collection was modified
-            //exception when running samples (rake samples)
-            for (int i = 0; i < Examples.Count; i++)
-                Run(Examples[i], nspec);
+            base.Build(nspec);
         }
 
         public override bool IsSub(Type baseType)
