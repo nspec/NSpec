@@ -2,7 +2,7 @@
 
 class describe_class_level : nspec
 {
-    //before and act can also be declared at the class level like so
+    //before, act, and it can also be declared at the class level like so
     void before_each()
     {
         sequence = "arrange, ";
@@ -11,9 +11,13 @@ class describe_class_level : nspec
     {
         sequence += "act";
     }
-    void given_befores_and_acts_run_in_the_correct_sequence()
+
+    //prefixing a method with "it_" or "specify_"
+    //will tell nspec to treat the method as an example
+    void specify_given_befores_and_acts_run_in_the_correct_sequence()
     {
-        specify = () => sequence.should_be("arrange, act");
+        sequence.should_be("arrange, act");
     }
+
     string sequence;
 }
