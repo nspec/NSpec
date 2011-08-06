@@ -59,6 +59,7 @@
     <Compile Include="Compare\NUnit\Item.cs" />
     <Compile Include="Compare\NUnit\SlotAlreadyTakenException.cs" />
     <Compile Include="Compare\NUnit\VendingMachine.cs" />
+    <Compile Include="DebuggerShim.cs" />
     <Compile Include="Demo\action_indexer_approach.cs" />
     <Compile Include="Bug\grandparents_run_first.cs" />
     <Compile Include="Demo\before_each_on_the_class_level.cs" />
