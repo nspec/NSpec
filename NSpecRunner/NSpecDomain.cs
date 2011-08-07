@@ -46,9 +46,12 @@ namespace NSpecRunner
         Assembly Resolve(object sender, ResolveEventArgs args)
         {
             var name = args.Name;
+            var argNameForResolve = args.Name.ToLower();
 
-            if (!args.Name.ToLower().EndsWith(".dll"))
+            if (!argNameForResolve.EndsWith(".dll") && !argNameForResolve.Contains(".resource"))
                 name += ".dll";
+            else if (argNameForResolve.Contains(".resource"))
+                name = argNameForResolve.Substring(0, argNameForResolve.IndexOf(".resource")) + ".xml";
 
             var missing = Path.Combine(Path.GetDirectoryName(dll), name);
 
