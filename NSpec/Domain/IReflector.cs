@@ -9,10 +9,16 @@ namespace NSpec.Domain
         {
             return Assembly.LoadFrom(dll).GetTypes();
         }
+
+        public Type[] GetTypesFrom( Assembly assembly )
+        {
+            return assembly.GetTypes();
+        }
     }
 
     public interface IReflector
     {
         Type[] GetTypesFrom(string dll);
+        Type[] GetTypesFrom( Assembly assembly );
     }
 }
