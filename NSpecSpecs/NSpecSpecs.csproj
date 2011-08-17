@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassContextBug\NestContextsTests.cs" />
+    <Compile Include="ClassContextBug\NestedContexts.cs" />
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_RunningSpecs\describe_method_level_examples.cs" />
     <Compile Include="describe_RunningSpecs\describe_xdescribe.cs" />
