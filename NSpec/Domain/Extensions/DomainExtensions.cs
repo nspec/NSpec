@@ -14,7 +14,7 @@ namespace NSpec.Domain.Extensions
 
         public static IEnumerable<MethodInfo> Methods(this Type type)
         {
-            var flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly;
 
             var exclusions = typeof(nspec).GetMethods(flags).Select(m => m.Name);
 
