@@ -59,7 +59,7 @@ namespace NSpec.GallioAdapter.Services
                 var builder = new ContextBuilder( finder, new DefaultConventions() );
 
                 ContextCollection contexts = builder.Contexts();
-                contexts.Do(c => c.Run());
+                contexts.Build();
                 contexts.Do( c => assemblyTest.AddChild( this.CreateGallioTestFrom( c ) ) );
             }
 

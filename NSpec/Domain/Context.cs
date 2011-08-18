@@ -139,5 +139,10 @@ namespace NSpec.Domain
         public Exception contextLevelFailure;
         private bool isPending;
         nspec savedInstance;
+
+        public nspec GetInstance()
+        {
+            return savedInstance ?? Parent.GetInstance();
+        }
     }
 }

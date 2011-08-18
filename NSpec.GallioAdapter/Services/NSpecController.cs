@@ -102,7 +102,7 @@ namespace NSpec.GallioAdapter.Services
             }
             else
             {
-                contextTest.Context.Run( exampleTest.Example, null );
+                contextTest.Context.Exercise(exampleTest.Example,contextTest.Context.GetInstance());
 
                 if( exampleTest.Example.Exception != null )
                 {
