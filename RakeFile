@@ -29,6 +29,7 @@ end
 desc 'supply commit message as parameter - rake all m="commit message" - version bump, nuget, zip and everything shall be done for you'
 task :all => [:pull,:version,:nuget,:commit,:website,:zip,:upload]
 
+desc 'zip the upload'
 task :zip do
   fileName = create_zip_filename 
   File.delete(fileName) if File.exists? fileName
@@ -56,6 +57,7 @@ def create_zip_filename
   "NSpec-#{get_version_node.text}.zip"
 end
 
+desc 'upload the zip'
 task :upload do
   sh "upload.bat #{create_zip_filename}"
 end
