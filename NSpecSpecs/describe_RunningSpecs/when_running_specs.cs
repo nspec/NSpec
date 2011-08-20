@@ -21,16 +21,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             classContext = new ClassContext(type, convention);
 
-            var method = type.Methods().First().Name;
-
-            Run(type, method);
-        }
-
-        protected void Run(Type type, string methodName)
-        {
-            classContext = new ClassContext(type, convention);            
-
-            var method = type.Methods().Single(s => s.Name == methodName);
+            var method = type.Methods().First(m => convention.IsMethodLevelContext(m.Name));
 
             methodContext = new MethodContext(method);
 

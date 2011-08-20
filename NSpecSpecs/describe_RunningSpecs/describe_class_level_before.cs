@@ -37,7 +37,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [SetUp]
         public void Setup()
         {
-            Run(typeof(SpecClass), "list_manipulations");
+            Run(typeof(SpecClass));
         }
 
         [Test]

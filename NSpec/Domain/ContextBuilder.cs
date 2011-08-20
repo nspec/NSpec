@@ -39,7 +39,7 @@ namespace NSpec.Domain
 
             foreach (var derived in derivedTypes)
             {
-                var classContext = CreateClassContext(derived, conventions);
+                var classContext = CreateClassContext(derived);
 
                 parent.AddContext(classContext);
 
@@ -47,7 +47,7 @@ namespace NSpec.Domain
             }
         }
 
-        private ClassContext CreateClassContext(Type type, Conventions conventions)
+        public ClassContext CreateClassContext(Type type)
         {
             var context = new ClassContext(type, conventions);
 

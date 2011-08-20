@@ -26,7 +26,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void setup()
         {
-            Run(typeof(SpecClass), "should_fail_this_example");
+            Run(typeof(SpecClass));
         }
 
         [Test]
