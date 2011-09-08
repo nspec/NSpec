@@ -1,0 +1,5 @@
+<TestRunner>
+       <FriendlyName>NSpec</FriendlyName>
+       <AssemblyPath>NSpec.TDNetRunner.dll</AssemblyPath>
+       <TypeName>NSpec.TDNetRunner.TDNetNSpecRunner</TypeName>
+</TestRunner>

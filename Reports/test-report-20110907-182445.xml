@@ -1,0 +1,3347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.gallio.org/">
+  <testPackage shadowCopy="false" debug="false">
+    <files>
+      <file>C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.dll</file>
+    </files>
+    <hintDirectories />
+    <excludedFrameworkIds />
+    <properties />
+  </testPackage>
+  <testModel>
+    <test id="c2722843734a7a54" name="Root" fullName="" isTestCase="false">
+      <codeReference />
+      <codeLocation />
+      <metadata>
+        <entry key="TestKind">
+          <value>Root</value>
+        </entry>
+      </metadata>
+      <children>
+        <test id="f6bb5e8af9aed4a7" name="SampleSpecs" fullName="SampleSpecs" isTestCase="false">
+          <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+          <codeLocation path="C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL" />
+          <metadata>
+            <entry key="TestKind">
+              <value>NUnit v2.5.4+ Assembly</value>
+              <value>Assembly</value>
+            </entry>
+            <entry key="CodeBase">
+              <value>C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL</value>
+            </entry>
+            <entry key="Company">
+              <value>Microsoft</value>
+            </entry>
+            <entry key="Copyright">
+              <value>Copyright © Microsoft 2011</value>
+            </entry>
+            <entry key="FileVersion">
+              <value>1.0.0.0</value>
+            </entry>
+            <entry key="Product">
+              <value>SampleSpecs</value>
+            </entry>
+            <entry key="Title">
+              <value>SampleSpecs</value>
+            </entry>
+            <entry key="Version">
+              <value>1.0.0.0</value>
+            </entry>
+            <entry key="Framework">
+              <value>NUnit v2.5.7.10213</value>
+              <value>NSpec v0.9.50.0</value>
+            </entry>
+            <entry key="File">
+              <value>C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL</value>
+            </entry>
+          </metadata>
+          <children>
+            <test id="c6b8d6e65c97ded4" name="DebuggerShim" fullName="SampleSpecs/DebuggerShim" isTestCase="false">
+              <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="" type="DebuggerShim" />
+              <codeLocation path="C:\Development\NSpec\SampleSpecs\DebuggerShim.cs" />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="e571cfe3eec731a9" name="debug" fullName="SampleSpecs/DebuggerShim/debug" isTestCase="true">
+                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="" type="DebuggerShim" member="debug" />
+                  <codeLocation path="C:\Development\NSpec\SampleSpecs\DebuggerShim.cs" line="16" />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Test</value>
+                    </entry>
+                  </metadata>
+                  <children />
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="987e5897542f8d24" name="SampleSpecs" fullName="SampleSpecs/SampleSpecs" isTestCase="false">
+              <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+              <codeLocation path="C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL" />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Suite</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="965d06f0c2f6180a" name="Compare" fullName="SampleSpecs/SampleSpecs/Compare" isTestCase="false">
+                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                  <codeLocation path="C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL" />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Suite</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="a60c7fda2e28f725" name="NUnit" fullName="SampleSpecs/SampleSpecs/Compare/NUnit" isTestCase="false">
+                      <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                      <codeLocation path="C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL" />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Suite</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="4757f4fad9920f07" name="Describe_VendingMachine" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine" isTestCase="false">
+                          <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                          <codeLocation path="C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL" />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Suite</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="a1677b12c9c88ed9" name="given_a_registered_item_has_been_stocked" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_a_registered_item_has_been_stocked" isTestCase="false">
+                              <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_a_registered_item_has_been_stocked" />
+                              <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_a_registered_item_has_been_stocked.cs" />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Fixture</value>
+                                </entry>
+                              </metadata>
+                              <children>
+                                <test id="84d0608426e369c7" name="given_A1_is_stocked_it_should_be_in_stock" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_a_registered_item_has_been_stocked/given_A1_is_stocked_it_should_be_in_stock" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_a_registered_item_has_been_stocked" member="given_A1_is_stocked_it_should_be_in_stock" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_a_registered_item_has_been_stocked.cs" line="21" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                              </children>
+                              <parameters />
+                            </test>
+                            <test id="fb711bf35ceb4b5d" name="given_doritos_are_registerd_in_A1_for_50_cents" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_doritos_are_registerd_in_A1_for_50_cents" isTestCase="false">
+                              <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_doritos_are_registerd_in_A1_for_50_cents" />
+                              <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Fixture</value>
+                                </entry>
+                              </metadata>
+                              <children>
+                                <test id="49f5b0f68d9000de" name="registering_cheetos_in_the_same_slot_should_throw_SlotAlreadyAssignedException" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_doritos_are_registerd_in_A1_for_50_cents/registering_cheetos_in_the_same_slot_should_throw_SlotAlreadyAssignedException" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_doritos_are_registerd_in_A1_for_50_cents" member="registering_cheetos_in_the_same_slot_should_throw_SlotAlreadyAssignedException" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" line="50" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                                <test id="cd4a6023c8d0571c" name="should_be_1_item_in_the_vending_machine" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_doritos_are_registerd_in_A1_for_50_cents/should_be_1_item_in_the_vending_machine" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_doritos_are_registerd_in_A1_for_50_cents" member="should_be_1_item_in_the_vending_machine" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" line="26" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                                <test id="b2f0843d508af582" name="should_not_be_InStock" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_doritos_are_registerd_in_A1_for_50_cents/should_not_be_InStock" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_doritos_are_registerd_in_A1_for_50_cents" member="should_not_be_InStock" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" line="20" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                                <test id="9a81380010bab651" name="the_item_should_have_a_cost_of_50_cents" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_doritos_are_registerd_in_A1_for_50_cents/the_item_should_have_a_cost_of_50_cents" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_doritos_are_registerd_in_A1_for_50_cents" member="the_item_should_have_a_cost_of_50_cents" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" line="44" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                                <test id="f1b78b88423491bd" name="the_item_should_have_a_slot_of_A1" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_doritos_are_registerd_in_A1_for_50_cents/the_item_should_have_a_slot_of_A1" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_doritos_are_registerd_in_A1_for_50_cents" member="the_item_should_have_a_slot_of_A1" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" line="38" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                                <test id="a5a27d34393319b7" name="the_item_should_have_the_name_doritos" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_doritos_are_registerd_in_A1_for_50_cents/the_item_should_have_the_name_doritos" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_doritos_are_registerd_in_A1_for_50_cents" member="the_item_should_have_the_name_doritos" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_doritos_are_registerd_in_A1_for_50_cents.cs" line="32" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                              </children>
+                              <parameters />
+                            </test>
+                            <test id="ca089110cb530485" name="given_nothing_has_been_registered" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_nothing_has_been_registered" isTestCase="false">
+                              <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_nothing_has_been_registered" />
+                              <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_nothing_has_been_registered.cs" />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Fixture</value>
+                                </entry>
+                              </metadata>
+                              <children>
+                                <test id="b482afa0c51a02ed" name="when_stocking_a_slot_should_throw_NothingRegisteredException" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_nothing_has_been_registered/when_stocking_a_slot_should_throw_NothingRegisteredException" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_nothing_has_been_registered" member="when_stocking_a_slot_should_throw_NothingRegisteredException" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_nothing_has_been_registered.cs" line="17" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                              </children>
+                              <parameters />
+                            </test>
+                            <test id="99f7b4a7e1d88535" name="given_previously_registered_items_are_cleared" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_previously_registered_items_are_cleared" isTestCase="false">
+                              <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_previously_registered_items_are_cleared" />
+                              <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_previously_registered_items_are_cleared.cs" />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Fixture</value>
+                                </entry>
+                              </metadata>
+                              <children>
+                                <test id="4862a0156875a2fb" name="there_should_be_no_items_in_the_vending_machine" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_previously_registered_items_are_cleared/there_should_be_no_items_in_the_vending_machine" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_previously_registered_items_are_cleared" member="there_should_be_no_items_in_the_vending_machine" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_previously_registered_items_are_cleared.cs" line="22" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                              </children>
+                              <parameters />
+                            </test>
+                            <test id="1564a3295e68fe8c" name="given_two_items_are_registered" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_two_items_are_registered" isTestCase="false">
+                              <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_two_items_are_registered" />
+                              <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_two_items_are_registered.cs" />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Fixture</value>
+                                </entry>
+                              </metadata>
+                              <children>
+                                <test id="79b8a08b20c023ff" name="should_be_2_items_in_the_vending_machine" fullName="SampleSpecs/SampleSpecs/Compare/NUnit/Describe_VendingMachine/given_two_items_are_registered/should_be_2_items_in_the_vending_machine" isTestCase="true">
+                                  <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" namespace="SampleSpecs.Compare.NUnit.Describe_VendingMachine" type="SampleSpecs.Compare.NUnit.Describe_VendingMachine.given_two_items_are_registered" member="should_be_2_items_in_the_vending_machine" />
+                                  <codeLocation path="C:\Development\NSpec\SampleSpecs\Compare\NUnit\Describe_VendingMachine\given_two_items_are_registered.cs" line="22" />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                              </children>
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="b6e6adcefc69e183" name="describe method level examples" fullName="SampleSpecs/describe method level examples" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="73b91abc85eff82f" name="it should run methods that start with IT as an assertion" fullName="SampleSpecs/describe method level examples/it should run methods that start with IT as an assertion" isTestCase="true">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Test</value>
+                    </entry>
+                  </metadata>
+                  <children />
+                  <parameters />
+                </test>
+                <test id="b4af432f5a3f49a9" name="specify that methods that start with SPECIFY should run as assertion" fullName="SampleSpecs/describe method level examples/specify that methods that start with SPECIFY should run as assertion" isTestCase="true">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Test</value>
+                    </entry>
+                  </metadata>
+                  <children />
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="b25a3851f39d4962" name="action indexer approach" fullName="SampleSpecs/action indexer approach" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="a2be5b79637fe7b" name="a user" fullName="SampleSpecs/action indexer approach/a user" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="c58827a5fe623dfa" name="user Id should not be default" fullName="SampleSpecs/action indexer approach/a user/user Id should not be default" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="40f2d7425093dfd" name="user Admin should be false" fullName="SampleSpecs/action indexer approach/a user/user Admin should be false" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="fb2d343bb4b366e1" name="should work" fullName="SampleSpecs/action indexer approach/a user/should work" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="33a9c6e909f99a0a" name="user is admin" fullName="SampleSpecs/action indexer approach/a user/user is admin" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="b05e841389f95833" name="user Admin should be true" fullName="SampleSpecs/action indexer approach/a user/user is admin/user Admin should be true" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="758550526d0d0eeb" name="user is terminated" fullName="SampleSpecs/action indexer approach/a user/user is admin/user is terminated" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="8130c69f278a3535" name="user Terminated should be true" fullName="SampleSpecs/action indexer approach/a user/user is admin/user is terminated/user Terminated should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="76465f8412a5cf77" name="describe Math" fullName="SampleSpecs/describe Math" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="6b192f052fd54cb1" name="verify strictly increasing numbers" fullName="SampleSpecs/describe Math/verify strictly increasing numbers" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="2eea64dd5357faae" name="2 should be greater than 1" fullName="SampleSpecs/describe Math/verify strictly increasing numbers/2 should be greater than 1" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="6cb09e676bf8e335" name="3 should be greater than 2" fullName="SampleSpecs/describe Math/verify strictly increasing numbers/3 should be greater than 2" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="60ad9d7753c6a6c9" name="4 should be greater than 3" fullName="SampleSpecs/describe Math/verify strictly increasing numbers/4 should be greater than 3" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="981ceea99ed5c7fd" name="5 should be greater than 4" fullName="SampleSpecs/describe Math/verify strictly increasing numbers/5 should be greater than 4" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="ed85bd900694ff70" name="6 should be greater than 5" fullName="SampleSpecs/describe Math/verify strictly increasing numbers/6 should be greater than 5" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="c23dde7bd684c865" name="7 should be greater than 6" fullName="SampleSpecs/describe Math/verify strictly increasing numbers/7 should be greater than 6" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="986fd8d424f863c1" name="8 should be greater than 7" fullName="SampleSpecs/describe Math/verify strictly increasing numbers/8 should be greater than 7" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="965a546ac0b17d60" name="9 should be greater than 8" fullName="SampleSpecs/describe Math/verify strictly increasing numbers/9 should be greater than 8" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="8659f5ac14dd600a" name="before each on the class level" fullName="SampleSpecs/before each on the class level" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="c239105789c1d870" name="it should run before on class level" fullName="SampleSpecs/before each on the class level/it should run before on class level" isTestCase="true">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Test</value>
+                    </entry>
+                  </metadata>
+                  <children />
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="acb822e52434c43a" name="given a subcontext that fails" fullName="SampleSpecs/given a subcontext that fails" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="80577293c28628b2" name="when totaling failures" fullName="SampleSpecs/given a subcontext that fails/when totaling failures" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="68023eaedc19bf2" name="should count this failure" fullName="SampleSpecs/given a subcontext that fails/when totaling failures/should count this failure" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="d0f8e8632dfb9acb" name="grandparents run first" fullName="SampleSpecs/grandparents run first" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="24dd3a90ba2bb835" name="describe NSpec" fullName="SampleSpecs/grandparents run first/describe NSpec" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="b53219bba8028ff9" name="something that works in rspec but not nspec" fullName="SampleSpecs/grandparents run first/describe NSpec/something that works in rspec but not nspec" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="594c38f80d0b6b1b" name="sibling context" fullName="SampleSpecs/grandparents run first/describe NSpec/something that works in rspec but not nspec/sibling context" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="2d1d4456b249148f" name="ints Count should be Convert 1" fullName="SampleSpecs/grandparents run first/describe NSpec/something that works in rspec but not nspec/sibling context/ints Count should be Convert 1" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="d4f19b19963f8bd1" name="another sibling context" fullName="SampleSpecs/grandparents run first/describe NSpec/something that works in rspec but not nspec/another sibling context" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="24e943357f642451" name="ints Count should be Convert 1" fullName="SampleSpecs/grandparents run first/describe NSpec/something that works in rspec but not nspec/another sibling context/ints Count should be Convert 1" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="42b47a81ea634eaf" name="my first spec" fullName="SampleSpecs/my first spec" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="44ecf0b1f30a1d" name="given the world has not come to an end" fullName="SampleSpecs/my first spec/given the world has not come to an end" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="2c09a028a76e6e97" name="Hello World should be Hello World" fullName="SampleSpecs/my first spec/given the world has not come to an end/Hello World should be Hello World" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="afbebcdf5497c0eb" name="describe pending" fullName="SampleSpecs/describe pending" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="a7aaeacafcb5390f" name="when creating pending specifications" fullName="SampleSpecs/describe pending/when creating pending specifications" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="2697bdf3747b0121" name="pending spec" fullName="SampleSpecs/describe pending/when creating pending specifications/pending spec" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="82a90662d7fb7af5" name="&quot;&quot; should be &quot;something else&quot;" fullName="SampleSpecs/describe pending/when creating pending specifications/&quot;&quot; should be &quot;something else&quot;" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="e8a795d3b5775a66" name="describe TicTacToeGame" fullName="SampleSpecs/describe TicTacToeGame" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="1afb45630f93d263" name="when players try to take the same square" fullName="SampleSpecs/describe TicTacToeGame/when players try to take the same square" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="7670d55ba780dd90" name="should throw exception" fullName="SampleSpecs/describe TicTacToeGame/when players try to take the same square/should throw exception" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+                <test id="b88d657c464059ab" name="describe a finished TicTacToeGame" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="cf289d76706b419f" name="describe a draw" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a draw" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="7d36395bcbdce5f6" name="all squares taken with no 3 in a row" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a draw/all squares taken with no 3 in a row" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="d934049c12a5b3" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a draw/all squares taken with no 3 in a row/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="fe422ed0b750247c" name="game Draw should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a draw/all squares taken with no 3 in a row/game Draw should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                    <test id="984e272fb83c0394" name="describe a winning game" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="dee322dd09353e07" name="3 x's in column 0" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in column 0" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="9497f6c8239995e" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in column 0/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="67a668d0c430c0e3" name="winner should be x" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in column 0/winner should be x" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="e770cd56eb869cc0" name="3 x's in row 0" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in row 0" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="765b28f5ab7acc" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in row 0/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="f5adfe809d3118ce" name="winner should be x" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in row 0/winner should be x" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="baa75897008aaf35" name="3 o's in column 0" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in column 0" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="9ab4a2ba4bd72f55" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in column 0/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="52f3b54cd5368bb" name="winner should be o" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in column 0/winner should be o" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="f1dda2880f6b60e4" name="3 o's in row 0" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in row 0" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="7106034b8f1d27e1" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in row 0/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="765e0c5befca386c" name="winner should be o" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in row 0/winner should be o" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="d68536e9e32588e5" name="3 x's in column 1" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in column 1" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="f3db97451814f3fb" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in column 1/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="a8ac60916005e3ae" name="winner should be x" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in column 1/winner should be x" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="994b84fdc81396d4" name="3 x's in row 1" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in row 1" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="8523003c0d4a217d" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in row 1/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="b7b6b720df8865bf" name="winner should be x" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in row 1/winner should be x" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="5c7f393fee5a75d1" name="3 o's in column 1" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in column 1" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="583c20b768e53a29" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in column 1/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="9e992d3a85883543" name="winner should be o" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in column 1/winner should be o" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="c944246e40e80210" name="3 o's in row 1" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in row 1" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="e3c9eeaf48857e43" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in row 1/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="56bde77bee67d7c" name="winner should be o" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in row 1/winner should be o" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="5d46ad217b351ae8" name="3 x's in column 2" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in column 2" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="2f0b26370dc59f13" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in column 2/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="ceb522c803cd7962" name="winner should be x" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in column 2/winner should be x" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="7751773a35b9faf2" name="3 x's in row 2" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in row 2" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="809e9b769ad11ac1" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in row 2/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="f783cf26f123318e" name="winner should be x" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's in row 2/winner should be x" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="e9dbb3da38734da8" name="3 o's in column 2" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in column 2" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="9e63483c9c8ec066" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in column 2/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="1dfe5f6110587b83" name="winner should be o" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in column 2/winner should be o" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="ed2a2f344e6651d4" name="3 o's in row 2" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in row 2" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="e607d902a000d2ef" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in row 2/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="68d9175e0fd108f2" name="winner should be o" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's in row 2/winner should be o" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="a7559e523e937229" name="3 x's left to right" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's left to right" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="568b54075e0addb8" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's left to right/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="af589e88bb2fde34" name="winner should be x" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's left to right/winner should be x" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="ab69eceff7360e3e" name="3 x's right to left" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's right to left" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="787285fc12c9a115" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's right to left/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="70d271cde24b1e87" name="winner should be x" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 x's right to left/winner should be x" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="32a2194cf2ec9b04" name="3 o's left to right" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's left to right" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="79b15ca6f8e843d9" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's left to right/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="588d4f718c0abf29" name="winner should be o" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's left to right/winner should be o" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="90157279df2304d0" name="3 o's right to left" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's right to left" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="e9ec6e3519540034" name="game Finished should be true" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's right to left/game Finished should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="34d0ee2bdcc3b477" name="winner should be o" fullName="SampleSpecs/describe TicTacToeGame/describe a finished TicTacToeGame/describe a winning game/3 o's right to left/winner should be o" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="c4dcc52987263a59" name="multiple befores" fullName="SampleSpecs/multiple befores" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="c3f91ea36c2ae1af" name="list manipulation" fullName="SampleSpecs/multiple befores/list manipulation" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="cde1eb4f97830828" name="the ints collection should not be null" fullName="SampleSpecs/multiple befores/list manipulation/the ints collection should not be null" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="8da18aae5dbe12c6" name="one item in list" fullName="SampleSpecs/multiple befores/list manipulation/one item in list" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="8233d02e247a0000" name="should have 1 item in list" fullName="SampleSpecs/multiple befores/list manipulation/one item in list/should have 1 item in list" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="eb55ad50191f51b2" name="should contain the number 99" fullName="SampleSpecs/multiple befores/list manipulation/one item in list/should contain the number 99" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="58acf1bd06b5d035" name="another item in list" fullName="SampleSpecs/multiple befores/list manipulation/one item in list/another item in list" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="1bdf63286a88ba56" name="should have 2 items in list" fullName="SampleSpecs/multiple befores/list manipulation/one item in list/another item in list/should have 2 items in list" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                            <test id="334b4a6f5aba984e" name="should contain the number 26" fullName="SampleSpecs/multiple befores/list manipulation/one item in list/another item in list/should contain the number 26" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="1ecf3ed31fb931d" name="describe batman sound effects as text" fullName="SampleSpecs/describe batman sound effects as text" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="3ca02c5ddf49999" name="they are loud and emphatic" fullName="SampleSpecs/describe batman sound effects as text/they are loud and emphatic" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="64710885c407c677" name="given bam" fullName="SampleSpecs/describe batman sound effects as text/they are loud and emphatic/given bam" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="bb96756ecdc16449" name="should be BAM!!!" fullName="SampleSpecs/describe batman sound effects as text/they are loud and emphatic/given bam/should be BAM!!!" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                    <test id="49cfb43636093ed1" name="given whack" fullName="SampleSpecs/describe batman sound effects as text/they are loud and emphatic/given whack" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="6e9960f02479c789" name="should be WHACK!!!" fullName="SampleSpecs/describe batman sound effects as text/they are loud and emphatic/given whack/should be WHACK!!!" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="ca3ca3bd057d73c5" name="describe PrimeFactors" fullName="SampleSpecs/describe PrimeFactors" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="de573c4f7d9eee18" name="when determining prime factors" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="9dd726b3a85f0aa4" name="0 should be []" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/0 should be []" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="953b40926152e5fb" name="1 should be []" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/1 should be []" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="7865794a4f981e44" name="2 should be [2]" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/2 should be [2]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="a59c36fb0dbe2531" name="3 should be [3]" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/3 should be [3]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="77f1092c3c51d161" name="4 should be [2,2]" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/4 should be [2,2]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="8954eb1c66c2bf35" name="5 should be [5]" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/5 should be [5]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="a876224567edb0bf" name="6 should be [2,3]" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/6 should be [2,3]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="7965957fbbaa96bf" name="7 should be [7]" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/7 should be [7]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="f26682a0413aaed9" name="8 should be [2,2,2]" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/8 should be [2,2,2]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="f825083fd7a3851a" name="9 should be [3,3]" fullName="SampleSpecs/describe PrimeFactors/when determining prime factors/9 should be [3,3]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="fa1dabffea6bd994" name="app config detection" fullName="SampleSpecs/app config detection" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="bb0c1e806826488f" name="it finds app config" fullName="SampleSpecs/app config detection/it finds app config" isTestCase="true">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Test</value>
+                    </entry>
+                  </metadata>
+                  <children />
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="1099c2b2e4de30f8" name="describe class level" fullName="SampleSpecs/describe class level" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="8803e74f7540450" name="specify given befores and acts run in the correct sequence" fullName="SampleSpecs/describe class level/specify given befores and acts run in the correct sequence" isTestCase="true">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Test</value>
+                    </entry>
+                  </metadata>
+                  <children />
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="397e50d0f93efd44" name="describe shoulds" fullName="SampleSpecs/describe shoulds" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="a11bac090a2168ab" name="given a non empty list" fullName="SampleSpecs/describe shoulds/given a non empty list" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="32aa9cf3efe0ddc7" name="should not be empty" fullName="SampleSpecs/describe shoulds/given a non empty list/should not be empty" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="992c046eea060900" name="describe Extensions" fullName="SampleSpecs/describe Extensions" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="344af36d16f4a591" name="when creating ranges" fullName="SampleSpecs/describe Extensions/when creating ranges" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="ddd7f6915694a164" name="1.To(2) should be [1,2]" fullName="SampleSpecs/describe Extensions/when creating ranges/1.To(2) should be [1,2]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+                <test id="c97391e388532e19" name="describe Flatten" fullName="SampleSpecs/describe Extensions/describe Flatten" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="91dec9a53074eff7" name="[&quot;fifty&quot;,&quot;two&quot;] should be fiftytwo" fullName="SampleSpecs/describe Extensions/describe Flatten/[&quot;fifty&quot;,&quot;two&quot;] should be fiftytwo" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="2100b1fadf83dcb1" name="describe VendingMachine" fullName="SampleSpecs/describe VendingMachine" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="98bafe13d923cc73" name="when stocking vending machine with chips" fullName="SampleSpecs/describe VendingMachine/when stocking vending machine with chips" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="d427d14434453c19" name="should contain chips with count of 1" fullName="SampleSpecs/describe VendingMachine/when stocking vending machine with chips/should contain chips with count of 1" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="596bde05186ab980" name="multiple chips added" fullName="SampleSpecs/describe VendingMachine/when stocking vending machine with chips/multiple chips added" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="5da28d037499cb3c" name="should increment chip inventory with count of 2" fullName="SampleSpecs/describe VendingMachine/when stocking vending machine with chips/multiple chips added/should increment chip inventory with count of 2" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+                <test id="59cf0b1cf57b5f51" name="when buying an item" fullName="SampleSpecs/describe VendingMachine/when buying an item" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="e5d1a65734a6eeae" name="vending maching has inventory" fullName="SampleSpecs/describe VendingMachine/when buying an item/vending maching has inventory" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="eb232347020c6e22" name="should decrement inventory" fullName="SampleSpecs/describe VendingMachine/when buying an item/vending maching has inventory/should decrement inventory" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="c44ca3fcecf3ac1d" name="should increment cash in machine" fullName="SampleSpecs/describe VendingMachine/when buying an item/vending maching has inventory/should increment cash in machine" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="52cd9a595cb91045" name="given the sequence starts with 1" fullName="SampleSpecs/given the sequence starts with 1" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="c317817b095683b0" name="given the sequence continues with 2" fullName="SampleSpecs/given the sequence starts with 1/given the sequence continues with 2" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="43a85024c469e08e" name="given the sequence continues with 3" fullName="SampleSpecs/given the sequence starts with 1/given the sequence continues with 2/given the sequence continues with 3" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="266befe1225b3928" name="sequence should be &quot;123&quot;" fullName="SampleSpecs/given the sequence starts with 1/given the sequence continues with 2/given the sequence continues with 3/sequence should be &quot;123&quot;" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="c4d301807fc827db" name="describe helpers" fullName="SampleSpecs/describe helpers" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="3761a71cee522706" name="when making tea" fullName="SampleSpecs/describe helpers/when making tea" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="90d265f03de98d80" name="that is 210 degrees" fullName="SampleSpecs/describe helpers/when making tea/that is 210 degrees" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="5a1693aefce14331" name="should be hot" fullName="SampleSpecs/describe helpers/when making tea/that is 210 degrees/should be hot" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                    <test id="d93107e6ea7f505e" name="that is 90 degrees" fullName="SampleSpecs/describe helpers/when making tea/that is 90 degrees" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="fe33c294e509943" name="should be cold" fullName="SampleSpecs/describe helpers/when making tea/that is 90 degrees/should be cold" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="319ffd7c1d8f4476" name="describe expected exception" fullName="SampleSpecs/describe expected exception" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="7801f0aa53fe9496" name="given a null string" fullName="SampleSpecs/describe expected exception/given a null string" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="20f47985055a8e14" name="should throw null-ref" fullName="SampleSpecs/describe expected exception/given a null string/should throw null-ref" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="1f95fc63435360ec" name="describe car" fullName="SampleSpecs/describe car" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="19e512b4597e6c03" name="describe fuel requirements" fullName="SampleSpecs/describe car/describe fuel requirements" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="4ae68b5b659ea6a4" name="car has 10 gallon tank" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="951cda68212965e4" name="tank is empty" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/tank is empty" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="93ed88e4e81c4a1e" name="car IsOnEmpty should be true" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/tank is empty/car IsOnEmpty should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="da9fca84b7f45783" name="turning car on" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/turning car on" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="2f35dca6813cd680" name="car does not have gas" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/turning car on/car does not have gas" isTestCase="false">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Fixture</value>
+                                </entry>
+                              </metadata>
+                              <children>
+                                <test id="fa16f71753bdbdc6" name="car IsRunning should be false" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/turning car on/car does not have gas/car IsRunning should be false" isTestCase="true">
+                                  <codeReference />
+                                  <codeLocation />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                              </children>
+                              <parameters />
+                            </test>
+                            <test id="c4077c8277bc9d4" name="car has gas" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/turning car on/car has gas" isTestCase="false">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Fixture</value>
+                                </entry>
+                              </metadata>
+                              <children>
+                                <test id="d07f45caf4e530d4" name="car IsRunning should be true" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/turning car on/car has gas/car IsRunning should be true" isTestCase="true">
+                                  <codeReference />
+                                  <codeLocation />
+                                  <metadata>
+                                    <entry key="TestKind">
+                                      <value>Test</value>
+                                    </entry>
+                                  </metadata>
+                                  <children />
+                                  <parameters />
+                                </test>
+                              </children>
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="e70e84c78de40698" name="10% of gas is left" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/10% of gas is left" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="ce62954f58d8f37e" name="car IsLowOnFuel should be true" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/10% of gas is left/car IsLowOnFuel should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="b5311db948be6435" name="less than 10% of gas is left" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/less than 10% of gas is left" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="88574ebebbc06385" name="car IsLowOnFuel should be true" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/less than 10% of gas is left/car IsLowOnFuel should be true" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="ffc367c179763906" name="more than 10% of gas is left" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/more than 10% of gas is left" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="6ad42ac445db8bcb" name="car IsLowOnFuel should be false" fullName="SampleSpecs/describe car/describe fuel requirements/car has 10 gallon tank/more than 10% of gas is left/car IsLowOnFuel should be false" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+                <test id="785fbb2c5d603dbe" name="describe compression ratio" fullName="SampleSpecs/describe car/describe compression ratio" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="7f4837be69889627" name="car has compression ratio of 7 to 1" fullName="SampleSpecs/describe car/describe compression ratio/car has compression ratio of 7 to 1" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="e2bbf0ad4d205a4f" name="should have octane requirement of 87" fullName="SampleSpecs/describe car/describe compression ratio/car has compression ratio of 7 to 1/should have octane requirement of 87" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="46655015ab97b76a" name="should have brake thermal efficiency of 28%" fullName="SampleSpecs/describe car/describe compression ratio/car has compression ratio of 7 to 1/should have brake thermal efficiency of 28%" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                    <test id="c9e8df7e8311f6e6" name="car has compression ratio of 8 to 1" fullName="SampleSpecs/describe car/describe compression ratio/car has compression ratio of 8 to 1" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="8607f6b714c29962" name="should have octane requirement of 92" fullName="SampleSpecs/describe car/describe compression ratio/car has compression ratio of 8 to 1/should have octane requirement of 92" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="19d49dc478fdb023" name="should have brake thermal efficiency of 30%" fullName="SampleSpecs/describe car/describe compression ratio/car has compression ratio of 8 to 1/should have brake thermal efficiency of 30%" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                    <test id="630f0a0f97aae087" name="car has compression ratio of 9 to 1" fullName="SampleSpecs/describe car/describe compression ratio/car has compression ratio of 9 to 1" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="b6a75b52485b3980" name="should have octane requirement of 96" fullName="SampleSpecs/describe car/describe compression ratio/car has compression ratio of 9 to 1/should have octane requirement of 96" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="e0659ff3b0c0621f" name="should have brake thermal efficiency of 32%" fullName="SampleSpecs/describe car/describe compression ratio/car has compression ratio of 9 to 1/should have brake thermal efficiency of 32%" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+                <test id="4060774f02287d25" name="when driving car" fullName="SampleSpecs/describe car/when driving car" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="1a6613ce0fbd4db9" name="should throw error if car isn't started" fullName="SampleSpecs/describe car/when driving car/should throw error if car isn't started" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="58b1430724dd1359" name="with 10 gallon(s) of gas, mpg: 1, driving: 10 miles" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 1, driving: 10 miles" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="a3208d6caf2e96cd" name="should have made it 10 miles" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 1, driving: 10 miles/should have made it 10 miles" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="2eb87bb58a8c9e18" name="should have 0 gallons left in tank" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 1, driving: 10 miles/should have 0 gallons left in tank" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="33c2b6e6f012831b" name="should not be running" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 1, driving: 10 miles/should not be running" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="f76565f392825997" name="should have low fuel" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 1, driving: 10 miles/should have low fuel" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                    <test id="78d3ca2e0a77705b" name="with 10 gallon(s) of gas, mpg: 2, driving: 5 miles" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 2, driving: 5 miles" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="d649dd57d908632" name="should have made it 5 miles" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 2, driving: 5 miles/should have made it 5 miles" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="d5051e48a02b7ff6" name="should have 7.5 gallons left in tank" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 2, driving: 5 miles/should have 7.5 gallons left in tank" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="536419fa43d2e1e" name="should be running" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 2, driving: 5 miles/should be running" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="1b7089ed3e543b4d" name="should not have low fuel" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 2, driving: 5 miles/should not have low fuel" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                    <test id="deeb4911ab91a943" name="with 10 gallon(s) of gas, mpg: 10, driving: 10 miles" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 10, driving: 10 miles" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="12e5d50e0e75144d" name="should have made it 10 miles" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 10, driving: 10 miles/should have made it 10 miles" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="cb0614664e65a040" name="should have 9 gallons left in tank" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 10, driving: 10 miles/should have 9 gallons left in tank" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="246d194a7e7dd6b4" name="should be running" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 10, driving: 10 miles/should be running" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="b6009b691fbe20dc" name="should not have low fuel" fullName="SampleSpecs/describe car/when driving car/with 10 gallon(s) of gas, mpg: 10, driving: 10 miles/should not have low fuel" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="ed51bdbe3742233" name="VendingMachineSpec" fullName="SampleSpecs/VendingMachineSpec" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="1319d473065c576d" name="given new vending machine" fullName="SampleSpecs/VendingMachineSpec/given new vending machine" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="d082b65801a6d9a8" name="machine Items should be empty" fullName="SampleSpecs/VendingMachineSpec/given new vending machine/machine Items should be empty" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="c2f89885821f8e60" name="getting item A1 should throw ItemNotRegistered" fullName="SampleSpecs/VendingMachineSpec/given new vending machine/getting item A1 should throw ItemNotRegistered" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="5a2bbf5b351e2f92" name="given doritos are registered in A1 for 50 cents" fullName="SampleSpecs/VendingMachineSpec/given new vending machine/given doritos are registered in A1 for 50 cents" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="93287732965626c8" name="machine Items Count should be Convert 1" fullName="SampleSpecs/VendingMachineSpec/given new vending machine/given doritos are registered in A1 for 50 cents/machine Items Count should be Convert 1" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="a4889486f498cc39" name="machine Item A1 Name should be doritos" fullName="SampleSpecs/VendingMachineSpec/given new vending machine/given doritos are registered in A1 for 50 cents/machine Item A1 Name should be doritos" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="67236236bfa31a0b" name="machine Item A1 Price should be Convert 0 5" fullName="SampleSpecs/VendingMachineSpec/given new vending machine/given doritos are registered in A1 for 50 cents/machine Item A1 Price should be Convert 0 5" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                        <test id="15536fc5289ae5e6" name="given a second item is registered" fullName="SampleSpecs/VendingMachineSpec/given new vending machine/given doritos are registered in A1 for 50 cents/given a second item is registered" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="cb33a4a97696c2fa" name="machine Items Count should be Convert 2" fullName="SampleSpecs/VendingMachineSpec/given new vending machine/given doritos are registered in A1 for 50 cents/given a second item is registered/machine Items Count should be Convert 2" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="9f486046f6ec452e" name="describe before" fullName="SampleSpecs/describe before" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="21726483559058aa" name="they run before each example" fullName="SampleSpecs/describe before/they run before each example" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="d2883a96a97c3fc7" name="number should be 2" fullName="SampleSpecs/describe before/they run before each example/number should be 2" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="289fec88fbe0ec46" name="number should be 1" fullName="SampleSpecs/describe before/they run before each example/number should be 1" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="d83d28c301b8165b" name="describe contexts" fullName="SampleSpecs/describe contexts" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="54a6c029c391ede" name="describe Account" fullName="SampleSpecs/describe contexts/describe Account" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="d6ffc908eadd65bb" name="when withdrawing cash" fullName="SampleSpecs/describe contexts/describe Account/when withdrawing cash" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="e17d6b49f4161f25" name="account is in credit" fullName="SampleSpecs/describe contexts/describe Account/when withdrawing cash/account is in credit" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="868cb3d478e3d5d4" name="the Account dispenses cash" fullName="SampleSpecs/describe contexts/describe Account/when withdrawing cash/account is in credit/the Account dispenses cash" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                        <test id="38502c46a3e3c579" name="account is overdrawn" fullName="SampleSpecs/describe contexts/describe Account/when withdrawing cash/account is overdrawn" isTestCase="false">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Fixture</value>
+                            </entry>
+                          </metadata>
+                          <children>
+                            <test id="49fcb105de62b6ce" name="the Account does not dispense cash" fullName="SampleSpecs/describe contexts/describe Account/when withdrawing cash/account is overdrawn/the Account does not dispense cash" isTestCase="true">
+                              <codeReference />
+                              <codeLocation />
+                              <metadata>
+                                <entry key="TestKind">
+                                  <value>Test</value>
+                                </entry>
+                              </metadata>
+                              <children />
+                              <parameters />
+                            </test>
+                          </children>
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="2d2b8b7024a73b56" name="describe specifications" fullName="SampleSpecs/describe specifications" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="281eea27fdfd2ae4" name="when creating specifications" fullName="SampleSpecs/describe specifications/when creating specifications" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="1075e71a366e00c3" name="true should be false" fullName="SampleSpecs/describe specifications/when creating specifications/true should be false" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="397b0951c9c6aec1" name="enumerable should be empty" fullName="SampleSpecs/describe specifications/when creating specifications/enumerable should be empty" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="c5873f046288e320" name="enumerable should contain 1" fullName="SampleSpecs/describe specifications/when creating specifications/enumerable should contain 1" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="70fdbab8053c85fa" name="enumerable should not contain 1" fullName="SampleSpecs/describe specifications/when creating specifications/enumerable should not contain 1" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="d8827c2e5b3cf407" name="1 should be 2" fullName="SampleSpecs/describe specifications/when creating specifications/1 should be 2" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="eaef06e266998f41" name="1 should be 1" fullName="SampleSpecs/describe specifications/when creating specifications/1 should be 1" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="ca0ac5449d009d47" name="1 should not be 1" fullName="SampleSpecs/describe specifications/when creating specifications/1 should not be 1" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="4e27a3b607e188b" name="1 should not be 2" fullName="SampleSpecs/describe specifications/when creating specifications/1 should not be 2" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="66c10360dcc7cbc4" name="&quot;&quot; should not be null" fullName="SampleSpecs/describe specifications/when creating specifications/&quot;&quot; should not be null" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="660a2e0efa7f0192" name="some object should not be null" fullName="SampleSpecs/describe specifications/when creating specifications/some object should not be null" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="a9f1a078fb726f1d" name="ninja should not be pirate" fullName="SampleSpecs/describe specifications/when creating specifications/ninja should not be pirate" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="38907db7369778f5" name="prime kata" fullName="SampleSpecs/prime kata" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="aa16732e2f98677f" name="prime factors" fullName="SampleSpecs/prime kata/prime factors" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="f92c150dc0e5d77e" name="1 should be []" fullName="SampleSpecs/prime kata/prime factors/1 should be []" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="d17d7e9a0ba9f1d3" name="2 should be [2]" fullName="SampleSpecs/prime kata/prime factors/2 should be [2]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="3d6f267251c072e0" name="3 should be [3]" fullName="SampleSpecs/prime kata/prime factors/3 should be [3]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="4464bbcf28ee0f7f" name="4 should be [2,2]" fullName="SampleSpecs/prime kata/prime factors/4 should be [2,2]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="eb2d8aa411f435cd" name="5 should be [5]" fullName="SampleSpecs/prime kata/prime factors/5 should be [5]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="a6bc55039e8e4964" name="6 should be [2,3]" fullName="SampleSpecs/prime kata/prime factors/6 should be [2,3]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="f89c725396ccb150" name="7 should be [7]" fullName="SampleSpecs/prime kata/prime factors/7 should be [7]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="9d556092cd1e2be6" name="8 should be [2,2,2]" fullName="SampleSpecs/prime kata/prime factors/8 should be [2,2,2]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                    <test id="b18144258ab181f1" name="9 should be [3,3]" fullName="SampleSpecs/prime kata/prime factors/9 should be [3,3]" isTestCase="true">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Test</value>
+                        </entry>
+                      </metadata>
+                      <children />
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+            <test id="18a6c6097b7203bb" name="SomeSharedSpec" fullName="SampleSpecs/SomeSharedSpec" isTestCase="false">
+              <codeReference />
+              <codeLocation />
+              <metadata>
+                <entry key="TestKind">
+                  <value>Fixture</value>
+                </entry>
+              </metadata>
+              <children>
+                <test id="7e18567dddae6176" name="when inherting from some shared spec" fullName="SampleSpecs/SomeSharedSpec/when inherting from some shared spec" isTestCase="false">
+                  <codeReference />
+                  <codeLocation />
+                  <metadata>
+                    <entry key="TestKind">
+                      <value>Fixture</value>
+                    </entry>
+                  </metadata>
+                  <children>
+                    <test id="7ccdb451cb40c451" name="should still run tests" fullName="SampleSpecs/SomeSharedSpec/when inherting from some shared spec/should still run tests" isTestCase="false">
+                      <codeReference />
+                      <codeLocation />
+                      <metadata>
+                        <entry key="TestKind">
+                          <value>Fixture</value>
+                        </entry>
+                      </metadata>
+                      <children>
+                        <test id="8dc77c1be6741153" name="Test should be Test" fullName="SampleSpecs/SomeSharedSpec/when inherting from some shared spec/should still run tests/Test should be Test" isTestCase="true">
+                          <codeReference />
+                          <codeLocation />
+                          <metadata>
+                            <entry key="TestKind">
+                              <value>Test</value>
+                            </entry>
+                          </metadata>
+                          <children />
+                          <parameters />
+                        </test>
+                      </children>
+                      <parameters />
+                    </test>
+                  </children>
+                  <parameters />
+                </test>
+              </children>
+              <parameters />
+            </test>
+          </children>
+          <parameters />
+        </test>
+      </children>
+      <parameters />
+    </test>
+    <annotations />
+  </testModel>
+  <testPackageRun startTime="2011-09-07T18:24:45.9616488-05:00" endTime="2011-09-07T18:24:51.034939-05:00">
+    <testStepRun startTime="2011-09-07T18:24:50.963935-05:00" endTime="2011-09-07T18:24:51.034939-05:00">
+      <testStep id="80f2f2e28dff207" name="Root" fullName="" testId="c2722843734a7a54" isPrimary="true" isTestCase="false" isDynamic="false">
+        <codeReference />
+        <codeLocation />
+        <metadata>
+          <entry key="TestKind">
+            <value>Root</value>
+          </entry>
+        </metadata>
+      </testStep>
+      <children>
+        <testStepRun startTime="2011-09-07T18:24:50.9779358-05:00" endTime="2011-09-07T18:24:51.0029372-05:00">
+          <testStep id="cd0558a1432850fd" name="SampleSpecs" fullName="SampleSpecs" testId="f6bb5e8af9aed4a7" isPrimary="true" isTestCase="false" isDynamic="false">
+            <codeReference assembly="SampleSpecs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+            <codeLocation path="C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL" />
+            <metadata>
+              <entry key="TestKind">
+                <value>Assembly</value>
+              </entry>
+              <entry key="CodeBase">
+                <value>C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL</value>
+              </entry>
+              <entry key="Company">
+                <value>Microsoft</value>
+              </entry>
+              <entry key="Copyright">
+                <value>Copyright © Microsoft 2011</value>
+              </entry>
+              <entry key="FileVersion">
+                <value>1.0.0.0</value>
+              </entry>
+              <entry key="Product">
+                <value>SampleSpecs</value>
+              </entry>
+              <entry key="Title">
+                <value>SampleSpecs</value>
+              </entry>
+              <entry key="Version">
+                <value>1.0.0.0</value>
+              </entry>
+              <entry key="Framework">
+                <value>NSpec v0.9.50.0</value>
+              </entry>
+              <entry key="File">
+                <value>C:\Development\NSpec\SampleSpecs\bin\Release\SampleSpecs.DLL</value>
+              </entry>
+            </metadata>
+          </testStep>
+          <children>
+            <testStepRun startTime="2011-09-07T18:24:50.9779358-05:00" endTime="2011-09-07T18:24:51.0029372-05:00">
+              <testStep id="91aae7314e7f5037" name="describe before" fullName="SampleSpecs/describe before" testId="9f486046f6ec452e" isPrimary="true" isTestCase="false" isDynamic="false">
+                <codeReference />
+                <codeLocation />
+                <metadata>
+                  <entry key="TestKind">
+                    <value>Fixture</value>
+                  </entry>
+                </metadata>
+              </testStep>
+              <children>
+                <testStepRun startTime="2011-09-07T18:24:50.9789358-05:00" endTime="2011-09-07T18:24:51.0019371-05:00">
+                  <testStep id="c7f740ee2f472e28" name="they run before each example" fullName="SampleSpecs/describe before/they run before each example" testId="21726483559058aa" isPrimary="true" isTestCase="false" isDynamic="false">
+                    <codeReference />
+                    <codeLocation />
+                    <metadata>
+                      <entry key="TestKind">
+                        <value>Fixture</value>
+                      </entry>
+                    </metadata>
+                  </testStep>
+                  <children>
+                    <testStepRun startTime="2011-09-07T18:24:50.9799359-05:00" endTime="2011-09-07T18:24:50.9869363-05:00">
+                      <testStep id="b470810810e79cb8" name="number should be 1" fullName="SampleSpecs/describe before/they run before each example/number should be 1" testId="289fec88fbe0ec46" isPrimary="true" isTestCase="true" isDynamic="false">
+                        <codeReference />
+                        <codeLocation />
+                        <metadata>
+                          <entry key="TestKind">
+                            <value>Test</value>
+                          </entry>
+                        </metadata>
+                      </testStep>
+                      <children />
+                      <result assertCount="0" duration="0.0233062">
+                        <outcome status="passed" />
+                      </result>
+                      <testLog>
+                        <streams />
+                        <attachments />
+                      </testLog>
+                    </testStepRun>
+                    <testStepRun startTime="2011-09-07T18:24:51.0009371-05:00" endTime="2011-09-07T18:24:51.0009371-05:00">
+                      <testStep id="62f35208d127f00b" name="number should be 2" fullName="SampleSpecs/describe before/they run before each example/number should be 2" testId="d2883a96a97c3fc7" isPrimary="true" isTestCase="true" isDynamic="false">
+                        <codeReference />
+                        <codeLocation />
+                        <metadata>
+                          <entry key="TestKind">
+                            <value>Test</value>
+                          </entry>
+                        </metadata>
+                      </testStep>
+                      <children />
+                      <result assertCount="0" duration="0.000326">
+                        <outcome status="passed" />
+                      </result>
+                      <testLog>
+                        <streams />
+                        <attachments />
+                      </testLog>
+                    </testStepRun>
+                  </children>
+                  <result assertCount="0" duration="0.025526399999999998">
+                    <outcome status="passed" />
+                  </result>
+                  <testLog>
+                    <streams />
+                    <attachments />
+                  </testLog>
+                </testStepRun>
+              </children>
+              <result assertCount="0" duration="0.026130399999999998">
+                <outcome status="passed" />
+              </result>
+              <testLog>
+                <streams />
+                <attachments />
+              </testLog>
+            </testStepRun>
+          </children>
+          <result assertCount="0" duration="0.0283233">
+            <outcome status="passed" />
+          </result>
+          <testLog>
+            <streams />
+            <attachments />
+          </testLog>
+        </testStepRun>
+      </children>
+      <result assertCount="0" duration="5.0714318">
+        <outcome status="passed" />
+      </result>
+      <testLog>
+        <streams />
+        <attachments />
+      </testLog>
+    </testStepRun>
+    <statistics assertCount="0" duration="5.0738826" runCount="2" passedCount="2" failedCount="0" inconclusiveCount="0" skippedCount="0" testCount="2" stepCount="6">
+      <outcomeSummaries>
+        <outcomeSummary count="2">
+          <outcome status="passed" />
+        </outcomeSummary>
+      </outcomeSummaries>
+    </statistics>
+  </testPackageRun>
+  <logEntries>
+    <logEntry severity="info" message="Host started at 9/7/2011 6:24:46 PM." />
+    <logEntry severity="info" message="Running under CLR v4.0.30319 runtime." />
+    <logEntry severity="debug" message="Listening for connections on IPC port: 'IsolatedProcessHost.760ded6903822045'" />
+    <logEntry severity="debug" message="Disabled plugin 'Gallio.VisualStudio.Shell90': The plugin enable condition was not satisfied.  Please note that this is the intended behavior for plugins that must be hosted inside third party applications in order to work.  Enable condition: '${process:DEVENV.EXE_V9.0} or ${process:VSTESTHOST.EXE_V9.0} or ${process:MSTEST.EXE_V9.0} or ${framework:NET35}'." />
+    <logEntry severity="debug" message="Disabled plugin 'Gallio.VisualStudio.Tip90': The plugin depends on another disabled plugin: 'Gallio.VisualStudio.Shell90'." />
+    <logEntry severity="info" message="Host stopped at 9/7/2011 6:24:48 PM." />
+    <logEntry severity="info" message="Host process exited with code: 0" />
+    <logEntry severity="info" message="Host started at 9/7/2011 6:24:48 PM." />
+    <logEntry severity="info" message="Running under CLR v4.0.30319 runtime." />
+    <logEntry severity="debug" message="Listening for connections on IPC port: 'IsolatedProcessHost.db56bc0a19247dfa'" />
+    <logEntry severity="debug" message="Disabled plugin 'Gallio.VisualStudio.Shell90': The plugin enable condition was not satisfied.  Please note that this is the intended behavior for plugins that must be hosted inside third party applications in order to work.  Enable condition: '${process:DEVENV.EXE_V9.0} or ${process:VSTESTHOST.EXE_V9.0} or ${process:MSTEST.EXE_V9.0} or ${framework:NET35}'." />
+    <logEntry severity="debug" message="Disabled plugin 'Gallio.VisualStudio.Tip90': The plugin depends on another disabled plugin: 'Gallio.VisualStudio.Shell90'." />
+    <logEntry severity="info" message="Host stopped at 9/7/2011 6:24:51 PM." />
+    <logEntry severity="info" message="Host process exited with code: 0" />
+  </logEntries>
+</report>

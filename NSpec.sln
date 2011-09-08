@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpecSpecs", "NSpecSpecs\NS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec.GallioAdapter", "NSpec.GallioAdapter\NSpec.GallioAdapter.csproj", "{25B0B581-D3DD-4FE8-B7E9-DA6F86622E17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDNETRunner", "TDNETRunner\TDNETRunner.csproj", "{CF6C7612-7CBD-4259-AC3D-045C310BC37E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec.TDNetRunner", "NSpec.TDNetRunner\NSpec.TDNetRunner.csproj", "{CF6C7612-7CBD-4259-AC3D-045C310BC37E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

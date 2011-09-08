@@ -2,7 +2,7 @@
 using NSpec;
 using TestDriven.Framework;
 
-namespace TDNETRunner
+namespace NSpec.TDNetRunner
 {
     public class TDNetRunListener : ITestListener
     {

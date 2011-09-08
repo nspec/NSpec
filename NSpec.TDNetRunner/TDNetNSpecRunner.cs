@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using TestDriven.Framework;
-namespace TDNETRunner
+namespace NSpec.TDNetRunner
 {
     public class TDNetNSpecRunner : ITestRunner
     {
