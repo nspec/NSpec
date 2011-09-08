@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bug\app_config_detection.cs" />
+    <Compile Include="Bug\describe_after.cs" />
     <Compile Include="Bug\given_a_subcontext_that_fails.cs" />
     <Compile Include="Compare\NSpec\VendingMachineSpec.cs" />
     <Compile Include="Compare\NUnit\Describe_VendingMachine\DescribeVendingMachine.cs" />
