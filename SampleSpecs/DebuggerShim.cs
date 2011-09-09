@@ -4,6 +4,7 @@ using NSpec.Domain;
 using System.Reflection;
 using NSpec;
 using NSpec.Domain.Formatters;
+using System.Linq;
 
 [TestFixture]
 public class DebuggerShim
@@ -26,7 +27,19 @@ public class DebuggerShim
             finder,
             new DefaultConventions());
 
-        //this line runs the tests you specified in the filter
-        new ContextRunner(builder, new ConsoleFormatter()).Run();
+        //initialize the root context
+        var contexts = builder.Contexts();
+
+        //build the tests
+        contexts.Build();
+
+        //run the tests that were found
+        contexts.Run();
+
+        //print the output
+        new ConsoleFormatter().Write(contexts);
+
+        //assert that there aren't any failures
+        contexts.Failures().Count().should_be(0);
     }
 }
