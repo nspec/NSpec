@@ -27,11 +27,11 @@ namespace NSpec.Domain
 
         public void RunAfters(nspec instance)
         {
-            if (Parent != null) Parent.RunAfters(instance);
+            if (After != null) After();
 
             if (AfterInstance != null) AfterInstance(instance);
 
-            if (After != null) After();
+            if (Parent != null) Parent.RunAfters(instance);
         }
 
         public void AddExample(Example example)
@@ -117,7 +117,14 @@ namespace NSpec.Domain
             }
             finally
             {
-                RunAfters(nspec);
+                try
+                {
+                    RunAfters(nspec);    
+                }
+                catch (Exception ex)
+                {
+                    example.Exception = ex;
+                }
             }
         }
 
