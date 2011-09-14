@@ -54,6 +54,5 @@ namespace NSpec.Domain
 
         Conventions conventions;
         Type type;
-
     }
 }

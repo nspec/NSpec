@@ -157,5 +157,10 @@ namespace NSpec.Domain
         {
             return savedInstance ?? Parent.GetInstance();
         }
+
+        public IEnumerable<Context> AllContexts()
+        {
+            return new[] {this}.Union(Contexts.SelectMany(c => c.AllContexts()));
+        }
     }
 }

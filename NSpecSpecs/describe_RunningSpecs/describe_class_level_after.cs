@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using NSpecSpecs.WhenRunningSpecs;
 using NSpec;
 using NUnit.Framework;
@@ -38,15 +35,19 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void Setup()
         {
-            Run(typeof(DerivedClass));
+            Run(typeof(DerivedClass), typeof(SpecClass));
         }
 
-        //[Test]
-        //public void afters_are_run_in_the_correct_order()
-        //{
-        //    (classContext.Contexts.First().GetInstance() as DerivedClass).ExecutionSequence.should_be("A");
+        [Test,Ignore]
+        public void afters_are_run_in_the_correct_order()
+        {
+            var specInstance = classContext.GetInstance() as SpecClass;
 
-        //    classContext.Contexts.Failures().Count().should_be(0);
-        //}
+            var executionSequence = specInstance.ExecutionSequence;
+
+            executionSequence.should_be("A");
+
+            classContext.Failures().Count().should_be(0);
+        }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using NSpec.Domain;
-using NSpec.Domain.Extensions;
 using NUnit.Framework;
 using NSpec;
+using Rhino.Mocks;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -17,19 +17,23 @@ namespace NSpecSpecs.WhenRunningSpecs
             convention.Initialize();
         }
 
-        protected void Run(Type type)
+        protected void Run(params Type[] types)
         {
-            classContext = new ClassContext(type, convention);
+            var finder = MockRepository.GenerateMock<ISpecFinder>();
 
-            var method = type.Methods().First(m => convention.IsMethodLevelContext(m.Name));
+            finder.Stub(f => f.SpecClasses()).Return(types);
 
-            methodContext = new MethodContext(method);
+            var builder = new ContextBuilder(finder, new DefaultConventions());
 
-            classContext.AddContext(methodContext);
+            var contexts = builder.Contexts();
 
-            classContext.Build();
+            contexts.Build();
 
-            classContext.Run();
+            contexts.Run();
+
+            classContext = contexts.First() as ClassContext;
+
+            methodContext = contexts.AllContexts().First(c => c is MethodContext);
         }
 
         protected ClassContext classContext;
