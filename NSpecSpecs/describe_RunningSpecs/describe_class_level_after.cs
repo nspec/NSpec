@@ -32,20 +32,16 @@ namespace NSpecSpecs.describe_RunningSpecs
             }
         }
 
-        [SetUp]
-        public void Setup()
-        {
-            Run(typeof(DerivedClass), typeof(SpecClass));
-        }
-
-        [Test,Ignore]
+        [Test]
         public void afters_are_run_in_the_correct_order()
         {
-            var specInstance = classContext.GetInstance() as SpecClass;
+            Run(typeof(DerivedClass));
+
+            var specInstance = classContext.GetInstance() as DerivedClass;
 
             var executionSequence = specInstance.ExecutionSequence;
 
-            executionSequence.should_be("A");
+            executionSequence.should_be("AB");
 
             classContext.Failures().Count().should_be(0);
         }

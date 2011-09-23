@@ -9,17 +9,17 @@ namespace NSpec.Domain
 {
     public class SpecFinder : ISpecFinder
     {
-        private readonly string classFilter;
+        private readonly string filter;
 
-        public IEnumerable<Type> SpecClasses()
+        public virtual IEnumerable<Type> SpecClasses()
         {
-            var regex = new Regex(classFilter);
+            var regex = new Regex(filter);
 
-            var leafTypes = 
+            var leafTypes =
                 Types.Where(t => t.IsClass
                     && BaseTypes(t).Any(s => s == typeof(nspec))
                     && t.Methods().Count() > 0
-                    && (string.IsNullOrEmpty(classFilter) || regex.IsMatch(t.FullName)));
+                    && (string.IsNullOrEmpty(filter) || regex.IsMatch(t.FullName)));
 
             var finalList = new List<Type>();
             finalList.AddRange(leafTypes);
@@ -47,22 +47,17 @@ namespace NSpec.Domain
             return types;
         }
 
-        public SpecFinder()
+        public SpecFinder(Type[] types, string filter = "")
         {
+            this.filter = filter;
+            Types = types;
         }
 
-        public SpecFinder(string specDLL, IReflector reflector, string classFilter = "")
-            : this()
-        {
-            this.classFilter = classFilter;
-            Types = reflector.GetTypesFrom(specDLL);
-        }
-        public SpecFinder(Assembly assembly, IReflector reflector, string classFilter = "")
-            : this()
-        {
-            this.classFilter = classFilter;
-            Types = reflector.GetTypesFrom( assembly );
-        }
+        public SpecFinder(string specDLL, IReflector reflector, string filter = "")
+            : this(reflector.GetTypesFrom(specDLL), filter) { }
+
+        public SpecFinder(Assembly assembly, IReflector reflector, string filter = "")
+            : this(reflector.GetTypesFrom(assembly), filter) { }
 
         public Type[] Types { get; set; }
 

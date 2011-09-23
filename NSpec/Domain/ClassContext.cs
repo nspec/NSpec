@@ -53,6 +53,6 @@ namespace NSpec.Domain
         }
 
         Conventions conventions;
-        Type type;
+        public Type type;
     }
 }

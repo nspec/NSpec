@@ -1,27 +1,15 @@
 ﻿using System;
 using System.Linq;
 using NSpec.Domain;
-using NUnit.Framework;
 using NSpec;
-using Rhino.Mocks;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
     public class when_running_specs
     {
-        [SetUp]
-        public void setup_base()
+        protected void Run(Type type)
         {
-            convention = new DefaultConventions();
-
-            convention.Initialize();
-        }
-
-        protected void Run(params Type[] types)
-        {
-            var finder = MockRepository.GenerateMock<ISpecFinder>();
-
-            finder.Stub(f => f.SpecClasses()).Return(types);
+            var finder = new SpecFinder(new[] { type });
 
             var builder = new ContextBuilder(finder, new DefaultConventions());
 
@@ -31,13 +19,15 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             contexts.Run();
 
-            classContext = contexts.First() as ClassContext;
+            classContext = contexts
+                .AllContexts()
+                .Select(c => c as ClassContext)
+                .First(c => c.type == type);
 
             methodContext = contexts.AllContexts().First(c => c is MethodContext);
         }
 
         protected ClassContext classContext;
-        private DefaultConventions convention;
         protected Context methodContext;
     }
 }
