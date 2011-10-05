@@ -25,9 +25,13 @@ namespace NSpec.Domain
             if (Act != null) Act();
         }
 
-        public void Afters()
+        public void RunAfters(nspec instance)
         {
             if (After != null) After();
+
+            if (AfterInstance != null) AfterInstance(instance);
+
+            if (Parent != null) Parent.RunAfters(instance);
         }
 
         public void AddExample(Example example)
@@ -102,8 +106,6 @@ namespace NSpec.Domain
                 RunActs(nspec);
 
                 example.Run(nspec);
-
-                Afters();
             }
             catch (TargetInvocationException e)
             {
@@ -112,6 +114,17 @@ namespace NSpec.Domain
             catch (Exception e)
             {
                 example.Exception = e;
+            }
+            finally
+            {
+                try
+                {
+                    RunAfters(nspec);    
+                }
+                catch (Exception ex)
+                {
+                    example.Exception = ex;
+                }
             }
         }
 
@@ -134,7 +147,7 @@ namespace NSpec.Domain
         public List<Example> Examples;
         public ContextCollection Contexts;
         public Action Before, Act, After;
-        public Action<nspec> BeforeInstance, ActInstance;
+        public Action<nspec> BeforeInstance, ActInstance, AfterInstance;
         public Context Parent;
         public Exception contextLevelFailure;
         private bool isPending;
@@ -143,6 +156,11 @@ namespace NSpec.Domain
         public nspec GetInstance()
         {
             return savedInstance ?? Parent.GetInstance();
+        }
+
+        public IEnumerable<Context> AllContexts()
+        {
+            return new[] {this}.Union(Contexts.SelectMany(c => c.AllContexts()));
         }
     }
 }

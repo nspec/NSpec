@@ -1,39 +1,33 @@
 ﻿using System;
 using System.Linq;
 using NSpec.Domain;
-using NSpec.Domain.Extensions;
-using NUnit.Framework;
 using NSpec;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
     public class when_running_specs
     {
-        [SetUp]
-        public void setup_base()
-        {
-            convention = new DefaultConventions();
-
-            convention.Initialize();
-        }
-
         protected void Run(Type type)
         {
-            classContext = new ClassContext(type, convention);
+            var finder = new SpecFinder(new[] { type });
 
-            var method = type.Methods().First(m => convention.IsMethodLevelContext(m.Name));
+            var builder = new ContextBuilder(finder, new DefaultConventions());
 
-            methodContext = new MethodContext(method);
+            var contexts = builder.Contexts();
 
-            classContext.AddContext(methodContext);
+            contexts.Build();
 
-            classContext.Build();
+            contexts.Run();
 
-            classContext.Run();
+            classContext = contexts
+                .AllContexts()
+                .Select(c => c as ClassContext)
+                .First(c => c.type == type);
+
+            methodContext = contexts.AllContexts().First(c => c is MethodContext);
         }
 
         protected ClassContext classContext;
-        private DefaultConventions convention;
         protected Context methodContext;
     }
 }

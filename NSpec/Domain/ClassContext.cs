@@ -19,6 +19,13 @@ namespace NSpec.Domain
             if (act != null) ActInstance = i => act.Invoke(i, null);
         }
 
+        private void BuildMethodLevelAfter()
+        {
+            var after = conventions.GetMethodLevelAfter(type);
+
+            if (after != null) AfterInstance = i => after.Invoke(i, null);
+        }
+
         public ClassContext(Type type, Conventions conventions = null)
             : base(type.Name, 0)
         {
@@ -33,6 +40,8 @@ namespace NSpec.Domain
 
             BuildMethodLevelAct();
 
+            BuildMethodLevelAfter();
+
             var nspec = type.Instance<nspec>();
 
             base.Build(nspec);
@@ -44,7 +53,6 @@ namespace NSpec.Domain
         }
 
         Conventions conventions;
-        Type type;
-
+        public Type type;
     }
 }

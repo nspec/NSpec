@@ -28,6 +28,16 @@ namespace NSpec.Domain
             Act = regex;
         }
 
+        public void SetAfter(string startsWith)
+        {
+            SetAfter(new Regex("^" + startsWith));
+        }
+
+        public void SetAfter(Regex regex)
+        {
+            After = regex;
+        }
+
         public void SetExample(string startsWith)
         {
             SetExample(new Regex("^" + startsWith));
@@ -51,6 +61,8 @@ namespace NSpec.Domain
         public Regex Before { get; private set; }
 
         public Regex Act { get; private set; }
+
+        public Regex After { get; private set; }
 
         public Regex Example { get; private set; }
 
@@ -78,6 +90,11 @@ namespace NSpec.Domain
             return type.Methods().FirstOrDefault(s => specification.Act.IsMatch(s.Name));
         }
 
+        public MethodInfo GetMethodLevelAfter(Type type)
+        {
+            return type.Methods().FirstOrDefault(s => specification.After.IsMatch(s.Name));
+        }
+
         public bool IsMethodLevelExample(string name)
         {
             return specification.Example.IsMatch(name);
@@ -93,13 +110,20 @@ namespace NSpec.Domain
             return specification.Act.IsMatch(name);
         }
 
+        public bool IsMethodLevelAfter(string name)
+        {
+            return specification.After.IsMatch(name);
+        }
+
         public bool IsMethodLevelContext(string name)
         {
             if (IsMethodLevelBefore(name)) return false;
 
-            if (specification.Act.IsMatch(name)) return false;
+            if (IsMethodLevelAct(name)) return false;
 
             if (IsMethodLevelExample(name)) return false;
+
+            if (IsMethodLevelAfter(name)) return false;
 
             return specification.Context.IsMatch(name);
         }

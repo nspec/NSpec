@@ -34,5 +34,10 @@ namespace NSpec.Domain
         {
             this.Do(c => c.Run());
         }
+
+        public IEnumerable<Context> AllContexts()
+        {
+            return this.SelectMany(c => c.AllContexts());
+        }
     }
 }

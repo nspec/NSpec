@@ -11,6 +11,8 @@ namespace NSpec
 
             specification.SetAct(RegexInsensitive("^act_each"));
 
+            specification.SetAfter(RegexInsensitive("^after_each"));
+
             specification.SetExample(RegexInsensitive("(^it_)|(^specify_)"));
 
             specification.SetContext(RegexInsensitive("_"));
