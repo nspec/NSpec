@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestDriven.Framework;
 
 namespace NSpec.Domain
 {
@@ -38,6 +39,15 @@ namespace NSpec.Domain
         public IEnumerable<Context> AllContexts()
         {
             return this.SelectMany(c => c.AllContexts());
+        }
+
+        public TestRunState Result()
+        {
+            if (Examples().Count() == 0) return TestRunState.NoTests;
+
+            if (Failures().Count() == 0) return TestRunState.Success;
+
+            return TestRunState.Failure;
         }
     }
 }
