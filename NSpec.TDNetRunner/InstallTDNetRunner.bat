@@ -9,7 +9,7 @@ echo "Application"="" >> NSpecTDNet.reg
 echo "AssemblyPath"="%LOCALDIR:\=\\%NSpec.TDNetRunner.dll" >> NSpecTDNet.reg
 echo "TargetFrameworkAssemblyName"="NSpec" >> NSpecTDNet.reg
 echo "TypeName"="NSpec.TDNetRunner.TDNetNSpecRunner" >> NSpecTDNet.reg
-echo @="5" >> NSpecTDNet.reg
+echo @="50" >> NSpecTDNet.reg
 
 regedit NSpecTDNet.reg
 
