@@ -19,6 +19,13 @@ namespace NSpecSpecs.WhenRunningSpecs
                 it["should fail this example because of after"] = () => "1".should_be("1");
 
                 it["should also fail this example because of after"] = () => "1".should_be("1");
+
+                context[ "exception thrown by both act and after" ] = () =>
+                {
+                    act = () => { throw new ArgumentException("The after's exception should not overwrite the act's exception"); };
+
+                    it[ "tracks only the first exception from act" ] = () => "1".should_be( "1" );
+                };
             }
         }
 
@@ -33,6 +40,12 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             TheExample("should fail this example because of after").Exception.GetType().should_be(typeof(InvalidOperationException));
             TheExample("should also fail this example because of after").Exception.GetType().should_be(typeof(InvalidOperationException));
+        }
+
+        [Test]
+        public void it_should_throw_exception_from_act_not_from_after()
+        {
+            TheExample( "tracks only the first exception from act" ).Exception.GetType().should_be( typeof( ArgumentException ) );
         }
 
         private Example TheExample(string name)

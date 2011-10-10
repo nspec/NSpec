@@ -123,7 +123,8 @@ namespace NSpec.Domain
                 }
                 catch (Exception ex)
                 {
-                    example.Exception = ex;
+                    if( example.Exception == null )
+                        example.Exception = ex;
                 }
             }
         }
