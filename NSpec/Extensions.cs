@@ -95,7 +95,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Flattens an Enumerable<string> into one string with optional separator
+        /// Flattens an Enumerable&lt;string&gt; into one string with optional separator
         /// </summary>
         public static string Flatten(this IEnumerable<string> source, string separator = "")
         {
@@ -122,7 +122,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Create an IEnumerable<int> range from x to y 
+        /// Create an IEnumerable&lt;int&gt; range from x to y
         /// eg. 1.To(3) would be [1,2,3]
         /// </summary>
         public static IEnumerable<int> To(this int start, int end)
