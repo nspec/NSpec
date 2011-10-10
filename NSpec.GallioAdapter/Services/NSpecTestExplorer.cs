@@ -84,7 +84,7 @@ namespace NSpec.GallioAdapter.Services
 
                 return exampleTest;
             }
-            catch( Exception ex )
+            catch
             {
                 throw new Exception(String.Format( "Error adding example {0}", nspecExample.Spec ));
             }

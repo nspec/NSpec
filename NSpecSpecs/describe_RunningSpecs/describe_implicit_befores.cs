@@ -40,6 +40,5 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             return classContext.Contexts.First().AllExamples();
         }
-        private Context classContext;
     }
 }
