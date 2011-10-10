@@ -4,7 +4,7 @@ namespace NSpec
 {
     /// <summary>
     /// This is a way for you to specify a collection of test data that needs to be asserted over a common set of examples.  New one of these up inline and tack on the .Do extension method for some
-    /// powerful ways to execute examples across the collection.  For more information, visit http://www.nspedriven.net.
+    /// powerful ways to execute examples across the collection.  For more information, visit http://www.nspec.org.
     /// </summary>
     public class Each<T, U> : List<NSpecTuple<T, U>>
     {
@@ -16,7 +16,7 @@ namespace NSpec
 
     /// <summary>
     /// This is a way for you to specify a collection of test data that needs to be asserted over a common set of examples.  New one of these up inline and tack on the .Do extension method for some
-    /// powerful ways to execute examples across the collection.  For more information, visit http://www.nspedriven.net.
+    /// powerful ways to execute examples across the collection.  For more information, visit http://www.nspec.org.
     /// </summary>
     public class Each<T, U, V> : List<NSpecTuple<T, U, V>>
     {
@@ -28,7 +28,7 @@ namespace NSpec
 
     /// <summary>
     /// This is a way for you to specify a collection of test data that needs to be asserted over a common set of examples.  New one of these up inline and tack on the .Do extension method for some
-    /// powerful ways to execute examples across the collection.  For more information, visit http://www.nspedriven.net.
+    /// powerful ways to execute examples across the collection.  For more information, visit http://www.nspec.org.
     /// </summary>
     public class Each<T, U, V, W> : List<NSpecTuple<T, U, V, W>>
     {
@@ -37,6 +37,7 @@ namespace NSpec
             base.Add(new NSpecTuple<T, U, V, W>(t, u, v, w));
         }
     }
+
     public class NSpecTuple<T>
     {
         public NSpecTuple(T item1)
