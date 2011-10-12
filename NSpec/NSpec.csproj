@@ -32,10 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -46,6 +42,105 @@
     <Reference Include="TestDriven.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=50ecb853f8c6b8d2" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assertions\Nunit\AssemblyInfo.cs" />
+    <Compile Include="Assertions\Nunit\Assert.cs" />
+    <Compile Include="Assertions\Nunit\AssertionHelper.cs" />
+    <Compile Include="Assertions\Nunit\Assume.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\CategoryAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\DatapointAttributes.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\DescriptionAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\ExpectedExceptionAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\ExplicitAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\IgnoreAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\IncludeExcludeAttributes.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\JoinTypeAttributes.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\MaxTimeAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\PropertyAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\RandomAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\RangeAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\RepeatAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\RequiredAddinAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\SetCultureAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\SetUICultureAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\SetUpAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\SetUpFixtureAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\SuiteAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\TearDownAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\TestAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\TestCaseAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\TestCaseSourceAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\TestFixtureAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\TestFixtureSetUpAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\TestFixtureTearDownAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\TheoryAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\ThreadingAttributes.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\ValuesAttribute.cs" />
+    <Compile Include="Assertions\Nunit\Attributes\ValueSourceAttribute.cs" />
+    <Compile Include="Assertions\Nunit\CollectionAssert.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\AttributeConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\BasicConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\BinaryOperations.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\CollectionConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\CollectionTally.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ComparisonAdapter.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ComparisonConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\Constraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ConstraintBuilder.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ConstraintExpression.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ConstraintExpressionBase.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ConstraintFactory.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ConstraintOperators.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ContainsConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\DelayedConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\DirectoryConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\EmptyConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\EqualConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\EqualityAdapter.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\FloatingPointNumerics.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\IResolveConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\MessageWriter.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\MsgUtils.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\Numerics.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\NUnitComparer.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\NUnitEqualityComparer.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\PathConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\PredicateConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\PrefixConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\PropertyConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\RangeConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ResolvableConstraintExpression.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ReusableConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\SameAsConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\SerializableConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\StringConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\ThrowsConstraint.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\Tolerance.cs" />
+    <Compile Include="Assertions\Nunit\Constraints\TypeConstraints.cs" />
+    <Compile Include="Assertions\Nunit\Contains.cs" />
+    <Compile Include="Assertions\Nunit\DirectoryAssert.cs" />
+    <Compile Include="Assertions\Nunit\Exceptions\AssertionException.cs" />
+    <Compile Include="Assertions\Nunit\Exceptions\IgnoreException.cs" />
+    <Compile Include="Assertions\Nunit\Exceptions\InconclusiveException.cs" />
+    <Compile Include="Assertions\Nunit\Exceptions\SuccessException.cs" />
+    <Compile Include="Assertions\Nunit\FileAssert.cs" />
+    <Compile Include="Assertions\Nunit\GlobalSettings.cs" />
+    <Compile Include="Assertions\Nunit\Has.cs" />
+    <Compile Include="Assertions\Nunit\IExpectException.cs" />
+    <Compile Include="Assertions\Nunit\Is.cs" />
+    <Compile Include="Assertions\Nunit\ITestCaseData.cs" />
+    <Compile Include="Assertions\Nunit\Iz.cs" />
+    <Compile Include="Assertions\Nunit\List.cs" />
+    <Compile Include="Assertions\Nunit\ListMapper.cs" />
+    <Compile Include="Assertions\Nunit\Randomizer.cs" />
+    <Compile Include="Assertions\Nunit\SpecialValue.cs" />
+    <Compile Include="Assertions\Nunit\StringAssert.cs" />
+    <Compile Include="Assertions\Nunit\TestCaseData.cs" />
+    <Compile Include="Assertions\Nunit\TestContext.cs" />
+    <Compile Include="Assertions\Nunit\TestState.cs" />
+    <Compile Include="Assertions\Nunit\TestStatus.cs" />
+    <Compile Include="Assertions\Nunit\Text.cs" />
+    <Compile Include="Assertions\Nunit\TextMessageWriter.cs" />
+    <Compile Include="Assertions\Nunit\Throws.cs" />
     <Compile Include="Domain\BeforeFinder.cs" />
     <Compile Include="Domain\ClassContext.cs" />
     <Compile Include="Domain\Formatters\ConsoleFormatter.cs" />
@@ -73,10 +168,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assertions\Nunit\license.txt" />
+    <Content Include="Assertions\Nunit\SyntaxElements.txt" />
     <Content Include="Domain\Formatters\Templates\TiddlyWiki_Template.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -12,22 +12,6 @@ namespace NSpec.TDNetRunner
         {
             testListener.WriteLine("td.net run assembly", new Category());
 
-            //var finder = new SpecFinder(assembly, new Reflector());
-
-            //var builder = new ContextBuilder(finder, new DefaultConventions());
-
-            //var contexts = builder.Contexts();
-
-            //contexts.Build();
-
-            //contexts.Run();
-
-            //var formatter = new ConsoleFormatter(testListener);
-
-            //formatter.Write(contexts);
-
-            //return contexts.Result();
-
             return TestRunState.Success;
         }
 
