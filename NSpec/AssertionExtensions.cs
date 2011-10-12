@@ -142,6 +142,7 @@ namespace NSpec
         public static T should_cast_to<T>(this object value)
         {
             Assert.IsInstanceOf<T>(value);
+
             return (T)value;
         }
 

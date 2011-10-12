@@ -10,6 +10,7 @@ using System.ComponentModel;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using Nspec.Assertions.NUnit;
+using Nspec.Assertions.NUnit.Exceptions;
 
 namespace Nspec.Assertions.Nunit
 {

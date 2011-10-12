@@ -7,8 +7,9 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
+using NUnit.Framework;
 
-namespace NUnit.Framework
+namespace Nspec.Assertions.NUnit.Attributes
 {
     /// <summary>
     /// TestCaseAttribute is used to mark parameterized test cases

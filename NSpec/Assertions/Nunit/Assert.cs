@@ -17,6 +17,7 @@ using System.Collections;
 using System.ComponentModel;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
+using Nspec.Assertions.NUnit.Exceptions;
 
 namespace Nspec.Assertions.NUnit
 {
@@ -1586,7 +1587,6 @@ namespace Nspec.Assertions.NUnit
         
         #region IsInstanceOf<T>
         
-#if NET_2_0
         /// <summary>
         /// Asserts that an object is an instance of a given type.
         /// </summary>
@@ -1620,7 +1620,6 @@ namespace Nspec.Assertions.NUnit
             Assert.That(actual, Is.InstanceOf(typeof(T)) ,null, null);
         }
         
-#endif
         #endregion
         
         #region IsNotInstanceOf

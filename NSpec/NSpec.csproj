@@ -42,7 +42,6 @@
     <Reference Include="TestDriven.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=50ecb853f8c6b8d2" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assertions\Nunit\AssemblyInfo.cs" />
     <Compile Include="Assertions\Nunit\Assert.cs" />
     <Compile Include="Assertions\Nunit\AssertionHelper.cs" />
     <Compile Include="Assertions\Nunit\Assume.cs" />

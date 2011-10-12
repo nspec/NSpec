@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections;
+using Nspec.Assertions.NUnit;
 
 namespace NUnit.Framework.Constraints
 {

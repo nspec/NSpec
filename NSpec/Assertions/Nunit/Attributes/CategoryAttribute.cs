@@ -6,7 +6,7 @@
 
 using System;
 
-namespace NUnit.Framework
+namespace Nspec.Assertions.NUnit.Attributes
 {
 	/// <summary>
 	/// Attribute used to apply a category to a test

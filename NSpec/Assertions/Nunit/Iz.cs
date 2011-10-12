@@ -5,7 +5,7 @@
 // ****************************************************************
 using System;
 
-namespace NUnit.Framework
+namespace Nspec.Assertions.NUnit
 {
     /// <summary>
     /// The Iz class is a synonym for Is intended for use in VB,

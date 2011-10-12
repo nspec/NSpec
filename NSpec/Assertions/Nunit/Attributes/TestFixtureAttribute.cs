@@ -4,7 +4,9 @@
 // copyright ownership at http://nunit.org.
 // ****************************************************************
 
-namespace NUnit.Framework
+using NUnit.Framework;
+
+namespace Nspec.Assertions.NUnit.Attributes
 {
 	using System;
     using System.Collections;
