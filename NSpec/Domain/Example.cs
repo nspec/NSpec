@@ -34,7 +34,7 @@ namespace NSpec.Domain
                 }
                 catch (Exception e)
                 {
-                    Exception = e.InnerException;
+                    ExampleLevelException = e.InnerException;
                 }
             }
             else
@@ -68,7 +68,7 @@ namespace NSpec.Domain
 
         public bool Pending;
         public string Spec;
-        public Exception Exception;
+        public Exception ExampleLevelException;
         public Context Context;
         public MethodInfo MethodLevelExample;
 

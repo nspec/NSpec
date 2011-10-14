@@ -56,7 +56,7 @@ namespace NSpecNUnit
             }
             catch (Exception exception)
             {
-                example = new Example("example name") { Exception = exception };
+                example = new Example("example name") { ExampleLevelException = exception };
             }
 
             var context = new Context("context name");
@@ -75,7 +75,7 @@ namespace NSpecNUnit
         [Test]
         public void should_write_the_stack_trace()
         {
-            output.should_contain(example.Exception.StackTrace);
+            output.should_contain(example.ExampleLevelException.StackTrace);
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace NSpecNUnit
         {
             exceptionMessage = "Exception Message";
 
-            output = new ConsoleFormatter().Write(new Example("An Failed Example") { Exception = new Exception(exceptionMessage) });
+            output = new ConsoleFormatter().Write(new Example("An Failed Example") { ExampleLevelException = new Exception(exceptionMessage) });
         }
 
         [Test]
@@ -218,7 +218,7 @@ namespace NSpecNUnit
                 exceptions.Select(e =>
                 {
                     var context = new Context("context name");
-                    context.AddExample(new Example("example name") { Exception = e });
+                    context.AddExample(new Example("example name") { ExampleLevelException = e });
                     return context;
                 }).ToArray());
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using NSpec.Domain;
 using NUnit.Framework;
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
@@ -30,12 +31,12 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        public void it_should_contain_invalid_operation_exception_in_failure_reason()
+        public void the_example_should_fail_with_ContextFailureException()
         {
             classContext.AllExamples()
                         .First()
-                        .Exception
-                        .should_cast_to<InvalidOperationException>();
+                        .ExampleLevelException
+                        .should_cast_to<ContextFailureException>();
         }
     }
 }

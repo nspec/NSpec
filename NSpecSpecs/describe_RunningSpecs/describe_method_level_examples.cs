@@ -63,13 +63,13 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void the_last_example_should_be_failing()
         {
-            classContext.Examples.Last().Exception.should_cast_to<AssertionException>();
+            classContext.Examples.Last().ExampleLevelException.should_cast_to<AssertionException>();
         }
 
         [Test]
         public void the_stack_trace_for_last_example_should_be_the_the_original_stack_trace()
         {
-            classContext.Examples.Last().Exception.StackTrace.should_not_match("^.*at NSpec.Domain.Example");
+            classContext.Examples.Last().ExampleLevelException.StackTrace.should_not_match("^.*at NSpec.Domain.Example");
         }
 
         private Context classContext;

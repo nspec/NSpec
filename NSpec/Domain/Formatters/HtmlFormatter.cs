@@ -17,18 +17,18 @@ namespace NSpec.Domain.Formatters
             sb.AppendLine( "<html>" );
             sb.AppendLine( "<head>" );
             sb.AppendLine( "<style type=\"text/css\">" );
-			sb.AppendLine( "  span {padding: 0.5em}" );
-			sb.AppendLine( "  ul {margin-top: 0px}" );
-			sb.AppendLine( "  .results {background-color: #FFFFCC; border-color: #000000; border-style: dashed; border-width: thin; font-weight:bold; white-space: pre-wrap; text-align: center; padding: 0.5em}" );
-			sb.AppendLine( "  .context-parent {border-color: #000000; border-style: dashed; border-width: thin; margin-bottom: 1em;}" );
-			sb.AppendLine( "  .context-parent-title {background-color: #6699FF; border-color: #000000; border-bottom-style: dashed; border-width: thin; font-weight:bold; padding: 0.5em}" );
-			sb.AppendLine( "  .context-parent-body {padding: 1em 2em 1em 0;}" );
-			sb.AppendLine( "  .context-parent-name {font-weight:bold;}" );
-			sb.AppendLine( "  .spec-passed {font-weight:bold; color:green;}" );
-			sb.AppendLine( "  .spec-failed {font-weight:bold; color:#FF0000;}" );
-			sb.AppendLine( "  .spec-pending {font-weight:bold; color:#0000FF;}" );
-			sb.AppendLine( "  .spec-exception {background-color: #FFD2CF; border-color: #FF828D; border-style: dashed; border-width: thin; padding: 1em; font-size:small; white-space: pre-wrap; padding: 0.5em}" );
-			sb.AppendLine( "  .run-date {color:grey; font-size:x-small;}" );
+            sb.AppendLine( "  span {padding: 0.5em}" );
+            sb.AppendLine( "  ul {margin-top: 0px}" );
+            sb.AppendLine( "  .results {background-color: #FFFFCC; border-color: #000000; border-style: dashed; border-width: thin; font-weight:bold; white-space: pre-wrap; text-align: center; padding: 0.5em}" );
+            sb.AppendLine( "  .context-parent {border-color: #000000; border-style: dashed; border-width: thin; margin-bottom: 1em;}" );
+            sb.AppendLine( "  .context-parent-title {background-color: #6699FF; border-color: #000000; border-bottom-style: dashed; border-width: thin; font-weight:bold; padding: 0.5em}" );
+            sb.AppendLine( "  .context-parent-body {padding: 1em 2em 1em 0;}" );
+            sb.AppendLine( "  .context-parent-name {font-weight:bold;}" );
+            sb.AppendLine( "  .spec-passed {font-weight:bold; color:green;}" );
+            sb.AppendLine( "  .spec-failed {font-weight:bold; color:#FF0000;}" );
+            sb.AppendLine( "  .spec-pending {font-weight:bold; color:#0000FF;}" );
+            sb.AppendLine( "  .spec-exception {background-color: #FFD2CF; border-color: #FF828D; border-style: dashed; border-width: thin; padding: 1em; font-size:small; white-space: pre-wrap; padding: 0.5em}" );
+            sb.AppendLine( "  .run-date {color:grey; font-size:x-small;}" );
             sb.AppendLine( "</style>" );
             sb.AppendLine( "</head>" );
             sb.AppendLine( "<body>" );
@@ -82,11 +82,11 @@ namespace NSpec.Domain.Formatters
         void BuildSpec( StringBuilder sb, Example example )
         {
             sb.AppendFormat( "<li>{0}", example.Spec );
-            if( example.Exception != null )
+            if( example.ExampleLevelException != null )
             {
                 sb.AppendLine( "<span class=\"spec-failed\">&lArr; Failed</span>" );
                 sb.Append( "<div class=\"spec-exception\"><code>" );
-                sb.Append( HttpUtility.HtmlEncode( example.Exception.ToString() ) );
+                sb.Append( HttpUtility.HtmlEncode( example.ExampleLevelException.ToString() ) );
                 sb.AppendLine( "</code></div>" );
             }
             else if( example.Pending )

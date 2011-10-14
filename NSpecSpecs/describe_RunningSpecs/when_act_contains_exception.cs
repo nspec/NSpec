@@ -29,10 +29,21 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
+        public void the_example_level_failure_should_indicate_a_context_failure()
+        {
+            TheExample( "should fail this example because of act" )
+                .ExampleLevelException.GetType().should_be( typeof( ContextFailureException ) );
+            TheExample( "should also fail this example because of act" )
+                .ExampleLevelException.GetType().should_be( typeof( ContextFailureException ) );
+        }
+
+        [Test]
         public void it_should_fail_all_examples_in_act()
         {
-            TheExample("should fail this example because of act").Exception.GetType().should_be(typeof(InvalidOperationException));
-            TheExample("should also fail this example because of act").Exception.GetType().should_be(typeof(InvalidOperationException));
+            TheExample( "should fail this example because of act" ).ExampleLevelException
+                .InnerException.GetType().should_be( typeof( InvalidOperationException ) );
+            TheExample( "should also fail this example because of act" ).ExampleLevelException
+                .InnerException.GetType().should_be( typeof( InvalidOperationException ) );
         }
 
         private Example TheExample(string name)
