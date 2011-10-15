@@ -111,6 +111,47 @@ namespace NSpec
         /// <summary>
         /// Set up an expectation for a particular exception type to be thrown.
         /// <para>For Example:</para>
+        /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;();</para>
+        /// </summary>
+        public virtual Action expect<T>() where T : Exception
+        {
+            return expect<T>( expectedMessage: null );
+        }
+
+        /// <summary>
+        /// Set up an expectation for a particular exception type to be thrown.
+        /// <para>For Example:</para>
+        /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;();</para>
+        /// </summary>
+        public virtual Action expect<T>( string expectedMessage ) where T : Exception
+        {
+            var specContext = Context;    // pull out context reference to avoid closure-related error
+
+            return () =>
+            {
+                // handle case when no exception (or the wrong exception) was thrown during befores/acts
+                if( specContext.contextLevelException == null || specContext.contextLevelException.GetType() != typeof( T ) )
+                    throw new ExceptionNotThrown( "Exception of type " + typeof( T ).Name + " was not thrown." );
+
+                if( expectedMessage != null && expectedMessage != specContext.contextLevelException.Message )
+                {
+                    throw new ExceptionNotThrown( String.Format( "Expected message: \"{0}\" But was: \"{1}\"",
+                                                                 expectedMessage,
+                                                                 specContext.contextLevelException.Message ) );
+                }
+
+                // if the expected exception was thrown during befores/acts, then update the context-level exception
+                if( specContext.contextLevelException.GetType() == typeof( T ) )
+                {
+                    specContext.contextLevelExpectedException = specContext.contextLevelException;
+                    specContext.contextLevelException = null;
+                }
+            };
+        }
+
+        /// <summary>
+        /// Set up an expectation for a particular exception type to be thrown.
+        /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;(() => SomeMethodThatThrowsException());</para>
         /// </summary>
         public virtual Action expect<T>(Action action) where T : Exception
@@ -132,13 +173,18 @@ namespace NSpec
                 try
                 {
                     action();
-                    throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
+                    throw new ExceptionNotThrown( "Exception of type " + typeof( T ).Name + " was not thrown." );
                 }
-                catch (Exception ex)
+                catch( ExceptionNotThrown )
                 {
-                    if (ex.GetType() != closureType)
+                    // don't swallow/wrap ExceptionNotThrown exceptions thrown above (note: this probably should be refactored a bit more)
+                    throw;
+                }
+                catch( Exception ex )
+                {
+                    if( ex.GetType() != closureType )
                     {
-                        throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
+                        throw new ExceptionNotThrown( "Exception of type " + typeof( T ).Name + " was not thrown." );
                     }
 
                     if( expectedMessage != null && expectedMessage != ex.Message )

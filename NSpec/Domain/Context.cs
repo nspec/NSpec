@@ -89,44 +89,44 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-		public void RunAndHandleException( Action<nspec> action, nspec nspec, ref Exception exceptionRef )
-		{
+        public void RunAndHandleException( Action<nspec> action, nspec nspec, ref Exception exceptionRef )
+        {
             try
             {
-            	action( nspec );
+                action( nspec );
             }
             catch( TargetInvocationException invocationException )
             {
-				if( exceptionRef == null )
-					exceptionRef = invocationException.InnerException;
+                if( exceptionRef == null )
+                    exceptionRef = invocationException.InnerException;
             }
             catch( Exception exception )
             {
-				if( exceptionRef == null )
-					exceptionRef = exception;
+                if( exceptionRef == null )
+                    exceptionRef = exception;
             }
-		}
+        }
 
-    	public void Exercise(Example example, nspec nspec)
+        public void Exercise(Example example, nspec nspec)
         {
             if (example.Pending) return;
 
             // run context-level steps (arrange and act)
             // note: exceptions that occur during 'before/act' should set the context-level exception
-    		RunAndHandleException( RunBefores, nspec, ref contextLevelException );
-    		RunAndHandleException( RunActs, nspec, ref contextLevelException );
+            RunAndHandleException( RunBefores, nspec, ref contextLevelException );
+            RunAndHandleException( RunActs, nspec, ref contextLevelException );
 
             // run example step (the assert) for the current context
             // note: exceptions that occur during 'example' verification should set the example-level exception
-			RunAndHandleException( example.Run, nspec, ref example.ExampleLevelException );
+            RunAndHandleException( example.Run, nspec, ref example.ExampleLevelException );
 
             // run context-level teardown step
             // note: exceptions that occur during 'after' should set the context-level exception
-			RunAndHandleException( RunAfters, nspec, ref contextLevelException );
+            RunAndHandleException( RunAfters, nspec, ref contextLevelException );
 
             // update example's exception status if there was a context-level failure
             if( example.ExampleLevelException == null && contextLevelException != null )
-                example.ExampleLevelException = new ContextFailureException( "Exception was thrown during context setup or teardown",
+                example.ExampleLevelException = new ContextFailureException( "Exception thrown during context's befores, acts or afters",
                                                                              contextLevelException );
         }
 
@@ -152,6 +152,7 @@ namespace NSpec.Domain
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance;
         public Context Parent;
         public Exception contextLevelException;
+        public Exception contextLevelExpectedException;
         private bool isPending;
         nspec savedInstance;
 

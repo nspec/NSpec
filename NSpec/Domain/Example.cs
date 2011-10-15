@@ -28,14 +28,7 @@ namespace NSpec.Domain
         {
             if (MethodLevelExample != null)
             {
-                try
-                {
-                    MethodLevelExample.Invoke(nspec, null);
-                }
-                catch (Exception e)
-                {
-                    ExampleLevelException = e.InnerException;
-                }
+                MethodLevelExample.Invoke(nspec, null);
             }
             else
             {
