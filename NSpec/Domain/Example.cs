@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -41,15 +42,17 @@ namespace NSpec.Domain
             return Context.FullContext() + ". " + Spec + ".";
         }
 
-        public Example(Expression<Action> expr) : this(Parse(expr), expr.Compile()) { }
+        public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) { }
 
-        public Example(string name = "", Action action = null, bool pending = false)
+        public Example( string name = "", string tags = null, Action action = null, bool pending = false )
         {
             this.action = action;
 
             Spec = name;
 
             Pending = pending;
+
+            Tags = new List<string>().ParseTags( tags );
         }
 
         public Example(MethodInfo methodLevelExample)
@@ -57,10 +60,13 @@ namespace NSpec.Domain
             Spec = methodLevelExample.Name.Replace("_", " ");
 
             MethodLevelExample = methodLevelExample;
+
+            Tags = new List< string >();
         }
 
         public bool Pending;
         public string Spec;
+        public List<string> Tags;
         public Exception ExampleLevelException;
         public Context Context;
         public MethodInfo MethodLevelExample;

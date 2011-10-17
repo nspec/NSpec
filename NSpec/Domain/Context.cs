@@ -71,8 +71,10 @@ namespace NSpec.Domain
 
             Contexts.Do(c => c.Run(nspec));
 
-            for (int i = 0; i < Examples.Count; i++)
-                Exercise(Examples[i], nspec);
+            foreach( Example example in Examples )
+            {
+                Exercise( example, nspec );
+            }
         }
 
         public virtual void Build(nspec instance=null)
@@ -135,17 +137,19 @@ namespace NSpec.Domain
             return false;
         }
 
-        public Context(string name = "", int level = 0, bool isPending = false)
+        public Context(string name = "", string tags = null, int level = 0, bool isPending = false)
         {
             Name = name.Replace("_", " ");
             Level = level;
             Examples = new List<Example>();
             Contexts = new ContextCollection();
+            Tags = new List<string>().ParseTags( tags );
             this.isPending = isPending;
         }
 
         public string Name;
         public int Level;
+        public List<string> Tags;
         public List<Example> Examples;
         public ContextCollection Contexts;
         public Action Before, Act, After;

@@ -17,8 +17,8 @@ namespace NSpec
             describe = new ActionRegister(AddContext);
             xdescribe = new ActionRegister(AddIgnoredContext);
 
-            it = new ActionRegister((name, action) => AddExample(new Example(name, action, pending: action == todo)));
-            xit = new ActionRegister((name, action) => AddExample(new Example(name, action, pending: true)));
+            it = new ActionRegister((name, tags, action) => AddExample(new Example(name, tags, action, pending: action == todo)));
+            xit = new ActionRegister((name, tags, action) => AddExample(new Example(name, tags, action, pending: true)));
         }
 
         /// <summary>
@@ -200,21 +200,21 @@ namespace NSpec
             Context.AddExample(example);
         }
 
-        void AddContext(string name, Action action)
+        void AddContext(string name, string tags, Action action)
         {
-            var contextToRun = new Context(name, level);
+            var contextToRun = new Context( name, tags, level );
 
-            RunContext(contextToRun, action);
+            RunContext(contextToRun, tags, action);
         }
 
-        void AddIgnoredContext(string name, Action action)
+        void AddIgnoredContext(string name, string tags, Action action)
         {
-            var ignored = new Context(name, level, isPending: true);
+            var ignored = new Context( name, tags, level, isPending: true );
 
-            RunContext(ignored, action);
+            RunContext( ignored, tags, action );
         }
 
-        void RunContext(Context context, Action action)
+        void RunContext(Context context, string tags, Action action)
         {
             level++;
 

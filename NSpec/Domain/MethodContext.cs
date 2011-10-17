@@ -6,7 +6,7 @@ namespace NSpec.Domain
     public class MethodContext : Context
     {
         public MethodContext(MethodInfo method)
-            : base(method.Name, 0)
+            : base(method.Name, null, 0)
         {
             this.method = method;
         }

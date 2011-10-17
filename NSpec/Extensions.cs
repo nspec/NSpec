@@ -160,5 +160,22 @@ namespace NSpec
                 return o.ToString();
             }).ToArray();
         }
+
+    	public static List< string > ParseTags( this List<string> tagsCollection, string tags )
+    	{
+			// store one or more tags delimited by either commas or spaces
+			if( !string.IsNullOrEmpty( tags ) )
+			{
+				foreach( var tag in tags.Split( new[] { ',', ' ' } ) )
+				{
+					// store tags without any leading ampersat in the tag (e.g., '@mytag' is stored as 'mytag')
+					var rawTag = tag.TrimStart( new[] { '@' } );
+					if( !string.IsNullOrEmpty( rawTag ) )
+						tagsCollection.Add( rawTag );
+				}
+			}
+
+    		return tagsCollection;
+    	}
     }
 }

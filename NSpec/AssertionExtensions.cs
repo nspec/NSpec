@@ -110,7 +110,14 @@ namespace NSpec
             return collection;
         }
 
-        public static IEnumerable<T> should_not_be_empty<T>(this IEnumerable<T> collection)
+        public static List<string> should_contain_tag( this List<string> collection, string tag )
+        {
+            CollectionAssert.Contains( collection, tag.TrimStart( new[] { '@' } ) );
+
+            return collection;
+        }
+
+        public static IEnumerable<T> should_not_be_empty<T>( this IEnumerable<T> collection )
         {
             CollectionAssert.IsNotEmpty(collection);
 
