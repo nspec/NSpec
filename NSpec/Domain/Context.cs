@@ -71,10 +71,8 @@ namespace NSpec.Domain
 
             Contexts.Do(c => c.Run(nspec));
 
-            foreach( Example example in Examples )
-            {
-                Exercise( example, nspec );
-            }
+            for(int i = 0; i < Examples.Count; i++)
+                Exercise(Examples[i], nspec);
         }
 
         public virtual void Build(nspec instance=null)
