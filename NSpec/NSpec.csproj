@@ -61,6 +61,7 @@
     <Compile Include="Domain\MethodContext.cs" />
     <Compile Include="Domain\ExceptionNotThrown.cs" />
     <Compile Include="DefaultConventions.cs" />
+    <Compile Include="Domain\Tags.cs" />
     <Compile Include="Each.cs" />
     <Compile Include="Domain\ActionIndexer.cs" />
     <Compile Include="nspec.cs" />

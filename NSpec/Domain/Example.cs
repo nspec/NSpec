@@ -52,7 +52,7 @@ namespace NSpec.Domain
 
             Pending = pending;
 
-            Tags = new List<string>().ParseTags( tags );
+            Tags = NSpec.Domain.Tags.ParseTags( tags );
         }
 
         public Example(MethodInfo methodLevelExample)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
@@ -26,12 +27,14 @@ namespace NSpec.Domain
             if (after != null) AfterInstance = i => after.Invoke(i, null);
         }
 
-        public ClassContext(Type type, Conventions conventions = null)
-            : base( type.Name, null, 0 )
+        public ClassContext( Type type, Conventions conventions = null, Tags tagsFilter = null )
+            : base(type.Name, null, 0)
         {
             this.type = type;
 
             this.conventions = conventions ?? new DefaultConventions().Initialize();
+
+            this.tagsFilter = tagsFilter;
         }
 
         public override void Build(nspec instance=null)
@@ -44,6 +47,8 @@ namespace NSpec.Domain
 
             var nspec = type.Instance<nspec>();
 
+            nspec.tagsFilter = tagsFilter;
+
             base.Build(nspec);
         }
 
@@ -53,6 +58,9 @@ namespace NSpec.Domain
         }
 
         Conventions conventions;
+
         public Type type;
+
+        public Tags tagsFilter;
     }
 }

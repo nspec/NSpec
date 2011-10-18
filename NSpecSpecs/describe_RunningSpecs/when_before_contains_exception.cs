@@ -59,7 +59,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         public void it_should_throw_exception_from_before_not_from_act()
         {
             TheExample( "tracks only the first exception from 'before'" )
-				.ExampleLevelException.InnerException.GetType().should_be( typeof( InvalidOperationException ) );
+                .ExampleLevelException.InnerException.GetType().should_be( typeof( InvalidOperationException ) );
         }
 
         private Example TheExample(string name)

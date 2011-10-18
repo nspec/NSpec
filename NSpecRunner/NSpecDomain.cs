@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using NSpec.Domain;
 using NSpec.Domain.Formatters;
 
 namespace NSpecRunner
@@ -16,7 +17,7 @@ namespace NSpecRunner
             this.config = config;
         }
 
-        public void Run(string dll, string filter, IFormatter outputFormatter, Action<string, string, IFormatter> action)
+        public void Run(string dll, string filter, string tags, IFormatter outputFormatter, Action<string, string, string, IFormatter> action)
         {
             this.dll = dll;
 
@@ -38,7 +39,7 @@ namespace NSpecRunner
 
             var wrapper = (Wrapper)domain.CreateInstanceAndUnwrap(assemblyName, typeName);
 
-            wrapper.Execute(dll, filter, outputFormatter, action);
+            wrapper.Execute(dll, filter, tags, outputFormatter, action);
 
             AppDomain.Unload(domain);
         }

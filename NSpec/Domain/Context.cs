@@ -141,7 +141,7 @@ namespace NSpec.Domain
             Level = level;
             Examples = new List<Example>();
             Contexts = new ContextCollection();
-            Tags = new List<string>().ParseTags( tags );
+            Tags = NSpec.Domain.Tags.ParseTags( tags );
             this.isPending = isPending;
         }
 

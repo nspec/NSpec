@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using NSpec.Domain;
 using System;
@@ -195,26 +197,42 @@ namespace NSpec
             };
         }
 
-        void AddExample(Example example)
+        void AddExample( Example example )
         {
-            Context.AddExample(example);
+            // skip examples if no "include tags" are present in example
+            if( tagsFilter != null && !tagsFilter.IncludesAny( example.Tags ) )
+                return;
+
+            // skip examples if any "skip tags" are present in example
+            if( tagsFilter != null && tagsFilter.ExcludesAny( example.Tags ) )
+                return;
+
+            Context.AddExample( example );
         }
 
-        void AddContext(string name, string tags, Action action)
+        void AddContext( string name, string tags, Action action )
         {
             var contextToRun = new Context( name, tags, level );
 
-            RunContext(contextToRun, tags, action);
+            // skip examples if no "include tags" are present in example
+            if( tagsFilter != null && tagsFilter.IncludesAny( contextToRun.Tags ) )
+                return;
+
+            // skip examples if any "skip tags" are present in example
+            if( tagsFilter != null && tagsFilter.ExcludesAny( contextToRun.Tags ) )
+                return;
+
+            RunContext( contextToRun, action );
         }
 
         void AddIgnoredContext(string name, string tags, Action action)
         {
             var ignored = new Context( name, tags, level, isPending: true );
 
-            RunContext( ignored, tags, action );
+            RunContext( ignored, action );
         }
 
-        void RunContext(Context context, string tags, Action action)
+        void RunContext(Context context, Action action)
         {
             level++;
 
@@ -235,5 +253,12 @@ namespace NSpec
 
         //needs to be internal for one caller
         internal Context Context { get; set; }
+
+        /// <summary>Tags required to be present or not present in context or example</summary>
+        /// <remarks>
+        /// Currently, multiple tags indicates any of the tags must be present to be included/excluded.  In other words, they are OR'd, not AND'd.
+        /// NOTE: Cucumber's tags wiki offers ideas for handling tags: https://github.com/cucumber/cucumber/wiki/tags
+        /// </remarks>
+        public  Tags tagsFilter;
     }
 }
