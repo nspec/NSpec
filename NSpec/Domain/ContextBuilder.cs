@@ -105,6 +105,14 @@ namespace NSpec.Domain
                     // inherit tags from parent context
                     methodExample.Tags.AddRange( classContext.Tags );
 
+                    // skip examples if no "include tags" are present in example
+                    if( tagsFilter != null && !tagsFilter.IncludesAny( methodExample.Tags ) )
+                        return;
+
+                    // skip examples if any "skip tags" are present in example
+                    if( tagsFilter != null && tagsFilter.ExcludesAny( methodExample.Tags ) )
+                        return;
+
                     classContext.AddExample( methodExample );
                 });
         }
