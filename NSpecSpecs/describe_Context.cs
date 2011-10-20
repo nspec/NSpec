@@ -168,4 +168,32 @@ namespace NSpecNUnit
 
         child_before instance;
     }
+
+    [TestFixture]
+    [Category( "Context" )]
+    public class when_trimming_empty_contexts
+    {
+        [Test]
+        public void given_nested_contexts_with_and_without_examples()
+        {
+            var root = new Context( "root context" );
+
+            // add context with NO example
+            root.AddContext( new Context( "context with no example" ) );
+
+            // add context with ONE example
+            var context = new Context( "context with example" );
+            context.AddExample( new Example( "example" ) );
+            root.AddContext( context );
+
+            // validate precondition
+            root.Contexts.Count().should_be( 2 );
+
+            // perform trim operation
+            root.TrimEmptyDescendants();
+
+            // validate postcondition
+            root.Contexts.Count().should_be( 1 );
+        }
+    }
 }

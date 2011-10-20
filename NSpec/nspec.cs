@@ -199,7 +199,7 @@ namespace NSpec
 
         void AddExample( Example example )
         {
-            // pass tags down from parent to child context
+            // pass tags down to example from context
             example.Tags.AddRange( Context.Tags );
 
             // skip examples if no "include tags" are present in example
@@ -219,14 +219,6 @@ namespace NSpec
 
             // pass tags down from parent to child context
             childContext.Tags.AddRange( Context.Tags );
-
-            // skip examples if no "include tags" are present in example
-            if( tagsFilter != null && tagsFilter.IncludesAny( childContext.Tags ) )
-                return;
-
-            // skip examples if any "skip tags" are present in example
-            if( tagsFilter != null && tagsFilter.ExcludesAny( childContext.Tags ) )
-                return;
 
             RunContext( childContext, action );
         }

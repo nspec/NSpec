@@ -45,5 +45,14 @@ namespace NSpecNUnit
         {
             contexts.Pendings().Count().should_be(1);
         }
+
+        [Test]
+        public void should_trim_empty_contexts()
+        {
+            contexts.Add( new Context() );
+            contexts.Count().should_be( 2 );
+            contexts.TrimEmptyContexts();
+            contexts.Count().should_be( 1 );
+        }
     }
 }

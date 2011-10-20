@@ -62,22 +62,27 @@ namespace NSpec.Domain
 
         public bool Includes( string tag )
         {
-            return IncludeTags.Contains( tag.TrimStart( new[] { '@' } ) );
+            return !IncludeTags.Any() || IncludeTags.Contains( tag.TrimStart( new[] { '@' } ) );
         }
 
         public bool IncludesAny( List<string> tags )
         {
-            return IncludeTags.Intersect( tags ).Any();
+            return !IncludeTags.Any() || IncludeTags.Intersect( tags ).Any();
         }
 
         public bool Excludes( string tag )
         {
-            return ExcludeTags.Contains( tag.TrimStart( new[] { '@' } ) );
+            return ExcludeTags.Any() && ExcludeTags.Contains( tag.TrimStart( new[] { '@' } ) );
         }
 
         public bool ExcludesAny( List<string> tags )
         {
-            return ExcludeTags.Intersect( tags ).Any();
+            return ExcludeTags.Any() && ExcludeTags.Intersect( tags ).Any();
+        }
+
+        public bool HasTagFilters()
+        {
+            return IncludeTags.Any() || ExcludeTags.Any();
         }
     }
 }

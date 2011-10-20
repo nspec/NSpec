@@ -93,6 +93,6 @@ namespace NSpec.Domain
 
         private ContextCollection contexts;
 
-        private Tags tagsFilter;
+        public Tags tagsFilter;
     }
 }

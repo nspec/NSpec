@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace NSpec.Domain
@@ -33,6 +32,13 @@ namespace NSpec.Domain
         public void Run()
         {
             this.Do(c => c.Run());
+        }
+
+        /// <summary>Removes contexts that do not contain any descendant examples</summary>
+        public void TrimEmptyContexts()
+        {
+            this.Do( c => c.TrimEmptyDescendants() );
+            this.RemoveAll( c => !c.HasDescendantExamples() );
         }
 
         public IEnumerable<Context> AllContexts()

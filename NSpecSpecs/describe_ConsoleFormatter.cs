@@ -6,11 +6,11 @@ using NSpec.Domain.Formatters;
 using NUnit.Framework;
 using NSpec.Domain.Extensions;
 
-namespace NSpecNUnit
+namespace NSpecNUnit.describe_ConsoleFormatter
 {
     [TestFixture]
     [Category("ConsoleFormatter")]
-    public class describe_ConsoleFormatter
+    public class when_formatting_contexts
     {
         [SetUp]
         public void setup()

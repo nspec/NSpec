@@ -7,17 +7,21 @@ namespace NSpecSpecs.WhenRunningSpecs
 {
     public class when_running_specs
     {
-        protected void Run(Type type)
+        protected void Run(Type type, Tags tagsFilter = null)
         {
             var finder = new SpecFinder(new[] { type });
 
-            var builder = new ContextBuilder(finder, new DefaultConventions());
+            var builder = new ContextBuilder( finder, tagsFilter, new DefaultConventions() );
 
             var contexts = builder.Contexts();
 
             contexts.Build();
 
             contexts.Run();
+
+            // remove any contexts that ended with no examples (which is likely due to presence of tag filters)
+            if( builder.tagsFilter != null && builder.tagsFilter.HasTagFilters() )
+                contexts.TrimEmptyContexts();
 
             classContext = contexts
                 .AllContexts()
@@ -45,7 +49,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                 .First();
 
             theExample.Spec.should_be( name );
-    
+
             return theExample;
         }
 
