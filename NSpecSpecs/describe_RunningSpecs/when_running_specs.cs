@@ -27,6 +27,28 @@ namespace NSpecSpecs.WhenRunningSpecs
             methodContext = contexts.AllContexts().First(c => c is MethodContext);
         }
 
+        protected Context TheContext( string name )
+        {
+            var theContext = classContext.AllContexts()
+                .SelectMany( contexts => contexts.AllContexts().Where( context => context.Name == name ) )
+                .First();
+
+            theContext.Name.should_be( name );
+
+            return theContext;
+        }
+
+        protected Example TheExample( string name )
+        {
+            var theExample = classContext.AllContexts()
+                .SelectMany( contexts => contexts.AllExamples().Where( example => example.Spec == name ) )
+                .First();
+
+            theExample.Spec.should_be( name );
+    
+            return theExample;
+        }
+
         protected ClassContext classContext;
         protected Context methodContext;
     }

@@ -51,10 +51,5 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             TheExample("should have one record").ExampleLevelException.should_be(null);
         }
-
-        Example TheExample(string name)
-        {
-            return classContext.Contexts.First().AllExamples().Single(s => s.Spec == name);
-        }
     }
 }

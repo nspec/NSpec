@@ -49,10 +49,5 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheExample( "has three tags" ).Tags.should_contain_tag( "expect-to-failure" );
             TheExample( "has three tags" ).Tags.should_contain_tag( "@foobar" );
         }
-
-        Example TheExample( string name )
-        {
-            return classContext.Contexts.First().AllExamples().Single( s => s.Spec == name );
-        }
     }
 }

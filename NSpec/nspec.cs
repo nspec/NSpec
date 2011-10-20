@@ -199,6 +199,9 @@ namespace NSpec
 
         void AddExample( Example example )
         {
+            // pass tags down from parent to child context
+            example.Tags.AddRange( Context.Tags );
+
             // skip examples if no "include tags" are present in example
             if( tagsFilter != null && !tagsFilter.IncludesAny( example.Tags ) )
                 return;
@@ -212,17 +215,20 @@ namespace NSpec
 
         void AddContext( string name, string tags, Action action )
         {
-            var contextToRun = new Context( name, tags, level );
+            var childContext = new Context( name, tags, level );
+
+            // pass tags down from parent to child context
+            childContext.Tags.AddRange( Context.Tags );
 
             // skip examples if no "include tags" are present in example
-            if( tagsFilter != null && tagsFilter.IncludesAny( contextToRun.Tags ) )
+            if( tagsFilter != null && tagsFilter.IncludesAny( childContext.Tags ) )
                 return;
 
             // skip examples if any "skip tags" are present in example
-            if( tagsFilter != null && tagsFilter.ExcludesAny( contextToRun.Tags ) )
+            if( tagsFilter != null && tagsFilter.ExcludesAny( childContext.Tags ) )
                 return;
 
-            RunContext( contextToRun, action );
+            RunContext( childContext, action );
         }
 
         void AddIgnoredContext(string name, string tags, Action action)

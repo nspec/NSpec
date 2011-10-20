@@ -61,10 +61,5 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheExample( "tracks only the first exception from act" )
                 .ExampleLevelException.InnerException.GetType().should_be( typeof( ArgumentException ) );
         }
-
-        private Example TheExample(string name)
-        {
-            return classContext.Contexts.First().AllExamples().Single(s => s.Spec == name);
-        }
     }
 }

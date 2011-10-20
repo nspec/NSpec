@@ -71,10 +71,5 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheExample("should fail if wrong error message is returned").ExampleLevelException.GetType().should_be(typeof(ExceptionNotThrown));
             TheExample("should fail if wrong error message is returned").ExampleLevelException.Message.should_be("Expected message: \"Testing\" But was: \"Blah\"");
         }
-
-        private Example TheExample(string name)
-        {
-            return classContext.Contexts.First().AllExamples().Single(s => s.Spec == name);
-        }
     }
 }

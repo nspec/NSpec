@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NSpec;
+﻿using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
 
@@ -118,11 +116,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         public void parses_multiple_tags_filters()
         {
             TheExample( "parses multiple tags filter" ).ExampleLevelException.should_be( null );
-        }
-
-        private Example TheExample( string name )
-        {
-            return classContext.AllContexts().SelectMany( context => context.Examples.Where( example => example.Spec == name ) ).FirstOrDefault();
         }
     }
 }

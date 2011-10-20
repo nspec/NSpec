@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using NSpec;
-using NSpec.Domain;
+﻿using NSpec;
 using NUnit.Framework;
 
 namespace NSpecSpecs.WhenRunningSpecs
@@ -26,6 +24,14 @@ namespace NSpecSpecs.WhenRunningSpecs
                 context[ "does not have a tag" ] = () =>
                 {
                     it[ "does not have a tag" ] = () => { true.should_be_true(); };
+                };
+
+                context[ "has a nested context", "@nested-tag" ] = () =>
+                {
+                    context[ "is the nested context" ] = () =>
+                    {
+                        it[ "is the nested example" ] = () => { true.should_be_true(); };
+                    };
                 };
             }
         }
@@ -58,9 +64,18 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheContext( "has three tags" ).Tags.should_contain_tag( "@foobar" );
         }
 
-        Context TheContext( string name )
+        [Test]
+        public void nested_contexts_should_inherit_the_tag()
         {
-            return classContext.Contexts[0].Contexts.Single( context => context.Name == name );
+            TheContext( "has a nested context" ).Tags.should_contain_tag( "@nested-tag" );
+            TheContext( "is the nested context" ).Tags.should_contain_tag( "@nested-tag" );
+        }
+
+        [Test]
+        public void nested_examples_should_inherit_the_tag()
+        {
+            TheContext( "has a nested context" ).Tags.should_contain_tag( "@nested-tag" );
+            TheExample( "is the nested example" ).Tags.should_contain_tag( "@nested-tag" );
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
@@ -60,11 +59,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             TheExample( "tracks only the first exception from 'before'" )
                 .ExampleLevelException.InnerException.GetType().should_be( typeof( InvalidOperationException ) );
-        }
-
-        private Example TheExample(string name)
-        {
-            return classContext.Contexts.First().AllExamples().Single(s => s.Spec == name);
         }
     }
 }

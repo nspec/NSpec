@@ -45,10 +45,5 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheExample( "should also fail this example because of act" ).ExampleLevelException
                 .InnerException.GetType().should_be( typeof( InvalidOperationException ) );
         }
-
-        private Example TheExample(string name)
-        {
-            return classContext.Contexts.First().AllExamples().Single(s => s.Spec == name);
-        }
     }
 }
