@@ -72,6 +72,7 @@
     <Compile Include="Domain\IReflector.cs" />
     <Compile Include="Domain\SpecFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Domain\Formatters\Templates\TiddlyWiki_Template.html">

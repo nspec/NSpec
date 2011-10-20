@@ -196,6 +196,40 @@ namespace NSpecNUnit.when_building_contexts
     }
 
     [TestFixture]
+    [Category( "ContextBuilder" )]
+    public class when_building_class_and_method_contexts_with_tag_attributes : describe_ContextBuilder
+    {
+        [Tag( "@class-tag" )]
+        private class SpecClass : nspec
+        {
+            [Tag("@method-tag")]
+            public void public_method() { }
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            GivenTypes( typeof( SpecClass ) );
+        }
+
+        [Test]
+        public void it_should_tag_class_context()
+        {
+            var classContext = TheContexts()[ 0 ];
+            classContext.Name.should_be( "SpecClass" );
+            classContext.Tags.should_contain_tag( "@class-tag" );
+        }
+
+        [Test]
+        public void it_should_tag_method_context()
+        {
+            var methodContext = TheContexts()[ 0 ].Contexts[0];
+            methodContext.Name.should_be( "public method" );
+            methodContext.Tags.should_contain_tag( "@method-tag" );
+        }
+    }
+
+    [TestFixture]
     [Category("ContextBuilder")]
     public class describe_second_order_inheritance : describe_ContextBuilder
     {

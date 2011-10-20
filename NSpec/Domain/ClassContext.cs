@@ -27,8 +27,8 @@ namespace NSpec.Domain
             if (after != null) AfterInstance = i => after.Invoke(i, null);
         }
 
-        public ClassContext( Type type, Conventions conventions = null, Tags tagsFilter = null )
-            : base(type.Name, null, 0)
+        public ClassContext( Type type, Conventions conventions = null, Tags tagsFilter = null, string tags = null )
+            : base( type.Name, tags, 0 )
         {
             this.type = type;
 

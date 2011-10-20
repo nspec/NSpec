@@ -56,9 +56,13 @@ namespace NSpec.Domain
 
         public ClassContext CreateClassContext(Type type)
         {
-            var context = new ClassContext( type, conventions, tagsFilter );
+            // extract tags as string from class-level attribute(s)
+            var tagAttributes = (TagAttribute[]) type.GetCustomAttributes( typeof( TagAttribute ), false );
+            var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
 
-            BuildMethodContexts(context, type);
+            var context = new ClassContext( type, conventions, tagsFilter, tags );
+
+            BuildMethodContexts( context, type );
 
             BuildMethodLevelExamples(context, type);
 
@@ -72,7 +76,16 @@ namespace NSpec.Domain
                 .Where(s => conventions.IsMethodLevelContext(s.Name)).Do(
                 contextMethod =>
                 {
-                    classContext.AddContext(new MethodContext(contextMethod));
+                    // extract tags as string from method-level attribute(s)
+                    var tagAttributes = (TagAttribute[]) contextMethod.GetCustomAttributes( typeof( TagAttribute ), false );
+                    var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
+
+                    var methodContext = new MethodContext( contextMethod, tags );
+
+                    // inherit tags from parent context
+                    methodContext.Tags.AddRange( classContext.Tags );
+
+                    classContext.AddContext( methodContext );
                 });
         }
 
@@ -83,7 +96,16 @@ namespace NSpec.Domain
                 .Where(s => conventions.IsMethodLevelExample(s.Name)).Do(
                 methodInfo =>
                 {
-                    classContext.AddExample(new Example(methodInfo));
+                    // extract tags as string from method-level attribute(s)
+                    var tagAttributes = (TagAttribute[]) methodInfo.GetCustomAttributes( typeof( TagAttribute ), false );
+                    var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
+
+                    var methodExample = new Example( methodInfo, tags );
+
+                    // inherit tags from parent context
+                    methodExample.Tags.AddRange( classContext.Tags );
+
+                    classContext.AddExample( methodExample );
                 });
         }
 

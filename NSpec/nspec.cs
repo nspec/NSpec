@@ -217,9 +217,6 @@ namespace NSpec
         {
             var childContext = new Context( name, tags, level );
 
-            // pass tags down from parent to child context
-            childContext.Tags.AddRange( Context.Tags );
-
             RunContext( childContext, action );
         }
 

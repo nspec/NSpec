@@ -55,13 +55,13 @@ namespace NSpec.Domain
             Tags = NSpec.Domain.Tags.ParseTags( tags );
         }
 
-        public Example(MethodInfo methodLevelExample)
+        public Example(MethodInfo methodLevelExample, string tags = null)
         {
             Spec = methodLevelExample.Name.Replace("_", " ");
 
             MethodLevelExample = methodLevelExample;
 
-            Tags = new List< string >();
+            Tags = NSpec.Domain.Tags.ParseTags( tags );
         }
 
         public bool Pending;

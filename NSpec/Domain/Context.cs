@@ -62,6 +62,9 @@ namespace NSpec.Domain
         {
             child.Parent = this;
 
+            // pass tags down from parent to child context
+            child.Tags.AddRange( child.Parent.Tags );
+
             Contexts.Add(child);
         }
 

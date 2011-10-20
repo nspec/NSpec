@@ -7,35 +7,40 @@ namespace NSpecSpecs.WhenRunningSpecs
 {
     public class when_running_specs
     {
-        protected void Run(Type type, Tags tagsFilter = null)
+        protected void Run( Type type, Tags tagsFilter = null )
         {
-            var finder = new SpecFinder(new[] { type });
+            Run( new[] { type }, tagsFilter );
+        }
+
+        protected void Run(Type[] types, Tags tagsFilter = null)
+        {
+            var finder = new SpecFinder(types);
 
             var builder = new ContextBuilder( finder, tagsFilter, new DefaultConventions() );
 
-            var contexts = builder.Contexts();
+            contextCollection = builder.Contexts();
 
-            contexts.Build();
+            contextCollection.Build();
 
-            contexts.Run();
+            contextCollection.Run();
 
             // remove any contexts that ended with no examples (which is likely due to presence of tag filters)
             if( builder.tagsFilter != null && builder.tagsFilter.HasTagFilters() )
-                contexts.TrimEmptyContexts();
+                contextCollection.TrimEmptyContexts();
 
-            classContext = contexts
+            classContext = contextCollection
                 .AllContexts()
                 .Select(c => c as ClassContext)
-                .First(c => c.type == type);
+                .FirstOrDefault(c => types.Contains( c.type ) );
 
-            methodContext = contexts.AllContexts().First(c => c is MethodContext);
+            methodContext = contextCollection.AllContexts().FirstOrDefault(c => c is MethodContext);
         }
 
         protected Context TheContext( string name )
         {
-            var theContext = classContext.AllContexts()
-                .SelectMany( contexts => contexts.AllContexts().Where( context => context.Name == name ) )
-                .First();
+            var theContext = contextCollection
+                .SelectMany( rootContext => rootContext.AllContexts() )
+                .SelectMany( contexts => contexts.AllContexts().Where( context => context.Name == name ) ).First();
 
             theContext.Name.should_be( name );
 
@@ -44,15 +49,16 @@ namespace NSpecSpecs.WhenRunningSpecs
 
         protected Example TheExample( string name )
         {
-            var theExample = classContext.AllContexts()
-                .SelectMany( contexts => contexts.AllExamples().Where( example => example.Spec == name ) )
-                .First();
+            var theExample = contextCollection
+                .SelectMany( rootContext => rootContext.AllContexts() )
+                .SelectMany( contexts => contexts.AllExamples().Where( example => example.Spec == name ) ).First();
 
             theExample.Spec.should_be( name );
 
             return theExample;
         }
 
+        protected ContextCollection contextCollection;
         protected ClassContext classContext;
         protected Context methodContext;
     }
