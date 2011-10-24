@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Domain\BeforeFinder.cs" />
     <Compile Include="Domain\ClassContext.cs" />
+    <Compile Include="Domain\ContextFailureException.cs" />
     <Compile Include="Domain\Formatters\ConsoleFormatter.cs" />
     <Compile Include="Domain\ContextCollection.cs" />
     <Compile Include="Domain\ContextRunner.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Domain\MethodContext.cs" />
     <Compile Include="Domain\ExceptionNotThrown.cs" />
     <Compile Include="DefaultConventions.cs" />
+    <Compile Include="Domain\Tags.cs" />
     <Compile Include="Each.cs" />
     <Compile Include="Domain\ActionIndexer.cs" />
     <Compile Include="nspec.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Domain\IReflector.cs" />
     <Compile Include="Domain\SpecFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Domain\Formatters\Templates\TiddlyWiki_Template.html">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NSpec;
 using NSpec.Domain;
@@ -17,7 +18,19 @@ namespace NSpecRunner
             }
             try
             {
-                var classFilter = args.Length > 1 ? args[1] : "";
+                // extract either a class filter or a tags filter (but not both)
+                var classFilter = "";
+                var argsTags = "";
+                if( args.Length > 1 )
+                {
+                    // see rspec and cucumber for ideas on better ways to handle tags on the command line:
+                    // https://github.com/cucumber/cucumber/wiki/tags
+                    // https://www.relishapp.com/rspec/rspec-core/v/2-4/docs/command-line/tag-option
+                    if( args[ 1 ] == "--tag" && args.Length > 2 )
+                        argsTags = args[ 2 ];
+                    else
+                        classFilter = args[ 1 ];
+                }
 
                 var specDLL = args[0];
 
@@ -25,11 +38,13 @@ namespace NSpecRunner
 
                 var console = new ConsoleFormatter();
 
-                domain.Run(specDLL, classFilter, console, (dll, filter, formatter) =>
+                domain.Run( specDLL, classFilter, argsTags, console, ( dll, filter, tags, formatter ) =>
                 {
                     var finder = new SpecFinder(dll, new Reflector(), filter);
 
-                    var builder = new ContextBuilder(finder, new DefaultConventions());
+                    var tagsFilter = new Tags().ParseTagFilters( tags );
+
+                    var builder = new ContextBuilder( finder, tagsFilter, new DefaultConventions() );
 
                     var runner = new ContextRunner(builder, formatter);
 

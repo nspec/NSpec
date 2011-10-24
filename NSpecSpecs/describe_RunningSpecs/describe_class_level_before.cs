@@ -43,18 +43,13 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void should_run_class_level_before_then_method_level_before()
         {
-            TheExample("should not be null").Exception.should_be(null);
+            TheExample("should not be null").ExampleLevelException.should_be(null);
         }
 
         [Test]
         public void should_run_example_within_a_sub_context()
         {
-            TheExample("should have one record").Exception.should_be(null);
-        }
-
-        Example TheExample(string name)
-        {
-            return classContext.Contexts.First().AllExamples().Single(s => s.Spec == name);
+            TheExample("should have one record").ExampleLevelException.should_be(null);
         }
     }
 }

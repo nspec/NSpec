@@ -26,7 +26,7 @@ namespace NSpecNUnit
         {
             var child = new Context("child");
 
-            child.AddExample(new Example("") { Exception = new Exception() });
+            child.AddExample(new Example("") { ExampleLevelException = new Exception() });
 
             var parent = new Context("parent");
 
@@ -167,5 +167,34 @@ namespace NSpecNUnit
         ClassContext childContext, parentContext;
 
         child_before instance;
+    }
+
+    [TestFixture]
+    [Category( "Context" )]
+    public class when_trimming_unexecuted_contexts
+    {
+        [Test]
+        public void given_nested_contexts_with_and_without_executed_examples()
+        {
+            var root = new Context( "root context" );
+
+            // add context with a skipped example
+            root.AddContext( new Context( "context with no example" ) );
+
+            // add context with an executed example
+            var context = new Context( "context with example" );
+            context.AddExample( new Example( "example" ) );
+            context.Examples[ 0 ].HasRun = true;
+            root.AddContext( context );
+
+            // validate precondition
+            root.Contexts.Count().should_be( 2 );
+
+            // perform trim operation
+            root.TrimSkippedDescendants();
+
+            // validate postcondition
+            root.Contexts.Count().should_be( 1 );
+        }
     }
 }

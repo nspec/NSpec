@@ -8,5 +8,5 @@ class describe_expected_exception : nspec
         it["should throw null-ref"] =
             expect<NullReferenceException>(() => nullString.Trim());
     }
-    string nullString;
+    string nullString = null;
 }

@@ -5,9 +5,9 @@ namespace NSpecRunner
 {
     public class Wrapper : MarshalByRefObject
     {
-        public void Execute(string dll, string filter, IFormatter outputFormatter, Action<string, string, IFormatter> action)
+        public void Execute(string dll, string classFilter, string tagsFilter, IFormatter outputFormatter, Action<string, string, string, IFormatter> action)
         {
-            action(dll, filter, outputFormatter);
+            action( dll, classFilter, tagsFilter, outputFormatter );
         }
 
         public override object InitializeLifetimeService()

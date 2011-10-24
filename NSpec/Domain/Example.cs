@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -28,14 +29,7 @@ namespace NSpec.Domain
         {
             if (MethodLevelExample != null)
             {
-                try
-                {
-                    MethodLevelExample.Invoke(nspec, null);
-                }
-                catch (Exception e)
-                {
-                    Exception = e.InnerException;
-                }
+                MethodLevelExample.Invoke(nspec, null);
             }
             else
             {
@@ -48,27 +42,38 @@ namespace NSpec.Domain
             return Context.FullContext() + ". " + Spec + ".";
         }
 
-        public Example(Expression<Action> expr) : this(Parse(expr), expr.Compile()) { }
+        public bool Passed
+        {
+            get { return ( HasRun && ExampleLevelException == null ); }
+        }
 
-        public Example(string name = "", Action action = null, bool pending = false)
+        public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) { }
+
+        public Example( string name = "", string tags = null, Action action = null, bool pending = false )
         {
             this.action = action;
 
             Spec = name;
 
             Pending = pending;
+
+            Tags = NSpec.Domain.Tags.ParseTags( tags );
         }
 
-        public Example(MethodInfo methodLevelExample)
+        public Example(MethodInfo methodLevelExample, string tags = null)
         {
             Spec = methodLevelExample.Name.Replace("_", " ");
 
             MethodLevelExample = methodLevelExample;
+
+            Tags = NSpec.Domain.Tags.ParseTags( tags );
         }
 
         public bool Pending;
+        public bool HasRun;
         public string Spec;
-        public Exception Exception;
+        public List<string> Tags;
+        public Exception ExampleLevelException;
         public Context Context;
         public MethodInfo MethodLevelExample;
 

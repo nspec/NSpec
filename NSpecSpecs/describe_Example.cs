@@ -34,7 +34,7 @@ namespace NSpecNUnit
         [Test]
         public void should_be_marked_as_pending_if_parent_context_is_pending()
         {
-            var context = new Context("pending context", 0, isPending: true);
+            var context = new Context( "pending context", null, 0, isPending: true );
 
             var example = new Example("example name");
 
@@ -46,7 +46,7 @@ namespace NSpecNUnit
         [Test]
         public void should_be_marked_as_pending_if_any_parent_context_is_pending()
         {
-            var parentContext = new Context("parent pending context", 0, isPending: true);
+            var parentContext = new Context( "parent pending context", null, 0, isPending: true );
             var context = new Context("not pending");
             var example = new Example("example name");
 
@@ -56,5 +56,5 @@ namespace NSpecNUnit
 
             example.Pending.should_be_true();
         }
-    }
+	}
 }

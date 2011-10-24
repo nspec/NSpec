@@ -33,8 +33,6 @@ namespace NSpecSpecs
     [Category("Conventions")]
     public class specifying_new_before_convension
     {
-        private Conventions convensions;
-
         public class ClassWithBefore : nspec
         {
             void BeforeEach()

@@ -8,12 +8,19 @@ namespace NSpec.Domain
     public class ContextBuilder
     {
         public ContextBuilder(ISpecFinder finder, Conventions conventions)
+            : this(finder, null, conventions)
         {
-            this.finder = finder;
+        }
 
+        public ContextBuilder( ISpecFinder finder, Tags tagsFilter, Conventions conventions )
+        {
             contexts = new ContextCollection();
 
+            this.finder = finder;
+
             this.conventions = conventions;
+
+            this.tagsFilter = tagsFilter;
         }
 
         public ContextCollection Contexts()
@@ -24,11 +31,11 @@ namespace NSpec.Domain
 
             var specClasses = finder.SpecClasses();
 
-            var container = new ClassContext(typeof(nspec), conventions);
+            var container = new ClassContext( typeof( nspec ), conventions, tagsFilter );
 
-            Build(container, specClasses);
+            Build( container, specClasses );
 
-            contexts.AddRange(container.Contexts);
+            contexts.AddRange( container.Contexts );
 
             return contexts;
         }
@@ -37,7 +44,7 @@ namespace NSpec.Domain
         {
             var derivedTypes = allSpecClasses.Where(s => parent.IsSub( s.BaseType) );
 
-            foreach (var derived in derivedTypes)
+            foreach( var derived in derivedTypes )
             {
                 var classContext = CreateClassContext(derived);
 
@@ -49,9 +56,13 @@ namespace NSpec.Domain
 
         public ClassContext CreateClassContext(Type type)
         {
-            var context = new ClassContext(type, conventions);
+            // extract tags as string from class-level attribute(s)
+            var tagAttributes = (TagAttribute[]) type.GetCustomAttributes( typeof( TagAttribute ), false );
+            var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
 
-            BuildMethodContexts(context, type);
+            var context = new ClassContext( type, conventions, tagsFilter, tags );
+
+            BuildMethodContexts( context, type );
 
             BuildMethodLevelExamples(context, type);
 
@@ -65,7 +76,13 @@ namespace NSpec.Domain
                 .Where(s => conventions.IsMethodLevelContext(s.Name)).Do(
                 contextMethod =>
                 {
-                    classContext.AddContext(new MethodContext(contextMethod));
+                    // extract tags as string from method-level attribute(s)
+                    var tagAttributes = (TagAttribute[]) contextMethod.GetCustomAttributes( typeof( TagAttribute ), false );
+                    var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
+
+                    var methodContext = new MethodContext( contextMethod, tags );
+
+                    classContext.AddContext( methodContext );
                 });
         }
 
@@ -76,7 +93,13 @@ namespace NSpec.Domain
                 .Where(s => conventions.IsMethodLevelExample(s.Name)).Do(
                 methodInfo =>
                 {
-                    classContext.AddExample(new Example(methodInfo));
+                    // extract tags as string from method-level attribute(s)
+                    var tagAttributes = (TagAttribute[]) methodInfo.GetCustomAttributes( typeof( TagAttribute ), false );
+                    var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
+
+                    var methodExample = new Example( methodInfo, tags );
+
+                    classContext.AddExample( methodExample );
                 });
         }
 
@@ -85,5 +108,7 @@ namespace NSpec.Domain
         private ISpecFinder finder;
 
         private ContextCollection contexts;
+
+        public Tags tagsFilter;
     }
 }

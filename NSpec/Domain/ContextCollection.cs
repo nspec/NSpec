@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace NSpec.Domain
@@ -17,7 +16,7 @@ namespace NSpec.Domain
 
         public IEnumerable<Example> Failures()
         {
-            return Examples().Where(e => e.Exception != null);
+            return Examples().Where(e => e.ExampleLevelException != null);
         }
 
         public IEnumerable<Example> Pendings()
@@ -33,6 +32,13 @@ namespace NSpec.Domain
         public void Run()
         {
             this.Do(c => c.Run());
+        }
+
+        /// <summary>Removes contexts that do not contain any executed descendant examples</summary>
+        public void TrimSkippedContexts()
+        {
+            this.Do( c => c.TrimSkippedDescendants() );
+            this.RemoveAll( c => !c.HasDescendantExamplesExecuted() );
         }
 
         public IEnumerable<Context> AllContexts()

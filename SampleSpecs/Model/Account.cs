@@ -12,6 +12,6 @@ internal class Account
     public void Withdraw(int amount)
     {
         throw new Exception();
-        if (amount < 0) throw new InvalidOperationException();
+        //if (amount < 0) throw new InvalidOperationException();
     }
 }

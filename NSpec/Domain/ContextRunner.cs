@@ -23,6 +23,10 @@ namespace NSpec.Domain
 
                 contexts.Run();
 
+                // remove any contexts that ended with no executed examples (which is likely due to presence of tag filters)
+                if( builder.tagsFilter != null && builder.tagsFilter.HasTagFilters() )
+                    contexts.TrimSkippedContexts();
+
                 formatter.Write(contexts);
             }
             catch (Exception e)

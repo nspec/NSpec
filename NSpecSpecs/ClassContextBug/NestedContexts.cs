@@ -22,11 +22,11 @@ namespace NSpecSpecs.ClassContextBug
 
     public class Parent : Grand_Parent
     {
-        public void before_each()
+        public new void before_each()
         {
             this.TestValue += "." + "Parent";
         }
-        public void act_each()
+        public new void act_each()
         {
             this.TestValue = this.TestValue + "@@@";
         }
@@ -39,11 +39,11 @@ namespace NSpecSpecs.ClassContextBug
 
     public class Child : Parent
     {
-        public void before_each()
+        public new void before_each()
         {
             this.TestValue += "." + "Child";
         }
-        public void act_each()
+        public new void act_each()
         {
             this.TestValue = this.TestValue + "###";
         }

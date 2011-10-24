@@ -32,14 +32,13 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClass));
             Assert.Inconclusive("I dont think this is possible....");
-            TheMethodContextExamples().First().Exception.should_be(null);
-            TheMethodContextExamples().Last().Exception.should_be(null);
+            TheMethodContextExamples().First().ExampleLevelException.should_be(null);
+            TheMethodContextExamples().Last().ExampleLevelException.should_be(null);
         }
 
         private IEnumerable<Example> TheMethodContextExamples()
         {
             return classContext.Contexts.First().AllExamples();
         }
-        private Context classContext;
     }
 }

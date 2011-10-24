@@ -16,9 +16,16 @@ namespace NSpecSpecs.WhenRunningSpecs
             {
                 after = () => { throw new InvalidOperationException(); };
 
-                it["should fail this example because of after"] = () => "1".should_be("1");
+                it[ "should fail this example because of after" ] = () => "1".should_be( "1" );
 
-                it["should also fail this example because of after"] = () => "1".should_be("1");
+                it[ "should also fail this example because of after" ] = () => "1".should_be( "1" );
+
+                context[ "exception thrown by both act and after" ] = () =>
+                {
+                    act = () => { throw new ArgumentException("The after's exception should not overwrite the act's exception"); };
+
+                    it[ "tracks only the first exception from act" ] = () => "1".should_be( "1" );
+                };
             }
         }
 
@@ -29,15 +36,30 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void it_should_fail_all_examples_in_after()
+        public void the_example_level_failure_should_indicate_a_context_failure()
         {
-            TheExample("should fail this example because of after").Exception.GetType().should_be(typeof(InvalidOperationException));
-            TheExample("should also fail this example because of after").Exception.GetType().should_be(typeof(InvalidOperationException));
+            TheExample( "should fail this example because of after" )
+                .ExampleLevelException.GetType().should_be( typeof( ContextFailureException ) );
+            TheExample( "should also fail this example because of after" )
+                .ExampleLevelException.GetType().should_be( typeof( ContextFailureException ) );
+            TheExample( "tracks only the first exception from act" )
+                .ExampleLevelException.GetType().should_be( typeof( ContextFailureException ) );
         }
 
-        private Example TheExample(string name)
+        [Test]
+        public void examples_with_only_after_failure_should_only_fail_because_of_after()
         {
-            return classContext.Contexts.First().AllExamples().Single(s => s.Spec == name);
+            TheExample( "should fail this example because of after" )
+                .ExampleLevelException.InnerException.GetType().should_be( typeof( InvalidOperationException ) );
+            TheExample( "should also fail this example because of after" )
+                .ExampleLevelException.InnerException.GetType().should_be( typeof( InvalidOperationException ) );
+        }
+
+        [Test]
+        public void it_should_throw_exception_from_act_not_from_after()
+        {
+            TheExample( "tracks only the first exception from act" )
+                .ExampleLevelException.InnerException.GetType().should_be( typeof( ArgumentException ) );
         }
     }
 }

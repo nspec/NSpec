@@ -52,11 +52,11 @@ namespace NSpec.Domain.Formatters
             xml.WriteStartElement( "Spec" );
             xml.WriteAttributeString( "Name", example.Spec );
 
-            if( example.Exception != null )
+            if( example.ExampleLevelException != null )
             {
                 xml.WriteAttributeString( "Status", "Failed" );
                 xml.WriteStartElement( "Exception" );
-                xml.WriteCData( example.Exception.ToString() );
+                xml.WriteCData( example.ExampleLevelException.ToString() );
                 xml.WriteEndElement();
             }
             else if( example.Pending )
