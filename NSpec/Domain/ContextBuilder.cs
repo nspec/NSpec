@@ -82,9 +82,6 @@ namespace NSpec.Domain
 
                     var methodContext = new MethodContext( contextMethod, tags );
 
-                    // inherit tags from parent context
-                    methodContext.Tags.AddRange( classContext.Tags );
-
                     classContext.AddContext( methodContext );
                 });
         }
@@ -101,17 +98,6 @@ namespace NSpec.Domain
                     var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
 
                     var methodExample = new Example( methodInfo, tags );
-
-                    // inherit tags from parent context
-                    methodExample.Tags.AddRange( classContext.Tags );
-
-                    // skip examples if no "include tags" are present in example
-                    if( tagsFilter != null && !tagsFilter.IncludesAny( methodExample.Tags ) )
-                        return;
-
-                    // skip examples if any "skip tags" are present in example
-                    if( tagsFilter != null && tagsFilter.ExcludesAny( methodExample.Tags ) )
-                        return;
 
                     classContext.AddExample( methodExample );
                 });

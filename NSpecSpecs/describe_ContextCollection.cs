@@ -47,11 +47,13 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void should_trim_empty_contexts()
+        public void should_trim_skipped_contexts()
         {
             contexts.Add( new Context() );
+            contexts[ 0 ].AddExample( new Example() );
+            contexts[ 0 ].Examples[ 0 ].HasRun = true;
             contexts.Count().should_be( 2 );
-            contexts.TrimEmptyContexts();
+            contexts.TrimSkippedContexts();
             contexts.Count().should_be( 1 );
         }
     }

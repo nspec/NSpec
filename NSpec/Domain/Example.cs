@@ -42,6 +42,11 @@ namespace NSpec.Domain
             return Context.FullContext() + ". " + Spec + ".";
         }
 
+        public bool Passed
+        {
+            get { return ( HasRun && ExampleLevelException == null ); }
+        }
+
         public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) { }
 
         public Example( string name = "", string tags = null, Action action = null, bool pending = false )
@@ -65,6 +70,7 @@ namespace NSpec.Domain
         }
 
         public bool Pending;
+        public bool HasRun;
         public string Spec;
         public List<string> Tags;
         public Exception ExampleLevelException;

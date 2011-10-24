@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using NSpec.Domain;
 using System;
@@ -199,17 +197,6 @@ namespace NSpec
 
         void AddExample( Example example )
         {
-            // pass tags down to example from context
-            example.Tags.AddRange( Context.Tags );
-
-            // skip examples if no "include tags" are present in example
-            if( tagsFilter != null && !tagsFilter.IncludesAny( example.Tags ) )
-                return;
-
-            // skip examples if any "skip tags" are present in example
-            if( tagsFilter != null && tagsFilter.ExcludesAny( example.Tags ) )
-                return;
-
             Context.AddExample( example );
         }
 

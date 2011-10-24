@@ -56,5 +56,5 @@ namespace NSpecNUnit
 
             example.Pending.should_be_true();
         }
-    }
+	}
 }

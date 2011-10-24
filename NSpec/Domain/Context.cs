@@ -38,6 +38,9 @@ namespace NSpec.Domain
         {
             example.Context = this;
 
+            // pass tags down to example from context
+            example.Tags.AddRange( Tags );
+
             Examples.Add(example);
 
             example.Pending |= IsPending();
@@ -114,6 +117,14 @@ namespace NSpec.Domain
         {
             if (example.Pending) return;
 
+            // skip examples if no "include tags" are present in example
+            if( nspec.tagsFilter != null && !nspec.tagsFilter.IncludesAny( example.Tags ) )
+                return;
+
+            // skip examples if any "skip tags" are present in example
+            if( nspec.tagsFilter != null && nspec.tagsFilter.ExcludesAny( example.Tags ) )
+                return;
+
             // run context-level steps (arrange and act)
             // note: exceptions that occur during 'before/act' should set the context-level exception
             RunAndHandleException( RunBefores, nspec, ref contextLevelException );
@@ -126,6 +137,9 @@ namespace NSpec.Domain
             // run context-level teardown step
             // note: exceptions that occur during 'after' should set the context-level exception
             RunAndHandleException( RunAfters, nspec, ref contextLevelException );
+
+            // update example's execution status
+            example.HasRun = true;
 
             // update example's exception status if there was a context-level failure
             if( example.ExampleLevelException == null && contextLevelException != null )
@@ -178,17 +192,22 @@ namespace NSpec.Domain
 
         public bool HasDescendantExamples()
         {
-            return AllExamples().Any() || AllDescendantContexts().Any(c => c.HasDescendantExamples());
+            return AllExamples().Any() || AllDescendantContexts().Any( c => c.HasDescendantExamples() );
         }
 
-        /// <summary>Removes sub-contexts that do not contain any descendant examples</summary>
-        public void TrimEmptyDescendants()
+        public bool HasDescendantExamplesExecuted()
         {
-            // remove direct children that don't have descendant examples
-            Contexts.RemoveAll( c => !c.HasDescendantExamples() );
+            return AllExamples().Any( e => e.HasRun ) || AllDescendantContexts().Any( c => c.HasDescendantExamplesExecuted() );
+        }
 
-            // recursively prune remaining descendants that don't contain examples
-            Contexts.Do( c => c.TrimEmptyDescendants() );
+        /// <summary>Removes sub-contexts that do not contain any descendant examples which have been run</summary>
+        public void TrimSkippedDescendants()
+        {
+            // remove direct children that don't have descendant examples which have been run
+            Contexts.RemoveAll( c => !c.HasDescendantExamplesExecuted() );
+
+            // recursively prune remaining descendants whose examples have been skipped during a run
+            Contexts.Do( c => c.TrimSkippedDescendants() );
         }
     }
 }

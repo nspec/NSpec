@@ -7,6 +7,15 @@ namespace NSpecSpecs.WhenRunningSpecs
 {
     public class when_running_specs
     {
+        protected void Run()
+        {
+            contextCollection.Run();
+
+            // remove any contexts that ended with no examples (which is likely due to presence of tag filters)
+            if( builder.tagsFilter != null && builder.tagsFilter.HasTagFilters() )
+                contextCollection.TrimSkippedContexts();
+        }
+
         protected void Run( Type type, Tags tagsFilter = null )
         {
             Run( new[] { type }, tagsFilter );
@@ -14,26 +23,31 @@ namespace NSpecSpecs.WhenRunningSpecs
 
         protected void Run(Type[] types, Tags tagsFilter = null)
         {
-            var finder = new SpecFinder(types);
+            Build( types, tagsFilter );
+            Run();
+        }
 
-            var builder = new ContextBuilder( finder, tagsFilter, new DefaultConventions() );
+        protected void Build( Type type, Tags tagsFilter = null )
+        {
+            Build( new[] { type }, tagsFilter );
+        }
+
+        protected void Build( Type[] types, Tags tagsFilter = null )
+        {
+            var finder = new SpecFinder( types );
+
+            builder = new ContextBuilder( finder, tagsFilter, new DefaultConventions() );
 
             contextCollection = builder.Contexts();
 
             contextCollection.Build();
 
-            contextCollection.Run();
-
-            // remove any contexts that ended with no examples (which is likely due to presence of tag filters)
-            if( builder.tagsFilter != null && builder.tagsFilter.HasTagFilters() )
-                contextCollection.TrimEmptyContexts();
-
             classContext = contextCollection
                 .AllContexts()
-                .Select(c => c as ClassContext)
-                .FirstOrDefault(c => types.Contains( c.type ) );
+                .Select( c => c as ClassContext )
+                .FirstOrDefault( c => types.Contains( c.type ) );
 
-            methodContext = contextCollection.AllContexts().FirstOrDefault(c => c is MethodContext);
+            methodContext = contextCollection.AllContexts().FirstOrDefault( c => c is MethodContext );
         }
 
         protected Context TheContext( string name )
@@ -58,6 +72,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             return theExample;
         }
 
+        protected ContextBuilder builder;
         protected ContextCollection contextCollection;
         protected ClassContext classContext;
         protected Context methodContext;

@@ -34,11 +34,11 @@ namespace NSpec.Domain
             this.Do(c => c.Run());
         }
 
-        /// <summary>Removes contexts that do not contain any descendant examples</summary>
-        public void TrimEmptyContexts()
+        /// <summary>Removes contexts that do not contain any executed descendant examples</summary>
+        public void TrimSkippedContexts()
         {
-            this.Do( c => c.TrimEmptyDescendants() );
-            this.RemoveAll( c => !c.HasDescendantExamples() );
+            this.Do( c => c.TrimSkippedDescendants() );
+            this.RemoveAll( c => !c.HasDescendantExamplesExecuted() );
         }
 
         public IEnumerable<Context> AllContexts()

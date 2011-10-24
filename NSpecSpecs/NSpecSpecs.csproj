@@ -50,6 +50,7 @@
     <Compile Include="ClassContextBug\NestContextsTests.cs" />
     <Compile Include="ClassContextBug\NestedContexts.cs" />
     <Compile Include="describe_Conventions.cs" />
+    <Compile Include="describe_RunningSpecs\describe_example.cs" />
     <Compile Include="describe_RunningSpecs\describe_tag_filtering.cs" />
     <Compile Include="describe_RunningSpecs\describe_context_level_tagging.cs" />
     <Compile Include="describe_RunningSpecs\describe_example_level_tagging.cs" />
