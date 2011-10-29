@@ -163,27 +163,22 @@ namespace NSpec.Domain
 
         public IEnumerable<Context> AllContexts()
         {
-            return new[] { this }.Union(AllDescendantContexts());
+            return new[] { this }.Union(ChildContexts());
         }
 
-        public IEnumerable<Context> AllDescendantContexts()
+        public IEnumerable<Context> ChildContexts()
         {
-            return Contexts.SelectMany(c => new[] { c }.Union(c.AllDescendantContexts()));
+            return Contexts.SelectMany(c => new[] { c }.Union(c.ChildContexts()));
         }
 
-        public bool HasDescendantExamples()
+        public bool HasAnyExecutedExample()
         {
-            return AllExamples().Any() || AllDescendantContexts().Any(c => c.HasDescendantExamples()); ;
-        }
-
-        public bool HasDescendantExamplesExecuted()
-        {
-            return AllExamples().Any(e => e.HasRun) || AllDescendantContexts().Any(c => c.HasDescendantExamplesExecuted());
+            return AllExamples().Any(e => e.HasRun);
         }
 
         public void TrimSkippedDescendants()
         {
-            Contexts.RemoveAll(c => !c.HasDescendantExamplesExecuted());
+            Contexts.RemoveAll(c => !c.HasAnyExecutedExample());
 
             Contexts.Do(c => c.TrimSkippedDescendants());
         }

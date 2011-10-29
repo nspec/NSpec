@@ -48,7 +48,6 @@ namespace NSpecNUnit.when_building_contexts
     }
 
     [TestFixture]
-    [Category("ContextBuilder")]
     public class when_building_contexts : describe_ContextBuilder
     {
         public class child : parent { }
@@ -98,7 +97,6 @@ namespace NSpecNUnit.when_building_contexts
     }
 
     [TestFixture]
-    [Category("ContextBuilder")]
     public class when_finding_method_level_examples : describe_ContextBuilder
     {
         class class_with_method_level_example : nspec
@@ -139,7 +137,6 @@ namespace NSpecNUnit.when_building_contexts
     }
 
     [TestFixture]
-    [Category("ContextBuilder")]
     public class when_building_method_contexts
     {
         private Context classContext;
@@ -197,7 +194,6 @@ namespace NSpecNUnit.when_building_contexts
     }
 
     [TestFixture]
-    [Category("ContextBuilder")]
     public class when_building_class_and_method_contexts_with_tag_attributes : describe_ContextBuilder
     {
         [Tag("@class-tag")]

@@ -10,11 +10,11 @@ namespace SampleSpecs.Demo
             // tags can be used to filter which contexts and examples are executed:
             //     nspecrunner <path-to-specs-dll> --tag mytag-one,~mytag-two
 
-            context["when tags are specified at the context level", "@mytag-one"] = () =>
+            context["when tags are specified at the context level", "mytag-one"] = () =>
             {
                 it["tags all examples within that context"] = () => { 1.should_be(1); };
 
-                context["when tags are nested", "@mytag-two"] = () =>
+                context["when tags are nested", "mytag-two"] = () =>
                 {
                     it["tags all the nested examples and nested contexts cumlatively"] = () => { 1.should_be(1); };
                 };

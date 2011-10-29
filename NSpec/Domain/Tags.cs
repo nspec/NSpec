@@ -18,10 +18,7 @@ namespace NSpec.Domain
 
             foreach (var tag in tags.Split(new[] { ',', ' ' }))
             {
-                // store tags without any leading ampersat in the tag (e.g., '@mytag' is stored as 'mytag')
-                var rawTag = tag.TrimStart(new[] { '@' });
-
-                if (!string.IsNullOrEmpty(rawTag)) tagsCollection.Add(rawTag);
+                if (!string.IsNullOrEmpty(tag)) tagsCollection.Add(tag);
             }
 
             return tagsCollection;
@@ -38,10 +35,10 @@ namespace NSpec.Domain
                 // determine whether tag is an include or exclude filter
                 List<string> targetTagCollection = tag.StartsWith("~") ? excludeTags : includeTags;
 
-                // store tags without any leading @ in the tag (e.g., '@mytag' is stored as 'mytag')
-                var rawTag = tag.TrimStart(new[] { '~', '@' });
+                var trimmedTag = tag.TrimStart('~');
 
-                if (!string.IsNullOrEmpty(rawTag)) targetTagCollection.Add(rawTag);
+                // store tags without any leading @ in the tag (e.g., '@mytag' is stored as 'mytag')
+                if (!string.IsNullOrEmpty(tag)) targetTagCollection.Add(trimmedTag);
             }
         }
 
@@ -64,7 +61,7 @@ namespace NSpec.Domain
 
         public bool Includes(string tag)
         {
-            return !IncludeTags.Any() || IncludeTags.Contains(tag.TrimStart(new[] { '@' }));
+            return !IncludeTags.Any() || IncludeTags.Contains(tag);
         }
 
         public bool IncludesAny(List<string> tags)
@@ -74,7 +71,7 @@ namespace NSpec.Domain
 
         public bool Excludes(string tag)
         {
-            return ExcludeTags.Any() && ExcludeTags.Contains(tag.TrimStart(new[] { '@' }));
+            return ExcludeTags.Any() && ExcludeTags.Contains(tag);
         }
 
         public bool ExcludesAny(List<string> tags)

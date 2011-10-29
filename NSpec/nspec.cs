@@ -125,22 +125,21 @@ namespace NSpec
         /// </summary>
         public virtual Action expect<T>(string expectedMessage) where T : Exception
         {
-            var specContext = Context;    // pull out context reference to avoid closure-related error
+            var specContext = Context;
 
             return () =>
             {
-                // handle case when no exception (or the wrong exception) was thrown during befores/acts
                 if (specContext.contextLevelException == null || specContext.contextLevelException.GetType() != typeof(T))
-                    throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
+                    throw new ExceptionNotThrown(IncorrectType<T>());
 
                 if (expectedMessage != null && expectedMessage != specContext.contextLevelException.Message)
                 {
-                    throw new ExceptionNotThrown(String.Format("Expected message: \"{0}\" But was: \"{1}\"",
-                                                                 expectedMessage,
-                                                                 specContext.contextLevelException.Message));
+                    throw new ExceptionNotThrown(
+                        IncorrectMessage(
+                        expectedMessage,
+                        specContext.contextLevelException.Message));
                 }
 
-                // if the expected exception was thrown during befores/acts, then update the context-level exception
                 if (specContext.contextLevelException.GetType() == typeof(T))
                 {
                     specContext.contextLevelExpectedException = specContext.contextLevelException;
@@ -173,7 +172,7 @@ namespace NSpec
                 try
                 {
                     action();
-                    throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
+                    throw new ExceptionNotThrown(IncorrectType<T>());
                 }
                 catch (ExceptionNotThrown)
                 {
@@ -184,15 +183,25 @@ namespace NSpec
                 {
                     if (ex.GetType() != closureType)
                     {
-                        throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
+                        throw new ExceptionNotThrown(IncorrectType<T>());
                     }
 
                     if (expectedMessage != null && expectedMessage != ex.Message)
                     {
-                        throw new ExceptionNotThrown(String.Format("Expected message: \"{0}\" But was: \"{1}\"", expectedMessage, ex.Message));
+                        throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, ex.Message));
                     }
                 }
             };
+        }
+
+        string IncorrectType<T>() where T : Exception
+        {
+            return "Exception of type " + typeof(T).Name + " was not thrown.";
+        }
+
+        string IncorrectMessage(string expected, string actual)
+        {
+            return String.Format("Expected message: \"{0}\" But was: \"{1}\"", expected, actual);
         }
 
         void AddExample(Example example)
@@ -233,7 +242,6 @@ namespace NSpec
 
         int level;
 
-        //needs to be internal for one caller
         internal Context Context { get; set; }
 
         /// <summary>Tags required to be present or not present in context or example</summary>

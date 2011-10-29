@@ -7,7 +7,6 @@ using System;
 namespace NSpecNUnit
 {
     [TestFixture]
-    [Category("Context")]
     public class describe_Context
     {
         [Test]
@@ -18,7 +17,6 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
-    [Category("Context")]
     public class when_counting_failures
     {
         [Test]
@@ -54,7 +52,6 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
-    [Category("Context")]
     public class when_creating_act_contexts_for_derived_class
     {
         [SetUp]
@@ -102,7 +99,6 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
-    [Category("Context")]
     public class when_creating_contexts_for_derived_classes
     {
         [SetUp]
@@ -139,7 +135,6 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
-    [Category("Context")]
     public class when_creating_before_contexts_for_derived_class
     {
         [SetUp]
@@ -169,26 +164,47 @@ namespace NSpecNUnit
         child_before instance;
     }
 
+    public class trimming_contexts
+    {
+        protected Context rootContext;
+
+        [SetUp]
+        public void SetupBase()
+        {
+            rootContext = new Context("root context");
+        }
+
+        public Context GivenContextWithNoExamples()
+        {
+            return new Context("context with no example");
+        }
+
+        public Context GivenContextWithExecutedExample()
+        {
+            var context = new Context("context with example");
+            context.AddExample(new Example("example"));
+            context.Examples[0].HasRun = true;
+
+            return context;
+        }
+    }
+
     [TestFixture]
-    [Category("Context")]
-    public class trimming_unexecuted_contexts
+    public class trimming_unexecuted_contexts_one_level_deep : trimming_contexts
     {
         Context contextWithExample;
-        Context contextWithoutExample;
-        Context rootContext;
 
+        Context contextWithoutExample;
+        
         [SetUp]
         public void given_nested_contexts_with_and_without_executed_examples()
         {
-            rootContext = new Context("root context");
-
-            contextWithoutExample = new Context("context with no example");
+            contextWithoutExample = GivenContextWithNoExamples();
 
             rootContext.AddContext(contextWithoutExample);
 
-            contextWithExample = new Context("context with example");
-            contextWithExample.AddExample(new Example("example"));
-            contextWithExample.Examples[0].HasRun = true;
+            contextWithExample = GivenContextWithExecutedExample();
+
             rootContext.AddContext(contextWithExample);
 
             rootContext.Contexts.Count().should_be(2);
@@ -199,13 +215,71 @@ namespace NSpecNUnit
         [Test]
         public void it_contains_context_with_example()
         {
-            rootContext.Contexts.should_contain(contextWithExample);
+            rootContext.AllContexts().should_contain(contextWithExample);
         }
 
         [Test]
         public void it_doesnt_contain_empty_context()
         {
-            rootContext.Contexts.should_not_contain(contextWithoutExample);
+            rootContext.AllContexts().should_not_contain(contextWithoutExample);
+        }
+    }
+
+    [TestFixture]
+    public class trimming_unexecuted_contexts_two_levels_deep : trimming_contexts
+    {
+        Context childContext;
+
+        Context parentContext;
+
+        public void GivenContextWithAChildContextThatHasExample()
+        {
+            parentContext = GivenContextWithNoExamples();
+
+            childContext = GivenContextWithExecutedExample();
+
+            parentContext.AddContext(childContext);
+
+            rootContext.AddContext(parentContext);
+
+            rootContext.AllContexts().should_contain(parentContext);
+        }
+
+        public void GivenContextWithAChildContextThatHasNoExample()
+        {
+            parentContext = GivenContextWithNoExamples();
+
+            childContext = GivenContextWithNoExamples();
+
+            parentContext.AddContext(childContext);
+
+            rootContext.AddContext(parentContext);
+
+            rootContext.AllContexts().should_contain(parentContext);
+        }
+
+        [Test]
+        public void it_keeps_all_contexts_if_examples_exists_at_level_2()
+        {
+            GivenContextWithAChildContextThatHasExample();
+
+            rootContext.TrimSkippedDescendants();
+
+            rootContext.AllContexts().should_contain(parentContext);
+
+            rootContext.AllContexts().should_contain(childContext);
+        }
+
+        [Test]
+        public void it_removes_all_contexts_if_no_child_context_has_examples()
+        {
+            GivenContextWithAChildContextThatHasNoExample();
+
+            rootContext.TrimSkippedDescendants();
+
+            rootContext.AllContexts().should_not_contain(parentContext);
+
+            rootContext.AllContexts().should_not_contain(childContext);
         }
     }
 }

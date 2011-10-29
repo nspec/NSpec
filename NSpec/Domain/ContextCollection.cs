@@ -38,7 +38,7 @@ namespace NSpec.Domain
         {
             this.Do(c => c.TrimSkippedDescendants());
 
-            this.RemoveAll(c => !c.HasDescendantExamplesExecuted());
+            this.RemoveAll(c => !c.HasAnyExecutedExample());
         }
 
         public IEnumerable<Context> AllContexts()

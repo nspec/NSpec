@@ -4,16 +4,15 @@ using NUnit.Framework;
 namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
-    [Category("RunningSpecs")]
     public class describe_context_level_tagging : when_running_specs
     {
         class SpecClass : nspec
         {
             void has_tags_in_contexts()
             {
-                context["is tagged with '@mytag'", "@mytag"] = () =>
+                context["is tagged with 'mytag'", "mytag"] = () =>
                 {
-                    it["is tagged with '@mytag'"] = () => { 1.should_be(1); };
+                    it["is tagged with 'mytag'"] = () => { 1.should_be(1); };
                 };
 
                 context["has three tags", "mytag, expect-to-failure, foobar"] = () =>
@@ -26,7 +25,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                     it["does not have a tag"] = () => { true.should_be_true(); };
                 };
 
-                context["has a nested context", "@nested-tag"] = () =>
+                context["has a nested context", "nested-tag"] = () =>
                 {
                     context["is the nested context"] = () =>
                     {
@@ -49,10 +48,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void is_tagged_with_at_mytag()
+        public void is_tagged_with_mytag()
         {
-            TheContext("is tagged with '@mytag'").Tags.should_contain_tag("@mytag");
-            TheContext("is tagged with '@mytag'").Tags.should_contain_tag("mytag");
+            TheContext("is tagged with 'mytag'").Tags.should_contain_tag("mytag");
         }
 
         [Test]
@@ -61,21 +59,21 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheContext("has three tags").Tags.Count.should_be(3);
             TheContext("has three tags").Tags.should_contain_tag("mytag");
             TheContext("has three tags").Tags.should_contain_tag("expect-to-failure");
-            TheContext("has three tags").Tags.should_contain_tag("@foobar");
+            TheContext("has three tags").Tags.should_contain_tag("foobar");
         }
 
         [Test]
         public void nested_contexts_should_inherit_the_tag()
         {
-            TheContext("has a nested context").Tags.should_contain_tag("@nested-tag");
-            TheContext("is the nested context").Tags.should_contain_tag("@nested-tag");
+            TheContext("has a nested context").Tags.should_contain_tag("nested-tag");
+            TheContext("is the nested context").Tags.should_contain_tag("nested-tag");
         }
 
         [Test]
         public void nested_examples_should_inherit_the_tag()
         {
-            TheContext("has a nested context").Tags.should_contain_tag("@nested-tag");
-            TheExample("is the nested example").Tags.should_contain_tag("@nested-tag");
+            TheContext("has a nested context").Tags.should_contain_tag("nested-tag");
+            TheExample("is the nested example").Tags.should_contain_tag("nested-tag");
         }
     }
 }

@@ -11,32 +11,30 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             contextCollection.Run();
 
-            // remove any contexts that ended with no examples (which is likely due to presence of tag filters)
-            if (builder.tagsFilter != null && builder.tagsFilter.HasTagFilters())
-                contextCollection.TrimSkippedContexts();
+            if (builder.tagsFilter.HasTagFilters()) contextCollection.TrimSkippedContexts();
         }
 
-        protected void Run(Type type, Tags tagsFilter = null)
+        protected void Run(Type type, string tags = null)
         {
-            Run(new[] { type }, tagsFilter);
+            Run(new[] { type }, tags);
         }
 
-        protected void Run(Type[] types, Tags tagsFilter = null)
+        protected void Run(Type[] types, string tags = null)
         {
-            Build(types, tagsFilter);
+            Build(types, tags);
             Run();
         }
 
-        protected void Build(Type type, Tags tagsFilter = null)
+        protected void Build(Type type, string tags = null)
         {
-            Build(new[] { type }, tagsFilter);
+            Build(new[] { type }, tags);
         }
 
-        protected void Build(Type[] types, Tags tagsFilter = null)
+        protected void Build(Type[] types, string tags = null)
         {
-            var finder = new SpecFinder(types);
+            var finder = new SpecFinder(types); 
 
-            builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
+            builder = new ContextBuilder(finder, new Tags().Parse(tags), new DefaultConventions());
 
             contextCollection = builder.Contexts();
 
