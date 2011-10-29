@@ -38,8 +38,7 @@ namespace NSpec.Domain
         {
             example.Context = this;
 
-            // pass tags down to example from context
-            example.Tags.AddRange( Tags );
+            example.Tags.AddRange(Tags);
 
             Examples.Add(example);
 
@@ -65,8 +64,7 @@ namespace NSpec.Domain
         {
             child.Parent = this;
 
-            // pass tags down from parent to child context
-            child.Tags.AddRange( child.Parent.Tags );
+            child.Tags.AddRange(child.Parent.Tags);
 
             Contexts.Add(child);
         }
@@ -77,11 +75,10 @@ namespace NSpec.Domain
 
             Contexts.Do(c => c.Run(nspec));
 
-            for(int i = 0; i < Examples.Count; i++)
-                Exercise(Examples[i], nspec);
+            for (int i = 0; i < Examples.Count; i++) Exercise(Examples[i], nspec);
         }
 
-        public virtual void Build(nspec instance=null)
+        public virtual void Build(nspec instance = null)
         {
             instance.Context = this;
 
@@ -95,21 +92,19 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        public void RunAndHandleException( Action<nspec> action, nspec nspec, ref Exception exceptionRef )
+        public void RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
         {
             try
             {
-                action( nspec );
+                action(nspec);
             }
-            catch( TargetInvocationException invocationException )
+            catch (TargetInvocationException invocationException)
             {
-                if( exceptionRef == null )
-                    exceptionRef = invocationException.InnerException;
+                if (exceptionToSet == null) exceptionToSet = invocationException.InnerException;
             }
-            catch( Exception exception )
+            catch (Exception exception)
             {
-                if( exceptionRef == null )
-                    exceptionRef = exception;
+                if (exceptionToSet == null) exceptionToSet = exception;
             }
         }
 
@@ -117,34 +112,20 @@ namespace NSpec.Domain
         {
             if (example.Pending) return;
 
-            // skip examples if no "include tags" are present in example
-            if( nspec.tagsFilter != null && !nspec.tagsFilter.IncludesAny( example.Tags ) )
-                return;
+            if (nspec.tagsFilter.ShouldSkip(example.Tags)) return;
 
-            // skip examples if any "skip tags" are present in example
-            if( nspec.tagsFilter != null && nspec.tagsFilter.ExcludesAny( example.Tags ) )
-                return;
+            RunAndHandleException(RunBefores, nspec, ref contextLevelException);
 
-            // run context-level steps (arrange and act)
-            // note: exceptions that occur during 'before/act' should set the context-level exception
-            RunAndHandleException( RunBefores, nspec, ref contextLevelException );
-            RunAndHandleException( RunActs, nspec, ref contextLevelException );
+            RunAndHandleException(RunActs, nspec, ref contextLevelException);
 
-            // run example step (the assert) for the current context
-            // note: exceptions that occur during 'example' verification should set the example-level exception
-            RunAndHandleException( example.Run, nspec, ref example.ExampleLevelException );
+            RunAndHandleException(example.Run, nspec, ref example.ExampleLevelException);
 
-            // run context-level teardown step
-            // note: exceptions that occur during 'after' should set the context-level exception
-            RunAndHandleException( RunAfters, nspec, ref contextLevelException );
+            RunAndHandleException(RunAfters, nspec, ref contextLevelException);
 
-            // update example's execution status
             example.HasRun = true;
 
-            // update example's exception status if there was a context-level failure
-            if( example.ExampleLevelException == null && contextLevelException != null )
-                example.ExampleLevelException = new ContextFailureException( "Exception thrown during context's befores, acts or afters",
-                                                                             contextLevelException );
+            if (example.ExampleLevelException == null && contextLevelException != null)
+                example.ExampleLevelException = new ContextFailureException("Exception thrown during context's befores, acts or afters", contextLevelException);
         }
 
         public virtual bool IsSub(Type baseType)
@@ -158,7 +139,7 @@ namespace NSpec.Domain
             Level = level;
             Examples = new List<Example>();
             Contexts = new ContextCollection();
-            Tags = NSpec.Domain.Tags.ParseTags( tags );
+            Tags = NSpec.Domain.Tags.ParseTags(tags);
             this.isPending = isPending;
         }
 
@@ -182,32 +163,29 @@ namespace NSpec.Domain
 
         public IEnumerable<Context> AllContexts()
         {
-            return new[] {this}.Union(AllDescendantContexts());
+            return new[] { this }.Union(AllDescendantContexts());
         }
 
         public IEnumerable<Context> AllDescendantContexts()
         {
-            return Contexts.SelectMany( c => new[] { c }.Union( c.AllDescendantContexts() ) );
+            return Contexts.SelectMany(c => new[] { c }.Union(c.AllDescendantContexts()));
         }
 
         public bool HasDescendantExamples()
         {
-            return AllExamples().Any() || AllDescendantContexts().Any( c => c.HasDescendantExamples() );
+            return AllExamples().Any() || AllDescendantContexts().Any(c => c.HasDescendantExamples()); ;
         }
 
         public bool HasDescendantExamplesExecuted()
         {
-            return AllExamples().Any( e => e.HasRun ) || AllDescendantContexts().Any( c => c.HasDescendantExamplesExecuted() );
+            return AllExamples().Any(e => e.HasRun) || AllDescendantContexts().Any(c => c.HasDescendantExamplesExecuted());
         }
 
-        /// <summary>Removes sub-contexts that do not contain any descendant examples which have been run</summary>
         public void TrimSkippedDescendants()
         {
-            // remove direct children that don't have descendant examples which have been run
-            Contexts.RemoveAll( c => !c.HasDescendantExamplesExecuted() );
+            Contexts.RemoveAll(c => !c.HasDescendantExamplesExecuted());
 
-            // recursively prune remaining descendants whose examples have been skipped during a run
-            Contexts.Do( c => c.TrimSkippedDescendants() );
+            Contexts.Do(c => c.TrimSkippedDescendants());
         }
     }
 }

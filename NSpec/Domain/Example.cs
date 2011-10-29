@@ -27,14 +27,9 @@ namespace NSpec.Domain
 
         public void Run(nspec nspec)
         {
-            if (MethodLevelExample != null)
-            {
-                MethodLevelExample.Invoke(nspec, null);
-            }
-            else
-            {
-                action();
-            }
+            if (MethodLevelExample != null) MethodLevelExample.Invoke(nspec, null);
+
+            else action();
         }
 
         public string FullName()
@@ -44,12 +39,12 @@ namespace NSpec.Domain
 
         public bool Passed
         {
-            get { return ( HasRun && ExampleLevelException == null ); }
+            get { return (HasRun && ExampleLevelException == null); }
         }
 
         public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) { }
 
-        public Example( string name = "", string tags = null, Action action = null, bool pending = false )
+        public Example(string name = "", string tags = null, Action action = null, bool pending = false)
         {
             this.action = action;
 
@@ -57,7 +52,7 @@ namespace NSpec.Domain
 
             Pending = pending;
 
-            Tags = NSpec.Domain.Tags.ParseTags( tags );
+            Tags = NSpec.Domain.Tags.ParseTags(tags);
         }
 
         public Example(MethodInfo methodLevelExample, string tags = null)
@@ -66,7 +61,7 @@ namespace NSpec.Domain
 
             MethodLevelExample = methodLevelExample;
 
-            Tags = NSpec.Domain.Tags.ParseTags( tags );
+            Tags = NSpec.Domain.Tags.ParseTags(tags);
         }
 
         public bool Pending;

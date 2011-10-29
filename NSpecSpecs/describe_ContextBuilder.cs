@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using System.Collections.Generic;
 using System;
+using NSpecSpecs;
 
 namespace NSpecNUnit.when_building_contexts
 {

@@ -27,8 +27,8 @@ namespace NSpec.Domain
             if (after != null) AfterInstance = i => after.Invoke(i, null);
         }
 
-        public ClassContext( Type type, Conventions conventions = null, Tags tagsFilter = null, string tags = null )
-            : base( type.Name, tags, 0 )
+        public ClassContext(Type type, Conventions conventions = null, Tags tagsFilter = null, string tags = null)
+            : base(type.Name, tags, 0)
         {
             this.type = type;
 
@@ -37,7 +37,7 @@ namespace NSpec.Domain
             this.tagsFilter = tagsFilter;
         }
 
-        public override void Build(nspec instance=null)
+        public override void Build(nspec instance = null)
         {
             BuildMethodLevelBefore();
 
@@ -47,7 +47,7 @@ namespace NSpec.Domain
 
             var nspec = type.Instance<nspec>();
 
-            nspec.tagsFilter = tagsFilter;
+            nspec.tagsFilter = tagsFilter ?? new Tags();
 
             base.Build(nspec);
         }

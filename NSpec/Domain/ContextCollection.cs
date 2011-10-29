@@ -5,9 +5,9 @@ namespace NSpec.Domain
 {
     public class ContextCollection : List<Context>
     {
-        public ContextCollection(IEnumerable<Context> contexts) :base(contexts){}
+        public ContextCollection(IEnumerable<Context> contexts) : base(contexts) { }
 
-        public ContextCollection(){}
+        public ContextCollection() { }
 
         public IEnumerable<Example> Examples()
         {
@@ -37,8 +37,8 @@ namespace NSpec.Domain
         /// <summary>Removes contexts that do not contain any executed descendant examples</summary>
         public void TrimSkippedContexts()
         {
-            this.Do( c => c.TrimSkippedDescendants() );
-            this.RemoveAll( c => !c.HasDescendantExamplesExecuted() );
+            this.Do(c => c.TrimSkippedDescendants());
+            this.RemoveAll(c => !c.HasDescendantExamplesExecuted());
         }
 
         public IEnumerable<Context> AllContexts()

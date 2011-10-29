@@ -42,7 +42,7 @@ namespace NSpecRunner
                 {
                     var finder = new SpecFinder(dll, new Reflector(), filter);
 
-                    var tagsFilter = new Tags().ParseTagFilters( tags );
+                    var tagsFilter = new Tags().Parse( tags );
 
                     var builder = new ContextBuilder( finder, tagsFilter, new DefaultConventions() );
 

@@ -110,7 +110,7 @@ namespace NSpec
             return collection;
         }
 
-        public static IEnumerable<T> should_not_be_empty<T>( this IEnumerable<T> collection )
+        public static IEnumerable<T> should_not_be_empty<T>(this IEnumerable<T> collection)
         {
             CollectionAssert.IsNotEmpty(collection);
 
@@ -154,30 +154,9 @@ namespace NSpec
             Assert.AreSame(expected, actual);
         }
 
-        public static void should_not_be_same( this object actual, object expected )
+        public static void should_not_be_same(this object actual, object expected)
         {
-            Assert.AreNotSame( expected, actual );
-        }
-
-        public static List<string> should_contain_tag( this List<string> collection, string tag )
-        {
-            CollectionAssert.Contains( collection, tag.TrimStart( new[] { '@' } ) );
-
-            return collection;
-        }
-
-        public static Tags should_tag_as_included( this Tags tags, string tag )
-        {
-            CollectionAssert.Contains( tags.IncludeTags, tag.TrimStart( new[] { '@' } ) );
-
-            return tags;
-        }
-
-        public static Tags should_tag_as_excluded( this Tags tags, string tag )
-        {
-            CollectionAssert.Contains( tags.ExcludeTags, tag.TrimStart( new[] { '@' } ) );
-
-            return tags;
+            Assert.AreNotSame(expected, actual);
         }
     }
 }

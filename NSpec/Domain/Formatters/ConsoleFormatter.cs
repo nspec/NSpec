@@ -7,69 +7,69 @@ namespace NSpec.Domain.Formatters
     [Serializable]
     public class ConsoleFormatter : IFormatter
     {
-        public void Write( ContextCollection contexts )
+        public void Write(ContextCollection contexts)
         {
-            contexts.Do( c => Console.WriteLine( Write( c ) ) );
+            contexts.Do(c => Console.WriteLine(Write(c)));
 
-            Console.WriteLine( FailureSummary( contexts ) );
+            Console.WriteLine(FailureSummary(contexts));
 
-            Console.WriteLine( Summary( contexts ) );
+            Console.WriteLine(Summary(contexts));
         }
 
-        public string Write( Context context, int level = 1 )
+        public string Write(Context context, int level = 1)
         {
             var result = "";
 
-            if( level == 1 ) result += Environment.NewLine;
+            if (level == 1) result += Environment.NewLine;
 
             result += context.Name;
 
-            context.Examples.Do( e => result += Write( e, level ) );
+            context.Examples.Do(e => result += Write(e, level));
 
-            context.Contexts.Do( c => result += Environment.NewLine + indent.Times( level ) + Write( c, level + 1 ) );
+            context.Contexts.Do(c => result += Environment.NewLine + indent.Times(level) + Write(c, level + 1));
 
             return result;
         }
 
-        public string Write( Example e, int level = 1 )
+        public string Write(Example e, int level = 1)
         {
-            var failure = e.ExampleLevelException == null ? "" : " - FAILED - {0}".With( e.ExampleLevelException.CleanMessage() );
+            var failure = e.ExampleLevelException == null ? "" : " - FAILED - {0}".With(e.ExampleLevelException.CleanMessage());
 
-            var whiteSpace = Environment.NewLine + indent.Times( level );
+            var whiteSpace = Environment.NewLine + indent.Times(level);
 
             return e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failure;
         }
 
-        public string FailureSummary( ContextCollection contexts )
+        public string FailureSummary(ContextCollection contexts)
         {
-            if( contexts.Failures().Count() == 0 ) return "";
+            if (contexts.Failures().Count() == 0) return "";
 
             var summary = Environment.NewLine + "**** FAILURES ****" + Environment.NewLine;
 
-            contexts.Failures().Do( f => summary += WriteFailure( f ) );
+            contexts.Failures().Do(f => summary += WriteFailure(f));
 
             return summary;
         }
 
-        public string WriteFailure( Example example )
+        public string WriteFailure(Example example)
         {
-            var failure = Environment.NewLine + example.FullName().Replace( "_", " " ) + Environment.NewLine;
+            var failure = Environment.NewLine + example.FullName().Replace("_", " ") + Environment.NewLine;
 
             failure += example.ExampleLevelException.CleanMessage() + Environment.NewLine;
 
-            var stackTrace = 
+            var stackTrace =
                 example.ExampleLevelException
-                       .GetOrFallback( e => e.StackTrace, "" ).Split( '\n' )
-                       .Where( l => !internalNameSpaces.Any( l.Contains ) );
+                       .GetOrFallback(e => e.StackTrace, "").Split('\n')
+                       .Where(l => !internalNameSpaces.Any(l.Contains));
 
-            var flattenedStackTrace = stackTrace.Flatten( Environment.NewLine ).TrimEnd() + Environment.NewLine;
+            var flattenedStackTrace = stackTrace.Flatten(Environment.NewLine).TrimEnd() + Environment.NewLine;
 
             failure += flattenedStackTrace;
 
             return failure;
         }
 
-        public string Summary( ContextCollection contexts )
+        public string Summary(ContextCollection contexts)
         {
             return "{0} Examples, {1} Failed, {2} Pending".With(
                 contexts.Examples().Count(),

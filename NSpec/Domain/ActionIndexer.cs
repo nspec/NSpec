@@ -6,24 +6,24 @@ namespace NSpec.Domain
     {
         private readonly Action<string, string, Action> actionSetter;
 
-        public ActionRegister( Action<string, string, Action> actionSetter )
+        public ActionRegister(Action<string, string, Action> actionSetter)
         {
             this.actionSetter = actionSetter;
         }
 
-        public Action this[ string key ]
+        public Action this[string key]
         {
             set
             {
-                actionSetter( key, null, value );
+                actionSetter(key, null, value);
             }
         }
 
-        public Action this[ string key, string tags ]
+        public Action this[string key, string tags]
         {
             set
             {
-                actionSetter( key, tags, value );
+                actionSetter(key, tags, value);
             }
         }
     }

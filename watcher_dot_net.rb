@@ -479,7 +479,7 @@ OUTPUT
   end
 
   def test_cmd test_dll, test_name
-     "\"#{@@nunit_path}\" \"#{test_dll}\" /nologo /labels /include=#{ test_name.gsub(/describe_/, "") }"
+     "\"#{@@nunit_path}\" \"#{test_dll}\" /nologo /labels"
   end
 
   def inconclusive

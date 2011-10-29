@@ -155,7 +155,7 @@ namespace NSpecNUnit
 
             parentContext.Build();
         }
-        
+
         [Test]
         public void should_run_the_befores_in_the_proper_order()
         {
@@ -170,31 +170,31 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
-    [Category( "Context" )]
-    public class when_trimming_unexecuted_contexts
+    [Category("Context")]
+    public class trimming_unexecuted_contexts
     {
-        [Test]
+        Context rootContext;
+
+        [SetUp]
         public void given_nested_contexts_with_and_without_executed_examples()
         {
-            var root = new Context( "root context" );
+            rootContext = new Context("root context");
+            rootContext.AddContext(new Context("context with no example"));
 
-            // add context with a skipped example
-            root.AddContext( new Context( "context with no example" ) );
+            var context = new Context("context with example");
+            context.AddExample(new Example("example"));
+            context.Examples[0].HasRun = true;
+            rootContext.AddContext(context);
 
-            // add context with an executed example
-            var context = new Context( "context with example" );
-            context.AddExample( new Example( "example" ) );
-            context.Examples[ 0 ].HasRun = true;
-            root.AddContext( context );
+            rootContext.Contexts.Count().should_be(2);
 
-            // validate precondition
-            root.Contexts.Count().should_be( 2 );
+            rootContext.TrimSkippedDescendants();
+        }
 
-            // perform trim operation
-            root.TrimSkippedDescendants();
-
-            // validate postcondition
-            root.Contexts.Count().should_be( 1 );
+        [Test]
+        public void it_removes_contexts_where_no_examples_were_run()
+        {
+            rootContext.Contexts.Count().should_be(1);
         }
     }
 }

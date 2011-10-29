@@ -58,14 +58,14 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void includes_tag()
         {
-            Run( typeof( SpecClass ), new Tags().ParseTagFilters( "@mytag" ) );
+            Run( typeof( SpecClass ), new Tags().Parse( "@mytag" ) );
             classContext.AllContexts().Count().should_be( 4 ); // class context + method context + 2 tagged sub-contexts
         }
 
         [Test]
         public void excludes_tag()
         {
-            Run( typeof( SpecClass ), new Tags().ParseTagFilters( "~@mytag" ) );
+            Run( typeof( SpecClass ), new Tags().Parse( "~@mytag" ) );
             classContext.AllContexts().Count().should_be( 6 );
             classContext.AllContexts().should_not_contain( c => c.Tags.Contains( "mytag" ) );
         }
@@ -73,7 +73,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void includes_and_excludes_tags()
         {
-            Run( typeof( SpecClass ), new Tags().ParseTagFilters( "@mytag,~@foobar" ) );
+            Run( typeof( SpecClass ), new Tags().Parse( "@mytag,~@foobar" ) );
             classContext.AllContexts().should_contain( c => c.Tags.Contains( "mytag" ) );
             classContext.AllContexts().should_not_contain( c => c.Tags.Contains( "foobar" ) );
             classContext.AllContexts().Count().should_be( 3 );
@@ -82,28 +82,28 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void includes_tag_as_class_attribute()
         {
-            Run( typeof( SpecClass0 ), new Tags().ParseTagFilters( "@class-tag-zero" ) );
+            Run( typeof( SpecClass0 ), new Tags().Parse( "@class-tag-zero" ) );
             classContext.AllContexts().Count().should_be( 1 );
         }
 
         [Test]
         public void excludes_tag_as_class_attribute()
         {
-            Run( new[] { typeof( SpecClass ), typeof( SpecClass0 ) }, new Tags().ParseTagFilters( "~@class-tag" ) );
+            Run( new[] { typeof( SpecClass ), typeof( SpecClass0 ) }, new Tags().Parse( "~@class-tag" ) );
             contextCollection.Count.should_be( 1 );
         }
 
         [Test]
         public void includes_tag_as_method_attribute()
         {
-            Run( typeof( SpecClass ), new Tags().ParseTagFilters( "@method-tag-one" ) );
+            Run( typeof( SpecClass ), new Tags().Parse( "@method-tag-one" ) );
             classContext.AllContexts().Count().should_be( 2 );
         }
 
         [Test]
         public void excludes_tag_as_method_attribute()
         {
-            Run( typeof( SpecClass ), new Tags().ParseTagFilters( "~@method-tag-one" ) );
+            Run( typeof( SpecClass ), new Tags().Parse( "~@method-tag-one" ) );
             classContext.AllContexts().Count().should_be( 7 );
         }
     }

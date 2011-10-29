@@ -7,10 +7,8 @@ using NUnit.Framework;
 
 namespace NSpecSpecs.ClassContextBug
 {
-    [TestFixture]
     public class NestContextsTests
     {
-        [Test]
         public void debug()
         {
             //the specification class you want to test
@@ -21,40 +19,40 @@ namespace NSpecSpecs.ClassContextBug
             var finder = new SpecFinder(
                 Assembly.GetExecutingAssembly().Location,
                 new Reflector(),
-                testClassYouWantToDebug );
+                testClassYouWantToDebug);
 
             //initialize NSpec's builder
-            var builder = new ContextBuilder( finder, new DefaultConventions() );
+            var builder = new ContextBuilder(finder, new DefaultConventions());
 
             //this line runs the tests you specified in the filter
             TestFormatter formatter = new TestFormatter();
-            new ContextRunner( builder, formatter ).Run();
+            new ContextRunner(builder, formatter).Run();
 
             Context grandParent = formatter.Contexts[0];
-            Assert.That( grandParent.Name, Is.EqualTo( "Grand Parent" ) );
-            Assert.That( grandParent.Contexts.Count, Is.EqualTo( 2 ) );
-            Assert.That( grandParent.Contexts[0].Name, Is.EqualTo( "Grand Parent Context" ) );
-            Assert.That( grandParent.Contexts[1].Name, Is.EqualTo( "Parent" ) );
-            Assert.That( grandParent.Contexts[0].Examples[0].Spec, Is.EqualTo( "TestValue should be \"Grand Parent!!!\"" ) );
-            Assert.That( grandParent.Contexts[0].Examples[0].ExampleLevelException, Is.Null );
-            Assert.That( grandParent.Contexts[0].Examples[0].Pending, Is.False );
+            Assert.That(grandParent.Name, Is.EqualTo("Grand Parent"));
+            Assert.That(grandParent.Contexts.Count, Is.EqualTo(2));
+            Assert.That(grandParent.Contexts[0].Name, Is.EqualTo("Grand Parent Context"));
+            Assert.That(grandParent.Contexts[1].Name, Is.EqualTo("Parent"));
+            Assert.That(grandParent.Contexts[0].Examples[0].Spec, Is.EqualTo("TestValue should be \"Grand Parent!!!\""));
+            Assert.That(grandParent.Contexts[0].Examples[0].ExampleLevelException, Is.Null);
+            Assert.That(grandParent.Contexts[0].Examples[0].Pending, Is.False);
 
             Context parent = formatter.Contexts[0].Contexts[1];
-            Assert.That( parent.Name, Is.EqualTo( "Parent" ) );
-            Assert.That( parent.Contexts.Count, Is.EqualTo( 2 ) );
-            Assert.That( parent.Contexts[0].Name, Is.EqualTo( "Parent Context" ) );
-            Assert.That( parent.Contexts[1].Name, Is.EqualTo( "Child" ) );
-            Assert.That( parent.Contexts[0].Examples[0].Spec, Is.EqualTo( "TestValue should be \"Grand Parent.Parent!!!@@@\"" ) );
-            Assert.That( parent.Contexts[0].Examples[0].ExampleLevelException, Is.Null );
-            Assert.That( parent.Contexts[0].Examples[0].Pending, Is.False );
+            Assert.That(parent.Name, Is.EqualTo("Parent"));
+            Assert.That(parent.Contexts.Count, Is.EqualTo(2));
+            Assert.That(parent.Contexts[0].Name, Is.EqualTo("Parent Context"));
+            Assert.That(parent.Contexts[1].Name, Is.EqualTo("Child"));
+            Assert.That(parent.Contexts[0].Examples[0].Spec, Is.EqualTo("TestValue should be \"Grand Parent.Parent!!!@@@\""));
+            Assert.That(parent.Contexts[0].Examples[0].ExampleLevelException, Is.Null);
+            Assert.That(parent.Contexts[0].Examples[0].Pending, Is.False);
 
             Context child = formatter.Contexts[0].Contexts[1].Contexts[1];
-            Assert.That( child.Name, Is.EqualTo( "Child" ) );
-            Assert.That( child.Contexts.Count, Is.EqualTo( 1 ) );
-            Assert.That( child.Contexts[0].Name, Is.EqualTo( "Child Context" ) );
-            Assert.That( child.Contexts[0].Examples[0].Spec, Is.EqualTo( "TestValue should be \"Grand Parent.Parent.Child!!!@@@###\"" ) );
-            Assert.That( child.Contexts[0].Examples[0].ExampleLevelException, Is.Null );
-            Assert.That( child.Contexts[0].Examples[0].Pending, Is.False );
+            Assert.That(child.Name, Is.EqualTo("Child"));
+            Assert.That(child.Contexts.Count, Is.EqualTo(1));
+            Assert.That(child.Contexts[0].Name, Is.EqualTo("Child Context"));
+            Assert.That(child.Contexts[0].Examples[0].Spec, Is.EqualTo("TestValue should be \"Grand Parent.Parent.Child!!!@@@###\""));
+            Assert.That(child.Contexts[0].Examples[0].ExampleLevelException, Is.Null);
+            Assert.That(child.Contexts[0].Examples[0].Pending, Is.False);
         }
     }
 
@@ -62,7 +60,7 @@ namespace NSpecSpecs.ClassContextBug
     {
         public ContextCollection Contexts { get; set; }
 
-        public void Write( ContextCollection contexts )
+        public void Write(ContextCollection contexts)
         {
             this.Contexts = contexts;
         }

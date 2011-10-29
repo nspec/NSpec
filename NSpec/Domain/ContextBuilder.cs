@@ -12,7 +12,7 @@ namespace NSpec.Domain
         {
         }
 
-        public ContextBuilder( ISpecFinder finder, Tags tagsFilter, Conventions conventions )
+        public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
         {
             contexts = new ContextCollection();
 
@@ -31,20 +31,20 @@ namespace NSpec.Domain
 
             var specClasses = finder.SpecClasses();
 
-            var container = new ClassContext( typeof( nspec ), conventions, tagsFilter );
+            var container = new ClassContext(typeof(nspec), conventions, tagsFilter);
 
-            Build( container, specClasses );
+            Build(container, specClasses);
 
-            contexts.AddRange( container.Contexts );
+            contexts.AddRange(container.Contexts);
 
             return contexts;
         }
 
         private void Build(Context parent, IEnumerable<Type> allSpecClasses)
         {
-            var derivedTypes = allSpecClasses.Where(s => parent.IsSub( s.BaseType) );
+            var derivedTypes = allSpecClasses.Where(s => parent.IsSub(s.BaseType));
 
-            foreach( var derived in derivedTypes )
+            foreach (var derived in derivedTypes)
             {
                 var classContext = CreateClassContext(derived);
 
@@ -57,12 +57,12 @@ namespace NSpec.Domain
         public ClassContext CreateClassContext(Type type)
         {
             // extract tags as string from class-level attribute(s)
-            var tagAttributes = (TagAttribute[]) type.GetCustomAttributes( typeof( TagAttribute ), false );
-            var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
+            var tagAttributes = (TagAttribute[])type.GetCustomAttributes(typeof(TagAttribute), false);
+            var tags = tagAttributes.Aggregate("", (current, tagAttribute) => current + (", " + tagAttribute.Tags));
 
-            var context = new ClassContext( type, conventions, tagsFilter, tags );
+            var context = new ClassContext(type, conventions, tagsFilter, tags);
 
-            BuildMethodContexts( context, type );
+            BuildMethodContexts(context, type);
 
             BuildMethodLevelExamples(context, type);
 
@@ -77,12 +77,12 @@ namespace NSpec.Domain
                 contextMethod =>
                 {
                     // extract tags as string from method-level attribute(s)
-                    var tagAttributes = (TagAttribute[]) contextMethod.GetCustomAttributes( typeof( TagAttribute ), false );
-                    var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
+                    var tagAttributes = (TagAttribute[])contextMethod.GetCustomAttributes(typeof(TagAttribute), false);
+                    var tags = tagAttributes.Aggregate("", (current, tagAttribute) => current + (", " + tagAttribute.Tags));
 
-                    var methodContext = new MethodContext( contextMethod, tags );
+                    var methodContext = new MethodContext(contextMethod, tags);
 
-                    classContext.AddContext( methodContext );
+                    classContext.AddContext(methodContext);
                 });
         }
 
@@ -94,17 +94,17 @@ namespace NSpec.Domain
                 methodInfo =>
                 {
                     // extract tags as string from method-level attribute(s)
-                    var tagAttributes = (TagAttribute[]) methodInfo.GetCustomAttributes( typeof( TagAttribute ), false );
-                    var tags = tagAttributes.Aggregate( "", ( current, tagAttribute ) => current + ( ", " + tagAttribute.Tags ) );
+                    var tagAttributes = (TagAttribute[])methodInfo.GetCustomAttributes(typeof(TagAttribute), false);
+                    var tags = tagAttributes.Aggregate("", (current, tagAttribute) => current + (", " + tagAttribute.Tags));
 
-                    var methodExample = new Example( methodInfo, tags );
+                    var methodExample = new Example(methodInfo, tags);
 
-                    classContext.AddExample( methodExample );
+                    classContext.AddExample(methodExample);
                 });
         }
 
         private Conventions conventions;
-        
+
         private ISpecFinder finder;
 
         private ContextCollection contexts;

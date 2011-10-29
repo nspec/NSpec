@@ -115,7 +115,7 @@ namespace NSpec
         /// </summary>
         public virtual Action expect<T>() where T : Exception
         {
-            return expect<T>( expectedMessage: null );
+            return expect<T>(expectedMessage: null);
         }
 
         /// <summary>
@@ -123,25 +123,25 @@ namespace NSpec
         /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;();</para>
         /// </summary>
-        public virtual Action expect<T>( string expectedMessage ) where T : Exception
+        public virtual Action expect<T>(string expectedMessage) where T : Exception
         {
             var specContext = Context;    // pull out context reference to avoid closure-related error
 
             return () =>
             {
                 // handle case when no exception (or the wrong exception) was thrown during befores/acts
-                if( specContext.contextLevelException == null || specContext.contextLevelException.GetType() != typeof( T ) )
-                    throw new ExceptionNotThrown( "Exception of type " + typeof( T ).Name + " was not thrown." );
+                if (specContext.contextLevelException == null || specContext.contextLevelException.GetType() != typeof(T))
+                    throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
 
-                if( expectedMessage != null && expectedMessage != specContext.contextLevelException.Message )
+                if (expectedMessage != null && expectedMessage != specContext.contextLevelException.Message)
                 {
-                    throw new ExceptionNotThrown( String.Format( "Expected message: \"{0}\" But was: \"{1}\"",
+                    throw new ExceptionNotThrown(String.Format("Expected message: \"{0}\" But was: \"{1}\"",
                                                                  expectedMessage,
-                                                                 specContext.contextLevelException.Message ) );
+                                                                 specContext.contextLevelException.Message));
                 }
 
                 // if the expected exception was thrown during befores/acts, then update the context-level exception
-                if( specContext.contextLevelException.GetType() == typeof( T ) )
+                if (specContext.contextLevelException.GetType() == typeof(T))
                 {
                     specContext.contextLevelExpectedException = specContext.contextLevelException;
                     specContext.contextLevelException = null;
@@ -156,7 +156,7 @@ namespace NSpec
         /// </summary>
         public virtual Action expect<T>(Action action) where T : Exception
         {
-            return expect<T>( null, action );
+            return expect<T>(null, action);
         }
 
         /// <summary>
@@ -173,45 +173,45 @@ namespace NSpec
                 try
                 {
                     action();
-                    throw new ExceptionNotThrown( "Exception of type " + typeof( T ).Name + " was not thrown." );
+                    throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
                 }
-                catch( ExceptionNotThrown )
+                catch (ExceptionNotThrown)
                 {
-                    // don't swallow/wrap ExceptionNotThrown exceptions thrown above (note: this probably should be refactored a bit more)
                     throw;
                 }
-                catch( Exception ex )
+
+                catch (Exception ex)
                 {
-                    if( ex.GetType() != closureType )
+                    if (ex.GetType() != closureType)
                     {
-                        throw new ExceptionNotThrown( "Exception of type " + typeof( T ).Name + " was not thrown." );
+                        throw new ExceptionNotThrown("Exception of type " + typeof(T).Name + " was not thrown.");
                     }
 
-                    if( expectedMessage != null && expectedMessage != ex.Message )
+                    if (expectedMessage != null && expectedMessage != ex.Message)
                     {
-                        throw new ExceptionNotThrown( String.Format( "Expected message: \"{0}\" But was: \"{1}\"", expectedMessage, ex.Message ) );
+                        throw new ExceptionNotThrown(String.Format("Expected message: \"{0}\" But was: \"{1}\"", expectedMessage, ex.Message));
                     }
                 }
             };
         }
 
-        void AddExample( Example example )
+        void AddExample(Example example)
         {
-            Context.AddExample( example );
+            Context.AddExample(example);
         }
 
-        void AddContext( string name, string tags, Action action )
+        void AddContext(string name, string tags, Action action)
         {
-            var childContext = new Context( name, tags, level );
+            var childContext = new Context(name, tags, level);
 
-            RunContext( childContext, action );
+            RunContext(childContext, action);
         }
 
         void AddIgnoredContext(string name, string tags, Action action)
         {
-            var ignored = new Context( name, tags, level, isPending: true );
+            var ignored = new Context(name, tags, level, isPending: true);
 
-            RunContext( ignored, action );
+            RunContext(ignored, action);
         }
 
         void RunContext(Context context, Action action)
@@ -241,6 +241,6 @@ namespace NSpec
         /// Currently, multiple tags indicates any of the tags must be present to be included/excluded.  In other words, they are OR'd, not AND'd.
         /// NOTE: Cucumber's tags wiki offers ideas for handling tags: https://github.com/cucumber/cucumber/wiki/tags
         /// </remarks>
-        public  Tags tagsFilter;
+        internal Tags tagsFilter = new Tags();
     }
 }

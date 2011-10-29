@@ -38,28 +38,28 @@ namespace NSpecSpecs.WhenRunningSpecs
                 it[ "parses single 'include' tag filter" ] = () =>
                 {
                     var tags = new Tags();
-                    tags.ParseTagFilters( "mytag" );
+                    tags.Parse( "mytag" );
                     tags.should_tag_as_included( "mytag" );
                 };
 
                 it[ "parses single 'exclude' tag filter" ] = () =>
                 {
                     var tags = new Tags();
-                    tags.ParseTagFilters( "~mytag" );
+                    tags.Parse( "~mytag" );
                     tags.should_tag_as_excluded( "mytag" );
                 };
 
                 it[ "parses ampersat tag filter" ] = () =>
                 {
                     var tags = new Tags();
-                    tags.ParseTagFilters( "@mytag" );
+                    tags.Parse( "@mytag" );
                     tags.should_tag_as_included( "mytag" );
                 };
 
                 it[ "parses multiple tags filter" ] = () =>
                 {
                     var tags = new Tags();
-                    tags.ParseTagFilters( "myInclude1,~myExclude1,@myInclude2,~@myExclude2," );
+                    tags.Parse( "myInclude1,~myExclude1,@myInclude2,~@myExclude2," );
                     tags.should_tag_as_excluded( "@myExclude1" );
                     tags.should_tag_as_excluded( "myExclude2" );
                     tags.should_tag_as_included( "@myInclude1" );
