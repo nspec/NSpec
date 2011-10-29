@@ -173,18 +173,23 @@ namespace NSpecNUnit
     [Category("Context")]
     public class trimming_unexecuted_contexts
     {
+        Context contextWithExample;
+        Context contextWithoutExample;
         Context rootContext;
 
         [SetUp]
         public void given_nested_contexts_with_and_without_executed_examples()
         {
             rootContext = new Context("root context");
-            rootContext.AddContext(new Context("context with no example"));
 
-            var context = new Context("context with example");
-            context.AddExample(new Example("example"));
-            context.Examples[0].HasRun = true;
-            rootContext.AddContext(context);
+            contextWithoutExample = new Context("context with no example");
+
+            rootContext.AddContext(contextWithoutExample);
+
+            contextWithExample = new Context("context with example");
+            contextWithExample.AddExample(new Example("example"));
+            contextWithExample.Examples[0].HasRun = true;
+            rootContext.AddContext(contextWithExample);
 
             rootContext.Contexts.Count().should_be(2);
 
@@ -192,9 +197,15 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_removes_contexts_where_no_examples_were_run()
+        public void it_contains_context_with_example()
         {
-            rootContext.Contexts.Count().should_be(1);
+            rootContext.Contexts.should_contain(contextWithExample);
+        }
+
+        [Test]
+        public void it_doesnt_contain_empty_context()
+        {
+            rootContext.Contexts.should_not_contain(contextWithoutExample);
         }
     }
 }

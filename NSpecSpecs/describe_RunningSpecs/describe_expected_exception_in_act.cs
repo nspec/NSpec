@@ -14,19 +14,19 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void method_level_context()
             {
-                it[ "should fail if no exception thrown" ] = expect< InvalidOperationException >();
+                it["should fail if no exception thrown"] = expect<InvalidOperationException>();
 
-                context[ "when exception thrown from act" ] = () =>
+                context["when exception thrown from act"] = () =>
                 {
-                    act = () => { throw new InvalidOperationException( "Testing" ); };
+                    act = () => { throw new InvalidOperationException("Testing"); };
 
-                    it[ "should throw exception" ] = expect< InvalidOperationException >();
+                    it["should throw exception"] = expect<InvalidOperationException>();
 
-                    it[ "should throw exception with error message Testing" ] = expect< InvalidOperationException >( "Testing" );
+                    it["should throw exception with error message Testing"] = expect<InvalidOperationException>("Testing");
 
-                    it[ "should fail if wrong exception thrown" ] = expect< ArgumentException >();
+                    it["should fail if wrong exception thrown"] = expect<ArgumentException>();
 
-                    it[ "should fail if wrong error message is returned" ] = expect< InvalidOperationException >( "Blah" );
+                    it["should fail if wrong error message is returned"] = expect<InvalidOperationException>("Blah");
                 };
             }
         }

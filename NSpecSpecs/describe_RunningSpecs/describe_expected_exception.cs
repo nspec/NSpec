@@ -18,7 +18,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
                 it["should throw exception"] = expect<InvalidOperationException>(() => { throw new InvalidOperationException(); });
 
-                it["should throw exception with error message Testing"] = expect<InvalidOperationException>( "Testing", () => { throw new InvalidOperationException("Testing"); });
+                it["should throw exception with error message Testing"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Testing"); });
 
                 it["should fail if no exception thrown"] = expect<InvalidOperationException>(() => { });
 

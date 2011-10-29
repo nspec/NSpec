@@ -29,7 +29,7 @@ namespace NSpecNUnit.when_building_contexts
 
             finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(typesForFinder);
 
-            DefaultConventions conventions =  new DefaultConventions();
+            DefaultConventions conventions = new DefaultConventions();
 
             conventions.Initialize();
 
@@ -170,7 +170,7 @@ namespace NSpecNUnit.when_building_contexts
 
             builder.BuildMethodContexts(classContext, typeof(SpecClass));
         }
-        
+
         [Test]
         public void it_should_add_the_public_method_as_a_sub_context()
         {
@@ -197,36 +197,34 @@ namespace NSpecNUnit.when_building_contexts
     }
 
     [TestFixture]
-    [Category( "ContextBuilder" )]
+    [Category("ContextBuilder")]
     public class when_building_class_and_method_contexts_with_tag_attributes : describe_ContextBuilder
     {
-        [Tag( "@class-tag" )]
-        private class SpecClass : nspec
+        [Tag("@class-tag")]
+        class SpecClass : nspec
         {
             [Tag("@method-tag")]
-            public void public_method() { }
+            void public_method() { }
         }
 
         [SetUp]
         public void setup()
         {
-            GivenTypes( typeof( SpecClass ) );
+            GivenTypes(typeof(SpecClass));
         }
 
         [Test]
         public void it_should_tag_class_context()
         {
-            var classContext = TheContexts()[ 0 ];
-            classContext.Name.should_be( "SpecClass" );
-            classContext.Tags.should_contain_tag( "@class-tag" );
+            var classContext = TheContexts()[0];
+            classContext.Tags.should_contain_tag("@class-tag");
         }
 
         [Test]
         public void it_should_tag_method_context()
         {
-            var methodContext = TheContexts()[ 0 ].Contexts[0];
-            methodContext.Name.should_be( "public method" );
-            methodContext.Tags.should_contain_tag( "@method-tag" );
+            var methodContext = TheContexts()[0].Contexts[0];
+            methodContext.Tags.should_contain_tag("@method-tag");
         }
     }
 
@@ -243,8 +241,8 @@ namespace NSpecNUnit.when_building_contexts
         [SetUp]
         public void setup()
         {
-            GivenTypes(typeof(base_spec), 
-                typeof(child_spec), 
+            GivenTypes(typeof(base_spec),
+                typeof(child_spec),
                 typeof(grand_child_spec));
         }
 
@@ -270,7 +268,7 @@ namespace NSpecNUnit.when_building_contexts
     {
         public static void should_be(this string actualName, Type expectedType)
         {
-            Assert.AreEqual(expectedType.Name.Replace("_"," "),actualName);
+            Assert.AreEqual(expectedType.Name.Replace("_", " "), actualName);
         }
 
     }

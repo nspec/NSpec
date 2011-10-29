@@ -12,20 +12,20 @@ namespace NSpecSpecs
     [Category("Conventions")]
     public class when_find_before
     {
-        private Conventions convensions;
+        private Conventions conventions;
 
         public class class_with_before : nspec
         {
             void before_each()
             {
-                
+
             }
         }
 
         [SetUp]
         public void Setup()
         {
-            convensions = new DefaultConventions();
+            conventions = new DefaultConventions();
         }
     }
 

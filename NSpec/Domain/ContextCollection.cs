@@ -38,6 +38,7 @@ namespace NSpec.Domain
         public void TrimSkippedContexts()
         {
             this.Do(c => c.TrimSkippedDescendants());
+
             this.RemoveAll(c => !c.HasDescendantExamplesExecuted());
         }
 
