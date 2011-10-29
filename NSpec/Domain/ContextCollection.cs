@@ -34,7 +34,6 @@ namespace NSpec.Domain
             this.Do(c => c.Run());
         }
 
-        /// <summary>Removes contexts that do not contain any executed descendant examples</summary>
         public void TrimSkippedContexts()
         {
             this.Do(c => c.TrimSkippedDescendants());

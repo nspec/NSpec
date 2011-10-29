@@ -5,7 +5,7 @@ namespace NSpec.Domain
 {
     public class ContextRunner
     {
-        public ContextRunner( ContextBuilder builder, IFormatter formatter )
+        public ContextRunner(ContextBuilder builder, IFormatter formatter)
         {
             this.builder = builder;
             this.formatter = formatter;
@@ -23,9 +23,7 @@ namespace NSpec.Domain
 
                 contexts.Run();
 
-                // remove any contexts that ended with no executed examples (which is likely due to presence of tag filters)
-                if( builder.tagsFilter != null && builder.tagsFilter.HasTagFilters() )
-                    contexts.TrimSkippedContexts();
+                if (builder.tagsFilter.HasTagFilters()) contexts.TrimSkippedContexts();
 
                 formatter.Write(contexts);
             }

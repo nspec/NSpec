@@ -8,7 +8,7 @@ namespace NSpec.Domain
     public class ContextBuilder
     {
         public ContextBuilder(ISpecFinder finder, Conventions conventions)
-            : this(finder, null, conventions)
+            : this(finder, new Tags(), conventions)
         {
         }
 

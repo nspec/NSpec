@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 namespace NSpec
 {
@@ -9,6 +10,7 @@ namespace NSpec
         /// <summary>
         /// string will be repeated n number of times.
         /// </summary>
+        [DebuggerNonUserCode]
         public static string Times(this string source, int times)
         {
             if (times == 0) return "";
@@ -24,6 +26,7 @@ namespace NSpec
         /// <summary>
         /// Action(T) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be executed across a common set of examples.
         /// </summary>
+        [DebuggerNonUserCode]
         public static IEnumerable<T> Do<T>(this IEnumerable<T> source, Action<T> action)
         {
             foreach (var t in source)
@@ -36,6 +39,7 @@ namespace NSpec
         /// Action(T, T) will get executed for each consecutive 2 items in a list.  You can use this to specify a suite of data that needs to be executed across a common set of examples.
         /// </summary>
         /// <returns></returns>
+        [DebuggerNonUserCode]
         public static IEnumerable<T> EachConsecutive2<T>(this IEnumerable<T> source, Action<T, T> action)
         {
             var array = source.ToArray();
@@ -50,6 +54,7 @@ namespace NSpec
         /// <summary>
         /// Action(T, U) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
         /// </summary>
+        [DebuggerNonUserCode]
         public static void Do<T, U>(this Each<T, U> source, Action<T, U> action)
         {
             foreach (var tup in source)
@@ -59,6 +64,7 @@ namespace NSpec
         /// <summary>
         /// Action(T, U) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
         /// </summary>
+        [DebuggerNonUserCode]
         public static void Do<T, U>(this Dictionary<T, U> source, Action<T, U> action)
         {
             foreach (var kvp in source)
@@ -68,6 +74,7 @@ namespace NSpec
         /// <summary>
         /// Action(T, U, V) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
         /// </summary>
+        [DebuggerNonUserCode]
         public static void Do<T, U, V>(this Each<T, U, V> source, Action<T, U, V> action)
         {
             foreach (var tup in source)
@@ -77,6 +84,7 @@ namespace NSpec
         /// <summary>
         /// Action(T, U, V, W) will get executed for each item in the list.  You can use this to specify a suite of data that needs to be execute across a common set of examples.
         /// </summary>
+        [DebuggerNonUserCode]
         public static void Do<T, U, V, W>(this Each<T, U, V, W> source, Action<T, U, V, W> action)
         {
             foreach (var tup in source)
@@ -86,6 +94,7 @@ namespace NSpec
         /// <summary>
         /// Action will be executed n number of times.
         /// </summary>
+        [DebuggerNonUserCode]
         public static void Times(this int number, Action action)
         {
             for (int i = 1; i <= number; i++)
@@ -97,6 +106,7 @@ namespace NSpec
         /// <summary>
         /// Flattens an Enumerable&lt;string&gt; into one string with optional separator
         /// </summary>
+        [DebuggerNonUserCode]
         public static string Flatten(this IEnumerable<string> source, string separator = "")
         {
             return source.Aggregate((acc, s) => acc = acc + separator + s);
@@ -106,6 +116,7 @@ namespace NSpec
         /// Safely access a property or method of type T. If it is null or throws
         /// the fallback will be used instead
         /// </summary>
+        [DebuggerNonUserCode]
         public static U GetOrFallback<T, U>(this T t, Func<T, U> func, U fallback)
         {
             try
@@ -125,6 +136,7 @@ namespace NSpec
         /// Create an IEnumerable&lt;int&gt; range from x to y
         /// eg. 1.To(3) would be [1,2,3]
         /// </summary>
+        [DebuggerNonUserCode]
         public static IEnumerable<int> To(this int start, int end)
         {
             for (int i = start; i <= end; i++)
@@ -135,6 +147,7 @@ namespace NSpec
         /// Extension method that wraps String.Format.
         /// <para>Usage: string result = "{0} {1}".With("hello", "world");</para>
         /// </summary>
+        [DebuggerNonUserCode]
         public static string With(this string source, params object[] objects)
         {
             var o = Sanitize(objects);
