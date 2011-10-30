@@ -56,6 +56,16 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
+        public void classes_are_automatically_tagged_with_class_name()
+        {
+            Run(typeof(SpecClass0));
+
+            classContext.Tags.should_contain("class-tag-zero");
+
+            classContext.Tags.should_contain("SpecClass0");
+        }
+
+        [Test]
         public void includes_tag()
         {
             Run(typeof(SpecClass), "mytag");

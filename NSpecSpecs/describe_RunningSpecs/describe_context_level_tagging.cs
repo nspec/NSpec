@@ -42,9 +42,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void does_not_have_a_tag()
+        public void it_only_contains_default_tag()
         {
-            TheContext("does not have a tag").Tags.Count.should_be(0);
+            TheContext("does not have a tag").Tags.should_contain("SpecClass");
         }
 
         [Test]
@@ -54,12 +54,13 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void has_three_tags()
+        public void has_three_tags_and_the_default()
         {
-            TheContext("has three tags").Tags.Count.should_be(3);
+            TheContext("has three tags").Tags.should_contain_tag("SpecClass");
             TheContext("has three tags").Tags.should_contain_tag("mytag");
             TheContext("has three tags").Tags.should_contain_tag("expect-to-failure");
             TheContext("has three tags").Tags.should_contain_tag("foobar");
+            TheContext("has three tags").Tags.Count.should_be(4);
         }
 
         [Test]

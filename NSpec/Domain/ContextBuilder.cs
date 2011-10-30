@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSpec.Domain.Extensions;
+using System.Reflection;
 
 namespace NSpec.Domain
 {
@@ -56,9 +57,11 @@ namespace NSpec.Domain
 
         public ClassContext CreateClassContext(Type type)
         {
-            // extract tags as string from class-level attribute(s)
-            var tagAttributes = (TagAttribute[])type.GetCustomAttributes(typeof(TagAttribute), false);
-            var tags = tagAttributes.Aggregate("", (current, tagAttribute) => current + (", " + tagAttribute.Tags));
+            var tagAttributes = ((TagAttribute[])type.GetCustomAttributes(typeof(TagAttribute), false)).ToList();
+
+            tagAttributes.Add(new TagAttribute(type.Name));
+
+            var tags = TagStringFor(tagAttributes);
 
             var context = new ClassContext(type, conventions, tagsFilter, tags);
 
@@ -73,14 +76,10 @@ namespace NSpec.Domain
         {
             specClass
                 .Methods()
-                .Where(s => conventions.IsMethodLevelContext(s.Name)).Do(
-                contextMethod =>
+                .Where(s => conventions.IsMethodLevelContext(s.Name))
+                .Do(contextMethod =>
                 {
-                    // extract tags as string from method-level attribute(s)
-                    var tagAttributes = (TagAttribute[])contextMethod.GetCustomAttributes(typeof(TagAttribute), false);
-                    var tags = tagAttributes.Aggregate("", (current, tagAttribute) => current + (", " + tagAttribute.Tags));
-
-                    var methodContext = new MethodContext(contextMethod, tags);
+                    var methodContext = new MethodContext(contextMethod, TagStringFor(contextMethod));
 
                     classContext.AddContext(methodContext);
                 });
@@ -90,17 +89,28 @@ namespace NSpec.Domain
         {
             specClass
                 .Methods()
-                .Where(s => conventions.IsMethodLevelExample(s.Name)).Do(
-                methodInfo =>
+                .Where(s => conventions.IsMethodLevelExample(s.Name))
+                .Do(methodInfo =>
                 {
-                    // extract tags as string from method-level attribute(s)
-                    var tagAttributes = (TagAttribute[])methodInfo.GetCustomAttributes(typeof(TagAttribute), false);
-                    var tags = tagAttributes.Aggregate("", (current, tagAttribute) => current + (", " + tagAttribute.Tags));
-
-                    var methodExample = new Example(methodInfo, tags);
+                    var methodExample = new Example(methodInfo, TagStringFor(methodInfo));
 
                     classContext.AddExample(methodExample);
                 });
+        }
+
+        string TagStringFor(MethodInfo method)
+        {
+            return TagStringFor(TagAttributesFor(method));
+        }
+
+        string TagStringFor(IEnumerable<TagAttribute> tagAttributes)
+        {
+            return tagAttributes.Aggregate("", (current, tagAttribute) => current + (", " + tagAttribute.Tags));
+        }
+
+        IEnumerable<TagAttribute> TagAttributesFor(MethodInfo method)
+        {
+            return (TagAttribute[])method.GetCustomAttributes(typeof(TagAttribute), false);
         }
 
         private Conventions conventions;
