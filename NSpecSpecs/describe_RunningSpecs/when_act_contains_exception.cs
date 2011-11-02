@@ -32,9 +32,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         public void the_example_level_failure_should_indicate_a_context_failure()
         {
             TheExample("should fail this example because of act")
-                .ExampleLevelException.GetType().should_be(typeof(ContextFailureException));
+                .ExampleLevelException.GetType().should_be(typeof(ExampleFailureException));
             TheExample("should also fail this example because of act")
-                .ExampleLevelException.GetType().should_be(typeof(ContextFailureException));
+                .ExampleLevelException.GetType().should_be(typeof(ExampleFailureException));
         }
 
         [Test]

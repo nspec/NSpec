@@ -124,8 +124,11 @@ namespace NSpec.Domain
 
             example.HasRun = true;
 
+            if (example.ExampleLevelException != null && contextLevelException != null && example.ExampleLevelException.GetType() != typeof(ExceptionNotThrown))
+                example.ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message + ", Example Failure: " + example.ExampleLevelException.Message, contextLevelException);
+
             if (example.ExampleLevelException == null && contextLevelException != null)
-                example.ExampleLevelException = new ContextFailureException("Exception thrown during context's befores, acts or afters", contextLevelException);
+                example.ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message, contextLevelException);
         }
 
         public virtual bool IsSub(Type baseType)

@@ -36,7 +36,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             classContext.AllExamples()
                         .First()
                         .ExampleLevelException
-                        .should_cast_to<ContextFailureException>();
+                        .should_cast_to<ExampleFailureException>();
         }
     }
 }

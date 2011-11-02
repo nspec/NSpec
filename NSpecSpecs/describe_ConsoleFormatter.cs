@@ -128,7 +128,6 @@ namespace NSpecNUnit.describe_ConsoleFormatter
     }
 
     [TestFixture]
-    [Category("ConsoleFormatter")]
     public class when_formatting_exceptions
     {
         [Test]

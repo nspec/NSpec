@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Domain\BeforeFinder.cs" />
     <Compile Include="Domain\ClassContext.cs" />
-    <Compile Include="Domain\ContextFailureException.cs" />
+    <Compile Include="Domain\ExampleFailureException.cs" />
     <Compile Include="Domain\Formatters\ConsoleFormatter.cs" />
     <Compile Include="Domain\ContextCollection.cs" />
     <Compile Include="Domain\ContextRunner.cs" />
