@@ -5,7 +5,7 @@ using System;
 namespace NSpec
 {
     /// <summary>
-    /// Inherit from this class to create your own specifications. NSpecRunner will look through your project for 
+    /// Inherit from this class to create your own specifications.  NSpecRunner will look through your project for 
     /// classes that derive from this class (inheritance chain is taken into consideration).
     /// </summary>
     public class nspec
