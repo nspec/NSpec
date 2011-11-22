@@ -1,48 +1,34 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<plugin pluginId="Gallio.NSpecAdapter"
-        recommendedInstallationPath="NSpec"
-        xmlns="http://www.gallio.org/">
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.gallio.org/" pluginId="Gallio.NSpecAdapter" recommendedInstallationPath="NSpec">
   <traits>
     <name>NSpec Adapter Plugin</name>
-    <version>0.1.0.0</version>
+    <version>0.9.51.0</version>
     <description>Provides support for running NSpec within Gallio. Requires the assemblies from NSpec.</description>
   </traits>
 
   <dependencies>
-    <dependency pluginId="Gallio" />
+    <dependency pluginId="Gallio"/>
   </dependencies>
 
   <files>
-    <file path="NSpec.GallioAdapter.plugin" />
-    <file path="NSpec.GallioAdapter.dll" />
-    <file path="NSpec.dll" />
-    <file path="nunit.framework.dll" />
+    <file path="NSpec.GallioAdapter.plugin"/>
+    <file path="NSpec.GallioAdapter.dll"/>
+    <file path="NSpec.dll"/>
+    <file path="nunit.framework.dll"/>
   </files>
 
   <assemblies>
-    <assembly fullName="NSpec.GallioAdapter, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null"
-              codeBase="NSpec.GallioAdapter.dll"
-              qualifyPartialName="true" />
-
-    <assembly fullName="NSpec, Version=0.9.44.0, Culture=neutral, PublicKeyToken=null"
-              codeBase="NSpec.dll">
-      <bindingRedirects>
-        <bindingRedirect oldVersion="0.9.44.0-0.9.65535.65535" />
-      </bindingRedirects>
-    </assembly>
-    
-    <assembly fullName="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77"
-              codeBase="nunit.framework.dll" />
+    <assembly fullName="NSpec.GallioAdapter, Version=0.9.51.0, Culture=neutral, PublicKeyToken=null" codeBase="NSpec.GallioAdapter.dll" qualifyPartialName="true"/>
+    <assembly fullName="NSpec, Version=0.9.51.0, Culture=neutral, PublicKeyToken=null" codeBase="NSpec.dll"/>    
+    <assembly fullName="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" codeBase="nunit.framework.dll"/>
   </assemblies>
   
   <components>
-    <component componentId="NSpec.TestFramework"
-               serviceId="Gallio.TestFramework"
-               componentType="NSpec.GallioAdapter.NSpecTestFramework, NSpec.GallioAdapter">
+    <component componentId="NSpec.TestFramework" serviceId="Gallio.TestFramework" componentType="NSpec.GallioAdapter.NSpecTestFramework, NSpec.GallioAdapter">
       <traits>
         <name>NSpec</name>        
-        <frameworkAssemblies>NSpec, Version=0.9.44.0-0.9.65535.65535</frameworkAssemblies>
-        <version>0.9.44.0</version>
+        <frameworkAssemblies>NSpec, Version=0.9.51.0</frameworkAssemblies>
+        <version>0.9.51.0</version>
         <fileTypes>Assembly</fileTypes>
       </traits>
     </component>
