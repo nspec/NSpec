@@ -4,4 +4,10 @@ namespace NSpec.Domain.Formatters
     {
         void Write( ContextCollection contexts );
     }
+
+    public interface ILiveFormatter
+    {
+        void Write(Context context);
+        void Write(Example example, int level);
+    }
 }

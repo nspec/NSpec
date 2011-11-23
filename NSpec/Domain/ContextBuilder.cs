@@ -51,6 +51,10 @@ namespace NSpec.Domain
 
                 parent.AddContext(classContext);
 
+                BuildMethodContexts(classContext, derived);
+
+                BuildMethodLevelExamples(classContext, derived);
+
                 Build(classContext, allSpecClasses);
             }
         }
@@ -65,9 +69,6 @@ namespace NSpec.Domain
 
             var context = new ClassContext(type, conventions, tagsFilter, tags);
 
-            BuildMethodContexts(context, type);
-
-            BuildMethodLevelExamples(context, type);
 
             return context;
         }

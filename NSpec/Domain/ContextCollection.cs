@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NSpec.Domain.Formatters;
 
 namespace NSpec.Domain
 {
@@ -31,7 +32,12 @@ namespace NSpec.Domain
 
         public void Run()
         {
-            this.Do(c => c.Run());
+            Run(new ConsoleFormatter());
+        }
+
+        public void Run(ILiveFormatter formatter)
+        {
+            this.Do(c => c.Run(formatter));
         }
 
         public void TrimSkippedContexts()

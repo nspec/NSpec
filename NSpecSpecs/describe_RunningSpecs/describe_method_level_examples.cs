@@ -39,7 +39,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             classContext = contextBuilder.Contexts().First();
 
             classContext.Build();
-            classContext.Run();
+            classContext.Run(new FormatterStandIn());
         }
 
         [Test]

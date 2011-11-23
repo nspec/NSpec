@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NSpec.Domain.Formatters;
 
 namespace NSpec.Domain
 {
@@ -62,6 +63,8 @@ namespace NSpec.Domain
 
         public void AddContext(Context child)
         {
+            child.Level = Level + 1;
+
             child.Parent = this;
 
             child.Tags.AddRange(child.Parent.Tags);
@@ -69,13 +72,20 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
-        public virtual void Run(nspec instance = null)
+        public virtual void Run(ILiveFormatter formatter, nspec instance = null)
         {
+            formatter.Write(this);
+
             var nspec = savedInstance ?? instance;
 
-            Contexts.Do(c => c.Run(nspec));
+            for (int i = 0; i < Examples.Count; i++)
+            {
+                Exercise(Examples[i], nspec);
 
-            for (int i = 0; i < Examples.Count; i++) Exercise(Examples[i], nspec);
+                formatter.Write(Examples[i], Level);
+            }
+
+            Contexts.Do(c => c.Run(formatter, nspec));
         }
 
         public virtual void Build(nspec instance = null)

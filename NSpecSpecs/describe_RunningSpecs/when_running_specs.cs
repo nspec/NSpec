@@ -2,6 +2,7 @@
 using System.Linq;
 using NSpec.Domain;
 using NSpec;
+using NSpec.Domain.Formatters;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -9,7 +10,7 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         protected void Run()
         {
-            contextCollection.Run();
+            contextCollection.Run(new FormatterStandIn());
 
             if (builder.tagsFilter.HasTagFilters()) contextCollection.TrimSkippedContexts();
         }
@@ -74,5 +75,16 @@ namespace NSpecSpecs.WhenRunningSpecs
         protected ContextCollection contextCollection;
         protected ClassContext classContext;
         protected Context methodContext;
+    }
+
+    public class FormatterStandIn : ILiveFormatter
+    {
+        public void Write(Context context)
+        {
+        }
+
+        public void Write(Example example, int level)
+        {
+        }
     }
 }
