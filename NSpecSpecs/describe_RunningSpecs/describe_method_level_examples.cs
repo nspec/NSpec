@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using NSpec.Domain.Formatters;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
@@ -39,7 +40,8 @@ namespace NSpecSpecs.WhenRunningSpecs
             classContext = contextBuilder.Contexts().First();
 
             classContext.Build();
-            classContext.Run(new FormatterStandIn());
+
+            classContext.Run(new SilentLiveFormatter());
         }
 
         [Test]

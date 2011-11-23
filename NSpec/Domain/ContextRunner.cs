@@ -21,7 +21,11 @@ namespace NSpec.Domain
 
                 contexts.Build();
 
-                contexts.Run();
+                ILiveFormatter liveFormatter = new SilentLiveFormatter();
+
+                if (formatter is ConsoleFormatter) liveFormatter = formatter as ILiveFormatter;
+
+                contexts.Run(liveFormatter);
 
                 if (builder.tagsFilter.HasTagFilters()) contexts.TrimSkippedContexts();
 

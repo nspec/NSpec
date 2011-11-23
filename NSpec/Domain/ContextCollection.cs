@@ -32,7 +32,7 @@ namespace NSpec.Domain
 
         public void Run()
         {
-            Run(new ConsoleFormatter());
+            Run(new SilentLiveFormatter());
         }
 
         public void Run(ILiveFormatter formatter)
