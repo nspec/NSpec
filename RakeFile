@@ -139,7 +139,7 @@ task :website => :spec do
 
     time = t.strftime("on %m/%d/%Y") + t.strftime(" at %I:%M%p")
     
-    timestamp = "Sample code and output automatically executed against nspec version #{get_version_node.text} #{time}"
+    timestamp = "Sample code and output automatically executed against nspec version #{get_version_node.text} #{time} CST"
 
     @doc.at('#timestamp').inner_html = timestamp
 

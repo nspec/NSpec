@@ -29,7 +29,7 @@
 </div>
 </div>
 <div id="layout-content" class="group">
-<p id="timestamp">Sample code and output automatically executed against nspec version 0.9.45 on 08/03/2011 at 06:28PM</p>
+<p id="timestamp">Sample code and output automatically executed against nspec version 0.9.51 on 09/22/2011 at 09:20PM</p>
 </div>
 <p><a name="helloworld"></a></p>
 <div class="zone zone-sub-page-title">
@@ -51,7 +51,7 @@
 </li>
 <li>After installation completes, create a class with the following code:</li>
 </ol>
-<pre id="my_first_spec_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+<pre id="my_first_spec_code" class="brush: csharp;">using NSpec;
 
 class my_first_spec : nspec
 {
@@ -67,7 +67,7 @@ class my_first_spec : nspec
 <li>Run the following command in the Package Manager Console:</li>
 </ol>
 <pre style="font-size: 1.2em !important;"> NSpecRunner.exe <em>YourClassLibraryName</em>\bin\debug\<em>YourClassLibraryName</em>.dll</pre>
-<pre id="my_first_spec_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">my first spec
+<pre id="my_first_spec_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">my first spec
   given the world has not come to an end
     Hello World should be Hello World
 
@@ -79,7 +79,7 @@ class my_first_spec : nspec
 <h1>Specifications</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_specifications_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+<pre id="describe_specifications_code" class="brush: csharp;">using NSpec;
 
 class describe_specifications : nspec
 {
@@ -102,7 +102,7 @@ class describe_specifications : nspec
     }
     object someObject = null;
 }</pre>
-<pre id="describe_specifications_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe specifications
+<pre id="describe_specifications_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe specifications
   when creating specifications
     true should be false - FAILED - Expected: False, But was: True
     enumerable should be empty
@@ -146,7 +146,7 @@ Expected: not null, But was: null
 <h1>Befores</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_before_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using NSpec;
+<pre id="describe_before_code" class="brush: csharp;">using NSpec;
 
 class describe_before : nspec
 {
@@ -160,7 +160,7 @@ class describe_before : nspec
     }
     int number;
 }</pre>
-<pre id="describe_before_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe before
+<pre id="describe_before_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe before
   they run before each example
     number should be 2
     number should be 1
@@ -173,7 +173,7 @@ class describe_before : nspec
 <h1>Contexts</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_contexts_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using NSpec;
+<pre id="describe_contexts_code" class="brush: csharp;">using NSpec;
 
 class describe_contexts : nspec
 {
@@ -197,7 +197,7 @@ class describe_contexts : nspec
     }
     private Account account;
 }</pre>
-<pre id="describe_contexts_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe contexts
+<pre id="describe_contexts_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe contexts
   describe Account
     when withdrawing cash
       account is in credit
@@ -213,7 +213,7 @@ class describe_contexts : nspec
 <h1>Pendings</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_pending_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+<pre id="describe_pending_code" class="brush: csharp;">using NSpec;
 
 class describe_pending : nspec
 {
@@ -224,7 +224,7 @@ class describe_pending : nspec
         xit["\"\" should be \"something else\""] = () =&gt; "".should_be("something else");
     }
 }</pre>
-<pre id="describe_pending_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe pending
+<pre id="describe_pending_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe pending
   when creating pending specifications
     pending spec - PENDING
     "" should be "something else" - PENDING
@@ -237,7 +237,7 @@ class describe_pending : nspec
 <h1>Helpers</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_helpers_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+<pre id="describe_helpers_code" class="brush: csharp;">using NSpec;
 
 public class describe_helpers : nspec
 {
@@ -260,7 +260,7 @@ public class describe_helpers : nspec
     }
     Tea tea;
 }</pre>
-<pre id="describe_helpers_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe helpers
+<pre id="describe_helpers_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe helpers
   when making tea
     that is 210 degrees
       should be hot
@@ -275,7 +275,7 @@ public class describe_helpers : nspec
 <h1>Act</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_batman_sound_effects_as_text_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using NSpec;
+<pre id="describe_batman_sound_effects_as_text_code" class="brush: csharp;">using NSpec;
 
 class describe_batman_sound_effects_as_text : nspec
 {
@@ -299,7 +299,7 @@ class describe_batman_sound_effects_as_text : nspec
     }
     string sound;
 }</pre>
-<pre id="describe_batman_sound_effects_as_text_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe batman sound effects as text
+<pre id="describe_batman_sound_effects_as_text_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe batman sound effects as text
   they are loud and emphatic
     given bam
       should be BAM!!!
@@ -314,11 +314,11 @@ class describe_batman_sound_effects_as_text : nspec
 <h1>Class Level</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_class_level_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using NSpec;
+<pre id="describe_class_level_code" class="brush: csharp;">using NSpec;
 
 class describe_class_level : nspec
 {
-    //before and act can also be declared at the class level like so
+    //before, act, and it can also be declared at the class level like so
     void before_each()
     {
         sequence = "arrange, ";
@@ -327,15 +327,18 @@ class describe_class_level : nspec
     {
         sequence += "act";
     }
-    void given_befores_and_acts_run_in_the_correct_sequence()
+
+    //prefixing a method with "it_" or "specify_"
+    //will tell nspec to treat the method as an example
+    void specify_given_befores_and_acts_run_in_the_correct_sequence()
     {
-        specify = () =&gt; sequence.should_be("arrange, act");
+        sequence.should_be("arrange, act");
     }
+
     string sequence;
 }</pre>
-<pre id="describe_class_level_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe class level
-  given befores and acts run in the correct sequence
-    sequence should be arrange, act
+<pre id="describe_class_level_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe class level
+  specify given befores and acts run in the correct sequence
 
 1 Examples, 0 Failed, 0 Pending
 </pre>
@@ -345,7 +348,7 @@ class describe_class_level : nspec
 <h1>Inheritance</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="given_the_sequence_continues_with_2_code" data-timestamp="2011-08-03 18:28:25 -0500" class="brush: csharp;">using NSpec;
+<pre id="given_the_sequence_continues_with_2_code" class="brush: csharp;">using NSpec;
 
 class given_the_sequence_continues_with_2 : given_the_sequence_starts_with_1
 {
@@ -372,7 +375,7 @@ class given_the_sequence_starts_with_1 : nspec
     protected string sequence;
 }
 </pre>
-<pre id="given_the_sequence_continues_with_2_output" data-timestamp="2011-08-03 18:28:25 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">given the sequence starts with 1
+<pre id="given_the_sequence_continues_with_2_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">given the sequence starts with 1
   given the sequence continues with 2
     given the sequence continues with 3
       sequence should be "123"
@@ -385,7 +388,7 @@ class given_the_sequence_starts_with_1 : nspec
 <h1>Exceptions</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_expected_exception_code" data-timestamp="2011-08-03 18:28:24 -0500" class="brush: csharp;">using System;
+<pre id="describe_expected_exception_code" class="brush: csharp;">using System;
 using NSpec;
 
 class describe_expected_exception : nspec
@@ -397,7 +400,7 @@ class describe_expected_exception : nspec
     }
     string nullString;
 }</pre>
-<pre id="describe_expected_exception_output" data-timestamp="2011-08-03 18:28:24 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe expected exception
+<pre id="describe_expected_exception_output" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe expected exception
   given a null string
     should throw null-ref
 
@@ -411,16 +414,16 @@ class describe_expected_exception : nspec
 <div id="layout-content" class="group" style="padding-top: 10px;">
 <ul>
 <li>Install via NuGet (VS2010 only)</li>
-<li>or download zip from github -ÿhttps://github.com/mattflo/NSpec/downloads</li>
+<li>or download zip from github -&yuml;https://github.com/mattflo/NSpec/downloads</li>
 <li>Requires .NET 3.5</li>
 <li>Classes inherit from nspec</li>
-<li>Classes and methods                                                                                                                                                  
+<li>Classes and methods                                                                                                                                                    
 <ul>
 <li>are contexts</li>
 <li>do not require an access modifier</li>
 </ul>
 </li>
-<li>Inside methods                                                                                                                                                 
+<li>Inside methods                                                                                                                                                   
 <ul>
 <li>sub contexts are created (context/describe)</li>
 <li>specifications are declared (it/specify)</li>
@@ -430,3 +433,4 @@ class describe_expected_exception : nspec
 </li>
 </ul>
 </div>
+
