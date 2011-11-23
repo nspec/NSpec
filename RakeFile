@@ -47,7 +47,7 @@ end
 task :version => [:bump_version, :version_gallio_adapter] do
   lines = ["[assembly: AssemblyVersion(\"#{get_version_node.text}\")]",
            "[assembly: AssemblyFileVersion(\"#{get_version_node.text}\")]"]
-  Dir['NSpec*/**/AssemblyInfo.cs'].each {|f| update_version f,lines}
+  update_version 'SharedAssemblyInfo.cs', lines
 end
 
 desc 'update GallioAdapter plugin version'
