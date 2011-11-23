@@ -146,10 +146,9 @@ namespace NSpec.Domain
             return false;
         }
 
-        public Context(string name = "", string tags = null, int level = 0, bool isPending = false)
+        public Context(string name = "", string tags = null, bool isPending = false)
         {
             Name = name.Replace("_", " ");
-            Level = level;
             Examples = new List<Example>();
             Contexts = new ContextCollection();
             Tags = NSpec.Domain.Tags.ParseTags(tags);

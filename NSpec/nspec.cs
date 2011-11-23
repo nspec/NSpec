@@ -211,22 +211,20 @@ namespace NSpec
 
         void AddContext(string name, string tags, Action action)
         {
-            var childContext = new Context(name, tags, level);
+            var childContext = new Context(name, tags);
 
             RunContext(childContext, action);
         }
 
         void AddIgnoredContext(string name, string tags, Action action)
         {
-            var ignored = new Context(name, tags, level, isPending: true);
+            var ignored = new Context(name, tags, isPending: true);
 
             RunContext(ignored, action);
         }
 
         void RunContext(Context context, Action action)
         {
-            level++;
-
             Context.AddContext(context);
 
             var beforeContext = Context;
@@ -235,12 +233,8 @@ namespace NSpec
 
             action();
 
-            level--;
-
             Context = beforeContext;
         }
-
-        int level;
 
         internal Context Context { get; set; }
 
