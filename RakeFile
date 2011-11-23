@@ -4,7 +4,7 @@ require 'zip/zipfilesystem'
 
 desc 'build'
 task :build do
-  sh 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe NSpec.sln'
+  sh 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe /verbosity:q NSpec.sln'
 end
 
 desc 'default rake task builds and runs unit tests'
@@ -12,7 +12,7 @@ task :default => [:build, :spec]
 
 desc 'run specs'
 task :spec => :build do
-  sh '"C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe" NSpecSpecs/bin/Debug/NSpecSpecs.dll'
+  sh '"C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe" /nologo NSpecSpecs/bin/Debug/NSpecSpecs.dll'
 end
 
 task :pull do
