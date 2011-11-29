@@ -19,7 +19,6 @@ namespace NSpecRunner
             try
             {
                 // extract either a class filter or a tags filter (but not both)
-                var classFilter = "";
                 var argsTags = "";
                 if (args.Length > 1)
                 {
@@ -38,18 +37,9 @@ namespace NSpecRunner
 
                 var console = new ConsoleFormatter();
 
-                domain.Run(specDLL, classFilter, argsTags, console, (dll, filter, tags, formatter) =>
-                {
-                    var finder = new SpecFinder(dll, new Reflector(), filter);
+                var invocation = new RunnerInvocation(specDLL, argsTags, console);
 
-                    var tagsFilter = new Tags().Parse(tags);
-
-                    var builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
-
-                    var runner = new ContextRunner(builder, formatter);
-
-                    runner.Run();
-                });
+                domain.Run(invocation, i => RunnerBuilder.Build(i).Run());
             }
             catch (Exception e)
             {
@@ -67,6 +57,40 @@ namespace NSpecRunner
             Console.WriteLine("nspecrunner path_to_spec_dll [regex pattern]");
             Console.WriteLine();
             Console.WriteLine("The second parameter is optional. If supplied, only the classes that match the regex will be run.  The full class name including namespace is considered. Otherwise all spec classes in the dll will be run.");
+        }
+    }
+
+    [Serializable]
+    public class RunnerInvocation
+    {
+        public string Tags;
+        public IFormatter Console;
+        public string Dll;
+
+        public RunnerInvocation(string dll, string tags, IFormatter console)
+        {
+            Tags = tags;
+            Console = console;
+            Dll = dll;
+        }
+    }
+
+    internal static class RunnerBuilder
+    {
+        public static ContextRunner Build(string dll, string tags, IFormatter formatter)
+        {
+            var finder = new SpecFinder(dll, new Reflector());
+
+            var tagsFilter = new Tags().Parse(tags);
+
+            var builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
+
+            return new ContextRunner(builder, formatter);
+        }
+
+        public static ContextRunner Build(RunnerInvocation invocation)
+        {
+            return Build(invocation.Dll, invocation.Tags, invocation.Console);
         }
     }
 }
