@@ -1,0 +1,327 @@
+
+app config detection
+  it finds app config
+
+describe after
+  it is one
+  it is still just one
+
+given a subcontext that fails
+  when totaling failures
+    should count this failure - FAILED - Expected: 2, But was: 1
+
+VendingMachineSpec
+  given new vending machine
+    machine Items should be empty
+    getting item A1 should throw ItemNotRegistered
+    given doritos are registered in A1 for 50 cents
+      machine Items Count should be Convert 1
+      machine Item A1 Name should be doritos
+      machine Item A1 Price should be Convert 0 5
+      given a second item is registered
+        machine Items Count should be Convert 2
+
+action indexer approach
+  a user
+    user Id should not be default
+    user Admin should be false
+    should work
+    user is admin
+      user Admin should be true
+      user is terminated
+        user Terminated should be true
+
+grandparents run first
+  describe NSpec
+    something that works in rspec but not nspec
+      sibling context
+        ints Count should be Convert 1 - FAILED - Expected: 1, But was: 2
+      another sibling context
+        ints Count should be Convert 1 - FAILED - Expected: 1, But was: 2
+
+before each on the class level
+  it should run before on class level
+  ints Count should be Convert 1
+
+describe TicTacToeGame
+  when players try to take the same square
+    should throw exception
+  describe a finished TicTacToeGame
+    describe a draw
+      all squares taken with no 3 in a row
+        game Finished should be true
+        game Draw should be true
+    describe a winning game
+      3 x's in column 0
+        game Finished should be true
+        winner should be x
+      3 x's in row 0
+        game Finished should be true
+        winner should be x
+      3 o's in column 0
+        game Finished should be true
+        winner should be o
+      3 o's in row 0
+        game Finished should be true
+        winner should be o
+      3 x's in column 1
+        game Finished should be true
+        winner should be x
+      3 x's in row 1
+        game Finished should be true
+        winner should be x
+      3 o's in column 1
+        game Finished should be true
+        winner should be o
+      3 o's in row 1
+        game Finished should be true
+        winner should be o
+      3 x's in column 2
+        game Finished should be true
+        winner should be x
+      3 x's in row 2
+        game Finished should be true
+        winner should be x
+      3 o's in column 2
+        game Finished should be true
+        winner should be o
+      3 o's in row 2
+        game Finished should be true
+        winner should be o
+      3 x's left to right
+        game Finished should be true
+        winner should be x
+      3 x's right to left
+        game Finished should be true
+        winner should be x
+      3 o's left to right
+        game Finished should be true
+        winner should be o
+      3 o's right to left
+        game Finished should be true
+        winner should be o
+
+describe Extensions
+  when creating ranges
+    1.To(2) should be [1,2]
+  describe Flatten
+    ["fifty","two"] should be fiftytwo
+
+describe shoulds
+  given a non empty list
+    should not be empty
+
+describe tags
+  tags at context level
+    when tags are specified at the context level
+      tags all examples within that context
+      when tags are nested
+        tags all the nested examples and nested contexts cumlatively
+
+prime kata
+  prime factors
+    1 should be []
+    2 should be [2]
+    3 should be [3]
+    4 should be [2,2]
+    5 should be [5]
+    6 should be [2,3]
+    7 should be [7]
+    8 should be [2,2,2]
+    9 should be [3,3]
+
+describe batman sound effects as text
+  they are loud and emphatic
+    given bam
+      should be BAM!!!
+    given whack
+      should be WHACK!!!
+
+describe class level
+  specify given befores and acts run in the correct sequence
+
+describe car
+  describe fuel requirements
+    car has 10 gallon tank
+      tank is empty
+        car IsOnEmpty should be true
+      turning car on
+        car does not have gas
+          car IsRunning should be false
+        car has gas
+          car IsRunning should be true
+      10% of gas is left
+        car IsLowOnFuel should be true
+      less than 10% of gas is left
+        car IsLowOnFuel should be true
+      more than 10% of gas is left
+        car IsLowOnFuel should be false
+  describe compression ratio
+    car has compression ratio of 7 to 1
+      should have octane requirement of 87
+      should have brake thermal efficiency of 28%
+    car has compression ratio of 8 to 1
+      should have octane requirement of 92
+      should have brake thermal efficiency of 30%
+    car has compression ratio of 9 to 1
+      should have octane requirement of 96
+      should have brake thermal efficiency of 32%
+  when driving car
+    should throw error if car isn't started
+    with 10 gallon(s) of gas, mpg: 1, driving: 10 miles
+      should have made it 10 miles
+      should have 0 gallons left in tank
+      should not be running
+      should have low fuel
+    with 10 gallon(s) of gas, mpg: 2, driving: 5 miles
+      should have made it 5 miles
+      should have 7.5 gallons left in tank
+      should be running
+      should not have low fuel
+    with 10 gallon(s) of gas, mpg: 10, driving: 10 miles
+      should have made it 10 miles
+      should have 9 gallons left in tank
+      should be running
+      should not have low fuel
+
+describe expected exception
+  given a null string
+    should throw null-ref
+
+describe helpers
+  when making tea
+    that is 210 degrees
+      should be hot
+    that is 90 degrees
+      should be cold
+
+describe method level examples
+  it should run methods that start with IT as an assertion
+  specify that methods that start with SPECIFY should run as assertion
+
+given the sequence starts with 1
+  given the sequence continues with 2
+    given the sequence continues with 3
+      sequence should be "123"
+
+describe Math
+  verify strictly increasing numbers
+    2 should be greater than 1
+    3 should be greater than 2
+    4 should be greater than 3
+    5 should be greater than 4
+    6 should be greater than 5
+    7 should be greater than 6
+    8 should be greater than 7
+    9 should be greater than 8
+
+describe pending
+  when creating pending specifications
+    pending spec - PENDING
+    "" should be "something else" - PENDING
+
+describe PrimeFactors
+  when determining prime factors
+    0 should be []
+    1 should be []
+    2 should be [2]
+    3 should be [3]
+    4 should be [2,2]
+    5 should be [5]
+    6 should be [2,3]
+    7 should be [7]
+    8 should be [2,2,2]
+    9 should be [3,3]
+
+describe specifications
+  when creating specifications
+    true should be false - FAILED - Expected: False, But was: True
+    enumerable should be empty
+    enumerable should contain 1
+    enumerable should not contain 1 - FAILED - Expected: not collection containing 1, But was: < 1 >
+    1 should be 2 - FAILED - Expected: 2, But was: 1
+    1 should be 1
+    1 should not be 1 - FAILED - Expected: not 1, But was: 1
+    1 should not be 2
+    "" should not be null
+    some object should not be null - FAILED - Expected: not null, But was: null
+    ninja should not be pirate
+
+multiple befores
+  list manipulation
+    the ints collection should not be null
+    one item in list
+      should have 1 item in list
+      should contain the number 99
+      another item in list
+        should have 2 items in list
+        should contain the number 26
+
+describe VendingMachine
+  when stocking vending machine with chips
+    should contain chips with count of 1
+    multiple chips added
+      should increment chip inventory with count of 2
+  when buying an item
+    vending maching has inventory
+      should decrement inventory
+      should increment cash in machine
+
+my first spec
+  given the world has not come to an end
+    Hello World should be Hello World
+
+describe contexts
+  describe Account
+    when withdrawing cash
+      account is in credit
+        the Account dispenses cash
+      account is overdrawn
+        the Account does not dispense cash
+
+describe before
+  they run before each example
+    number should be 2
+    number should be 1
+
+SomeSharedSpec
+  when inherting from some shared spec
+    should still run tests
+      Test should be Test
+
+**** FAILURES ****
+
+nspec. given a subcontext that fails. when totaling failures. should count this failure.
+Expected: 2, But was: 1
+   at SampleSpecs.Bug.given_a_subcontext_that_fails.<when_totaling_failures>b__0() in c:\Users\Administrator\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\Bug\given_a_subcontext_that_fails.cs:line 13
+
+nspec. grandparents run first. describe NSpec. something that works in rspec but not nspec. sibling context. ints Count should be Convert 1.
+Expected: 1, But was: 2
+   at lambda_method(Closure )
+
+nspec. grandparents run first. describe NSpec. something that works in rspec but not nspec. another sibling context. ints Count should be Convert 1.
+Expected: 1, But was: 2
+   at lambda_method(Closure )
+
+nspec. describe specifications. when creating specifications. true should be false.
+Expected: False, But was: True
+   at describe_specifications.<when_creating_specifications>b__0() in c:\Users\Administrator\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 8
+
+nspec. describe specifications. when creating specifications. enumerable should not contain 1.
+Expected: not collection containing 1, But was: < 1 >
+   at describe_specifications.<when_creating_specifications>b__3() in c:\Users\Administrator\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 11
+
+nspec. describe specifications. when creating specifications. 1 should be 2.
+Expected: 2, But was: 1
+   at describe_specifications.<when_creating_specifications>b__4() in c:\Users\Administrator\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 12
+
+nspec. describe specifications. when creating specifications. 1 should not be 1.
+Expected: not 1, But was: 1
+   at describe_specifications.<when_creating_specifications>b__6() in c:\Users\Administrator\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 14
+
+nspec. describe specifications. when creating specifications. some object should not be null.
+Expected: not null, But was: null
+   at describe_specifications.<when_creating_specifications>b__9() in c:\Users\Administrator\Documents\Visual Studio 2010\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 17
+
+148 Examples, 8 Failed, 2 Pending
+(in C:/Users/Administrator/Documents/Visual Studio 2010/Projects/NSpec)
