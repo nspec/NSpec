@@ -77,7 +77,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             formatter.WrittenExamples.should_not_contain(e => e.Spec == "an excluded example by ancestry");
         }
 
-        [Test, Ignore("this used to work and was broken with tagging implementation")]
+        [Test]
         public void it_writes_the_pending_example()
         {
             formatter.WrittenExamples.should_contain(contexts.FindExample("pending example"));

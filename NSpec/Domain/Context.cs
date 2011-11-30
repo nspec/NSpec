@@ -84,7 +84,7 @@ namespace NSpec.Domain
 
                 if (example.HasRun && !alreadyWritten)
                 {
-                    formatter.Write(this);
+                    WriteAncestors(formatter);
                     alreadyWritten = true;
                 }
 
@@ -92,6 +92,17 @@ namespace NSpec.Domain
             }
 
             Contexts.Do(c => c.Run(formatter, nspec));
+        }
+
+        private void WriteAncestors(ILiveFormatter formatter)
+        {
+            if (Parent == null) return;
+
+            Parent.WriteAncestors(formatter);
+
+            if(!alreadyWritten) formatter.Write(this);
+
+            alreadyWritten = true;
         }
 
         public virtual void Build(nspec instance = null)
@@ -126,9 +137,11 @@ namespace NSpec.Domain
 
         public void Exercise(Example example, nspec nspec)
         {
-            if (example.Pending) return;
-
             if (nspec.tagsFilter.ShouldSkip(example.Tags)) return;
+
+            example.HasRun = true;
+
+            if (example.Pending) return;
 
             RunAndHandleException(RunBefores, nspec, ref contextLevelException);
 
@@ -137,8 +150,6 @@ namespace NSpec.Domain
             RunAndHandleException(example.Run, nspec, ref example.ExampleLevelException);
 
             RunAndHandleException(RunAfters, nspec, ref contextLevelException);
-
-            example.HasRun = true;
 
             if (example.ExampleLevelException != null && contextLevelException != null && example.ExampleLevelException.GetType() != typeof(ExceptionNotThrown))
                 example.ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message + ", Example Failure: " + example.ExampleLevelException.Message, contextLevelException);
