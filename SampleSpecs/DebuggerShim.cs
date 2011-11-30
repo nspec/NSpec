@@ -14,30 +14,13 @@ public class DebuggerShim
     {
         //the specification class you want to test
         //this can be a regular expression
-        var testClassYouWantToDebug = "describe_SomeTest";
+        var testClassYouWantToDebug = "describe_specifications";
 
-        //initialize NSpec's specfinder
-        var finder = new SpecFinder(
-            Assembly.GetExecutingAssembly().Location,
-            new Reflector(),
-            testClassYouWantToDebug);
+        var invocation = new RunnerInvocation(Assembly.GetExecutingAssembly().Location,
+                                testClassYouWantToDebug,
+                                new SilentLiveFormatter());
 
-        //initialize NSpec's builder
-        var builder = new ContextBuilder(
-            finder,
-            new DefaultConventions());
-
-        //initialize the root context
-        var contexts = builder.Contexts();
-
-        //build the tests
-        contexts.Build();
-
-        //run the tests that were found
-        contexts.Run();
-
-        //print the output
-        new ConsoleFormatter().Write(contexts);
+        var contexts = invocation.Runner().Run();
 
         //assert that there aren't any failures
         contexts.Failures().Count().should_be(0);

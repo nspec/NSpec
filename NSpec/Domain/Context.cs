@@ -74,15 +74,21 @@ namespace NSpec.Domain
 
         public virtual void Run(ILiveFormatter formatter, nspec instance = null)
         {
-            formatter.Write(this);
-
             var nspec = savedInstance ?? instance;
 
             for (int i = 0; i < Examples.Count; i++)
             {
-                Exercise(Examples[i], nspec);
+                var example = Examples[i];
 
-                formatter.Write(Examples[i], Level);
+                Exercise(example, nspec);
+
+                if (example.HasRun && !alreadyWritten)
+                {
+                    formatter.Write(this);
+                    alreadyWritten = true;
+                }
+
+                if(example.HasRun) formatter.Write(example, Level);
             }
 
             Contexts.Do(c => c.Run(formatter, nspec));
@@ -167,6 +173,7 @@ namespace NSpec.Domain
         public Exception contextLevelExpectedException;
         private bool isPending;
         nspec savedInstance;
+        private bool alreadyWritten;
 
         public nspec GetInstance()
         {

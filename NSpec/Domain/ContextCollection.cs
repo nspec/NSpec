@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NSpec.Domain.Formatters;
 
@@ -50,6 +51,16 @@ namespace NSpec.Domain
         public IEnumerable<Context> AllContexts()
         {
             return this.SelectMany(c => c.AllContexts());
+        }
+
+        public Context Find(string name)
+        {
+            return AllContexts().FirstOrDefault(c => c.Name == name);
+        }
+
+        public Example FindExample(string name)
+        {
+            return Examples().FirstOrDefault(e => e.Spec == name);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using NSpec.Domain.Formatters;
+using NSpec.Domain;
 
 namespace NSpecRunner
 {

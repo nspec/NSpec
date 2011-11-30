@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using NSpec;
 using NSpec.Domain;
@@ -33,13 +32,11 @@ namespace NSpecRunner
 
                 var specDLL = args[0];
 
+                var invocation = new RunnerInvocation(specDLL, argsTags, new ConsoleFormatter());
+
                 var domain = new NSpecDomain(specDLL + ".config");
 
-                var console = new ConsoleFormatter();
-
-                var invocation = new RunnerInvocation(specDLL, argsTags, console);
-
-                domain.Run(invocation, i => RunnerBuilder.Build(i).Run());
+                domain.Run(invocation, i => i.Runner().Run());
             }
             catch (Exception e)
             {
@@ -57,40 +54,6 @@ namespace NSpecRunner
             Console.WriteLine("nspecrunner path_to_spec_dll [regex pattern]");
             Console.WriteLine();
             Console.WriteLine("The second parameter is optional. If supplied, only the classes that match the regex will be run.  The full class name including namespace is considered. Otherwise all spec classes in the dll will be run.");
-        }
-    }
-
-    [Serializable]
-    public class RunnerInvocation
-    {
-        public string Tags;
-        public IFormatter Console;
-        public string Dll;
-
-        public RunnerInvocation(string dll, string tags, IFormatter console)
-        {
-            Tags = tags;
-            Console = console;
-            Dll = dll;
-        }
-    }
-
-    internal static class RunnerBuilder
-    {
-        public static ContextRunner Build(string dll, string tags, IFormatter formatter)
-        {
-            var finder = new SpecFinder(dll, new Reflector());
-
-            var tagsFilter = new Tags().Parse(tags);
-
-            var builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
-
-            return new ContextRunner(builder, formatter);
-        }
-
-        public static ContextRunner Build(RunnerInvocation invocation)
-        {
-            return Build(invocation.Dll, invocation.Tags, invocation.Console);
         }
     }
 }
