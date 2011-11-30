@@ -110,9 +110,11 @@ namespace NSpec.Domain
 
         public void Exercise(Example example, nspec nspec)
         {
-            if (example.Pending) return;
-
             if (nspec.tagsFilter.ShouldSkip(example.Tags)) return;
+
+            example.HasRun = true;
+
+            if (example.Pending) return;
 
             RunAndHandleException(RunBefores, nspec, ref contextLevelException);
 
@@ -121,8 +123,6 @@ namespace NSpec.Domain
             RunAndHandleException(example.Run, nspec, ref example.ExampleLevelException);
 
             RunAndHandleException(RunAfters, nspec, ref contextLevelException);
-
-            example.HasRun = true;
 
             if (example.ExampleLevelException != null && contextLevelException != null && example.ExampleLevelException.GetType() != typeof(ExceptionNotThrown))
                 example.ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message + ", Example Failure: " + example.ExampleLevelException.Message, contextLevelException);
