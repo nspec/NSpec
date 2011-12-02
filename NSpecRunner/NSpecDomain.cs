@@ -19,7 +19,7 @@ namespace NSpecRunner
 
         public void Run(RunnerInvocation invocation, Action<RunnerInvocation> action)
         {
-            this.dll = dll;
+            this.dll = invocation.Dll;
 
             var setup = new AppDomainSetup();
 
