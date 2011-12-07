@@ -2,6 +2,7 @@
 using System.Linq;
 using NSpec.Domain;
 using NSpec;
+using NSpecSpecs.describe_RunningSpecs;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -74,5 +75,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         protected ContextCollection contextCollection;
         protected ClassContext classContext;
         protected Context methodContext;
+        protected ContextCollection contexts;
     }
 }
