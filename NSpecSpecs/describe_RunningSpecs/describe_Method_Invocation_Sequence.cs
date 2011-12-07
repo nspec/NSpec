@@ -45,6 +45,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             //The moral of the story is context methods that don't have their behavior wrapped 
             //in lambdas (incorrectly so), run in the order that they are declared (disregarding alphabetical ordering).
+            //FYI, alphabetical ordering can easily be implemented in the 'Methods' extension method.
             //Serindipitously, this means before_all's declared at the top, run as expected: before everything else.
             //Since we only create instances once, it also means they only run once.
         }
