@@ -12,7 +12,7 @@ namespace NSpec.Domain
 
         private IEnumerable<MethodInfo> GetMethodsFromHierarchy(Func<Type, MethodInfo> methodAccessor)
         {
-            return classHierarchyToClass.Select(methodAccessor).Where(mi => mi != null).Distinct();
+            return classHierarchyToClass.Select(methodAccessor).Where(mi => mi != null);
         }
 
         private void BuildMethodLevelBefore()
