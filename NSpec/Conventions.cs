@@ -82,17 +82,22 @@ namespace NSpec.Domain
 
         public MethodInfo GetMethodLevelBefore(Type type)
         {
-            return type.Methods().FirstOrDefault(s => specification.Before.IsMatch(s.Name) );
+            return GetMethodMatchingRegex(type, specification.Before);
         }
 
         public MethodInfo GetMethodLevelAct(Type type)
         {
-            return type.Methods().FirstOrDefault(s => specification.Act.IsMatch(s.Name));
+            return GetMethodMatchingRegex(type, specification.Act);
         }
 
         public MethodInfo GetMethodLevelAfter(Type type)
         {
-            return type.Methods().FirstOrDefault(s => specification.After.IsMatch(s.Name));
+            return GetMethodMatchingRegex(type, specification.After);
+        }
+
+        private MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
+        {
+            return type.Methods().Where(mi => mi.DeclaringType == type).FirstOrDefault(mi => regex.IsMatch(mi.Name));
         }
 
         public bool IsMethodLevelExample(string name)

@@ -18,11 +18,42 @@ namespace NSpec.Domain.Extensions
 
             var exclusions = typeof(nspec).GetMethods(flags).Select(m => m.Name);
 
-            var methodInfos = type.GetMethods(flags);
+            var methodInfos = type.GetAbstractBaseClassChainWithClass().SelectMany(t => t.GetMethods(flags));
             return methodInfos
                 .Where(m => !exclusions.Contains(m.Name) && !m.Name.Contains("<") && m.Name.Contains("_"))
-                .Where(m => m.GetParameters().Count() == 0)
-                .Where(m => m.ReturnType.ToString() == "System.Void").ToList();
+                .Where(m => m.GetParameters().Length == 0)
+                .Where(m => m.ReturnType == typeof(void)).ToList();
+        }
+
+        public static IEnumerable<Type> GetAbstractBaseClassChainWithClass(this Type type)
+        {
+            var baseClasses = new Stack<Type>();
+
+            for(Type baseClass = type.BaseType;
+                baseClass != null && baseClass.IsAbstract;
+                baseClass = baseClass.BaseType)
+            {
+                baseClasses.Push(baseClass);
+            }
+
+            while (baseClasses.Count > 0)
+            {
+                yield return baseClasses.Pop();
+            }
+
+            yield return type;
+        }
+
+        public static string GetPrettyName(this Type type)
+        {
+            if(!type.IsGenericType)
+            {
+                return type.Name;
+            }
+
+            return string.Format("{0}< {1} >",
+                                 type.Name.Remove(type.Name.IndexOf('`')),
+                                 string.Join(", ", type.GetGenericArguments().Select(GetPrettyName).ToArray()));
         }
 
         public static string CleanMessage(this Exception exception)

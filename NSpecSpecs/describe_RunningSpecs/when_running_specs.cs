@@ -42,7 +42,8 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             classContext = contextCollection
                 .AllContexts()
-                .Select(c => c as ClassContext)
+                .Where(c => c is ClassContext)
+                .Cast<ClassContext>()
                 .FirstOrDefault(c => types.Contains(c.type));
 
             methodContext = contextCollection.AllContexts().FirstOrDefault(c => c is MethodContext);
