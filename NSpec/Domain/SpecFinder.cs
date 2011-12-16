@@ -30,7 +30,7 @@ namespace NSpec.Domain
             }
 
             return finalList.Distinct(new TypeComparer())
-				.Where(s => s != typeof(nspec) && s != typeof(object) && !s.IsAbstract);
+                .Where(s => s != typeof(nspec) && s != typeof(object) && !s.IsAbstract);
         }
 
         public IEnumerable<Type> BaseTypes(Type type)

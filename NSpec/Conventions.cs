@@ -95,10 +95,10 @@ namespace NSpec.Domain
             return GetMethodMatchingRegex(type, specification.After);
         }
 
-		private MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
-		{
-			return type.Methods().Where(mi => mi.DeclaringType == type).FirstOrDefault(mi => regex.IsMatch(mi.Name));
-		}
+        private MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
+        {
+            return type.Methods().Where(mi => mi.DeclaringType == type).FirstOrDefault(mi => regex.IsMatch(mi.Name));
+        }
 
         public bool IsMethodLevelExample(string name)
         {

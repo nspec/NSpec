@@ -25,36 +25,36 @@ namespace NSpec.Domain.Extensions
                 .Where(m => m.ReturnType.ToString() == "System.Void").ToList();
         }
 
-		public static IEnumerable<Type> GetAbstractBaseClassChainWithClass(this Type type)
-		{
-			var baseClasses = new Stack<Type>();
+        public static IEnumerable<Type> GetAbstractBaseClassChainWithClass(this Type type)
+        {
+            var baseClasses = new Stack<Type>();
 
-			for(Type baseClass = type.BaseType;
-				baseClass != null && baseClass.IsAbstract;
-				baseClass = baseClass.BaseType)
-			{
-				baseClasses.Push(baseClass);
-			}
+            for(Type baseClass = type.BaseType;
+                baseClass != null && baseClass.IsAbstract;
+                baseClass = baseClass.BaseType)
+            {
+                baseClasses.Push(baseClass);
+            }
 
-			while (baseClasses.Count > 0)
-			{
-				yield return baseClasses.Pop();
-			}
+            while (baseClasses.Count > 0)
+            {
+                yield return baseClasses.Pop();
+            }
 
-			yield return type;
-		}
+            yield return type;
+        }
 
-		public static string GetPrettyName(this Type type)
-		{
-			if(!type.IsGenericType)
-			{
-				return type.Name;
-			}
+        public static string GetPrettyName(this Type type)
+        {
+            if(!type.IsGenericType)
+            {
+                return type.Name;
+            }
 
-			return string.Format("{0}< {1} >",
-			                     type.Name.Remove(type.Name.IndexOf('`')),
-			                     string.Join(", ", type.GetGenericArguments().Select(GetPrettyName).ToArray()));
-		}
+            return string.Format("{0}< {1} >",
+                                 type.Name.Remove(type.Name.IndexOf('`')),
+                                 string.Join(", ", type.GetGenericArguments().Select(GetPrettyName).ToArray()));
+        }
 
         public static string CleanMessage(this Exception exception)
         {
