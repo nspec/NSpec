@@ -41,7 +41,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             classContext.Build();
 
-            classContext.Run(new SilentLiveFormatter());
+            classContext.Run(new SilentLiveFormatter(), failFast: false);
         }
 
         [Test]

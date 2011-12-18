@@ -82,6 +82,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             formatter.WrittenExamples.should_contain(contexts.FindExample("pending example"));
         }
+
         protected FormatterStub formatter;
     }
 

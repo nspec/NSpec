@@ -3,27 +3,31 @@ using System.Linq;
 using NSpec.Domain;
 using NSpec;
 using NSpecSpecs.describe_RunningSpecs;
+using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
     public class when_running_specs
     {
-        protected void Run()
+        protected void Run(bool failFast)
         {
-            contextCollection.Run();
+            contextCollection.Run(failFast);
 
             if (builder.tagsFilter.HasTagFilters()) contextCollection.TrimSkippedContexts();
         }
 
-        protected void Run(Type type, string tags = null)
+        protected void Run(Type type, string tags = null, bool failFast = false)
         {
-            Run(new[] { type }, tags);
+            Run(new[] { type }, tags, failFast);
         }
 
-        protected void Run(Type[] types, string tags = null)
+        protected void Run(Type[] types, string tags = null, bool failFast = false)
         {
+
+            
             Build(types, tags);
-            Run();
+            Run(failFast);
         }
 
         protected void Build(Type type, string tags = null)
@@ -60,11 +64,18 @@ namespace NSpecSpecs.WhenRunningSpecs
             return theContext;
         }
 
+        protected IEnumerable<Example> AllExamples()
+        {
+            return contextCollection.SelectMany(s => s.AllExamples());
+        }
+
         protected Example TheExample(string name)
         {
             var theExample = contextCollection
                 .SelectMany(rootContext => rootContext.AllContexts())
-                .SelectMany(contexts => contexts.AllExamples().Where(example => example.Spec == name)).First();
+                .SelectMany(contexts => contexts.AllExamples().Where(example => example.Spec == name)).FirstOrDefault();
+
+            if (theExample == null) Assert.Fail("Did not find example named: " + name);
 
             theExample.Spec.should_be(name);
 
@@ -76,5 +87,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         protected ClassContext classContext;
         protected Context methodContext;
         protected ContextCollection contexts;
+        protected FormatterStub formatter;
     }
 }

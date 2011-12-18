@@ -33,7 +33,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             ex.HasRun.should_be_false();
 
-            Run();
+            Run(failFast: false);
 
             ex.HasRun.should_be_true();
         }

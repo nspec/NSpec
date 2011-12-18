@@ -25,7 +25,7 @@ namespace NSpec.Domain
 
                 if (formatter is ILiveFormatter) liveFormatter = formatter as ILiveFormatter;
 
-                contexts.Run(liveFormatter);
+                contexts.Run(liveFormatter, failFast: false);
 
                 if (builder.tagsFilter.HasTagFilters()) contexts.TrimSkippedContexts();
 

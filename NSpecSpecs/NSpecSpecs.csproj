@@ -50,6 +50,7 @@
     <Compile Include="ClassContextBug\NestContextsTests.cs" />
     <Compile Include="ClassContextBug\NestedContexts.cs" />
     <Compile Include="describe_Conventions.cs" />
+    <Compile Include="describe_RunningSpecs\describe_fail_fast.cs" />
     <Compile Include="describe_RunningSpecs\describe_Method_Invocation_Sequence.cs" />
     <Compile Include="describe_RunningSpecs\describe_LiveFormatter_with_context_filter.cs" />
     <Compile Include="describe_RunningSpecs\describe_example.cs" />
