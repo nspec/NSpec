@@ -11,7 +11,7 @@ namespace NSpec.Domain
             this.formatter = formatter;
         }
 
-        public ContextCollection Run()
+        public ContextCollection Run(bool failFast)
         {
             var contexts = new ContextCollection();
 
@@ -25,7 +25,7 @@ namespace NSpec.Domain
 
                 if (formatter is ILiveFormatter) liveFormatter = formatter as ILiveFormatter;
 
-                contexts.Run(liveFormatter, failFast: false);
+                contexts.Run(liveFormatter, failFast);
 
                 if (builder.tagsFilter.HasTagFilters()) contexts.TrimSkippedContexts();
 

@@ -8,18 +8,16 @@ namespace NSpec.Domain
     {
         public string Tags;
         public IFormatter Console;
-        public string Dll;
 
-        public RunnerInvocation(string dll, string tags, IFormatter console)
+        public RunnerInvocation(string tags, IFormatter console)
         {
             Tags = tags;
             Console = console;
-            Dll = dll;
         }
 
-        public ContextRunner Runner()
+        public ContextRunner Runner(ISpecFinder specFinder)
         {
-            var finder = new SpecFinder(Dll, new Reflector());
+            var finder = specFinder;
 
             var tagsFilter = new Tags().Parse(Tags);
 

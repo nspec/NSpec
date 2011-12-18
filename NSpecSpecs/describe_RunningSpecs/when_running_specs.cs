@@ -5,6 +5,7 @@ using NSpec;
 using NSpecSpecs.describe_RunningSpecs;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.Reflection;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -24,10 +25,18 @@ namespace NSpecSpecs.WhenRunningSpecs
 
         protected void Run(Type[] types, string tags = null, bool failFast = false)
         {
+            formatter = new FormatterStub();
 
-            
-            Build(types, tags);
-            Run(failFast);
+            var invocation = new RunnerInvocation(tags ?? types.First().Name, formatter);
+
+            contextCollection = invocation.Runner(new SpecFinder(types)).Run(failFast);
+
+            classContext = contextCollection
+                .AllContexts()
+                .Select(c => c as ClassContext)
+                .FirstOrDefault(c => types.Contains(c.type));
+
+            methodContext = contextCollection.AllContexts().FirstOrDefault(c => c is MethodContext);
         }
 
         protected void Build(Type type, string tags = null)

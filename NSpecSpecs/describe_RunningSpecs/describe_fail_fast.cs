@@ -47,9 +47,11 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        public void all_examples_are_included()
+        public void only_executed_examples_are_printed()
         {
-            AllExamples().Count().should_be(5);
+            formatter.WrittenContexts.First().Name.should_be("SpecClass");
+
+            formatter.WrittenExamples.Count.should_be(2);
         }
     }
 }
