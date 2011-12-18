@@ -30,7 +30,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test, Ignore]
         public void should_give_each_specify_a_new_instance_of_spec()
         {
-            Run(typeof(SpecClass));
+            Init(typeof(SpecClass)).Run();
             Assert.Inconclusive("I dont think this is possible....");
             TheMethodContextExamples().First().ExampleLevelException.should_be(null);
             TheMethodContextExamples().Last().ExampleLevelException.should_be(null);

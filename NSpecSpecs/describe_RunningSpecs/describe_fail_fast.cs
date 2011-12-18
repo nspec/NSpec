@@ -33,7 +33,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void Setup()
         {
-        	Run(typeof(SpecClass), failFast: true);
+        	Init(typeof(SpecClass), failFast: true).Run();
         }
 
         [Test]

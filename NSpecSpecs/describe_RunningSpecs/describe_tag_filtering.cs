@@ -58,7 +58,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void classes_are_automatically_tagged_with_class_name()
         {
-            Run(typeof(SpecClass0));
+            Init(typeof(SpecClass0)).Run();
 
             classContext.Tags.should_contain("class-tag-zero");
 
@@ -68,14 +68,14 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void includes_tag()
         {
-            Run(typeof(SpecClass), "mytag");
+            Init(typeof(SpecClass), "mytag").Run();
             classContext.AllContexts().Count().should_be(4);
         }
 
         [Test]
         public void excludes_tag()
         {
-            Run(typeof(SpecClass), "~mytag");
+            Init(typeof(SpecClass), "~mytag").Run();
             classContext.AllContexts().Count().should_be(6);
             classContext.AllContexts().should_not_contain(c => c.Tags.Contains("mytag"));
         }
@@ -83,7 +83,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void includes_and_excludes_tags()
         {
-            Run(typeof(SpecClass), "mytag,~foobar");
+            Init(typeof(SpecClass), "mytag,~foobar").Run();
             classContext.AllContexts().should_contain(c => c.Tags.Contains("mytag"));
             classContext.AllContexts().should_not_contain(c => c.Tags.Contains("foobar"));
             classContext.AllContexts().Count().should_be(3);
@@ -92,28 +92,28 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void includes_tag_as_class_attribute()
         {
-            Run(typeof(SpecClass0), "class-tag-zero");
+            Init(typeof(SpecClass0), "class-tag-zero").Run();
             classContext.AllContexts().Count().should_be(1);
         }
 
         [Test]
         public void excludes_tag_as_class_attribute()
         {
-            Run(new[] { typeof(SpecClass), typeof(SpecClass0) }, "~class-tag");
+            Init(new[] { typeof(SpecClass), typeof(SpecClass0) }, "~class-tag").Run();
             contextCollection.Count.should_be(1);
         }
 
         [Test]
         public void includes_tag_as_method_attribute()
         {
-            Run(typeof(SpecClass), "method-tag-one");
+            Init(typeof(SpecClass), "method-tag-one").Run();
             classContext.AllContexts().Count().should_be(2);
         }
 
         [Test]
         public void excludes_tag_as_method_attribute()
         {
-            Run(typeof(SpecClass), "~method-tag-one");
+            Init(typeof(SpecClass), "~method-tag-one").Run();
             classContext.AllContexts().Count().should_be(7);
         }
     }

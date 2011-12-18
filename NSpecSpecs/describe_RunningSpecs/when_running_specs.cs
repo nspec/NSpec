@@ -9,46 +9,27 @@ using System.Reflection;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
+    [TestFixture]
     public class when_running_specs
     {
-        protected void Run(bool failFast)
-        {
-            contextCollection.Run(failFast);
-
-            if (builder.tagsFilter.HasTagFilters()) contextCollection.TrimSkippedContexts();
-        }
-
-        protected void Run(Type type, string tags = null, bool failFast = false)
-        {
-            Run(new[] { type }, tags, failFast);
-        }
-
-        protected void Run(Type[] types, string tags = null, bool failFast = false)
+        [SetUp]
+        public void InitializeRunnerInvocation()
         {
             formatter = new FormatterStub();
-
-            var invocation = new RunnerInvocation(tags ?? types.First().Name, formatter);
-
-            contextCollection = invocation.Runner(new SpecFinder(types)).Run(failFast);
-
-            classContext = contextCollection
-                .AllContexts()
-                .Select(c => c as ClassContext)
-                .FirstOrDefault(c => types.Contains(c.type));
-
-            methodContext = contextCollection.AllContexts().FirstOrDefault(c => c is MethodContext);
         }
 
-        protected void Build(Type type, string tags = null)
+        protected when_running_specs Init(Type type, string tags = null, bool failFast = false)
         {
-            Build(new[] { type }, tags);
+            return Init(new Type[] { type }, tags, failFast);
         }
 
-        protected void Build(Type[] types, string tags = null)
+        protected when_running_specs Init(Type[] types, string tags = null, bool failFast = false)
         {
-            var finder = new SpecFinder(types); 
+            this.types = types;
 
-            builder = new ContextBuilder(finder, new Tags().Parse(tags), new DefaultConventions());
+            invocation = new RunnerInvocation(tags ?? types.First().Name, formatter, new SpecFinder(types), failFast);
+
+            builder = invocation.Builder();
 
             contextCollection = builder.Contexts();
 
@@ -60,6 +41,13 @@ namespace NSpecSpecs.WhenRunningSpecs
                 .FirstOrDefault(c => types.Contains(c.type));
 
             methodContext = contextCollection.AllContexts().FirstOrDefault(c => c is MethodContext);
+
+            return this;
+        }
+
+        public void Run()
+        {
+            invocation.Runner().Run(contextCollection);
         }
 
         protected Context TheContext(string name)
@@ -94,8 +82,11 @@ namespace NSpecSpecs.WhenRunningSpecs
         protected ContextBuilder builder;
         protected ContextCollection contextCollection;
         protected ClassContext classContext;
+        protected bool failFast;
+        protected RunnerInvocation invocation;
         protected Context methodContext;
         protected ContextCollection contexts;
         protected FormatterStub formatter;
+        protected Type[] types;
     }
 }

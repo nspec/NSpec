@@ -16,10 +16,12 @@ public class DebuggerShim
         //this can be a regular expression
         var testClassYouWantToDebug = "describe_specifications";
 
-        var invocation = new RunnerInvocation(testClassYouWantToDebug,
-                                new SilentLiveFormatter());
+        var finder = new SpecFinder(Assembly.GetExecutingAssembly().Location, new Reflector());
 
-        var contexts = invocation.Runner(new SpecFinder(Assembly.GetExecutingAssembly().Location, new Reflector())).Run(false);
+        var invocation = new RunnerInvocation(testClassYouWantToDebug,
+                                new SilentLiveFormatter(), finder, false);
+
+        var contexts = invocation.Run();
 
         //assert that there aren't any failures
         contexts.Failures().Count().should_be(0);

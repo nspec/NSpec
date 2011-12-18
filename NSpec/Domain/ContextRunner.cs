@@ -5,22 +5,17 @@ namespace NSpec.Domain
 {
     public class ContextRunner
     {
-        public ContextRunner(ContextBuilder builder, IFormatter formatter)
+        public ContextRunner(ContextBuilder builder, IFormatter formatter, bool failFast)
         {
+            this.failFast = failFast;
             this.builder = builder;
             this.formatter = formatter;
         }
 
-        public ContextCollection Run(bool failFast)
+        public ContextCollection Run(ContextCollection contexts)
         {
-            var contexts = new ContextCollection();
-
             try
             {
-                contexts = builder.Contexts();
-
-                contexts.Build();
-
                 ILiveFormatter liveFormatter = new SilentLiveFormatter();
 
                 if (formatter is ILiveFormatter) liveFormatter = formatter as ILiveFormatter;
@@ -35,10 +30,12 @@ namespace NSpec.Domain
             {
                 Console.WriteLine(e);
             }
+
             return contexts;
         }
 
         private ContextBuilder builder;
+        private bool failFast;
         private IFormatter formatter;
     }
 }

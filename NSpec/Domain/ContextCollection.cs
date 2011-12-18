@@ -26,9 +26,11 @@ namespace NSpec.Domain
             return Examples().Where(e => e.Pending);
         }
 
-        public void Build()
+        public ContextCollection Build()
         {
             this.Do(c => c.Build());
+
+            return this;
         }
 
         public void Run(bool failFast = false)

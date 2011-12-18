@@ -53,11 +53,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void it_runs_things_in_a_strange_order()
         {
+            SpecFinder finder = new SpecFinder(Assembly.GetExecutingAssembly().Location, new Reflector());
+
             var invocation = new RunnerInvocation(
                                     typeof(before_all_sampleSpec).Name,
-                                    new SilentLiveFormatter());
+                                    new SilentLiveFormatter(), finder, failFast);
 
-            contexts = invocation.Runner(new SpecFinder(Assembly.GetExecutingAssembly().Location, new Reflector())).Run(false);
+            contexts = invocation.Run();
 
             var instance = contexts.Find("before all sampleSpec").GetInstance() as before_all_sampleSpec;
 

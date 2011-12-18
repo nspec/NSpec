@@ -6,24 +6,40 @@ namespace NSpec.Domain
     [Serializable]
     public class RunnerInvocation
     {
+        private ContextRunner contextRunner;
+        private ContextBuilder contextBuilder;
+        public ISpecFinder SpecFinder;
         public string Tags;
         public IFormatter Console;
 
-        public RunnerInvocation(string tags, IFormatter console)
+
+        public RunnerInvocation(string tags, IFormatter console, ISpecFinder specFinder, bool failFast)
         {
             Tags = tags;
             Console = console;
+            SpecFinder = specFinder;
+            contextBuilder = new ContextBuilder(SpecFinder, TagsFilter(), new DefaultConventions());
+            contextRunner = new ContextRunner(Builder(), Console, failFast);
         }
 
-        public ContextRunner Runner(ISpecFinder specFinder)
+        public ContextCollection Run()
         {
-            var finder = specFinder;
+            return Runner().Run(Builder().Contexts().Build());
+        }
 
-            var tagsFilter = new Tags().Parse(Tags);
+        public ContextRunner Runner()
+        {
+            return contextRunner;
+        }
 
-            var builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
+        public ContextBuilder Builder()
+        {
+            return contextBuilder;
+        }
 
-            return new ContextRunner(builder, Console);
+        public Tags TagsFilter()
+        {
+            return new Tags().Parse(Tags);
         }
     }
 }

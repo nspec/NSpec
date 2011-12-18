@@ -68,7 +68,7 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         protected Example ExampleFrom(Type type)
         {
-            Run(type);
+            Init(type).Run();
 
             return classContext.AllExamples().First();
         }

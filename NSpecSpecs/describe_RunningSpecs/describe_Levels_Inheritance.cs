@@ -19,7 +19,9 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void Setup()
         {
-            Run(new[] { typeof(parent_context), typeof(child_context) });
+            Init(new[] { typeof(parent_context), typeof(child_context) });
+
+            Run();
         }
 
         [Test]

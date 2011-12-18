@@ -35,7 +35,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void afters_are_run_in_the_correct_order()
         {
-            Run(typeof(DerivedClass));
+            Init(typeof(DerivedClass)).Run();
 
             var specInstance = classContext.GetInstance() as DerivedClass;
 

@@ -32,11 +32,13 @@ namespace NSpecRunner
 
                 var specDLL = args[0];
 
-                var invocation = new RunnerInvocation(argsTags, new ConsoleFormatter());
+                var finder = new SpecFinder(specDLL, new Reflector());
+
+                var invocation = new RunnerInvocation(argsTags, new ConsoleFormatter(), finder, failFast: false);
 
                 var domain = new NSpecDomain(specDLL + ".config");
 
-                domain.Run(invocation, i => i.Runner(new SpecFinder(specDLL, new Reflector())).Run(failFast: false), specDLL);
+                domain.Run(invocation, i => i.Run(), specDLL);
             }
             catch (Exception e)
             {
