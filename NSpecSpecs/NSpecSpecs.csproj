@@ -50,7 +50,11 @@
     <Compile Include="ClassContextBug\NestContextsTests.cs" />
     <Compile Include="ClassContextBug\NestedContexts.cs" />
     <Compile Include="describe_Conventions.cs" />
+    <Compile Include="describe_RunningSpecs\describe_Method_Invocation_Sequence.cs" />
+    <Compile Include="describe_RunningSpecs\describe_LiveFormatter_with_context_filter.cs" />
     <Compile Include="describe_RunningSpecs\describe_example.cs" />
+    <Compile Include="describe_RunningSpecs\describe_Levels.cs" />
+    <Compile Include="describe_RunningSpecs\describe_Levels_Inheritance.cs" />
     <Compile Include="describe_RunningSpecs\describe_tag_filtering.cs" />
     <Compile Include="describe_RunningSpecs\describe_context_level_tagging.cs" />
     <Compile Include="describe_RunningSpecs\describe_example_level_tagging.cs" />
@@ -79,7 +83,6 @@
     <Compile Include="describe_ContextBuilder.cs" />
     <Compile Include="describe_RunningSpecs\describe_method_level_befores.cs" />
     <Compile Include="describe_SpecFinder.cs" />
-    <Compile Include="describe_ConsoleFormatter.cs" />
     <Compile Include="describe_RunningSpecs\when_running_specs.cs" />
   </ItemGroup>
   <ItemGroup>

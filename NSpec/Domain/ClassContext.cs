@@ -28,7 +28,7 @@ namespace NSpec.Domain
         }
 
         public ClassContext(Type type, Conventions conventions = null, Tags tagsFilter = null, string tags = null)
-            : base(type.Name, tags, 0)
+            : base(type.Name, tags)
         {
             this.type = type;
 

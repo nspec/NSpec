@@ -17,9 +17,9 @@ namespace NSpecRunner
             this.config = config;
         }
 
-        public void Run(string dll, string filter, string tags, IFormatter outputFormatter, Action<string, string, string, IFormatter> action)
+        public void Run(RunnerInvocation invocation, Action<RunnerInvocation> action)
         {
-            this.dll = dll;
+            this.dll = invocation.Dll;
 
             var setup = new AppDomainSetup();
 
@@ -39,7 +39,7 @@ namespace NSpecRunner
 
             var wrapper = (Wrapper)domain.CreateInstanceAndUnwrap(assemblyName, typeName);
 
-            wrapper.Execute(dll, filter, tags, outputFormatter, action);
+            wrapper.Execute(invocation, action);
 
             AppDomain.Unload(domain);
         }

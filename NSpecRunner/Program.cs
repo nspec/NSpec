@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using NSpec;
 using NSpec.Domain;
@@ -19,7 +18,6 @@ namespace NSpecRunner
             try
             {
                 // extract either a class filter or a tags filter (but not both)
-                var classFilter = "";
                 var argsTags = "";
                 if (args.Length > 1)
                 {
@@ -34,22 +32,11 @@ namespace NSpecRunner
 
                 var specDLL = args[0];
 
+                var invocation = new RunnerInvocation(specDLL, argsTags, new ConsoleFormatter());
+
                 var domain = new NSpecDomain(specDLL + ".config");
 
-                var console = new ConsoleFormatter();
-
-                domain.Run(specDLL, classFilter, argsTags, console, (dll, filter, tags, formatter) =>
-                {
-                    var finder = new SpecFinder(dll, new Reflector(), filter);
-
-                    var tagsFilter = new Tags().Parse(tags);
-
-                    var builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
-
-                    var runner = new ContextRunner(builder, formatter);
-
-                    runner.Run();
-                });
+                domain.Run(invocation, i => i.Runner().Run());
             }
             catch (Exception e)
             {

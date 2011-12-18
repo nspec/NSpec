@@ -5,39 +5,31 @@ using NSpec.Domain.Extensions;
 namespace NSpec.Domain.Formatters
 {
     [Serializable]
-    public class ConsoleFormatter : IFormatter
+    public class ConsoleFormatter : IFormatter, ILiveFormatter
     {
         public void Write(ContextCollection contexts)
         {
-            contexts.Do(c => Console.WriteLine(Write(c)));
-
             Console.WriteLine(FailureSummary(contexts));
 
             Console.WriteLine(Summary(contexts));
         }
 
-        public string Write(Context context, int level = 1)
+        public void Write(Context context)
         {
-            var result = "";
+            if (context.Level == 1) Console.WriteLine();
 
-            if (level == 1) result += Environment.NewLine;
-
-            result += context.Name;
-
-            context.Examples.Do(e => result += Write(e, level));
-
-            context.Contexts.Do(c => result += Environment.NewLine + indent.Times(level) + Write(c, level + 1));
-
-            return result;
+            Console.WriteLine(indent.Times(context.Level - 1) + context.Name);
         }
 
-        public string Write(Example e, int level = 1)
+        public void Write(Example e, int level)
         {
             var failure = e.ExampleLevelException == null ? "" : " - FAILED - {0}".With(e.ExampleLevelException.CleanMessage());
 
-            var whiteSpace = Environment.NewLine + indent.Times(level);
+            var whiteSpace = indent.Times(level);
 
-            return e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failure;
+            var result = e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failure;
+
+            Console.WriteLine(result);
         }
 
         public string FailureSummary(ContextCollection contexts)

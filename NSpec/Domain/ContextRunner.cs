@@ -11,7 +11,7 @@ namespace NSpec.Domain
             this.formatter = formatter;
         }
 
-        public void Run()
+        public ContextCollection Run()
         {
             var contexts = new ContextCollection();
 
@@ -21,7 +21,11 @@ namespace NSpec.Domain
 
                 contexts.Build();
 
-                contexts.Run();
+                ILiveFormatter liveFormatter = new SilentLiveFormatter();
+
+                if (formatter is ILiveFormatter) liveFormatter = formatter as ILiveFormatter;
+
+                contexts.Run(liveFormatter);
 
                 if (builder.tagsFilter.HasTagFilters()) contexts.TrimSkippedContexts();
 
@@ -31,6 +35,7 @@ namespace NSpec.Domain
             {
                 Console.WriteLine(e);
             }
+            return contexts;
         }
 
         private ContextBuilder builder;

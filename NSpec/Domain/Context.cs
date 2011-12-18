@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NSpec.Domain.Formatters;
 
 namespace NSpec.Domain
 {
@@ -62,6 +63,8 @@ namespace NSpec.Domain
 
         public void AddContext(Context child)
         {
+            child.Level = Level + 1;
+
             child.Parent = this;
 
             child.Tags.AddRange(child.Parent.Tags);
@@ -69,13 +72,37 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
-        public virtual void Run(nspec instance = null)
+        public virtual void Run(ILiveFormatter formatter, nspec instance = null)
         {
             var nspec = savedInstance ?? instance;
 
-            Contexts.Do(c => c.Run(nspec));
+            for (int i = 0; i < Examples.Count; i++)
+            {
+                var example = Examples[i];
 
-            for (int i = 0; i < Examples.Count; i++) Exercise(Examples[i], nspec);
+                Exercise(example, nspec);
+
+                if (example.HasRun && !alreadyWritten)
+                {
+                    WriteAncestors(formatter);
+                    alreadyWritten = true;
+                }
+
+                if(example.HasRun) formatter.Write(example, Level);
+            }
+
+            Contexts.Do(c => c.Run(formatter, nspec));
+        }
+
+        private void WriteAncestors(ILiveFormatter formatter)
+        {
+            if (Parent == null) return;
+
+            Parent.WriteAncestors(formatter);
+
+            if(!alreadyWritten) formatter.Write(this);
+
+            alreadyWritten = true;
         }
 
         public virtual void Build(nspec instance = null)
@@ -136,10 +163,9 @@ namespace NSpec.Domain
             return false;
         }
 
-        public Context(string name = "", string tags = null, int level = 0, bool isPending = false)
+        public Context(string name = "", string tags = null, bool isPending = false)
         {
             Name = name.Replace("_", " ");
-            Level = level;
             Examples = new List<Example>();
             Contexts = new ContextCollection();
             Tags = NSpec.Domain.Tags.ParseTags(tags);
@@ -158,6 +184,7 @@ namespace NSpec.Domain
         public Exception contextLevelExpectedException;
         private bool isPending;
         nspec savedInstance;
+        private bool alreadyWritten;
 
         public nspec GetInstance()
         {
