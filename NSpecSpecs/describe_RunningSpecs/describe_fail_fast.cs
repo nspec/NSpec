@@ -52,6 +52,10 @@ namespace NSpecSpecs.describe_RunningSpecs
             formatter.WrittenContexts.First().Name.should_be("SpecClass");
 
             formatter.WrittenExamples.Count.should_be(2);
+
+            formatter.WrittenExamples.First().FullName().should_contain("this one isn't a failure");
+
+            formatter.WrittenExamples.Last().FullName().should_contain("this one is a failure");
         }
     }
 }
