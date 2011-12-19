@@ -23,8 +23,6 @@ namespace NSpecRunner
 
                 var failFast = IsFailFast(args);
 
-                if (failFast) Console.WriteLine("fail fast is on");
-
                 args = RemoveFailFastSwitch(args);
 
                 if (args.Length > 1)
