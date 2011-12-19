@@ -5,6 +5,7 @@ using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using System;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -53,13 +54,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void it_runs_things_in_a_strange_order()
         {
-            SpecFinder finder = new SpecFinder(Assembly.GetExecutingAssembly().Location, new Reflector());
+            SpecFinder finder = new SpecFinder(new Type[] { typeof(before_all_sampleSpec) });
 
-            var invocation = new RunnerInvocation(
-                                    typeof(before_all_sampleSpec).Name,
-                                    new SilentLiveFormatter(), finder, failFast);
+            var builder = new ContextBuilder(finder, new DefaultConventions());
 
-            contexts = invocation.Run();
+            var runner = new ContextRunner(builder, new SilentLiveFormatter(), false);
+
+            contexts = runner.Run(builder.Contexts().Build());
 
             var instance = contexts.Find("before all sampleSpec").GetInstance() as before_all_sampleSpec;
 

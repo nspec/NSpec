@@ -6,8 +6,14 @@ using System.Reflection;
 
 namespace NSpec.Domain
 {
+    [Serializable]
     public class ContextBuilder
     {
+        public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
+            : this(finder, new DefaultConventions())
+        {
+        }
+
         public ContextBuilder(ISpecFinder finder, Conventions conventions)
             : this(finder, new Tags(), conventions)
         {

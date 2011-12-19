@@ -34,11 +34,9 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             formatter = new FormatterStub();
 
-            var finder = new SpecFinder(Assembly.GetExecutingAssembly().Location, new Reflector());
+            var invocation = new RunnerInvocation(Assembly.GetExecutingAssembly().Location, typeof(liveconsole_sample_spec).Name, formatter, false);
 
-            var invocation = new RunnerInvocation(typeof(liveconsole_sample_spec).Name, formatter, finder, false);
-
-            contexts = invocation.Runner().Run(invocation.Builder().Contexts().Build());
+            contexts = invocation.Run();
         }
 
         [Test]

@@ -6,40 +6,39 @@ namespace NSpec.Domain
     [Serializable]
     public class RunnerInvocation
     {
-        private ContextRunner contextRunner;
-        private ContextBuilder contextBuilder;
-        public ISpecFinder SpecFinder;
+        private string dll;
+        private bool failFast;
         public string Tags;
-        public IFormatter Console;
+        public IFormatter Formatter;
+        public bool inDomain;
 
-
-        public RunnerInvocation(string tags, IFormatter console, ISpecFinder specFinder, bool failFast)
+        public RunnerInvocation(string dll, string tags)
+            : this(dll, tags, false)
         {
+        }
+
+        public RunnerInvocation(string dll, string tags, bool failFast)
+            : this(dll, tags, new ConsoleFormatter(), failFast)
+        {
+        }
+
+        public RunnerInvocation(string dll, string tags, IFormatter formatter, bool failFast)
+        {
+            this.dll = dll;
+            this.failFast = failFast;
             Tags = tags;
-            Console = console;
-            SpecFinder = specFinder;
-            contextBuilder = new ContextBuilder(SpecFinder, TagsFilter(), new DefaultConventions());
-            contextRunner = new ContextRunner(Builder(), Console, failFast);
+            Formatter = formatter;
         }
 
         public ContextCollection Run()
         {
-            return Runner().Run(Builder().Contexts().Build());
-        }
+            var finder = new SpecFinder(this.dll, new Reflector());
 
-        public ContextRunner Runner()
-        {
-            return contextRunner;
-        }
+            var builder = new ContextBuilder(finder, new Tags().Parse(Tags), new DefaultConventions());
 
-        public ContextBuilder Builder()
-        {
-            return contextBuilder;
-        }
+            var runner = new ContextRunner(builder, Formatter, failFast);
 
-        public Tags TagsFilter()
-        {
-            return new Tags().Parse(Tags);
+            return runner.Run(builder.Contexts().Build());
         }
     }
 }

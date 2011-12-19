@@ -27,9 +27,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             this.types = types;
 
-            invocation = new RunnerInvocation(tags ?? types.First().Name, formatter, new SpecFinder(types), failFast);
+            builder = new ContextBuilder(new SpecFinder(types), new Tags().Parse(tags), new DefaultConventions());
 
-            builder = invocation.Builder();
+            runner = new ContextRunner(builder, formatter, failFast);
 
             contextCollection = builder.Contexts();
 
@@ -47,7 +47,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
         public void Run()
         {
-            invocation.Runner().Run(contextCollection);
+            runner.Run(contextCollection);
         }
 
         protected Context TheContext(string name)
@@ -83,10 +83,10 @@ namespace NSpecSpecs.WhenRunningSpecs
         protected ContextCollection contextCollection;
         protected ClassContext classContext;
         protected bool failFast;
-        protected RunnerInvocation invocation;
         protected Context methodContext;
         protected ContextCollection contexts;
         protected FormatterStub formatter;
+        private ContextRunner runner;
         protected Type[] types;
     }
 }

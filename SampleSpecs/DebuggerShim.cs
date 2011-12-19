@@ -12,14 +12,9 @@ public class DebuggerShim
     [Test]
     public void debug()
     {
-        //the specification class you want to test
-        //this can be a regular expression
-        var testClassYouWantToDebug = "describe_specifications";
+        var tagOrClassName = "describe_specifications";
 
-        var finder = new SpecFinder(Assembly.GetExecutingAssembly().Location, new Reflector());
-
-        var invocation = new RunnerInvocation(testClassYouWantToDebug,
-                                new SilentLiveFormatter(), finder, false);
+        var invocation = new RunnerInvocation(Assembly.GetExecutingAssembly().Location, tagOrClassName);
 
         var contexts = invocation.Run();
 

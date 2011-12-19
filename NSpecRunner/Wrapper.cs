@@ -7,7 +7,7 @@ namespace NSpecRunner
     {
         public void Execute(RunnerInvocation invocation, Action<RunnerInvocation> action)
         {
-            action( invocation );
+            action(invocation);
         }
 
         public override object InitializeLifetimeService()

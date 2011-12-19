@@ -3,6 +3,7 @@ using System.Reflection;
 using NSpec;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
+using System.Linq;
 
 namespace NSpecRunner
 {
@@ -30,11 +31,11 @@ namespace NSpecRunner
                         argsTags = args[1];
                 }
 
+                var failFast = args.Any(s => s == "--failfast");
+                
                 var specDLL = args[0];
 
-                var finder = new SpecFinder(specDLL, new Reflector());
-
-                var invocation = new RunnerInvocation(argsTags, new ConsoleFormatter(), finder, failFast: false);
+                var invocation = new RunnerInvocation(specDLL, argsTags, failFast);
 
                 var domain = new NSpecDomain(specDLL + ".config");
 
