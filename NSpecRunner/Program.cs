@@ -20,6 +20,13 @@ namespace NSpecRunner
             {
                 // extract either a class filter or a tags filter (but not both)
                 var argsTags = "";
+
+                var failFast = IsFailFast(args);
+
+                if (failFast) Console.WriteLine("fail fast is on");
+
+                args = RemoveFailFastSwitch(args);
+
                 if (args.Length > 1)
                 {
                     // see rspec and cucumber for ideas on better ways to handle tags on the command line:
@@ -31,8 +38,6 @@ namespace NSpecRunner
                         argsTags = args[1];
                 }
 
-                var failFast = args.Any(s => s == "--failfast");
-                
                 var specDLL = args[0];
 
                 var invocation = new RunnerInvocation(specDLL, argsTags, failFast);
@@ -46,6 +51,16 @@ namespace NSpecRunner
                 //hopefully this is handled before here, but if not, this is better than crashing the runner
                 Console.WriteLine(e);
             }
+        }
+
+        public static string[] RemoveFailFastSwitch(string[] args)
+        {
+            return args.Where(s => s != "--failfast").ToArray();
+        }
+
+        public static bool IsFailFast(string[] args)
+        {
+            return args.Any(s => s == "--failfast");
         }
 
         private static void ShowUsage()
