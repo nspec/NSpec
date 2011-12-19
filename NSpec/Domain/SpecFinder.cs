@@ -17,6 +17,7 @@ namespace NSpec.Domain
 
             var leafTypes =
                 Types.Where(t => t.IsClass
+                    && !t.IsAbstract
                     && BaseTypes(t).Any(s => s == typeof(nspec))
                     && t.Methods().Count() > 0
                     && (string.IsNullOrEmpty(filter) || regex.IsMatch(t.FullName)));
