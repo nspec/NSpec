@@ -74,6 +74,8 @@ namespace NSpec.Domain
 
         public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null)
         {
+            if (failFast && Parent.HasAnyFailures()) return;
+
             var nspec = savedInstance ?? instance;
 
             for (int i = 0; i < Examples.Count; i++)

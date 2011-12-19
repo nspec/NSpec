@@ -28,6 +28,13 @@ namespace NSpecSpecs.describe_RunningSpecs
                     it["is also skipped"] = () => "skipped".should_be("skipped");
                 };
             }
+
+            void another_context()
+            {
+                it["does not run because of failure on line 20"] = () => true.should_be_true();
+
+                it["also does not run because of failure on line 20"] = () => true.should_be_true();
+            }
         }
 
         [SetUp]
