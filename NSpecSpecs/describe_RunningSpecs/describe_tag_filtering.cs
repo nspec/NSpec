@@ -55,6 +55,25 @@ namespace NSpecSpecs.WhenRunningSpecs
             }
         }
 
+        class SpecClass1 : nspec
+        {
+            void filters_out_not_run_examples()
+            {
+                context["has multiple examples"] = () =>
+                {
+                    it["has the correct tag", "onlybar"] = () => true.should_be_true();
+                    it["has a tag but not the correct one", "onlybaz"] = () => true.should_be_true();
+                    it["does not have a tag"] = () => true.should_be_true();
+                };
+
+                context["tagged with onlybar", "onlybar"] = () =>
+                {
+                    it["has a tag and inherits the correct one", "onlybaz"] = () => true.should_be_true();
+                    it["does not have a tag but inherits the correct one"] = () => true.should_be_true();
+                };
+            }
+        }
+
         [Test]
         public void classes_are_automatically_tagged_with_class_name()
         {
@@ -115,6 +134,18 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClass), "~method-tag-one");
             classContext.AllContexts().Count().should_be(7);
+        }
+
+        [Test]
+        public void excludes_examples_not_run()
+        {
+            Run(typeof(SpecClass1), "onlybar");
+            var allExamples = classContext.AllContexts().SelectMany(c => c.AllExamples()).ToList();
+            allExamples.should_contain(e => e.Spec == "has the correct tag");
+            allExamples.should_contain(e => e.Spec == "has a tag and inherits the correct one");
+            allExamples.should_contain(e => e.Spec == "does not have a tag but inherits the correct one");
+            allExamples.should_not_contain(e => e.Spec == "has a tag but not the correct one");
+            allExamples.should_not_contain(e => e.Spec == "does not have a tag");
         }
     }
 }
