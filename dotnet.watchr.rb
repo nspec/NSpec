@@ -37,7 +37,7 @@ GrowlNotifier.growl_path =
 
 #specwathcr tries to automatically find your test dlls (it'll look for projects that end in the word Test, Tests, Spec or Specs)
 #if for some reason you deviate from this convention, you can OVERRIDE the dlls selected using the following line of code
-#@dw.test_runner.test_dlls = ['.\SampleSpecs\bin\Debug\SampleSpecs.dll']
+@dw.test_runner.test_dlls = ['.\NSpecSpecs\bin\Debug\NSpecSpecs.dll']
 
 
 
