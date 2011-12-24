@@ -65,6 +65,12 @@ namespace NSpec.Domain
         }
 
         public bool Pending;
+
+        public bool Failed()
+        {
+            return ExampleLevelException != null;
+        }
+
         public bool HasRun;
         public string Spec;
         public List<string> Tags;

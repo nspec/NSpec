@@ -68,7 +68,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void afters_are_run_in_the_correct_order()
         {
-            Run(typeof(DerivedClass));
+            Init(typeof(DerivedClass)).Run();
 
             var specInstance = classContext.GetInstance() as DerivedClass;
 
@@ -82,7 +82,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void afters_are_run_in_the_correct_order_when_abstract_middle_classes_are_present()
         {
-            Run(typeof(DerivedClass2));
+            Init(typeof(DerivedClass2)).Run();
 
             var specInstance = classContext.GetInstance() as DerivedClass2;
 

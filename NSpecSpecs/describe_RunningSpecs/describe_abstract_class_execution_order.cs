@@ -156,7 +156,7 @@ namespace NSpecSpecs.describe_RunningSpecs
          TestCase(typeof(Class5), "example_in_concrete_class_that_inherits_an_abstract_class_with_deep_inheritance_chain", "12345")]
         public void before_eaches_should_run_in_the_correct_order(Type withRespectToContext, string tags, string beforeExecutionLog)
         {
-            Run(withRespectToContext, tags);
+            Init(withRespectToContext, tags).Run();
 
             var specInstance = classContext.GetInstance() as Class1;
 
@@ -171,7 +171,7 @@ namespace NSpecSpecs.describe_RunningSpecs
          TestCase(typeof(Class5), "example_in_concrete_class_that_inherits_an_abstract_class_with_deep_inheritance_chain", "12345")]
         public void act_eaches_should_run_in_the_correct_order(Type withRespectToContext, string tags, string actExecutionLog)
         {
-            Run(withRespectToContext, tags);
+            Init(withRespectToContext, tags).Run();
 
             var specInstance = classContext.GetInstance() as Class1;
 
@@ -186,7 +186,7 @@ namespace NSpecSpecs.describe_RunningSpecs
          TestCase(typeof(Class5), "example_in_concrete_class_that_inherits_an_abstract_class_with_deep_inheritance_chain", "54321")]
         public void after_eaches_should_run_in_the_correct_order(Type withRespectToContext, string tags, string afterExecutionLog)
         {
-            Run(withRespectToContext, tags);
+            Init(withRespectToContext, tags).Run();
 
             var specInstance = classContext.GetInstance() as Class1;
 
@@ -201,7 +201,7 @@ namespace NSpecSpecs.describe_RunningSpecs
          TestCase(typeof(Class5), "example_in_concrete_class_that_inherits_an_abstract_class_with_deep_inheritance_chain", "b1b2b3b4b5ac1ac2ac3ac4ac5i5af5af4af3af2af1")]
         public void execution_should_run_in_the_correct_order(Type withRespectToContext, string tag, string fullExecutionLog)
         {
-            Run(withRespectToContext, tag);
+            Init(withRespectToContext, tag).Run();
 
             var specInstance = classContext.GetInstance() as Class1;
 

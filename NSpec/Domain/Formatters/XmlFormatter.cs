@@ -9,63 +9,63 @@ namespace NSpec.Domain.Formatters
     [Serializable]
     public class XmlFormatter : IFormatter
     {
-        public void Write( ContextCollection contexts )
+        public void Write(ContextCollection contexts)
         {
             StringBuilder sb = new StringBuilder();
-            StringWriter sw = new StringWriter( sb );
-            XmlTextWriter xml = new XmlTextWriter( sw );
+            StringWriter sw = new StringWriter(sb);
+            XmlTextWriter xml = new XmlTextWriter(sw);
 
-            xml.WriteStartElement( "Contexts" );
-            xml.WriteAttributeString( "TotalSpecs", contexts.Examples().Count().ToString() );
-            xml.WriteAttributeString( "TotalFailed", contexts.Failures().Count().ToString() );
-            xml.WriteAttributeString( "TotalPending", contexts.Pendings().Count().ToString() );
+            xml.WriteStartElement("Contexts");
+            xml.WriteAttributeString("TotalSpecs", contexts.Examples().Count().ToString());
+            xml.WriteAttributeString("TotalFailed", contexts.Failures().Count().ToString());
+            xml.WriteAttributeString("TotalPending", contexts.Pendings().Count().ToString());
 
-            xml.WriteAttributeString( "RunDate", DateTime.Now.ToString() );
-            contexts.Do( c => this.BuildContext( xml, c ) );
+            xml.WriteAttributeString("RunDate", DateTime.Now.ToString());
+            contexts.Do(c => this.BuildContext(xml, c));
             xml.WriteEndElement();
-            
+
             Console.WriteLine(sb.ToString());
         }
 
-        void BuildContext( XmlTextWriter xml, Context context )
+        void BuildContext(XmlTextWriter xml, Context context)
         {
-            xml.WriteStartElement( "Context" );
-            xml.WriteAttributeString( "Name", context.Name );
+            xml.WriteStartElement("Context");
+            xml.WriteAttributeString("Name", context.Name);
 
-            if( context.Examples.Count > 0 )
+            if (context.Examples.Count > 0)
             {
-                xml.WriteStartElement( "Specs" );
+                xml.WriteStartElement("Specs");
             }
-            context.Examples.Do( e => this.BuildSpec( xml, e ) );
-            if( context.Examples.Count > 0 )
+            context.Examples.Do(e => this.BuildSpec(xml, e));
+            if (context.Examples.Count > 0)
             {
                 xml.WriteEndElement();
             }
 
-            context.Contexts.Do( c => this.BuildContext( xml, c ) );
+            context.Contexts.Do(c => this.BuildContext(xml, c));
 
             xml.WriteEndElement();
         }
 
-        void BuildSpec( XmlTextWriter xml, Example example )
+        void BuildSpec(XmlTextWriter xml, Example example)
         {
-            xml.WriteStartElement( "Spec" );
-            xml.WriteAttributeString( "Name", example.Spec );
+            xml.WriteStartElement("Spec");
+            xml.WriteAttributeString("Name", example.Spec);
 
-            if( example.ExampleLevelException != null )
+            if (example.ExampleLevelException != null)
             {
-                xml.WriteAttributeString( "Status", "Failed" );
-                xml.WriteStartElement( "Exception" );
-                xml.WriteCData( example.ExampleLevelException.ToString() );
+                xml.WriteAttributeString("Status", "Failed");
+                xml.WriteStartElement("Exception");
+                xml.WriteCData(example.ExampleLevelException.ToString());
                 xml.WriteEndElement();
             }
-            else if( example.Pending )
+            else if (example.Pending)
             {
-                xml.WriteAttributeString( "Status", "Pending" );
+                xml.WriteAttributeString("Status", "Pending");
             }
             else
             {
-                xml.WriteAttributeString( "Status", "Passed" );
+                xml.WriteAttributeString("Status", "Passed");
             }
 
             xml.WriteEndElement();

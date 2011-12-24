@@ -26,19 +26,21 @@ namespace NSpec.Domain
             return Examples().Where(e => e.Pending);
         }
 
-        public void Build()
+        public ContextCollection Build()
         {
             this.Do(c => c.Build());
+
+            return this;
         }
 
-        public void Run()
+        public void Run(bool failFast = false)
         {
-            Run(new SilentLiveFormatter());
+            Run(new SilentLiveFormatter(), failFast);
         }
 
-        public void Run(ILiveFormatter formatter)
+        public void Run(ILiveFormatter formatter, bool failFast)
         {
-            this.Do(c => c.Run(formatter));
+            this.Do(c => c.Run(formatter, failFast: failFast));
         }
 
         public void TrimSkippedContexts()

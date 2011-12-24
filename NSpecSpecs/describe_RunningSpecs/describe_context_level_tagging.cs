@@ -38,7 +38,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [SetUp]
         public void Setup()
         {
-            Run(typeof(SpecClass));
+            Init(typeof(SpecClass)).Run();
         }
 
         [Test]

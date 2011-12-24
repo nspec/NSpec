@@ -6,26 +6,39 @@ namespace NSpec.Domain
     [Serializable]
     public class RunnerInvocation
     {
+        private string dll;
+        private bool failFast;
         public string Tags;
-        public IFormatter Console;
-        public string Dll;
+        public IFormatter Formatter;
+        public bool inDomain;
 
-        public RunnerInvocation(string dll, string tags, IFormatter console)
+        public RunnerInvocation(string dll, string tags)
+            : this(dll, tags, false)
         {
-            Tags = tags;
-            Console = console;
-            Dll = dll;
         }
 
-        public ContextRunner Runner()
+        public RunnerInvocation(string dll, string tags, bool failFast)
+            : this(dll, tags, new ConsoleFormatter(), failFast)
         {
-            var finder = new SpecFinder(Dll, new Reflector());
+        }
 
-            var tagsFilter = new Tags().Parse(Tags);
+        public RunnerInvocation(string dll, string tags, IFormatter formatter, bool failFast)
+        {
+            this.dll = dll;
+            this.failFast = failFast;
+            Tags = tags;
+            Formatter = formatter;
+        }
 
-            var builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
+        public ContextCollection Run()
+        {
+            var finder = new SpecFinder(this.dll, new Reflector());
 
-            return new ContextRunner(builder, Console);
+            var builder = new ContextBuilder(finder, new Tags().Parse(Tags), new DefaultConventions());
+
+            var runner = new ContextRunner(builder, Formatter, failFast);
+
+            return runner.Run(builder.Contexts().Build());
         }
     }
 }

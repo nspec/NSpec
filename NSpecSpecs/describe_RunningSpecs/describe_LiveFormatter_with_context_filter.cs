@@ -34,11 +34,9 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             formatter = new FormatterStub();
 
-            var invocation = new RunnerInvocation(Assembly.GetExecutingAssembly().Location,
-                                    typeof(liveconsole_sample_spec).Name,
-                                    formatter);
+            var invocation = new RunnerInvocation(Assembly.GetExecutingAssembly().Location, typeof(liveconsole_sample_spec).Name, formatter, false);
 
-            contexts = invocation.Runner().Run();
+            contexts = invocation.Run();
         }
 
         [Test]
@@ -82,7 +80,6 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             formatter.WrittenExamples.should_contain(contexts.FindExample("pending example"));
         }
-        protected FormatterStub formatter;
     }
 
     public class FormatterStub : IFormatter, ILiveFormatter

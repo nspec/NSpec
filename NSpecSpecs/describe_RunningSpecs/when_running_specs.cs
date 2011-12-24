@@ -3,39 +3,33 @@ using System.Linq;
 using NSpec.Domain;
 using NSpec;
 using NSpecSpecs.describe_RunningSpecs;
+using System.Collections.Generic;
+using NUnit.Framework;
+using System.Reflection;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
+    [TestFixture]
     public class when_running_specs
     {
-        protected void Run()
+        [SetUp]
+        public void InitializeRunnerInvocation()
         {
-            contextCollection.Run();
-
-            if (builder.tagsFilter.HasTagFilters()) contextCollection.TrimSkippedContexts();
+            formatter = new FormatterStub();
         }
 
-        protected void Run(Type type, string tags = null)
+        protected when_running_specs Init(Type type, string tags = null, bool failFast = false)
         {
-            Run(new[] { type }, tags);
+            return Init(new Type[] { type }, tags, failFast);
         }
 
-        protected void Run(Type[] types, string tags = null)
+        protected when_running_specs Init(Type[] types, string tags = null, bool failFast = false)
         {
-            Build(types, tags);
-            Run();
-        }
+            this.types = types;
 
-        protected void Build(Type type, string tags = null)
-        {
-            Build(new[] { type }, tags);
-        }
+            builder = new ContextBuilder(new SpecFinder(types), new Tags().Parse(tags), new DefaultConventions());
 
-        protected void Build(Type[] types, string tags = null)
-        {
-            var finder = new SpecFinder(types); 
-
-            builder = new ContextBuilder(finder, new Tags().Parse(tags), new DefaultConventions());
+            runner = new ContextRunner(builder, formatter, failFast);
 
             contextCollection = builder.Contexts();
 
@@ -48,6 +42,13 @@ namespace NSpecSpecs.WhenRunningSpecs
                 .FirstOrDefault(c => types.Contains(c.type));
 
             methodContext = contextCollection.AllContexts().FirstOrDefault(c => c is MethodContext);
+
+            return this;
+        }
+
+        public void Run()
+        {
+            runner.Run(contextCollection);
         }
 
         protected Context TheContext(string name)
@@ -61,11 +62,18 @@ namespace NSpecSpecs.WhenRunningSpecs
             return theContext;
         }
 
+        protected IEnumerable<Example> AllExamples()
+        {
+            return contextCollection.SelectMany(s => s.AllExamples());
+        }
+
         protected Example TheExample(string name)
         {
             var theExample = contextCollection
                 .SelectMany(rootContext => rootContext.AllContexts())
-                .SelectMany(contexts => contexts.AllExamples().Where(example => example.Spec == name)).First();
+                .SelectMany(contexts => contexts.AllExamples().Where(example => example.Spec == name)).FirstOrDefault();
+
+            if (theExample == null) Assert.Fail("Did not find example named: " + name);
 
             theExample.Spec.should_be(name);
 
@@ -75,7 +83,11 @@ namespace NSpecSpecs.WhenRunningSpecs
         protected ContextBuilder builder;
         protected ContextCollection contextCollection;
         protected ClassContext classContext;
+        protected bool failFast;
         protected Context methodContext;
         protected ContextCollection contexts;
+        protected FormatterStub formatter;
+        private ContextRunner runner;
+        protected Type[] types;
     }
 }

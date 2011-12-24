@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace NSpec.Domain
 {
+    [Serializable]
     public class SpecFinder : ISpecFinder
     {
         private readonly string filter;

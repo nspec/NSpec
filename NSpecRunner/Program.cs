@@ -3,6 +3,7 @@ using System.Reflection;
 using NSpec;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
+using System.Linq;
 
 namespace NSpecRunner
 {
@@ -19,6 +20,11 @@ namespace NSpecRunner
             {
                 // extract either a class filter or a tags filter (but not both)
                 var argsTags = "";
+
+                var failFast = IsFailFast(args);
+
+                args = RemoveFailFastSwitch(args);
+
                 if (args.Length > 1)
                 {
                     // see rspec and cucumber for ideas on better ways to handle tags on the command line:
@@ -32,17 +38,27 @@ namespace NSpecRunner
 
                 var specDLL = args[0];
 
-                var invocation = new RunnerInvocation(specDLL, argsTags, new ConsoleFormatter());
+                var invocation = new RunnerInvocation(specDLL, argsTags, failFast);
 
                 var domain = new NSpecDomain(specDLL + ".config");
 
-                domain.Run(invocation, i => i.Runner().Run());
+                domain.Run(invocation, i => i.Run(), specDLL);
             }
             catch (Exception e)
             {
                 //hopefully this is handled before here, but if not, this is better than crashing the runner
                 Console.WriteLine(e);
             }
+        }
+
+        public static string[] RemoveFailFastSwitch(string[] args)
+        {
+            return args.Where(s => s != "--failfast").ToArray();
+        }
+
+        public static bool IsFailFast(string[] args)
+        {
+            return args.Any(s => s == "--failfast");
         }
 
         private static void ShowUsage()

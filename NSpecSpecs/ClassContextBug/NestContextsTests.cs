@@ -26,7 +26,7 @@ namespace NSpecSpecs.ClassContextBug
 
             //this line runs the tests you specified in the filter
             TestFormatter formatter = new TestFormatter();
-            new ContextRunner(builder, formatter).Run();
+            new ContextRunner(builder, formatter, false).Run(builder.Contexts().Build());
 
             Context grandParent = formatter.Contexts[0];
             Assert.That(grandParent.Name, Is.EqualTo("Grand Parent"));

@@ -72,15 +72,19 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
-        public virtual void Run(ILiveFormatter formatter, nspec instance = null)
+        public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null)
         {
+            if (failFast && Parent.HasAnyFailures()) return;
+
             var nspec = savedInstance ?? instance;
 
             for (int i = 0; i < Examples.Count; i++)
             {
                 var example = Examples[i];
 
-                Exercise(example, nspec);
+                if (failFast && example.Context.HasAnyFailures()) return;
+
+                Exercise(example, nspec, failFast);
 
                 if (example.HasRun && !alreadyWritten)
                 {
@@ -91,7 +95,7 @@ namespace NSpec.Domain
                 if(example.HasRun) formatter.Write(example, Level);
             }
 
-            Contexts.Do(c => c.Run(formatter, nspec));
+            Contexts.Do(c => c.Run(formatter, failFast, nspec));
         }
 
         private void WriteAncestors(ILiveFormatter formatter)
@@ -135,7 +139,7 @@ namespace NSpec.Domain
             }
         }
 
-        public void Exercise(Example example, nspec nspec)
+        public void Exercise(Example example, nspec nspec, bool failFast)
         {
             if (nspec.tagsFilter.ShouldSkip(example.Tags)) return;
 
@@ -199,6 +203,11 @@ namespace NSpec.Domain
         public IEnumerable<Context> ChildContexts()
         {
             return Contexts.SelectMany(c => new[] { c }.Union(c.ChildContexts()));
+        }
+
+        public bool HasAnyFailures()
+        {
+            return AllExamples().Any(e => e.Failed());
         }
 
         public bool HasAnyExecutedExample()

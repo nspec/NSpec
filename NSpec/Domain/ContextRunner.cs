@@ -3,29 +3,25 @@ using NSpec.Domain.Formatters;
 
 namespace NSpec.Domain
 {
+    [Serializable]
     public class ContextRunner
     {
-        public ContextRunner(ContextBuilder builder, IFormatter formatter)
+        public ContextRunner(ContextBuilder builder, IFormatter formatter, bool failFast)
         {
+            this.failFast = failFast;
             this.builder = builder;
             this.formatter = formatter;
         }
 
-        public ContextCollection Run()
+        public ContextCollection Run(ContextCollection contexts)
         {
-            var contexts = new ContextCollection();
-
             try
             {
-                contexts = builder.Contexts();
-
-                contexts.Build();
-
                 ILiveFormatter liveFormatter = new SilentLiveFormatter();
 
                 if (formatter is ILiveFormatter) liveFormatter = formatter as ILiveFormatter;
 
-                contexts.Run(liveFormatter);
+                contexts.Run(liveFormatter, failFast);
 
                 if (builder.tagsFilter.HasTagFilters()) contexts.TrimSkippedContexts();
 
@@ -35,10 +31,12 @@ namespace NSpec.Domain
             {
                 Console.WriteLine(e);
             }
+
             return contexts;
         }
 
         private ContextBuilder builder;
+        private bool failFast;
         private IFormatter formatter;
     }
 }
