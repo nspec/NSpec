@@ -59,17 +59,20 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void filters_out_not_run_examples()
             {
-                context["has multiple examples"] = () =>
+                context["has only example level tags"] = () =>
                 {
-                    it["has the correct tag", "onlybar"] = () => true.should_be_true();
-                    it["has a tag but not the correct one", "onlybaz"] = () => true.should_be_true();
-                    it["does not have a tag"] = () => true.should_be_true();
+                    it["should run and be in output", "shouldbeinoutput"] = () => true.should_be_true();
+                    it["should not run and not be in output", "barbaz"] = () => true.should_be_true();
+                    it["should also not run too not be in output"] = () => true.should_be_true();
+
+                    xit["pending but should be in output", "shouldbeinoutput"] = () => true.should_be_true();
+                    it["also pending but should be in output", "shouldbeinoutput"] = todo;
                 };
 
-                context["tagged with onlybar", "onlybar"] = () =>
+                context["has context level tags", "shouldbeinoutput"] = () =>
                 {
-                    it["has a tag and inherits the correct one", "onlybaz"] = () => true.should_be_true();
-                    it["does not have a tag but inherits the correct one"] = () => true.should_be_true();
+                    it["should also run and be in output", "barbaz"] = () => true.should_be_true();
+                    it["should yet also run and be in output"] = () => true.should_be_true();
                 };
             }
         }
@@ -139,13 +142,15 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void excludes_examples_not_run()
         {
-            Run(typeof(SpecClass1), "onlybar");
+            Run(typeof(SpecClass1), "shouldbeinoutput");
             var allExamples = classContext.AllContexts().SelectMany(c => c.AllExamples()).ToList();
-            allExamples.should_contain(e => e.Spec == "has the correct tag");
-            allExamples.should_contain(e => e.Spec == "has a tag and inherits the correct one");
-            allExamples.should_contain(e => e.Spec == "does not have a tag but inherits the correct one");
-            allExamples.should_not_contain(e => e.Spec == "has a tag but not the correct one");
-            allExamples.should_not_contain(e => e.Spec == "does not have a tag");
+            allExamples.should_contain(e => e.Spec == "should run and be in output");
+            allExamples.should_contain(e => e.Spec == "should also run and be in output");
+            allExamples.should_contain(e => e.Spec == "should yet also run and be in output");
+            allExamples.should_contain(e => e.Spec == "pending but should be in output");
+            allExamples.should_contain(e => e.Spec == "also pending but should be in output");
+            allExamples.should_not_contain(e => e.Spec == "should not run and not be in output");
+            allExamples.should_not_contain(e => e.Spec == "should also not run too not be in output");
         }
     }
 }
