@@ -219,6 +219,8 @@ namespace NSpec.Domain
         {
             Contexts.RemoveAll(c => !c.HasAnyExecutedExample());
 
+            Examples.RemoveAll(e => !e.HasRun);
+
             Contexts.Do(c => c.TrimSkippedDescendants());
         }
     }

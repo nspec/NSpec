@@ -55,6 +55,28 @@ namespace NSpecSpecs.WhenRunningSpecs
             }
         }
 
+        class SpecClass1 : nspec
+        {
+            void filters_out_not_run_examples()
+            {
+                context["has only example level tags"] = () =>
+                {
+                    it["should run and be in output", "shouldbeinoutput"] = () => true.should_be_true();
+                    it["should not run and not be in output", "barbaz"] = () => true.should_be_true();
+                    it["should also not run too not be in output"] = () => true.should_be_true();
+
+                    xit["pending but should be in output", "shouldbeinoutput"] = () => true.should_be_true();
+                    it["also pending but should be in output", "shouldbeinoutput"] = todo;
+                };
+
+                context["has context level tags", "shouldbeinoutput"] = () =>
+                {
+                    it["should also run and be in output", "barbaz"] = () => true.should_be_true();
+                    it["should yet also run and be in output"] = () => true.should_be_true();
+                };
+            }
+        }
+
         [Test]
         public void classes_are_automatically_tagged_with_class_name()
         {
@@ -115,6 +137,20 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Init(typeof(SpecClass), "~method-tag-one").Run();
             classContext.AllContexts().Count().should_be(7);
+        }
+
+        [Test]
+        public void excludes_examples_not_run()
+        {
+            Run(typeof(SpecClass1), "shouldbeinoutput");
+            var allExamples = classContext.AllContexts().SelectMany(c => c.AllExamples()).ToList();
+            allExamples.should_contain(e => e.Spec == "should run and be in output");
+            allExamples.should_contain(e => e.Spec == "should also run and be in output");
+            allExamples.should_contain(e => e.Spec == "should yet also run and be in output");
+            allExamples.should_contain(e => e.Spec == "pending but should be in output");
+            allExamples.should_contain(e => e.Spec == "also pending but should be in output");
+            allExamples.should_not_contain(e => e.Spec == "should not run and not be in output");
+            allExamples.should_not_contain(e => e.Spec == "should also not run too not be in output");
         }
     }
 }
