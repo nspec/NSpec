@@ -142,7 +142,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void excludes_examples_not_run()
         {
-            Run(typeof(SpecClass1), "shouldbeinoutput");
+            Init(typeof(SpecClass1), "shouldbeinoutput").Run();
             var allExamples = classContext.AllContexts().SelectMany(c => c.AllExamples()).ToList();
             allExamples.should_contain(e => e.Spec == "should run and be in output");
             allExamples.should_contain(e => e.Spec == "should also run and be in output");
