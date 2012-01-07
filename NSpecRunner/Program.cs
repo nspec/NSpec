@@ -67,9 +67,25 @@ namespace NSpecRunner
             Console.WriteLine();
             Console.WriteLine("Example usage:");
             Console.WriteLine();
-            Console.WriteLine("nspecrunner path_to_spec_dll [regex pattern]");
+            Console.WriteLine("nspecrunner path_to_spec_dll [classname]");
             Console.WriteLine();
-            Console.WriteLine("The second parameter is optional. If supplied, only the classes that match the regex will be run.  The full class name including namespace is considered. Otherwise all spec classes in the dll will be run.");
+            Console.WriteLine("The second parameter is optional. If supplied, only that specific test class will run.  Otherwise all spec classes in the dll will be run.");
+            Console.WriteLine();
+            Console.WriteLine("nspecrunner path_to_spec_dll --tag classname");
+            Console.WriteLine();
+            Console.WriteLine("The command above is equivalent to specifing the second parameter in: nspecrunner path_to_spec_dll [classname]");
+            Console.WriteLine();
+            Console.WriteLine("Example usage (tagging):");
+            Console.WriteLine();
+            Console.WriteLine("nspecrunner path_to_spec_dll --tag tag1,tag2,tag3");
+            Console.WriteLine();
+            Console.WriteLine("This wil run all tests under tags specified.  A test class's name is automatically considered in tagging.");
+            Console.WriteLine();
+            Console.WriteLine("Example usage (failfast):");
+            Console.WriteLine();
+            Console.WriteLine("nspecrunner path_to_spec_dll [classname] --failfast");
+            Console.WriteLine();
+            Console.WriteLine("Adding --failfast to any of the commands above will stop execution immediately when a failure is encountered.");
         }
     }
 }
