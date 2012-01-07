@@ -52,6 +52,7 @@
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_RunningSpecs\describe_abstract_class_execution_order.cs" />
     <Compile Include="describe_RunningSpecs\describe_class_level_before_for_abstract_class.cs" />
+    <Compile Include="describe_RunningSpecs\describe_context_level_beforeAll.cs" />
     <Compile Include="describe_RunningSpecs\describe_fail_fast.cs" />
     <Compile Include="describe_RunningSpecs\describe_Method_Invocation_Sequence.cs" />
     <Compile Include="describe_RunningSpecs\describe_LiveFormatter_with_context_filter.cs" />

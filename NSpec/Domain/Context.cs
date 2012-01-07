@@ -12,6 +12,8 @@ namespace NSpec.Domain
         {
             if (Parent != null) Parent.RunBefores(instance);
 
+            RunBeforeAll();
+
             if (BeforeInstance != null) BeforeInstance(instance);
 
             if (Before != null) Before();
@@ -33,6 +35,15 @@ namespace NSpec.Domain
             if (AfterInstance != null) AfterInstance(instance);
 
             if (Parent != null) Parent.RunAfters(instance);
+        }
+
+        private void RunBeforeAll()
+        {
+            if (BeforeAll == null || BeforeAllHasBeenRun) return;
+
+            BeforeAll();
+
+            BeforeAllHasBeenRun = true;
         }
 
         public void AddExample(Example example)
@@ -176,12 +187,13 @@ namespace NSpec.Domain
             this.isPending = isPending;
         }
 
+        public bool BeforeAllHasBeenRun;
         public string Name;
         public int Level;
         public List<string> Tags;
         public List<Example> Examples;
         public ContextCollection Contexts;
-        public Action Before, Act, After;
+        public Action Before, Act, After, BeforeAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance;
         public Context Parent;
         public Exception contextLevelException;
