@@ -17,6 +17,6 @@
     <file src="NSpecRunner/bin/Debug/*.*" target="tools/"/>
     <file src="NSpec/bin/debug/NSpec.dll" target="lib/NSpec.dll"/>
     <file src="NSpec/bin/debug/nunit.framework.dll" target="lib/nunit.framework.dll"/>
-    <file src="SampleSpecs/DebuggerShim.cs" target="content/DebuggerShim.cs"/>
+    <file src="NSpecSpecs/DebuggerShim.cs" target="content/DebuggerShim.cs"/>
   </files>
 </package>
