@@ -22,6 +22,8 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void before_all()
             {
+                log.Clear();
+
                 log.Add("METHOD LEVEL BEFORE ALL");
             }
 
