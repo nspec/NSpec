@@ -45,6 +45,11 @@ end
 
 desc 'merge nunit dll into nspec'
 task :ilmerge do
+  File.rename 'NSpecRunner\bin\Debug\NSpec.dll','NSpecRunner\bin\Debug\NSpec-partial.dll'
+  sh 'ilmerge NSpecRunner\bin\Debug\NSpec-partial.dll NSpecRunner\bin\Debug\nunit.framework.dll /out:NSpecRunner\bin\Debug\NSpec.dll /internalize' 
+  File.delete'NSpecRunner\bin\Debug\NSpec-partial.dll'
+  File.delete'NSpecRunner\bin\Debug\nunit.framework.dll'
+
   File.rename 'NSpec\bin\Debug\NSpec.dll','NSpec\bin\Debug\NSpec-partial.dll'
   sh 'ilmerge NSpec\bin\Debug\NSpec-partial.dll NSpec\bin\Debug\nunit.framework.dll /out:NSpec\bin\Debug\NSpec.dll /internalize' 
   File.delete'NSpec\bin\Debug\NSpec-partial.dll'
