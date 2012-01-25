@@ -6,10 +6,10 @@ using NSpec;
 using NSpec.Domain.Formatters;
 using System.Linq;
 
-[TestFixture]
+//[TestFixture]
 public class DebuggerShim
 {
-    [Test]
+    //[Test]
     public void debug()
     {
         var tagOrClassName = "class_or_tag_you_want_to_debug";
