@@ -41,11 +41,6 @@ namespace NSpec
             Assert.IsFalse(actual);
         }
 
-        public static void should_be_greater_than(this int greater, int lesser)
-        {
-            Assert.Greater(greater, lesser);
-        }
-
         public static void should_be(this object actual, object expected)
         {
             actual.Is(expected);
@@ -157,6 +152,60 @@ namespace NSpec
         public static void should_not_be_same(this object actual, object expected)
         {
             Assert.AreNotSame(expected, actual);
+        }
+
+        public static void should_be_greater_than(this IComparable arg1, IComparable arg2)
+        {
+            Assert.Greater(arg1, arg2);
+        }
+
+        public static void should_be_greater_or_equal_to(this IComparable arg1, IComparable arg2)
+        {
+            Assert.GreaterOrEqual(arg1, arg2);
+        }
+
+        public static void should_be_less_than(this IComparable arg1, IComparable arg2)
+        {
+            Assert.Less(arg1, arg2);
+        }
+
+        public static void should_be_less_or_equal_to(this IComparable arg1, IComparable arg2)
+        {
+            Assert.LessOrEqual(arg1, arg2);
+        }
+
+        public static void should_be_close_to(this float actual, float expected)
+        {
+            actual.should_be_close_to(expected, 0.0000001f);
+        }
+
+        public static void should_be_close_to(this float actual, float expected, float tolerance)
+        {
+            Assert.LessOrEqual(Math.Abs(actual - expected), tolerance,
+                string.Format("should be close to {0} of {1} but was {2} ", tolerance, expected, actual));
+        }
+
+        public static void should_be_close_to(this double actual, double expected, double tolerance)
+        {
+            Assert.LessOrEqual(Math.Abs(actual - expected), tolerance,
+                string.Format("should be close to {0} of {1} but was {2}", tolerance, expected, actual));
+        }
+
+        public static void should_be_close_to(this double actual, double expected)
+        {
+            actual.should_be_close_to(expected, 0.0000001f);
+        }
+
+        public static void should_be_close_to(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
+        {
+            Assert.LessOrEqual(Math.Abs(actual.Ticks - expected.Ticks), tolerance.Ticks,
+                string.Format("should be close to {0} ticks of {1} but was {2}", tolerance, expected, actual));
+        }
+
+        public static void should_be_close_to(this DateTime actual, DateTime expected, DateTime tolerance)
+        {
+            Assert.LessOrEqual(Math.Abs((actual - expected).Ticks), tolerance.Ticks,
+                string.Format("should be close to {0} ticks of {1} but was {2}", tolerance.Ticks, expected, actual));
         }
     }
 }
