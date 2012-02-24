@@ -10,36 +10,41 @@ namespace NSpec.Domain
     {
         public void RunBefores(nspec instance)
         {
-            if (Parent != null) Parent.RunBefores(instance);
+            RecurseAncestors( c=> c.RunBefores(instance));
 
             RunBeforeAll();
 
-            if (BeforeInstance != null) BeforeInstance(instance);
+            BeforeInstance.SafeInvoke(instance);
 
-            if (Before != null) Before();
+            Before.SafeInvoke();
         }
 
         public void RunActs(nspec instance)
         {
-            if (Parent != null) Parent.RunActs(instance);
+            RecurseAncestors(c=> c.RunActs(instance));
 
-            if (ActInstance != null) ActInstance(instance);
+            ActInstance.SafeInvoke(instance);
 
-            if (Act != null) Act();
+            Act.SafeInvoke();
         }
 
         public void RunAfters(nspec instance)
         {
-            if (After != null) After();
+            After.SafeInvoke();
 
-            if (AfterInstance != null) AfterInstance(instance);
+            AfterInstance.SafeInvoke(instance);
 
-            if (Parent != null) Parent.RunAfters(instance);
+            RecurseAncestors(c=> c.RunAfters(instance));
+        }
+
+        private void RecurseAncestors(Action<Context> ancestorAction)
+        {
+            if (Parent != null) ancestorAction(Parent);
         }
 
         private void RunBeforeAll()
         {
-            if (BeforeAll != null) BeforeAll();
+            BeforeAll.SafeInvoke();
 
             BeforeAll = null;
         }

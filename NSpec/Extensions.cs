@@ -154,6 +154,16 @@ namespace NSpec
             return string.Format(source, o);
         }
 
+        public static void SafeInvoke<T>(this Action<T> action, T t)
+        {
+            if (action != null) action(t);
+        }
+
+        public static void SafeInvoke(this Action action)
+        {
+            if (action != null) action();
+        }
+
         public static string[] Sanitize(this object[] source)
         {
             return source.ToList().Select(o =>
