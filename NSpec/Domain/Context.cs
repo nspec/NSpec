@@ -39,11 +39,9 @@ namespace NSpec.Domain
 
         private void RunBeforeAll()
         {
-            if (BeforeAll == null || BeforeAllHasBeenRun) return;
+            if (BeforeAll != null) BeforeAll();
 
-            BeforeAll();
-
-            BeforeAllHasBeenRun = true;
+            BeforeAll = null;
         }
 
         public void AddExample(Example example)
@@ -167,7 +165,6 @@ namespace NSpec.Domain
             RunAndHandleException(RunAfters, nspec, ref Exception);
 
             example.AssignProperException(Exception);
-
         }
 
         public virtual bool IsSub(Type baseType)
@@ -184,7 +181,6 @@ namespace NSpec.Domain
             this.isPending = isPending;
         }
 
-        public bool BeforeAllHasBeenRun;
         public string Name;
         public int Level;
         public List<string> Tags;
