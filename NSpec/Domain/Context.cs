@@ -69,7 +69,7 @@ namespace NSpec.Domain
 
         public IEnumerable<Example> Failures()
         {
-            return AllExamples().Where(e => e.ExampleLevelException != null);
+            return AllExamples().Where(e => e.Exception != null);
         }
 
         public void AddContext(Context child)
@@ -158,15 +158,15 @@ namespace NSpec.Domain
 
             if (example.Pending) return;
 
-            RunAndHandleException(RunBefores, nspec, ref contextLevelException);
+            RunAndHandleException(RunBefores, nspec, ref Exception);
 
-            RunAndHandleException(RunActs, nspec, ref contextLevelException);
+            RunAndHandleException(RunActs, nspec, ref Exception);
 
-            RunAndHandleException(example.Run, nspec, ref example.ExampleLevelException);
+            RunAndHandleException(example.Run, nspec, ref example.Exception);
 
-            RunAndHandleException(RunAfters, nspec, ref contextLevelException);
+            RunAndHandleException(RunAfters, nspec, ref Exception);
 
-            example.AssignProperException(contextLevelException);
+            example.AssignProperException(Exception);
 
         }
 
@@ -193,7 +193,7 @@ namespace NSpec.Domain
         public Action Before, Act, After, BeforeAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance;
         public Context Parent;
-        public Exception contextLevelException;
+        public Exception Exception;
         public Exception contextLevelExpectedException;
         private bool isPending;
         nspec savedInstance;

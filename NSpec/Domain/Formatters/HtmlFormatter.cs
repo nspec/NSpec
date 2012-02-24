@@ -82,11 +82,11 @@ namespace NSpec.Domain.Formatters
         void BuildSpec(StringBuilder sb, Example example)
         {
             sb.AppendFormat("<li>{0}", example.Spec);
-            if (example.ExampleLevelException != null)
+            if (example.Exception != null)
             {
                 sb.AppendLine("<span class=\"spec-failed\">&lArr; Failed</span>");
                 sb.Append("<div class=\"spec-exception\"><code>");
-                sb.Append(HttpUtility.HtmlEncode(example.ExampleLevelException.ToString()));
+                sb.Append(HttpUtility.HtmlEncode(example.Exception.ToString()));
                 sb.AppendLine("</code></div>");
             }
             else if (example.Pending)

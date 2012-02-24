@@ -23,7 +23,7 @@ namespace NSpec.Domain.Formatters
 
         public void Write(Example e, int level)
         {
-            var failure = e.ExampleLevelException == null ? "" : " - FAILED - {0}".With(e.ExampleLevelException.CleanMessage());
+            var failure = e.Exception == null ? "" : " - FAILED - {0}".With(e.Exception.CleanMessage());
 
             var whiteSpace = indent.Times(level);
 
@@ -47,10 +47,10 @@ namespace NSpec.Domain.Formatters
         {
             var failure = Environment.NewLine + example.FullName().Replace("_", " ") + Environment.NewLine;
 
-            failure += example.ExampleLevelException.CleanMessage() + Environment.NewLine;
+            failure += example.Exception.CleanMessage() + Environment.NewLine;
 
             var stackTrace =
-                example.ExampleLevelException
+                example.Exception
                        .GetOrFallback(e => e.StackTrace, "").Split('\n')
                        .Where(l => !internalNameSpaces.Any(l.Contains));
 

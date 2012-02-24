@@ -153,21 +153,21 @@ namespace NSpec
 
             return () =>
             {
-                if (specContext.contextLevelException == null || specContext.contextLevelException.GetType() != typeof(T))
+                if (specContext.Exception == null || specContext.Exception.GetType() != typeof(T))
                     throw new ExceptionNotThrown(IncorrectType<T>());
 
-                if (expectedMessage != null && expectedMessage != specContext.contextLevelException.Message)
+                if (expectedMessage != null && expectedMessage != specContext.Exception.Message)
                 {
                     throw new ExceptionNotThrown(
                         IncorrectMessage(
                         expectedMessage,
-                        specContext.contextLevelException.Message));
+                        specContext.Exception.Message));
                 }
 
-                if (specContext.contextLevelException.GetType() == typeof(T))
+                if (specContext.Exception.GetType() == typeof(T))
                 {
-                    specContext.contextLevelExpectedException = specContext.contextLevelException;
-                    specContext.contextLevelException = null;
+                    specContext.contextLevelExpectedException = specContext.Exception;
+                    specContext.Exception = null;
                 }
             };
         }

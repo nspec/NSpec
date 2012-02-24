@@ -71,7 +71,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void it_should_not_run_befores_on_pending_context()
         {
-            methodContext.AllExamples().First().ExampleLevelException.should_be(null);
+            methodContext.AllExamples().First().Exception.should_be(null);
         }
     }
 }

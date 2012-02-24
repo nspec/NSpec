@@ -23,7 +23,7 @@ namespace NSpecNUnit
 
             context.AddExample(new Example(pending: true));
 
-            context.AddExample(new Example { ExampleLevelException = new Exception() });
+            context.AddExample(new Example { Exception = new Exception() });
 
             contexts.Add(context);
         }

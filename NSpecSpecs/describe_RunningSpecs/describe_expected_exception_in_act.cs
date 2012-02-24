@@ -46,33 +46,33 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void given_exception_is_thrown_should_not_fail()
         {
-            TheExample("should throw exception").ExampleLevelException.should_be(null);
+            TheExample("should throw exception").Exception.should_be(null);
         }
 
         [Test]
         public void given_exception_is_thrown_with_expected_message_should_not_fail()
         {
-            TheExample("should throw exception with error message Testing").ExampleLevelException.should_be(null);
+            TheExample("should throw exception with error message Testing").Exception.should_be(null);
         }
 
         [Test]
         public void given_exception_not_thrown_should_fail()
         {
-            TheExample("should fail if no exception thrown").ExampleLevelException.GetType().should_be(typeof(ExceptionNotThrown));
+            TheExample("should fail if no exception thrown").Exception.GetType().should_be(typeof(ExceptionNotThrown));
         }
 
         [Test]
         public void given_wrong_exception_should_fail()
         {
-            TheExample("should fail if wrong exception thrown").ExampleLevelException.GetType().should_be(typeof(ExceptionNotThrown));
-            TheExample("should fail if wrong exception thrown").ExampleLevelException.Message.should_be("Exception of type ArgumentException was not thrown.");
+            TheExample("should fail if wrong exception thrown").Exception.GetType().should_be(typeof(ExceptionNotThrown));
+            TheExample("should fail if wrong exception thrown").Exception.Message.should_be("Exception of type ArgumentException was not thrown.");
         }
 
         [Test]
         public void given_wrong_error_message_should_fail()
         {
-            TheExample("should fail if wrong error message is returned").ExampleLevelException.GetType().should_be(typeof(ExceptionNotThrown));
-            TheExample("should fail if wrong error message is returned").ExampleLevelException.Message.should_be("Expected message: \"Blah\" But was: \"Testing\"");
+            TheExample("should fail if wrong error message is returned").Exception.GetType().should_be(typeof(ExceptionNotThrown));
+            TheExample("should fail if wrong error message is returned").Exception.Message.should_be("Expected message: \"Blah\" But was: \"Testing\"");
         }
     }
 }

@@ -24,7 +24,7 @@ namespace NSpecNUnit
         {
             var child = new Context("child");
 
-            child.AddExample(new Example("") { ExampleLevelException = new Exception() });
+            child.AddExample(new Example("") { Exception = new Exception() });
 
             var parent = new Context("parent");
 

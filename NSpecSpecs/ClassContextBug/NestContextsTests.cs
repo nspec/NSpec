@@ -34,7 +34,7 @@ namespace NSpecSpecs.ClassContextBug
             Assert.That(grandParent.Contexts[0].Name, Is.EqualTo("Grand Parent Context"));
             Assert.That(grandParent.Contexts[1].Name, Is.EqualTo("Parent"));
             Assert.That(grandParent.Contexts[0].Examples[0].Spec, Is.EqualTo("TestValue should be \"Grand Parent!!!\""));
-            Assert.That(grandParent.Contexts[0].Examples[0].ExampleLevelException, Is.Null);
+            Assert.That(grandParent.Contexts[0].Examples[0].Exception, Is.Null);
             Assert.That(grandParent.Contexts[0].Examples[0].Pending, Is.False);
 
             Context parent = formatter.Contexts[0].Contexts[1];
@@ -43,7 +43,7 @@ namespace NSpecSpecs.ClassContextBug
             Assert.That(parent.Contexts[0].Name, Is.EqualTo("Parent Context"));
             Assert.That(parent.Contexts[1].Name, Is.EqualTo("Child"));
             Assert.That(parent.Contexts[0].Examples[0].Spec, Is.EqualTo("TestValue should be \"Grand Parent.Parent!!!@@@\""));
-            Assert.That(parent.Contexts[0].Examples[0].ExampleLevelException, Is.Null);
+            Assert.That(parent.Contexts[0].Examples[0].Exception, Is.Null);
             Assert.That(parent.Contexts[0].Examples[0].Pending, Is.False);
 
             Context child = formatter.Contexts[0].Contexts[1].Contexts[1];
@@ -51,7 +51,7 @@ namespace NSpecSpecs.ClassContextBug
             Assert.That(child.Contexts.Count, Is.EqualTo(1));
             Assert.That(child.Contexts[0].Name, Is.EqualTo("Child Context"));
             Assert.That(child.Contexts[0].Examples[0].Spec, Is.EqualTo("TestValue should be \"Grand Parent.Parent.Child!!!@@@###\""));
-            Assert.That(child.Contexts[0].Examples[0].ExampleLevelException, Is.Null);
+            Assert.That(child.Contexts[0].Examples[0].Exception, Is.Null);
             Assert.That(child.Contexts[0].Examples[0].Pending, Is.False);
         }
     }

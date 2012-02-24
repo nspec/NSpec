@@ -41,27 +41,27 @@ namespace NSpecSpecs.WhenRunningSpecs
         public void the_example_level_failure_should_indicate_a_context_failure()
         {
             TheExample("should fail this example because of after")
-                .ExampleLevelException.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("should also fail this example because of after")
-                .ExampleLevelException.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("tracks only the first exception from act")
-                .ExampleLevelException.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
         }
 
         [Test]
         public void examples_with_only_after_failure_should_only_fail_because_of_after()
         {
             TheExample("should fail this example because of after")
-                .ExampleLevelException.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
             TheExample("should also fail this example because of after")
-                .ExampleLevelException.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
         }
 
         [Test]
         public void it_should_throw_exception_from_act_not_from_after()
         {
             TheExample("tracks only the first exception from act")
-                .ExampleLevelException.InnerException.GetType().should_be(typeof(ArgumentException));
+                .Exception.InnerException.GetType().should_be(typeof(ArgumentException));
         }
     }
 }

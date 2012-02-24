@@ -104,9 +104,9 @@ namespace NSpec.GallioAdapter.Services
             {
                 contextTest.Context.Exercise(exampleTest.Example, contextTest.Context.GetInstance());
 
-                if (exampleTest.Example.ExampleLevelException != null)
+                if (exampleTest.Example.Exception != null)
                 {
-                    TestLog.Failures.WriteException(ConvertException(exampleTest.Example.ExampleLevelException));
+                    TestLog.Failures.WriteException(ConvertException(exampleTest.Example.Exception));
                     TestLog.Failures.Flush();
 
                     outcome = TestOutcome.Failed;

@@ -99,10 +99,10 @@ namespace NSpec.Domain.Formatters
         {
             string output = "";
 
-            if (e.ExampleLevelException != null)
+            if (e.Exception != null)
             {
                 output = String.Format("{0}&lt;&lt;markSpecAsFailed '{1}'&gt;&gt; &lt;&lt;showException 'error_{2}' '{3}''&gt;&gt;",
-                    "*".Times(level), e.Spec, Guid.NewGuid(), HttpUtility.HtmlEncode(e.ExampleLevelException.ToString()));
+                    "*".Times(level), e.Spec, Guid.NewGuid(), HttpUtility.HtmlEncode(e.Exception.ToString()));
             }
             else if (e.Pending)
             {

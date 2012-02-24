@@ -37,7 +37,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             classContext.AllExamples()
                         .First()
-                        .ExampleLevelException
+                        .Exception
                         .should_cast_to<ExampleFailureException>();
         }
     }

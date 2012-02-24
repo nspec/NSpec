@@ -18,7 +18,7 @@ namespace NSpec.Domain
 
         public IEnumerable<Example> Failures()
         {
-            return Examples().Where(e => e.ExampleLevelException != null);
+            return Examples().Where(e => e.Exception != null);
         }
 
         public IEnumerable<Example> Pendings()

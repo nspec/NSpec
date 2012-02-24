@@ -42,7 +42,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         public void should_report_both_method_level_failure_and_act_level_failure()
         {
             TheExample("reports example level failure and act failure")
-                .ExampleLevelException.Message.should_be("Context Failure: unexpected failure, Example Failure: example level failure");
+                .Exception.Message.should_be("Context Failure: unexpected failure, Example Failure: example level failure");
         }
     }
 
@@ -78,7 +78,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         public void should_report_both_method_level_failure_and_act_level_failure()
         {
             TheExample("reports example level failure and act failure")
-                .ExampleLevelException.Message.should_be("Context Failure: unexpected failure");
+                .Exception.Message.should_be("Context Failure: unexpected failure");
         }
     }
 }

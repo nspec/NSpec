@@ -39,7 +39,7 @@ namespace NSpec.Domain
 
         public bool Passed
         {
-            get { return (HasRun && ExampleLevelException == null); }
+            get { return (HasRun && Exception == null); }
         }
 
         public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) { }
@@ -68,25 +68,25 @@ namespace NSpec.Domain
 
         public bool Failed()
         {
-            return ExampleLevelException != null;
+            return Exception != null;
         }
 
         public bool HasRun;
         public string Spec;
         public List<string> Tags;
-        public Exception ExampleLevelException;
+        public Exception Exception;
         public Context Context;
         public MethodInfo MethodLevelExample;
 
         Action action;
 
-        public void AssignProperException(Exception contextLevelException)
+        public void AssignProperException(Exception contextException)
         {
-            if (ExampleLevelException != null && contextLevelException != null && ExampleLevelException.GetType() != typeof(ExceptionNotThrown))
-                ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message + ", Example Failure: " + ExampleLevelException.Message, contextLevelException);
+            if (Exception != null && contextException != null && Exception.GetType() != typeof(ExceptionNotThrown))
+                Exception = new ExampleFailureException("Context Failure: " + contextException.Message + ", Example Failure: " + Exception.Message, contextException);
 
-            if (ExampleLevelException == null && contextLevelException != null)
-                ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message, contextLevelException);
+            if (Exception == null && contextException != null)
+                Exception = new ExampleFailureException("Context Failure: " + contextException.Message, contextException);
         }
     }
 }
