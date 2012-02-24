@@ -166,11 +166,8 @@ namespace NSpec.Domain
 
             RunAndHandleException(RunAfters, nspec, ref contextLevelException);
 
-            if (example.ExampleLevelException != null && contextLevelException != null && example.ExampleLevelException.GetType() != typeof(ExceptionNotThrown))
-                example.ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message + ", Example Failure: " + example.ExampleLevelException.Message, contextLevelException);
+            example.AssignProperException(contextLevelException);
 
-            if (example.ExampleLevelException == null && contextLevelException != null)
-                example.ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message, contextLevelException);
         }
 
         public virtual bool IsSub(Type baseType)

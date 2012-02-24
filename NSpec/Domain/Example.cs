@@ -79,5 +79,14 @@ namespace NSpec.Domain
         public MethodInfo MethodLevelExample;
 
         Action action;
+
+        public void AssignProperException(Exception contextLevelException)
+        {
+            if (ExampleLevelException != null && contextLevelException != null && ExampleLevelException.GetType() != typeof(ExceptionNotThrown))
+                ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message + ", Example Failure: " + ExampleLevelException.Message, contextLevelException);
+
+            if (ExampleLevelException == null && contextLevelException != null)
+                ExampleLevelException = new ExampleFailureException("Context Failure: " + contextLevelException.Message, contextLevelException);
+        }
     }
 }
