@@ -50,6 +50,7 @@
     <Compile Include="ClassContextBug\NestContextsTests.cs" />
     <Compile Include="ClassContextBug\NestedContexts.cs" />
     <Compile Include="DebuggerShim.cs" />
+    <Compile Include="describe_Assertions.cs" />
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_RunningSpecs\describe_abstract_class_execution_order.cs" />
     <Compile Include="describe_RunningSpecs\describe_class_level_before_for_abstract_class.cs" />
