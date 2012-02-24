@@ -95,7 +95,7 @@ namespace NSpec.Domain
 
                 if (failFast && example.Context.HasAnyFailures()) return;
 
-                Exercise(example, nspec, failFast);
+                Exercise(example, nspec);
 
                 if (example.HasRun && !alreadyWritten)
                 {
@@ -150,7 +150,7 @@ namespace NSpec.Domain
             }
         }
 
-        public void Exercise(Example example, nspec nspec, bool failFast)
+        public void Exercise(Example example, nspec nspec)
         {
             if (nspec.tagsFilter.ShouldSkip(example.Tags)) return;
 
