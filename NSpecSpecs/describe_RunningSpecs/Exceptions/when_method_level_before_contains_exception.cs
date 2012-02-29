@@ -5,7 +5,7 @@ using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using System.Linq;
 
-namespace NSpecSpecs.describe_RunningSpecs
+namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
     [TestFixture]
     [Category("RunningSpecs")]

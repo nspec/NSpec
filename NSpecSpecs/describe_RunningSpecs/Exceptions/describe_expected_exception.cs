@@ -1,33 +1,31 @@
 ﻿using System;
 using System.Linq;
 using NSpec;
+using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 using NSpec.Domain;
 
-namespace NSpecSpecs.WhenRunningSpecs
+namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class describe_expected_exception_in_act : when_running_specs
+    public class describe_expected_exception : when_running_specs
     {
         private class SpecClass : nspec
         {
             void method_level_context()
             {
-                it["should fail if no exception thrown"] = expect<InvalidOperationException>();
+                before = () => { };
 
-                context["when exception thrown from act"] = () =>
-                {
-                    act = () => { throw new InvalidOperationException("Testing"); };
+                it["should throw exception"] = expect<InvalidOperationException>(() => { throw new InvalidOperationException(); });
 
-                    it["should throw exception"] = expect<InvalidOperationException>();
+                it["should throw exception with error message Testing"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Testing"); });
 
-                    it["should throw exception with error message Testing"] = expect<InvalidOperationException>("Testing");
+                it["should fail if no exception thrown"] = expect<InvalidOperationException>(() => { });
 
-                    it["should fail if wrong exception thrown"] = expect<ArgumentException>();
+                it["should fail if wrong exception thrown"] = expect<InvalidOperationException>(() => { throw new ArgumentException(); });
 
-                    it["should fail if wrong error message is returned"] = expect<InvalidOperationException>("Blah");
-                };
+                it["should fail if wrong error message is returned"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Blah"); });
             }
         }
 
@@ -65,14 +63,14 @@ namespace NSpecSpecs.WhenRunningSpecs
         public void given_wrong_exception_should_fail()
         {
             TheExample("should fail if wrong exception thrown").Exception.GetType().should_be(typeof(ExceptionNotThrown));
-            TheExample("should fail if wrong exception thrown").Exception.Message.should_be("Exception of type ArgumentException was not thrown.");
+            TheExample("should fail if wrong exception thrown").Exception.Message.should_be("Exception of type InvalidOperationException was not thrown.");
         }
 
         [Test]
         public void given_wrong_error_message_should_fail()
         {
             TheExample("should fail if wrong error message is returned").Exception.GetType().should_be(typeof(ExceptionNotThrown));
-            TheExample("should fail if wrong error message is returned").Exception.Message.should_be("Expected message: \"Blah\" But was: \"Testing\"");
+            TheExample("should fail if wrong error message is returned").Exception.Message.should_be("Expected message: \"Testing\" But was: \"Blah\"");
         }
     }
 }

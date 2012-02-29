@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 
-namespace NSpecSpecs.describe_RunningSpecs
+namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
     [TestFixture]
     public class describe_unexpected_exception_in_act_and_in_example : when_running_specs

@@ -1,9 +1,10 @@
 ﻿using System;
+using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
 
-namespace NSpecSpecs.WhenRunningSpecs
+namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
     [TestFixture]
     [Category("RunningSpecs")]
