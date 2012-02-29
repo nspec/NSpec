@@ -32,8 +32,8 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Init(typeof(SpecClass)).Run();
             Assert.Inconclusive("I dont think this is possible....");
-            TheMethodContextExamples().First().Exception.should_be(null);
-            TheMethodContextExamples().Last().Exception.should_be(null);
+            TheMethodContextExamples().First().should_not_have_failed();
+            TheMethodContextExamples().Last().should_not_have_failed();
         }
 
         private IEnumerable<Example> TheMethodContextExamples()

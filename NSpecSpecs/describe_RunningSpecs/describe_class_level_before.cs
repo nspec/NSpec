@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using NSpec;
-using NSpec.Domain;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -44,13 +40,13 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void should_run_class_level_before_then_method_level_before()
         {
-            TheExample("should not be null").Exception.should_be(null);
+            TheExample("should not be null").should_not_have_failed();
         }
 
         [Test]
         public void should_run_example_within_a_sub_context()
         {
-            TheExample("should have one record").Exception.should_be(null);
+            TheExample("should have one record").should_not_have_failed();
         }
     }
 }

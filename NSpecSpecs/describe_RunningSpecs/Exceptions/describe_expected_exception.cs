@@ -44,13 +44,13 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void given_exception_is_thrown_should_not_fail()
         {
-            TheExample("should throw exception").Exception.should_be(null);
+            TheExample("should throw exception").should_not_have_failed();
         }
 
         [Test]
         public void given_exception_is_thrown_with_expected_message_should_not_fail()
         {
-            TheExample("should throw exception with error message Testing").Exception.should_be(null);
+            TheExample("should throw exception with error message Testing").should_not_have_failed();
         }
 
         [Test]
