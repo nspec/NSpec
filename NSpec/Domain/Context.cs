@@ -10,7 +10,7 @@ namespace NSpec.Domain
     {
         public void RunBefores(nspec instance)
         {
-            RecurseAncestors( c=> c.RunBefores(instance));
+            RecurseAncestors(c => c.RunBefores(instance));
 
             RunBeforeAll();
 
@@ -21,7 +21,7 @@ namespace NSpec.Domain
 
         public void RunActs(nspec instance)
         {
-            RecurseAncestors(c=> c.RunActs(instance));
+            RecurseAncestors(c => c.RunActs(instance));
 
             ActInstance.SafeInvoke(instance);
 
@@ -34,7 +34,7 @@ namespace NSpec.Domain
 
             AfterInstance.SafeInvoke(instance);
 
-            RecurseAncestors(c=> c.RunAfters(instance));
+            RecurseAncestors(c => c.RunAfters(instance));
         }
 
         private void RecurseAncestors(Action<Context> ancestorAction)
@@ -106,7 +106,7 @@ namespace NSpec.Domain
                     alreadyWritten = true;
                 }
 
-                if(example.HasRun) formatter.Write(example, Level);
+                if (example.HasRun) formatter.Write(example, Level);
             }
 
             Contexts.Do(c => c.Run(formatter, failFast, nspec));
@@ -118,7 +118,7 @@ namespace NSpec.Domain
 
             Parent.WriteAncestors(formatter);
 
-            if(!alreadyWritten) formatter.Write(this);
+            if (!alreadyWritten) formatter.Write(this);
 
             alreadyWritten = true;
         }
