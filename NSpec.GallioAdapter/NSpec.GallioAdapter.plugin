@@ -2,7 +2,7 @@
 <plugin xmlns="http://www.gallio.org/" pluginId="Gallio.NSpecAdapter" recommendedInstallationPath="NSpec">
   <traits>
     <name>NSpec Adapter Plugin</name>
-    <version>0.9.58.0</version>
+    <version>0.9.59.0</version>
     <description>Provides support for running NSpec within Gallio. Requires the assemblies from NSpec.</description>
   </traits>
 
@@ -18,8 +18,8 @@
   </files>
 
   <assemblies>
-    <assembly fullName="NSpec.GallioAdapter, Version=0.9.58.0, Culture=neutral, PublicKeyToken=null" codeBase="NSpec.GallioAdapter.dll" qualifyPartialName="true"/>
-    <assembly fullName="NSpec, Version=0.9.58.0, Culture=neutral, PublicKeyToken=null" codeBase="NSpec.dll"/>    
+    <assembly fullName="NSpec.GallioAdapter, Version=0.9.59.0, Culture=neutral, PublicKeyToken=null" codeBase="NSpec.GallioAdapter.dll" qualifyPartialName="true"/>
+    <assembly fullName="NSpec, Version=0.9.59.0, Culture=neutral, PublicKeyToken=null" codeBase="NSpec.dll"/>    
     <assembly fullName="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" codeBase="nunit.framework.dll"/>
   </assemblies>
   
@@ -27,8 +27,8 @@
     <component componentId="NSpec.TestFramework" serviceId="Gallio.TestFramework" componentType="NSpec.GallioAdapter.NSpecTestFramework, NSpec.GallioAdapter">
       <traits>
         <name>NSpec</name>        
-        <frameworkAssemblies>NSpec, Version=0.9.58.0</frameworkAssemblies>
-        <version>0.9.58.0</version>
+        <frameworkAssemblies>NSpec, Version=0.9.59.0</frameworkAssemblies>
+        <version>0.9.59.0</version>
         <fileTypes>Assembly</fileTypes>
       </traits>
     </component>
