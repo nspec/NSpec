@@ -10,7 +10,7 @@ namespace NSpec.Domain
     [Serializable]
     public class SpecFinder : ISpecFinder
     {
-        private readonly string filter;
+        string filter;
 
         public virtual IEnumerable<Type> SpecClasses()
         {

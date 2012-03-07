@@ -8,7 +8,7 @@ namespace NSpec.Domain
 {
     public class ClassContext : Context
     {
-        private readonly List<Type> classHierarchyToClass = new List<Type>();
+        List<Type> classHierarchyToClass = new List<Type>();
 
         private IEnumerable<MethodInfo> GetMethodsFromHierarchy(Func<Type, MethodInfo> methodAccessor)
         {

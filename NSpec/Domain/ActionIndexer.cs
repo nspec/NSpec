@@ -4,7 +4,7 @@ namespace NSpec.Domain
 {
     public class ActionRegister
     {
-        private readonly Action<string, string, Action> actionSetter;
+        Action<string, string, Action> actionSetter;
 
         public ActionRegister(Action<string, string, Action> actionSetter)
         {
