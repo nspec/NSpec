@@ -1,8 +1,8 @@
 ﻿using System;
 using NSpec;
+using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
-using NSpec.Domain;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {

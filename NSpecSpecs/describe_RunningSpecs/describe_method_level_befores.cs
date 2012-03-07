@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
 using NSpec;
+using NUnit.Framework;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {

@@ -1,12 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
 using Rhino.Mocks;
-using describe_SomeNameSpace;
 using describe_OtherNameSpace;
-using System.Collections.Generic;
-using System.Linq;
+using describe_SomeNameSpace;
 
 namespace NSpecNUnit
 {
@@ -178,7 +178,7 @@ namespace NSpecNUnit
         {
             reflector = MockRepository.GenerateMock<IReflector>();
 
-            RhinoMocksExtensions.Stub(reflector, r => r.GetTypesFrom("")).IgnoreArguments().Return(types);
+            reflector.Stub(r => r.GetTypesFrom("")).IgnoreArguments().Return(types);
 
             someDLL = "an nspec project dll";
 

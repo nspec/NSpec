@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSpec.Domain.Extensions;
 using System.Text.RegularExpressions;
+using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {

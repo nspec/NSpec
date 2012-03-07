@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NSpecSpecs.WhenRunningSpecs;
+﻿using System.Collections.Generic;
 using NSpec;
+using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
 namespace NSpecSpecs.describe_RunningSpecs
@@ -13,7 +10,7 @@ namespace NSpecSpecs.describe_RunningSpecs
     {
         class SpecClass : nspec
         {
-            public static List<string> log = null;
+            public static List<string> log;
 
             static SpecClass()
             {
@@ -66,7 +63,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void should_execute_before_all_only_for_each_context_level()
         {
-            SpecClass.log.should_be(new string[] 
+            SpecClass.log.should_be(new[] 
             { 
                 "METHOD LEVEL BEFORE ALL",
                 "method level before each",

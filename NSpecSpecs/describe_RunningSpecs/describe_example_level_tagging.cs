@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NSpec;
-using NSpec.Domain;
+﻿using NSpec;
 using NUnit.Framework;
 
 namespace NSpecSpecs.WhenRunningSpecs

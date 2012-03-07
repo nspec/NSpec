@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
 using NSpec;
+using NUnit.Framework;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -9,7 +9,7 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         class SpecClass : nspec
         {
-            List<int> ints = null;
+            List<int> ints;
 
             void before_each()
             {

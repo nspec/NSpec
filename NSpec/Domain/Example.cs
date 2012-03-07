@@ -52,7 +52,7 @@ namespace NSpec.Domain
 
             Pending = pending;
 
-            Tags = NSpec.Domain.Tags.ParseTags(tags);
+            Tags = Domain.Tags.ParseTags(tags);
         }
 
         public Example(MethodInfo methodLevelExample, string tags = null)
@@ -61,7 +61,7 @@ namespace NSpec.Domain
 
             MethodLevelExample = methodLevelExample;
 
-            Tags = NSpec.Domain.Tags.ParseTags(tags);
+            Tags = Domain.Tags.ParseTags(tags);
         }
 
         public bool Pending;

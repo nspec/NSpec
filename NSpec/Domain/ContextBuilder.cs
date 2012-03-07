@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NSpec.Domain.Extensions;
 using System.Reflection;
+using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {

@@ -182,7 +182,7 @@ namespace NSpec.Domain
             Name = name.Replace("_", " ");
             Examples = new List<Example>();
             Contexts = new ContextCollection();
-            Tags = NSpec.Domain.Tags.ParseTags(tags);
+            Tags = Domain.Tags.ParseTags(tags);
             this.isPending = isPending;
         }
 

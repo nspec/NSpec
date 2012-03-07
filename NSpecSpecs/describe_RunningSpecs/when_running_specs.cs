@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
-using NSpec.Domain;
-using NSpec;
-using NSpecSpecs.describe_RunningSpecs;
 using System.Collections.Generic;
+using System.Linq;
+using NSpec;
+using NSpec.Domain;
+using NSpecSpecs.describe_RunningSpecs;
 using NUnit.Framework;
-using System.Reflection;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -20,7 +19,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
         protected when_running_specs Init(Type type, string tags = null, bool failFast = false)
         {
-            return Init(new Type[] { type }, tags, failFast);
+            return Init(new[] { type }, tags, failFast);
         }
 
         protected when_running_specs Init(Type[] types, string tags = null, bool failFast = false)

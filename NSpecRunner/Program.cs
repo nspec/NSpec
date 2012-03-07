@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using NSpec;
 using NSpec.Domain;
-using NSpec.Domain.Formatters;
-using System.Linq;
 
 namespace NSpecRunner
 {

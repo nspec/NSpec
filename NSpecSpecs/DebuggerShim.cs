@@ -1,10 +1,7 @@
-﻿using System;
-using NUnit.Framework;
-using NSpec.Domain;
+﻿using System.Linq;
 using System.Reflection;
 using NSpec;
-using NSpec.Domain.Formatters;
-using System.Linq;
+using NSpec.Domain;
 
 //[TestFixture]
 public class DebuggerShim

@@ -2,7 +2,6 @@
 using System.IO;
 using System.Reflection;
 using NSpec.Domain;
-using NSpec.Domain.Formatters;
 
 namespace NSpecRunner
 {

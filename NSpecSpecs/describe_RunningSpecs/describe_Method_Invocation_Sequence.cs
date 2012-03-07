@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using NSpec;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
-using System;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -54,7 +52,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void it_runs_things_in_a_strange_order()
         {
-            SpecFinder finder = new SpecFinder(new Type[] { typeof(before_all_sampleSpec) });
+            SpecFinder finder = new SpecFinder(new[] { typeof(before_all_sampleSpec) });
 
             var builder = new ContextBuilder(finder, new DefaultConventions());
 

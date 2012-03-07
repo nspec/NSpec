@@ -1,7 +1,7 @@
 ﻿using System;
-using NUnit.Framework;
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
+using NUnit.Framework;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {

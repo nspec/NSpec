@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using NSpec.Domain.Formatters;
-using NUnit.Framework;
 using NSpec;
 using NSpec.Domain;
+using NSpec.Domain.Formatters;
+using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace NSpecSpecs.WhenRunningSpecs
@@ -33,7 +33,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             reflector = MockRepository.GenerateMock<IReflector>();
 
-            RhinoMocksExtensions.Stub(reflector, r => r.GetTypesFrom("")).IgnoreArguments().Return(new[] { typeof(SpecClass) });
+            reflector.Stub(r => r.GetTypesFrom("")).IgnoreArguments().Return(new[] { typeof(SpecClass) });
 
             var contextBuilder = new ContextBuilder(new SpecFinder("", reflector), new DefaultConventions());
 

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using System.Collections.Generic;
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
+using NUnit.Framework;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -13,7 +10,7 @@ namespace NSpecSpecs.describe_RunningSpecs
     {
         class SpecClass : nspec
         {
-            protected List<int> ints = null;
+            protected List<int> ints;
             
             void before_each()
             {

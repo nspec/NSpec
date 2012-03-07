@@ -1,9 +1,9 @@
 ﻿using System;
-using NSpec.Domain;
-using NUnit.Framework;
-using NSpec;
-using NSpecSpecs.WhenRunningSpecs;
 using System.Linq;
+using NSpec;
+using NSpec.Domain;
+using NSpecSpecs.WhenRunningSpecs;
+using NUnit.Framework;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {

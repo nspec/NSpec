@@ -1,11 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using NSpec;
 using NSpec.Domain;
+using NSpecSpecs;
 using NUnit.Framework;
 using Rhino.Mocks;
-using System.Collections.Generic;
-using System;
-using NSpecSpecs;
 
 namespace NSpecNUnit.when_building_contexts
 {
