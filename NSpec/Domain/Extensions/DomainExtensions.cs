@@ -18,7 +18,7 @@ namespace NSpec.Domain.Extensions
 
             var exclusions = typeof(nspec).GetMethods(flags).Select(m => m.Name);
 
-            var methodInfos = type.GetAbstractBaseClassChainWithClass().SelectMany(t => t.GetMethods(flags));;
+            var methodInfos = type.GetAbstractBaseClassChainWithClass().SelectMany(t => t.GetMethods(flags));
 
             return methodInfos
                 .Where(m => !exclusions.Contains(m.Name) && !m.Name.Contains("<") && m.Name.Contains("_"))

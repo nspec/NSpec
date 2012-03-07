@@ -17,7 +17,7 @@ namespace NSpec.Domain
 
         private void BuildMethodLevelBefore()
         {
-            var befores = GetMethodsFromHierarchy(conventions.GetMethodLevelBefore).ToList();;
+            var befores = GetMethodsFromHierarchy(conventions.GetMethodLevelBefore).ToList();
             if(befores.Count > 0)
             {
                 BeforeInstance = instance => befores.Do(b => b.Invoke(instance, null));
@@ -26,7 +26,7 @@ namespace NSpec.Domain
 
         private void BuildMethodLevelAct()
         {
-            var acts = GetMethodsFromHierarchy(conventions.GetMethodLevelAct).ToList();;
+            var acts = GetMethodsFromHierarchy(conventions.GetMethodLevelAct).ToList();
             if(acts.Count > 0)
             {
                 ActInstance = instance => acts.Do(a => a.Invoke(instance, null));
@@ -35,7 +35,7 @@ namespace NSpec.Domain
 
         private void BuildMethodLevelAfter()
         {
-            var afters = GetMethodsFromHierarchy(conventions.GetMethodLevelAfter).Reverse().ToList();;
+            var afters = GetMethodsFromHierarchy(conventions.GetMethodLevelAfter).Reverse().ToList();
             if(afters.Count > 0)
             {
                 AfterInstance = instance => afters.Do(a => a.Invoke(instance, null));
