@@ -36,7 +36,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        public void should_be_two_failures()
+        public void should_be_three_failures()
         {
             classContext.Failures().Count().should_be(3);
         }
