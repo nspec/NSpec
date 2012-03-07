@@ -48,7 +48,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Domain\BeforeFinder.cs" />
     <Compile Include="Domain\ClassContext.cs" />
     <Compile Include="Domain\ExampleFailureException.cs" />
     <Compile Include="Domain\Formatters\ConsoleFormatter.cs" />
