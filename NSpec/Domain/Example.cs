@@ -42,7 +42,7 @@ namespace NSpec.Domain
             get { return (HasRun && Exception == null); }
         }
 
-        public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) { }
+        public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) {}
 
         public Example(string name = "", string tags = null, Action action = null, bool pending = false)
         {

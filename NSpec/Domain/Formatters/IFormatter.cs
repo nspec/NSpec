@@ -2,7 +2,7 @@ namespace NSpec.Domain.Formatters
 {
     public interface IFormatter
     {
-        void Write( ContextCollection contexts );
+        void Write(ContextCollection contexts);
     }
 
     public interface ILiveFormatter
@@ -13,16 +13,10 @@ namespace NSpec.Domain.Formatters
 
     public class SilentLiveFormatter : ILiveFormatter, IFormatter
     {
-        public void Write(Context context)
-        {
-        }
+        public void Write(Context context) {}
 
-        public void Write(Example example, int level)
-        {
-        }
+        public void Write(Example example, int level) {}
 
-        public void Write(ContextCollection contexts)
-        {
-        }
+        public void Write(ContextCollection contexts) {}
     }
 }

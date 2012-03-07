@@ -13,18 +13,12 @@ namespace NSpec.Domain
 
         public Action this[string key]
         {
-            set
-            {
-                actionSetter(key, null, value);
-            }
+            set { actionSetter(key, null, value); }
         }
 
         public Action this[string key, string tags]
         {
-            set
-            {
-                actionSetter(key, tags, value);
-            }
+            set { actionSetter(key, tags, value); }
         }
     }
 }

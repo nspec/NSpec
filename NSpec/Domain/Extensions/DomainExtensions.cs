@@ -30,9 +30,9 @@ namespace NSpec.Domain.Extensions
         {
             var baseClasses = new Stack<Type>();
 
-            for(Type baseClass = type.BaseType;
-                baseClass != null && baseClass.IsAbstract;
-                baseClass = baseClass.BaseType)
+            for (Type baseClass = type.BaseType;
+                 baseClass != null && baseClass.IsAbstract;
+                 baseClass = baseClass.BaseType)
             {
                 baseClasses.Push(baseClass);
             }
@@ -58,11 +58,11 @@ namespace NSpec.Domain.Extensions
             return exc;
         }
 
-        public static void Each<T>( this IEnumerable<T> enumerable, Action<T> action )
+        public static void Each<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
-            foreach( var t in enumerable )
+            foreach (var t in enumerable)
             {
-                action( t );
+                action(t);
             }
         }
     }

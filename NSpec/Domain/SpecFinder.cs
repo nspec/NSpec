@@ -18,10 +18,10 @@ namespace NSpec.Domain
 
             var leafTypes =
                 Types.Where(t => t.IsClass
-                    && !t.IsAbstract
-                    && BaseTypes(t).Any(s => s == typeof(nspec))
-                    && t.Methods().Count() > 0
-                    && (string.IsNullOrEmpty(filter) || regex.IsMatch(t.FullName)));
+                                 && !t.IsAbstract
+                                 && BaseTypes(t).Any(s => s == typeof(nspec))
+                                 && t.Methods().Count() > 0
+                                 && (string.IsNullOrEmpty(filter) || regex.IsMatch(t.FullName)));
 
             var finalList = new List<Type>();
             finalList.AddRange(leafTypes);
@@ -57,18 +57,16 @@ namespace NSpec.Domain
         }
 
         public SpecFinder(string specDLL, IReflector reflector, string filter = "")
-            : this(reflector.GetTypesFrom(specDLL), filter) { }
+            : this(reflector.GetTypesFrom(specDLL), filter) {}
 
         public SpecFinder(Assembly assembly, IReflector reflector, string filter = "")
-            : this(reflector.GetTypesFrom(assembly), filter) { }
+            : this(reflector.GetTypesFrom(assembly), filter) {}
 
         public Type[] Types { get; set; }
-
     }
 
     public class TypeComparer : IEqualityComparer<Type>
     {
-
         public bool Equals(Type x, Type y)
         {
             return x.FullName == y.FullName;

@@ -27,6 +27,6 @@ namespace NSpec.Domain
             }
         }
 
-        private MethodInfo method;
+        MethodInfo method;
     }
 }

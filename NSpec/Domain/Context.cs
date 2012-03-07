@@ -37,12 +37,12 @@ namespace NSpec.Domain
             RecurseAncestors(c => c.RunAfters(instance));
         }
 
-        private void RecurseAncestors(Action<Context> ancestorAction)
+        void RecurseAncestors(Action<Context> ancestorAction)
         {
             if (Parent != null) ancestorAction(Parent);
         }
 
-        private void RunBeforeAll()
+        void RunBeforeAll()
         {
             BeforeAll.SafeInvoke();
 
@@ -112,7 +112,7 @@ namespace NSpec.Domain
             Contexts.Do(c => c.Run(formatter, failFast, nspec));
         }
 
-        private void WriteAncestors(ILiveFormatter formatter)
+        void WriteAncestors(ILiveFormatter formatter)
         {
             if (Parent == null) return;
 
@@ -196,9 +196,9 @@ namespace NSpec.Domain
         public Context Parent;
         public Exception Exception;
         public Exception contextLevelExpectedException;
-        private bool isPending;
+        bool isPending;
         nspec savedInstance;
-        private bool alreadyWritten;
+        bool alreadyWritten;
 
         public nspec GetInstance()
         {

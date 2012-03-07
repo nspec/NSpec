@@ -51,8 +51,8 @@ namespace NSpec.Domain.Formatters
 
             var stackTrace =
                 example.Exception
-                       .GetOrFallback(e => e.StackTrace, "").Split('\n')
-                       .Where(l => !internalNameSpaces.Any(l.Contains));
+                    .GetOrFallback(e => e.StackTrace, "").Split('\n')
+                    .Where(l => !internalNameSpaces.Any(l.Contains));
 
             var flattenedStackTrace = stackTrace.Flatten(Environment.NewLine).TrimEnd() + Environment.NewLine;
 
@@ -67,17 +67,17 @@ namespace NSpec.Domain.Formatters
                 contexts.Examples().Count(),
                 contexts.Failures().Count(),
                 contexts.Pendings().Count()
-            );
+                );
         }
 
-        private string indent = "  ";
+        string indent = "  ";
 
-        private string[] internalNameSpaces =
-            new[] 
-            { 
-                "NSpec.Domain", 
-                "NSpec.AssertionExtensions", 
-                "NUnit.Framework" 
-            };
+        string[] internalNameSpaces =
+            new[]
+                {
+                    "NSpec.Domain",
+                    "NSpec.AssertionExtensions",
+                    "NUnit.Framework"
+                };
     }
 }

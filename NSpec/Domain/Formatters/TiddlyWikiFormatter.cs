@@ -10,9 +10,8 @@ namespace NSpec.Domain.Formatters
     [Serializable]
     public class TiddlyWikiFormatter : IFormatter
     {
-        private TiddlyWikiFormatter()
-        {
-        }
+        TiddlyWikiFormatter() {}
+
         public TiddlyWikiFormatter(string templateFile, string outputFile)
         {
             this.templateFile = templateFile;
@@ -37,10 +36,10 @@ namespace NSpec.Domain.Formatters
             int pendingsCount = contexts.Pendings().Count();
 
             this.WriteTiddlyWiki(menuItemsOutput.ToString(), tiddlersOutput.ToString(),
-                examplesCount, failuresCount, pendingsCount);
+                                 examplesCount, failuresCount, pendingsCount);
         }
 
-        private void WriteTiddlyWiki(
+        void WriteTiddlyWiki(
             string menuItems, string tiddlerItems,
             int examplesCount, int failuresCount, int pendingCount)
         {
@@ -65,12 +64,12 @@ namespace NSpec.Domain.Formatters
             outputWriter.Close();
         }
 
-        private string BuildTiddlerFrom(Context context)
+        string BuildTiddlerFrom(Context context)
         {
             StringBuilder result = new StringBuilder();
 
             result.AppendFormat("<div title=\"{0}\" modifier=\"NSpecRunner\" created=\"{1}\" tags=\"NSpec\" changecount=\"1\">",
-                context.Name, DateTime.Now.ToString("yyyyMMddHHmm"));
+                                context.Name, DateTime.Now.ToString("yyyyMMddHHmm"));
             result.AppendLine();
             result.Append("<pre>");
 
@@ -79,7 +78,8 @@ namespace NSpec.Domain.Formatters
             result.AppendLine("</pre></div>");
             return result.ToString();
         }
-        private string BuildTiddlerBody(Context context, int level = 0)
+
+        string BuildTiddlerBody(Context context, int level = 0)
         {
             StringBuilder result = new StringBuilder();
 
@@ -95,14 +95,15 @@ namespace NSpec.Domain.Formatters
 
             return result.ToString();
         }
-        private string BuildSpec(Example e, int level)
+
+        string BuildSpec(Example e, int level)
         {
             string output = "";
 
             if (e.Exception != null)
             {
                 output = String.Format("{0}&lt;&lt;markSpecAsFailed '{1}'&gt;&gt; &lt;&lt;showException 'error_{2}' '{3}''&gt;&gt;",
-                    "*".Times(level), e.Spec, Guid.NewGuid(), HttpUtility.HtmlEncode(e.Exception.ToString()));
+                                       "*".Times(level), e.Spec, Guid.NewGuid(), HttpUtility.HtmlEncode(e.Exception.ToString()));
             }
             else if (e.Pending)
             {
@@ -116,8 +117,8 @@ namespace NSpec.Domain.Formatters
             return output + Environment.NewLine;
         }
 
-        private SortedList<string, string> tiddlers = new SortedList<string, string>();
-        private string templateFile;
-        private string outputFile;
+        SortedList<string, string> tiddlers = new SortedList<string, string>();
+        string templateFile;
+        string outputFile;
     }
 }

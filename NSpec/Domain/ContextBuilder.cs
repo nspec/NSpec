@@ -10,14 +10,10 @@ namespace NSpec.Domain
     public class ContextBuilder
     {
         public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
-            : this(finder, new DefaultConventions())
-        {
-        }
+            : this(finder, new DefaultConventions()) {}
 
         public ContextBuilder(ISpecFinder finder, Conventions conventions)
-            : this(finder, new Tags(), conventions)
-        {
-        }
+            : this(finder, new Tags(), conventions) {}
 
         public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
         {
@@ -47,7 +43,7 @@ namespace NSpec.Domain
             return contexts;
         }
 
-        private void Build(Context parent, IEnumerable<Type> allSpecClasses)
+        void Build(Context parent, IEnumerable<Type> allSpecClasses)
         {
             var derivedTypes = allSpecClasses.Where(s => parent.IsSub(s.BaseType));
 
@@ -120,11 +116,11 @@ namespace NSpec.Domain
             return (TagAttribute[])method.GetCustomAttributes(typeof(TagAttribute), false);
         }
 
-        private Conventions conventions;
+        Conventions conventions;
 
-        private ISpecFinder finder;
+        ISpecFinder finder;
 
-        private ContextCollection contexts;
+        ContextCollection contexts;
 
         public Tags tagsFilter;
     }

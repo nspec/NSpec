@@ -48,6 +48,7 @@ namespace NSpec.Domain.Formatters
 
             Console.WriteLine(sb.ToString());
         }
+
         void BuildParentContext(StringBuilder sb, Context context)
         {
             sb.AppendLine("<div class=\"context-parent\">");

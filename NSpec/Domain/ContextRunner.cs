@@ -35,8 +35,8 @@ namespace NSpec.Domain
             return contexts;
         }
 
-        private ContextBuilder builder;
-        private bool failFast;
-        private IFormatter formatter;
+        ContextBuilder builder;
+        bool failFast;
+        IFormatter formatter;
     }
 }

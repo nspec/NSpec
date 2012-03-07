@@ -49,7 +49,7 @@ namespace NSpec
     }
 
     public class NSpecTuple<T, T2>
-            : NSpecTuple<T>
+        : NSpecTuple<T>
     {
         public NSpecTuple(T item1, T2 item2)
             : base(item1)
@@ -61,7 +61,7 @@ namespace NSpec
     }
 
     public class NSpecTuple<T, T2, T3>
-            : NSpecTuple<T, T2>
+        : NSpecTuple<T, T2>
     {
         public NSpecTuple(T item1, T2 item2, T3 item3)
             : base(item1, item2)
@@ -73,7 +73,7 @@ namespace NSpec
     }
 
     public class NSpecTuple<T, T2, T3, T4>
-            : NSpecTuple<T, T2, T3>
+        : NSpecTuple<T, T2, T3>
     {
         public NSpecTuple(T item1, T2 item2, T3 item3, T4 item4)
             : base(item1, item2, item3)
@@ -85,7 +85,7 @@ namespace NSpec
     }
 
     public class NSpecTuple<T, T2, T3, T4, T5>
-            : NSpecTuple<T, T2, T3, T4>
+        : NSpecTuple<T, T2, T3, T4>
     {
         public NSpecTuple(T item1, T2 item2, T3 item3, T4 item4, T5 item5)
             : base(item1, item2, item3, item4)
@@ -97,7 +97,7 @@ namespace NSpec
     }
 
     public class NSpecTuple<T, T2, T3, T4, T5, T6>
-            : NSpecTuple<T, T2, T3, T4, T5>
+        : NSpecTuple<T, T2, T3, T4, T5>
     {
         public NSpecTuple(T item1, T2 item2, T3 item3, T4 item4, T5 item5, T6 item6)
             : base(item1, item2, item3, item4, item5)
@@ -109,7 +109,7 @@ namespace NSpec
     }
 
     public class NSpecTuple<T, T2, T3, T4, T5, T6, T7>
-            : NSpecTuple<T, T2, T3, T4, T5, T6>
+        : NSpecTuple<T, T2, T3, T4, T5, T6>
     {
         public NSpecTuple(T item1, T2 item2, T3 item3, T4 item4, T5 item5, T6 item6, T7 item7)
             : base(item1, item2, item3, item4, item5, item6)
@@ -121,7 +121,7 @@ namespace NSpec
     }
 
     public class NSpecTuple<T, T2, T3, T4, T5, T6, T7, T8>
-            : NSpecTuple<T, T2, T3, T4, T5, T6, T7>
+        : NSpecTuple<T, T2, T3, T4, T5, T6, T7>
     {
         public NSpecTuple(T item1, T2 item2, T3 item3, T4 item4, T5 item5, T6 item6, T7 item7, T8 item8)
             : base(item1, item2, item3, item4, item5, item6, item7)
@@ -133,10 +133,10 @@ namespace NSpec
     }
 
     public class NSpecTuple<T, T2, T3, T4, T5, T6, T7, T8, T9>
-            : NSpecTuple<T, T2, T3, T4, T5, T6, T7, T8>
+        : NSpecTuple<T, T2, T3, T4, T5, T6, T7, T8>
     {
         public NSpecTuple(T item1, T2 item2, T3 item3, T4 item4,
-                     T5 item5, T6 item6, T7 item7, T8 item8, T9 item9)
+                          T5 item5, T6 item6, T7 item7, T8 item8, T9 item9)
             : base(item1, item2, item3, item4, item5, item6, item7, item8)
         {
             Item9 = item9;
@@ -146,10 +146,10 @@ namespace NSpec
     }
 
     public class NSpecTuple<T, T2, T3, T4, T5, T6, T7, T8, T9, T10>
-            : NSpecTuple<T, T2, T3, T4, T5, T6, T7, T8, T9>
+        : NSpecTuple<T, T2, T3, T4, T5, T6, T7, T8, T9>
     {
         public NSpecTuple(T item1, T2 item2, T3 item3, T4 item4,
-                     T5 item5, T6 item6, T7 item7, T8 item8, T9 item9, T10 item10)
+                          T5 item5, T6 item6, T7 item7, T8 item8, T9 item9, T10 item10)
             : base(item1, item2, item3, item4, item5, item6, item7, item8, item9)
         {
             Item10 = item10;

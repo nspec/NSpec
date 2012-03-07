@@ -10,33 +10,33 @@ namespace NSpec.Domain
     {
         List<Type> classHierarchyToClass = new List<Type>();
 
-        private IEnumerable<MethodInfo> GetMethodsFromHierarchy(Func<Type, MethodInfo> methodAccessor)
+        IEnumerable<MethodInfo> GetMethodsFromHierarchy(Func<Type, MethodInfo> methodAccessor)
         {
             return classHierarchyToClass.Select(methodAccessor).Where(mi => mi != null);
         }
 
-        private void BuildMethodLevelBefore()
+        void BuildMethodLevelBefore()
         {
             var befores = GetMethodsFromHierarchy(conventions.GetMethodLevelBefore).ToList();
-            if(befores.Count > 0)
+            if (befores.Count > 0)
             {
                 BeforeInstance = instance => befores.Do(b => b.Invoke(instance, null));
             }
         }
 
-        private void BuildMethodLevelAct()
+        void BuildMethodLevelAct()
         {
             var acts = GetMethodsFromHierarchy(conventions.GetMethodLevelAct).ToList();
-            if(acts.Count > 0)
+            if (acts.Count > 0)
             {
                 ActInstance = instance => acts.Do(a => a.Invoke(instance, null));
             }
         }
 
-        private void BuildMethodLevelAfter()
+        void BuildMethodLevelAfter()
         {
             var afters = GetMethodsFromHierarchy(conventions.GetMethodLevelAfter).Reverse().ToList();
-            if(afters.Count > 0)
+            if (afters.Count > 0)
             {
                 AfterInstance = instance => afters.Do(a => a.Invoke(instance, null));
             }

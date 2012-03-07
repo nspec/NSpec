@@ -95,7 +95,7 @@ namespace NSpec.Domain
             return GetMethodMatchingRegex(type, specification.After);
         }
 
-        private MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
+        MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
         {
             return type.Methods().Where(mi => mi.DeclaringType == type).FirstOrDefault(mi => regex.IsMatch(mi.Name));
         }
@@ -133,6 +133,6 @@ namespace NSpec.Domain
             return specification.Context.IsMatch(name);
         }
 
-        private ConventionSpecification specification;
+        ConventionSpecification specification;
     }
 }

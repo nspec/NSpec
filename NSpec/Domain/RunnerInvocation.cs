@@ -6,21 +6,17 @@ namespace NSpec.Domain
     [Serializable]
     public class RunnerInvocation
     {
-        private string dll;
-        private bool failFast;
+        string dll;
+        bool failFast;
         public string Tags;
         public IFormatter Formatter;
         public bool inDomain;
 
         public RunnerInvocation(string dll, string tags)
-            : this(dll, tags, false)
-        {
-        }
+            : this(dll, tags, false) {}
 
         public RunnerInvocation(string dll, string tags, bool failFast)
-            : this(dll, tags, new ConsoleFormatter(), failFast)
-        {
-        }
+            : this(dll, tags, new ConsoleFormatter(), failFast) {}
 
         public RunnerInvocation(string dll, string tags, IFormatter formatter, bool failFast)
         {

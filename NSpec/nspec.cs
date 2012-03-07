@@ -160,8 +160,8 @@ namespace NSpec
                 {
                     throw new ExceptionNotThrown(
                         IncorrectMessage(
-                        expectedMessage,
-                        specContext.Exception.Message));
+                            expectedMessage,
+                            specContext.Exception.Message));
                 }
 
                 if (specContext.Exception.GetType() == typeof(T))
