@@ -166,7 +166,6 @@ namespace NSpec
 
                 if (specContext.Exception.GetType() == typeof(T))
                 {
-                    specContext.contextLevelExpectedException = specContext.Exception;
                     specContext.Exception = null;
                 }
             };

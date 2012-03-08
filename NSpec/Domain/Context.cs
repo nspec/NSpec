@@ -229,7 +229,6 @@ namespace NSpec.Domain
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance;
         public Context Parent;
         public Exception Exception;
-        public Exception contextLevelExpectedException;
 
         nspec savedInstance;
         bool alreadyWritten, isPending;
