@@ -95,11 +95,6 @@ namespace NSpec.Domain
             return GetMethodMatchingRegex(type, specification.After);
         }
 
-        MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
-        {
-            return type.Methods().Where(mi => mi.DeclaringType == type).FirstOrDefault(mi => regex.IsMatch(mi.Name));
-        }
-
         public bool IsMethodLevelExample(string name)
         {
             return specification.Example.IsMatch(name);
@@ -131,6 +126,11 @@ namespace NSpec.Domain
             if (IsMethodLevelAfter(name)) return false;
 
             return specification.Context.IsMatch(name);
+        }
+
+        MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
+        {
+            return type.Methods().Where(mi => mi.DeclaringType == type).FirstOrDefault(mi => regex.IsMatch(mi.Name));
         }
 
         ConventionSpecification specification;

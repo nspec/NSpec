@@ -10,14 +10,6 @@ namespace NSpec.Domain.Formatters
     [Serializable]
     public class TiddlyWikiFormatter : IFormatter
     {
-        TiddlyWikiFormatter() {}
-
-        public TiddlyWikiFormatter(string templateFile, string outputFile)
-        {
-            this.templateFile = templateFile;
-            this.outputFile = outputFile;
-        }
-
         public void Write(ContextCollection contexts)
         {
             contexts.Do(c => this.tiddlers.Add(c.Name, this.BuildTiddlerFrom(c)));
@@ -115,6 +107,14 @@ namespace NSpec.Domain.Formatters
             }
 
             return output + Environment.NewLine;
+        }
+
+        TiddlyWikiFormatter() {}
+
+        public TiddlyWikiFormatter(string templateFile, string outputFile)
+        {
+            this.templateFile = templateFile;
+            this.outputFile = outputFile;
         }
 
         SortedList<string, string> tiddlers = new SortedList<string, string>();

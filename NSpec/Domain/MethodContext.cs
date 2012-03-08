@@ -5,12 +5,6 @@ namespace NSpec.Domain
 {
     public class MethodContext : Context
     {
-        public MethodContext(MethodInfo method, string tags = null)
-            : base(method.Name, tags)
-        {
-            this.method = method;
-        }
-
         public override void Build(nspec instance)
         {
             base.Build(instance);
@@ -25,6 +19,12 @@ namespace NSpec.Domain
 
                 throw e;
             }
+        }
+
+        public MethodContext(MethodInfo method, string tags = null)
+            : base(method.Name, tags)
+        {
+            this.method = method;
         }
 
         MethodInfo method;

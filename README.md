@@ -9,3 +9,5 @@ The Nspec test suite is written in NUnit. The test project is NSpecSpecs. Not to
 I prefer using ncrunch to run the NSpec test suite. But you can also use Specwatchr, since it has support for NUnit. To do so make sure that you have the current version of NUnit installed since the dotnet.watchr.rb file contains a hard reference to the 2.5.9 binary.
 
 ` NUnitRunner.nunit_path = 'C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe' `
+
+If you have Resharper 6.1 there is a team-shared settings file in the repository. Please use the settings to format any new code you write.

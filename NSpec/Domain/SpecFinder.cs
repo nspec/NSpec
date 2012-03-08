@@ -10,8 +10,6 @@ namespace NSpec.Domain
     [Serializable]
     public class SpecFinder : ISpecFinder
     {
-        string filter;
-
         public virtual IEnumerable<Type> SpecClasses()
         {
             var regex = new Regex(filter);
@@ -61,6 +59,8 @@ namespace NSpec.Domain
 
         public SpecFinder(Assembly assembly, IReflector reflector, string filter = "")
             : this(reflector.GetTypesFrom(assembly), filter) {}
+
+        string filter;
 
         public Type[] Types { get; set; }
     }

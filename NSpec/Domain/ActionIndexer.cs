@@ -4,12 +4,12 @@ namespace NSpec.Domain
 {
     public class ActionRegister
     {
-        Action<string, string, Action> actionSetter;
-
         public ActionRegister(Action<string, string, Action> actionSetter)
         {
             this.actionSetter = actionSetter;
         }
+
+        Action<string, string, Action> actionSetter;
 
         public Action this[string key]
         {

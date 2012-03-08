@@ -6,13 +6,6 @@ namespace NSpec.Domain
     [Serializable]
     public class ContextRunner
     {
-        public ContextRunner(ContextBuilder builder, IFormatter formatter, bool failFast)
-        {
-            this.failFast = failFast;
-            this.builder = builder;
-            this.formatter = formatter;
-        }
-
         public ContextCollection Run(ContextCollection contexts)
         {
             try
@@ -33,6 +26,13 @@ namespace NSpec.Domain
             }
 
             return contexts;
+        }
+
+        public ContextRunner(ContextBuilder builder, IFormatter formatter, bool failFast)
+        {
+            this.failFast = failFast;
+            this.builder = builder;
+            this.formatter = formatter;
         }
 
         ContextBuilder builder;

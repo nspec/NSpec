@@ -5,9 +5,6 @@ namespace NSpec.Domain
 {
     public class Tags
     {
-        public List<string> IncludeTags = new List<string>();
-        public List<string> ExcludeTags = new List<string>();
-
         /// <summary>Parses a string containing tags into a collection of normalized tags</summary>
         public static List<string> ParseTags(string tags)
         {
@@ -83,5 +80,8 @@ namespace NSpec.Domain
         {
             return IncludeTags.Any() || ExcludeTags.Any();
         }
+
+        public List<string> IncludeTags = new List<string>();
+        public List<string> ExcludeTags = new List<string>();
     }
 }

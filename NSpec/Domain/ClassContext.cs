@@ -8,7 +8,30 @@ namespace NSpec.Domain
 {
     public class ClassContext : Context
     {
-        List<Type> classHierarchyToClass = new List<Type>();
+        public override void Build(nspec instance = null)
+        {
+            BuildMethodLevelBefore();
+
+            BuildMethodLevelAct();
+
+            BuildMethodLevelAfter();
+
+            var nspec = type.Instance<nspec>();
+
+            nspec.tagsFilter = tagsFilter ?? new Tags();
+
+            base.Build(nspec);
+        }
+
+        public override bool IsSub(Type baseType)
+        {
+            while (baseType != null && baseType.IsAbstract)
+            {
+                baseType = baseType.BaseType;
+            }
+
+            return baseType == type;
+        }
 
         IEnumerable<MethodInfo> GetMethodsFromHierarchy(Func<Type, MethodInfo> methodAccessor)
         {
@@ -57,35 +80,10 @@ namespace NSpec.Domain
             }
         }
 
-        public override void Build(nspec instance = null)
-        {
-            BuildMethodLevelBefore();
-
-            BuildMethodLevelAct();
-
-            BuildMethodLevelAfter();
-
-            var nspec = type.Instance<nspec>();
-
-            nspec.tagsFilter = tagsFilter ?? new Tags();
-
-            base.Build(nspec);
-        }
-
-        public override bool IsSub(Type baseType)
-        {
-            while (baseType != null && baseType.IsAbstract)
-            {
-                baseType = baseType.BaseType;
-            }
-
-            return baseType == type;
-        }
-
-        Conventions conventions;
-
         public Type type;
 
         public Tags tagsFilter;
+        List<Type> classHierarchyToClass = new List<Type>();
+        Conventions conventions;
     }
 }

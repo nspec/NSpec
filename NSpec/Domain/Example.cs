@@ -37,9 +37,18 @@ namespace NSpec.Domain
             return Context.FullContext() + ". " + Spec + ".";
         }
 
-        public bool Passed
+        public bool Failed()
         {
-            get { return (HasRun && Exception == null); }
+            return Exception != null;
+        }
+
+        public void AssignProperException(Exception contextException)
+        {
+            if (Exception != null && contextException != null && Exception.GetType() != typeof(ExceptionNotThrown))
+                Exception = new ExampleFailureException("Context Failure: " + contextException.Message + ", Example Failure: " + Exception.Message, contextException);
+
+            if (Exception == null && contextException != null)
+                Exception = new ExampleFailureException("Context Failure: " + contextException.Message, contextException);
         }
 
         public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) {}
@@ -66,11 +75,6 @@ namespace NSpec.Domain
 
         public bool Pending;
 
-        public bool Failed()
-        {
-            return Exception != null;
-        }
-
         public bool HasRun;
         public string Spec;
         public List<string> Tags;
@@ -80,13 +84,9 @@ namespace NSpec.Domain
 
         Action action;
 
-        public void AssignProperException(Exception contextException)
+        public bool Passed
         {
-            if (Exception != null && contextException != null && Exception.GetType() != typeof(ExceptionNotThrown))
-                Exception = new ExampleFailureException("Context Failure: " + contextException.Message + ", Example Failure: " + Exception.Message, contextException);
-
-            if (Exception == null && contextException != null)
-                Exception = new ExampleFailureException("Context Failure: " + contextException.Message, contextException);
+            get { return (HasRun && Exception == null); }
         }
     }
 }

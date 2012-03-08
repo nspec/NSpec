@@ -37,18 +37,6 @@ namespace NSpec.Domain
             RecurseAncestors(c => c.RunAfters(instance));
         }
 
-        void RecurseAncestors(Action<Context> ancestorAction)
-        {
-            if (Parent != null) ancestorAction(Parent);
-        }
-
-        void RunBeforeAll()
-        {
-            BeforeAll.SafeInvoke();
-
-            BeforeAll = null;
-        }
-
         public void AddExample(Example example)
         {
             example.Context = this;
@@ -112,17 +100,6 @@ namespace NSpec.Domain
             Contexts.Do(c => c.Run(formatter, failFast, nspec));
         }
 
-        void WriteAncestors(ILiveFormatter formatter)
-        {
-            if (Parent == null) return;
-
-            Parent.WriteAncestors(formatter);
-
-            if (!alreadyWritten) formatter.Write(this);
-
-            alreadyWritten = true;
-        }
-
         public virtual void Build(nspec instance = null)
         {
             instance.Context = this;
@@ -177,29 +154,6 @@ namespace NSpec.Domain
             return false;
         }
 
-        public Context(string name = "", string tags = null, bool isPending = false)
-        {
-            Name = name.Replace("_", " ");
-            Examples = new List<Example>();
-            Contexts = new ContextCollection();
-            Tags = Domain.Tags.ParseTags(tags);
-            this.isPending = isPending;
-        }
-
-        public string Name;
-        public int Level;
-        public List<string> Tags;
-        public List<Example> Examples;
-        public ContextCollection Contexts;
-        public Action Before, Act, After, BeforeAll;
-        public Action<nspec> BeforeInstance, ActInstance, AfterInstance;
-        public Context Parent;
-        public Exception Exception;
-        public Exception contextLevelExpectedException;
-        bool isPending;
-        nspec savedInstance;
-        bool alreadyWritten;
-
         public nspec GetInstance()
         {
             return savedInstance ?? Parent.GetInstance();
@@ -233,5 +187,51 @@ namespace NSpec.Domain
 
             Contexts.Do(c => c.TrimSkippedDescendants());
         }
+
+        void RecurseAncestors(Action<Context> ancestorAction)
+        {
+            if (Parent != null) ancestorAction(Parent);
+        }
+
+        void RunBeforeAll()
+        {
+            BeforeAll.SafeInvoke();
+
+            BeforeAll = null;
+        }
+
+        void WriteAncestors(ILiveFormatter formatter)
+        {
+            if (Parent == null) return;
+
+            Parent.WriteAncestors(formatter);
+
+            if (!alreadyWritten) formatter.Write(this);
+
+            alreadyWritten = true;
+        }
+
+        public Context(string name = "", string tags = null, bool isPending = false)
+        {
+            Name = name.Replace("_", " ");
+            Examples = new List<Example>();
+            Contexts = new ContextCollection();
+            Tags = Domain.Tags.ParseTags(tags);
+            this.isPending = isPending;
+        }
+
+        public string Name;
+        public int Level;
+        public List<string> Tags;
+        public List<Example> Examples;
+        public ContextCollection Contexts;
+        public Action Before, Act, After, BeforeAll;
+        public Action<nspec> BeforeInstance, ActInstance, AfterInstance;
+        public Context Parent;
+        public Exception Exception;
+        public Exception contextLevelExpectedException;
+
+        nspec savedInstance;
+        bool alreadyWritten, isPending;
     }
 }

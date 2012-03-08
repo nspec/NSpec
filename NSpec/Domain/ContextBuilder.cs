@@ -9,23 +9,6 @@ namespace NSpec.Domain
     [Serializable]
     public class ContextBuilder
     {
-        public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
-            : this(finder, new DefaultConventions()) {}
-
-        public ContextBuilder(ISpecFinder finder, Conventions conventions)
-            : this(finder, new Tags(), conventions) {}
-
-        public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
-        {
-            contexts = new ContextCollection();
-
-            this.finder = finder;
-
-            this.conventions = conventions;
-
-            this.tagsFilter = tagsFilter;
-        }
-
         public ContextCollection Contexts()
         {
             contexts.Clear();
@@ -41,24 +24,6 @@ namespace NSpec.Domain
             contexts.AddRange(container.Contexts);
 
             return contexts;
-        }
-
-        void Build(Context parent, IEnumerable<Type> allSpecClasses)
-        {
-            var derivedTypes = allSpecClasses.Where(s => parent.IsSub(s.BaseType));
-
-            foreach (var derived in derivedTypes)
-            {
-                var classContext = CreateClassContext(derived);
-
-                parent.AddContext(classContext);
-
-                BuildMethodContexts(classContext, derived);
-
-                BuildMethodLevelExamples(classContext, derived);
-
-                Build(classContext, allSpecClasses);
-            }
         }
 
         public ClassContext CreateClassContext(Type type)
@@ -101,6 +66,24 @@ namespace NSpec.Domain
                 });
         }
 
+        void Build(Context parent, IEnumerable<Type> allSpecClasses)
+        {
+            var derivedTypes = allSpecClasses.Where(s => parent.IsSub(s.BaseType));
+
+            foreach (var derived in derivedTypes)
+            {
+                var classContext = CreateClassContext(derived);
+
+                parent.AddContext(classContext);
+
+                BuildMethodContexts(classContext, derived);
+
+                BuildMethodLevelExamples(classContext, derived);
+
+                Build(classContext, allSpecClasses);
+            }
+        }
+
         string TagStringFor(MethodInfo method)
         {
             return TagStringFor(TagAttributesFor(method));
@@ -116,12 +99,29 @@ namespace NSpec.Domain
             return (TagAttribute[])method.GetCustomAttributes(typeof(TagAttribute), false);
         }
 
+        public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
+            : this(finder, new DefaultConventions()) {}
+
+        public ContextBuilder(ISpecFinder finder, Conventions conventions)
+            : this(finder, new Tags(), conventions) {}
+
+        public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
+        {
+            contexts = new ContextCollection();
+
+            this.finder = finder;
+
+            this.conventions = conventions;
+
+            this.tagsFilter = tagsFilter;
+        }
+
+        public Tags tagsFilter;
+
         Conventions conventions;
 
         ISpecFinder finder;
 
         ContextCollection contexts;
-
-        public Tags tagsFilter;
     }
 }

@@ -6,10 +6,6 @@ namespace NSpec.Domain
 {
     public class ContextCollection : List<Context>
     {
-        public ContextCollection(IEnumerable<Context> contexts) : base(contexts) {}
-
-        public ContextCollection() {}
-
         public IEnumerable<Example> Examples()
         {
             return this.SelectMany(c => c.AllExamples());
@@ -63,5 +59,9 @@ namespace NSpec.Domain
         {
             return Examples().FirstOrDefault(e => e.Spec == name);
         }
+
+        public ContextCollection(IEnumerable<Context> contexts) : base(contexts) {}
+
+        public ContextCollection() {}
     }
 }
