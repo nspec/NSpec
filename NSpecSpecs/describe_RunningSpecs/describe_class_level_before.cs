@@ -38,13 +38,13 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void should_run_class_level_before_then_method_level_before()
         {
-            TheExample("should not be null").should_not_have_failed();
+            TheExample("should not be null").should_have_passed();
         }
 
         [Test]
         public void should_run_example_within_a_sub_context()
         {
-            TheExample("should have one record").should_not_have_failed();
+            TheExample("should have one record").should_have_passed();
         }
     }
 }

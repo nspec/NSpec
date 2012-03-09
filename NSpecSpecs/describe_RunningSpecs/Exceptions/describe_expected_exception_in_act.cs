@@ -47,13 +47,13 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void threw_expected_exception_in_act()
         {
-            TheExample("threw the expected exception in act").should_not_have_failed();
+            TheExample("threw the expected exception in act").should_have_passed();
         }
 
         [Test]
         public void threw_the_exception_in_act_with_the_proper_error_message()
         {
-            TheExample("threw the exception in act with error message Testing").should_not_have_failed();
+            TheExample("threw the exception in act with error message Testing").should_have_passed();
         }
 
         [Test]
