@@ -41,7 +41,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClass));
 
-            TheExample("it passes").Passed.should_be_true();
+            TheExample("it passes").should_have_passed();
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClass));
 
-            TheExample("it fails").Passed.should_be_false();
+            TheExample("it fails").should_have_failed();
         }
     }
 }

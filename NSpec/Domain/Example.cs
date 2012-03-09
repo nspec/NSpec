@@ -74,7 +74,6 @@ namespace NSpec.Domain
         }
 
         public bool Pending;
-
         public bool HasRun;
         public string Spec;
         public List<string> Tags;
@@ -83,10 +82,5 @@ namespace NSpec.Domain
         public MethodInfo MethodLevelExample;
 
         Action action;
-
-        public bool Passed
-        {
-            get { return (HasRun && Exception == null); }
-        }
     }
 }

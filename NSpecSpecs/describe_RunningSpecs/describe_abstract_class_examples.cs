@@ -65,11 +65,11 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             TheContext("ConcreteClass").Examples.Count().should_be(3);
 
-            TheExample("specify an example").Passed.should_be_true();
+            TheExample("specify an example").should_have_passed();
 
-            TheExample("specify an example in abstract class").Passed.should_be_true();
+            TheExample("specify an example in abstract class").should_have_passed();
 
-            TheExample("specify an example in another abstract class").Passed.should_be_true();
+            TheExample("specify an example in another abstract class").should_have_passed();
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             TheContext("DerivedConcreteClass").Examples.Count().should_be(1);
 
-            TheExample("specify an example in derived concrete class").Passed.should_be_true();
+            TheExample("specify an example in derived concrete class").should_have_passed();
         }
     }
 }

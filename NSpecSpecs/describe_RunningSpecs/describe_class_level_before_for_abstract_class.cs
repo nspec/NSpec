@@ -73,21 +73,21 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void should_run_example_within_a_sub_context_in_a_derived_class()
         {
-            TheExample("should contain 1").Passed.should_be_true();
+            TheExample("should contain 1").should_have_passed();
 
-            TheExample("should have one record too").Passed.should_be_true();
+            TheExample("should have one record too").should_have_passed();
         }
 
         [Test]
         public void it_runs_examples_from_abstract_class_as_if_they_belonged_to_concrete_class()
         {
-            TheExample("should contain 2").Passed.should_be_true();
+            TheExample("should contain 2").should_have_passed();
 
-            TheExample("should contain 2 too").Passed.should_be_true();
+            TheExample("should contain 2 too").should_have_passed();
 
-            TheExample("should contain 3").Passed.should_be_true();
+            TheExample("should contain 3").should_have_passed();
 
-            TheExample("should have three records too").Passed.should_be_true();
+            TheExample("should have three records too").should_have_passed();
         }
     }
 }
