@@ -15,19 +15,19 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                it["should fail if no exception thrown"] = expect<InvalidOperationException>();
+                it["fails if no exception thrown"] = expect<InvalidOperationException>();
 
                 context["when exception thrown from act"] = () =>
                 {
                     act = () => { throw new InvalidOperationException("Testing"); };
 
-                    it["should throw exception"] = expect<InvalidOperationException>();
+                    it["threw the expected exception in act"] = expect<InvalidOperationException>();
 
-                    it["should throw exception with error message Testing"] = expect<InvalidOperationException>("Testing");
+                    it["threw the exception in act with error message Testing"] = expect<InvalidOperationException>("Testing");
 
-                    it["should fail if wrong exception thrown"] = expect<ArgumentException>();
+                    it["fails if wrong exception thrown"] = expect<ArgumentException>();
 
-                    it["should fail if wrong error message is returned"] = expect<InvalidOperationException>("Blah");
+                    it["fails if wrong error message is returned"] = expect<InvalidOperationException>("Blah");
                 };
             }
         }
@@ -45,35 +45,39 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        public void given_exception_is_thrown_should_not_fail()
+        public void threw_expected_exception_in_act()
         {
-            TheExample("should throw exception").should_not_have_failed();
+            TheExample("threw the expected exception in act").should_not_have_failed();
         }
 
         [Test]
-        public void given_exception_is_thrown_with_expected_message_should_not_fail()
+        public void threw_the_exception_in_act_with_the_proper_error_message()
         {
-            TheExample("should throw exception with error message Testing").should_not_have_failed();
+            TheExample("threw the exception in act with error message Testing").should_not_have_failed();
         }
 
         [Test]
-        public void given_exception_not_thrown_should_fail()
+        public void fails_if_no_exception_thrown()
         {
-            TheExample("should fail if no exception thrown").Exception.GetType().should_be(typeof(ExceptionNotThrown));
+            TheExample("fails if no exception thrown").Exception.GetType().should_be(typeof(ExceptionNotThrown));
         }
 
         [Test]
-        public void given_wrong_exception_should_fail()
+        public void fails_if_wrong_exception_thrown()
         {
-            TheExample("should fail if wrong exception thrown").Exception.GetType().should_be(typeof(ExceptionNotThrown));
-            TheExample("should fail if wrong exception thrown").Exception.Message.should_be("Exception of type ArgumentException was not thrown.");
+            var exception = TheExample("fails if wrong exception thrown").Exception;
+
+            exception.GetType().should_be(typeof(ExceptionNotThrown));
+            exception.Message.should_be("Exception of type ArgumentException was not thrown.");
         }
 
         [Test]
-        public void given_wrong_error_message_should_fail()
+        public void fails_if_wrong_error_message_is_returned()
         {
-            TheExample("should fail if wrong error message is returned").Exception.GetType().should_be(typeof(ExceptionNotThrown));
-            TheExample("should fail if wrong error message is returned").Exception.Message.should_be("Expected message: \"Blah\" But was: \"Testing\"");
+            var exception = TheExample("fails if wrong error message is returned").Exception;
+            
+            exception.GetType().should_be(typeof(ExceptionNotThrown));
+            exception.Message.should_be("Expected message: \"Blah\" But was: \"Testing\"");
         }
     }
 }

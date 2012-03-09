@@ -17,15 +17,15 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 before = () => { };
 
-                it["should throw exception"] = expect<InvalidOperationException>(() => { throw new InvalidOperationException(); });
+                it["throws expected exception"] = expect<InvalidOperationException>(() => { throw new InvalidOperationException(); });
 
-                it["should throw exception with error message Testing"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Testing"); });
+                it["throws expected exception with error message Testing"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Testing"); });
 
-                it["should fail if no exception thrown"] = expect<InvalidOperationException>(() => { });
+                it["fails if expected exception does not throw"] = expect<InvalidOperationException>(() => { });
 
-                it["should fail if wrong exception thrown"] = expect<InvalidOperationException>(() => { throw new ArgumentException(); });
+                it["fails if wrong exception thrown"] = expect<InvalidOperationException>(() => { throw new ArgumentException(); });
 
-                it["should fail if wrong error message is returned"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Blah"); });
+                it["fails if wrong error message is returned"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Blah"); });
             }
         }
 
@@ -42,35 +42,39 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        public void given_exception_is_thrown_should_not_fail()
+        public void throws_expected_exception()
         {
-            TheExample("should throw exception").should_not_have_failed();
+            TheExample("throws expected exception").should_not_have_failed();
         }
 
         [Test]
-        public void given_exception_is_thrown_with_expected_message_should_not_fail()
+        public void throws_expected_exception_with_error_message_Testing()
         {
-            TheExample("should throw exception with error message Testing").should_not_have_failed();
+            TheExample("throws expected exception with error message Testing").should_not_have_failed();
         }
 
         [Test]
-        public void given_exception_not_thrown_should_fail()
+        public void fails_if_expected_exception_not_thrown()
         {
-            TheExample("should fail if no exception thrown").Exception.GetType().should_be(typeof(ExceptionNotThrown));
+            TheExample("fails if expected exception does not throw").Exception.GetType().should_be(typeof(ExceptionNotThrown));
         }
 
         [Test]
-        public void given_wrong_exception_should_fail()
+        public void fails_if_wrong_exception_thrown()
         {
-            TheExample("should fail if wrong exception thrown").Exception.GetType().should_be(typeof(ExceptionNotThrown));
-            TheExample("should fail if wrong exception thrown").Exception.Message.should_be("Exception of type InvalidOperationException was not thrown.");
+            var exception = TheExample("fails if wrong exception thrown").Exception;
+
+            exception.GetType().should_be(typeof(ExceptionNotThrown));
+            exception.Message.should_be("Exception of type InvalidOperationException was not thrown.");
         }
 
         [Test]
-        public void given_wrong_error_message_should_fail()
+        public void fails_if_wrong_error_message_is_returned()
         {
-            TheExample("should fail if wrong error message is returned").Exception.GetType().should_be(typeof(ExceptionNotThrown));
-            TheExample("should fail if wrong error message is returned").Exception.Message.should_be("Expected message: \"Testing\" But was: \"Blah\"");
+            var exception = TheExample("fails if wrong error message is returned").Exception;
+
+            exception.GetType().should_be(typeof(ExceptionNotThrown));
+            exception.Message.should_be("Expected message: \"Testing\" But was: \"Blah\"");
         }
     }
 }
