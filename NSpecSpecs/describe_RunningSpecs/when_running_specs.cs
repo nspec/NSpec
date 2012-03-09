@@ -17,12 +17,12 @@ namespace NSpecSpecs.WhenRunningSpecs
             formatter = new FormatterStub();
         }
 
-        protected when_running_specs Init(Type type, string tags = null, bool failFast = false)
+        protected when_running_specs Init(Type type, string tags = null)
         {
-            return Init(new[] { type }, tags, failFast);
+            return Init(new[] { type }, tags);
         }
 
-        protected when_running_specs Init(Type[] types, string tags = null, bool failFast = false)
+        protected when_running_specs Init(Type[] types, string tags = null)
         {
             this.types = types;
 
