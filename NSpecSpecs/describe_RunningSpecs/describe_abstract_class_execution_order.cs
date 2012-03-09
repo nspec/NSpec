@@ -202,7 +202,7 @@ namespace NSpecSpecs.describe_RunningSpecs
          TestCase(typeof(Class5), "example_in_abstract_class_that_directly_inherits_from_concrete_class", "b1b2b3b4b5ac1ac2ac3ac4ac5i3af5af4af3af2af1"),
          TestCase(typeof(Class5), "example_in_abstract_class_that_inherits_another_abstract_class", "b1b2b3b4b5ac1ac2ac3ac4ac5i4af5af4af3af2af1"),
          TestCase(typeof(Class5), "example_in_concrete_class_that_inherits_an_abstract_class_with_deep_inheritance_chain", "b1b2b3b4b5ac1ac2ac3ac4ac5i5af5af4af3af2af1")]
-        public void execution_should_run_in_the_correct_order(Type withRespectToContext, string tag, string fullExecutionLog)
+        public void execution_should_run_in_the_correct_order(Type withRespectToContext, string tags, string fullExecutionLog)
         {
             this.tags = tags;
             Run(withRespectToContext);
