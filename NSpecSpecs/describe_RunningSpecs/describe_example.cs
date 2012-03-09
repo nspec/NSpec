@@ -27,13 +27,11 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void execution_status_changes_after_run()
         {
-            Init(typeof(SpecClass));
+            Run(typeof(SpecClass));
                 
             var ex = TheExample("it changes status after run");
 
-            ex.HasRun.should_be_false();
-
-            Run();
+            //ex.HasRun.should_be_false(); //broken after making init and run happen all at once
 
             ex.HasRun.should_be_true();
         }
@@ -41,7 +39,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void passing_status_is_passed_when_it_succeeds()
         {
-            Init(typeof(SpecClass)).Run();
+            Run(typeof(SpecClass));
 
             TheExample("it passes").Passed.should_be_true();
         }
@@ -49,7 +47,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void passing_status_is_not_passed_when_it_fails()
         {
-            Init(typeof(SpecClass)).Run();
+            Run(typeof(SpecClass));
 
             TheExample("it fails").Passed.should_be_false();
         }

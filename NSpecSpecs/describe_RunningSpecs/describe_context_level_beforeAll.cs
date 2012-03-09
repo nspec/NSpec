@@ -55,9 +55,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void Setup()
         {
-            Init(typeof(SpecClass));
-
-            Run();
+            Run(typeof(SpecClass));
         }
 
         [Test]

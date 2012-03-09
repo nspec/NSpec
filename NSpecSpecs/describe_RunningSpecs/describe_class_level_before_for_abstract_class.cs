@@ -67,7 +67,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void Setup()
         {
-            Init(typeof(ConcreteClassInheritingAbstractChain)).Run();
+            Run(typeof(ConcreteClassInheritingAbstractChain));
         }
 
         [Test]

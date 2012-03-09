@@ -21,9 +21,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [SetUp]
         public void setup()
         {
-            Init(typeof(SpecClass));
-
-            Run();
+            Run(typeof(SpecClass));
         }
 
         [Test]

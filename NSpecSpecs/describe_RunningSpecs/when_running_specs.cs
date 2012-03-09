@@ -17,12 +17,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             formatter = new FormatterStub();
         }
 
-        protected when_running_specs Init(Type type, string tags = null)
-        {
-            return Init(new[] { type }, tags);
-        }
-
-        protected when_running_specs Init(Type[] types, string tags = null)
+        protected when_running_specs Run(params Type[] types)
         {
             this.types = types;
 
@@ -42,12 +37,9 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             methodContext = contextCollection.AllContexts().FirstOrDefault(c => c is MethodContext);
 
-            return this;
-        }
-
-        public void Run()
-        {
             runner.Run(contextCollection);
+
+            return this;
         }
 
         protected Context TheContext(string name)
@@ -86,7 +78,8 @@ namespace NSpecSpecs.WhenRunningSpecs
         protected Context methodContext;
         protected ContextCollection contexts;
         protected FormatterStub formatter;
-        private ContextRunner runner;
+        ContextRunner runner;
         protected Type[] types;
+        protected string tags;
     }
 }

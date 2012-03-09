@@ -44,7 +44,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void Setup()
         {
-        	Init(new[] { typeof(DerivedConcreteClass), typeof(ConcreteClass), typeof(AbstractClass), typeof(AnotherAbstractClassInChain) }).Run();
+            Run(new[] { typeof(DerivedConcreteClass), typeof(ConcreteClass), typeof(AbstractClass), typeof(AnotherAbstractClassInChain) });
         }
 
         [Test]

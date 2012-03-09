@@ -35,7 +35,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
-            Init(typeof(SpecClass)).Run();
+            Run(typeof(SpecClass));
         }
 
         [Test]

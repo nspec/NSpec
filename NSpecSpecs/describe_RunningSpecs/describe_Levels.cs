@@ -22,9 +22,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void Setup()
         {
-            Init(typeof(describe_numbers));
-
-            Run();
+            Run(typeof(describe_numbers));
         }
 
         [Test]

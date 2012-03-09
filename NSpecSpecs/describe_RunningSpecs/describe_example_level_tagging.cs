@@ -22,9 +22,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [SetUp]
         public void Setup()
         {
-            Init(typeof(SpecClass));
-
-            Run();
+            Run(typeof(SpecClass));
         }
 
         [Test]
