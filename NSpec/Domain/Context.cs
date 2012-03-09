@@ -132,14 +132,10 @@ namespace NSpec.Domain
 
         public void Exercise(Example example, nspec nspec)
         {
-            if (nspec.tagsFilter.ShouldSkip(example.Tags)) return;
-
-            example.HasRun = true;
-
-            if (example.Pending) return;
+            if (example.ShouldSkip(nspec.tagsFilter)) return;
 
             RunAndHandleException(RunBefores, nspec, ref Exception);
-
+            
             RunAndHandleException(RunActs, nspec, ref Exception);
 
             RunAndHandleException(example.Run, nspec, ref example.Exception);

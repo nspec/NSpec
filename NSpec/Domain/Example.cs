@@ -29,7 +29,7 @@ namespace NSpec.Domain
         {
             if (MethodLevelExample != null) MethodLevelExample.Invoke(nspec, null);
 
-            else action();
+            action();
         }
 
         public string FullName()
@@ -44,10 +44,12 @@ namespace NSpec.Domain
 
         public void AssignProperException(Exception contextException)
         {
-            if (Exception != null && contextException != null && Exception.GetType() != typeof(ExceptionNotThrown))
+            if (contextException == null) return; //stick with whatever Exception may or may not be set on this Example
+            
+            if (Exception != null && Exception.GetType() != typeof(ExceptionNotThrown))
                 Exception = new ExampleFailureException("Context Failure: " + contextException.Message + ", Example Failure: " + Exception.Message, contextException);
 
-            if (Exception == null && contextException != null)
+            if (Exception == null)
                 Exception = new ExampleFailureException("Context Failure: " + contextException.Message, contextException);
         }
 
@@ -82,5 +84,10 @@ namespace NSpec.Domain
         public MethodInfo MethodLevelExample;
 
         Action action;
+
+        public bool ShouldSkip(Tags tagsFilter)
+        {
+            return tagsFilter.ShouldSkip(Tags) || ((HasRun = true) && Pending);
+        }
     }
 }
