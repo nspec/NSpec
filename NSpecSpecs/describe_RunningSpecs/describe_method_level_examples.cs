@@ -51,6 +51,12 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
+        public void there_should_be_only_one_failure()
+        {
+            classContext.Failures().Count().should_be(1);
+        }
+
+        [Test]
         public void should_execute_first_example()
         {
             SpecClass.first_example_executed.should_be_true();

@@ -27,9 +27,15 @@ namespace NSpec.Domain
 
         public void Run(nspec nspec)
         {
-            if (MethodLevelExample != null) MethodLevelExample.Invoke(nspec, null);
+            //subclass example, method level example vs regular example?
+            if (IsMethodLevelExample()) MethodLevelExample.Invoke(nspec, null);
 
-            action();
+            else action();
+        }
+
+        private bool IsMethodLevelExample()
+        {
+            return MethodLevelExample != null;
         }
 
         public string FullName()
