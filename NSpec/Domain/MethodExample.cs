@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Reflection;
+
+namespace NSpec.Domain
+{
+    public class MethodExample : Example
+    {
+        public MethodExample(MethodInfo method, string tags = null) : base(method.Name.Replace("_", " "), tags)
+        {
+            this.method = method;
+        }
+
+        public override void Run(nspec nspec)
+        {
+            method.Invoke(nspec, null);
+        }
+
+        MethodInfo method;
+    }
+}

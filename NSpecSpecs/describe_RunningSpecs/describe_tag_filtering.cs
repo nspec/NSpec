@@ -10,6 +10,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Tag("class-tag-zero")]
         class SpecClass0 : nspec
         {
+            [Tag("method-tag-zero")]
             void it_has_an_empty_example()
             {
 
@@ -118,6 +119,14 @@ namespace NSpecSpecs.WhenRunningSpecs
             tags = "class-tag-zero";
             Run(typeof(SpecClass0));
             classContext.AllContexts().Count().should_be(1);
+        }
+
+        [Test]
+        public void includes_tag_for_method_as_method_attribute()
+        {
+            tags = "method-tag-zero";
+            Run(typeof(SpecClass0));
+            classContext.AllContexts().SelectMany(s => s.Examples).Count().should_be(1);
         }
 
         [Test]

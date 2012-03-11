@@ -24,7 +24,7 @@ namespace NSpecNUnit
         {
             var context = new Context("context name");
 
-            var example = new Example("example name");
+            var example = new Example("example name", null);
 
             context.AddExample(example);
 
@@ -36,7 +36,7 @@ namespace NSpecNUnit
         {
             var context = new Context("pending context", null, isPending: true);
 
-            var example = new Example("example name");
+            var example = new Example("example name", null);
 
             context.AddExample(example);
 
@@ -48,7 +48,7 @@ namespace NSpecNUnit
         {
             var parentContext = new Context("parent pending context", null, isPending: true);
             var context = new Context("not pending");
-            var example = new Example("example name");
+            var example = new Example("example name", null);
 
             parentContext.AddContext(context);
 

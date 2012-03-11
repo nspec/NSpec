@@ -3,6 +3,7 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
+using System.Linq.Expressions;
 
 namespace NSpecNUnit
 {
@@ -12,6 +13,8 @@ namespace NSpecNUnit
     {
         private ContextCollection contexts;
 
+        Action doNothing = () => { };
+
         [SetUp]
         public void setup()
         {
@@ -19,11 +22,11 @@ namespace NSpecNUnit
 
             var context = new Context();
 
-            context.AddExample(new Example());
+            context.AddExample(new Example(string.Empty, string.Empty));
 
-            context.AddExample(new Example(pending: true));
+            context.AddExample(new Example(string.Empty, string.Empty, () => { }, pending: true));
 
-            context.AddExample(new Example { Exception = new Exception() });
+            context.AddExample(new Example(string.Empty, string.Empty) { Exception = new Exception() });
 
             contexts.Add(context);
         }
@@ -50,7 +53,7 @@ namespace NSpecNUnit
         public void should_trim_skipped_contexts()
         {
             contexts.Add(new Context());
-            contexts[0].AddExample(new Example());
+            contexts[0].AddExample(new Example(string.Empty, string.Empty, () => { }));
             contexts[0].Examples[0].HasRun = true;
             contexts.Count().should_be(2);
             contexts.TrimSkippedContexts();

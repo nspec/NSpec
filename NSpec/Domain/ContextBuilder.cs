@@ -60,7 +60,7 @@ namespace NSpec.Domain
                 .Where(s => conventions.IsMethodLevelExample(s.Name))
                 .Do(methodInfo =>
                 {
-                    var methodExample = new Example(methodInfo, TagStringFor(methodInfo));
+                    var methodExample = new MethodExample(methodInfo, TagStringFor(methodInfo));
 
                     classContext.AddExample(methodExample);
                 });
