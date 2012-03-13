@@ -3,9 +3,8 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
-using System.Linq.Expressions;
 
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     [TestFixture]
     [Category("ContextCollection")]
