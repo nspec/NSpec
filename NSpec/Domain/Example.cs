@@ -57,17 +57,13 @@ namespace NSpec.Domain
 
         public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) {}
 
-        public Example(string name, string tags)
+        public Example(string name = "", string tags = "", Action action = null, bool pending = false)
         {
+            this.action = action;
+
             Spec = name;
 
             Tags = Domain.Tags.ParseTags(tags);
-        }
-
-        public Example(string name, string tags, Action action, bool pending = false)
-            : this(name, tags)
-        {
-            this.action = action;
 
             Pending = pending;
         }

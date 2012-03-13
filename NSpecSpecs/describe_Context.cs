@@ -24,7 +24,7 @@ namespace NSpecNUnit
         {
             var child = new Context("child");
 
-            child.AddExample(new Example(string.Empty, string.Empty, () => { }) { Exception = new Exception() });
+            child.AddExample(new Example { Exception = new Exception() });
 
             var parent = new Context("parent");
 
@@ -182,7 +182,7 @@ namespace NSpecNUnit
         public Context GivenContextWithExecutedExample()
         {
             var context = new Context("context with example");
-            context.AddExample(new Example("example", null));
+            context.AddExample(new Example("example"));
             context.Examples[0].HasRun = true;
 
             return context;
