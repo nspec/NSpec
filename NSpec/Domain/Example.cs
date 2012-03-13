@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace NSpec.Domain
 {
@@ -51,7 +50,12 @@ namespace NSpec.Domain
                 Exception = new ExampleFailureException("Context Failure: " + contextException.Message, contextException);
         }
 
-        public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) { }
+        public bool ShouldSkip(Tags tagsFilter)
+        {
+            return tagsFilter.ShouldSkip(Tags) || ((HasRun = true) && Pending);
+        }
+
+        public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) {}
 
         public Example(string name, string tags)
         {
@@ -76,10 +80,5 @@ namespace NSpec.Domain
         public Context Context;
 
         Action action;
-
-        public bool ShouldSkip(Tags tagsFilter)
-        {
-            return tagsFilter.ShouldSkip(Tags) || ((HasRun = true) && Pending);
-        }
     }
 }
