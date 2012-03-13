@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using NSpec.Domain;
 
@@ -46,9 +47,12 @@ namespace NSpecRunner
         Assembly Resolve(object sender, ResolveEventArgs args)
         {
             var name = args.Name;
+
             var argNameForResolve = args.Name.ToLower();
 
-            if (!argNameForResolve.EndsWith(".dll") && !argNameForResolve.Contains(".resource"))
+            if (argNameForResolve.Contains(","))
+                name = argNameForResolve.Split(',').First() + ".dll";
+            else if (!argNameForResolve.EndsWith(".dll") && !argNameForResolve.Contains(".resource"))
                 name += ".dll";
             else if (argNameForResolve.Contains(".resource"))
                 name = argNameForResolve.Substring(0, argNameForResolve.IndexOf(".resource")) + ".xml";
