@@ -1,25 +1,25 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using NSpec;
 
 namespace SampleSpecs.Bug
 {
-    class describe_failing_deserialization : nspec
+    internal class describe_failing_deserialization : nspec
     {
+        MemoryStream stream;
+        BinaryFormatter formatter;
+        object _object;
+
         void when_serializing_objects()
         {
-            MemoryStream stream = null;
-            BinaryFormatter bf = null;
-
             before = () =>
             {
                 stream = new MemoryStream();
-                bf = new BinaryFormatter();
+                formatter = new BinaryFormatter();
             };
 
-            act = () => bf.Serialize(stream, _object);
+            act = () => formatter.Serialize(stream, _object);
 
             context["that are not in the search path"] = () =>
             {
@@ -28,7 +28,7 @@ namespace SampleSpecs.Bug
                 it["should deserialize them again"] = () => // fails
                 {
                     stream.Position = 0;
-                    bf.Deserialize(stream).should_cast_to<MethodInfo>();
+                    formatter.Deserialize(stream).should_not_be_null();
                 };
             };
 
@@ -39,11 +39,9 @@ namespace SampleSpecs.Bug
                 it["should deserialize them again"] = () =>
                 {
                     stream.Position = 0;
-                    bf.Deserialize(stream).should_not_be_null();
+                    formatter.Deserialize(stream).should_not_be_null();
                 };
             };
         }
-
-        object _object;
     }
 }
