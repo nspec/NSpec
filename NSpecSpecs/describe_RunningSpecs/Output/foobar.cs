@@ -32,9 +32,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Output
 
             var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase.Replace("file:///", "").Replace("/", @"\"));
 
-            var testDllPath = currentPath + @"\..\..\..\SampleSpecs\bin\Debug\SampleSpecs.dll";
+            var testDllPath = @"""" + currentPath + @"\..\..\..\SampleSpecs\bin\Debug\SampleSpecs.dll""";
 
-            var exePath = currentPath + @"\..\..\..\NSpecRunner\bin\Debug\NSpecRunner.exe";
+            var exePath = @"""" +  currentPath + @"\..\..\..\NSpecRunner\bin\Debug\NSpecRunner.exe""";
 
             process.StartInfo = new ProcessStartInfo
             {
@@ -52,7 +52,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Output
 
             process.WaitForExit();
 
-            return process.StandardOutput.ReadToEnd();
+            var output = process.StandardOutput.ReadToEnd();
+
+            return output;
         }
     }
 
