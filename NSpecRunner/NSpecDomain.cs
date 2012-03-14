@@ -59,9 +59,9 @@ namespace NSpecRunner
 
             var missing = Path.Combine(Path.GetDirectoryName(dll), name);
 
-            var assembly = Assembly.LoadFrom(missing);
+            if (File.Exists(missing)) return Assembly.LoadFrom(missing);
 
-            return assembly;
+            return null;
         }
 
         string config;
