@@ -81,6 +81,7 @@
     <Compile Include="describe_RunningSpecs\describe_todo.cs" />
     <Compile Include="describe_ContextCollection.cs" />
     <Compile Include="describe_DefaultConventions.cs" />
+    <Compile Include="describe_RunningSpecs\Output\foobar.cs" />
     <Compile Include="SpecExtensions.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_before_contains_exception.cs" />
     <Compile Include="describe_Tags.cs" />
@@ -99,6 +100,7 @@
       <Name>NSpec</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
