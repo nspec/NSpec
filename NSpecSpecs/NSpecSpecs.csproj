@@ -82,7 +82,6 @@
     <Compile Include="describe_RunningSpecs\describe_todo.cs" />
     <Compile Include="describe_ContextCollection.cs" />
     <Compile Include="describe_DefaultConventions.cs" />
-    <Compile Include="describe_Output\describe_before.cs" />
     <Compile Include="SpecExtensions.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_before_contains_exception.cs" />
     <Compile Include="describe_Tags.cs" />
