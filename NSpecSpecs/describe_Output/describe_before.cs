@@ -9,14 +9,7 @@ namespace NSpecSpecs.describe_Output
         [Test]
         public void outputs_properly()
         {
-            Run("describe_before").Is(@"
-describe before
-  they run before each example
-    number should be 2
-    number should be 1
-
-2 Examples, 0 Failed, 0 Pending
-");
+            Run("describe_before").Is(describe_before_expected.Output);
         }
     }
 }

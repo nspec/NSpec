@@ -12,3 +12,16 @@ class describe_before : nspec
     }
     int number;
 }
+
+public static class describe_before_expected
+{
+    public static string Output = @"
+describe before
+  they run before each example
+    number should be 2
+    number should be 1
+
+2 Examples, 0 Failed, 0 Pending
+";
+}
+

@@ -144,7 +144,7 @@ task :website => :spec do
   if File.exists? 'source.html'
     @doc = Nokogiri::HTML.fragment(File.read 'source.html')
 
-    Dir['SampleSpecs/WebSite/**/*.*'].each {|f| run f}
+    Dir['SampleSpecs/WebSite/**/*.*'].each {|f| generate_html f}
 
     t = Time.now
 
@@ -160,7 +160,7 @@ task :website => :spec do
   end
 end
 
-def run file
+def generate_html file
   node = @doc.at("\##{class_for(file)}_code")
 
   if node.nil?
@@ -194,7 +194,7 @@ end
 
 def code_markup file
   out = "<pre id=\"#{class_for(file)}_code\" data-timestamp=\"#{Time.new.inspect}\" class=\"brush: csharp;\">"
-  out += CGI::escapeHTML(File.read file).gsub('', "")
+  out += CGI::escapeHTML((File.read file).gsub('', "").gsub(/}.*public.*/m,'}'))
   out += '</pre>'
 end
 
