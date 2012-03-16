@@ -21,3 +21,5 @@ source.html
 *.nupkg
 *.zip
 *crunchsolution.cache*
+*.ncrunchproject
+*.ncrunchsolution
