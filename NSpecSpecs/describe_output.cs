@@ -5,13 +5,14 @@ using NUnit.Framework;
 using System;
 using NSpec;
 
-namespace NSpecSpecs.describe_Output
+namespace NSpecSpecs
 {
     [TestFixture]
-    public class when_run_by_NSpecRunner 
+    public class describe_output 
     {
         [Test, 
-        TestCase(typeof(describe_before_expected))]
+        TestCase(typeof(describe_before_expected)),
+        TestCase(typeof(describe_specifications_expected))]
         public void output_verification(Type output)
         {
             var expectedOutput = output.GetField("Output").GetValue(output);

@@ -52,7 +52,7 @@
     <Compile Include="DebuggerShim.cs" />
     <Compile Include="describe_Assertions.cs" />
     <Compile Include="describe_Conventions.cs" />
-    <Compile Include="describe_Output\when_run_by_NSpecRunner.cs" />
+    <Compile Include="describe_output.cs" />
     <Compile Include="describe_RunningSpecs\describe_abstract_class_execution_order.cs" />
     <Compile Include="describe_RunningSpecs\describe_class_level_before_for_abstract_class.cs" />
     <Compile Include="describe_RunningSpecs\describe_context_level_beforeAll.cs" />
@@ -104,7 +104,9 @@
       <Name>SampleSpecs</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="describe_Output\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
