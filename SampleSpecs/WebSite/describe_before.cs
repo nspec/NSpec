@@ -13,7 +13,7 @@ class describe_before : nspec
     int number;
 }
 
-public static class describe_before_expected
+public static class describe_before_output
 {
     public static string Output = @"
 describe before

@@ -194,7 +194,7 @@ end
 
 def code_markup file
   out = "<pre id=\"#{class_for(file)}_code\" data-timestamp=\"#{Time.new.inspect}\" class=\"brush: csharp;\">"
-  out += CGI::escapeHTML((File.read file).gsub('', "").gsub(/}.*public.*/m,'}'))
+  out += CGI::escapeHTML((File.read file).gsub('', "").gsub(/\n^public.*/m,''))
   out += '</pre>'
 end
 

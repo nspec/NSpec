@@ -22,3 +22,18 @@ class describe_contexts : nspec
     }
     private Account account;
 }
+
+public static class describe_contexts_output
+{
+    public static string Output = @"
+describe contexts
+  describe Account
+    when withdrawing cash
+      account is in credit
+        the Account dispenses cash
+      account is overdrawn
+        the Account does not dispense cash
+
+2 Examples, 0 Failed, 0 Pending
+";
+}

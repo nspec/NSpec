@@ -22,3 +22,17 @@ class describe_batman_sound_effects_as_text : nspec
     }
     string sound;
 }
+
+public static class describe_batman_sound_effects_as_text_output
+{
+    public static string Output = @"
+describe batman sound effects as text
+  they are loud and emphatic
+    given bam
+      should be BAM!!!
+    given whack
+      should be WHACK!!!
+
+2 Examples, 0 Failed, 0 Pending
+";
+}

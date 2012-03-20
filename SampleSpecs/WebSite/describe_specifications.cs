@@ -22,7 +22,7 @@ class describe_specifications : nspec
     object someObject = null;
 }
 
-public static class describe_specifications_expected
+public static class describe_specifications_output
 {
     public static string Output = @"
 describe specifications

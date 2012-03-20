@@ -21,3 +21,16 @@ public class describe_helpers : nspec
     }
     Tea tea;
 }
+public static class describe_helpers_output
+{
+    public static string Output = @"
+describe helpers
+  when making tea
+    that is 210 degrees
+      should be hot
+    that is 90 degrees
+      should be cold
+
+2 Examples, 0 Failed, 0 Pending
+";
+}

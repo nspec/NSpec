@@ -9,3 +9,15 @@ class describe_pending : nspec
         xit["\"\" should be \"something else\""] = () => "".should_be("something else");
     }
 }
+
+public static class describe_pending_output
+{
+    public static string Output = @"
+describe pending
+  when creating pending specifications
+    pending spec - PENDING
+    """" should be ""something else"" - PENDING
+
+2 Examples, 0 Failed, 2 Pending
+";
+}

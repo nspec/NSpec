@@ -11,13 +11,21 @@ namespace NSpecSpecs
     public class describe_output 
     {
         [Test, 
-        TestCase(typeof(describe_before_expected)),
-        TestCase(typeof(describe_specifications_expected))]
+        TestCase(typeof(my_first_spec_output)),
+        TestCase(typeof(describe_specifications_output)),
+        TestCase(typeof(describe_before_output)),
+        TestCase(typeof(describe_contexts_output)),
+        TestCase(typeof(describe_pending_output)),
+        TestCase(typeof(describe_helpers_output)),
+        TestCase(typeof(describe_batman_sound_effects_as_text_output)),
+        TestCase(typeof(describe_class_level_output)),
+        TestCase(typeof(given_the_sequence_continues_with_2_output)),
+        TestCase(typeof(describe_expected_exception_output))]
         public void output_verification(Type output)
         {
             var expectedOutput = output.GetField("Output").GetValue(output);
 
-            var tag = output.Name.Replace("_expected", "");
+            var tag = output.Name.Replace("_output", "");
 
             Run(tag).Is(expectedOutput);
         }

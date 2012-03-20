@@ -21,3 +21,13 @@ class describe_class_level : nspec
 
     string sequence;
 }
+
+public static class describe_class_level_output
+{
+    public static string Output = @"
+describe class level
+  specify given befores and acts run in the correct sequence
+
+1 Examples, 0 Failed, 0 Pending
+";
+}
