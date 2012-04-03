@@ -1,0 +1,22 @@
+﻿@using Orchard.Utility.Extensions;
+@{
+	Layout.Title = Model.Title;
+	var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
+
+	WorkContext.Layout.SubPageTitle.Add(Model.Header, "10");
+}
+<article class="content-item @contentTypeClassName">
+	<header>
+		@if (Model.Meta != null) {
+		<div class="metadata">
+			@Display(Model.Meta)
+		</div>
+		}
+	</header>
+	@Display(Model.Content)
+	@if(Model.Footer != null) {
+	<footer>
+		@Display(Model.Footer)
+	</footer>
+	}
+</article>

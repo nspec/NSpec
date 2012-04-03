@@ -1,0 +1,18 @@
+﻿**********************************************************
+Below is a list of zones that have been tested with
+the search widget. Placing this widget in other zones
+may cause the layout to break.
+*********************************************************
+
+If you want to use search on Classic, enable Search in Orchard > Settings > Features and place the Search Form widget in one of the zones below.
+
+BeforeHeader
+Messages
+Featured
+BeforeContent
+Content
+AfterContent
+AsideSecond - The is the recommended zone
+Footer
+
+

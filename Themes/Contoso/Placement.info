@@ -1,0 +1,12 @@
+﻿<Placement>
+    <Match ContentType="Blog">
+        <Match DisplayType="Detail">
+        <Place Parts_Common_Metadata="-"/>
+        </Match>
+    </Match>
+    <Match ContentType="Page">
+        <Match DisplayType="Detail">
+        <Place Parts_Common_Metadata="-"/>
+        </Match>
+    </Match>
+</Placement>

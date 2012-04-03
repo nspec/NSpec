@@ -1,0 +1,22 @@
+﻿@model Contrib.GoogleAnalytics.ViewModels.AdminIndexViewModel
+
+<h1>@Html.TitleForPage(T("Manage Google Analytics").ToString())</h1>
+@using(Html.BeginFormAntiForgeryPost()) {
+	@Html.ValidationSummary()
+	<fieldset>
+    <div>
+      @Html.EditorFor(m => m.Enable)
+      <label class="forcheckbox" for="@Html.FieldIdFor( m => m.Enable)">@T("Enable analytics")</label>
+      <span class="hint">@T("This will add the Google Analytics tracker to every page.")</span>
+    </div>
+    <div data-controllerid="@Html.FieldIdFor(m => m.Enable)">
+      <label for="@Html.FieldIdFor( m => m.Script)">@T("Tracker script")</label>
+      @Html.TextAreaFor(m => m.Script, new { @class = "textMedium", rows = "15" } )
+      @Html.ValidationMessage("Script", "*")
+      <span class="hint">@T("Paste the Tracker script given by Google Analytics here.")</span>
+    </div>
+	</fieldset>
+	
+	<input class="button" type="submit" value="@T("Save")" />
+}
+

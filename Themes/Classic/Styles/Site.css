@@ -1,0 +1,515 @@
+﻿/*
+Theme: Classic Blog Theme
+Author: Jon Wall – http://www.orchardproject.net
+Copyright: 2010, Orchard. All Rights Reserved
+*/
+
+/*  Color Palette
+**************************************************************
+
+Background: #fdfdfd
+Borders: #f1f1f2
+Dividers: #d3d3d3
+Text: #373737
+Secondary Text:
+Main Accent:
+Links: #004386
+*/
+
+
+/* Reset
+***************************************************************/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+/* Remember focus styles! */
+:focus { outline: 0; }
+
+body { line-height: 1; color: black; background: white; }
+ol, ul { list-style: none; }
+
+/* Tables still need 'cellspacing="0"' in the markup */
+table { border-collapse: separate; border-spacing: 0; }
+caption, th, td { text-align: left; font-weight: normal; }
+
+blockquote:before, blockquote:after,
+q:before, q:after { content: ""; }
+blockquote, q { quotes: "" ""; }
+
+/* HTML 5 elements as block */  
+header, footer, aside, nav, article { display: block; }
+
+
+
+/* Clearing Floats
+***************************************************************/
+
+.group:after 
+{
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.zone:after, .widget-control:after /* .zone:after self clears every zone container - .widget-control:after self clears any floats used in a widget */
+{
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+
+/* General
+***************************************************************/
+
+/* Default font settings. 
+The font-size 81.3% sets the base font to 13px 
+
+Pixels   EMs         Percent    Points
+1px      0.077em     7.7%       1pt
+2px      0.154em     15.4%      2pt
+3px      0.231em     23.1%      3pt
+4px      0.308em     30.8%      3pt
+5px      0.385em     38.5%      4pt
+6px      0.462em     46.2%      5pt
+7px      0.538em     53.8%      5pt
+8px      0.615em     61.5%      6pt
+9px      0.692em     69.2%      7pt
+10px     0.769em     76.9%      8pt
+11px     0.846em     84.6%      8pt
+12px     0.923em     92.3%      9pt
+13px     1em         100%       10pt
+14px     1.077em     107.7%     11pt
+15px     1.154em     115.4%     11pt
+16px     1.231em     123.1%     12pt
+17px     1.308em     130.8%     13pt
+18px     1.385em     138.5%     14pt
+19px     1.462em     146.2%     14pt
+20px     1.538em     153.8%     15pt
+21px     1.615em     161.5%     16pt
+22px     1.692em     169.2%     17pt
+23px     1.769em     176.9%     17pt
+24px     1.846em     184.6%     18pt
+*/
+
+body { 
+  font-size: 81.3%;
+  font-family: "Georgia", Times New Roman, Times, serif;
+  text-align:left;
+  color:#373737;
+  background:#fdfdfd;
+
+}
+
+/* Headings */
+h1,h2,h3,h4,h5,h6 { font-weight: normal; margin:.6em 0 .4em 0;}
+
+h1 { font-size: 1.538em; }
+h2 { font-size: 1.385em; }
+h3 { font-size: 1.308em; }
+h4 { font-size: 1.231em; }
+h5 { font-size: 1.154em; }
+h6 { font-size: 1.077em; }
+
+h1 img, h2 img, h3 img, 
+h4 img, h5 img, h6 img {
+  margin: 0;
+}
+
+/* Aside Headings */
+aside h1 { font-size: 1.385em; }
+aside h2 { font-size: 1.231em; }
+aside h3 { font-size: 1.077em; }
+aside h4 { font-size: 1em; }
+aside h5 { font-size: 1em; }
+aside h6 { font-size: 1em; }
+
+/* Lists */
+li ul, 
+li ol       { margin:0 1.5em; }
+ul, ol      { margin: 1.5em; line-height: 1.846em; }
+
+ul          { list-style-type: disc; }
+ol          { list-style-type: decimal; }
+
+dl          { margin: 0 0 1.5em 0; }
+dl dt       { font-weight: bold; }
+dd          { margin-left: 1.5em;}
+
+/* Text elements */
+p           { margin: 0 0 1em; line-height: 1.846em; }
+p img.left  { float: left; margin: 0.923em 0.923em 0.923em 0; padding: 0; }
+p img.right { float: right; margin: 0.923em 0 0.923em 0.923em; }
+
+a:focus, 
+a:hover     { text-decoration: underline; }
+a           { color: #004386; text-decoration: none; }
+
+blockquote  { margin: 0.923em; color: #666; font-style: italic; }
+strong      { font-weight: bold; }
+em,dfn      { font-style: italic; }
+dfn         { font-weight: bold; }
+sup, sub    { line-height: 0; }
+
+abbr, 
+acronym     { border-bottom: 1px dotted #666; }
+address     { margin: 0 0 0.923em; font-style: italic; }
+del         { color:#666; }
+
+pre         { margin: 0.923em 0; white-space: pre; }
+pre,code,tt { font: 1em 'andale mono', 'lucida console', monospace; line-height: 1.462em; }
+
+
+
+/* Forms
+***************************************************************/
+
+form              { margin: 0; padding: 0; }
+legend            { font-size: 1.231em; font-weight: normal; margin: 0 0 1.2em 0; border:none; }
+fieldset          {}
+label             { font-weight: normal; display:block; }
+label.forcheckbox { margin:0 0 0 .4em; display:inline; }
+
+input[type="text"], input[type="password"], textarea {
+    display:block;
+    padding:6px;
+    margin:0 0 12px 0;
+    border:1px solid #DDDEDF;
+    width:90%;
+}
+
+input[type="checkbox"] {
+    margin:.2em 0 1.2em 0;
+}
+
+input[type="submit"], input[type="button"], button, .button, .button:link, .button:visited {
+	font:Verdana, Geneva, Tahoma, sans-serif;
+	color:#333;
+    padding:2px 14px;
+    display: block;
+    margin:12px 0 20px 0;
+    font-weight:600;
+    }
+
+
+fieldset ol     { list-style-type:none; padding: 0; margin: 0; }
+fieldset ol li  { margin: 0 0 6px 0; }
+
+
+/* Tables
+***************************************************************/
+table {
+	background:#fff;
+	border:1px solid #f1f1f1;
+	border-collapse:collapse;
+	width:100%;
+}
+
+table thead, table th {
+	overflow:hidden;
+	text-align:left;
+}
+
+table th {
+	font: 0.846em Verdana, Geneva, Tahoma, sans-serif;
+	background-color:#69625e;
+	color:#f1f1f1;
+	}
+	
+table caption {
+	padding:8px 0;
+	text-indent:0;
+}
+
+table col {
+	display:table-column;
+}
+
+table colgroup {
+	display:table-column-group;
+	}
+
+table tbody {
+	vertical-align:middle;
+	}
+
+
+th, td {
+	font: 0.846em Verdana, Geneva, Tahoma, sans-serif;
+	padding:6px
+	}
+
+td.even {
+	background-color:#f1f1f1;
+}
+
+
+/* Structure
+***************************************************************/
+#layout-wrapper {
+    width:960px;
+    border:1px solid #f1f1f1;
+    display:block;
+    margin:0 auto;
+    background:#fff;
+}
+
+/* Navigation */
+#layout-navigation 
+{
+    display:block;
+    float:right;
+}
+
+nav ul 
+{
+    padding: 0px;
+    margin: 0px;
+}
+    nav ul li
+     {
+        display:block;
+        float:left;
+        margin:4px 0 0;
+    }
+    nav ul li.current a { background:url(../Content/current.png) no-repeat 10px 10px #fff; }
+    nav ul a 
+    {
+        padding:0 18px;
+        display:block;
+        float:left;
+        font-size: 1.077em;
+        text-decoration:none;
+        text-transform:uppercase;
+    }
+
+/* Header */
+#layout-header {
+    border:2px solid #69625e;
+	border-left:0;
+	border-right:0;
+	margin:18px;
+}
+
+#header-wrapper {
+	border:1px solid #69625e;
+	border-left:0;
+	border-right:0;
+	margin:3px 0 3px 0;
+	}
+	
+    #branding 
+    {   
+        font-size: 2.4em;
+        padding: 0;
+        margin: 0;
+        border:0 none;
+        color:#333333;
+    }
+    #branding a 
+    {
+        text-decoration:none;
+        color: #434343;
+        text-shadow: 1px 1px 3px rgba(0,0,0,.2);
+    }
+#layout-navigation {}
+#layout-featured {}
+#layout-before-main {}
+#layout-main {}
+    #layout-content { margin: 12px 0 0 26px; }
+        #messages {}
+        #before-content {}
+        #content {}
+        #after-content {}
+    #aside-second { margin: 12px 0 0 0; }
+        /*Enable this if you want a smaller p size in the sidebar
+        #aside-second p { font-size: .923em; }*/
+#layout-footer {}
+    #footer-quad {padding:12px 0 0 26px;}
+    #footer-sig { background: #69625E; }
+        #footer-sig a { color:#fff; }
+    
+/* Zones */
+.zone 
+{
+    padding: 12px;
+    
+    /*  Enable this to see zone visualizations 
+    background-color: yellow;
+    box-shadow:inset 0 0 1px purple;
+    -moz-box-shadow:inset 0 0 1px purple;
+    -webkit-box-shadow:inset 0 0 1px purple;*/
+
+} 
+.zone-header { float: left; }
+.zone-navigation {}
+.zone-featured {}
+.zone-beforemain {}
+.zone-messages {}
+.zone-beforecontent {}
+.zone-content {}
+.zone-aftercontent {}
+.zone-asidesecond {}
+.zone-footer { color: #d3d3d3; }
+
+
+/* Main
+***************************************************************/
+
+/* Content lists and details */
+.content-description { font-size: 1.154em; }
+.content-items { padding: 0; margin: 0; list-style: none; }
+.content-items li { padding: 0; margin: 0; }
+.content-items .content-item { border-top: 1px solid #dbdbdb; padding: 6px 0 6px 0; }
+.content-items .content-item header {}
+.content-items .content-item header h1 { font-size: 1.308em; color:#ff0000; }
+.content-items .content-item header h1 a { color: #434343; }
+.content-items .content-item header h1 a:hover {}
+
+/* Tags */
+.tags { margin: 0 0 2px 0; }
+.tags a {padding: 3px 6px; }
+.tags a:hover { background-color: #dbdbdb; color: #434343; }
+
+/* Metadata */
+.metadata { margin: 0px 0 12px 0; color: #999; font-size: 0.846em; }
+.metadata .published { display: inline; margin: 0 6px 0 0; }
+.metadata .commentcount { display: inline; }
+.meta {}
+
+/* Comments */
+#comments { margin: 24px 0 0 0; padding: 0; }
+.comment-form { margin: 24px 0 0 0; padding: 0; }
+.comments { margin: 0; padding: 0; list-style: none; }
+.comments li { margin: 12px 0 0 0; padding: 12px; border-bottom: 1px dotted #d3d3d3; }
+.comment { margin: 0; padding: 0; }
+.comment h4 { font-size: 1.077em; }
+.comment .who {}
+.comment .what {}
+.comment #add-comment {}
+.comment-form #comment-by { font-size: 1.231em; font-weight: normal; margin: 0 0 1.2em 0; border:none; }
+.comment-form #comment-text {}
+.comment-form input[type="text"] {}
+.comment-disabled {}
+.comment-count { font-size: 1.231em; }
+
+/* Confirmations */
+.message, .validation-summary-errors { margin:10px 0 4px 0; padding:4px; }
+.messages a { font-weight:bold; }
+.message-Information { background:#e6f1c9; /* green */ border:1px solid #cfe493; color:#062232; }
+.message-Warning { background:#fdf5bc; /* yellow */ border:1px solid #ffea9b; }
+.critical.message, .validation-summary-errors, .message-Error { background:#e68585; /* red */ border:1px solid #990808; color:#fff; }
+
+
+/* Secondary
+***************************************************************/
+
+/* Aside Zone */
+
+/* If zone 2 is on */
+.aside-2 #layout-main { background:url(../Content/sidebarBackground.png) no-repeat 580px 0px #fff; }
+.aside-2 #layout-content { float: left; min-height: 555px; width: 520px;}
+.aside-2 .aside-second { float: right; width: 360px; }
+.aside-2 .aside-second h1 { border-bottom: 1px dotted #d3d3d3; }
+
+
+/* Quad Footer Zones */
+#footer-quad > div { float:left; width:230px; }
+
+/*1 zone on */
+.split-1 #footer-quad-first { width:960px; } /* If zone 1 is on */
+.split-2 #footer-quad-second { width:960px; } /* If zone 2 is on */
+.split-3 #footer-quad-third { width:960px; } /* If zone 3 is on */
+.split-4 #footer-quad-fourth { width:960px; } /* If zone 4 is on */
+
+/*2 zones on */
+.split-12 #footer-quad-first, .split-12 #footer-quad-second { width:465px; } /* If zones 1, 2 are on */
+.split-13 #footer-quad-first, .split-13 #footer-quad-third { width:465px; } /* If zones 1, 3 are on */
+.split-14 #footer-quad-first, .split-14 #footer-quad-fourth { width:465px; } /* If zones 1, 4 are on */
+.split-23 #footer-quad-second, .split-23 #footer-quad-third { width:465px; } /* If zones 2, 3 are on */
+.split-24 #footer-quad-second, .split-24 #footer-quad-fourth { width:465px; } /* If zones 2, 4 are on */
+.split-34 #footer-quad-third, .split-34 #footer-quad-fourth { width:465px; } /* If zones 3, 4 are on */
+
+/*3 zones on */
+.split-234 #footer-quad-second { width:470px; } /* If zones 2, 3, 4 are on */
+.split-134 #footer-quad-first { width:470px; } /* If zones 1, 3, 4 are on */
+.split-124 #footer-quad-fourth { width:470px; } /* If zones 1, 2, 4 are on */
+.split-123 #footer-quad-third { width:470px; } /* If zones 1, 2, 3 are on */
+
+/* Widgets
+***************************************************************/
+.widget { margin: 0 0 24px 0; }
+.widget h1 {}
+
+/* Edit Mode Widgets */
+/* These are the edit controls that appear when you're logged-in */
+.widget-control { position: relative; border: 1px dotted #5f97af; }
+.widget-control:hover { border-color: #d74d02; }
+.widget-control .manage-actions { position:absolute; top: 0px; right: 0px; }
+.widget-control .manage-actions a { font: 0.846em Verdana, Geneva, Tahoma, sans-serif;  display: block; background-color: #dbdbdb; color: #434343; padding: 3px 6px;  }
+.widget-control .manage-actions a:hover { background-color: #d74d02; color: #fff; text-decoration: none; }
+
+/* Content Mode */
+.content-control { position: relative; border: 1px dotted #5f97af; }
+.content-control:hover { border-color: #d74d02; }
+.content-control .manage-actions { position:absolute; top: 0px; right: 0px; }
+.content-control .manage-actions a { font: 0.846em Verdana, Geneva, Tahoma, sans-serif;  display: block; background-color: #dbdbdb; color: #434343; padding: 3px 6px;  }
+.content-control .manage-actions a:hover { background-color: #d74d02; color: #fff; text-decoration: none; }
+
+
+
+/* Pager
+***************************************************************/
+
+.pager { list-style: none; padding: 0; margin: 12px 0 0 0; }
+.pager li { float: left; padding: 0 12px 0 0; margin: 0; }
+.pager a { font-size: 1.077em; display: block; background-color: #dbdbdb; padding: 6px 6px; color: #434343;}
+.pager a:hover { background-color: #434343; color: #fff; }
+
+
+
+/* Misc
+***************************************************************/
+
+.small      { font-size: 0.615em; margin-bottom: 1.875em; line-height: 1.875em; }
+.large      { font-size: 1.231em; line-height: 2.231em; margin-bottom: 1.25em; }
+.hide       { display: none; }
+
+.quiet      { color: #666; }
+.loud       { color: #000; }
+.highlight  { background:#ff0; }
+.added      { background:#060; color: #fff; }
+.removed    { background:#900; color: #fff; }
+
+.first      { margin-left:0; padding-left:0; }
+.last       { margin-right:0; padding-right:0; }
+.top        { margin-top:0; padding-top:0; }
+.bottom     { margin-bottom:0; padding-bottom:0; }
+
+.credits { float: right; }
+.user-display {}
+.user-display .welcome {}
+.user-display .user-actions {}
+
+.login-form { margin: 24px 0 0 0; }

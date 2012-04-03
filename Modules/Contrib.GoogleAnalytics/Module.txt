@@ -1,0 +1,12 @@
+Name: Google Analytics
+AntiForgery: enabled
+Author: Nathan Heskew, Sébastien Ros
+Website: http://orchardga.codeplex.com
+Version: 1.0
+OrchardVersion: 1.0
+Description: Adds the Google Analytics (http://www.google.com/analytics/) web statistics tracking system to your website. 
+Features:
+    Contrib.GoogleAnalytics:
+		Name: Google Analytics
+		Category: Analytics
+        Description: Adds the Google Analytics (http://www.google.com/analytics/) web statistics tracking system to your website. 

@@ -1,0 +1,12 @@
+Name: Vandelay Favicon
+AntiForgery: enabled
+Author: Bertrand Le Roy
+Website: http://weblogs.asp.net/bleroy
+Version: 1.1
+OrchardVersion: 1.0
+Description: Configurable favicon
+Features:
+    Vandelay.Favicon:
+        Description: This feature adds a favicon setting to site settings
+		Category: Content
+		Dependencies: Orchard.Media, Settings

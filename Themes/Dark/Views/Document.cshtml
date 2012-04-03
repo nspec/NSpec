@@ -1,0 +1,108 @@
+@using Orchard.Mvc.Html;
+@using Orchard.UI.Resources;
+@{
+	RegisterLink(new LinkEntry {Type = "image/x-icon", Rel = "shortcut icon", Href = Url.Content("~/modules/orchard.themes/Content/orchard.ico")});
+    //todo: (heskew) get conditions (as in conditional comments) hooked up for script tags too
+    Script.Include("html5.js").AtLocation(ResourceLocation.Head);
+
+    //a bit opinionated - only the site name on the homepage
+    var title = (Request.Path != Request.ApplicationPath && !string.IsNullOrWhiteSpace((string)Model.Title)
+                    ? Model.Title + WorkContext.CurrentSite.PageTitleSeparator
+                    : "") +
+        WorkContext.CurrentSite.SiteName;
+}
+<!DOCTYPE html> 
+<html lang="en" class="static @Html.ClassForPage()"> 
+<head> 
+    <meta charset="utf-8" />
+    <title>@title</title> 
+    @Display(Model.Head)
+    <script>(function(d){d.className="dyn"+d.className.substring(6,d.className.length);})(document.documentElement);</script> 
+</head>
+<body>
+<div id="BgLayer1"><div id="BgLayer2"><div id="BgLayer3"><div id="Wrapper">
+	<div id="HeaderAreaShadow">
+		<div class="PageWidth">
+			
+			<div id="User"><span class="icon">&gt;</span> </div>
+			<div id="Login"><span class="icon">&gt;</span> <div class="user-display">
+    @if (Request.IsAuthenticated) {
+            <span class="welcome">@if(WorkContext.CurrentUser != null){@T("Welcome, <strong>{0}</strong>!", WorkContext.CurrentUser.UserName)}</span>
+            <span class="user-actions">
+                @Html.ActionLink(T("Sign Out").ToString(), "LogOff", new { Controller = "Account", Area = "Orchard.Users", ReturnUrl = Context.Request.RawUrl })
+                @Html.ActionLink("Dashboard", "Index", new { Area = "Dashboard", Controller = "Admin" })
+            </span>
+    } else {
+            <span class="user-actions">@Html.ActionLink(T("Sign In").ToString(), "LogOn", new { Controller = "Account", Area = "Orchard.Users", ReturnUrl = Context.Request.RawUrl })</span>
+    }
+</div></div>
+		</div>
+	</div>
+	<div id="OuterHome" class="PageWidth">
+		<div id="HeaderArea">
+			<div id="Logo"><h1><a href="/" title="Go to Home">@WorkContext.CurrentSite.SiteName</a></h1></div>
+			<div id="NavAux">
+				<div id="Date"><span class="Date"><script type="text/javascript">var dteNow = new Date();var intDay = dteNow.toLocaleDateString();document.write(intDay);</script></span></div>
+				<div id="Search"><div id="SearchBar"><form method="get" class="search-form" action="/Search"><fieldset><input type="text" value="" name="q" id="q"><button type="submit">Search</button></fieldset></form></div></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<div id="TopBannerArea">
+			<div class="TL"><div class="TR"><div class="TM"></div></div></div>
+			<div class="ML"><div class="MR"><div class="MM"><div id="BannerZone" class="pane w100">@if(Model.Header != null){@Display(Model.Header)}</div><div class="clear"></div></div></div></div>
+			<div class="BL"><div class="BR"><div class="BM"></div></div></div>
+		</div>
+
+		<div id="MenuH" class="MenuH01">@if (Model.Navigation != null) {@Display(Model.Navigation)}</div>
+
+		<div id="ContentArea">
+			
+			<div id="MainContentArea">
+				
+				<div id="L1_Zone60" class="pane w60">@Display(Model.Body)</div>
+				<div id="L1_Zone40" class="pane w40">@if (Model.AsideSecond != null) {<div class="C01 container">@Display(Model.AsideSecond)</div>}</div>
+				<div id="L2_Zone50_1" class="pane w50"></div>
+				<div id="L2_Zone50_2" class="pane w50"></div>
+				<div id="L3_Zone40" class="pane w40"></div>
+				<div id="L3_Zone60" class="pane w60"></div>
+				<div id="L4_Zone30_1" class="pane w30">@if (Model.TripelFirst != null) {<div class="C02 container">@Display(Model.TripelFirst)</div>}</div>
+				<div id="L4_Zone40_2" class="pane w40">@if (Model.TripelSecond != null) {@Display(Model.TripelSecond)}</div>
+				<div id="L4_Zone30_3" class="pane w30">@if (Model.TripelThird != null) {<div class="C01 container">@Display(Model.TripelThird)</div>}</div>
+				<div id="L5_Zone100" class="pane w100"></div>
+				<div class="clear"></div>
+			</div>
+		</div>
+        
+        @if (Model.AfterMain != null) {
+									<div id="Breadcrumb">
+									    @Display(Model.AfterMain)
+									</div>
+									}
+
+        <div id="FooterContentArea">
+	        <div id="FooterM">
+	        	<div id="FooterR">
+	        		<div id="FooterL">
+						<div id="L6_Zone25_1" class="pane w25">@if (Model.FooterQuadFirst != null) {@Display(Model.FooterQuadFirst)}</div>
+						<div id="L6_Zone25_2" class="pane w25">@if (Model.FooterQuadSecond != null) {@Display(Model.FooterQuadSecond)}</div>
+						<div id="L6_Zone25_3" class="pane w25">@if (Model.FooterQuadThird != null) {@Display(Model.FooterQuadThird)}</div>
+						<div id="L6_Zone25_4" class="pane w25">@if (Model.FooterQuadFourth != null) {@Display(Model.FooterQuadFourth)}</div>
+						<div class="clear"></div>
+	        		</div>
+	        	</div>
+	        </div>
+        </div>
+
+        <div id="FooterZone">@if(Model.Footer != null){@Display(Model.Footer)}</div><div id="Footer">
+	        <div id="Copyright"><span class="Copyright">&copy;2011 @WorkContext.CurrentSite.SiteName. All rights reserved.</span></div>
+	        
+	                
+        </div>
+        
+    </div>
+</div></div></div></div>
+
+@Display(Model.Tail)
+</body>
+</html>

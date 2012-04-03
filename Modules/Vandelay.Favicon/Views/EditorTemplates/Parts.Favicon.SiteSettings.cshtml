@@ -1,0 +1,29 @@
+﻿@model Vandelay.Favicon.ViewModels.FaviconSettingsViewModel
+@using Vandelay.Favicon.Models;
+
+<fieldset>
+    <legend>@T("Favicon")</legend>
+    <div>
+        <label for="FaviconUrl">@T("Favicon URL")</label>
+        @Html.TextBoxFor(m => m.FaviconUrl, new { @class = "textMedium" })
+        @if (!String.IsNullOrWhiteSpace(Model.FaviconUrl)) {
+            <img src="@Model.FaviconUrl" alt="The current favicon" />
+        }
+        @Html.ValidationMessage("FaviconUrl", "*")
+        @if (Model.FaviconUrlSuggestions != null &&
+            Model.FaviconUrlSuggestions.Any()) {
+            <label>Suggestions:</label>
+            <ul>
+            @foreach (var suggestion in Model.FaviconUrlSuggestions) {
+                <li style="float:left;margin:3px"
+                    onclick="document.getElementById('@Html.FieldIdFor(m => m.FaviconUrl)').value='@suggestion'">
+                    <img src="@suggestion" alt="@suggestion"/>
+                </li>
+            }
+            </ul>
+        }
+        else {
+            <span class="hint">@T("Upload favicon files into a favicon folder in the Media module.")</span>
+        }
+    </div>
+</fieldset>

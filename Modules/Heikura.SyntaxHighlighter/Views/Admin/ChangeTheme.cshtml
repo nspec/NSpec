@@ -1,0 +1,42 @@
+@model Heikura.Orchard.Modules.SyntaxHighlighter.Models.IndexModel
+
+<h1>@Html.TitleForPage(T("Syntax Highlighter").ToString())</h1>
+<p>@T("Change global theme used by Syntax Highlighter.")</p>
+
+@using(Html.BeginForm("ChangeTheme", "Admin", FormMethod.Post, new { area = "Heikura.SyntaxHighlighter" })) { 
+    @Html.ValidationSummary() 
+    <fieldset>
+        <label for="Theme">@T("Syntax Highlighter Theme CSS")</label>
+        @Html.DropDownListFor(m => m.Theme, new SelectList(Model.Themes, Model.Theme))
+    </fieldset>
+    <fieldset>
+        <input type="submit" class="button" value="@T("Apply")" />
+        @Html.AntiForgeryTokenOrchard()
+    </fieldset>
+}
+<p>@T("Currently only default syntax highlighter themes are supported but in future version you can provide your own.")</p>
+<h2>@T("Preview")</h2>
+ <pre class="brush: csharp;">
+using Orchard.Data.Migration;
+
+namespace Heikura.Orchard.Modules.SyntaxHighlighter {
+    public class ThemesDataMigration : DataMigrationImpl {
+        public int Create() {
+            SchemaBuilder.CreateTable("SyntaxHighlighterSettingsRecord",
+             table =&gt; table
+                 .Column("Id", column =&gt; column.PrimaryKey().Identity())
+                 .Column("CurrentThemeName", column =&gt; column.WithDefault("shThemeDefault.css").WithLength(100))
+             );
+
+            SchemaBuilder.CreateTable("SyntaxHighlighterThemeRecord",
+                table =&gt; table
+                    .Column("Id", column =&gt; column.PrimaryKey().Identity())
+                    .Column("ThemeName", column =&gt; column.WithLength(100))
+                    .Column("Author", column =&gt; column.WithLength(40))
+                );
+
+            return 1;
+        }
+    }
+}
+</pre>

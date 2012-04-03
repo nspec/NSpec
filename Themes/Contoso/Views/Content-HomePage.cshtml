@@ -1,0 +1,14 @@
+﻿@using Orchard.Utility.Extensions;
+@{
+    Layout.Title = Model.Title;
+    var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
+}
+<article class="content-item @contentTypeClassName">
+    @Display(Model.Content)
+    @if(Model.Footer != null) {
+    <footer>
+        @Display(Model.Footer)
+    </footer>
+    }
+</article>
+

@@ -1,0 +1,68 @@
+@functions {
+    // To support the layout classifaction below. Implementing as a razor function because we can, could otherwise be a Func<string[], string, string> in the code block following.
+    string CalcuClassify(string[] zoneNames, string classNamePrefix) {
+        var zoneCounter = 0;
+        var zoneNumsFilled = string.Join("", zoneNames.Select(zoneName => { ++zoneCounter; return Model[zoneName] != null ? zoneCounter.ToString() : "";}).ToArray());
+        return HasText(zoneNumsFilled) ? classNamePrefix + zoneNumsFilled : "";
+    }
+}
+@{
+    /* Global includes for the theme
+    ***************************************************************/
+
+    Style.Include("http://fonts.googleapis.com/css?family=Lobster&subset=latin");
+    Style.Include("site.css");
+
+    /* Some useful shortcuts or settings
+    ***************************************************************/
+
+    Func<dynamic, dynamic> Zone = x => Display(x); // Zone as an alias for Display to help make it obvious when we're displaying zones
+
+    /* Inserting some ad hoc shapes
+    ***************************************************************/
+    WorkContext.Layout.Header.Add(New.Top(), "5");WorkContext.Layout.TripelSecond.Add(New.T2(), "5");WorkContext.Layout.TripelFirst.Add(New.T1(), "5");WorkContext.Layout.TripelThird.Add(New.T3(), "5");WorkContext.Layout.FooterQuadFirst.Add(New.Q1(), "5");WorkContext.Layout.FooterQuadSecond.Add(New.Q2(), "5");WorkContext.Layout.FooterQuadThird.Add(New.Q3(), "5");WorkContext.Layout.FooterQuadFourth.Add(New.Q4(), "5");
+
+
+    /* Last bit of code to prep the layout wrapper
+    ***************************************************************/
+    
+    Model.Id = "layout-wrapper";
+    var tag = Tag(Model, "div"); // using Tag so the layout div gets the classes, id and other attributes added to the Model
+}
+@tag.StartElement
+@if (Model.Featured != null) {
+<div id="layout-featured" class="group">
+    @Zone(Model.Featured)
+</div>
+}
+@if (Model.BeforeMain != null) {
+<div id="layout-before-main" class="group">
+    @Zone(Model.BeforeMain)
+</div>
+}
+<div id="layout-main" class="group">
+    <div id="layout-content" class="group">
+        @if (Model.Messages != null) {
+        <div id="messages">
+            @Zone(Model.Messages)
+        </div>
+        }
+        @if (Model.BeforeContent != null) {
+        <div id="before-content">
+            @Zone(Model.BeforeContent)
+        </div>
+        }
+        @* the model content for the page is in the Content zone @ the default position (nothing, zero, zilch) *@
+        @if (Model.Content != null) {
+        <div id="content" class="group">
+            @Zone(Model.Content)
+        </div>
+        }
+        @if (Model.AfterContent != null) {
+        <div id="after-content">
+            @Zone(Model.AfterContent)
+        </div>
+        }
+    </div>
+</div>
+@tag.EndElement

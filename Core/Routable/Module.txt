@@ -1,0 +1,12 @@
+﻿Name: Routable
+AntiForgery: enabled
+Author: The Orchard Team
+Website: http://orchardproject.net
+Version: 1.0.20
+OrchardVersion: 1.0.20
+Description: The routable module enables content items to be accessed through a friendly human-readable URL.
+Features:
+    Routable:
+        Description: Routable content part.
+        Dependencies: Settings
+        Category: Core

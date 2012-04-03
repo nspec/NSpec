@@ -1,0 +1,29 @@
+﻿/* Bind Custom Theme: Dark */
+
+
+*** SEARCH NOTICE ***
+
+The Dark theme uses a custom Search Form,
+so the Search Feature should be enabled or there will be a error:
+
+The Search feature should be installed:
+Orchard > Gallery > Modules
+
+and then enabled:
+Orchard > Settings > Features
+
+If you wish to decline the usage of search, please replace
+Document.cshtml with DocumentNoSearch.cshtml in Themes\Dark\Views folder of Orchard installation
+
+
+*** ZONES **
+
+The Dark theme uses the same 19 Zones as "TheThemeMachine" Theme.
+
+Some zones have demo content that can be edited in Themes\Dark\Views or removed in Layout.cshtml
+Entries can be found below "Inserting some ad hoc shapes"
+
+
+
+Regards
+Bind Team
