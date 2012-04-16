@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Bug\app_config_detection.cs" />
     <Compile Include="Bug\describe_after.cs" />
+    <Compile Include="Bug\describe_context_stack_trace.cs" />
     <Compile Include="Bug\describe_failing_deserialization.cs" />
     <Compile Include="Bug\given_a_subcontext_that_fails.cs" />
     <Compile Include="Compare\NSpec\VendingMachineSpec.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NSpec.Domain.Extensions;
+using System.Collections.Generic;
 
 namespace NSpec.Domain.Formatters
 {
@@ -49,16 +50,25 @@ namespace NSpec.Domain.Formatters
 
             failure += example.Exception.CleanMessage() + Environment.NewLine;
 
-            var stackTrace =
-                example.Exception
-                    .GetOrFallback(e => e.StackTrace, "").Split('\n')
-                    .Where(l => !internalNameSpaces.Any(l.Contains));
+            var stackTrace = FailureLines(example.Exception);
+
+            stackTrace.AddRange(FailureLines(example.Exception.InnerException));
 
             var flattenedStackTrace = stackTrace.Flatten(Environment.NewLine).TrimEnd() + Environment.NewLine;
 
             failure += flattenedStackTrace;
 
             return failure;
+        }
+
+        List<string> FailureLines(Exception exception)
+        {
+            if (exception == null) return new List<string>();
+
+            return exception
+                .GetOrFallback(e => e.StackTrace, "")
+                .Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)
+                .Where(l => !internalNameSpaces.Any(l.Contains)).ToList();
         }
 
         public string Summary(ContextCollection contexts)
@@ -77,7 +87,8 @@ namespace NSpec.Domain.Formatters
                 {
                     "NSpec.Domain",
                     "NSpec.AssertionExtensions",
-                    "NUnit.Framework"
+                    "NUnit.Framework",
+                    "NSpec.Extensions"
                 };
     }
 }

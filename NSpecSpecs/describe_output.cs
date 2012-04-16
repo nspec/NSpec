@@ -4,6 +4,7 @@ using System.Reflection;
 using NUnit.Framework;
 using System;
 using NSpec;
+using SampleSpecs.Bug;
 
 namespace NSpecSpecs
 {
@@ -20,7 +21,8 @@ namespace NSpecSpecs
         TestCase(typeof(describe_batman_sound_effects_as_text_output)),
         TestCase(typeof(describe_class_level_output)),
         TestCase(typeof(given_the_sequence_continues_with_2_output)),
-        TestCase(typeof(describe_expected_exception_output))]
+        TestCase(typeof(describe_expected_exception_output)),
+        TestCase(typeof(describe_context_stack_trace_output))]
         public void output_verification(Type output)
         {
             var expectedOutput = output.GetField("Output").GetValue(output);
