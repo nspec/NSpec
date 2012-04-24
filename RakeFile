@@ -1,6 +1,5 @@
 require 'nokogiri'
 require 'cgi'
-require 'date'
 require 'zip/zipfilesystem'
 
 desc 'build'
@@ -140,16 +139,9 @@ task :samples, :spec do |t,args|
   sh "NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll #{spec}"
 end
 
-desc 'supply the current tutorial markup in index.html and generate a new index.html containing current source code and output'
+desc 'supply the current tutorial markup in source.html and generate new.html containing current source code and output'
 task :website => :spec do
-  `git checkout gh-pages`
-  `git pull origin gh-pages`
-  `git checkout master`
-  `git checkout gh-pages index.html`
-  if File.exists? 'index.html'
-
-    FileUtils.cp 'index.html', 'source.html'
-
+  if File.exists? 'source.html'
     @doc = Nokogiri::HTML.fragment(File.read 'source.html')
 
     Dir['SampleSpecs/WebSite/**/*.*'].each {|f| generate_html f}
@@ -164,19 +156,8 @@ task :website => :spec do
 
     File.open('new.html', 'w') {|f| f.write(@doc) } 
   else
-    puts 'you must download the current markup into index.html'
+    puts 'you must download the current markup into source.html'
   end
-
-  version = get_version_node.text
-
-  `git checkout gh-pages`
-
-  FileUtils.cp 'new.html', 'index.html'
-
-  `git add index.html`
-  `git commit -m "#{version} #{DateTime.now}`
-  #`git push`
-  #`git checkout master`
 end
 
 def generate_html file
