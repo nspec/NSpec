@@ -23,3 +23,4 @@ source.html
 *crunchsolution.cache*
 *.ncrunchproject
 *.ncrunchsolution
+Gemfile.lock
