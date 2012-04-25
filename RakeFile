@@ -175,8 +175,8 @@ task :website => :spec do
 
   `git add index.html`
   `git commit -m "#{version} #{DateTime.now}`
-  #`git push`
-  #`git checkout master`
+  `git push`
+  `git checkout master`
 end
 
 def generate_html file
