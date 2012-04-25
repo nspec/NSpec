@@ -1,21 +1,64 @@
-require 'nokogiri'
-require 'cgi'
-require 'date'
-require 'zip/zipfilesystem'
+begin
+  require 'nokogiri'
+  require 'cgi'
+  require 'date'
+  require 'zip/zipfilesystem'
+rescue LoadError
+  puts "looks like you don't have all the ruby libraries needed to build NSpec, make sure you have latest on https://github.com/mattflo/NSpec and you have run the command 'bundle install' (the bundler gem is required to run this command)"
+  puts ""
+  puts "If the 'bundle install' command fails, you have to install bundler first by running the command 'gem install bundler'"
+  puts ""
+  puts "If the 'gem install bundler' or 'bundle install' commands fails, it's probably because you are behind a firewall, setting the HTTP_PROXY system environment variable in the OS with your firewall proxy url will allow 'gem install bundler' and 'bundle install' to work"
+  exit
+end
+
+#############################################################################
+#
+# Standard tasks
+#
+#############################################################################
+desc 'default rake task builds and runs unit tests'
+task :default => [:build, :spec]
 
 desc 'build'
 task :build do
   sh 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe /verbosity:q NSpec.sln'
 end
 
-desc 'default rake task builds and runs unit tests'
-task :default => [:build, :spec]
-
 desc 'run specs'
 task :spec => :build do
   sh '"C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe" /nologo NSpecSpecs/bin/Debug/NSpecSpecs.dll'
 end
 
+desc 'run SampleSpecs with NSpecRunner. you can supply a single spec like so -> rake samples[spec_name]'
+task :samples, :spec do |t,args| 
+  spec = args[:spec] || ''
+
+  sh "NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll #{spec}"
+end
+
+desc 'supply commit message as parameter - rake all m="commit message" - version bump, nuget, zip and everything shall be done for you'
+task :all => [:pull,:version,:nuget,:commit,:website,:zip,:upload]
+
+desc 'run the sample describe_before'
+task :before do
+  sh "NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll describe_before"
+end
+
+desc 'run the sample describe_specfications'
+task :specifies do
+  sh "nspecrunner/bin/debug/nspecrunner.exe samplespecs/bin/debug/samplespecs.dll describe_specifications"
+end
+
+desc 'test failure exit code'
+task :failure => :specifies do
+  puts "YOU SHOULD NOT SEE THIS LINE"
+end
+#############################################################################
+#
+# GIT tasks
+#
+#############################################################################
 task :pull do
    result = `git pull`
 
@@ -30,8 +73,11 @@ task :commit => :pull do
   `git push --tags`
 end
 
-desc 'supply commit message as parameter - rake all m="commit message" - version bump, nuget, zip and everything shall be done for you'
-task :all => [:pull,:version,:nuget,:commit,:website,:zip,:upload]
+#############################################################################
+#
+# Packaging tasks
+#
+#############################################################################
 
 desc 'zip the upload'
 task :zip do
@@ -54,37 +100,6 @@ task :ilmerge do
   File.rename 'NSpec\bin\Debug\NSpec.dll','NSpec\bin\Debug\NSpec-partial.dll'
   sh 'ilmerge NSpec\bin\Debug\NSpec-partial.dll NSpec\bin\Debug\nunit.framework.dll /out:NSpec\bin\Debug\NSpec.dll /internalize' 
   File.delete'NSpec\bin\Debug\NSpec-partial.dll'
-end
-
-task :version => [:bump_version, :version_gallio_adapter] do
-  lines = ["[assembly: AssemblyVersion(\"#{get_version_node.text}\")]",
-           "[assembly: AssemblyFileVersion(\"#{get_version_node.text}\")]"]
-  update_version 'SharedAssemblyInfo.cs', lines
-end
-
-desc 'update GallioAdapter plugin version'
-task :version_gallio_adapter do
-  file = 'NSpec.GallioAdapter/NSpec.GallioAdapter.plugin'
-
-  version = get_version_node.text
-  if version.count('.') == 2
-    version = version + '.0'
-  end
-  
-  xml = Nokogiri::XML(File.read file)
-  
-  xml.root.xpath('//xmlns:assembly[@codeBase="NSpec.dll"]')[0].set_attribute('fullName', "NSpec, Version=#{version}, Culture=neutral, PublicKeyToken=null")
-  xml.root.xpath('//xmlns:assembly[@codeBase="NSpec.GallioAdapter.dll"]')[0].set_attribute('fullName', "NSpec.GallioAdapter, Version=#{version}, Culture=neutral, PublicKeyToken=null")
-
-  xml.root.xpath('//xmlns:version').each {|n| n.inner_html = version}
-  xml.root.xpath('//xmlns:component[@componentId="NSpec.TestFramework"]/xmlns:traits/xmlns:frameworkAssemblies')[0].inner_html = "NSpec, Version=#{version}"
-  File.open(file, 'w') {|f| f.write(xml.to_xml) }
-end
-
-def update_version file, version_lines
-  newlines =  (File.read file).split("\n")[0..-3] + version_lines
-
-  File.open(file, 'w') {|f| f.write(newlines.join("\n"))}
 end
 
 def create_zip_filename
@@ -127,17 +142,15 @@ def create_nuget_package
   sh 'nuget.exe pack nspec.nuspec'
 end
 
+#############################################################################
+#
+# Website tasks
+#
+#############################################################################
 def get_version_node
   xml = Nokogiri::XML(File.read 'nspec.nuspec')
   xml.root.default_namespace = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"
   xml.root.xpath('//xmlns:version')[0]
-end
-
-desc 'run SampleSpecs with NSpecRunner. you can supply a single spec like so -> rake samples[spec_name]'
-task :samples, :spec do |t,args| 
-  spec = args[:spec] || ''
-
-  sh "NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll #{spec}"
 end
 
 desc 'supply the current tutorial markup in index.html and generate a new index.html containing current source code and output'
@@ -231,17 +244,38 @@ def output_markup file
   out += '</pre>'
 end
 
-desc 'run the sample describe_before'
-task :before do
-  sh "NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll describe_before"
+#############################################################################
+#
+# Custom tasks (add your own tasks here)
+#
+#############################################################################
+task :version => [:bump_version, :version_gallio_adapter] do
+  lines = ["[assembly: AssemblyVersion(\"#{get_version_node.text}\")]",
+           "[assembly: AssemblyFileVersion(\"#{get_version_node.text}\")]"]
+  update_version 'SharedAssemblyInfo.cs', lines
 end
 
-desc 'run the sample describe_specfications'
-task :specifies do
-  sh "nspecrunner/bin/debug/nspecrunner.exe samplespecs/bin/debug/samplespecs.dll describe_specifications"
+desc 'update GallioAdapter plugin version'
+task :version_gallio_adapter do
+  file = 'NSpec.GallioAdapter/NSpec.GallioAdapter.plugin'
+
+  version = get_version_node.text
+  if version.count('.') == 2
+    version = version + '.0'
+  end
+  
+  xml = Nokogiri::XML(File.read file)
+  
+  xml.root.xpath('//xmlns:assembly[@codeBase="NSpec.dll"]')[0].set_attribute('fullName', "NSpec, Version=#{version}, Culture=neutral, PublicKeyToken=null")
+  xml.root.xpath('//xmlns:assembly[@codeBase="NSpec.GallioAdapter.dll"]')[0].set_attribute('fullName', "NSpec.GallioAdapter, Version=#{version}, Culture=neutral, PublicKeyToken=null")
+
+  xml.root.xpath('//xmlns:version').each {|n| n.inner_html = version}
+  xml.root.xpath('//xmlns:component[@componentId="NSpec.TestFramework"]/xmlns:traits/xmlns:frameworkAssemblies')[0].inner_html = "NSpec, Version=#{version}"
+  File.open(file, 'w') {|f| f.write(xml.to_xml) }
 end
 
-desc 'test failure exit code'
-task :failure => :specifies do
-  puts "YOU SHOULD NOT SEE THIS LINE"
+def update_version file, version_lines
+  newlines =  (File.read file).split("\n")[0..-3] + version_lines
+
+  File.open(file, 'w') {|f| f.write(newlines.join("\n"))}
 end
