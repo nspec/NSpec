@@ -5,9 +5,9 @@ namespace NSpecRunner
 {
     public class Wrapper : MarshalByRefObject
     {
-        public void Execute(RunnerInvocation invocation, Action<RunnerInvocation> action)
+        public int Execute(RunnerInvocation invocation, Func<RunnerInvocation, int> action)
         {
-            action(invocation);
+            return action(invocation);
         }
 
         public override object InitializeLifetimeService()

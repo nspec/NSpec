@@ -230,3 +230,18 @@ def output_markup file
   end
   out += '</pre>'
 end
+
+desc 'run the sample describe_before'
+task :before do
+  sh "NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll describe_before"
+end
+
+desc 'run the sample describe_specfications'
+task :specifies do
+  sh "nspecrunner/bin/debug/nspecrunner.exe samplespecs/bin/debug/samplespecs.dll describe_specifications"
+end
+
+desc 'test failure exit code'
+task :failure => :specifies do
+  puts "YOU SHOULD NOT SEE THIS LINE"
+end

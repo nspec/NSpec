@@ -8,6 +8,7 @@ namespace NSpecRunner
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             if (args.Length == 0)
@@ -41,12 +42,15 @@ namespace NSpecRunner
 
                 var domain = new NSpecDomain(specDLL + ".config");
 
-                domain.Run(invocation, i => i.Run(), specDLL);
+                var failures = domain.Run(invocation, i => i.Run().Failures().Count(), specDLL);
+
+                if (failures > 1) Environment.Exit(1);
             }
             catch (Exception e)
             {
                 //hopefully this is handled before here, but if not, this is better than crashing the runner
                 Console.WriteLine(e);
+                Environment.Exit(1);
             }
         }
 

@@ -17,7 +17,7 @@ namespace NSpecRunner
             this.config = config;
         }
 
-        public void Run(RunnerInvocation invocation, Action<RunnerInvocation> action, string dll)
+        public int Run(RunnerInvocation invocation, Func<RunnerInvocation, int> action, string dll)
         {
             this.dll = dll;
 
@@ -39,9 +39,11 @@ namespace NSpecRunner
 
             var wrapper = (Wrapper)domain.CreateInstanceAndUnwrap(assemblyName, typeName);
 
-            wrapper.Execute(invocation, action);
+            var failures = wrapper.Execute(invocation, action);
 
             AppDomain.Unload(domain);
+
+            return failures;
         }
 
         Assembly Resolve(object sender, ResolveEventArgs args)
