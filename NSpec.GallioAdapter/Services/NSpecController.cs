@@ -122,7 +122,7 @@ namespace NSpec.GallioAdapter.Services
                 return null;
 
             Gallio.Common.Diagnostics.ExceptionData inner = this.ConvertException(exception.InnerException);
-            return new Gallio.Common.Diagnostics.ExceptionData(exception.GetType().ToString(), exception.Message, exception.StackTrace, new PropertySet(), inner);
+            return new Gallio.Common.Diagnostics.ExceptionData(exception.GetType().ToString(), exception.Message, exception.StackTrace ?? "", new PropertySet(), inner);
         }
     }
 }
