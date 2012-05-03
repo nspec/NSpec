@@ -1,10 +1,11 @@
 using Gallio.Model;
+using Gallio.Model.Tree;
 using NSpec.Domain;
 using Reflector = Gallio.Common.Reflection.Reflector;
 
 namespace NSpec.GallioAdapter.Model
 {
-    public class NSpecExampleTest : NSpecTest
+    public class NSpecExampleTest : Test
     {
         readonly Example _example;
         public Example Example { get { return this._example; } }

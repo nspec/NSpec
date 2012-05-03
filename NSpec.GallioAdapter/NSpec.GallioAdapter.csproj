@@ -52,7 +52,6 @@
     <Compile Include="Model\NSpecAssemblyTest.cs" />
     <Compile Include="Model\NSpecContextTest.cs" />
     <Compile Include="Model\NSpecExampleTest.cs" />
-    <Compile Include="Model\NSpecTest.cs" />
     <Compile Include="Services\NSpecController.cs" />
     <Compile Include="Services\NSpecTestDriver.cs" />
     <Compile Include="Services\NSpecTestExplorer.cs" />

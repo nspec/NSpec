@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
 using Gallio.Common.Reflection;
 using Gallio.Model;
 using Gallio.Model.Helpers;
 using Gallio.Model.Tree;
 using NSpec.GallioAdapter.Model;
-using NSpec;
 using NSpec.Domain;
-using NSpec.Domain.Extensions;
-using Reflector = Gallio.Common.Reflection.Reflector;
 
 namespace NSpec.GallioAdapter.Services
 {
     class NSpecTestExplorer : TestExplorer
     {
+        public NSpecTestExplorer()
+        {
+            assemblyTests = new Dictionary<IAssemblyInfo, NSpecAssemblyTest>();
+        }
+
         protected override void ExploreImpl(IReflectionPolicy reflectionPolicy, ICodeElementInfo codeElement)
         {
             IAssemblyInfo assembly = ReflectionUtils.GetAssembly(codeElement);
@@ -98,7 +98,6 @@ namespace NSpec.GallioAdapter.Services
 
         private const string ASSEMBLY_DISPLAY_NAME = @"NSpec";
 
-        readonly Dictionary<IAssemblyInfo, NSpecAssemblyTest> assemblyTests =
-            new Dictionary<IAssemblyInfo, NSpecAssemblyTest>();
+        readonly Dictionary<IAssemblyInfo, NSpecAssemblyTest> assemblyTests;
     }
 }

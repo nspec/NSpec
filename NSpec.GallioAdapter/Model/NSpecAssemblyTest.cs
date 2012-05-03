@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
 using Gallio.Common.Reflection;
+using Gallio.Model.Tree;
 
 namespace NSpec.GallioAdapter.Model
 {
-    public class NSpecAssemblyTest : NSpecTest
+    public class NSpecAssemblyTest : Test
     {
         public string AssemblyFilePath
         {
@@ -15,8 +15,6 @@ namespace NSpec.GallioAdapter.Model
         {
             get { return _frameworkVersion; }
         }
-
-        //public IList<IAssemblyContext> AssemblyContexts { get; set; }
 
         public NSpecAssemblyTest( string name, ICodeElementInfo codeElement, Version frameworkVersion ) 
             : base( name, codeElement )
