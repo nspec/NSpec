@@ -39,8 +39,8 @@ describe context stack trace
 
 nspec. describe context stack trace. exception thrown in act. is true.
 Context Failure: Exception in act., Example Failure: Expected: True, But was: False
-   at SampleSpecs.Bug.describe_context_stack_trace.MethodThrowsExceptionAndShouldBeInStackTrace() in c:\Projects\NSpec\SampleSpecs\Bug\describe_context_stack_trace.cs:line 27
-   at SampleSpecs.Bug.describe_context_stack_trace.<exception_thrown_in_act>b__0() in c:\Projects\NSpec\SampleSpecs\Bug\describe_context_stack_trace.cs:line 17
+   at SampleSpecs.Bug.describe_context_stack_trace.MethodThrowsExceptionAndShouldBeInStackTrace() in C:\Projects\NSpec\SampleSpecs\Bug\describe_context_stack_trace.cs:line 27
+   at SampleSpecs.Bug.describe_context_stack_trace.<exception_thrown_in_act>b__0() in C:\Projects\NSpec\SampleSpecs\Bug\describe_context_stack_trace.cs:line 17
 
 1 Examples, 1 Failed, 0 Pending
 ";

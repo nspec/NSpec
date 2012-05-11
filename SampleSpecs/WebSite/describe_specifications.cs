@@ -43,23 +43,23 @@ describe specifications
 
 nspec. describe specifications. when creating specifications. true should be false.
 Expected: False, But was: True
-   at describe_specifications.<when_creating_specifications>b__0() in c:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 8
+   at describe_specifications.<when_creating_specifications>b__0() in C:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 8
 
 nspec. describe specifications. when creating specifications. enumerable should not contain 1.
 Expected: not collection containing 1, But was: < 1 >
-   at describe_specifications.<when_creating_specifications>b__3() in c:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 11
+   at describe_specifications.<when_creating_specifications>b__3() in C:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 11
 
 nspec. describe specifications. when creating specifications. 1 should be 2.
 Expected: 2, But was: 1
-   at describe_specifications.<when_creating_specifications>b__4() in c:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 12
+   at describe_specifications.<when_creating_specifications>b__4() in C:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 12
 
 nspec. describe specifications. when creating specifications. 1 should not be 1.
 Expected: not 1, But was: 1
-   at describe_specifications.<when_creating_specifications>b__6() in c:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 14
+   at describe_specifications.<when_creating_specifications>b__6() in C:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 14
 
 nspec. describe specifications. when creating specifications. some object should not be null.
 Expected: not null, But was: null
-   at describe_specifications.<when_creating_specifications>b__9() in c:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 17
+   at describe_specifications.<when_creating_specifications>b__9() in C:\Projects\NSpec\SampleSpecs\WebSite\describe_specifications.cs:line 17
 
 11 Examples, 5 Failed, 0 Pending
 ";
