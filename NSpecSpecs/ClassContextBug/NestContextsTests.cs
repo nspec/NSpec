@@ -16,8 +16,7 @@ namespace NSpecSpecs.ClassContextBug
 
             //initialize NSpec's specfinder
             var finder = new SpecFinder(
-                Assembly.GetExecutingAssembly().Location,
-                new Reflector(),
+                new Reflector(Assembly.GetExecutingAssembly().Location),
                 testClassYouWantToDebug);
 
             //initialize NSpec's builder

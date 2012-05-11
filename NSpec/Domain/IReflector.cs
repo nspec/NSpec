@@ -5,7 +5,14 @@ namespace NSpec.Domain
 {
     public class Reflector : IReflector
     {
-        public Type[] GetTypesFrom(string dll)
+        readonly string dll;
+
+        public Reflector(string dll)
+        {
+            this.dll = dll;
+        }
+
+        public Type[] GetTypesFrom()
         {
             return Assembly.LoadFrom(dll).GetTypes();
         }
@@ -18,7 +25,7 @@ namespace NSpec.Domain
 
     public interface IReflector
     {
-        Type[] GetTypesFrom(string dll);
+        Type[] GetTypesFrom();
         Type[] GetTypesFrom(Assembly assembly);
     }
 }

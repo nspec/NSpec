@@ -33,9 +33,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             reflector = MockRepository.GenerateMock<IReflector>();
 
-            reflector.Stub(r => r.GetTypesFrom("")).IgnoreArguments().Return(new[] { typeof(SpecClass) });
+            reflector.Stub(r => r.GetTypesFrom()).Return(new[] { typeof(SpecClass) });
 
-            var contextBuilder = new ContextBuilder(new SpecFinder("", reflector), new DefaultConventions());
+            var contextBuilder = new ContextBuilder(new SpecFinder(reflector), new DefaultConventions());
 
             classContext = contextBuilder.Contexts().First();
 

@@ -54,8 +54,8 @@ namespace NSpec.GallioAdapter.Services
 
             if (populateRecursively)
             {
-                Assembly resolvedAssembly = assembly.Resolve(false);
-                var finder = new SpecFinder(resolvedAssembly, new NSpec.Domain.Reflector());
+                var reflector = new NSpec.Domain.Reflector(assembly.Path);
+                var finder = new SpecFinder(reflector);
                 var builder = new ContextBuilder(finder, new DefaultConventions());
 
                 ContextCollection contexts = builder.Contexts();

@@ -8,7 +8,8 @@ namespace NSpec.Domain
     {
         public ContextCollection Run()
         {
-            var finder = new SpecFinder(this.dll, new Reflector());
+            var reflector = new Reflector(this.dll);
+            var finder = new SpecFinder(reflector);
 
             var builder = new ContextBuilder(finder, new Tags().Parse(Tags), new DefaultConventions());
 

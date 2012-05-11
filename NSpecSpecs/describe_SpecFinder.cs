@@ -48,7 +48,7 @@ namespace NSpecNUnit
         [Test]
         public void it_should_get_types_from_reflection()
         {
-            reflector.AssertWasCalled(r => r.GetTypesFrom(someDLL));
+            reflector.AssertWasCalled(r => r.GetTypesFrom());
         }
 
         [Test]
@@ -178,16 +178,16 @@ namespace NSpecNUnit
         {
             reflector = MockRepository.GenerateMock<IReflector>();
 
-            reflector.Stub(r => r.GetTypesFrom("")).IgnoreArguments().Return(types);
+            reflector.Stub(r => r.GetTypesFrom()).Return(types);
 
             someDLL = "an nspec project dll";
 
-            finder = new SpecFinder(someDLL, reflector);
+            finder = new SpecFinder(reflector);
         }
 
         protected void GivenFilter(string filter)
         {
-            finder = new SpecFinder(someDLL, reflector, filter);
+            finder = new SpecFinder(reflector, filter);
         }
         
         protected IEnumerable<Type> TheSpecClasses()

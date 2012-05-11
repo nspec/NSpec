@@ -54,11 +54,8 @@ namespace NSpec.Domain
             Types = types;
         }
 
-        public SpecFinder(string specDLL, IReflector reflector, string filter = "")
-            : this(reflector.GetTypesFrom(specDLL), filter) {}
-
-        public SpecFinder(Assembly assembly, IReflector reflector, string filter = "")
-            : this(reflector.GetTypesFrom(assembly), filter) {}
+        public SpecFinder(IReflector reflector, string filter = "")
+            : this(reflector.GetTypesFrom(), filter) {}
 
         string filter;
 
