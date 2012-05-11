@@ -25,3 +25,4 @@ source.html
 *.ncrunchsolution
 Gemfile.lock
 packages/*
+icarus.gallio
