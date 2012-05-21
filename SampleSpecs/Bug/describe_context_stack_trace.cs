@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using NSpec;
 
 namespace SampleSpecs.Bug
@@ -14,7 +12,7 @@ namespace SampleSpecs.Bug
         {
             act = () =>
             {
-                MethodThrowsExceptionAndShouldBeInStackTrace();
+                MethodThrowsExceptionAndShouldBeInStackTrace();//
 
                 isTrue = true;
             };
@@ -24,13 +22,13 @@ namespace SampleSpecs.Bug
 
         void MethodThrowsExceptionAndShouldBeInStackTrace()
         {
-            throw new InvalidOperationException("Exception in act.");
+            throw new InvalidOperationException("Exception in act.");//
         }
     }
 
     public static class describe_context_stack_trace_output
     {
-        public static string Output = @"
+        public static string Output = string.Format(@"
 describe context stack trace
   exception thrown in act
     is true - FAILED - Context Failure: Exception in act., Example Failure: Expected: True, But was: False
@@ -39,10 +37,10 @@ describe context stack trace
 
 nspec. describe context stack trace. exception thrown in act. is true.
 Context Failure: Exception in act., Example Failure: Expected: True, But was: False
-   at SampleSpecs.Bug.describe_context_stack_trace.MethodThrowsExceptionAndShouldBeInStackTrace() in C:\Projects\NSpec\SampleSpecs\Bug\describe_context_stack_trace.cs:line 27
-   at SampleSpecs.Bug.describe_context_stack_trace.<exception_thrown_in_act>b__0() in C:\Projects\NSpec\SampleSpecs\Bug\describe_context_stack_trace.cs:line 17
+   at SampleSpecs.Bug.describe_context_stack_trace.MethodThrowsExceptionAndShouldBeInStackTrace() in {0}\SampleSpecs\Bug\describe_context_stack_trace.cs:line 25
+   at SampleSpecs.Bug.describe_context_stack_trace.<exception_thrown_in_act>b__0() in {0}\SampleSpecs\Bug\describe_context_stack_trace.cs:line 15
 
 1 Examples, 1 Failed, 0 Pending
-";
+", Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory.Replace(@"NSpecSpecs\bin\Debug", string.Empty)).Replace("C:\\", "c:\\"));
     }
 }
