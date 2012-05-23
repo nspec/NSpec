@@ -36,7 +36,7 @@ namespace NSpecSpecs
         {
             var process = new Process();
 
-            var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase.Replace("file:///", "").Replace("/", @"\").Replace("C:\\", "c:\\"));
+            var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase.Replace("file:///", "").Replace("/", @"\"));
 
             var testDllPath = @"""" + currentPath + @"\..\..\..\SampleSpecs\bin\Debug\SampleSpecs.dll""";
 
@@ -60,7 +60,13 @@ namespace NSpecSpecs
 
             var output = process.StandardOutput.ReadToEnd();
 
-            return output;
+            return output.Replace("C:\\", "c:\\").RegexReplace("in .*SampleSpecs", "in SampleSpecs"); ;
+        }
+
+        [Test]
+        public void describe_regex_replace()
+        {
+            "in c:\\SampleSpecs".RegexReplace("in .*SampleSpecs","in SampleSpecs").Is("in SampleSpecs");
         }
     }
 }

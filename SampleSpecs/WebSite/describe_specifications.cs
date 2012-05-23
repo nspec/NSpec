@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using NSpec;
 
 class describe_specifications : nspec
@@ -26,7 +24,7 @@ class describe_specifications : nspec
 
 public static class describe_specifications_output
 {
-    public static string Output = string.Format(@"
+    public static string Output = @"
 describe specifications
   when creating specifications
     true should be false - FAILED - Expected: False, But was: True
@@ -45,25 +43,25 @@ describe specifications
 
 nspec. describe specifications. when creating specifications. true should be false.
 Expected: False, But was: True
-   at describe_specifications.<when_creating_specifications>b__0() in {0}\SampleSpecs\WebSite\describe_specifications.cs:line 10
+   at describe_specifications.<when_creating_specifications>b__0() in SampleSpecs\WebSite\describe_specifications.cs:line 8
 
 nspec. describe specifications. when creating specifications. enumerable should not contain 1.
 Expected: not collection containing 1, But was: < 1 >
-   at describe_specifications.<when_creating_specifications>b__3() in {0}\SampleSpecs\WebSite\describe_specifications.cs:line 13
+   at describe_specifications.<when_creating_specifications>b__3() in SampleSpecs\WebSite\describe_specifications.cs:line 11
 
 nspec. describe specifications. when creating specifications. 1 should be 2.
 Expected: 2, But was: 1
-   at describe_specifications.<when_creating_specifications>b__4() in {0}\SampleSpecs\WebSite\describe_specifications.cs:line 14
+   at describe_specifications.<when_creating_specifications>b__4() in SampleSpecs\WebSite\describe_specifications.cs:line 12
 
 nspec. describe specifications. when creating specifications. 1 should not be 1.
 Expected: not 1, But was: 1
-   at describe_specifications.<when_creating_specifications>b__6() in {0}\SampleSpecs\WebSite\describe_specifications.cs:line 16
+   at describe_specifications.<when_creating_specifications>b__6() in SampleSpecs\WebSite\describe_specifications.cs:line 14
 
 nspec. describe specifications. when creating specifications. some object should not be null.
 Expected: not null, But was: null
-   at describe_specifications.<when_creating_specifications>b__9() in {0}\SampleSpecs\WebSite\describe_specifications.cs:line 19
+   at describe_specifications.<when_creating_specifications>b__9() in SampleSpecs\WebSite\describe_specifications.cs:line 17
 
 11 Examples, 5 Failed, 0 Pending
-", Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory.Replace(@"NSpecSpecs\bin\Debug", string.Empty)).Replace("C:\\", "c:\\"));
+";
 
 }
