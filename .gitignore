@@ -10,7 +10,6 @@
 bin
 obj
 *.pdb
-*.exe
 *resharper*
 *_ReSharper*
 *.trx
