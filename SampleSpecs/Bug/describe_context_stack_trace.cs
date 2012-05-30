@@ -11,7 +11,7 @@ namespace SampleSpecs.Bug
         {
             act = () =>
             {
-                MethodThrowsExceptionAndShouldBeInStackTrace();//
+                MethodThrowsExceptionAndShouldBeInStackTrace();
 
                 isTrue = true;
             };
@@ -21,7 +21,7 @@ namespace SampleSpecs.Bug
 
         void MethodThrowsExceptionAndShouldBeInStackTrace()
         {
-            throw new InvalidOperationException("Exception in act.");//
+            throw new InvalidOperationException("Exception in act.");
         }
     }
 

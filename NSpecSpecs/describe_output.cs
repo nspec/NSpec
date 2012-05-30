@@ -60,7 +60,7 @@ namespace NSpecSpecs
 
             var output = process.StandardOutput.ReadToEnd();
 
-            return output.Replace("C:\\", "c:\\").RegexReplace("in .*SampleSpecs", "in SampleSpecs"); ;
+            return output.RegexReplace("in .*SampleSpecs", "in SampleSpecs"); ;
         }
 
         [Test]
