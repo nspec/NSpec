@@ -27,7 +27,7 @@ end
 
 desc 'run specs'
 task :spec => :build do
-  sh '"C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe" /nologo NSpecSpecs/bin/Debug/NSpecSpecs.dll'
+  sh '"libs\NUnit.Runners.2.6.0.12051\tools\nunit-console-x86.exe" /nologo NSpecSpecs/bin/Debug/NSpecSpecs.dll'
 end
 
 desc 'run SampleSpecs with NSpecRunner. you can supply a single spec like so -> rake samples[spec_name]'
