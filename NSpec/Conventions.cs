@@ -38,6 +38,16 @@ namespace NSpec.Domain
             After = regex;
         }
 
+        public void SetAfterAll(string startsWith)
+        {
+            SetAfterAll(new Regex("^" + startsWith));
+        }
+
+        public void SetAfterAll(Regex regex)
+        {
+            AfterAll = regex;
+        }
+
         public void SetExample(string startsWith)
         {
             SetExample(new Regex("^" + startsWith));
@@ -63,6 +73,8 @@ namespace NSpec.Domain
         public Regex Act { get; private set; }
 
         public Regex After { get; private set; }
+
+        public Regex AfterAll { get; private set; }
 
         public Regex Example { get; private set; }
 
@@ -95,6 +107,11 @@ namespace NSpec.Domain
             return GetMethodMatchingRegex(type, specification.After);
         }
 
+        public MethodInfo GetMethodLevelAfterAll(Type type)
+        {
+            return GetMethodMatchingRegex(type, specification.AfterAll);
+        }
+
         public bool IsMethodLevelExample(string name)
         {
             return specification.Example.IsMatch(name);
@@ -112,7 +129,7 @@ namespace NSpec.Domain
 
         public bool IsMethodLevelAfter(string name)
         {
-            return specification.After.IsMatch(name);
+            return specification.After.IsMatch(name) || specification.AfterAll.IsMatch(name);
         }
 
         public bool IsMethodLevelContext(string name)

@@ -18,14 +18,14 @@ namespace NSpecSpecs.describe_RunningSpecs
                 log = new List<string>();
             }
 
-            void after_all()
-            {
-                log.Add("METHOD LEVEL AFTER ALL");
-            }
-
             void after_each()
             {
                 log.Add("method level after each");
+            }
+
+            void after_All()
+            {
+                log.Add("METHOD LEVEL AFTER ALL");
             }
 
             void execution_of_context()

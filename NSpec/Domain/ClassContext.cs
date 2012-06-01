@@ -58,7 +58,10 @@ namespace NSpec.Domain
 
         void BuildMethodLevelAfter()
         {
-            var afters = GetMethodsFromHierarchy(conventions.GetMethodLevelAfter).Reverse().ToList();
+            var afters = GetMethodsFromHierarchy(conventions.GetMethodLevelAfter)
+                .Concat(GetMethodsFromHierarchy(conventions.GetMethodLevelAfterAll))
+                .ToList();
+
             if (afters.Count > 0)
             {
                 AfterInstance = instance => afters.Do(a => a.Invoke(instance, null));

@@ -13,6 +13,8 @@ namespace NSpec
 
             specification.SetAfter(RegexInsensitive("^after_each"));
 
+            specification.SetAfterAll(RegexInsensitive("^after_all"));
+
             specification.SetExample(RegexInsensitive("(^it_)|(^specify_)"));
 
             specification.SetContext(RegexInsensitive("_"));
