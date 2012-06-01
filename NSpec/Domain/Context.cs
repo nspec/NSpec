@@ -34,6 +34,8 @@ namespace NSpec.Domain
 
             AfterInstance.SafeInvoke(instance);
 
+            RunAfterAll();
+
             RecurseAncestors(c => c.RunAfters(instance));
         }
 
@@ -194,6 +196,11 @@ namespace NSpec.Domain
             BeforeAll.SafeInvoke();
 
             BeforeAll = null;
+        }
+
+        void RunAfterAll()
+        {
+            AfterAll.SafeInvoke();
         }
 
         void WriteAncestors(ILiveFormatter formatter)

@@ -26,6 +26,16 @@ namespace NSpecSpecs.describe_RunningSpecs
                 it["has test one"] = () => log.Add("test one executed");
 
                 it["has test two"] = () => log.Add("test two executed");
+
+                context["execution of tests three and four"] = () =>
+                {
+                    afterAll = () => log.Add("CONTEXT 2 LEVEL AFTER ALL");
+                    afterEach = () => log.Add("context 2 level after each");
+
+                    it["has test three"] = () => log.Add("test three executed");
+
+                    it["has test four"] = () => log.Add("test four executed");
+                };
             }
         }
 
@@ -44,6 +54,16 @@ namespace NSpecSpecs.describe_RunningSpecs
                     "context level after each",
                     "CONTEXT LEVEL AFTER ALL",
                     "test two executed",
+                    "context level after each",
+                    "CONTEXT LEVEL AFTER ALL",
+                    "test three executed",
+                    "context 2 level after each",
+                    "CONTEXT 2 LEVEL AFTER ALL",
+                    "context level after each",
+                    "CONTEXT LEVEL AFTER ALL",
+                    "test four executed",
+                    "context 2 level after each",
+                    "CONTEXT 2 LEVEL AFTER ALL",
                     "context level after each",
                     "CONTEXT LEVEL AFTER ALL"
                 });
