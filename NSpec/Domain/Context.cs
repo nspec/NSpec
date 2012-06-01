@@ -221,7 +221,7 @@ namespace NSpec.Domain
         public List<string> Tags;
         public List<Example> Examples;
         public ContextCollection Contexts;
-        public Action Before, Act, After, BeforeAll;
+        public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance;
         public Context Parent;
         public Exception Exception;

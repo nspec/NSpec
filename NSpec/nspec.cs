@@ -78,6 +78,31 @@ namespace NSpec
         }
 
         /// <summary>
+        /// This Action is an alias of after. This Action get executed after each example is run.
+        /// <para>For Example:</para>
+        /// <para>afterEach = () => someList = new List&lt;int&gt;();</para>
+        /// <para>The afterEach can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// </summary>
+        public virtual Action afterEach
+        {
+            get { return Context.After; }
+            set { Context.After = value; }
+        }
+
+
+        /// <summary>
+        /// This Action gets executed after all examples in a context.
+        /// <para>For Example:</para>
+        /// <para>afterAll = () => someList = new List&lt;int&gt;();</para>
+        /// <para>The afterAll can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// </summary>
+        public virtual Action afterAll
+        {
+            get { return Context.AfterAll; }
+            set { Context.AfterAll = value; }
+        }
+
+        /// <summary>
         /// Assign this member within your context.  The Action assigned will get executed
         /// with every example in scope.  Befores will run first, then acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-Assert for all subcontexts.  For more information visit http://www.nspec.org
         /// </summary>

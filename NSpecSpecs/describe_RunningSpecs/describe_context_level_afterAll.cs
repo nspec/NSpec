@@ -18,19 +18,11 @@ namespace NSpecSpecs.describe_RunningSpecs
                 log = new List<string>();
             }
 
-            void after_all()
-            {
-                log.Add("METHOD LEVEL AFTER ALL");
-            }
-
-            void after_each()
-            {
-                log.Add("method level after each");
-            }
-
             void execution_of_context()
             {
+                afterAll = () => log.Add("CONTEXT LEVEL AFTER ALL");
 
+                afterEach = () => log.Add("context level after each");
                 it["has test one"] = () => log.Add("test one executed");
 
                 it["has test two"] = () => log.Add("test two executed");
@@ -49,10 +41,11 @@ namespace NSpecSpecs.describe_RunningSpecs
             SpecClass.log.should_be(new[]
                 {
                     "test one executed",
-                    "method level after each",
+                    "context level after each",
+                    "CONTEXT LEVEL AFTER ALL",
                     "test two executed",
-                    "method level after each",
-                    "METHOD LEVEL AFTER ALL"
+                    "context level after each",
+                    "CONTEXT LEVEL AFTER ALL"
                 });
         }
     }
