@@ -18,6 +18,16 @@ namespace NSpecSpecs.describe_RunningSpecs
                 log = new List<string>();
             }
 
+            void after_all()
+            {
+                log.Add("METHOD LEVEL AFTER ALL");
+            }
+
+            void after_each()
+            {
+                log.Add("method level after each");
+            }
+
             void execution_of_context()
             {
                 afterAll = () => log.Add("CONTEXT LEVEL AFTER ALL");
@@ -53,19 +63,27 @@ namespace NSpecSpecs.describe_RunningSpecs
                     "test one executed",
                     "context level after each",
                     "CONTEXT LEVEL AFTER ALL",
+                    "method level after each",
+                    "METHOD LEVEL AFTER ALL",
                     "test two executed",
                     "context level after each",
                     "CONTEXT LEVEL AFTER ALL",
+                    "method level after each",
+                    "METHOD LEVEL AFTER ALL",
                     "test three executed",
                     "context 2 level after each",
                     "CONTEXT 2 LEVEL AFTER ALL",
                     "context level after each",
                     "CONTEXT LEVEL AFTER ALL",
+                    "method level after each",
+                    "METHOD LEVEL AFTER ALL",
                     "test four executed",
                     "context 2 level after each",
                     "CONTEXT 2 LEVEL AFTER ALL",
                     "context level after each",
-                    "CONTEXT LEVEL AFTER ALL"
+                    "CONTEXT LEVEL AFTER ALL",
+                    "method level after each",
+                    "METHOD LEVEL AFTER ALL"
                 });
         }
     }
