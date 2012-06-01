@@ -17,7 +17,7 @@ Other wise you can get started by the running the following commands:
     bundle install              (installs all required gems)
     rake                        (builds and runs unit tests)
     rake build                  (builds solution)
-    rake spec                  (runs NSpecSpecs test suite with NUnit)
+    rake spec                   (runs NSpecSpecs test suite with NUnit)
     rake samples [spec_name]    (runs spec_name in SampleSpecs with NSpecRunner)
 
 If you have Resharper 6.1 there is a team-shared settings file in the repository. Please use the settings to format any new code you write.
