@@ -16,6 +16,8 @@ namespace NSpec.Domain
 
             BuildMethodLevelAfter();
 
+            BuildMethodLevelAfterAll();
+
             var nspec = type.Instance<nspec>();
 
             nspec.tagsFilter = tagsFilter ?? new Tags();
@@ -58,13 +60,21 @@ namespace NSpec.Domain
 
         void BuildMethodLevelAfter()
         {
-            var afters = GetMethodsFromHierarchy(conventions.GetMethodLevelAfter).Reverse()
-                .Concat(GetMethodsFromHierarchy(conventions.GetMethodLevelAfterAll).Reverse())
-                .ToList();
+            var afters = GetMethodsFromHierarchy(conventions.GetMethodLevelAfter).Reverse().ToList();
 
             if (afters.Count > 0)
             {
                 AfterInstance = instance => afters.Do(a => a.Invoke(instance, null));
+            }
+        }
+
+        void BuildMethodLevelAfterAll()
+        {
+            var afterAlls = GetMethodsFromHierarchy(conventions.GetMethodLevelAfterAll).Reverse().ToList();
+
+            if (afterAlls.Count > 0)
+            {
+                AfterAllInstance = instance => afterAlls.Do(a => a.Invoke(instance, null));
             }
         }
 

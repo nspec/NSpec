@@ -34,9 +34,14 @@ namespace NSpec.Domain
 
             AfterInstance.SafeInvoke(instance);
 
-            RunAfterAll();
-
             RecurseAncestors(c => c.RunAfters(instance));
+        }
+
+        public void RunAfterAll(nspec instance)
+        {
+            AfterAll.SafeInvoke();
+
+            AfterAllInstance.SafeInvoke(instance);
         }
 
         public void AddExample(Example example)
@@ -82,10 +87,8 @@ namespace NSpec.Domain
 
             var nspec = savedInstance ?? instance;
 
-            for (int i = 0; i < Examples.Count; i++)
+            foreach (var example in Examples)
             {
-                var example = Examples[i];
-
                 if (failFast && example.Context.HasAnyFailures()) return;
 
                 Exercise(example, nspec);
@@ -100,6 +103,8 @@ namespace NSpec.Domain
             }
 
             Contexts.Do(c => c.Run(formatter, failFast, nspec));
+
+            RunAndHandleException(RunAfterAll, nspec, ref Exception);
         }
 
         public virtual void Build(nspec instance = null)
@@ -198,11 +203,6 @@ namespace NSpec.Domain
             BeforeAll = null;
         }
 
-        void RunAfterAll()
-        {
-            AfterAll.SafeInvoke();
-        }
-
         void WriteAncestors(ILiveFormatter formatter)
         {
             if (Parent == null) return;
@@ -229,7 +229,7 @@ namespace NSpec.Domain
         public List<Example> Examples;
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
-        public Action<nspec> BeforeInstance, ActInstance, AfterInstance;
+        public Action<nspec> BeforeInstance, ActInstance, AfterInstance, AfterAllInstance;
         public Context Parent;
         public Exception Exception;
 

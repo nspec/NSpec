@@ -36,15 +36,24 @@ namespace NSpecSpecs.describe_RunningSpecs
                 it["has test one"] = () => log.Add("test one executed");
 
                 it["has test two"] = () => log.Add("test two executed");
+            }
 
-                context["execution of tests three and four"] = () =>
+            void execution_of_context_2()
+            {
+                afterAll = () => log.Add("CONTEXT 2 LEVEL AFTER ALL");
+
+                it["has test three"] = () => log.Add("test three executed");
+
+                it["has test four"] = () => log.Add("test four executed");
+
+                context["execution of tests five and six"] = () =>
                 {
-                    afterAll = () => log.Add("CONTEXT 2 LEVEL AFTER ALL");
-                    afterEach = () => log.Add("context 2 level after each");
+                    afterAll = () => log.Add("CONTEXT 3 LEVEL AFTER ALL");
+                    afterEach = () => log.Add("context 3 level after each");
 
-                    it["has test three"] = () => log.Add("test three executed");
+                    it["has test five"] = () => log.Add("test five executed");
 
-                    it["has test four"] = () => log.Add("test four executed");
+                    it["has test six"] = () => log.Add("test six executed");
                 };
             }
         }
@@ -66,16 +75,19 @@ namespace NSpecSpecs.describe_RunningSpecs
                     "test two executed",
                     "context level after each",
                     "method level after each",
+                    "CONTEXT LEVEL AFTER ALL",
                     "test three executed",
-                    "context 2 level after each",
-                    "context level after each",
                     "method level after each",
                     "test four executed",
-                    "context 2 level after each",
-                    "context level after each",
                     "method level after each",
+                    "test five executed",
+                    "context 3 level after each",
+                    "method level after each",
+                    "test six executed",
+                    "context 3 level after each",
+                    "method level after each",
+                    "CONTEXT 3 LEVEL AFTER ALL",
                     "CONTEXT 2 LEVEL AFTER ALL",
-                    "CONTEXT LEVEL AFTER ALL",
                     "METHOD LEVEL AFTER ALL"
                 });
         }
