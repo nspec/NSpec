@@ -7,7 +7,8 @@ using NUnit.Framework;
 namespace NSpecSpecs.describe_RunningSpecs
 {
     [TestFixture]
-    class describe_context_level_afterAll : when_running_specs
+    [Category("RunningSpecs")]
+    public class describe_context_level_afterAll : when_running_specs
     {
         class SpecClass : nspec
         {

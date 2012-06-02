@@ -75,6 +75,7 @@
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
     <Compile Include="describe_RunningSpecs\describe_abstract_class_execution_order.cs" />
+    <Compile Include="describe_RunningSpecs\describe_class_level_afterAll.cs" />
     <Compile Include="describe_RunningSpecs\describe_class_level_before_for_abstract_class.cs" />
     <Compile Include="describe_RunningSpecs\describe_context_level_afterAll.cs" />
     <Compile Include="describe_RunningSpecs\describe_context_level_beforeAll.cs" />
