@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
@@ -15,11 +12,6 @@ namespace NSpecSpecs.describe_RunningSpecs
         class SpecClass : nspec
         {
             public static List<string> log;
-
-            static SpecClass()
-            {
-                log = new List<string>();
-            }
 
             void after_all()
             {
@@ -90,6 +82,8 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void after_alls_are_run_in_the_correct_order()
         {
+            SpecClass.log = new List<string>(); //required to make ncrunch happy, otherwise alternating failing tests
+
             Run(typeof(DerivedClass));
 
             SpecClass.log.should_be(new[]
