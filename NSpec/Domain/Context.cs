@@ -87,8 +87,10 @@ namespace NSpec.Domain
 
             var nspec = savedInstance ?? instance;
 
-            foreach (var example in Examples)
+            //intentionally using for loop to prevent collection was modified error in sample specs
+            for (int i = 0; i < Examples.Count; i++)
             {
+                var example = Examples[i];
                 if (failFast && example.Context.HasAnyFailures()) return;
 
                 Exercise(example, nspec);
