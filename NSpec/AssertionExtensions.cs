@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using FluentAssertions;
 using NSpec.Domain;
-using NUnit.Framework;
 
 namespace NSpec
 {
@@ -216,6 +216,140 @@ namespace NSpec
         {
             Assert.LessOrEqual(Math.Abs((actual - expected).Ticks), tolerance.Ticks,
                 string.Format("should be close to {0} ticks of {1} but was {2}", tolerance.Ticks, expected, actual));
+        }
+    }
+
+    public static class CollectionAssert
+    {
+        public static void Contains<T>(IEnumerable<T> collection, T o)
+        {
+            collection.Should().Contain(o);
+        }
+
+        public static void DoesNotContain<T>(IEnumerable<T> collection, T o)
+        {
+            collection.Should().NotContain(o);
+        }
+
+        public static void IsNotEmpty<T>(IEnumerable<T> collection)
+        {
+            collection.Should().NotBeEmpty();
+        }
+
+        public static void IsEmpty<T>(IEnumerable<T> collection)
+        {
+            collection.Should().BeEmpty();
+        }
+
+        public static void AreEqual<T>(T[] toArray, T[] objects)
+        {
+            toArray.Should().Equal(objects);
+        }
+    }
+
+    public static class StringAssert
+    {
+        public static void EndsWith(string end, string actual)
+        {
+            actual.Should().EndWith(end);
+        }
+
+        public static void StartsWith(string start, string actual)
+        {
+            actual.Should().StartWith(start);
+        }
+
+        public static void Contains(string expected, string actual)
+        {
+            actual.Should().Contain(expected);
+        }
+
+        public static void DoesNotMatch(string pattern, string value)
+        {
+            value.Should().NotMatch(pattern);
+        }
+    }
+
+    public static class Assert
+    {
+        public static void IsTrue(bool b)
+        {
+            b.Should().BeTrue();
+        }
+
+        public static void IsTrue(bool b, string parse)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void IsNotNull(object o)
+        {
+            o.Should().NotBeNull();
+        }
+
+        public static void AreNotEqual(object o, object o1)
+        {
+            o.Should().NotBe(o1);
+        }
+
+        public static void IsNotNullOrEmpty(string source)
+        {
+            source.Should().NotBeNullOrEmpty();
+        }
+
+        public static void IsFalse(bool actual)
+        {
+            actual.Should().BeFalse();
+        }
+
+        public static void AreEqual(object expected, object actual)
+        {
+            actual.Should().Be(expected);
+        }
+
+        public static void IsInstanceOf<T>(object value)
+        {
+            value.Should().BeOfType<T>();
+        }
+
+        public static void AreSame(object expected, object actual)
+        {
+            actual.Should().BeSameAs(expected);
+        }
+
+        public static void AreNotSame(object expected, object actual)
+        {
+            actual.Should().NotBeSameAs(expected);
+        }
+
+        public static void Greater(IComparable comparable, IComparable comparable1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void GreaterOrEqual(IComparable comparable, IComparable comparable1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void Less(IComparable comparable, IComparable comparable1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void LessOrEqual(IComparable comparable, IComparable comparable1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void LessOrEqual(float comparable, float comparable1, string format)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void LessOrEqual(double comparable, double comparable1, string format)
+        {
+            throw new NotImplementedException();
         }
     }
 }
