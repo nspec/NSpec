@@ -11,34 +11,34 @@ namespace NSpec
     {
         public static void should<T>(this T o, Expression<Predicate<T>> predicate)
         {
-            NSpecAssert.IsTrue(predicate.Compile()(o), Example.Parse(predicate.Body));
+            Assert.IsTrue(predicate.Compile()(o), Example.Parse(predicate.Body));
         }
 
         public static void should_not_be_null(this object o)
         {
-            NSpecAssert.IsNotNull(o);
+            Assert.IsNotNull(o);
         }
 
         public static void should_not_be_default<T>(this T t)
         {
-            NSpecAssert.AreNotEqual(default(T), t);
+            Assert.AreNotEqual(default(T), t);
         }
 
         public static void is_not_null_or_empty(this string source)
         {
-            NSpecAssert.IsNotNullOrEmpty(source);
+            Assert.IsNotNullOrEmpty(source);
         }
 
         public static void is_true(this bool actual) { actual.should_be_true(); }
         public static void should_be_true(this bool actual)
         {
-            NSpecAssert.IsTrue(actual);
+            Assert.IsTrue(actual);
         }
 
         public static void is_false(this bool actual) { actual.should_be_false(); }
         public static void should_be_false(this bool actual)
         {
-            NSpecAssert.IsFalse(actual);
+            Assert.IsFalse(actual);
         }
 
         public static void should_be(this object actual, object expected)
@@ -48,18 +48,18 @@ namespace NSpec
 
         public static void Is(this object actual, object expected)
         {
-            NSpecAssert.AreEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
         public static void should_not_be(this object actual, object expected)
         {
-            NSpecAssert.AreNotEqual(expected, actual);
+            Assert.AreNotEqual(expected, actual);
         }
 
         public static void should_be(this string actual, string expected)
         {
-            NSpecAssert.AreEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
         public static void should_end_with(this string actual, string end)
@@ -79,63 +79,63 @@ namespace NSpec
 
         public static IEnumerable<T> should_not_contain<T>(this IEnumerable<T> collection, Func<T, bool> predicate)
         {
-            NSpecAssert.IsTrue(!collection.Any(predicate), "collection contains an item it should not.".With(collection, predicate));
+            Assert.IsTrue(!collection.Any(predicate), "collection contains an item it should not.".With(collection, predicate));
 
             return collection;
         }
 
         public static IEnumerable<T> should_contain<T>(this IEnumerable<T> collection, Func<T, bool> predicate)
         {
-            NSpecAssert.IsTrue(collection.Any(predicate), "collection does not contain an item it should.".With(collection, predicate));
+            Assert.IsTrue(collection.Any(predicate), "collection does not contain an item it should.".With(collection, predicate));
 
             return collection;
         }
 
         public static IEnumerable<T> should_contain<T>(this IEnumerable<T> collection, T t)
         {
-            NSpecCollectionAssert.Contains(collection, t);
+            CollectionAssert.Contains(collection, t);
 
             return collection;
         }
 
         public static IEnumerable<T> should_not_contain<T>(this IEnumerable<T> collection, T t)
         {
-            NSpecCollectionAssert.DoesNotContain(collection, t);
+            CollectionAssert.DoesNotContain(collection, t);
 
             return collection;
         }
 
         public static IEnumerable<T> should_not_be_empty<T>(this IEnumerable<T> collection)
         {
-            NSpecCollectionAssert.IsNotEmpty(collection);
+            CollectionAssert.IsNotEmpty(collection);
 
             return collection;
         }
 
         public static IEnumerable<T> should_be_empty<T>(this IEnumerable<T> collection)
         {
-            NSpecCollectionAssert.IsEmpty(collection);
+            CollectionAssert.IsEmpty(collection);
 
             return collection;
         }
 
         public static IEnumerable<T> should_be<T>(this IEnumerable<T> actual, params T[] expected)
         {
-            NSpecCollectionAssert.AreEqual(expected.ToArray(), actual.ToArray());
+            CollectionAssert.AreEqual(expected.ToArray(), actual.ToArray());
 
             return actual;
         }
 
         public static IEnumerable<T> should_be<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
         {
-            NSpecCollectionAssert.AreEqual(expected.ToArray(), actual.ToArray());
+            CollectionAssert.AreEqual(expected.ToArray(), actual.ToArray());
 
             return actual;
         }
 
         public static T should_cast_to<T>(this object value)
         {
-            NSpecAssert.IsInstanceOf<T>(value);
+            Assert.IsInstanceOf<T>(value);
             return (T)value;
         }
 
@@ -146,38 +146,37 @@ namespace NSpec
 
         public static void should_be_same(this object actual, object expected)
         {
-            NSpecAssert.AreSame(expected, actual);
+            Assert.AreSame(expected, actual);
         }
 
         public static void should_not_be_same(this object actual, object expected)
         {
-            NSpecAssert.AreNotSame(expected, actual);
+            Assert.AreNotSame(expected, actual);
         }
 
-        public static void is_greater_than<T>(this IComparable<T> arg1, IComparable<T> arg2) { arg1.should_be_greater_than(arg2); }
-        public static void should_be_greater_than<T>(this IComparable<T> arg1, IComparable<T> arg2)
+        public static void is_greater_than(this IComparable arg1, IComparable arg2){ arg1.should_be_greater_than(arg2);}
+        public static void should_be_greater_than(this IComparable arg1, IComparable arg2)
         {
-            NSpecAssert.Greater(arg1, arg2);
+            Assert.Greater(arg1, arg2);
         }
 
-        public static void is_greater_or_equal_to<T>(this IComparable<T> arg1, IComparable<T> arg2) { arg1.should_be_greater_or_equal_to(arg2); }
-        public static void should_be_greater_or_equal_to<T>(this IComparable<T> arg1, IComparable<T> arg2)
+        public static void is_greater_or_equal_to(this IComparable arg1, IComparable arg2){ arg1.should_be_greater_or_equal_to(arg2);}
+        public static void should_be_greater_or_equal_to(this IComparable arg1, IComparable arg2)
         {
-            NSpecAssert.GreaterOrEqual(arg1, arg2);
+            Assert.GreaterOrEqual(arg1, arg2);
         }
 
-        public static void is_less_than<T>(this IComparable<T> arg1, IComparable<T> arg2) { arg1.should_be_less_than(arg2); }
-        public static void should_be_less_than<T>(this IComparable<T> arg1, IComparable<T> arg2)
+        public static void is_less_than(this IComparable arg1, IComparable arg2){ arg1.should_be_less_than(arg2);}
+        public static void should_be_less_than(this IComparable arg1, IComparable arg2)
         {
-            NSpecAssert.Less(arg1, arg2);
+            Assert.Less(arg1, arg2);
         }
 
-        public static void is_less_or_equal_to<T>(this IComparable<T> arg1, IComparable<T> arg2) { arg1.should_be_less_or_equal_to(arg2); }
-        public static void should_be_less_or_equal_to<T>(this IComparable<T> arg1, IComparable<T> arg2)
+        public static void is_less_or_equal_to(this IComparable arg1, IComparable arg2){ arg1.should_be_less_or_equal_to(arg2);}
+        public static void should_be_less_or_equal_to(this IComparable arg1, IComparable arg2)
         {
-            NSpecAssert.LessOrEqual(arg1, arg2);
+            Assert.LessOrEqual(arg1, arg2);
         }
-
 
         public static void is_close_to(this float actual, float expected){ actual.should_be_close_to(expected);}
         public static void should_be_close_to(this float actual, float expected)
@@ -188,14 +187,14 @@ namespace NSpec
         public static void is_close_to(this float actual, float expected, float tolerance){ actual.should_be_close_to(expected, tolerance);}
         public static void should_be_close_to(this float actual, float expected, float tolerance)
         {
-            NSpecAssert.LessOrEqual(Math.Abs(actual - expected), tolerance,
+            Assert.LessOrEqual(Math.Abs(actual - expected), tolerance,
                 string.Format("should be close to {0} of {1} but was {2} ", tolerance, expected, actual));
         }
 
         public static void is_close_to(this double actual, double expected, double tolerance) { actual.should_be_close_to(expected, tolerance); }
         public static void should_be_close_to(this double actual, double expected, double tolerance)
         {
-            NSpecAssert.LessOrEqual(Math.Abs(actual - expected), tolerance,
+            Assert.LessOrEqual(Math.Abs(actual - expected), tolerance,
                 string.Format("should be close to {0} of {1} but was {2}", tolerance, expected, actual));
         }
 
@@ -208,19 +207,19 @@ namespace NSpec
         public static void is_close_to(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance){ actual.should_be_close_to(expected, tolerance);}
         public static void should_be_close_to(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
         {
-            NSpecAssert.LessOrEqual(Math.Abs(actual.Ticks - expected.Ticks), tolerance.Ticks,
+            Assert.LessOrEqual(Math.Abs(actual.Ticks - expected.Ticks), tolerance.Ticks,
                 string.Format("should be close to {0} ticks of {1} but was {2}", tolerance, expected, actual));
         }
 
         public static void is_close_to(this DateTime actual, DateTime expected, DateTime tolerance) { actual.should_be_close_to(expected, tolerance);}
         public static void should_be_close_to(this DateTime actual, DateTime expected, DateTime tolerance)
         {
-            NSpecAssert.LessOrEqual(Math.Abs((actual - expected).Ticks), tolerance.Ticks,
+            Assert.LessOrEqual(Math.Abs((actual - expected).Ticks), tolerance.Ticks,
                 string.Format("should be close to {0} ticks of {1} but was {2}", tolerance.Ticks, expected, actual));
         }
     }
 
-    public static class NSpecCollectionAssert
+    public static class CollectionAssert
     {
         public static void Contains<T>(IEnumerable<T> collection, T o)
         {
@@ -271,7 +270,7 @@ namespace NSpec
         }
     }
 
-    public static class NSpecAssert
+    public static class Assert
     {
         public static void IsTrue(bool b)
         {
@@ -280,7 +279,7 @@ namespace NSpec
 
         public static void IsTrue(bool b, string parse)
         {
-            b.Should().BeTrue(parse);
+            throw new NotImplementedException();
         }
 
         public static void IsNotNull(object o)
@@ -323,34 +322,34 @@ namespace NSpec
             actual.Should().NotBeSameAs(expected);
         }
 
-        public static void Greater<T>(IComparable<T> comparable, IComparable<T> comparable1)
+        public static void Greater(IComparable comparable, IComparable comparable1)
         {
-            comparable.Should().BeGreaterThan(comparable1.As<T>());
+            throw new NotImplementedException();
         }
 
-        public static void GreaterOrEqual<T>(IComparable<T> comparable, IComparable<T> comparable1)
+        public static void GreaterOrEqual(IComparable comparable, IComparable comparable1)
         {
-            comparable.Should().BeGreaterOrEqualTo(comparable1.As<T>());
+            throw new NotImplementedException();
         }
 
-        public static void Less<T>(IComparable<T> comparable, IComparable<T> comparable1)
+        public static void Less(IComparable comparable, IComparable comparable1)
         {
-            comparable.Should().BeLessThan(comparable1.As<T>());
+            throw new NotImplementedException();
         }
 
-        public static void LessOrEqual<T>(IComparable<T> comparable, IComparable<T> comparable1)
+        public static void LessOrEqual(IComparable comparable, IComparable comparable1)
         {
-            comparable.Should().BeLessOrEqualTo(comparable1.As<T>());
+            throw new NotImplementedException();
         }
 
         public static void LessOrEqual(float comparable, float comparable1, string format)
         {
-            comparable.Should().BeLessOrEqualTo(comparable1,format);
+            throw new NotImplementedException();
         }
 
         public static void LessOrEqual(double comparable, double comparable1, string format)
         {
-            comparable.Should().BeLessOrEqualTo(comparable1,format);
+            throw new NotImplementedException();
         }
     }
 }

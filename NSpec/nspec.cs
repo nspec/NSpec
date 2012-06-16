@@ -104,7 +104,7 @@ namespace NSpec
 
         /// <summary>
         /// Assign this member within your context.  The Action assigned will get executed
-        /// with every example in scope.  Befores will run first, then acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-NSpecAssert for all subcontexts.  For more information visit http://www.nspec.org
+        /// with every example in scope.  Befores will run first, then acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-Assert for all subcontexts.  For more information visit http://www.nspec.org
         /// </summary>
         public virtual Action act
         {
