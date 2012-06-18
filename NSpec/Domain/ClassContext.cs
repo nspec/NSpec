@@ -12,6 +12,8 @@ namespace NSpec.Domain
         {
             BuildMethodLevelBefore();
 
+            BuildMethodLevelBeforeAll();
+
             BuildMethodLevelAct();
 
             BuildMethodLevelAfter();
@@ -46,6 +48,16 @@ namespace NSpec.Domain
             if (befores.Count > 0)
             {
                 BeforeInstance = instance => befores.Do(b => b.Invoke(instance, null));
+            }
+        }
+
+        void BuildMethodLevelBeforeAll()
+        {
+            var beforeAlls = GetMethodsFromHierarchy(conventions.GetMethodLevelBeforeAll).ToList();
+
+            if (beforeAlls.Count > 0)
+            {
+                BeforeAllInstance = instance => beforeAlls.Do(a => a.Invoke(instance, null));
             }
         }
 

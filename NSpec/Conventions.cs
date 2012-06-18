@@ -68,17 +68,12 @@ namespace NSpec.Domain
             Context = regex;
         }
 
-        public Regex Before { get; private set; }
+        public void SetBeforeAll(Regex regex)
+        {
+            BeforeAll = regex;
+        }
 
-        public Regex Act { get; private set; }
-
-        public Regex After { get; private set; }
-
-        public Regex AfterAll { get; private set; }
-
-        public Regex Example { get; private set; }
-
-        public Regex Context { get; private set; }
+        public Regex Before, BeforeAll, Act, After, AfterAll, Example, Context;
     }
 
     public abstract class Conventions
@@ -91,6 +86,11 @@ namespace NSpec.Domain
         }
 
         public abstract void SpecifyConventions(ConventionSpecification specification);
+
+        public MethodInfo GetMethodLevelBeforeAll(Type type)
+        {
+            return GetMethodMatchingRegex(type, specification.BeforeAll);
+        }
 
         public MethodInfo GetMethodLevelBefore(Type type)
         {
