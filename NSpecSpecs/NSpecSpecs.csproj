@@ -74,8 +74,10 @@
     <Compile Include="describe_cecil.cs" />
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
+    <Compile Include="describe_RunningSpecs\after_all\describe_after_all_abstract_middle_classes.cs" />
+    <Compile Include="describe_RunningSpecs\after_all\describe_after_all_derived_classes_.cs" />
     <Compile Include="describe_RunningSpecs\describe_abstract_class_execution_order.cs" />
-    <Compile Include="describe_RunningSpecs\describe_class_level_afterAll.cs" />
+    <Compile Include="describe_RunningSpecs\after_all\describe_after_all.cs" />
     <Compile Include="describe_RunningSpecs\describe_class_level_before_for_abstract_class.cs" />
     <Compile Include="describe_RunningSpecs\describe_context_level_afterAll.cs" />
     <Compile Include="describe_RunningSpecs\describe_context_level_beforeAll.cs" />

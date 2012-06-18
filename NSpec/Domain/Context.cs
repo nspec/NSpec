@@ -12,11 +12,18 @@ namespace NSpec.Domain
         {
             RecurseAncestors(c => c.RunBefores(instance));
 
-            RunBeforeAll();
-
             BeforeInstance.SafeInvoke(instance);
 
             Before.SafeInvoke();
+        }
+
+        void RunBeforeAll(nspec instance)
+        {
+            BeforeAll.SafeInvoke();
+
+            BeforeAll = null;
+
+            BeforeAllInstance.SafeInvoke(instance);
         }
 
         public void RunActs(nspec instance)
@@ -86,6 +93,8 @@ namespace NSpec.Domain
             if (failFast && Parent.HasAnyFailures()) return;
 
             var nspec = savedInstance ?? instance;
+
+            RunAndHandleException(RunBeforeAll, nspec, ref Exception);
 
             //intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
@@ -198,12 +207,6 @@ namespace NSpec.Domain
             if (Parent != null) ancestorAction(Parent);
         }
 
-        void RunBeforeAll()
-        {
-            BeforeAll.SafeInvoke();
-
-            BeforeAll = null;
-        }
 
         void WriteAncestors(ILiveFormatter formatter)
         {
@@ -231,7 +234,7 @@ namespace NSpec.Domain
         public List<Example> Examples;
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
-        public Action<nspec> BeforeInstance, ActInstance, AfterInstance, AfterAllInstance;
+        public Action<nspec> BeforeInstance, ActInstance, AfterInstance, AfterAllInstance, BeforeAllInstance;
         public Context Parent;
         public Exception Exception;
 

@@ -9,6 +9,8 @@ namespace NSpec
         {
             specification.SetBefore(RegexInsensitive("^before_each"));
 
+            specification.SetBeforeAll(RegexInsensitive("^before_all"));
+
             specification.SetAct(RegexInsensitive("^act_each"));
 
             specification.SetAfter(RegexInsensitive("^after_each"));
