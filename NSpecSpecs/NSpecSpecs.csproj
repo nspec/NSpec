@@ -75,7 +75,9 @@
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
     <Compile Include="describe_RunningSpecs\after_all\describe_after_all_abstract_middle_classes.cs" />
-    <Compile Include="describe_RunningSpecs\after_all\describe_after_all_derived_classes_.cs" />
+    <Compile Include="describe_RunningSpecs\after_all\describe_after_all_class_levels.cs" />
+    <Compile Include="describe_RunningSpecs\after_all\describe_after_all_derived_classes.cs" />
+    <Compile Include="describe_RunningSpecs\after_all\describe_the_ordering_of_eaches_and_alls_at_different_levels.cs" />
     <Compile Include="describe_RunningSpecs\describe_abstract_class_execution_order.cs" />
     <Compile Include="describe_RunningSpecs\after_all\describe_after_all.cs" />
     <Compile Include="describe_RunningSpecs\describe_class_level_before_for_abstract_class.cs" />

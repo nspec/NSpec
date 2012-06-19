@@ -1,42 +1,21 @@
-﻿using System.Collections.Generic;
-using NSpec;
+﻿using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
 namespace NSpecSpecs.describe_RunningSpecs.after_all
 {
-    class SpecClass : nspec
+    class SequenceSpec : nspec { public static string sequence; }
+
+    class SpecClass : SequenceSpec
     {
-        public static string sequence;
-
-        void before_all()
+        void as_long_as_the_world_has_not_come_to_an_end()
         {
-            sequence = "A";
-        }
-
-        void before_each()
-        {
-            sequence += "B";
-        }
-
-        void it_one_is_one()
-        {
-            1.Is(1);
-        }
-
-        void it_two_is_two()
-        {
-            1.Is(1);
-        }
-
-        void after_each()
-        {
-            sequence += "C";
-        }
-
-        void after_all()
-        {
-            sequence += "D";
+            beforeAll = () => sequence = "A";
+            before = () => sequence += "B";
+            specify = () => 1.Is(1);
+            specify = () => 2.Is(2); //two specs cause before_each and after_each to run twice
+            afterEach = () => sequence += "C";
+            afterAll = () => sequence += "D";
         }
     }
 
@@ -45,7 +24,7 @@ namespace NSpecSpecs.describe_RunningSpecs.after_all
     public class describe_after_all : when_running_specs
     {
         [Test]
-        public void after_alls_are_run_in_the_correct_order()
+        public void everything_runs_in_the_correct_order_and_with_the_correct_frequency()
         {
             Run(typeof(SpecClass));
 
@@ -69,6 +48,4 @@ namespace NSpecSpecs.describe_RunningSpecs.after_all
         }
 
     }
-
-    public class describe_after_all_class_levels{}
 }
