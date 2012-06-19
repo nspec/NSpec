@@ -6,7 +6,7 @@ namespace NSpecSpecs.describe_RunningSpecs.after_all
     {
         void after_all()
         {
-            log.Add("AbstractDerivedClass1 after_all");
+            sequence += "T";
         }
     }
 
@@ -18,7 +18,7 @@ namespace NSpecSpecs.describe_RunningSpecs.after_all
     {
         void after_all()
         {
-            log.Add("AbstractDerivedClass3 after_all");
+            sequence += "U";
         }
     }
 
@@ -26,12 +26,12 @@ namespace NSpecSpecs.describe_RunningSpecs.after_all
     {
         void after_all()
         {
-            log.Add("DerivedClass2 after_all");
+            sequence += "V";
         }
 
         void running_example()
         {
-            it["works"] = () => log.Add("DerivedClass2 running_example it works");
+            sequence += "X";
         }
     }
 
