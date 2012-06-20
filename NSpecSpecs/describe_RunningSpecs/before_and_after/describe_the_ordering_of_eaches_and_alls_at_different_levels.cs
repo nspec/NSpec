@@ -2,7 +2,7 @@ using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs.after_all
+namespace NSpecSpecs.describe_RunningSpecs.before_and_after
 {
     [TestFixture]
     [Category("RunningSpecs")]
@@ -26,7 +26,6 @@ namespace NSpecSpecs.describe_RunningSpecs.after_all
 
                 before = () => sequence += "D";
                 specify = () => 1.Is(1);
-                specify = () => 2.Is(2); //two specs cause before_each and after_each to run twice
                 after = () => sequence += "E";
 
                 afterAll = () => sequence += "G";

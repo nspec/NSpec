@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs.after_all
+namespace NSpecSpecs.describe_RunningSpecs.before_and_after
 {
     abstract class AbstractDerivedClass1 : DerivedClass
     {

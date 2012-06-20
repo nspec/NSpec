@@ -74,17 +74,17 @@
     <Compile Include="describe_cecil.cs" />
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
-    <Compile Include="describe_RunningSpecs\after_all\describe_after_all_abstract_middle_classes.cs" />
-    <Compile Include="describe_RunningSpecs\after_all\describe_after_all_class_levels.cs" />
-    <Compile Include="describe_RunningSpecs\after_all\describe_after_all_derived_classes.cs" />
-    <Compile Include="describe_RunningSpecs\after_all\describe_the_ordering_of_eaches_and_alls_at_different_levels.cs" />
+    <Compile Include="describe_RunningSpecs\before_and_after\describe_after_all_abstract_middle_classes.cs" />
+    <Compile Include="describe_RunningSpecs\before_and_after\describe_after_all_class_levels.cs" />
+    <Compile Include="describe_RunningSpecs\before_and_after\describe_after_all_derived_classes.cs" />
+    <Compile Include="describe_RunningSpecs\before_and_after\describe_the_ordering_of_eaches_and_alls_at_different_levels.cs" />
     <Compile Include="describe_RunningSpecs\describe_abstract_class_execution_order.cs" />
-    <Compile Include="describe_RunningSpecs\after_all\describe_after_all.cs" />
+    <Compile Include="describe_RunningSpecs\before_and_after\describe_after_all.cs" />
     <Compile Include="describe_RunningSpecs\describe_class_level_before_for_abstract_class.cs" />
-    <Compile Include="describe_RunningSpecs\describe_context_level_afterAll.cs" />
-    <Compile Include="describe_RunningSpecs\describe_context_level_beforeAll.cs" />
+    <Compile Include="describe_RunningSpecs\before_and_after\describe_context_level_afterAll.cs" />
+    <Compile Include="describe_RunningSpecs\before_and_after\describe_context_level_beforeAll.cs" />
     <Compile Include="describe_RunningSpecs\describe_fail_fast.cs" />
-    <Compile Include="describe_RunningSpecs\describe_Method_Invocation_Sequence.cs" />
+    <Compile Include="describe_RunningSpecs\before_and_after\describe_Method_Invocation_Sequence.cs" />
     <Compile Include="describe_RunningSpecs\describe_LiveFormatter_with_context_filter.cs" />
     <Compile Include="describe_RunningSpecs\describe_abstract_class_examples.cs" />
     <Compile Include="describe_RunningSpecs\describe_example.cs" />
@@ -134,6 +134,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

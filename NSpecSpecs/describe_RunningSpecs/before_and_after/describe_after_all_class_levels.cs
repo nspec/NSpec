@@ -2,7 +2,7 @@
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs.after_all
+namespace NSpecSpecs.describe_RunningSpecs.before_and_after
 {
     [TestFixture]
     [Category("RunningSpecs")]
@@ -22,12 +22,12 @@ namespace NSpecSpecs.describe_RunningSpecs.after_all
 
             void it_one_is_one()
             {
-                1.Is(1);
+                sequence += "1";
             }
 
             void it_two_is_two()
             {
-                2.Is(2); //two specs cause before_each and after_each to run twice
+                sequence += "2"; //two specs cause before_each and after_each to run twice
             }
 
             void after_each()
@@ -46,7 +46,7 @@ namespace NSpecSpecs.describe_RunningSpecs.after_all
         {
             Run(typeof(SpecClass));
 
-            SpecClass.sequence.Is("ABCBCD");
+            SpecClass.sequence.Is("AB1CB2CD");
         }
     }
 }

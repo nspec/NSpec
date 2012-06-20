@@ -5,14 +5,14 @@ using NSpec.Domain.Formatters;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs
+namespace NSpecSpecs.describe_RunningSpecs.before_and_after
 {
     [TestFixture]
     public class describe_Method_Invocation_Sequence : when_running_specs
     {
         class before_all_sampleSpec : nspec
         {
-            public List<string> sequence = new List<string>();
+            public static List<string> sequence = new List<string>();
 
             //these methods are purposely declared in a strange order. Read on for more detail
 
@@ -52,17 +52,11 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void it_runs_things_in_a_strange_order()
         {
-            SpecFinder finder = new SpecFinder(new[] { typeof(before_all_sampleSpec) });
+            before_all_sampleSpec.sequence = new List<string>();
 
-            var builder = new ContextBuilder(finder, new DefaultConventions());
+            Run(typeof (before_all_sampleSpec));
 
-            var runner = new ContextRunner(builder, new SilentLiveFormatter(), false);
-
-            contexts = runner.Run(builder.Contexts().Build());
-
-            var instance = contexts.Find("before all sampleSpec").GetInstance() as before_all_sampleSpec;
-
-            CollectionAssert.AreEqual(new[] { "messed_up_context", "before_all", "another_messed_up_context", "a_regular_context_method" }, instance.sequence);
+            CollectionAssert.AreEqual(new[] { "messed_up_context", "before_all", "another_messed_up_context", "a_regular_context_method" }, before_all_sampleSpec.sequence);
         }
 
     }
