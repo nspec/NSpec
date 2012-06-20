@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs
+namespace NSpecSpecs.describe_RunningSpecs.before_and_after
 {
     [TestFixture]
     [Category("RunningSpecs")]
@@ -62,6 +61,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void Setup()
         {
+            SpecClass.log = new List<string>();
             Run(typeof (SpecClass));
         }
 

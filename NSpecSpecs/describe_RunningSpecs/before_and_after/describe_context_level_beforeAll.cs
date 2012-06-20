@@ -3,7 +3,7 @@ using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs
+namespace NSpecSpecs.describe_RunningSpecs.before_and_after
 {
     [TestFixture]
     class describe_context_level_beforeAll : when_running_specs
@@ -49,6 +49,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
                     it["has test four"] = () => log.Add("test four executed");
                 };
+
             }
         }
 
@@ -64,16 +65,16 @@ namespace NSpecSpecs.describe_RunningSpecs
             SpecClass.log.should_be(new[] 
             { 
                 "METHOD LEVEL BEFORE ALL",
-                "method level before each",
                 "CONTEXT LEVEL BEFORE ALL",
+                "method level before each",
                 "context level before each",
                 "test one executed",
                 "method level before each",
                 "context level before each",
                 "test two executed",
+                "SUB CONTEXT LEVEL BEFORE ALL",
                 "method level before each",
                 "context level before each",
-                "SUB CONTEXT LEVEL BEFORE ALL",
                 "sub context level before each",
                 "test three executed",
                 "method level before each",
