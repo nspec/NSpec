@@ -1,20 +1,16 @@
 ﻿using System.Collections.Generic;
 using NSpec;
-using NSpec.Domain;
-using NSpec.Domain.Formatters;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs.before_and_after
+namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {
     [TestFixture]
-    public class describe_Method_Invocation_Sequence : when_running_specs
+    public class improperly_formed_context_methods : when_running_specs
     {
         class before_all_sampleSpec : nspec
         {
             public static List<string> sequence = new List<string>();
-
-            //these methods are purposely declared in a strange order. Read on for more detail
 
             void a_regular_context_method()
             {
@@ -41,12 +37,6 @@ namespace NSpecSpecs.describe_RunningSpecs.before_and_after
                 //notice, it would sort alphebectically before the before_all method
                 sequence.Add("another_messed_up_context");
             }
-
-            //The moral of the story is context methods that don't have their behavior wrapped 
-            //in lambdas (incorrectly so), run in the order that they are declared (disregarding alphabetical ordering).
-            //FYI, alphabetical ordering can easily be implemented in the 'Methods' extension method.
-            //Serindipitously, this means before_all's declared at the top, run as expected: before everything else.
-            //Since we only create instances once, it also means they only run once.
         }
 
         [Test]
@@ -56,7 +46,14 @@ namespace NSpecSpecs.describe_RunningSpecs.before_and_after
 
             Run(typeof (before_all_sampleSpec));
 
-            CollectionAssert.AreEqual(new[] { "messed_up_context", "before_all", "another_messed_up_context", "a_regular_context_method" }, before_all_sampleSpec.sequence);
+            //the two improperly crafted context methods are executed first in the order they were declared
+            //while nspec is building up its model of contexts and examples
+            //then the class level before and properly crafted spec (wrapped in lambda) is executed.
+
+            //The moral of the story is context methods that don't have their behavior wrapped 
+            //in lambdas (incorrectly so), run in the order that they are declared (disregarding alphabetical ordering).
+            //FYI, alphabetical ordering can easily be implemented in the 'Methods' extension method.
+            CollectionAssert.AreEqual(new[] { "messed_up_context", "another_messed_up_context", "before_all", "a_regular_context_method" }, before_all_sampleSpec.sequence);
         }
 
     }

@@ -2,13 +2,13 @@
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs.before_and_after
+namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class describe_class_level_after_all : when_running_specs
+    public class class_levels : when_running_specs
     {
-        class SpecClass : SequenceSpec
+        class SpecClass : sequence_spec
         {
             void before_all()
             {

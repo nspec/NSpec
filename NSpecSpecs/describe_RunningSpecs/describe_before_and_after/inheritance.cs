@@ -2,9 +2,9 @@
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs.before_and_after
+namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {
-    class BaseSpec : SequenceSpec
+    class BaseSpec : sequence_spec
     {
         void before_all()
         {
@@ -42,7 +42,7 @@ namespace NSpecSpecs.describe_RunningSpecs.before_and_after
     }
 
     [TestFixture]
-    public class describe_after_all_derived_classes : when_running_specs
+    public class inheritance : when_running_specs
     {
         [SetUp]
         public void setup()

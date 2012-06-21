@@ -2,13 +2,13 @@ using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs.before_and_after
+namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class describe_the_ordering_of_eaches_and_alls_at_different_levels : when_running_specs
+    public class class_levels_and_context_methods : when_running_specs
     {
-        class SpecClass : SequenceSpec
+        class SpecClass : sequence_spec
         {
             void before_all()
             {
@@ -20,7 +20,7 @@ namespace NSpecSpecs.describe_RunningSpecs.before_and_after
                 sequence += "C";
             }
 
-            void as_long_as_the_world_has_not_come_to_an_end()
+            void a_context()
             {
                 beforeAll = () => sequence += "B";
 
