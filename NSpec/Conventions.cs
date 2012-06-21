@@ -117,14 +117,9 @@ namespace NSpec.Domain
             return specification.Example.IsMatch(name);
         }
 
-        public bool IsMethodLevelBeforeAll(string name)
-        {
-            return specification.BeforeAll.IsMatch(name);
-        }
-
         public bool IsMethodLevelBefore(string name)
         {
-            return specification.Before.IsMatch(name);
+            return specification.Before.IsMatch(name) || specification.BeforeAll.IsMatch(name);
         }
 
         public bool IsMethodLevelAct(string name)
@@ -139,8 +134,6 @@ namespace NSpec.Domain
 
         public bool IsMethodLevelContext(string name)
         {
-            if (IsMethodLevelBeforeAll(name)) return false;
-
             if (IsMethodLevelBefore(name)) return false;
 
             if (IsMethodLevelAct(name)) return false;
