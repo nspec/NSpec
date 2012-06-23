@@ -65,7 +65,7 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Car.cs" />
     <Compile Include="Model\Account.cs" />
-    <Compile Include="WebSite\describe_batman_sound_effects_as_text.cs" />
+    <Compile Include="WebSite\describe_act.cs" />
     <Compile Include="WebSite\describe_class_level.cs" />
     <Compile Include="Demo\decribe_TicTacToeGame.cs" />
     <Compile Include="Demo\describe_car.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="Demo\describe_method_level_examples.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="WebSite\given_the_sequence_continues_with_2.cs" />
+    <Compile Include="WebSite\describe_inheritance.cs" />
     <Compile Include="Demo\describe_Math.cs" />
     <Compile Include="WebSite\describe_pending.cs" />
     <Compile Include="Demo\describe_PrimeFactors.cs" />
