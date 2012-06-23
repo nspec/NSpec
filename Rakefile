@@ -169,6 +169,7 @@ task :website => :spec do
   sh "git clean -xfd"
   sh "git checkout gh-pages"
   sh "git stash pop"
+  sh "git add -A"
   sh "git commit -m \"update website\""
 
 =begin
