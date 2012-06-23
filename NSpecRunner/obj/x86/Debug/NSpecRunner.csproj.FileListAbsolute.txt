@@ -1,0 +1,11 @@
+c:\Development\NSpec\NSpecRunner\bin\Debug\Domain\Formatters\Templates\TiddlyWiki_Template.html
+c:\Development\NSpec\NSpecRunner\bin\Debug\NSpecRunner.exe.config
+c:\Development\NSpec\NSpecRunner\bin\Debug\NSpecRunner.exe
+c:\Development\NSpec\NSpecRunner\bin\Debug\NSpecRunner.pdb
+c:\Development\NSpec\NSpecRunner\bin\Debug\NSpec.dll
+c:\Development\NSpec\NSpecRunner\bin\Debug\nunit.framework.dll
+c:\Development\NSpec\NSpecRunner\bin\Debug\NSpec.pdb
+c:\Development\NSpec\NSpecRunner\bin\Debug\nunit.framework.xml
+c:\Development\NSpec\NSpecRunner\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\Development\NSpec\NSpecRunner\obj\x86\Debug\NSpecRunner.exe
+c:\Development\NSpec\NSpecRunner\obj\x86\Debug\NSpecRunner.pdb

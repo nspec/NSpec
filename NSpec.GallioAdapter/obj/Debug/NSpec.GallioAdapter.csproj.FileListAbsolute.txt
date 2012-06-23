@@ -1,0 +1,12 @@
+c:\Development\NSpec\NSpec.GallioAdapter\bin\Debug\Domain\Formatters\Templates\TiddlyWiki_Template.html
+c:\Development\NSpec\NSpec.GallioAdapter\bin\Debug\NSpec.GallioAdapter.plugin
+c:\Development\NSpec\NSpec.GallioAdapter\bin\Debug\NSpec.GallioAdapter.dll
+c:\Development\NSpec\NSpec.GallioAdapter\bin\Debug\NSpec.GallioAdapter.pdb
+c:\Development\NSpec\NSpec.GallioAdapter\bin\Debug\Gallio.dll
+c:\Development\NSpec\NSpec.GallioAdapter\bin\Debug\NSpec.dll
+c:\Development\NSpec\NSpec.GallioAdapter\bin\Debug\nunit.framework.dll
+c:\Development\NSpec\NSpec.GallioAdapter\bin\Debug\NSpec.pdb
+c:\Development\NSpec\NSpec.GallioAdapter\bin\Debug\nunit.framework.xml
+c:\Development\NSpec\NSpec.GallioAdapter\obj\Debug\ResolveAssemblyReference.cache
+c:\Development\NSpec\NSpec.GallioAdapter\obj\Debug\NSpec.GallioAdapter.dll
+c:\Development\NSpec\NSpec.GallioAdapter\obj\Debug\NSpec.GallioAdapter.pdb

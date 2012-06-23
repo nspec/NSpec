@@ -1,0 +1,10 @@
+c:\Development\NSpec\NSpec\bin\Debug\Domain\Formatters\Templates\TiddlyWiki_Template.html
+c:\Development\NSpec\NSpec\bin\Debug\NSpec.dll
+c:\Development\NSpec\NSpec\bin\Debug\NSpec.pdb
+c:\Development\NSpec\NSpec\bin\Debug\nunit.framework.dll
+c:\Development\NSpec\NSpec\bin\Debug\nunit.mocks.dll
+c:\Development\NSpec\NSpec\bin\Debug\pnunit.framework.dll
+c:\Development\NSpec\NSpec\bin\Debug\nunit.framework.xml
+c:\Development\NSpec\NSpec\obj\Debug\ResolveAssemblyReference.cache
+c:\Development\NSpec\NSpec\obj\Debug\NSpec.dll
+c:\Development\NSpec\NSpec\obj\Debug\NSpec.pdb
