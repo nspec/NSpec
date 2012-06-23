@@ -236,7 +236,7 @@ def generate_html file
   file_name = "_includes/" + file_name + ".html"
   file_output = code_markup(file) + "\r\n" + output_markup(file) 
 
-  file_output = "<p><a name=\"#{title}\"></a></p> <div class=\"zone zone-sub-page-title\"> <h1>#{title}</h1> </div> <div id=\"layout-content\" class=\"group\" style=\"padding-top: 10px;\">" + 
+  file_output = "<p><a name=\"#{title}\"></a></p>\r\n<div class=\"zone zone-sub-page-title\">\r\n<h1>#{title}</h1>\r\n</div>\r\n<div id=\"layout-content\" class=\"group\" style=\"padding-top: 10px;\">" + 
     "\r\n" + 
     file_output + 
     "\r\n" + 
