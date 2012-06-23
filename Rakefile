@@ -173,7 +173,10 @@ task :website => :spec do
   sh "git clean -xfd"
   sh "git checkout gh-pages"
   sh "git clean -xfd"
-  sh "git stash pop"
+  begin
+    sh "git stash pop"
+  rescue
+  end
 
   files_to_comment.each do |f| 
     sh "git checkout --theirs #{f}"
