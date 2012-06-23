@@ -1,0 +1,29 @@
+<pre id="describe_class_level_code" data-timestamp="2012-06-23 16:16:18 -0500" class="brush: csharp;">﻿using NSpec;
+
+class describe_class_level : nspec
+{
+    //before, act, and it can also be declared at the class level like so
+    void before_each()
+    {
+        sequence = &quot;arrange, &quot;;
+    }
+    void act_each()
+    {
+        sequence += &quot;act&quot;;
+    }
+
+    //prefixing a method with &quot;it_&quot; or &quot;specify_&quot;
+    //will tell nspec to treat the method as an example
+    void specify_given_befores_and_acts_run_in_the_correct_sequence()
+    {
+        sequence.should_be(&quot;arrange, act&quot;);
+    }
+
+    string sequence;
+}
+</pre>
+<pre id="describe_class_level_output" data-timestamp="2012-06-23 16:16:18 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe class level
+  specify given befores and acts run in the correct sequence
+
+1 Examples, 0 Failed, 0 Pending
+</pre>

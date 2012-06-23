@@ -1,0 +1,62 @@
+<pre id="describe_specifications_code" data-timestamp="2012-06-23 16:16:19 -0500" class="brush: csharp;">using NSpec;
+
+class describe_specifications : nspec
+{
+    void when_creating_specifications()
+    {
+        //some of these specifications are meant to fail so you can see what the output looks like
+        it[&quot;true should be false&quot;] = () =&gt; true.should_be_false();
+        it[&quot;enumerable should be empty&quot;] = () =&gt; new int[] { }.should_be_empty();
+        it[&quot;enumerable should contain 1&quot;] = () =&gt; new[] { 1 }.should_contain(1);
+        it[&quot;enumerable should not contain 1&quot;] = () =&gt; new[] { 1 }.should_not_contain(1);
+        it[&quot;1 should be 2&quot;] = () =&gt; 1.should_be(2);
+        it[&quot;1 should be 1&quot;] = () =&gt; 1.should_be(1);
+        it[&quot;1 should not be 1&quot;] = () =&gt; 1.should_not_be(1);
+        it[&quot;1 should not be 2&quot;] = () =&gt; 1.should_not_be(2);
+        it[&quot;\&quot;\&quot; should not be null&quot;] = () =&gt; &quot;&quot;.should_not_be_null();
+        it[&quot;some object should not be null&quot;] = () =&gt; someObject.should_not_be_null();
+        //EXPERIMENTAL - specify only takes a lambda and does 
+        //its best to make a sentence out of the code. YMMV.
+        specify = ()=&gt; &quot;ninja&quot;.should_not_be(&quot;pirate&quot;);
+    }
+    object someObject = null;
+}
+</pre>
+<pre id="describe_specifications_output" data-timestamp="2012-06-23 16:16:19 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe specifications
+  when creating specifications
+    true should be false - FAILED - Expected: False, But was: True
+    enumerable should be empty
+    enumerable should contain 1
+    enumerable should not contain 1 - FAILED - Expected: not collection containing 1, But was:...
+    1 should be 2 - FAILED - Expected: 2, But was: 1
+    1 should be 1
+    1 should not be 1 - FAILED - Expected: not 1, But was: 1
+    1 should not be 2
+    &quot;&quot; should not be null
+    some object should not be null - FAILED - Expected: not null, But was: null
+    ninja should not be pirate
+
+**** FAILURES ****
+
+nspec. describe specifications. when creating specifications. true should be false.
+Expected: False, But was: True
+   at describe_specifications.&lt;when_creating_specifications&gt;b__0() in c:\Development\NSpec\Sam...
+
+nspec. describe specifications. when creating specifications. enumerable should not contain 1.
+Expected: not collection containing 1, But was: &lt; 1 &gt;
+   at describe_specifications.&lt;when_creating_specifications&gt;b__3() in c:\Development\NSpec\Sam...
+
+nspec. describe specifications. when creating specifications. 1 should be 2.
+Expected: 2, But was: 1
+   at describe_specifications.&lt;when_creating_specifications&gt;b__4() in c:\Development\NSpec\Sam...
+
+nspec. describe specifications. when creating specifications. 1 should not be 1.
+Expected: not 1, But was: 1
+   at describe_specifications.&lt;when_creating_specifications&gt;b__6() in c:\Development\NSpec\Sam...
+
+nspec. describe specifications. when creating specifications. some object should not be null.
+Expected: not null, But was: null
+   at describe_specifications.&lt;when_creating_specifications&gt;b__9() in c:\Development\NSpec\Sam...
+
+11 Examples, 5 Failed, 0 Pending
+</pre>
