@@ -159,8 +159,12 @@ task :website => :spec do
     `mkdir _includes`
   end
 
+  files_to_comment = Array.new
+
   Dir['SampleSpecs/WebSite/**/*.*'].each do |f| 
     file_name = generate_html f
+
+    files_to_comment << file_name
 
     sh "git add #{file_name}"
   end
@@ -169,9 +173,14 @@ task :website => :spec do
   sh "git clean -xfd"
   sh "git checkout gh-pages"
   sh "git clean -xfd"
-  #sh "git stash pop"
-  #sh "git add -A"
-  #sh "git commit -m \"update website\""
+  sh "git stash pop"
+
+  files_to_comment.each do |f| 
+    sh "git checkout --theirs #{f}"
+    sh "git add #{f}"
+  end
+
+  sh "git commit -m \"update website\""
 
 =begin
   `git checkout gh-pages`
