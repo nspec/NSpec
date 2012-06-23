@@ -163,8 +163,8 @@ task :website => :spec do
     generate_html f
   end
 
-  `git add -A`
-  `git stash`
+  sh "git add -A"
+  sh "git stash"
   #`git checkout gh-pages`
   #`git clean -xfd`
   #`git stash pop`
