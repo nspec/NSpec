@@ -155,6 +155,15 @@ end
 
 desc 'supply the current tutorial markup in index.html and generate a new index.html containing current source code and output'
 task :website => :spec do
+  if(!File.exists?("_includes")) 
+    `mkdir _includes`
+  end
+
+  Dir['SampleSpecs/WebSite/**/*.*'].each do |f| 
+    generate_html f
+  end
+
+=begin
   `git checkout gh-pages`
   `git pull origin gh-pages`
   `git checkout master`
@@ -163,9 +172,8 @@ task :website => :spec do
 
     FileUtils.cp 'index.html', 'source.html'
 
-    @doc = Nokogiri::HTML.fragment(File.read 'source.html')
+   @doc = Nokogiri::HTML.fragment(File.read 'source.html')
 
-    Dir['SampleSpecs/WebSite/**/*.*'].each {|f| generate_html f}
 
     t = Time.now
 
@@ -190,15 +198,22 @@ task :website => :spec do
   `git commit -m "#{version} #{DateTime.now}`
   `git push`
   `git checkout master`
+=end
 end
 
 def generate_html file
+  file_name = file.split('/').last.split('.').first.gsub /describe_/, ""
+  file_name = file_name + ".html"
+  file_output = code_markup(file) + "\r\n" + output_markup(file) 
+  File.open("_includes/" + file_name, 'w') { |f| f.write(file_output) }
+
+=begin
   node = @doc.at("\##{class_for(file)}_code")
 
   if node.nil?
     puts "can't find pre with id = #{class_for(file)}_code"
   else
-    node.add_next_sibling code_markup file 
+    node.add_next_sibling  
 
     node.remove
 
@@ -218,6 +233,7 @@ def generate_html file
 
     puts "pre with id = #{class_for(file)}_outputreplaced successfully"
   end
+=end
 end
 
 def class_for file
