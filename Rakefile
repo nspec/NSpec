@@ -185,6 +185,10 @@ task :website => :spec do
 
   sh "git commit -m \"update website\""
 
+  sh "git push origin gh-pages"
+
+  sh "git checkout master"
+
 =begin
   `git checkout gh-pages`
   `git pull origin gh-pages`
@@ -224,9 +228,20 @@ task :website => :spec do
 end
 
 def generate_html file
+  
   file_name = file.split('/').last.split('.').first.gsub /describe_/, ""
+
+  title = file_name.gsub /_/, " "
+
   file_name = "_includes/" + file_name + ".html"
   file_output = code_markup(file) + "\r\n" + output_markup(file) 
+
+  file_output = "<p><a name=\"#{title}\"></a></p> <div class=\"zone zone-sub-page-title\"> <h1>#{title}</h1> </div> <div id=\"layout-content\" class=\"group\" style=\"padding-top: 10px;\">" + 
+    "\r\n" + 
+    file_output + 
+    "\r\n" + 
+    "</div>"  
+
   File.open(file_name, 'w') { |f| f.write(file_output) }
 
   return file_name
