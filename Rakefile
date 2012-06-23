@@ -164,7 +164,7 @@ task :website => :spec do
   end
 
   `git add -A`
-  #`git stash`
+  `git stash`
   #`git checkout gh-pages`
   #`git clean -xfd`
   #`git stash pop`
