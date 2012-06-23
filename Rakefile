@@ -211,9 +211,9 @@ end
 
 def generate_html file
   file_name = file.split('/').last.split('.').first.gsub /describe_/, ""
-  file_name = file_name + ".html"
+  file_name = "_includes/" + file_name + ".html"
   file_output = code_markup(file) + "\r\n" + output_markup(file) 
-  File.open("_includes/" + file_name, 'w') { |f| f.write(file_output) }
+  File.open(file_name, 'w') { |f| f.write(file_output) }
 
   return file_name
 
