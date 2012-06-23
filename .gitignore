@@ -25,3 +25,4 @@ source.html
 Gemfile.lock
 packages/*
 icarus.gallio
+_site
