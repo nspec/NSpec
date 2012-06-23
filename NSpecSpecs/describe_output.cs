@@ -11,7 +11,7 @@ namespace NSpecSpecs
     [TestFixture]
     public class describe_output 
     {
-        [Test, 
+        [Test, Ignore, 
         TestCase(typeof(my_first_spec_output)),
         TestCase(typeof(describe_specifications_output)),
         TestCase(typeof(describe_before_output)),
