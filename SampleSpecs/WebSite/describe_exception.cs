@@ -1,7 +1,7 @@
 ﻿using System;
 using NSpec;
 
-class describe_expected_exception : nspec
+class describe_exception : nspec
 {
     void given_a_null_string()
     {
