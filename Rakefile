@@ -163,6 +163,12 @@ task :website => :spec do
     generate_html f
   end
 
+  `git add -A`
+  `git stash`
+  `git checkout gh-pages`
+  `git stash pop`
+  `git commit -m "update website"`
+
 =begin
   `git checkout gh-pages`
   `git pull origin gh-pages`
