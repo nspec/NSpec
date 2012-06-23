@@ -164,11 +164,11 @@ task :website => :spec do
   end
 
   `git add -A`
-  `git stash`
-  `git checkout gh-pages`
-  `git clean -xfd`
-  `git stash pop`
-  `git commit -m "update website"`
+  #`git stash`
+  #`git checkout gh-pages`
+  #`git clean -xfd`
+  #`git stash pop`
+  #`git commit -m "update website"`
 
 =begin
   `git checkout gh-pages`
