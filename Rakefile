@@ -160,10 +160,11 @@ task :website => :spec do
   end
 
   Dir['SampleSpecs/WebSite/**/*.*'].each do |f| 
-    generate_html f
+    file_name = generate_html f
+
+    sh "git add #{file_name}"
   end
 
-  sh "git add -A"
   sh "git stash"
   #`git checkout gh-pages`
   #`git clean -xfd`
@@ -213,6 +214,8 @@ def generate_html file
   file_name = file_name + ".html"
   file_output = code_markup(file) + "\r\n" + output_markup(file) 
   File.open("_includes/" + file_name, 'w') { |f| f.write(file_output) }
+
+  return file_name
 
 =begin
   node = @doc.at("\##{class_for(file)}_code")
