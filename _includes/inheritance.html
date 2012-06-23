@@ -1,0 +1,29 @@
+<pre id="describe_inheritance_code" data-timestamp="2012-06-23 17:04:56 -0500" class="brush: csharp;">﻿using NSpec;
+
+class given_the_sequence_continues_with_2 : given_the_sequence_starts_with_1
+{
+    void before_each()
+    {
+        sequence += &quot;2&quot;;
+    }
+    void given_the_sequence_continues_with_3()
+    {
+        before = () =&gt; sequence += &quot;3&quot;;
+
+        //the befores run in the order you would expect
+        it[&quot;sequence should be \&quot;123\&quot;&quot;] =
+            () =&gt; sequence.should_be(&quot;123&quot;);
+    }
+}
+
+class given_the_sequence_starts_with_1 : nspec
+{
+    void before_each()
+    {
+        sequence = &quot;1&quot;;
+    }
+    protected string sequence;
+}
+</pre>
+<pre id="describe_inheritance_output" data-timestamp="2012-06-23 17:04:56 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">0 Examples, 0 Failed, 0 Pending
+</pre>
