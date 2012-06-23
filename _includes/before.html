@@ -1,0 +1,22 @@
+<pre id="describe_before_code" data-timestamp="2012-06-23 15:08:43 -0500" class="brush: csharp;">using NSpec;
+
+class describe_before : nspec
+{
+    void they_run_before_each_example()
+    {
+        before = () =&gt; number = 1;
+        it[&quot;number should be 2&quot;] = () =&gt; (number = number + 1).should_be(2);
+        //even though it was incremented in the previous example
+        //the before runs again for each spec resetting it to 1
+        it[&quot;number should be 1&quot;] = () =&gt; number.should_be(1);
+    }
+    int number;
+}
+</pre>
+<pre id="describe_before_output" data-timestamp="2012-06-23 15:08:43 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe before
+  they run before each example
+    number should be 2
+    number should be 1
+
+2 Examples, 0 Failed, 0 Pending
+</pre>

@@ -1,0 +1,16 @@
+<pre id="my_first_spec_code" data-timestamp="2012-06-23 15:08:46 -0500" class="brush: csharp;">﻿using NSpec;
+
+class my_first_spec : nspec
+{
+    void given_the_world_has_not_come_to_an_end()
+    {
+        it[&quot;Hello World should be Hello World&quot;] = () =&gt; &quot;Hello World&quot;.should_be(&quot;Hello World&quot;);
+    }
+}
+</pre>
+<pre id="my_first_spec_output" data-timestamp="2012-06-23 15:08:46 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">my first spec
+  given the world has not come to an end
+    Hello World should be Hello World
+
+1 Examples, 0 Failed, 0 Pending
+</pre>
