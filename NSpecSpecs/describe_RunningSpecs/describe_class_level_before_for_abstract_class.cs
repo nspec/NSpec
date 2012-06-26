@@ -8,7 +8,7 @@ namespace NSpecSpecs.describe_RunningSpecs
     [TestFixture]
     class describe_class_level_before_for_abstract_class : when_running_specs
     {
-        class SpecClass : nspec
+        class BaseClass : nspec
         {
             protected List<int> ints;
             
@@ -27,7 +27,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             }
         }
 
-        abstract class AbstractClassInChain : SpecClass
+        abstract class DerivedClass1 : BaseClass
         {
             void before_each()
             {
@@ -42,12 +42,9 @@ namespace NSpecSpecs.describe_RunningSpecs
             }
         }
 
-        abstract class AnotherAbtractClassInChain : AbstractClassInChain
-        {
+        abstract class DerivedClass2 : DerivedClass1 {}
 
-        }
-
-        class ConcreteClassInheritingAbstractChain : AnotherAbtractClassInChain
+        class DerivedClass3 : DerivedClass2
         {
             void before_each()
             {
@@ -67,7 +64,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [SetUp]
         public void Setup()
         {
-            Run(typeof(ConcreteClassInheritingAbstractChain));
+            Run(typeof(DerivedClass3));
         }
 
         [Test]

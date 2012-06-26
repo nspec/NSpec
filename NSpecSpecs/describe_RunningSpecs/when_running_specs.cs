@@ -19,6 +19,8 @@ namespace NSpecSpecs.WhenRunningSpecs
 
         protected when_running_specs Run(params Type[] types)
         {
+            //if (types.Count() == 1) tags = types.First().Name;
+
             this.types = types;
 
             builder = new ContextBuilder(new SpecFinder(types), new Tags().Parse(tags), new DefaultConventions());

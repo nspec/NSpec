@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using NSpec;
+﻿using NSpec;
+using NSpecSpecs.describe_RunningSpecs.describe_before_and_after;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
@@ -9,88 +9,78 @@ namespace NSpecSpecs.describe_RunningSpecs
     [Category("RunningSpecs")]
     public class describe_class_level_after : when_running_specs
     {
-        class SpecClass : nspec
+        class BaseClass : sequence_spec
         {
-            public string ExecutionSequence = string.Empty;
-
             void after_each()
             {
-                ExecutionSequence += "B";
+                sequence += "B";
             }
         }
 
-        class DerivedClass : SpecClass
+        class DerivedClass1 : BaseClass
         {
             void after_each()
             {
-                ExecutionSequence += "A";
+                sequence += "A";
             }
 
             void running_example()
             {
-                it["works"] = () => ExecutionSequence.should_be_empty();
+                it["works"] = () => sequence += "1";
             }
         }
 
-        abstract class AbstractDerivedClass1 : DerivedClass
+        abstract class DerivedClass2 : DerivedClass1
         {
             void after_each()
             {
-                ExecutionSequence += "9";
+                sequence += "9";
             }
         }
 
-        abstract class AbstractDerivedClass2 : AbstractDerivedClass1
-        {
-        }
+        abstract class DerivedClass3 : DerivedClass2 {}
 
-        abstract class AbstractDerivedClass3 : AbstractDerivedClass2
+        abstract class DerivedClass4 : DerivedClass3
         {
             void after_each()
             {
-                ExecutionSequence += "8";
+                sequence += "8";
             }
         }
 
-        class DerivedClass2 : AbstractDerivedClass3
+        class DerivedClass5 : DerivedClass4
         {
             void after_each()
             {
-                ExecutionSequence += "7";
+                sequence += "7";
             }
 
             void running_example()
             {
-                it["works"] = () => ExecutionSequence.should_be_empty();
+                it["works"] = () => sequence += "2";
             }
         }
 
         [Test]
         public void afters_are_run_in_the_correct_order()
         {
-            Run(typeof(DerivedClass));
+            DerivedClass1.sequence = "";
 
-            var specInstance = classContext.GetInstance() as DerivedClass;
-
-            var executionSequence = specInstance.ExecutionSequence;
-
-            executionSequence.should_be("AB");
-
-            classContext.Failures().Count().should_be(0);
+            Run(typeof(DerivedClass1));
+            
+            DerivedClass1.sequence.Is("1AB");
         }
 
         [Test]
         public void afters_are_run_in_the_correct_order_when_abstract_middle_classes_are_present()
         {
-            Run(typeof(DerivedClass2));
+            DerivedClass5.sequence = "";
 
-            var specInstance = classContext.GetInstance() as DerivedClass2;
+            tags = typeof (DerivedClass5).Name;
 
-            var executionSequence = specInstance.ExecutionSequence;
+            Run(typeof(DerivedClass5));
 
-            executionSequence.should_be("789AB");
-
-            classContext.Failures().Count().should_be(0);
+            DerivedClass5.sequence.Is("2789AB");
         }
     }
 }
