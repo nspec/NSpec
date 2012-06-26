@@ -98,7 +98,6 @@
     <Compile Include="describe_RunningSpecs\describe_method_level_examples.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\describe_unexpected_exception_in_act.cs" />
     <Compile Include="describe_RunningSpecs\describe_xdescribe.cs" />
-    <Compile Include="describe_RunningSpecs\describe_class_level_before.cs" />
     <Compile Include="describe_RunningSpecs\describe_xcontext.cs" />
     <Compile Include="describe_DomainExtensions.cs" />
     <Compile Include="describe_RunningSpecs\describe_action_indexer_add_operator.cs" />
