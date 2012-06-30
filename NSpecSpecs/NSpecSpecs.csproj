@@ -74,6 +74,7 @@
     <Compile Include="describe_cecil.cs" />
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
+    <Compile Include="describe_RunningSpecs\describe_abstract_classes.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\nested_contexts.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\when_there_are_no_specs.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\middle_abstract_classes.cs" />
