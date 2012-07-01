@@ -171,6 +171,18 @@ task :website => :spec do
     FileUtils.copy(file_name, "../gh-pages/_includes")
   end
 
+  version_number = get_version_node.inner_html
+
+  file_name = "_includes/timestamp.html"
+
+  File.open(file_name, 'w') { |f| f.write("Sample code and output automatically executed against nspec version #{version_number} on #{Time.now}.") }
+
+  sh "git add #{file_name}"
+
+  FileUtils.copy(file_name, "../gh-pages/_includes")
+
+  files_to_comment << file_name
+
   sh "git commit -m \"updated website on master\""
 
   cd "../gh-pages"
