@@ -167,64 +167,23 @@ task :website => :spec do
     files_to_comment << file_name
 
     sh "git add #{file_name}"
+
+    FileUtils.copy(file_name, "../gh-pages/_includes")
   end
 
-  sh "git stash"
-  sh "git clean -xfd"
-  sh "git checkout gh-pages"
-  sh "git clean -xfd"
-  begin
-    sh "git stash pop"
-  rescue
-  end
+  sh "git commit -m \"updated website on master\""
+
+  cd "../gh-pages"
 
   files_to_comment.each do |f| 
-    sh "git checkout --theirs #{f}"
     sh "git add #{f}"
   end
 
-  sh "git commit -m \"update website\""
+  sh "git commit -m \"updated website\""
 
   sh "git push origin gh-pages"
 
-  sh "git checkout master"
-
-=begin
-  `git checkout gh-pages`
-  `git pull origin gh-pages`
-  `git checkout master`
-  `git checkout gh-pages index.html`
-  if File.exists? 'index.html'
-
-    FileUtils.cp 'index.html', 'source.html'
-
-   @doc = Nokogiri::HTML.fragment(File.read 'source.html')
-
-
-    t = Time.now
-
-    time = t.strftime("on %m/%d/%Y") + t.strftime(" at %I:%M%p")
-    
-    timestamp = "Sample code and output automatically executed against nspec version #{get_version_node.text} #{time} CST"
-
-    @doc.at('#timestamp').inner_html = timestamp
-
-    File.open('new.html', 'w') {|f| f.write(@doc) } 
-  else
-    puts 'you must download the current markup into index.html'
-  end
-
-  version = get_version_node.text
-
-  `git checkout gh-pages`
-
-  FileUtils.cp 'new.html', 'index.html'
-
-  `git add index.html`
-  `git commit -m "#{version} #{DateTime.now}`
-  `git push`
-  `git checkout master`
-=end
+  cd "../src"
 end
 
 def generate_html file
