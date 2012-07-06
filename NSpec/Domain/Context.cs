@@ -21,8 +21,6 @@ namespace NSpec.Domain
         {
             BeforeAll.SafeInvoke();
 
-            BeforeAll = null;
-
             BeforeAllInstance.SafeInvoke(instance);
         }
 

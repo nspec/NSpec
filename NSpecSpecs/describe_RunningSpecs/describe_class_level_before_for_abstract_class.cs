@@ -42,9 +42,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             }
         }
 
-        abstract class DerivedClass2 : DerivedClass1 {}
-
-        class DerivedClass3 : DerivedClass2
+        class DerivedClass3 : DerivedClass1
         {
             void before_each()
             {
