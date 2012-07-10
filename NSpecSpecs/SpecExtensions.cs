@@ -1,18 +1,19 @@
 using System.Text.RegularExpressions;
+using NSpec;
 using NSpec.Domain;
 
 namespace NSpecSpecs
 {
     public static class SpecExtensions
     {
-        public static bool should_have_passed(this Example example)
+        public static void should_have_passed(this Example example)
         {
-            return (example.HasRun && example.Exception == null);
+            (example.HasRun && example.Exception == null).is_true();
         }
 
-        public static bool should_have_failed(this Example example)
+        public static void should_have_failed(this Example example)
         {
-            return !example.should_have_passed();
+            (example.HasRun && example.Exception == null).is_false();
         }
 
         public static string RegexReplace(this string input, string pattern, string replace)

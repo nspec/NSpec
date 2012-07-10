@@ -83,7 +83,7 @@
     <Compile Include="describe_RunningSpecs\describe_before_and_after\class_levels_and_context_methods.cs" />
     <Compile Include="describe_RunningSpecs\describe_abstract_class_execution_order.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\before_and_after.cs" />
-    <Compile Include="describe_RunningSpecs\describe_class_level_before_for_abstract_class.cs" />
+    <Compile Include="describe_RunningSpecs\describe_examples_for_abstract_class.cs" />
     <Compile Include="describe_RunningSpecs\describe_fail_fast.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\improperly_formed_context_methods.cs" />
     <Compile Include="describe_RunningSpecs\describe_LiveFormatter_with_context_filter.cs" />
