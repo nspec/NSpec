@@ -74,10 +74,9 @@
     <Compile Include="describe_cecil.cs" />
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
-    <Compile Include="describe_RunningSpecs\describe_abstract_classes.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\abstract_class.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\nested_contexts.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\when_there_are_no_specs.cs" />
-    <Compile Include="describe_RunningSpecs\describe_before_and_after\middle_abstract_classes.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\class_levels.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\inheritance.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\class_levels_and_context_methods.cs" />
@@ -95,7 +94,7 @@
     <Compile Include="describe_RunningSpecs\describe_context_level_tagging.cs" />
     <Compile Include="describe_RunningSpecs\describe_example_level_tagging.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\describe_expected_exception_in_act.cs" />
-    <Compile Include="describe_RunningSpecs\describe_before_and_after\describe_middle_abstract.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\middle_abstract.cs" />
     <Compile Include="describe_RunningSpecs\describe_method_level_examples.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\describe_unexpected_exception_in_act.cs" />
     <Compile Include="describe_RunningSpecs\describe_xdescribe.cs" />
