@@ -1,14 +1,13 @@
 using NSpec;
-using NSpecSpecs.describe_RunningSpecs.describe_before_and_after;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
-namespace NSpecSpecs.describe_RunningSpecs
+namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {
     [TestFixture]
-    public class describe_abstract_classes : when_running_specs
+    public class abstract_class : when_running_specs
     {
-        abstract class AbstractClass : sequence_spec
+        abstract class Abstract : sequence_spec
         {
             void before_all()
             {
@@ -41,7 +40,7 @@ namespace NSpecSpecs.describe_RunningSpecs
                 sequence += "H";
             }
         }
-        class Concrete : AbstractClass {}
+        class Concrete : Abstract {}
 
         [Test]
         public void all_features_are_supported_from_abstract_classes_when_run_under_the_context_of_a_derived_concrete()

@@ -6,9 +6,9 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class describe_middle_abstract : when_running_specs
+    public class middle_abstract : when_running_specs
     {
-        class BaseClass : sequence_spec
+        class Base : sequence_spec
         {
             void before_all()
             {
@@ -20,7 +20,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
             }
         }
 
-        abstract class MiddleAbstractClass : BaseClass
+        abstract class Abstract : Base
         {
             void before_all()
             {
@@ -39,7 +39,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 sequence += "E";
             }
         }
-        class ConcreteClass : MiddleAbstractClass
+        class Concrete : Abstract
         {
             void it_one_is_one()
             {
@@ -50,23 +50,23 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         [SetUp]
         public void setup()
         {
-            ConcreteClass.sequence = "";
+            Concrete.sequence = "";
         }
 
         [Test]
         public void befores_are_run_from_middle_abstract_classes()
         {
-            Run(typeof(ConcreteClass));
+            Run(typeof(Concrete));
 
-            ConcreteClass.sequence.should_start_with("ABC");
+            Concrete.sequence.should_start_with("ABC");
         }
 
         [Test]
         public void afters_are_run_from_middle_abstract_classes()
         {
-            Run(typeof(ConcreteClass));
+            Run(typeof(Concrete));
 
-            ConcreteClass.sequence.should_end_with("DEF");
+            Concrete.sequence.should_end_with("DEF");
         }
     }
 }
