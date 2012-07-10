@@ -51,7 +51,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         public void abstracts_should_not_be_added_as_class_contexts()
         {
             var allClassContexts =
-                contextCollection[0].AllContexts().Where(c => c.GetType() == typeof(ClassContext)).ToList();
+                contextCollection[0].AllContexts().Where(c => c is ClassContext).ToList();
 
             allClassContexts.should_contain(c => c.Name == "ConcreteClass");
 
@@ -60,12 +60,14 @@ namespace NSpecSpecs.describe_RunningSpecs
             allClassContexts.should_not_contain(c => c.Name == "AnotherAbstractClassInChain");
         }
 
+        //TODO: specify that concrete classes must have an example of their own or they won't host 
+        //abstract superclass's examples or do away with abstract classes altogether .
+        //I'm not sure this complexity is warranted.
+
         [Test]
-        public void examples_of_abtract_classes_are_included_in_concrete_class()
+        public void examples_of_abtract_classes_are_included_in_the_first_derived_concrete_class()
         {
             TheContext("ConcreteClass").Examples.Count().should_be(3);
-
-            TheExample("specify an example").should_have_passed();
 
             TheExample("specify an example in abstract class").should_have_passed();
 
@@ -73,11 +75,9 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        public void derived_concrete_class_does_not_contain_the_examples_from_the_abtract_class()
+        public void subsequent_derived_concrete_class_do_not_contain_the_examples_from_the_abtract_class()
         {
             TheContext("DerivedConcreteClass").Examples.Count().should_be(1);
-
-            TheExample("specify an example in derived concrete class").should_have_passed();
         }
     }
 }
