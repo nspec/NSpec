@@ -108,7 +108,7 @@ end
 
 desc 'upload the zip'
 task :upload do
-  sh "upload.bat #{create_zip_filename}"
+  sh "gg #{create_zip_filename}"
 end
 
 desc 'Increments version number.'
@@ -139,7 +139,7 @@ task :nuget_pack do
 end
 
 def create_nuget_package
-  sh 'nuget.exe pack nspec.nuspec'
+  sh '.nuget\nuget.exe pack nspec.nuspec'
 end
 
 #############################################################################
