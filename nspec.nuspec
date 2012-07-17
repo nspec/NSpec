@@ -14,8 +14,8 @@
     <tags>testing bdd tdd</tags>
   </metadata>
   <files>
-    <file src="NSpecRunner/bin/Debug/*.*" target="tools/"/>
-    <file src="NSpec/bin/debug/NSpec.dll" target="lib/NSpec.dll"/>
-    <file src="NSpecSpecs/DebuggerShim.cs" target="content/DebuggerShim.cs"/>
+    <file src="NSpecRunner\bin\Debug\*.*" target="tools/"/>
+    <file src="NSpec\bin\Debug\NSpec.dll" target="lib\NSpec.dll"/>
+    <file src="NSpecSpecs\DebuggerShim.cs" target="content\DebuggerShim.cs"/>
   </files>
 </package>
