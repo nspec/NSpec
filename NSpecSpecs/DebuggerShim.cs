@@ -3,6 +3,22 @@ using System.Reflection;
 using NSpec;
 using NSpec.Domain;
 
+/*
+ * Howdy,
+ * 
+ * This is NSpec's DebuggerShim.  It will allow you to use TestDriven.Net or Resharper's test runner to run
+ * NSpec tests.  
+ * 
+ * It's DEFINITELY worth trying specwatchr (http://nspec.org/continuoustesting). Specwatchr automatically
+ * runs tests for you.
+ * 
+ * If you ever want to debug a test when using Specwatchr, simply put the following line in your test:
+ * 
+ *     System.Diagnostics.Debugger.Launch()
+ *     
+ * Visual Studio will detect this and will give you a window which you can use to attach a debugger.
+ */
+
 //[TestFixture]
 public class DebuggerShim
 {
