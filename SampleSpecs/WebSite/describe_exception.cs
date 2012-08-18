@@ -11,10 +11,10 @@ class describe_exception : nspec
     string nullString = null;
 }
 
-public static class describe_expected_exception_output
+public static class describe_exception_output
 {
     public static string Output = @"
-describe expected exception
+describe exception
   given a null string
     should throw null-ref
 

@@ -11,7 +11,7 @@ namespace NSpecSpecs
     [TestFixture]
     public class describe_output 
     {
-        [Test, Ignore, 
+        [Test,
         TestCase(typeof(my_first_spec_output)),
         TestCase(typeof(describe_specifications_output)),
         TestCase(typeof(describe_before_output)),
@@ -21,7 +21,7 @@ namespace NSpecSpecs
         TestCase(typeof(describe_batman_sound_effects_as_text_output)),
         TestCase(typeof(describe_class_level_output)),
         TestCase(typeof(given_the_sequence_continues_with_2_output)),
-        TestCase(typeof(describe_expected_exception_output)),
+        TestCase(typeof(describe_exception_output)),
         TestCase(typeof(describe_context_stack_trace_output))]
         public void output_verification(Type output)
         {
@@ -60,7 +60,7 @@ namespace NSpecSpecs
 
             var output = process.StandardOutput.ReadToEnd();
 
-            return output.RegexReplace("in .*SampleSpecs", "in SampleSpecs").Replace("\r","");
+            return output.RegexReplace("in .*SampleSpecs", "in SampleSpecs");
         }
 
         [Test]
