@@ -32,10 +32,13 @@ namespace NSpec.Domain
 
             tagAttributes.Add(new TagAttribute(type.Name));
 
+            type.GetAbstractBaseClassChainWithClass()
+                .Where(s => s != type)
+                .Each(s => tagAttributes.Add(new TagAttribute(s.Name)));
+
             var tags = TagStringFor(tagAttributes);
 
             var context = new ClassContext(type, conventions, tagsFilter, tags);
-
 
             return context;
         }
@@ -100,10 +103,10 @@ namespace NSpec.Domain
         }
 
         public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
-            : this(finder, new DefaultConventions()) {}
+            : this(finder, new DefaultConventions()) { }
 
         public ContextBuilder(ISpecFinder finder, Conventions conventions)
-            : this(finder, new Tags(), conventions) {}
+            : this(finder, new Tags(), conventions) { }
 
         public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
         {

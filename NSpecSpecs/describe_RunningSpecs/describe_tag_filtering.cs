@@ -17,6 +17,22 @@ namespace NSpecSpecs.WhenRunningSpecs
             }
         }
 
+        abstract class SpecClassBase : nspec
+        {
+            void specify_empty_example()
+            {
+                
+            }
+        }
+
+        class SpecClassDerived : SpecClassBase
+        {
+            void specify_another_empty_example()
+            {
+                
+            }
+        }
+
         [Tag("class-tag")]
         class SpecClass : nspec
         {
@@ -74,6 +90,16 @@ namespace NSpecSpecs.WhenRunningSpecs
                     it["should yet also run and be in output"] = () => true.should_be_true();
                 };
             }
+        }
+
+        [Test]
+        public void abstracted_classes_are_automatcially_included_in_class_tags()
+        {
+            Run(typeof(SpecClassDerived));
+
+            classContext.Tags.should_contain("SpecClassBase");
+
+            classContext.Tags.should_contain("SpecClassDerived");
         }
 
         [Test]

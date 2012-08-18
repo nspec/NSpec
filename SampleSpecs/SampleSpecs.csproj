@@ -63,12 +63,10 @@
     <Compile Include="Model\VendingMachine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="Model\Car.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="WebSite\describe_act.cs" />
     <Compile Include="WebSite\describe_class_level.cs" />
     <Compile Include="Demo\decribe_TicTacToeGame.cs" />
-    <Compile Include="Demo\describe_car.cs" />
     <Compile Include="WebSite\describe_exception.cs" />
     <Compile Include="WebSite\describe_helpers.cs" />
     <Compile Include="Demo\describe_method_level_examples.cs">
@@ -78,6 +76,7 @@
     <Compile Include="Demo\describe_Math.cs" />
     <Compile Include="WebSite\describe_pending.cs" />
     <Compile Include="Demo\describe_PrimeFactors.cs" />
+    <Compile Include="WebSite\describe_shared_behavior.cs" />
     <Compile Include="WebSite\describe_specifications.cs" />
     <Compile Include="Demo\multiple_befores.cs" />
     <Compile Include="Demo\describe_VendingMachine.cs" />
