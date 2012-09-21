@@ -14,13 +14,11 @@
     <file path="NSpec.GallioAdapter.plugin"/>
     <file path="NSpec.GallioAdapter.dll"/>
     <file path="NSpec.dll"/>
-    <file path="nunit.framework.dll"/>
   </files>
 
   <assemblies>
     <assembly fullName="NSpec.GallioAdapter, Version=0.9.62.0, Culture=neutral, PublicKeyToken=null" codeBase="NSpec.GallioAdapter.dll" qualifyPartialName="true"/>
     <assembly fullName="NSpec, Version=0.9.62.0, Culture=neutral, PublicKeyToken=null" codeBase="NSpec.dll"/>    
-    <assembly fullName="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" codeBase="nunit.framework.dll"/>
   </assemblies>
   
   <components>
