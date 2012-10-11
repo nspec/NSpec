@@ -74,7 +74,7 @@
     <Compile Include="Domain\RunnerInvocation.cs" />
     <Compile Include="Domain\Tags.cs" />
     <Compile Include="Each.cs" />
-    <Compile Include="Domain\ActionIndexer.cs" />
+    <Compile Include="Domain\ActionRegister.cs" />
     <Compile Include="nspec.cs" />
     <Compile Include="Domain\Context.cs" />
     <Compile Include="Domain\Example.cs" />
