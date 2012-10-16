@@ -109,6 +109,8 @@ namespace NSpec
         [DebuggerNonUserCode]
         public static string Flatten(this IEnumerable<string> source, string separator = "")
         {
+            if (!source.Any()) return "";
+
             return source.Aggregate((acc, s) => acc = acc + separator + s);
         }
 

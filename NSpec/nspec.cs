@@ -242,6 +242,22 @@ namespace NSpec
             };
         }
 
+        /// <summary>
+        /// Override this method to alter the stack trace that NSpec prints.  This is useful to override
+        /// if you want to provide additional information (eg. information from a log that is generated out of proc).
+        /// </summary>
+        /// <param name="flattenedStackTrace">A clean stack trace that excludes NSpec specfic namespaces</param>
+        /// <returns></returns>
+        public virtual string StackTraceToPrint(string flattenedStackTrace)
+        {
+            return flattenedStackTrace;
+        }
+
+        public virtual Exception ExceptionToReturn(Exception originalException)
+        {
+            return originalException;
+        }
+
         string IncorrectType<T>() where T : Exception
         {
             return "Exception of type " + typeof(T).Name + " was not thrown.";
