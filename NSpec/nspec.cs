@@ -253,6 +253,12 @@ namespace NSpec
             return flattenedStackTrace;
         }
 
+        /// <summary>
+        /// Override this method to return another exception in the event of a failure of a test.  This is useful to override
+        /// when catching for specific exceptions and returning a more meaningful exception to the developer.
+        /// </summary>
+        /// <param name="originalException">Original exception that was thrown.</param>
+        /// <returns></returns>
         public virtual Exception ExceptionToReturn(Exception originalException)
         {
             return originalException;
