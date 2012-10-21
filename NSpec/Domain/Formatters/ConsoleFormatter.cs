@@ -10,8 +10,9 @@ namespace NSpec.Domain.Formatters
     {
         public void Write(ContextCollection contexts)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(FailureSummary(contexts));
-
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(Summary(contexts));
         }
 
@@ -29,8 +30,17 @@ namespace NSpec.Domain.Formatters
             var whiteSpace = indent.Times(level);
 
             var result = e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failure;
+            if (failure != "")
+                Console.ForegroundColor = ConsoleColor.Red;
+            else
+                if (e.Pending)
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                else
+                    Console.ForegroundColor = ConsoleColor.Green;
 
             Console.WriteLine(result);
+
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public string FailureSummary(ContextCollection contexts)
