@@ -15,6 +15,7 @@ class describe_helpers : nspec
             it["should be cold"] = () => tea.Taste().should_be("cold");
         };
     }
+    //helper methods do not have underscores
     void MakeTea(int temperature)
     {
         tea = new Tea(temperature);
