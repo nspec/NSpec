@@ -193,7 +193,7 @@ task :website => :spec do
 
   sh "git commit -m \"updated website\""
 
-  sh "git push origin gh-pages"
+  sh "git push"
 
   cd "../src"
 end
