@@ -138,11 +138,11 @@ namespace NSpec.Domain
             }
             catch (TargetInvocationException invocationException)
             {
-                if (exceptionToSet == null) exceptionToSet = invocationException.InnerException;
+                if (exceptionToSet == null) exceptionToSet = nspec.ExceptionToReturn(invocationException.InnerException);
             }
             catch (Exception exception)
             {
-                if (exceptionToSet == null) exceptionToSet = exception;
+                if (exceptionToSet == null) exceptionToSet = nspec.ExceptionToReturn(exception);
             }
         }
 

@@ -56,7 +56,7 @@ namespace NSpec.Domain.Formatters
 
             var flattenedStackTrace = stackTrace.Flatten(Environment.NewLine).TrimEnd() + Environment.NewLine;
 
-            failure += flattenedStackTrace;
+            failure += example.Context.GetInstance().StackTraceToPrint(flattenedStackTrace);
 
             return failure;
         }

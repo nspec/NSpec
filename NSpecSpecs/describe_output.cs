@@ -23,7 +23,9 @@ namespace NSpecSpecs
         TestCase(typeof(given_the_sequence_continues_with_2_output)),
         TestCase(typeof(describe_exception_output)),
         TestCase(typeof(describe_context_stack_trace_output)),
-        TestCase(typeof(describe_ICollection_output))]
+        TestCase(typeof(describe_ICollection_output)),
+        TestCase(typeof(describe_changing_stacktrace_message_output)),
+        TestCase(typeof(describe_changing_failure_exception_output))]
         public void output_verification(Type output)
         {
             var expectedOutput = output.GetField("Output").GetValue(output);
