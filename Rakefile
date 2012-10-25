@@ -130,7 +130,7 @@ desc 'create and upload a nuget package. requires deploy.bat with secure hash to
 task :nuget => [:spec, :ilmerge] do
   Dir['nspec*{nupkg}'].each {|f| File.delete(f)}
   create_nuget_package
-  sh "deployNuget.bat #{Dir['*{nupkg}'][0]}"
+  #sh "deployNuget.bat #{Dir['*{nupkg}'][0]}"
 end
 
 desc 'creates the nuget package without incrementing the version number'
