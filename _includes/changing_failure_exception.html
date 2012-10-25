@@ -1,0 +1,38 @@
+<p><a name="changing_failure_exception"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>changing failure exception</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_changing_failure_exception_code" data-timestamp="2012-10-24 21:06:20 -0500" class="brush: csharp;">﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using NSpec;
+
+class describe_changing_failure_exception : nspec
+{
+    void given_a_context_that_throws_an_exception()
+    {
+        it[&quot;the exception can be changed to provide out of proc information&quot;] = () =&gt;
+            &quot;1&quot;.should_be(&quot;2&quot;);
+    }
+
+    public override Exception ExceptionToReturn(Exception originalException)
+    {
+        return new InvalidOperationException(&quot;A more detailed exception message.&quot;, originalException);
+    }
+}
+</pre>
+<pre id="describe_changing_failure_exception_output" data-timestamp="2012-10-24 21:06:20 -0500" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe changing failure exception
+  given a context that throws an exception
+    the exception can be changed to provide out of proc information - FAILED - A more detailed...
+
+**** FAILURES ****
+
+nspec. describe changing failure exception. given a context that throws an exception. the exce...
+A more detailed exception message.
+   at describe_changing_failure_exception.&lt;given_a_context_that_throws_an_exception&gt;b__0() in ...
+
+1 Examples, 1 Failed, 0 Pending
+</pre>
+</div>
