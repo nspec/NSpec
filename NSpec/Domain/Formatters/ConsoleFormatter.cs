@@ -25,18 +25,19 @@ namespace NSpec.Domain.Formatters
 
         public void Write(Example e, int level)
         {
-            var failure = e.Exception == null ? "" : " - FAILED - {0}".With(e.Exception.CleanMessage());
+            var noFailure = e.Exception == null;
+
+            var failureMessage = noFailure ? "" : " - FAILED - {0}".With(e.Exception.CleanMessage());
 
             var whiteSpace = indent.Times(level);
 
-            var result = e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failure;
-            if (failure != "")
-                Console.ForegroundColor = ConsoleColor.Red;
-            else
-                if (e.Pending)
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                else
-                    Console.ForegroundColor = ConsoleColor.Green;
+            var result = e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failureMessage;
+
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            if (!noFailure) Console.ForegroundColor = ConsoleColor.Red;
+
+            if (e.Pending) Console.ForegroundColor = ConsoleColor.Yellow;
 
             Console.WriteLine(result);
 
