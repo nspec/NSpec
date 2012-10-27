@@ -7,7 +7,7 @@ using NSpec.Domain;
  * Howdy,
  * 
  * This is NSpec's DebuggerShim.  It will allow you to use TestDriven.Net or Resharper's test runner to run
- * NSpec tests.  
+ * NSpec tests that are in the same Assembly as this class.  
  * 
  * It's DEFINITELY worth trying specwatchr (http://nspec.org/continuoustesting). Specwatchr automatically
  * runs tests for you.
@@ -27,11 +27,15 @@ public class DebuggerShim
     {
         var tagOrClassName = "class_or_tag_you_want_to_debug";
 
-        var invocation = new RunnerInvocation(Assembly.GetExecutingAssembly().Location, tagOrClassName);
-
-        var contexts = invocation.Run();
+        var types = GetType().Assembly.GetTypes(); 
+        // OR
+        // var types = new Type[]{typeof(Some_Type_Containg_some_Specs)};
+        var finder = new SpecFinder(types, "");
+        var builder = new ContextBuilder(finder, new Tags().Parse(tagOrClassName), new DefaultConventions());
+        var runner = new ContextRunner(builder, new ConsoleFormatter(), false);
+        var results = runner.Run(builder.Contexts().Build());
 
         //assert that there aren't any failures
-        contexts.Failures().Count().should_be(0);
+        Assert.AreEqual(0, results.Failures().Count());
     }
 }
