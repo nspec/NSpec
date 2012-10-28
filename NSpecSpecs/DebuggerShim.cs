@@ -2,6 +2,7 @@
 using System.Reflection;
 using NSpec;
 using NSpec.Domain;
+using NSpec.Domain.Formatters;
 
 /*
  * Howdy,
@@ -36,6 +37,6 @@ public class DebuggerShim
         var results = runner.Run(builder.Contexts().Build());
 
         //assert that there aren't any failures
-        Assert.AreEqual(0, results.Failures().Count());
+        results.Failures().Count().should_be(0);
     }
 }
