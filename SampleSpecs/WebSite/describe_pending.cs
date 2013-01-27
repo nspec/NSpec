@@ -20,4 +20,5 @@ describe pending
 
 2 Examples, 0 Failed, 2 Pending
 ";
+    public static int ExitCode = 0;
 }

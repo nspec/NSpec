@@ -36,4 +36,5 @@ More Information to help diagnose issue
 
 1 Examples, 1 Failed, 0 Pending
 ";
+    public static int ExitCode = 1;
 }

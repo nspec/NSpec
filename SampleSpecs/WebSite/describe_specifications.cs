@@ -63,5 +63,5 @@ Expected: not null, But was: null
 
 11 Examples, 5 Failed, 0 Pending
 ";
-
+    public static int ExitCode = 1;
 }
