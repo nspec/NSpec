@@ -29,7 +29,7 @@ namespace NSpecSpecs
         public void output_verification(Type output)
         {
             var expectedOutput = output.GetField("Output").GetValue(output);
-            var expectedExitCode = Convert.ToInt32(output.GetField("ExitCode").GetValue(output));
+            var expectedExitCode = output.GetField("ExitCode").GetValue(output);
 
             var tag = output.Name.Replace("_output", "");
             var actualOutput = Run(tag);
