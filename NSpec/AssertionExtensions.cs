@@ -186,6 +186,11 @@ namespace NSpec
             Assert.AreNotSame(expected, actual);
         }
 
+        public static void should_eql(this object actual, object expected)
+        {
+            Assert.AreEqual(actual, expected);
+        }
+
         public static void is_greater_than(this IComparable arg1, IComparable arg2){ arg1.should_be_greater_than(arg2);}
         public static void should_be_greater_than(this IComparable arg1, IComparable arg2)
         {

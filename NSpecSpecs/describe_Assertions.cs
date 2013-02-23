@@ -133,5 +133,24 @@ namespace NSpecSpecs
 			i.should_not_be_null();
 			j.should_not_be_null();
 		}
+
+        [Test]
+        public void given_two_matching_strings_when_call_should_eql_should_pass_assertion()
+        {
+            string expected = "hey, we match!";
+            string testCase = "hey, we match!";
+
+            testCase.should_eql(expected);
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void given_two_different_string_when_call_should_eql_it_should_fail_assertion()
+        {
+            string expected = "hey, we're different!";
+            string testCase = "hey, I thought we'd match!";
+
+            testCase.should_eql(expected);
+        }
     }
 }
