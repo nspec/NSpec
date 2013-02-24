@@ -72,6 +72,7 @@
     <Compile Include="DebuggerShim.cs" />
     <Compile Include="describe_Assertions.cs" />
     <Compile Include="describe_cecil.cs" />
+    <Compile Include="describe_ConsoleFormatter.cs" />
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\abstract_class.cs" />

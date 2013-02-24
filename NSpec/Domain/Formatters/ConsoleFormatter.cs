@@ -20,7 +20,9 @@ namespace NSpec.Domain.Formatters
         {
             if (context.Level == 1) Console.WriteLine();
 
-            Console.WriteLine(indent.Times(context.Level - 1) + context.Name);
+            string contextName = StripOffSpecsTextFromContextName(context.Name);
+
+            Console.WriteLine(indent.Times(context.Level - 1) + contextName);
         }
 
         public void Write(Example e, int level)
@@ -101,5 +103,15 @@ namespace NSpec.Domain.Formatters
                     "NUnit.Framework",
                     "NSpec.Extensions"
                 };
+
+        internal string StripOffSpecsTextFromContextName(string contextName)
+        {
+            if (contextName.ToLower().EndsWith("spec") || contextName.ToLower().EndsWith("specs"))
+            {
+                return contextName.Substring(0, contextName.ToLower().LastIndexOf("spec", StringComparison.CurrentCulture));
+            }
+
+            return contextName;
+        }
     }
 }
