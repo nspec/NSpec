@@ -29,13 +29,16 @@ namespace NSpecSpecs
         public void output_verification(Type output)
         {
             var expectedOutput = output.GetField("Output").GetValue(output);
+            var expectedExitCode = output.GetField("ExitCode").GetValue(output);
 
             var tag = output.Name.Replace("_output", "");
+            var actualOutput = Run(tag);
 
-            Run(tag).Is(expectedOutput);
+            actualOutput.Item1.Is(expectedOutput);
+            actualOutput.Item2.Is(expectedExitCode);
         }
 
-        public string Run(string tag)
+        public Tuple<string, int> Run(string tag)
         {
             var process = new Process();
 
@@ -63,7 +66,9 @@ namespace NSpecSpecs
 
             var output = process.StandardOutput.ReadToEnd();
 
-            return output.RegexReplace("in .*SampleSpecs", "in SampleSpecs").Replace("\r\n","\n");
+            var updatedOutput = output.RegexReplace("in .*SampleSpecs", "in SampleSpecs").Replace("\r\n","\n");
+
+            return new Tuple<string, int>(updatedOutput, process.ExitCode);
         }
 
         [Test]

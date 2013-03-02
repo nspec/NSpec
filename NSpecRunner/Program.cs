@@ -44,7 +44,7 @@ namespace NSpecRunner
 
                 var failures = domain.Run(invocation, i => i.Run().Failures().Count(), specDLL);
 
-                if (failures > 1) Environment.Exit(1);
+                if (failures > 0) Environment.Exit(1);
             }
             catch (Exception e)
             {

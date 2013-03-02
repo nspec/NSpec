@@ -17,4 +17,5 @@ my first spec
 
 1 Examples, 0 Failed, 0 Pending
 ";
+    public static int ExitCode = 0;
 }
