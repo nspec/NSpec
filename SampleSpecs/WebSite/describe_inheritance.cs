@@ -1,5 +1,6 @@
 ﻿using NSpec;
 
+[Tag("describe_inheritance")]
 class given_the_sequence_continues_with_2 : given_the_sequence_starts_with_1
 {
     void before_each()

@@ -1,5 +1,6 @@
 ﻿using NSpec;
 
+[Tag("describe_act")]
 class describe_batman_sound_effects_as_text : nspec
 {
     void they_are_loud_and_emphatic()
