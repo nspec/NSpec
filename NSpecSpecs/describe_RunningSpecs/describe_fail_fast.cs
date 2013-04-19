@@ -42,6 +42,12 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
+        public void should_skip()
+        {
+            TheExample("is skipped").HasRun.should_be_false();
+        }
+
+        [Test]
         public void only_two_examples_are_executed_one_will_be_a_failure()
         {
             AllExamples().Where(s => s.HasRun).Count().should_be(2);
