@@ -92,7 +92,7 @@ namespace NSpec.Domain
 
             var nspec = savedInstance ?? instance;
 
-            if(AllExamples().Count() >0) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
+            if(AllExamples().Any(e=>e.ShouldNotSkip(nspec.tagsFilter))) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
 
             //intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)

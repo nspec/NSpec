@@ -55,6 +55,15 @@ namespace NSpec.Domain
             return tagsFilter.ShouldSkip(Tags) || ((HasRun = true) && Pending);
         }
 
+        public bool ShouldNotSkip(Tags tagsFilter)
+        {
+            //really should be the opposite of ShouldSkip.
+            //but unfortunately calling ShouldSkip has side effects
+            //see the HasRun assignment. calling ShouldSkip here thus
+            //has side effects that fail some tests.
+            return false == tagsFilter.ShouldSkip(Tags);
+        }
+
         public Example(Expression<Action> expr, bool pending = false) : this(Parse(expr), null, expr.Compile(), pending) {}
 
         public Example(string name = "", string tags = "", Action action = null, bool pending = false)
