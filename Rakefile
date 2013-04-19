@@ -22,7 +22,7 @@ task :default => [:build, :spec]
 
 desc 'build'
 task :build do
-  sh 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe /verbosity:q NSpec.sln'
+  sh 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe /clp:errorsonly /nologo /verbosity:q NSpec.sln'
 end
 
 desc 'run specs'
