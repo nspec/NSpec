@@ -33,6 +33,17 @@ namespace NSpec
         }
 
         /// <summary>
+        /// Mark a spec as pending 
+        /// <para>For Example:</para>
+        /// <para>xspecify = () => _controller.should_be(false);</para>
+        /// <para>(the example will be marked as pending any lambda provided will not be executed)</para>
+        /// </summary>
+        public virtual Expression<Action> xspecify
+        {
+            set { AddExample(new Example(value, pending:true)); }
+        }
+
+        /// <summary>
         /// This Action gets executed before each example is run.
         /// <para>For Example:</para>
         /// <para>before.each = () => someList = new List&lt;int&gt;();</para>

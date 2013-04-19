@@ -55,7 +55,7 @@ namespace NSpec.Domain
             return tagsFilter.ShouldSkip(Tags) || ((HasRun = true) && Pending);
         }
 
-        public Example(Expression<Action> expr) : this(Parse(expr), null, expr.Compile()) {}
+        public Example(Expression<Action> expr, bool pending = false) : this(Parse(expr), null, expr.Compile(), pending) {}
 
         public Example(string name = "", string tags = "", Action action = null, bool pending = false)
         {
