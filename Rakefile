@@ -38,7 +38,7 @@ task :samples, :spec do |t,args|
 end
 
 desc 'supply commit message as parameter - rake all m="commit message" - version bump, nuget, zip and everything shall be done for you'
-task :all => [:pull,:version,:nuget,:commit,:website,:zip,:upload]
+task :all => [:pull,:version,:nuget,:commit,:website]
 
 desc 'run the sample describe_before'
 task :before do
@@ -67,7 +67,8 @@ end
 
 task :commit => :pull do
   `git add -A .`
-  `git commit -m "#{ENV['m']}`
+  msg = ENV['m'] || "publishing #{get_version_node.text}"
+  `git commit -m "#{msg}`
   `git push`
   `git tag -a v#{get_version_node.text} -m "#{get_version_node.text}" HEAD`
   `git push --tags`
@@ -78,18 +79,6 @@ end
 # Packaging tasks
 #
 #############################################################################
-
-desc 'zip the upload'
-task :zip do
-  fileName = create_zip_filename 
-  File.delete(fileName) if File.exists? fileName
-  Zip::ZipFile.open(fileName, Zip::ZipFile::CREATE) { 
-  |zipfile|
-    zipfile.add 'NSpecRunner.exe', 'NSpecRunner\bin\Debug\NSpecRunner.exe'
-    zipfile.add 'NSpec.dll', 'NSpec\bin\Debug\NSpec.dll'
-  }
-end
-
 desc 'merge nunit dll into nspec'
 task :ilmerge do
   File.rename 'NSpecRunner\bin\Debug\NSpec.dll','NSpecRunner\bin\Debug\NSpec-partial.dll'
@@ -104,11 +93,6 @@ end
 
 def create_zip_filename
   "NSpec-#{get_version_node.text}.zip"
-end
-
-desc 'upload the zip'
-task :upload do
-  sh "gg #{create_zip_filename}"
 end
 
 desc 'Increments version number.'
@@ -183,7 +167,7 @@ task :website => :spec do
 
   files_to_comment << file_name
 
-  sh "git commit -m \"updated website on master\""
+  # sh "git commit -m \"updated website on master\""
 
   cd "../gh-pages"
 
