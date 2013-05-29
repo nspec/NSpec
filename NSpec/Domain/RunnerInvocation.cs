@@ -18,7 +18,7 @@ namespace NSpec.Domain
 
             var contexts = builder.Contexts().Build();
 
-            if(string.IsNullOrEmpty(Tags) && contexts.AnyTaggedWith("focus"))
+            if(contexts.AnyTaggedWithFocus())
             {
                 builder = new ContextBuilder(finder, new Tags().Parse("focus"), new DefaultConventions());
 

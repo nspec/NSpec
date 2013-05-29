@@ -84,11 +84,23 @@ namespace NSpec.Domain.Formatters
 
         public string Summary(ContextCollection contexts)
         {
-            return "{0} Examples, {1} Failed, {2} Pending".With(
+            var summary = "{0} Examples, {1} Failed, {2} Pending".With(
                 contexts.Examples().Count(),
                 contexts.Failures().Count(),
                 contexts.Pendings().Count()
                 );
+
+            if (contexts.AnyTaggedWithFocus())
+            {
+                summary += Environment.NewLine + Environment.NewLine + @"NSpec found context/examples tagged with ""focus"" and only ran those.";
+            }
+
+            return summary;
+        }
+
+        public string FocusNotification(ContextCollection contexts)
+        {
+            return "";
         }
 
         string indent = "  ";

@@ -34,9 +34,9 @@ namespace NSpecSpecs
             var tag = output.Name.Replace("_output", "");
 
             //if the example happens to be the focus example, then the focus project
-            //if (tag == "describe_focus") Run(tag, FullDllPath(@"\..\..\..\SampleSpecs\bin\Debug\SampleSpecsFocus.dll")).Is(expectedOutput);
+            if (tag == "describe_focus") Run(tag, FullDllPath(@"\..\..\..\SampleSpecsFocus\bin\Debug\SampleSpecsFocus.dll""")).Is(expectedOutput);
 
-            Run(tag).Is(expectedOutput);
+            else Run(tag).Is(expectedOutput);
         }
 
         public string CurrentPath()
@@ -58,7 +58,7 @@ namespace NSpecSpecs
         {
             var process = new Process();
 
-            testDllPath = tag ?? FullDllPath(@"\..\..\..\SampleSpecs\bin\Debug\SampleSpecs.dll""");
+            testDllPath = testDllPath ?? FullDllPath(@"\..\..\..\SampleSpecs\bin\Debug\SampleSpecs.dll""");
 
             var exePath = FullRunnerPath();
 

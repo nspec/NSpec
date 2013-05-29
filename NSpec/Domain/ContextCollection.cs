@@ -64,9 +64,14 @@ namespace NSpec.Domain
 
         public ContextCollection() {}
 
+        public bool AnyTaggedWithFocus()
+        {
+            return AnyTaggedWith("focus");
+        }
+
         public bool AnyTaggedWith(string tag)
         {
-            return AllContexts().SelectMany(s => s.AllExamples()).Any(s => s.Tags.Contains("focus"));
+            return AllContexts().SelectMany(s => s.AllExamples()).Any(s => s.Tags.Contains(tag));
         }
     }
 }
