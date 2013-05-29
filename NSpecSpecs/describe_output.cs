@@ -25,40 +25,58 @@ namespace NSpecSpecs
         TestCase(typeof(describe_context_stack_trace_output)),
         TestCase(typeof(describe_ICollection_output)),
         TestCase(typeof(describe_changing_stacktrace_message_output)),
-        TestCase(typeof(describe_changing_failure_exception_output))]
+        TestCase(typeof(describe_changing_failure_exception_output)),
+        TestCase(typeof(describe_focus_output))]
         public void output_verification(Type output)
         {
-            var expectedOutput = output.GetField("Output").GetValue(output) as string;
-            var expectedExitCode = output.GetField("ExitCode").GetValue(output);
+            var expectedOutput = output.GetField("Output").GetValue(output);
 
             var tag = output.Name.Replace("_output", "");
-            var actualOutput = Run(tag);
 
-            actualOutput.Item1.Is(expectedOutput.Replace("\r\n", "\n"));
-            actualOutput.Item2.Is(expectedExitCode);
+            //if the example happens to be the focus example, then the focus project
+            //if (tag == "describe_focus") Run(tag, FullDllPath(@"\..\..\..\SampleSpecs\bin\Debug\SampleSpecsFocus.dll")).Is(expectedOutput);
+
+            Run(tag).Is(expectedOutput);
         }
 
-        public Tuple<string, int> Run(string tag)
+        public string CurrentPath()
+        {
+            return Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase.Replace("file:///", "").Replace("/", @"\"));
+        }
+
+        public string FullDllPath(string dllPath)
+        {
+            return @"""" + CurrentPath() + dllPath;
+        }
+
+        public string FullRunnerPath()
+        {
+            return @"""" + CurrentPath() + @"\..\..\..\NSpecRunner\bin\Debug\NSpecRunner.exe""";
+        }
+
+        public string Run(string tag, string testDllPath = null)
         {
             var process = new Process();
 
-            var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase.Replace("file:///", "").Replace("/", @"\"));
+            testDllPath = tag ?? FullDllPath(@"\..\..\..\SampleSpecs\bin\Debug\SampleSpecs.dll""");
 
-            var testDllPath = @"""" + currentPath + @"\..\..\..\SampleSpecs\bin\Debug\SampleSpecs.dll""";
+            var exePath = FullRunnerPath();
 
-            var exePath = @"""" +  currentPath + @"\..\..\..\NSpecRunner\bin\Debug\NSpecRunner.exe""";
+            var arguments = testDllPath + " --tag " + tag;
+
+            if(tag == "") arguments = testDllPath;
 
             process.StartInfo = new ProcessStartInfo
-                                    {
-                                        FileName = exePath,
-                                        Arguments = testDllPath + " --tag " + tag,
-                                        RedirectStandardInput = true,
-                                        RedirectStandardError = true,
-                                        RedirectStandardOutput = true,
-                                        WindowStyle = ProcessWindowStyle.Hidden,
-                                        UseShellExecute = false,
-                                        CreateNoWindow = true
-                                    };
+            {
+                FileName = exePath,
+                Arguments = arguments,
+                RedirectStandardInput = true,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
 
             process.Start();
 
@@ -66,9 +84,7 @@ namespace NSpecSpecs
 
             var output = process.StandardOutput.ReadToEnd();
 
-            var updatedOutput = output.RegexReplace("in .*SampleSpecs", "in SampleSpecs").Replace("\r\n","\n");
-
-            return new Tuple<string, int>(updatedOutput, process.ExitCode);
+            return output.RegexReplace("in .*SampleSpecs", "in SampleSpecs");
         }
 
         [Test]

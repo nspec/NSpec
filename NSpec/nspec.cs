@@ -317,6 +317,11 @@ namespace NSpec
             Context = beforeContext;
         }
 
+        public virtual string OnError(string flattenedStackTrace)
+        {
+            return flattenedStackTrace;
+        }
+
         internal Context Context { get; set; }
 
         /// <summary>Tags required to be present or not present in context or example</summary>

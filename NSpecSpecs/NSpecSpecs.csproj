@@ -127,6 +127,10 @@
       <Project>{36862628-1F0C-4EA5-8963-C79BAF958DC1}</Project>
       <Name>NSpec</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SampleSpecsFocus\SampleSpecsFocus.csproj">
+      <Project>{17D2A12B-FCB1-4528-BA18-80FCE760249B}</Project>
+      <Name>SampleSpecsFocus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SampleSpecs\SampleSpecs.csproj">
       <Project>{DCE738AF-2C14-4279-96FB-16930BD1F459}</Project>
       <Name>SampleSpecs</Name>

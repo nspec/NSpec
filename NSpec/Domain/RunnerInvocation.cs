@@ -9,11 +9,21 @@ namespace NSpec.Domain
         public ContextCollection Run()
         {
             var reflector = new Reflector(this.dll);
+
             var finder = new SpecFinder(reflector);
 
             var builder = new ContextBuilder(finder, new Tags().Parse(Tags), new DefaultConventions());
 
             var runner = new ContextRunner(builder, Formatter, failFast);
+
+            var contexts = builder.Contexts().Build();
+
+            if(string.IsNullOrEmpty(Tags) && contexts.AnyTaggedWith("focus"))
+            {
+                builder = new ContextBuilder(finder, new Tags().Parse("focus"), new DefaultConventions());
+
+                runner = new ContextRunner(builder, Formatter, failFast);
+            }
 
             return runner.Run(builder.Contexts().Build());
         }

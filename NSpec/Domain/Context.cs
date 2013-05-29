@@ -151,7 +151,7 @@ namespace NSpec.Domain
             if (example.ShouldSkip(nspec.tagsFilter)) return;
 
             RunAndHandleException(RunBefores, nspec, ref Exception);
-            
+
             RunAndHandleException(RunActs, nspec, ref Exception);
 
             RunAndHandleException(example.Run, nspec, ref example.Exception);
