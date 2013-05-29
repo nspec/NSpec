@@ -5,6 +5,8 @@ namespace NSpec.Domain
 {
     public class Tags
     {
+        public static string Focus = "focus";
+
         /// <summary>Parses a string containing tags into a collection of normalized tags</summary>
         public static List<string> ParseTags(string tags)
         {

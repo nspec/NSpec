@@ -25,6 +25,8 @@ namespace NSpecSpecs
 
             context.AddExample(new Example { Exception = new Exception() });
 
+            context.Tags.Add(Tags.Focus);
+
             contexts.Add(context);
         }
 
@@ -32,6 +34,12 @@ namespace NSpecSpecs
         public void should_aggregate_examples()
         {
             contexts.Examples().Count().should_be(3);
+        }
+
+        [Test]
+        public void is_marked_with_focus()
+        {
+            contexts.AnyTaggedWithFocus().should_be_true();
         }
 
         [Test]

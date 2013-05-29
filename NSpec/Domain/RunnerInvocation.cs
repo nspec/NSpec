@@ -20,7 +20,7 @@ namespace NSpec.Domain
 
             if(contexts.AnyTaggedWithFocus())
             {
-                builder = new ContextBuilder(finder, new Tags().Parse("focus"), new DefaultConventions());
+                builder = new ContextBuilder(finder, new Tags().Parse(NSpec.Domain.Tags.Focus), new DefaultConventions());
 
                 runner = new ContextRunner(builder, Formatter, failFast);
             }
