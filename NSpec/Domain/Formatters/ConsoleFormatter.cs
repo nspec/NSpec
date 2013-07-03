@@ -14,6 +14,7 @@ namespace NSpec.Domain.Formatters
             Console.WriteLine(FailureSummary(contexts));
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(Summary(contexts));
+            Console.ResetColor();
         }
 
         public void Write(Context context)
