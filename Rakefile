@@ -111,7 +111,7 @@ task :bump_version do
 end
 
 desc 'create and upload a nuget package. requires deploy.bat with secure hash to be in your path. autoincrements version number.'
-task :nuget => [:spec, :ilmerge] do
+task :nuget => [:spec] do
   Dir['nspec*{nupkg}'].each {|f| File.delete(f)}
   create_nuget_package
   sh "deployNuget.bat #{Dir['*{nupkg}'][0]}"
