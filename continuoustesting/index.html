@@ -16,9 +16,8 @@ layout: default
 <h2>Installing SpecWatchr</h2>
 <p>This tutorial will walk you through installing SpecWatchr (and all it's related bits).</p>
 <ol>
-<li>Install <a href="http://www.ruby-lang.org/en/downloads/" target="_blank">Ruby 1.9.2 for Windows</a>.</li>
+<li>Install <a href="http://rubyinstaller.org/downloads/" target="_blank">Ruby 1.9.3 for Windows</a>.</li>
 <li>Install <a href="http://www.growlforwindows.com/gfw/" target="_blank">Growl For Windows</a>.</li>
-<li>This is a really nice Growl Theme that's worth installing: <a href="http://www.softwarebakery.com/frozencow/translucentdark.xml" target="_blank">Translucent Dark</a>.</li>
 <li>Ensure that you have <a href="http://nuget.org/" target="_blank">NuGet</a> installed.</li>
 <li>Create a blank solution.</li>
 <li>Create a .Net 4.0 or .Net 3.5 class library that ends with one of the following <strong>Test, Tests, Spec, or Specs...eg: "MyApp.UnitTests".</strong></li>
@@ -45,6 +44,19 @@ class describe_FirstTest : nspec
     }
 }</pre>
 <br /> <br />
+<div>
+<h2>Running SpecWatchr</h2>
+<p>Now that you have SpecWatchr installed and you know what source executes, we can start it up and watch the magic happen.</p>
+<ol>
+<li>The solution that you created with the steps above should be open (make sure you build it once just so we know we are at a good place).</li>
+<li>Run Growl for Windows</li>
+<li>Run "Start Command Prompt with Ruby" (it should have been added to your start menu when you installed Ruby 1.9.3)</li>
+<li>Navigate to the solution directory for the project you created in the above tests (via command prompt).</li>
+<li>Run the following command: <strong>sidekick.bat</strong></li>
+<li>Now that specwatchr is fired up, save describe_FirstTest.cs (specwatchr will execute and should Growl that all tests are passing).</li>
+<li>This is a really nice Growl Theme that's worth installing: <a href="http://www.softwarebakery.com/frozencow/translucentdark.xml" target="_blank">Translucent Dark</a>.</li>
+</ol></div>
+<div>
 <h2>Important Stuff</h2>
 <p>When you ran <strong>Install-Package specwatchr</strong>, a few ruby files got placed in your solution directory:</p>
 <h3>dotnet.watchr.rb</h3>
@@ -52,15 +64,4 @@ class describe_FirstTest : nspec
 <h3>watcher_dot_net.rb</h3>
 <p>This file contains all of the source for specwatchr.  Anything you may want to tweek or customize can be done in this file (you'll find that you may want to customize specwatchr to fit your solution need once you get more familiar with what the code does).</p>
 <p>&nbsp;</p>
-<h2>Running SpecWatchr</h2>
-<p>Now that you have SpecWatchr installed and you know what source executes, we can start it up and watch the magic happen.</p>
-<ol>
-<li>The solution that you created with the steps above should be open (make sure you build it once just so we know we are at a good place).</li>
-<li>Run Growl for Windows (keep in mind that dotnet.watchr.rb has a Growl Path defined, be sure to double check this path and make sure it matches your install path)</li>
-<li>Have we mentioned that the Translucent Dark display for Growl is really nice?</li>
-<li>Run "Start Command Prompt with Ruby" (it should have been added to your start menu when you installed Ruby 1.9.2)</li>
-<li>Navigate to the solution directory for the project you created in the above tests (via command prompt).</li>
-<li>Run the following command: <strong><del>watchr dotnet.watchr.rb</del> sidekick.bat</strong></li>
-<li>Now that specwatchr is fired up, save describe_FirstTest.cs (specwatchr will execute and should Growl that all tests are passing).</li>
-</ol></div>
 </div>
