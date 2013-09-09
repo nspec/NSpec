@@ -77,7 +77,7 @@ class my_first_spec : nspec
 
     void describe_nesting()
     {
-        before = () =&gt; name + " BDD";
+        before = () =&gt; name += " BDD";
 
         it["works here"] = () =&gt; name.should_be("NSpec BDD");
 
