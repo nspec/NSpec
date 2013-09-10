@@ -146,21 +146,21 @@ my first spec
 [TestFixture]
 public class describe_NUnit
 {
-  [Test]
-  public void it_just_works()
-  {
-    "hello".Should().Equal("hello"); //this is an arbitrary assertion
-  }
+    [Test]
+    public void it_just_works()
+    {
+        Assert.AreEqual("hello", "hello"); //this is an arbitrary assertion
+    }
 }
     </pre>
     <h2>NSpec uses underscore conventions, making your tests cleaner:</h2>
     <pre class="brush: csharp;">
 class describe_NSpec : nspec
 {
-  void it_just_works()
-  {
-    "hello".Should().Equal("hello"); //this is an arbitrary assertion
-  }
+    void it_just_works()
+    {
+        "hello".should_be("hello"); //this is an arbitrary assertion
+    }
 }
     </pre>
     <h1 style="font-size: 25px">Fluid Test Structures</h1>
@@ -173,102 +173,135 @@ class describe_NSpec : nspec
 [TestFixture]
 public class describe_NUnit
 {
-  [SetUp]
-  public void before_each()
-  {
-    Console.WriteLine("I run before each test.");
-  }
+    [SetUp]
+    public void before_each()
+    {
+        Console.WriteLine("I run before each test.");
+    }
 
-  [Test]
-  public void it_works_here()
-  {
-    "hello".Should().Equal("hello");
-  }
+    [Test]
+    public void it_works_here()
+    {
+        Assert.AreEqual("hello", "hello");
+    }
 }
 
 [TestFixture]
 public class category_of_examples : describe_NUnit
 {
-  [SetUp]
-  public void before_each_for_this_context()
-  {
-    Console.WriteLine("I run before each test defined in this context.");
-  }
+    [SetUp]
+    public void before_each_for_this_context()
+    {
+        Console.WriteLine("I run before each test defined in this context.");
+    }
 
-  [Test]
-  public void it_also_works_here()
-  {
-    "hello".Should().Equal("hello");
-  }
+    [Test]
+    public void it_also_works_here()
+    {
+        Assert.AreEqual("hello", "hello");
+    }
 
-  [Test]
-  public void it_works_here_too()
-  {
-    "hello".Should().Equal("hello");
-  }
+    [Test]
+    public void it_works_here_too()
+    {
+        Assert.AreEqual("hello", "hello");
+    }
 }
     </pre>
     <h2>NSpec can do that too (with less code):</h2>
     <pre class="brush: csharp;">
 class describe_NSpec : nspec
 {
-  void before_each()
-  {
-    Console.WriteLine("I run before each test.");
-  }
+    void before_each()
+    {
+        Console.WriteLine("I run before each test.");
+    }
 
-  void it_works_here()
-  {
-    "hello".should_be("hello");
-  }
+    void it_works_here()
+    {
+        "hello".should_be("hello");
+    }
 }
 
 class category_of_examples : nspec
 {
-  void before_each()
-  {
-    Console.WriteLine("I run before each test defined in this context.");
-  }
+    void before_each()
+    {
+        Console.WriteLine("I run before each test defined in this context.");
+    }
 
-  void it_also_works_here()
-  {
-    "hello".should_be("hello");
-  }
+    void it_also_works_here()
+    {
+        "hello".should_be("hello");
+    }
 
-  void it_works_here_too()
-  {
-    "hello".should_be("hello");
-  }
+    void it_works_here_too()
+    {
+        "hello".should_be("hello");
+    }
 }
     </pre>
     <h2>but NSpec <strong>also</strong> provides a more concise option:</h2>
     <pre class="brush: csharp;">
 class describe_NSpec : nspec
 {
-  void before_each()
-  {
-    Console.WriteLine("I run before each test.");
-  }
+    void before_each()
+    {
+        Console.WriteLine("I run before each test.");
+    }
 
-  void it_works_here()
-  {
-    "hello".Should().Equal("hello");
-  }
+    void it_works_here()
+    {
+        "hello".should_be("hello");
+    }
 
-  void a_category_of_examples()
-  {
-    before = () =&gt; Console.WriteLine("I run before each test defined in this context.");
+    void a_category_of_examples()
+    {
+        before = () =&gt; Console.WriteLine("I run before each test defined in this context.");
 
-    it["also works here"] = () =&gt; "hello".Should().Equal("hello");
+        it["also works here"] = () =&gt; "hello".should_be("hello");
 
-    it["works here too"] = () =&gt; "hello".Should().Equal("hello");
-  }
+        it["works here too"] = () =&gt; "hello".should_be("hello");
+    }
 }
     </pre>
   </div>
 </div>
 
 {% include specifications.html %}
+<div class="zone zone-sub-page-title">
+  <h1>custom assertions</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+  If you don't like the assertions provided by NSpec. You can create your own. Here is an example:
+
+  <pre class="brush: csharp;">
+class custom_assertions : nspec
+{
+    void it_is_a_custom_assertion()
+    {
+        16.is_less_than(30);
+    }
+}
+
+public static class AssertionExtensions
+{
+    public static void is_less_than(this int left, int right)
+    {
+         if(left &gt;= right)
+         {
+             throw new InvalidOperationException(
+                string.Format("{0} was not less than {1}", left, right));
+         }
+    }
+}
+
+  </pre>
+
+  <p>
+  NSpec also plays nice with assertion packages such as <a href="http://www.nuget.org/packages/FluentAssertions/" target="_blank">Fluent.Assertions</a>.
+  </p>
+</div>
 {% include before.html %}
 {% include contexts.html %}
 {% include pending.html %}
