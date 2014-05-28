@@ -89,6 +89,10 @@
     <Compile Include="Model\Tea.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NSpec.nUnitExtensions\NSpec.nUnitExtensions.csproj">
+      <Project>{C9A242BB-BA00-4E81-9763-BCEC2BF476C7}</Project>
+      <Name>NSpec.nUnitExtensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
       <Project>{36862628-1F0C-4EA5-8963-C79BAF958DC1}</Project>
       <Name>NSpec</Name>

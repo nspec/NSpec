@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{17D2A12B-FCB1-4528-BA18-80FCE760249B}</ProjectGuid>
+    <ProjectGuid>{C9A242BB-BA00-4E81-9763-BCEC2BF476C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SampleSpecsFocus</RootNamespace>
-    <AssemblyName>SampleSpecsFocus</AssemblyName>
+    <RootNamespace>NSpec.nUnitExtensions</RootNamespace>
+    <AssemblyName>NSpec.nUnitExtensions</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,14 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="describe_focus.cs" />
+    <Compile Include="AssertionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NSpec.MSTestExtensions\NSpec.MSTestExtensions.csproj">
-      <Project>{635D1064-B0B3-47BC-AA46-EDEAC4011578}</Project>
-      <Name>NSpec.MSTestExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
       <Project>{36862628-1F0C-4EA5-8963-C79BAF958DC1}</Project>
       <Name>NSpec</Name>
