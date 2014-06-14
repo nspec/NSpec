@@ -9,6 +9,65 @@ namespace NSpec.Domain
     [Serializable]
     public class ContextBuilder
     {
+        public Tags tagsFilter;
+
+        private Conventions conventions;
+
+        private ISpecFinder finder;
+
+        private ContextCollection contexts;
+
+        private MethodInfo methodToRestrictTo;
+
+        private List<nspec> classesThatHaveBeenRun = new List<nspec>(); 
+
+        public ContextBuilder()
+        {
+            contexts = new ContextCollection();
+            conventions = new DefaultConventions();
+            tagsFilter = new Tags();
+        }
+
+        public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
+            : this(finder, new DefaultConventions()) { }
+
+        public ContextBuilder(ISpecFinder finder, Conventions conventions)
+            : this(finder, new Tags(), conventions) { }
+
+        public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
+        {
+            this.contexts = new ContextCollection();
+
+            this.finder = finder;
+
+            this.conventions = conventions;
+
+            this.tagsFilter = tagsFilter;
+        }
+
+        public ContextCollection MethodContext(MethodInfo method)
+        {
+            // set the method to restrict to
+            methodToRestrictTo = method;
+
+            // build the contexts normal, but we know it will be a collection of one
+            var context = Contexts();
+
+            // reset the method to restrict to
+            methodToRestrictTo = null;
+
+            return context;
+
+            if (context[0] != null && context[0].Contexts[0] != null)
+            {
+                return context[0].Contexts;
+            }
+            else
+            {
+                return new ContextCollection();
+            }
+        }
+
         public ContextCollection Contexts()
         {
             contexts.Clear();
@@ -47,7 +106,7 @@ namespace NSpec.Domain
         {
             specClass
                 .Methods()
-                .Where(s => conventions.IsMethodLevelContext(s.Name))
+                .Where(s => conventions.IsMethodLevelContext(s.Name) && (methodToRestrictTo == null || (methodToRestrictTo != null && s == methodToRestrictTo)))
                 .Do(contextMethod =>
                 {
                     var methodContext = new MethodContext(contextMethod, TagStringFor(contextMethod));
@@ -60,7 +119,7 @@ namespace NSpec.Domain
         {
             specClass
                 .Methods()
-                .Where(s => conventions.IsMethodLevelExample(s.Name))
+                .Where(s => conventions.IsMethodLevelExample(s.Name) && (methodToRestrictTo == null || (methodToRestrictTo != null && s == methodToRestrictTo)))
                 .Do(methodInfo =>
                 {
                     var methodExample = new MethodExample(methodInfo, TagStringFor(methodInfo));
@@ -101,30 +160,5 @@ namespace NSpec.Domain
         {
             return (TagAttribute[])method.GetCustomAttributes(typeof(TagAttribute), false);
         }
-
-        public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
-            : this(finder, new DefaultConventions()) { }
-
-        public ContextBuilder(ISpecFinder finder, Conventions conventions)
-            : this(finder, new Tags(), conventions) { }
-
-        public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
-        {
-            contexts = new ContextCollection();
-
-            this.finder = finder;
-
-            this.conventions = conventions;
-
-            this.tagsFilter = tagsFilter;
-        }
-
-        public Tags tagsFilter;
-
-        Conventions conventions;
-
-        ISpecFinder finder;
-
-        ContextCollection contexts;
     }
 }
