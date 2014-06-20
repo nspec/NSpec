@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSpecs", "SampleSpecs\SampleSpecs.csproj", "{DCE738AF-2C14-4279-96FB-16930BD1F459}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec", "NSpec\NSpec.csproj", "{36862628-1F0C-4EA5-8963-C79BAF958DC1}"
@@ -25,6 +27,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec.MSTestExtensions", "NSpec.MSTestExtensions\NSpec.MSTestExtensions.csproj", "{635D1064-B0B3-47BC-AA46-EDEAC4011578}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec.nUnitExtensions", "NSpec.nUnitExtensions\NSpec.nUnitExtensions.csproj", "{C9A242BB-BA00-4E81-9763-BCEC2BF476C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec.Assertions", "NSpec.Assertions\NSpec.Assertions.csproj", "{011FF150-4FF3-407F-953B-D6CE3A73ED3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,6 +130,16 @@ Global
 		{C9A242BB-BA00-4E81-9763-BCEC2BF476C7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C9A242BB-BA00-4E81-9763-BCEC2BF476C7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C9A242BB-BA00-4E81-9763-BCEC2BF476C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{011FF150-4FF3-407F-953B-D6CE3A73ED3A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

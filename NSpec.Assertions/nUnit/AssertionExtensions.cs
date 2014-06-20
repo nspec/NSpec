@@ -1,12 +1,11 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using NSpec.Domain;
-using System.Text.RegularExpressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
-namespace NSpec
+namespace NSpec.Assertions.nUnit
 {
     public static class AssertionExtensions
     {
@@ -46,7 +45,7 @@ namespace NSpec
 
         public static void is_not_null_or_empty(this string source)
         {
-            Assert.IsTrue(String.IsNullOrEmpty(source));
+            Assert.IsNotNullOrEmpty(source);
         }
 
         public static void is_true(this bool actual) { actual.should_be_true(); }
@@ -113,41 +112,41 @@ namespace NSpec
 
         public static IEnumerable<T> should_contain<T>(this IEnumerable<T> collection, T t)
         {
-            Assert.IsTrue(collection.Contains(t));
+            CollectionAssert.Contains(collection, t);
 
             return collection;
         }
 
         public static IEnumerable<T> should_not_contain<T>(this IEnumerable<T> collection, T t)
         {
-            Assert.IsFalse(collection.Contains(t));
+            CollectionAssert.DoesNotContain(collection, t);
 
             return collection;
         }
 
         public static IEnumerable<T> should_not_be_empty<T>(this IEnumerable<T> collection)
         {
-            Assert.IsTrue(collection.Any());
+            CollectionAssert.IsNotEmpty(collection);
 
             return collection;
         }
 
         public static string should_not_be_empty(this string target)
         {
-            Assert.IsTrue(String.IsNullOrEmpty(target));
+            Assert.IsNotNullOrEmpty(target);
             return target;
         }
 
 
         public static string should_be_empty(this string target)
         {
-            Assert.IsTrue(String.IsNullOrEmpty(target));
+            Assert.IsNullOrEmpty(target);
             return target;
         }
 
         public static IEnumerable<T> should_be_empty<T>(this IEnumerable<T> collection)
         {
-            Assert.IsFalse(collection.Any());
+            CollectionAssert.IsEmpty(collection);
 
             return collection;
         }
@@ -168,23 +167,13 @@ namespace NSpec
 
         public static T should_cast_to<T>(this object value)
         {
-            //Assert.IsInstanceOf<T>(value);
+            Assert.IsInstanceOf<T>(value);
             return (T)value;
         }
 
-
         public static void should_not_match(this string value, string pattern)
         {
-            var r = new Regex(pattern, RegexOptions.IgnoreCase);
-            var match = r.Match(value);
-            Assert.IsFalse(match.Success);
-        }
-
-        public static void should_match(this string value, string pattern)
-        {
-            var r = new Regex(pattern, RegexOptions.IgnoreCase);
-            var match = r.Match(value);
-            Assert.IsTrue(match.Success);
+            StringAssert.DoesNotMatch(pattern, value);
         }
 
         public static void should_be_same(this object actual, object expected)
@@ -200,25 +189,25 @@ namespace NSpec
         public static void is_greater_than(this IComparable arg1, IComparable arg2) { arg1.should_be_greater_than(arg2); }
         public static void should_be_greater_than(this IComparable arg1, IComparable arg2)
         {
-            Assert.IsTrue(arg1.CompareTo(arg2) > 0);
+            Assert.Greater(arg1, arg2);
         }
 
         public static void is_greater_or_equal_to(this IComparable arg1, IComparable arg2) { arg1.should_be_greater_or_equal_to(arg2); }
         public static void should_be_greater_or_equal_to(this IComparable arg1, IComparable arg2)
         {
-            Assert.IsTrue(arg1.CompareTo(arg2) >= 0);
+            Assert.GreaterOrEqual(arg1, arg2);
         }
 
         public static void is_less_than(this IComparable arg1, IComparable arg2) { arg1.should_be_less_than(arg2); }
         public static void should_be_less_than(this IComparable arg1, IComparable arg2)
         {
-            Assert.IsTrue(arg1.CompareTo(arg2) < 0);
+            Assert.Less(arg1, arg2);
         }
 
         public static void is_less_or_equal_to(this IComparable arg1, IComparable arg2) { arg1.should_be_less_or_equal_to(arg2); }
         public static void should_be_less_or_equal_to(this IComparable arg1, IComparable arg2)
         {
-            Assert.IsTrue(arg1.CompareTo(arg2) <= 0);
+            Assert.LessOrEqual(arg1, arg2);
         }
 
         public static void is_close_to(this float actual, float expected) { actual.should_be_close_to(expected); }
@@ -230,14 +219,14 @@ namespace NSpec
         public static void is_close_to(this float actual, float expected, float tolerance) { actual.should_be_close_to(expected, tolerance); }
         public static void should_be_close_to(this float actual, float expected, float tolerance)
         {
-            Assert.IsTrue(Math.Abs(actual - expected) <= tolerance,
+            Assert.LessOrEqual(Math.Abs(actual - expected), tolerance,
                 string.Format("should be close to {0} of {1} but was {2} ", tolerance, expected, actual));
         }
 
         public static void is_close_to(this double actual, double expected, double tolerance) { actual.should_be_close_to(expected, tolerance); }
         public static void should_be_close_to(this double actual, double expected, double tolerance)
         {
-            Assert.IsTrue(Math.Abs(actual - expected) <= tolerance,
+            Assert.LessOrEqual(Math.Abs(actual - expected), tolerance,
                 string.Format("should be close to {0} of {1} but was {2}", tolerance, expected, actual));
         }
 
@@ -250,14 +239,14 @@ namespace NSpec
         public static void is_close_to(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance) { actual.should_be_close_to(expected, tolerance); }
         public static void should_be_close_to(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
         {
-            Assert.IsTrue(Math.Abs(actual.Ticks - expected.Ticks) <= tolerance.Ticks,
+            Assert.LessOrEqual(Math.Abs(actual.Ticks - expected.Ticks), tolerance.Ticks,
                 string.Format("should be close to {0} ticks of {1} but was {2}", tolerance, expected, actual));
         }
 
         public static void is_close_to(this DateTime actual, DateTime expected, DateTime tolerance) { actual.should_be_close_to(expected, tolerance); }
         public static void should_be_close_to(this DateTime actual, DateTime expected, DateTime tolerance)
         {
-            Assert.IsTrue(Math.Abs((actual - expected).Ticks) <= tolerance.Ticks,
+            Assert.LessOrEqual(Math.Abs((actual - expected).Ticks), tolerance.Ticks,
                 string.Format("should be close to {0} ticks of {1} but was {2}", tolerance.Ticks, expected, actual));
         }
     }

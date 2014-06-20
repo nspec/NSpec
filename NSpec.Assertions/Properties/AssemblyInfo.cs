@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NSpec.nUnitExtensions")]
+[assembly: AssemblyTitle("NSpec.Assertions")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NSpec.nUnitExtensions")]
+[assembly: AssemblyProduct("NSpec.Assertions")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2a3e23c4-4f15-4971-a646-a85e46e6ada2")]
+[assembly: Guid("ab04511b-526d-4e3a-bb03-90e8d84efd5a")]
 
 // Version information for an assembly consists of the following four values:
 //
