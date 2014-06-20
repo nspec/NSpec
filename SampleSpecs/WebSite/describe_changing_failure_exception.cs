@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NSpec;
+using NSpec.Assertions.nUnit;
 
 class describe_changing_failure_exception : nspec
 {

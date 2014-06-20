@@ -5,6 +5,7 @@ using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {

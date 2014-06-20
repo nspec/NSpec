@@ -3,6 +3,7 @@ using System.Reflection;
 using NSpec;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
+using NSpec.Assertions.nUnit;
 
 /*
  * Howdy,

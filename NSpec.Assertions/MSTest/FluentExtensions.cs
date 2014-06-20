@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NSpec.Assertions.MSTest
 {
-    public static class AssertionExtensions
+    public static class FluentExtensions
     {
         public static void should<T>(this T o, Expression<Predicate<T>> predicate)
         {

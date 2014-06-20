@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSpec;
+using NSpec.Assertions.nUnit;
 
 abstract class describe_ICollection : nspec
 {

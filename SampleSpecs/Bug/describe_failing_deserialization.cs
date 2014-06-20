@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using NSpec;
+using NSpec.Assertions.nUnit;
 
 namespace SampleSpecs.Bug
 {

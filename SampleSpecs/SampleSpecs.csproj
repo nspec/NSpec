@@ -90,9 +90,9 @@
     <Compile Include="Model\Tea.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NSpec.nUnitExtensions\NSpec.nUnitExtensions.csproj">
-      <Project>{C9A242BB-BA00-4E81-9763-BCEC2BF476C7}</Project>
-      <Name>NSpec.nUnitExtensions</Name>
+    <ProjectReference Include="..\NSpec.Assertions\NSpec.Assertions.csproj">
+      <Project>{011ff150-4ff3-407f-953b-d6ce3a73ed3a}</Project>
+      <Name>NSpec.Assertions</Name>
     </ProjectReference>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
       <Project>{36862628-1F0C-4EA5-8963-C79BAF958DC1}</Project>

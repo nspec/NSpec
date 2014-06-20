@@ -4,6 +4,7 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain.Extensions;
 using NUnit.Framework;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecSpecs
 {

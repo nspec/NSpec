@@ -9,42 +9,28 @@ namespace NSpec.Domain
     [Serializable]
     public class ContextBuilder
     {
-        public Tags tagsFilter;
-
-        private Conventions conventions;
-
-        private ISpecFinder finder;
-
-        private ContextCollection contexts;
-
-        private MethodInfo methodToRestrictTo;
-
-        private List<nspec> classesThatHaveBeenRun = new List<nspec>(); 
-
-        public ContextBuilder()
+        public ContextCollection Contexts()
         {
-            contexts = new ContextCollection();
-            conventions = new DefaultConventions();
-            tagsFilter = new Tags();
+            contexts.Clear();
+
+            conventions.Initialize();
+
+            var specClasses = finder.SpecClasses();
+
+            var container = new ClassContext(typeof(nspec), conventions, tagsFilter);
+
+            Build(container, specClasses);
+
+            contexts.AddRange(container.Contexts);
+
+            return contexts;
         }
 
-        public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
-            : this(finder, new DefaultConventions()) { }
-
-        public ContextBuilder(ISpecFinder finder, Conventions conventions)
-            : this(finder, new Tags(), conventions) { }
-
-        public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
-        {
-            this.contexts = new ContextCollection();
-
-            this.finder = finder;
-
-            this.conventions = conventions;
-
-            this.tagsFilter = tagsFilter;
-        }
-
+        /// <summary>
+        /// Builds contexts for a single function instead of an entire class
+        /// </summary>
+        /// <param name="method">The MethodInfo of the function to build contexts for</param>
+        /// <returns>A context collection for the function</returns>
         public ContextCollection MethodContext(MethodInfo method)
         {
             // set the method to restrict to
@@ -66,23 +52,6 @@ namespace NSpec.Domain
             {
                 return new ContextCollection();
             }
-        }
-
-        public ContextCollection Contexts()
-        {
-            contexts.Clear();
-
-            conventions.Initialize();
-
-            var specClasses = finder.SpecClasses();
-
-            var container = new ClassContext(typeof(nspec), conventions, tagsFilter);
-
-            Build(container, specClasses);
-
-            contexts.AddRange(container.Contexts);
-
-            return contexts;
         }
 
         public ClassContext CreateClassContext(Type type)
@@ -160,5 +129,41 @@ namespace NSpec.Domain
         {
             return (TagAttribute[])method.GetCustomAttributes(typeof(TagAttribute), false);
         }
+
+        public ContextBuilder()
+        {
+            contexts = new ContextCollection();
+            conventions = new DefaultConventions();
+            tagsFilter = new Tags();
+        }
+
+        public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
+            : this(finder, new DefaultConventions()) { }
+
+        public ContextBuilder(ISpecFinder finder, Conventions conventions)
+            : this(finder, new Tags(), conventions) { }
+
+        public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
+        {
+            this.contexts = new ContextCollection();
+
+            this.finder = finder;
+
+            this.conventions = conventions;
+
+            this.tagsFilter = tagsFilter;
+        }
+
+        public Tags tagsFilter;
+
+        private Conventions conventions;
+
+        private ISpecFinder finder;
+
+        private ContextCollection contexts;
+
+        private MethodInfo methodToRestrictTo;
+
+        private List<nspec> classesThatHaveBeenRun = new List<nspec>(); 
     }
 }

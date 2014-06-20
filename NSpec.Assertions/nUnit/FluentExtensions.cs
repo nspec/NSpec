@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace NSpec.Assertions.nUnit
 {
-    public static class AssertionExtensions
+    public static class FluentExtensions
     {
         public static void should<T>(this T o, Expression<Predicate<T>> predicate)
         {

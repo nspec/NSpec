@@ -9,6 +9,11 @@ using PostSharp.Aspects;
 
 namespace NSpec.Domain.Aspects
 {
+    /// <summary>
+    /// The aspect that gets added as an attribute to a test function.  
+    /// It intercepts the function call an builds the nspec contexts for 
+    /// the function and then invokes the function.
+    /// </summary>
     [Serializable]
     public class TestSpecification : MethodInterceptionAspect
     {

@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using NSpec;
 using NSpec.Domain;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecSpecs
 {

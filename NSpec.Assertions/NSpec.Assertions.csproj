@@ -59,8 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MSTest\AssertionExtensions.cs" />
-    <Compile Include="nUnit\AssertionExtensions.cs" />
+    <Compile Include="MSTest\FluentExtensions.cs" />
+    <Compile Include="nUnit\FluentExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

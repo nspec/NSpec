@@ -47,10 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NSpec.MSTestExtensions\NSpec.MSTestExtensions.csproj">
-      <Project>{635D1064-B0B3-47BC-AA46-EDEAC4011578}</Project>
-      <Name>NSpec.MSTestExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
       <Project>{36862628-1F0C-4EA5-8963-C79BAF958DC1}</Project>
       <Name>NSpec</Name>
