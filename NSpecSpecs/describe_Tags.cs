@@ -2,6 +2,7 @@
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecSpecs
 {

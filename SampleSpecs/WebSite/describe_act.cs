@@ -1,4 +1,5 @@
 ﻿using NSpec;
+using NSpec.Assertions.nUnit;
 
 [Tag("describe_act")]
 class describe_batman_sound_effects_as_text : nspec

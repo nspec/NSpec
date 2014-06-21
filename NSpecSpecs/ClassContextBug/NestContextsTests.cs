@@ -3,6 +3,7 @@ using NSpec;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using NUnit.Framework;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecSpecs.ClassContextBug
 {

@@ -1,5 +1,6 @@
 ﻿using NSpec;
 using NUnit.Framework;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {

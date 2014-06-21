@@ -6,6 +6,7 @@ using NSpec.Domain;
 using NSpecSpecs;
 using NUnit.Framework;
 using Rhino.Mocks;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecNUnit.when_building_contexts
 {

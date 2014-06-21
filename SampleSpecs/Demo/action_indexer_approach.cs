@@ -1,5 +1,6 @@
 ﻿using NSpec;
 using SampleSpecs.Model;
+using NSpec.Assertions.nUnit;
 
 namespace SampleSpecs.Demo
 {

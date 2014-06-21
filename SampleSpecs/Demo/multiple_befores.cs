@@ -1,5 +1,6 @@
 using NSpec;
 using System.Collections.Generic;
+using NSpec.Assertions.nUnit;
 
 class multiple_befores : nspec
 {

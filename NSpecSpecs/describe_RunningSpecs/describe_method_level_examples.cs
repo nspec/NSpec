@@ -4,6 +4,7 @@ using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using NUnit.Framework;
 using Rhino.Mocks;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {

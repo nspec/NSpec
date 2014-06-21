@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System;
 using NSpec;
 using SampleSpecs.Bug;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecSpecs
 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NSpec;
 using System.Configuration;
+using NSpec.Assertions.nUnit;
 
 namespace SampleSpecs.Bug
 {

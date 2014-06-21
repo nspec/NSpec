@@ -26,6 +26,34 @@ namespace NSpec.Domain
             return contexts;
         }
 
+        /// <summary>
+        /// Builds contexts for a single function instead of an entire class
+        /// </summary>
+        /// <param name="method">The MethodInfo of the function to build contexts for</param>
+        /// <returns>A context collection for the function</returns>
+        public ContextCollection MethodContext(MethodInfo method)
+        {
+            // set the method to restrict to
+            methodToRestrictTo = method;
+
+            // build the contexts normal, but we know it will be a collection of one
+            var context = Contexts();
+
+            // reset the method to restrict to
+            methodToRestrictTo = null;
+
+            return context;
+
+            if (context[0] != null && context[0].Contexts[0] != null)
+            {
+                return context[0].Contexts;
+            }
+            else
+            {
+                return new ContextCollection();
+            }
+        }
+
         public ClassContext CreateClassContext(Type type)
         {
             var tagAttributes = ((TagAttribute[])type.GetCustomAttributes(typeof(TagAttribute), false)).ToList();
@@ -47,7 +75,7 @@ namespace NSpec.Domain
         {
             specClass
                 .Methods()
-                .Where(s => conventions.IsMethodLevelContext(s.Name))
+                .Where(s => conventions.IsMethodLevelContext(s.Name) && (methodToRestrictTo == null || (methodToRestrictTo != null && s == methodToRestrictTo)))
                 .Do(contextMethod =>
                 {
                     var methodContext = new MethodContext(contextMethod, TagStringFor(contextMethod));
@@ -60,7 +88,7 @@ namespace NSpec.Domain
         {
             specClass
                 .Methods()
-                .Where(s => conventions.IsMethodLevelExample(s.Name))
+                .Where(s => conventions.IsMethodLevelExample(s.Name) && (methodToRestrictTo == null || (methodToRestrictTo != null && s == methodToRestrictTo)))
                 .Do(methodInfo =>
                 {
                     var methodExample = new MethodExample(methodInfo, TagStringFor(methodInfo));
@@ -102,6 +130,13 @@ namespace NSpec.Domain
             return (TagAttribute[])method.GetCustomAttributes(typeof(TagAttribute), false);
         }
 
+        public ContextBuilder()
+        {
+            contexts = new ContextCollection();
+            conventions = new DefaultConventions();
+            tagsFilter = new Tags();
+        }
+
         public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
             : this(finder, new DefaultConventions()) { }
 
@@ -110,7 +145,7 @@ namespace NSpec.Domain
 
         public ContextBuilder(ISpecFinder finder, Tags tagsFilter, Conventions conventions)
         {
-            contexts = new ContextCollection();
+            this.contexts = new ContextCollection();
 
             this.finder = finder;
 
@@ -121,10 +156,14 @@ namespace NSpec.Domain
 
         public Tags tagsFilter;
 
-        Conventions conventions;
+        private Conventions conventions;
 
-        ISpecFinder finder;
+        private ISpecFinder finder;
 
-        ContextCollection contexts;
+        private ContextCollection contexts;
+
+        private MethodInfo methodToRestrictTo;
+
+        private List<nspec> classesThatHaveBeenRun = new List<nspec>(); 
     }
 }

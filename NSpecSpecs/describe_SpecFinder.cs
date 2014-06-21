@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using describe_OtherNameSpace;
 using describe_SomeNameSpace;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecNUnit
 {

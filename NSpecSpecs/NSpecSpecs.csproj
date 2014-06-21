@@ -14,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\NSpec\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <SkipPostSharp>True</SkipPostSharp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -123,6 +124,10 @@
     <Compile Include="describe_RunningSpecs\when_running_specs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NSpec.Assertions\NSpec.Assertions.csproj">
+      <Project>{011ff150-4ff3-407f-953b-d6ce3a73ed3a}</Project>
+      <Name>NSpec.Assertions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
       <Project>{36862628-1F0C-4EA5-8963-C79BAF958DC1}</Project>
       <Name>NSpec</Name>
@@ -139,7 +144,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

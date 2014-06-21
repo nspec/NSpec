@@ -2,6 +2,7 @@
 using NSpec;
 using NUnit.Framework;
 using System.Collections.Generic;
+using NSpec.Assertions.nUnit;
 
 namespace NSpecSpecs
 {
