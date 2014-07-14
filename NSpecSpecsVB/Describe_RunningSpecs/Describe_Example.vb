@@ -48,6 +48,33 @@ Namespace WhenRunningSpecs
 
             TheExample("It Fails").should_have_failed()
         End Sub
+
+        Public Class SpecClassWithAnonymousLambdas
+            Inherits NSpec.nspec
+
+            Sub Describe_Specs_In_VB_With_Anonymous_Lambdas()
+                context("Some context with an anonymous Lambda") =
+                    Sub()
+                        it("has an anonymous lambda") = Sub()
+                                                        End Sub
+                    End Sub
+            End Sub
+        End Class
+
+        <Test()>
+        Sub Finds_And_Runs_Three_Class_Level_Examples()
+            Run(GetType(SpecClass))
+
+            TheExampleCount().should_be(3)
+        End Sub
+
+        <Test()>
+        Sub Finds_Only_One_Example_Ignoring_Anonymous_Lambdas()
+            Run(GetType(SpecClassWithAnonymousLambdas))
+
+            TheExampleCount().should_be(1)
+        End Sub
+
     End Class
 
 End Namespace
