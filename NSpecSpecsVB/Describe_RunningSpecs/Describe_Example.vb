@@ -1,5 +1,6 @@
 ﻿Imports NSpec
 Imports NUnit.Framework
+Imports NSpecSpecs
 Imports NSpecSpecs.WhenRunningSpecs
 
 Namespace WhenRunningSpecs
@@ -32,6 +33,20 @@ Namespace WhenRunningSpecs
             Dim ex = TheExample("It Changes Status After Run")
 
             ex.HasRun.should_be_true()
+        End Sub
+
+        <Test()>
+        Sub Passing_Status_Is_Passed_When_It_Succeeds()
+            Run(GetType(SpecClass))
+
+            TheExample("It Passes").should_have_passed()
+        End Sub
+
+        <Test()>
+        Sub Passing_Status_Is_Not_Passed_When_It_Fails()
+            Run(GetType(SpecClass))
+
+            TheExample("It Fails").should_have_failed()
         End Sub
     End Class
 
