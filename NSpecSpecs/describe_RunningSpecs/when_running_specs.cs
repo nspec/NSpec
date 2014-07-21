@@ -73,6 +73,16 @@ namespace NSpecSpecs.WhenRunningSpecs
             return theExample;
         }
 
+        protected int TheExampleCount()
+        {
+            var theExamples = contextCollection
+                .SelectMany(rootContext => rootContext.AllContexts())
+                .SelectMany(contexts => contexts.AllExamples())
+                    .Distinct();
+
+            return theExamples.Count();
+        }
+
         protected ContextBuilder builder;
         protected ContextCollection contextCollection;
         protected ClassContext classContext;

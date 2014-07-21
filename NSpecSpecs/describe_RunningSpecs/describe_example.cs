@@ -51,5 +51,34 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             TheExample("it fails").should_have_failed();
         }
+
+        class SpecClassWithAnonymouseLambdas : nspec
+        {
+            void describe_specs_with_anonymous_lambdas()
+            {
+                context["Some context with anonymous lambdas"] = () =>
+                {
+                    it["has an anonymous lambda"] = () =>
+                    {
+                    };
+                };
+            }
+        }
+
+        [Test]
+        public void finds_and_runs_three_class_level_examples()
+        {
+            Run(typeof(SpecClass));
+
+            TheExampleCount().should_be(3);
+        }
+
+        [Test]
+        public void finds_and_runs_only_one_example_ignoring_anonymous_lambdas()
+        {
+            Run(typeof(SpecClassWithAnonymouseLambdas));
+
+            TheExampleCount().should_be(1);
+        }
     }
 }

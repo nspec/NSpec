@@ -21,7 +21,7 @@ namespace NSpec.Domain.Extensions
             var methodInfos = type.GetAbstractBaseClassChainWithClass().SelectMany(t => t.GetMethods(flags));
 
             return methodInfos
-                .Where(m => !exclusions.Contains(m.Name) && !m.Name.Contains("<") && m.Name.Contains("_"))
+                .Where(m => !exclusions.Contains(m.Name) && !(m.Name.Contains("<") || m.Name.Contains("$")) && m.Name.Contains("_"))
                 .Where(m => m.GetParameters().Length == 0)
                 .Where(m => m.ReturnType == typeof(void)).ToList();
         }
