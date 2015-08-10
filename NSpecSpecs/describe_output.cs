@@ -9,7 +9,7 @@ using SampleSpecs.Bug;
 namespace NSpecSpecs
 {
     [TestFixture]
-    public class describe_output 
+    public class describe_output
     {
         [Test,
         TestCase(typeof(my_first_spec_output)),
