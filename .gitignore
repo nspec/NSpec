@@ -26,3 +26,4 @@ Gemfile.lock
 packages/*
 icarus.gallio
 _site
+NUnit.Runners.2.6.4/
