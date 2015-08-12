@@ -1,8 +1,11 @@
-﻿using System;
+﻿#define OFFLOAD_IN_SAFE_INVOKE
+//#define OFFLOAD_IN_CONTEXT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NSpec.Domain.Formatters;
+using System.Threading.Tasks;
 
 namespace NSpec.Domain
 {
@@ -12,9 +15,30 @@ namespace NSpec.Domain
         {
             RecurseAncestors(c => c.RunBefores(instance));
 
+            // TODO Improve: probably on a single context there should either be a before or an asynvBefore, not both
+
             BeforeInstance.SafeInvoke(instance);
 
+#if OFFLOAD_IN_CONTEXT
+            // to avoid possible deadlocks, offload async work to another thread, then block waiting on current thread
+            Task offloadedWork;
+
+            offloadedWork = Task.Run(() => AsyncBeforeInstance.SafeInvokeAsync(instance));
+            offloadedWork.Wait();
+#endif
+#if OFFLOAD_IN_SAFE_INVOKE
+            AsyncBeforeInstance.SafeInvoke(instance);
+#endif
+
             Before.SafeInvoke();
+
+#if OFFLOAD_IN_CONTEXT
+            offloadedWork = Task.Run(() => AsyncBefore.SafeInvokeAsync());
+            offloadedWork.Wait();
+#endif
+#if OFFLOAD_IN_SAFE_INVOKE
+            AsyncBefore.SafeInvoke();
+#endif
         }
 
         void RunBeforeAll(nspec instance)
@@ -233,6 +257,8 @@ namespace NSpec.Domain
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, AfterAllInstance, BeforeAllInstance;
+        public Func<Task> AsyncBefore;
+        public Func<nspec, Task> AsyncBeforeInstance;
         public Context Parent;
         public Exception Exception;
 

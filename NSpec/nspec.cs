@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using NSpec.Domain;
+using System.Threading.Tasks;
 
 namespace NSpec
 {
@@ -53,6 +54,12 @@ namespace NSpec
         {
             get { return Context.Before; }
             set { Context.Before = value; }
+        }
+
+        public virtual Func<Task> asyncBefore
+        {
+            get { return Context.AsyncBefore; }
+            set { Context.AsyncBefore = value; }
         }
 
         /// <summary>
