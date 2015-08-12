@@ -1,7 +1,10 @@
+#define OFFLOAD_IN_SAFE_INVOKE
+//#define OFFLOAD_IN_CONTEXT
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NSpec
 {
@@ -165,6 +168,49 @@ namespace NSpec
         {
             if (action != null) action();
         }
+
+#if OFFLOAD_IN_CONTEXT
+        public static async Task SafeInvokeAsync<T>(this Func<T, Task> func, T t)
+        {
+            if (func != null) 
+            {
+                await func(t)
+                    // to reduce chances of deadlock, do not force continuation on the same SynchronizationContext
+                    .ConfigureAwait(continueOnCapturedContext: false); 
+            }
+        }
+
+        public static async Task SafeInvokeAsync(this Func<Task> func)
+        {
+            if (func != null)
+            {
+                await func()
+                    // to reduce chances of deadlock, do not force continuation on the same SynchronizationContext
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+        }
+#endif
+#if OFFLOAD_IN_SAFE_INVOKE
+        public static void SafeInvoke<T>(this Func<T, Task> func, T t)
+        {
+            if (func != null) 
+            {
+                Task offloadedWork = Task.Run(() => func(t));
+
+                offloadedWork.Wait();
+            }
+        }
+
+        public static void SafeInvoke(this Func<Task> func)
+        {
+            if (func != null)
+            {
+                Task offloadedWork = Task.Run(() => func());
+
+                offloadedWork.Wait();
+            }
+        }
+#endif
 
         public static string[] Sanitize(this object[] source)
         {
