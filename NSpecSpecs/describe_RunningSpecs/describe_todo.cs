@@ -66,7 +66,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
     public class describe_todo : when_running_specs
     {
-        protected Example ExampleFrom(Type type)
+        protected ExampleBase ExampleFrom(Type type)
         {
             Run(type);
 

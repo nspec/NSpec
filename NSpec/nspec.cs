@@ -20,6 +20,8 @@ namespace NSpec
 
             it = new ActionRegister((name, tags, action) => AddExample(new Example(name, tags, action, pending: action == todo)));
             xit = new ActionRegister((name, tags, action) => AddExample(new Example(name, tags, action, pending: true)));
+
+            asyncIt = new AsyncActionRegister((name, tags, asyncAction) => AddExample(new AsyncExample(name, tags, asyncAction, pending: asyncAction == asyncTodo)));
         }
 
         /// <summary>
@@ -41,7 +43,7 @@ namespace NSpec
         /// </summary>
         public virtual Expression<Action> xspecify
         {
-            set { AddExample(new Example(value, pending:true)); }
+            set { AddExample(new Example(value, pending: true)); }
         }
 
         /// <summary>
@@ -56,6 +58,12 @@ namespace NSpec
             set { Context.Before = value; }
         }
 
+        /// <summary>
+        /// This Action gets executed asynchronously before each example is run.
+        /// <para>For Example:</para>
+        /// <para>asyncBefore = async () => someList = await GetListAsync();</para>
+        /// <para>The asyncBefore can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// </summary>
         public virtual Func<Task> asyncBefore
         {
             get { return Context.AsyncBefore; }
@@ -161,6 +169,13 @@ namespace NSpec
         public ActionRegister it;
 
         /// <summary>
+        /// Create an asynchronous specification/example using a name and an async lambda with an assertion(should).
+        /// <para>For Example:</para>
+        /// <para>asyncIt["should return false"] = async () => (await GetResultAsync()).should_be(false);</para>
+        /// </summary>
+        public AsyncActionRegister asyncIt;
+
+        /// <summary>
         /// Mark a spec as pending 
         /// <para>For Example:</para>
         /// <para>xit["should return false"] = () => _controller.should_be(false);</para>
@@ -174,6 +189,13 @@ namespace NSpec
         /// <para>it["a test i haven't flushed out yet, but need to"] = todo;</para>
         /// </summary>
         public readonly Action todo = () => { };
+
+        /// <summary>
+        /// Set up a pending asynchronous spec.
+        /// <para>For Example:</para>
+        /// <para>asyncIt["a test i haven't flushed out yet, but need to"] = asyncTodo;</para>
+        /// </summary>
+        public readonly Func<Task> asyncTodo = () => Task.Run(() => { });
 
         /// <summary>
         /// Set up an expectation for a particular exception type to be thrown.
@@ -292,7 +314,7 @@ namespace NSpec
             return String.Format("Expected message: \"{0}\" But was: \"{1}\"", expected, actual);
         }
 
-        void AddExample(Example example)
+        void AddExample(ExampleBase example)
         {
             Context.AddExample(example);
         }

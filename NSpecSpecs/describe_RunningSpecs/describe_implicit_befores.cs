@@ -36,7 +36,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheMethodContextExamples().Last().should_have_passed();
         }
 
-        private IEnumerable<Example> TheMethodContextExamples()
+        private IEnumerable<ExampleBase> TheMethodContextExamples()
         {
             return classContext.Contexts.First().AllExamples();
         }

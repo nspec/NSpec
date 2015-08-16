@@ -1,6 +1,8 @@
 using NSpec;
 using NSpec.Domain;
+using NSpecSpecs;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace NSpecNUnit
 {
@@ -17,14 +19,14 @@ namespace NSpecNUnit
 
     [TestFixture]
     [Category("Example")]
-    public class describe_Example
+    public class describe_ExampleBase
     {
         [Test]
         public void should_concatenate_its_contexts_name_into_a_full_name()
         {
             var context = new Context("context name");
 
-            var example = new Example("example name");
+            var example = new ExampleBaseWrap("example name");
 
             context.AddExample(example);
 
@@ -36,7 +38,7 @@ namespace NSpecNUnit
         {
             var context = new Context("pending context", null, isPending: true);
 
-            var example = new Example("example name");
+            var example = new ExampleBaseWrap("example name");
 
             context.AddExample(example);
 
@@ -48,7 +50,7 @@ namespace NSpecNUnit
         {
             var parentContext = new Context("parent pending context", null, isPending: true);
             var context = new Context("not pending");
-            var example = new Example("example name");
+            var example = new ExampleBaseWrap("example name");
 
             parentContext.AddContext(context);
 

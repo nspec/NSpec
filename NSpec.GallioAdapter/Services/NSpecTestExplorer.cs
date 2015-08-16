@@ -76,7 +76,7 @@ namespace NSpec.GallioAdapter.Services
             return contextTest;
         }
 
-        NSpecExampleTest CreateGallioTestFrom(Example nspecExample)
+        NSpecExampleTest CreateGallioTestFrom(ExampleBase nspecExample)
         {
             try
             {

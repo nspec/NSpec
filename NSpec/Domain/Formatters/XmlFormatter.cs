@@ -47,7 +47,7 @@ namespace NSpec.Domain.Formatters
             xml.WriteEndElement();
         }
 
-        void BuildSpec(XmlTextWriter xml, Example example)
+        void BuildSpec(XmlTextWriter xml, ExampleBase example)
         {
             xml.WriteStartElement("Spec");
             xml.WriteAttributeString("Name", example.Spec);

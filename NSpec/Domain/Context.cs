@@ -13,7 +13,7 @@ namespace NSpec.Domain
         {
             RecurseAncestors(c => c.RunBefores(instance));
 
-            // TODO Improve: probably on a single context there should either be a before or an asynvBefore, not both
+            // TODO-ASYNC Improve: probably on a single context there should either be a before or an asynvBefore, not both
 
             BeforeInstance.SafeInvoke(instance);
 
@@ -56,7 +56,7 @@ namespace NSpec.Domain
             AfterAllInstance.SafeInvoke(instance);
         }
 
-        public void AddExample(Example example)
+        public void AddExample(ExampleBase example)
         {
             example.Context = this;
 
@@ -67,7 +67,7 @@ namespace NSpec.Domain
             example.Pending |= IsPending();
         }
 
-        public IEnumerable<Example> AllExamples()
+        public IEnumerable<ExampleBase> AllExamples()
         {
             return Contexts.Examples().Union(Examples);
         }
@@ -77,7 +77,7 @@ namespace NSpec.Domain
             return isPending || (Parent != null && Parent.IsPending());
         }
 
-        public IEnumerable<Example> Failures()
+        public IEnumerable<ExampleBase> Failures()
         {
             return AllExamples().Where(e => e.Exception != null);
         }
@@ -153,7 +153,7 @@ namespace NSpec.Domain
             }
         }
 
-        public void Exercise(Example example, nspec nspec)
+        public void Exercise(ExampleBase example, nspec nspec)
         {
             if (example.ShouldSkip(nspec.tagsFilter)) return;
 
@@ -227,7 +227,7 @@ namespace NSpec.Domain
         public Context(string name = "", string tags = null, bool isPending = false)
         {
             Name = name.Replace("_", " ");
-            Examples = new List<Example>();
+            Examples = new List<ExampleBase>();
             Contexts = new ContextCollection();
             Tags = Domain.Tags.ParseTags(tags);
             this.isPending = isPending;
@@ -236,7 +236,7 @@ namespace NSpec.Domain
         public string Name;
         public int Level;
         public List<string> Tags;
-        public List<Example> Examples;
+        public List<ExampleBase> Examples;
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, AfterAllInstance, BeforeAllInstance;

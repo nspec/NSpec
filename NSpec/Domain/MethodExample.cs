@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace NSpec.Domain
 {
-    public class MethodExample : Example
+    public class MethodExample : ExampleBase
     {
         public MethodExample(MethodInfo method, string tags = null) : base(method.Name.Replace("_", " "), tags)
         {
