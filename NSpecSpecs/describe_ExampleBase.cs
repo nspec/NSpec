@@ -15,6 +15,8 @@ namespace NSpecNUnit
         {
             new Example(() => "hello".should_be("hello")).Spec.should_be("hello should be hello");
         }
+
+        // no 'specify' available for AsyncExample, hence no way to test that on AsyncExample
     }
 
     [TestFixture]

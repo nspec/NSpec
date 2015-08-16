@@ -25,18 +25,11 @@ namespace NSpecSpecs.describe_RunningSpecs
                 {
                     state = -1;
 
-                    await RunActionAsync(() => state = 1);
+                    await Utils.RunActionAsync(() => state = 1);
                 };
 
                 it["Should wait for its task to complete"] = () => 
                     state.should_be(1);
-            }
-
-            async Task RunActionAsync(Action action)
-            {
-                Task fictiousAsyncOperation = Task.Run(action);
-
-                await fictiousAsyncOperation;
             }
         }
 

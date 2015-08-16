@@ -9,9 +9,9 @@ namespace NSpec.Domain
     {
         public override void Run(nspec nspec)
         {
-            Task offloadedWork = Task.Run(() => asyncAction());
+            Func<Task> asyncWork = () => asyncAction();
 
-            offloadedWork.Wait();
+            asyncWork.Offload();
         }
 
         /* Async lambda expressions cannot be converted to expression trees

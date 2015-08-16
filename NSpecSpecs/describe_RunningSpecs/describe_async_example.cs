@@ -25,7 +25,7 @@ namespace NSpecSpecs.describe_RunningSpecs
                 {
                     state = -1;
 
-                    await RunActionAsync(() => state = 1);
+                    await Utils.RunActionAsync(() => state = 1);
 
                     state.should_be(1);
                 };
@@ -35,15 +35,11 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 asyncIt["Should fail asynchronously"] = async () =>
                 {
-                    await RunActionAsync(() => { throw new InvalidCastException("Some error message"); });
+                    await Utils.RunActionAsync(() => 
+                    { 
+                        throw new InvalidCastException("Some error message"); 
+                    });
                 };
-            }
-
-            async Task RunActionAsync(Action action)
-            {
-                Task fictiousAsyncOperation = Task.Run(action);
-
-                await fictiousAsyncOperation;
             }
         }
 

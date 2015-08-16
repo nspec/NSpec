@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace NSpec
@@ -171,9 +172,9 @@ namespace NSpec
         {
             if (func != null) 
             {
-                Task offloadedWork = Task.Run(() => func(t));
+                Func<Task> asyncWork = () => func(t);
 
-                offloadedWork.Wait();
+                asyncWork.Offload();
             }
         }
 
@@ -181,9 +182,21 @@ namespace NSpec
         {
             if (func != null)
             {
-                Task offloadedWork = Task.Run(() => func());
+                func.Offload();
+            }
+        }
+
+        public static void Offload(this Func<Task> asyncWork)
+        {
+            try
+            {
+                Task offloadedWork = Task.Run(asyncWork);
 
                 offloadedWork.Wait();
+            }
+            catch (AggregateException ex)
+            {
+                ExceptionDispatchInfo.Capture(ex.Flatten().InnerExceptions.First()).Throw();
             }
         }
 

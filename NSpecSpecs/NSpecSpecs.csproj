@@ -126,6 +126,7 @@
     <Compile Include="describe_RunningSpecs\describe_method_level_befores.cs" />
     <Compile Include="describe_SpecFinder.cs" />
     <Compile Include="describe_RunningSpecs\when_running_specs.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
