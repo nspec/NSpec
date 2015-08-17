@@ -4,6 +4,7 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain.Extensions;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace NSpecSpecs
 {
@@ -37,6 +38,13 @@ namespace NSpecSpecs
             void private_child_method() { }
             void helper_method_with_paramter(int i) { }
             void NoUnderscores() { }
+
+            public async Task public_async_child_method() { await Task.Delay(0); }
+            public async Task<long> async_method_with_result() { await Task.Delay(0); return 0L; }
+            public async void async_void_method() { await Task.Delay(0); }
+            async Task private_async_child_method() { await Task.Delay(0); }
+            async Task async_helper_method_with_paramter(int i) { await Task.Delay(0); }
+            async Task NoUnderscoresAsync() { await Task.Delay(0); }
         }
 
         class grandChild : child
@@ -50,15 +58,57 @@ namespace NSpecSpecs
         }
 
         [Test]
+        public void should_include_direct_async_private_methods()
+        {
+            AsyncShouldContain("private_async_child_method");
+        }
+
+        [Test]
         public void should_include_direct_public_methods()
         {
             ShouldContain("public_child_method");
         }
 
         [Test]
+        public void should_include_direct_async_public_methods()
+        {
+            AsyncShouldContain("public_async_child_method");
+        }
+
+        [Test]
+        public void should_include_async_methods_with_result()
+        {
+            AsyncShouldContain("async_method_with_result");
+        }
+
+        [Test]
+        public void should_include_async_void_methods()
+        {
+            AsyncShouldContain("async_void_method");
+        }
+
+        [Test]
+        public void should_disregard_methods_with_parameters()
+        {
+            ShouldNotContain("helper_method_with_paramter", typeof(child));
+        }
+
+        [Test]
+        public void should_disregard_async_methods_with_parameters()
+        {
+            AsyncShouldNotContain("async_helper_method_with_paramter", typeof(child));
+        }
+
+        [Test]
         public void should_disregard_methods_with_out_underscores()
         {
             ShouldNotContain("NoUnderscores", typeof(child));
+        }
+
+        [Test]
+        public void should_disregard_async_methods_with_out_underscores()
+        {
+            AsyncShouldNotContain("NoUnderscoresAsync", typeof(child));
         }
 
         [Test]
@@ -91,16 +141,36 @@ namespace NSpecSpecs
             ShouldNotContain("private_child_method", typeof(grandChild));
         }
 
+        [Test]
+        public void should_disregard_async_methods_from_concrete_parent()
+        {
+            AsyncShouldNotContain("private_async_child_method", typeof(grandChild));
+        }
+
         public void ShouldContain(string name)
         {
-            var methodInfos = typeof(child).Methods();
+            var methodInfos = typeof(child).SyncMethods();
 
             methodInfos.Any(m => m.Name == name).should_be(true);
         }
 
         public void ShouldNotContain(string name, Type type)
         {
-            var methodInfos = type.Methods();
+            var methodInfos = type.SyncMethods();
+
+            methodInfos.Any(m => m.Name == name).should_be(false);
+        }
+
+        public void AsyncShouldContain(string name)
+        {
+            var methodInfos = typeof(child).AsyncMethods();
+
+            methodInfos.Any(m => m.Name == name).should_be(true);
+        }
+
+        public void AsyncShouldNotContain(string name, Type type)
+        {
+            var methodInfos = type.AsyncMethods();
 
             methodInfos.Any(m => m.Name == name).should_be(false);
         }

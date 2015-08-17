@@ -18,6 +18,7 @@ namespace NSpecSpecs
         TestCase(typeof(describe_contexts_output)),
         TestCase(typeof(describe_pending_output)),
         TestCase(typeof(describe_helpers_output)),
+        TestCase(typeof(describe_async_helpers_output)),
         TestCase(typeof(describe_batman_sound_effects_as_text_output)),
         TestCase(typeof(describe_class_level_output)),
         TestCase(typeof(given_the_sequence_continues_with_2_output)),

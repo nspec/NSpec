@@ -147,7 +147,7 @@ namespace NSpec.Domain
 
         MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
         {
-            return type.Methods().Where(mi => mi.DeclaringType == type).FirstOrDefault(mi => regex.IsMatch(mi.Name));
+            return type.SyncMethods().Where(mi => mi.DeclaringType == type).FirstOrDefault(mi => regex.IsMatch(mi.Name));
         }
 
         ConventionSpecification specification;
