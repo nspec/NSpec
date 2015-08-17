@@ -28,8 +28,24 @@ namespace NSpecSpecs.describe_RunningSpecs
                     await Utils.RunActionAsync(() => state = 1);
                 };
 
-                it["Should wait for its task to complete"] = () => 
-                    state.should_be(1);
+                it["Should wait for its task to complete"] = () => state.should_be(1);
+            }
+
+            void given_both_sync_and_async_before_are_set()
+            {
+                before = () =>
+                {
+                    state = 2;
+                };
+
+                asyncBefore = async () =>
+                {
+                    state = -1;
+
+                    await Utils.RunActionAsync(() => state = 1);
+                };
+
+                it["Should not know what to expect"] = () => true.should_be(true);
             }
         }
 
@@ -47,6 +63,16 @@ namespace NSpecSpecs.describe_RunningSpecs
             example.HasRun.should_be_true();
 
             example.Exception.should_be_null();
+        }
+
+        [Test]
+        public void context_with_both_sync_and_async_before_always_fails()
+        {
+            ExampleBase example = TheExample("Should not know what to expect");
+
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
         }
     }
 }

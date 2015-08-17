@@ -13,11 +13,16 @@ namespace NSpec.Domain
         {
             RecurseAncestors(c => c.RunBefores(instance));
 
-            // TODO-ASYNC Improve: probably on a single context there should either be a before or an asynvBefore, not both
+            // TODO-ASYNC Improve: probably there should either be a BeforeInstance or an AsyncBeforeInstance, not both
 
             BeforeInstance.SafeInvoke(instance);
 
             AsyncBeforeInstance.SafeInvoke(instance);
+
+            if (Before != null && AsyncBefore != null)
+            {
+                throw new ArgumentException("A single context cannot have both a 'before' and an 'asyncBefore' set, please pick one of the two");
+            }
 
             Before.SafeInvoke();
 
