@@ -18,12 +18,12 @@ namespace NSpec.Domain
         {
             if (method.ReturnType == typeof(void))
             {
-                throw new ArgumentException("'async void' method level befores are not supported, please use 'async Task' instead");
+                throw new ArgumentException("'async void' method-level befores are not supported, please use 'async Task' instead");
             }
 
             if (method.ReturnType.IsGenericType)
             {
-                throw new ArgumentException("'async Task<T>' method level befores are not supported, please use 'async Task' instead");
+                throw new ArgumentException("'async Task<T>' method-level befores are not supported, please use 'async Task' instead");
             }
 
             Func<Task> asyncWork = () => (Task)method.Invoke(nspec, null);

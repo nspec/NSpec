@@ -13,13 +13,18 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         class SpecClass : nspec
         {
-            public static Func<Task> AsyncMethodLevelBefore = async () => { await Task.Delay(0); };
+            public static Func<Task> ContextLevelBefore = async () => { await Task.Delay(0); };
             public static Action SubContextBefore = () => { };
             public static Func<Task> AsyncSubContextBefore = async () => { await Task.Delay(0); };
 
+            async Task before_each() 
+            { 
+                await Task.Delay(0); 
+            }
+
             void method_level_context()
             {
-                asyncBefore = AsyncMethodLevelBefore;
+                asyncBefore = ContextLevelBefore;
 
                 context["sub context"] = () => 
                 {
@@ -44,9 +49,24 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void it_should_set_method_level_async_before()
+        public void it_should_set_async_method_level_before()
         {
-            methodContext.AsyncBefore.should_be(SpecClass.AsyncMethodLevelBefore);
+            // Could not find a way to actually verify that deep inside 
+            // 'AsyncBeforeInstance' there is a reference to 'SpecClass.before_each()'
+
+            classContext.AsyncBeforeInstance.should_not_be_null();
+        }
+
+        [Test]
+        public void it_should_not_set_method_level_before()
+        {
+            classContext.BeforeInstance.should_be_null();
+        }
+
+        [Test]
+        public void it_should_set_async_before_on_method_level_context()
+        {
+            methodContext.AsyncBefore.should_be(SpecClass.ContextLevelBefore);
         }
 
         [Test]
