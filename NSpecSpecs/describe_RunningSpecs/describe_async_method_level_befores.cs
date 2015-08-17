@@ -3,6 +3,7 @@ using System.Linq;
 using NSpec;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using NSpec.Domain;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -79,6 +80,45 @@ namespace NSpecSpecs.WhenRunningSpecs
         public void it_should_set_async_before_on_sub_context()
         {
             methodContext.Contexts.Last().AsyncBefore.should_be(SpecClass.AsyncSubContextBefore);
+        }
+    }
+
+    [TestFixture]
+    [Category("RunningSpecs")]
+    [Category("Async")]
+    public class describe_async_wrong_method_level_befores : when_running_specs
+    {
+        class WrongAsyncSpecClass : nspec
+        {
+            void before_each()
+            {
+            }
+
+            async Task before_each_async()
+            {
+                await Task.Delay(0);
+            }
+
+            void it_should_not_know_what_to_expect()
+            {
+                true.should_be(true);
+            }
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            Run(typeof(WrongAsyncSpecClass));
+        }
+
+        [Test]
+        public void when_both_sync_and_async_are_found_it_should_fail()
+        {
+            ExampleBase example = TheExample("it should not know what to expect");
+
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
         }
     }
 }

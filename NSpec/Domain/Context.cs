@@ -13,7 +13,10 @@ namespace NSpec.Domain
         {
             RecurseAncestors(c => c.RunBefores(instance));
 
-            // TODO-ASYNC Improve: probably there should either be a BeforeInstance or an AsyncBeforeInstance, not both
+            if (BeforeInstance != null && AsyncBeforeInstance != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'before_each' set, please pick one of the two");
+            }
 
             BeforeInstance.SafeInvoke(instance);
 
