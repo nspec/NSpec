@@ -44,10 +44,18 @@ namespace NSpec.Domain
 
         void BuildMethodLevelBefore()
         {
-            var befores = GetMethodsFromHierarchy(conventions.GetMethodLevelBefore).ToList();
+            var befores = GetMethodsFromHierarchy(conventions.GetSyncMethodLevelBefore).ToList();
+
             if (befores.Count > 0)
             {
                 BeforeInstance = instance => befores.Do(b => b.Invoke(instance, null));
+            }
+
+            var asyncBefores = GetMethodsFromHierarchy(conventions.GetAsyncMethodLevelBefore).ToList();
+
+            if (asyncBefores.Count > 0)
+            {
+                AsyncBeforeInstance = instance => asyncBefores.Do(b => new AsyncMethodLevelBefore(b).Run(instance));
             }
         }
 

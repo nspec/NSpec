@@ -8,17 +8,18 @@ namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class describe_method_level_befores : when_running_specs
+    [Category("Async")]
+    public class describe_async_method_level_befores : when_running_specs
     {
         class SpecClass : nspec
         {
-            public static Action MethodLevelBefore = () => { };
+            public static Func<Task> AsyncMethodLevelBefore = async () => { await Task.Delay(0); };
             public static Action SubContextBefore = () => { };
             public static Func<Task> AsyncSubContextBefore = async () => { await Task.Delay(0); };
 
             void method_level_context()
             {
-                before = MethodLevelBefore;
+                asyncBefore = AsyncMethodLevelBefore;
 
                 context["sub context"] = () => 
                 {
@@ -43,9 +44,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void it_should_set_method_level_before()
+        public void it_should_set_method_level_async_before()
         {
-            methodContext.Before.should_be(SpecClass.MethodLevelBefore);
+            methodContext.AsyncBefore.should_be(SpecClass.AsyncMethodLevelBefore);
         }
 
         [Test]
@@ -55,7 +56,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        [Category("Async")]
         public void it_should_set_async_before_on_sub_context()
         {
             methodContext.Contexts.Last().AsyncBefore.should_be(SpecClass.AsyncSubContextBefore);

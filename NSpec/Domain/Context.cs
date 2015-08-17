@@ -246,7 +246,7 @@ namespace NSpec.Domain
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, AfterAllInstance, BeforeAllInstance;
         public Func<Task> AsyncBefore;
-        public Func<nspec, Task> AsyncBeforeInstance;
+        public Action<nspec> AsyncBeforeInstance;
         public Context Parent;
         public Exception Exception;
 

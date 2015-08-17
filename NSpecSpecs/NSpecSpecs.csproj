@@ -79,6 +79,7 @@
     <Compile Include="describe_RunningSpecs\describe_async_example.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_before.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_method_level_examples.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_befores.cs" />
     <Compile Include="describe_RunningSpecs\describe_skipped_before_alls_when_excluded_by_tag.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\abstract_class.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\nested_contexts.cs" />
@@ -115,6 +116,8 @@
     <Compile Include="describe_RunningSpecs\describe_todo.cs" />
     <Compile Include="describe_ContextCollection.cs" />
     <Compile Include="describe_DefaultConventions.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_async_before_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_async_method_level_before_contains_exception.cs" />
     <Compile Include="ExampleBaseWrap.cs" />
     <Compile Include="SpecExtensions.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_before_contains_exception.cs" />

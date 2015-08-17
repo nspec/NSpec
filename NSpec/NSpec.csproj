@@ -53,6 +53,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Domain\AsyncActionRegister.cs" />
+    <Compile Include="Domain\AsyncMethodLevelBefore.cs" />
     <Compile Include="Domain\ClassContext.cs" />
     <Compile Include="Domain\AsyncExample.cs" />
     <Compile Include="Domain\ExampleBase.cs" />

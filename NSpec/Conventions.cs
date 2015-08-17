@@ -1,8 +1,9 @@
+using NSpec.Domain.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {
@@ -89,27 +90,32 @@ namespace NSpec.Domain
 
         public MethodInfo GetMethodLevelBeforeAll(Type type)
         {
-            return GetMethodMatchingRegex(type, specification.BeforeAll);
+            return GetSyncMethodMatchingRegex(type, specification.BeforeAll);
         }
 
-        public MethodInfo GetMethodLevelBefore(Type type)
+        public MethodInfo GetSyncMethodLevelBefore(Type type)
         {
-            return GetMethodMatchingRegex(type, specification.Before);
+            return GetSyncMethodMatchingRegex(type, specification.Before);
+        }
+
+        public MethodInfo GetAsyncMethodLevelBefore(Type type)
+        {
+            return GetAsyncMethodMatchingRegex(type, specification.Before);
         }
 
         public MethodInfo GetMethodLevelAct(Type type)
         {
-            return GetMethodMatchingRegex(type, specification.Act);
+            return GetSyncMethodMatchingRegex(type, specification.Act);
         }
 
         public MethodInfo GetMethodLevelAfter(Type type)
         {
-            return GetMethodMatchingRegex(type, specification.After);
+            return GetSyncMethodMatchingRegex(type, specification.After);
         }
 
         public MethodInfo GetMethodLevelAfterAll(Type type)
         {
-            return GetMethodMatchingRegex(type, specification.AfterAll);
+            return GetSyncMethodMatchingRegex(type, specification.AfterAll);
         }
 
         public bool IsMethodLevelExample(string name)
@@ -145,9 +151,21 @@ namespace NSpec.Domain
             return specification.Context.IsMatch(name);
         }
 
-        MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
+        static MethodInfo GetSyncMethodMatchingRegex(Type type, Regex regex)
         {
-            return type.SyncMethods().Where(mi => mi.DeclaringType == type).FirstOrDefault(mi => regex.IsMatch(mi.Name));
+            return FindMatching(type.SyncMethods(), type, regex);
+        }
+
+        static MethodInfo GetAsyncMethodMatchingRegex(Type type, Regex regex)
+        {
+            return FindMatching(type.AsyncMethods(), type, regex);
+        }
+
+        static MethodInfo FindMatching(IEnumerable<MethodInfo> methods, Type type, Regex regex)
+        {
+            return methods
+                .Where(mi => mi.DeclaringType == type)
+                .FirstOrDefault(mi => regex.IsMatch(mi.Name));
         }
 
         ConventionSpecification specification;
