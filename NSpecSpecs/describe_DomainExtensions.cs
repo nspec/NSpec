@@ -149,14 +149,14 @@ namespace NSpecSpecs
 
         public void ShouldContain(string name)
         {
-            var methodInfos = typeof(child).SyncMethods();
+            var methodInfos = typeof(child).Methods();
 
             methodInfos.Any(m => m.Name == name).should_be(true);
         }
 
         public void ShouldNotContain(string name, Type type)
         {
-            var methodInfos = type.SyncMethods();
+            var methodInfos = type.Methods();
 
             methodInfos.Any(m => m.Name == name).should_be(false);
         }

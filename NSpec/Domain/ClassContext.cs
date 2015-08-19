@@ -44,7 +44,7 @@ namespace NSpec.Domain
 
         void BuildMethodLevelBefore()
         {
-            var befores = GetMethodsFromHierarchy(conventions.GetSyncMethodLevelBefore).ToList();
+            var befores = GetMethodsFromHierarchy(conventions.GetMethodLevelBefore).ToList();
 
             if (befores.Count > 0)
             {

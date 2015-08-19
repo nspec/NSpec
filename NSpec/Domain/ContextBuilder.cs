@@ -46,7 +46,7 @@ namespace NSpec.Domain
         public void BuildMethodContexts(Context classContext, Type specClass)
         {
             specClass
-                .SyncMethods()
+                .Methods()
                 .Where(s => conventions.IsMethodLevelContext(s.Name))
                 .Do(contextMethod =>
                 {
@@ -58,14 +58,14 @@ namespace NSpec.Domain
 
         public void BuildMethodLevelExamples(Context classContext, Type specClass)
         {
-            Func<MethodInfo, MethodExampleBase> buildSyncMethodLevel = method => 
+            Func<MethodInfo, MethodExampleBase> buildMethodLevel = method => 
                 new MethodExample(method, TagStringFor(method));
 
             Func<MethodInfo, MethodExampleBase> buildAsyncMethodLevel = method => 
                 new AsyncMethodExample(method, TagStringFor(method));
 
             specClass
-                .SyncMethods()
+                .Methods()
                 .Union(specClass
                     .AsyncMethods())
                 .Where(method => conventions.IsMethodLevelExample(method.Name))
@@ -73,7 +73,7 @@ namespace NSpec.Domain
                 {
                     return method.IsAsync()
                         ? buildAsyncMethodLevel(method)
-                        : buildSyncMethodLevel(method);
+                        : buildMethodLevel(method);
                 })
                 .Do(methodExample =>
                 {

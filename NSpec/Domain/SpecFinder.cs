@@ -18,7 +18,7 @@ namespace NSpec.Domain
                 Types.Where(t => t.IsClass
                                  && !t.IsAbstract
                                  && BaseTypes(t).Any(s => s == typeof(nspec))
-                                 && (t.SyncMethods().Count() > 0 || t.AsyncMethods().Count() > 0)
+                                 && (t.Methods().Count() > 0 || t.AsyncMethods().Count() > 0)
                                  && (string.IsNullOrEmpty(filter) || regex.IsMatch(t.FullName)));
 
             var finalList = new List<Type>();

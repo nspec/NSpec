@@ -90,12 +90,12 @@ namespace NSpec.Domain
 
         public MethodInfo GetMethodLevelBeforeAll(Type type)
         {
-            return GetSyncMethodMatchingRegex(type, specification.BeforeAll);
+            return GetMethodMatchingRegex(type, specification.BeforeAll);
         }
 
-        public MethodInfo GetSyncMethodLevelBefore(Type type)
+        public MethodInfo GetMethodLevelBefore(Type type)
         {
-            return GetSyncMethodMatchingRegex(type, specification.Before);
+            return GetMethodMatchingRegex(type, specification.Before);
         }
 
         public MethodInfo GetAsyncMethodLevelBefore(Type type)
@@ -105,17 +105,17 @@ namespace NSpec.Domain
 
         public MethodInfo GetMethodLevelAct(Type type)
         {
-            return GetSyncMethodMatchingRegex(type, specification.Act);
+            return GetMethodMatchingRegex(type, specification.Act);
         }
 
         public MethodInfo GetMethodLevelAfter(Type type)
         {
-            return GetSyncMethodMatchingRegex(type, specification.After);
+            return GetMethodMatchingRegex(type, specification.After);
         }
 
         public MethodInfo GetMethodLevelAfterAll(Type type)
         {
-            return GetSyncMethodMatchingRegex(type, specification.AfterAll);
+            return GetMethodMatchingRegex(type, specification.AfterAll);
         }
 
         public bool IsMethodLevelExample(string name)
@@ -151,9 +151,9 @@ namespace NSpec.Domain
             return specification.Context.IsMatch(name);
         }
 
-        static MethodInfo GetSyncMethodMatchingRegex(Type type, Regex regex)
+        static MethodInfo GetMethodMatchingRegex(Type type, Regex regex)
         {
-            return FindMatching(type.SyncMethods(), type, regex);
+            return FindMatching(type.Methods(), type, regex);
         }
 
         static MethodInfo GetAsyncMethodMatchingRegex(Type type, Regex regex)
