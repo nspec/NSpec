@@ -34,7 +34,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
             void another_messed_up_context()
             {
                 //this context method should also have everything wrapped in lambdas
-                //notice, it would sort alphebectically before the before_all method
+                //notice, it would sort alphabetically before the before_all method
                 sequence.Add("another_messed_up_context");
             }
         }
