@@ -22,6 +22,7 @@ namespace NSpecSpecs.describe_RunningSpecs
                 it["should not run because of tags"] = () => "not tagged".should_be("not tagged");
             }
         }
+
         class Target : nspec
         {
             void it_specifies_something()

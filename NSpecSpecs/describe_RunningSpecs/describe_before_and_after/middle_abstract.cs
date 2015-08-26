@@ -39,6 +39,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 sequence += "E";
             }
         }
+
         class Concrete : Abstract
         {
             void it_one_is_one()
