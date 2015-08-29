@@ -76,6 +76,7 @@
     <Compile Include="describe_cecil.cs" />
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_before_all.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_example.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_before.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_method_level_examples.cs" />
@@ -138,7 +139,6 @@
     <Compile Include="describe_RunningSpecs\describe_method_level_befores.cs" />
     <Compile Include="describe_SpecFinder.cs" />
     <Compile Include="describe_RunningSpecs\when_running_specs.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">

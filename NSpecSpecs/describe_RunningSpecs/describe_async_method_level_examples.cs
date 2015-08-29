@@ -19,7 +19,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             async Task it_should_be_an_async_example()
             {
-                await Utils.RunActionAsync(() =>
+                await Task.Run(() =>
                 {
                     first_async_example_executed = true;
                     "hello".should_be("hello");
@@ -28,7 +28,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             async Task it_should_be_failing_async()
             {
-                await Utils.RunActionAsync(() =>
+                await Task.Run(() =>
                 {
                     last_async_example_executed = true;
                     "hello".should_not_be("hello");
@@ -55,14 +55,14 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             async Task<long> it_should_be_failing_with_task_result()
             {
-                await Utils.RunActionAsync(() => "hello".should_be("hello"));
+                await Task.Run(() => "hello".should_be("hello"));
 
                 return -1L;
             }
 
             async void it_should_throw_with_async_void()
             {
-                await Utils.RunActionAsync(() => "hello".should_be("hello"));
+                await Task.Run(() => "hello".should_be("hello"));
             }
         }
 

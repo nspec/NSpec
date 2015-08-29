@@ -34,6 +34,11 @@ namespace NSpec.Domain
 
         void RunBeforeAll(nspec instance)
         {
+            if (BeforeAll != null && AsyncBeforeAll != null)
+            {
+                throw new ArgumentException("A single context cannot have both a 'beforeAll' and an 'asyncBeforeAll' set, please pick one of the two");
+            }
+
             BeforeAll.SafeInvoke();
 
             AsyncBeforeAll.SafeInvoke();

@@ -13,15 +13,15 @@ namespace NSpecSpecs.describe_RunningSpecs
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Async")]
-    public class describe_async_before : when_running_specs
+    public class describe_async_before_all : when_running_specs
     {
         class SpecClass : nspec
         {
             int state = 0;
 
-            void given_async_before_is_set()
+            void given_async_before_all_is_set()
             {
-                asyncBefore = async () =>
+                asyncBeforeAll = async () =>
                 {
                     state = -1;
 
@@ -31,14 +31,14 @@ namespace NSpecSpecs.describe_RunningSpecs
                 it["Should wait for its task to complete"] = () => state.should_be(1);
             }
 
-            void given_both_sync_and_async_before_are_set()
+            void given_both_sync_and_async_before_all_are_set()
             {
-                before = () =>
+                beforeAll = () =>
                 {
                     state = 2;
                 };
 
-                asyncBefore = async () =>
+                asyncBeforeAll = async () =>
                 {
                     state = -1;
 
@@ -56,7 +56,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        public void async_before_waits_for_task_to_complete()
+        public void async_before_all_waits_for_task_to_complete()
         {
             ExampleBase example = TheExample("Should wait for its task to complete");
 
