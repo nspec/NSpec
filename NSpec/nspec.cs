@@ -71,7 +71,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// This Action is an alias of before. This Action get executed before each example is run.
+        /// This Action is an alias of before. This Action gets executed before each example is run.
         /// <para>For Example:</para>
         /// <para>beforeEach = () => someList = new List&lt;int&gt;();</para>
         /// <para>The beforeEach can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
@@ -80,6 +80,18 @@ namespace NSpec
         {
             get { return Context.Before; }
             set { Context.Before = value; }
+        }
+
+        /// <summary>
+        /// This is an alias of asyncBefore. It gets executed asynchronously before each example is run.
+        /// <para>For Example:</para>
+        /// <para>asyncBeforeEach = async () => someList = await GetListAsync();</para>
+        /// <para>The asyncBeforeEach can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// </summary>
+        public virtual Func<Task> asyncBeforeEach
+        {
+            get { return Context.AsyncBefore; }
+            set { Context.AsyncBefore = value; }
         }
 
         /// <summary>
@@ -92,6 +104,18 @@ namespace NSpec
         {
             get { return Context.BeforeAll; }
             set { Context.BeforeAll = value; }
+        }
+
+        /// <summary>
+        /// This gets executed asynchronously before all examples in a context.
+        /// <para>For Example:</para>
+        /// <para>asyncBeforeAll = async () => someList = await GetListAsync();</para>
+        /// <para>The asyncBeforeAll can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// </summary>
+        public virtual Func<Task> asyncBeforeAll
+        {
+            get { return Context.AsyncBeforeAll; }
+            set { Context.AsyncBeforeAll = value; }
         }
 
         /// <summary>

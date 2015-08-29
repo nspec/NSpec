@@ -36,6 +36,8 @@ namespace NSpec.Domain
         {
             BeforeAll.SafeInvoke();
 
+            AsyncBeforeAll.SafeInvoke();
+
             BeforeAllInstance.SafeInvoke(instance);
         }
 
@@ -248,7 +250,7 @@ namespace NSpec.Domain
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, AfterAllInstance, BeforeAllInstance;
-        public Func<Task> AsyncBefore;
+        public Func<Task> AsyncBefore, AsyncBeforeAll;
         public Action<nspec> AsyncBeforeInstance;
         public Context Parent;
         public Exception Exception;
