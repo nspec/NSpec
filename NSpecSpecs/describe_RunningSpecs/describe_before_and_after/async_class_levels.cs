@@ -12,9 +12,9 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
     {
         class SpecClass : sequence_spec
         {
-            void before_all() // TODO-ASYNC
+            async Task before_all()
             {
-                sequence = "A";
+                await Task.Run(() => sequence = "A");
             }
 
             async Task before_each()

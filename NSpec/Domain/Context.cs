@@ -11,7 +11,11 @@ namespace NSpec.Domain
     {
         public void RunBefores(nspec instance)
         {
+            // ancestors
+
             RecurseAncestors(c => c.RunBefores(instance));
+
+            // class (method-level) before
 
             if (BeforeInstance != null && AsyncBeforeInstance != null)
             {
@@ -21,6 +25,8 @@ namespace NSpec.Domain
             BeforeInstance.SafeInvoke(instance);
 
             AsyncBeforeInstance.SafeInvoke(instance);
+
+            // context-level before
 
             if (Before != null && AsyncBefore != null)
             {
@@ -34,6 +40,8 @@ namespace NSpec.Domain
 
         void RunBeforeAll(nspec instance)
         {
+            // context-level before all
+
             if (BeforeAll != null && AsyncBeforeAll != null)
             {
                 throw new ArgumentException("A single context cannot have both a 'beforeAll' and an 'asyncBeforeAll' set, please pick one of the two");
@@ -43,7 +51,11 @@ namespace NSpec.Domain
 
             AsyncBeforeAll.SafeInvoke();
 
+            // class (method-level) before all
+
             BeforeAllInstance.SafeInvoke(instance);
+
+            AsyncBeforeAllInstance.SafeInvoke(instance);
         }
 
         public void RunActs(nspec instance)
@@ -254,9 +266,9 @@ namespace NSpec.Domain
         public List<ExampleBase> Examples;
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
-        public Action<nspec> BeforeInstance, ActInstance, AfterInstance, AfterAllInstance, BeforeAllInstance;
+        public Action<nspec> BeforeInstance, ActInstance, AfterInstance, BeforeAllInstance, AfterAllInstance;
         public Func<Task> AsyncBefore, AsyncBeforeAll;
-        public Action<nspec> AsyncBeforeInstance;
+        public Action<nspec> AsyncBeforeInstance, AsyncBeforeAllInstance;
         public Context Parent;
         public Exception Exception;
 

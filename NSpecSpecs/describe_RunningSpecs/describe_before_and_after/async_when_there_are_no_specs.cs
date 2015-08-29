@@ -15,18 +15,18 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
             sequence_spec.sequence = "";
         }
 
-        class before_all_example_spec : sequence_spec // TODO-ASYNC
+        class async_before_all_example_spec : sequence_spec
         {
-            void before_all()
+            async Task before_all()
             {
-                sequence = "executed";
+                await Task.Run(() => sequence = "executed");
             }
         }
 
         [Test]
-        public void before_all_is_not_executed()
+        public void async_before_all_is_not_executed()
         {
-            Run(typeof (before_all_example_spec));
+            Run(typeof(async_before_all_example_spec));
 
             sequence_spec.sequence.Is("");
         }
@@ -47,9 +47,9 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
             sequence_spec.sequence.Is("");
         }
 
-        class after_each_example_spec : sequence_spec // TODO-ASYNC
+        class after_each_example_spec : sequence_spec
         {
-            void after_each()
+            void after_each() // TODO-ASYNC
             {
                 sequence = "executed";
             }
@@ -63,9 +63,9 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
             sequence_spec.sequence.Is("");
         }
 
-        class after_all_example_spec : sequence_spec // TODO-ASYNC
+        class after_all_example_spec : sequence_spec
         {
-            void after_all()
+            void after_all() // TODO-ASYNC
             {
                 sequence = "executed";
             }

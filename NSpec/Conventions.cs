@@ -93,6 +93,11 @@ namespace NSpec.Domain
             return GetMethodMatchingRegex(type, specification.BeforeAll);
         }
 
+        public MethodInfo GetAsyncMethodLevelBeforeAll(Type type)
+        {
+            return GetAsyncMethodMatchingRegex(type, specification.BeforeAll);
+        }
+
         public MethodInfo GetMethodLevelBefore(Type type)
         {
             return GetMethodMatchingRegex(type, specification.Before);

@@ -12,9 +12,9 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
     {
         class Base : sequence_spec
         {
-            void before_all() // TODO-ASYNC
+            async Task before_all()
             {
-                sequence += "A";
+                await Task.Run(() => sequence += "A");
             }
             void after_all() // TODO-ASYNC
             {
@@ -24,9 +24,9 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 
         abstract class Abstract : Base
         {
-            void before_all() // TODO-ASYNC
+            async Task before_all()
             {
-                sequence += "B";
+                await Task.Run(() => sequence += "B");
             }
             async Task before_each()
             {
