@@ -53,6 +53,11 @@ namespace NSpec.Domain
 
             // class (method-level) before all
 
+            if (BeforeAllInstance != null && AsyncBeforeAllInstance != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'before_all' set, please pick one of the two");
+            }
+
             BeforeAllInstance.SafeInvoke(instance);
 
             AsyncBeforeAllInstance.SafeInvoke(instance);

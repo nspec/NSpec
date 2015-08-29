@@ -72,7 +72,7 @@ namespace NSpec.Domain
 
             if (asyncBeforeAlls.Count > 0)
             {
-                AsyncBeforeAllInstance = instance => asyncBeforeAlls.Do(b => new AsyncMethodLevelBefore(b).Run(instance));
+                AsyncBeforeAllInstance = instance => asyncBeforeAlls.Do(b => new AsyncMethodLevelBeforeAll(b).Run(instance));
             }
         }
 
