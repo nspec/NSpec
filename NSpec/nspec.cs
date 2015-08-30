@@ -154,7 +154,6 @@ namespace NSpec
             set { Context.After = value; }
         }
 
-
         /// <summary>
         /// This Action gets executed after all examples in a context.
         /// <para>For Example:</para>
@@ -165,6 +164,18 @@ namespace NSpec
         {
             get { return Context.AfterAll; }
             set { Context.AfterAll = value; }
+        }
+
+        /// <summary>
+        /// This Function gets executed asynchronously after all examples in a context.
+        /// <para>For Example:</para>
+        /// <para>asyncAfterAll = async () => someList = await GetListAsync();</para>
+        /// <para>The asyncAfterAll can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// </summary>
+        public virtual Func<Task> asyncAfterAll
+        {
+            get { return Context.AsyncAfterAll; }
+            set { Context.AsyncAfterAll = value; }
         }
 
         /// <summary>

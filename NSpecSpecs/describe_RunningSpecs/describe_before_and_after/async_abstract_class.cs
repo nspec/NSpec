@@ -29,7 +29,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 specify = () => 1.Is(1); // TODO-ASYNC
                 asyncAfter = async () => await Task.Run(() => sequence += "E");
 
-                afterAll = () => sequence += "G"; // TODO-ASYNC
+                asyncAfterAll = async () => await Task.Run(() => sequence += "G");
             }
 
             void after_each() // TODO-ASYNC

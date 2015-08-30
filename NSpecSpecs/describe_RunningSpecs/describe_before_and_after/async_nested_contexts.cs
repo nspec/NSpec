@@ -24,11 +24,11 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                     specify = () => 1.Is(1); // TODO-ASYNC
 
                     asyncAfter = async () => await Task.Run(() => sequence += "E");
-                    afterAll = () => sequence += "G"; // TODO-ASYNC
+                    asyncAfterAll = async () => await Task.Run(() => sequence += "G");
                 };
 
                 asyncAfter = async () => await Task.Run(() => sequence += "F");
-                afterAll = () => sequence += "H"; // TODO-ASYNC
+                asyncAfterAll = async () => await Task.Run(() => sequence += "H");
             }
         }
 

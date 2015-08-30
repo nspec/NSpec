@@ -102,7 +102,13 @@ namespace NSpec.Domain
 
         public void RunAfterAll(nspec instance)
         {
+            // context-level
+
             AfterAll.SafeInvoke();
+
+            AsyncAfterAll.SafeInvoke();
+
+            // class (method-level)
 
             AfterAllInstance.SafeInvoke(instance);
         }
@@ -291,7 +297,7 @@ namespace NSpec.Domain
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, BeforeAllInstance, AfterAllInstance;
-        public Func<Task> AsyncBefore, AsyncAfter, AsyncBeforeAll;
+        public Func<Task> AsyncBefore, AsyncAfter, AsyncBeforeAll, AsyncAfterAll;
         public Action<nspec> AsyncBeforeInstance, AsyncBeforeAllInstance;
         public Context Parent;
         public Exception Exception;
