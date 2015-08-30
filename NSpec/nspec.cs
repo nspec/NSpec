@@ -59,7 +59,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// This Action gets executed asynchronously before each example is run.
+        /// This Function gets executed asynchronously before each example is run.
         /// <para>For Example:</para>
         /// <para>asyncBefore = async () => someList = await GetListAsync();</para>
         /// <para>The asyncBefore can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
@@ -83,7 +83,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// This is an alias of asyncBefore. It gets executed asynchronously before each example is run.
+        /// This Function is an alias of asyncBefore. It gets executed asynchronously before each example is run.
         /// <para>For Example:</para>
         /// <para>asyncBeforeEach = async () => someList = await GetListAsync();</para>
         /// <para>The asyncBeforeEach can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
@@ -107,7 +107,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// This gets executed asynchronously before all examples in a context.
+        /// This Function gets executed asynchronously before all examples in a context.
         /// <para>For Example:</para>
         /// <para>asyncBeforeAll = async () => someList = await GetListAsync();</para>
         /// <para>The asyncBeforeAll can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
@@ -119,7 +119,10 @@ namespace NSpec
         }
 
         /// <summary>
-        /// In development.
+        /// This Action gets executed after each example is run.
+        /// <para>For Example:</para>
+        /// <para>after = () => someList = new List&lt;int&gt;();</para>
+        /// <para>The after can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
         /// </summary>
         public virtual Action after
         {
@@ -128,7 +131,19 @@ namespace NSpec
         }
 
         /// <summary>
-        /// This Action is an alias of after. This Action get executed after each example is run.
+        /// This Function gets executed asynchronously after each example is run.
+        /// <para>For Example:</para>
+        /// <para>asyncAter = async () => someList = await GetListAsync();</para>
+        /// <para>The after can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// </summary>
+        public virtual Func<Task> asyncAfter
+        {
+            get { return Context.AsyncAfter; }
+            set { Context.AsyncAfter = value; }
+        }
+
+        /// <summary>
+        /// This Action is an alias of after. This Action gets executed after each example is run.
         /// <para>For Example:</para>
         /// <para>afterEach = () => someList = new List&lt;int&gt;();</para>
         /// <para>The afterEach can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
@@ -153,7 +168,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Assign this member within your context.  The Action assigned will get executed
+        /// Assign this member within your context.  The Action assigned will gets executed
         /// with every example in scope.  Befores will run first, then acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-Assert for all subcontexts.  For more information visit http://www.nspec.org
         /// </summary>
         public virtual Action act

@@ -11,11 +11,11 @@ namespace NSpec.Domain
     {
         public void RunBefores(nspec instance)
         {
-            // ancestors
+            // parent chain
 
             RecurseAncestors(c => c.RunBefores(instance));
 
-            // class (method-level) before
+            // class (method-level)
 
             if (BeforeInstance != null && AsyncBeforeInstance != null)
             {
@@ -26,7 +26,7 @@ namespace NSpec.Domain
 
             AsyncBeforeInstance.SafeInvoke(instance);
 
-            // context-level before
+            // context-level
 
             if (Before != null && AsyncBefore != null)
             {
@@ -40,7 +40,7 @@ namespace NSpec.Domain
 
         void RunBeforeAll(nspec instance)
         {
-            // context-level before all
+            // context-level
 
             if (BeforeAll != null && AsyncBeforeAll != null)
             {
@@ -51,7 +51,7 @@ namespace NSpec.Domain
 
             AsyncBeforeAll.SafeInvoke();
 
-            // class (method-level) before all
+            // class (method-level)
 
             if (BeforeAllInstance != null && AsyncBeforeAllInstance != null)
             {
@@ -65,18 +65,32 @@ namespace NSpec.Domain
 
         public void RunActs(nspec instance)
         {
+            // parent chain
+
             RecurseAncestors(c => c.RunActs(instance));
 
+            // class (method-level)
+
             ActInstance.SafeInvoke(instance);
+
+            // context-level
 
             Act.SafeInvoke();
         }
 
         public void RunAfters(nspec instance)
         {
+            // context-level
+
             After.SafeInvoke();
 
+            AsyncAfter.SafeInvoke();
+
+            // class (method-level)
+
             AfterInstance.SafeInvoke(instance);
+
+            // parent chain
 
             RecurseAncestors(c => c.RunAfters(instance));
         }
@@ -272,7 +286,7 @@ namespace NSpec.Domain
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, BeforeAllInstance, AfterAllInstance;
-        public Func<Task> AsyncBefore, AsyncBeforeAll;
+        public Func<Task> AsyncBefore, AsyncAfter, AsyncBeforeAll;
         public Action<nspec> AsyncBeforeInstance, AsyncBeforeAllInstance;
         public Context Parent;
         public Exception Exception;

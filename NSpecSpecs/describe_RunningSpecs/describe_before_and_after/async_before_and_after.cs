@@ -18,7 +18,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 asyncBefore = async () => await Task.Run(() => sequence += "B");
                 asyncIt["spec 1"] = async () => await Task.Run(() => sequence += "1");
                 asyncIt["spec 2"] = async () => await Task.Run(() => sequence += "2"); //two specs cause before_each and after_each to run twice
-                after = async () => await Task.Run(() => sequence += "C"); // TODO-ASYNC 
+                asyncAfter = async () => await Task.Run(() => sequence += "C");
                 afterAll = async () => await Task.Run(() => sequence += "D"); // TODO-ASYNC 
             }
         }
