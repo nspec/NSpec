@@ -82,6 +82,11 @@ namespace NSpec.Domain
         {
             // context-level
 
+            if (After != null && AsyncAfter != null)
+            {
+                throw new ArgumentException("A single context cannot have both an 'after' and an 'asyncAfter' set, please pick one of the two");
+            }
+
             After.SafeInvoke();
 
             AsyncAfter.SafeInvoke();
