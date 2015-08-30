@@ -39,7 +39,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 asyncBeforeAll = async () => await Task.Run(() => sequence += "B");
 
                 asyncBefore = async () => await Task.Run(() => sequence += "D");
-                specify = () => 1.Is(1); // TODO-ASYNC
+                specify = () => 1.Is(1);
                 asyncAfter = async () => await Task.Run(() => sequence += "E");
 
                 asyncAfterAll = async () => await Task.Run(() => sequence += "G");

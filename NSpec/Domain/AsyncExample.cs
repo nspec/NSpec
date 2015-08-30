@@ -14,7 +14,8 @@ namespace NSpec.Domain
             asyncWork.Offload();
         }
 
-        /* Async lambda expressions cannot be converted to expression trees
+        /* No need for the following: 
+         * Async lambda expressions cannot be converted to expression trees
 
         public AsyncExample(Expression<Func<Task>> asyncExpr, bool pending = false) 
             : this(Parse(asyncExpr), null, asyncExpr.Compile(), pending) { }

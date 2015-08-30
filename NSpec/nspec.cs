@@ -35,6 +35,13 @@ namespace NSpec
             set { AddExample(new Example(value)); }
         }
 
+        /* No need for the following: 
+         * Async lambda expressions cannot be converted to expression trees
+
+        public virtual Expression<Func<Task>> asyncSpecify
+        ...
+         */
+
         /// <summary>
         /// Mark a spec as pending 
         /// <para>For Example:</para>
