@@ -77,11 +77,12 @@
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_after.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_before_all.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_before.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_before_all.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_example.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_before.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_method_level_examples.cs" />
-    <Compile Include="describe_RunningSpecs\describe_async_wrong_method_level_hooks.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\async_abstract_class.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\async_before_and_after.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\async_middle_abstract.cs" />
