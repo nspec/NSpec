@@ -65,9 +65,9 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 
         class after_all_example_spec : sequence_spec
         {
-            void after_all() // TODO-ASYNC
+            async Task after_all()
             {
-                sequence = "executed";
+                await Task.Run(() => sequence += "executed");
             }
         }
 

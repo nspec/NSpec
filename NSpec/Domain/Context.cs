@@ -111,13 +111,22 @@ namespace NSpec.Domain
         {
             // context-level
 
+            // TODO-ASYNC a single context cannot have bot sync and async afterAll
+
             AfterAll.SafeInvoke();
 
             AsyncAfterAll.SafeInvoke();
 
             // class (method-level)
 
+            if (AfterAllInstance != null && AsyncAfterAllInstance != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'after_all' set, please pick one of the two");
+            }
+
             AfterAllInstance.SafeInvoke(instance);
+
+            AsyncAfterAllInstance.SafeInvoke(instance);
         }
 
         public void AddExample(ExampleBase example)
@@ -297,6 +306,8 @@ namespace NSpec.Domain
             this.isPending = isPending;
         }
 
+        // TODO-ASYNC AsyncAct, AsyncActInstance
+
         public string Name;
         public int Level;
         public List<string> Tags;
@@ -305,7 +316,7 @@ namespace NSpec.Domain
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, BeforeAllInstance, AfterAllInstance;
         public Func<Task> AsyncBefore, AsyncAfter, AsyncBeforeAll, AsyncAfterAll;
-        public Action<nspec> AsyncBeforeInstance, AsyncAfterInstance, AsyncBeforeAllInstance;
+        public Action<nspec> AsyncBeforeInstance, AsyncAfterInstance, AsyncBeforeAllInstance, AsyncAfterAllInstance;
         public Context Parent;
         public Exception Exception;
 

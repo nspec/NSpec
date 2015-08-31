@@ -128,6 +128,11 @@ namespace NSpec.Domain
             return GetMethodMatchingRegex(type, specification.AfterAll);
         }
 
+        public MethodInfo GetAsyncMethodLevelAfterAll(Type type)
+        {
+            return GetAsyncMethodMatchingRegex(type, specification.AfterAll);
+        }
+
         public bool IsMethodLevelExample(string name)
         {
             return specification.Example.IsMatch(name);

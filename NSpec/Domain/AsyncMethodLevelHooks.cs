@@ -50,4 +50,9 @@ namespace NSpec.Domain
     {
         public AsyncMethodLevelAfter(MethodInfo method) : base(method, "after_each") { }
     }
+
+    public class AsyncMethodLevelAfterAll : AsyncMethodLevelHook
+    {
+        public AsyncMethodLevelAfterAll(MethodInfo method) : base(method, "after_all") { }
+    }
 }
