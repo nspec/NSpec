@@ -13,13 +13,13 @@ namespace NSpecSpecs.describe_RunningSpecs
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Async")]
-    public class describe_async_method_level_before_all : when_running_specs
+    public class describe_async_method_level_act : when_running_specs
     {
         class SpecClass : nspec
         {
             int state = 0;
 
-            async Task before_all()
+            async Task act_each()
             {
                 state = -1;
 
@@ -33,7 +33,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        public void async_method_level_before_all_waits_for_task_to_complete()
+        public void async_method_level_act_waits_for_task_to_complete()
         {
             Run(typeof(SpecClass));
 
@@ -48,12 +48,12 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             public int state = 0;  // public to avoid 'unused' warning
 
-            void before_all()
+            void act_each()
             {
                 state = 2;
             }
 
-            async Task before_all_async()
+            async Task act_each_async()
             {
                 state = -1;
 
@@ -67,7 +67,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        public void class_with_both_sync_and_async_before_all_always_fails()
+        public void class_with_both_sync_and_async_act_always_fails()
         {
             Run(typeof(WrongSpecClass));
 

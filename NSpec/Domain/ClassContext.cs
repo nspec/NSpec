@@ -79,9 +79,17 @@ namespace NSpec.Domain
         void BuildMethodLevelAct()
         {
             var acts = GetMethodsFromHierarchy(conventions.GetMethodLevelAct).ToList();
+
             if (acts.Count > 0)
             {
                 ActInstance = instance => acts.Do(a => a.Invoke(instance, null));
+            }
+
+            var asyncActs = GetMethodsFromHierarchy(conventions.GetAsyncMethodLevelAct).ToList();
+
+            if (asyncActs.Count > 0)
+            {
+                AsyncActInstance = instance => asyncActs.Do(a => new AsyncMethodLevelAct(a).Run(instance));
             }
         }
 

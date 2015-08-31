@@ -71,7 +71,14 @@ namespace NSpec.Domain
 
             // class (method-level)
 
+            if (ActInstance != null && AsyncActInstance != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'act_each' set, please pick one of the two");
+            }
+
             ActInstance.SafeInvoke(instance);
+
+            AsyncActInstance.SafeInvoke(instance);
 
             // context-level
 
@@ -316,8 +323,6 @@ namespace NSpec.Domain
             this.isPending = isPending;
         }
 
-        // TODO-ASYNC AsyncActInstance
-
         public string Name;
         public int Level;
         public List<string> Tags;
@@ -326,7 +331,7 @@ namespace NSpec.Domain
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, BeforeAllInstance, AfterAllInstance;
         public Func<Task> AsyncBefore, AsyncAct, AsyncAfter, AsyncBeforeAll, AsyncAfterAll;
-        public Action<nspec> AsyncBeforeInstance, AsyncAfterInstance, AsyncBeforeAllInstance, AsyncAfterAllInstance;
+        public Action<nspec> AsyncBeforeInstance, AsyncActInstance, AsyncAfterInstance, AsyncBeforeAllInstance, AsyncAfterAllInstance;
         public Context Parent;
         public Exception Exception;
 

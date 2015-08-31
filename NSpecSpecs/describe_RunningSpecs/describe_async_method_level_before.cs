@@ -46,7 +46,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
         class WrongSpecClass : nspec
         {
-            int state = 0;
+            public int state = 0;  // public to avoid 'unused' warning
 
             void before_each()
             {

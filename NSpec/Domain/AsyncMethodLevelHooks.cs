@@ -41,14 +41,19 @@ namespace NSpec.Domain
         public AsyncMethodLevelBefore(MethodInfo method) : base(method, "before_each") { }
     }
 
-    public class AsyncMethodLevelBeforeAll : AsyncMethodLevelHook
+    public class AsyncMethodLevelAct : AsyncMethodLevelHook
     {
-        public AsyncMethodLevelBeforeAll(MethodInfo method) : base(method, "before_all") { }
+        public AsyncMethodLevelAct(MethodInfo method) : base(method, "act_each") { }
     }
 
     public class AsyncMethodLevelAfter : AsyncMethodLevelHook
     {
         public AsyncMethodLevelAfter(MethodInfo method) : base(method, "after_each") { }
+    }
+
+    public class AsyncMethodLevelBeforeAll : AsyncMethodLevelHook
+    {
+        public AsyncMethodLevelBeforeAll(MethodInfo method) : base(method, "before_all") { }
     }
 
     public class AsyncMethodLevelAfterAll : AsyncMethodLevelHook

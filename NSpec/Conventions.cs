@@ -113,6 +113,11 @@ namespace NSpec.Domain
             return GetMethodMatchingRegex(type, specification.Act);
         }
 
+        public MethodInfo GetAsyncMethodLevelAct(Type type)
+        {
+            return GetAsyncMethodMatchingRegex(type, specification.Act);
+        }
+
         public MethodInfo GetMethodLevelAfter(Type type)
         {
             return GetMethodMatchingRegex(type, specification.After);

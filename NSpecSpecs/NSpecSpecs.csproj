@@ -81,6 +81,7 @@
     <Compile Include="describe_RunningSpecs\describe_async_act.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_method_level_after_all.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_method_level_after.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_act.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_method_level_before_all.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_method_level_before.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_before_all.cs" />
