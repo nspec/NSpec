@@ -11,29 +11,15 @@ namespace NSpec.Domain
     {
         public AsyncMethodLevelHook(MethodInfo method, string hookName)
         {
-            this.method = method;
-            this.hookName = hookName;
+            runner = new AsyncMethodRunner(method, hookName);
         }
 
-        public void Run(nspec nspec)
+        public virtual void Run(nspec nspec)
         {
-            if (method.ReturnType == typeof(void))
-            {
-                throw new ArgumentException("'async void' method-level {0} is not supported, please use 'async Task' instead", hookName);
-            }
-
-            if (method.ReturnType.IsGenericType)
-            {
-                throw new ArgumentException("'async Task<T>' method-level {0} is not supported, please use 'async Task' instead", hookName);
-            }
-
-            Func<Task> asyncWork = () => (Task)method.Invoke(nspec, null);
-
-            asyncWork.Offload();
+            runner.Run(nspec);
         }
 
-        readonly MethodInfo method;
-        readonly string hookName;
+        readonly AsyncMethodRunner runner;
     }
 
     public class AsyncMethodLevelBefore : AsyncMethodLevelHook
