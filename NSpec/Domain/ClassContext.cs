@@ -93,6 +93,13 @@ namespace NSpec.Domain
             {
                 AfterInstance = instance => afters.Do(a => a.Invoke(instance, null));
             }
+
+            var asyncAfters = GetMethodsFromHierarchy(conventions.GetAsyncMethodLevelAfter).Reverse().ToList();
+
+            if (asyncAfters.Count > 0)
+            {
+                AsyncAfterInstance = instance => asyncAfters.Do(a => new AsyncMethodLevelAfter(a).Run(instance));
+            }
         }
 
         void BuildMethodLevelAfterAll()

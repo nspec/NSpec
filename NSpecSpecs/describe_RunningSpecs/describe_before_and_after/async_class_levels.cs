@@ -32,9 +32,9 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 await Task.Run(() => sequence += "2"); //two specs cause before_each and after_each to run twice
             }
 
-            void after_each() // TODO-ASYNC
+            async Task after_each()
             {
-                sequence += "C";
+                await Task.Run(() => sequence += "C");
             }
 
             void after_all() // TODO-ASYNC

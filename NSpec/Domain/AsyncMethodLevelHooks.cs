@@ -19,12 +19,12 @@ namespace NSpec.Domain
         {
             if (method.ReturnType == typeof(void))
             {
-                throw new ArgumentException("'async void' method-level {0}s are not supported, please use 'async Task' instead", hookName);
+                throw new ArgumentException("'async void' method-level {0} is not supported, please use 'async Task' instead", hookName);
             }
 
             if (method.ReturnType.IsGenericType)
             {
-                throw new ArgumentException("'async Task<T>' method-level {0}s are not supported, please use 'async Task' instead", hookName);
+                throw new ArgumentException("'async Task<T>' method-level {0} is not supported, please use 'async Task' instead", hookName);
             }
 
             Func<Task> asyncWork = () => (Task)method.Invoke(nspec, null);
@@ -38,11 +38,16 @@ namespace NSpec.Domain
 
     public class AsyncMethodLevelBefore : AsyncMethodLevelHook
     {
-        public AsyncMethodLevelBefore(MethodInfo method) : base(method, "before") { }
+        public AsyncMethodLevelBefore(MethodInfo method) : base(method, "before_each") { }
     }
 
     public class AsyncMethodLevelBeforeAll : AsyncMethodLevelHook
     {
-        public AsyncMethodLevelBeforeAll(MethodInfo method) : base(method, "beforeAll") { }
+        public AsyncMethodLevelBeforeAll(MethodInfo method) : base(method, "before_all") { }
+    }
+
+    public class AsyncMethodLevelAfter : AsyncMethodLevelHook
+    {
+        public AsyncMethodLevelAfter(MethodInfo method) : base(method, "after_each") { }
     }
 }

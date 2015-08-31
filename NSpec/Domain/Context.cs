@@ -93,7 +93,14 @@ namespace NSpec.Domain
 
             // class (method-level)
 
+            if (AfterInstance != null && AsyncAfterInstance != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'after_each' set, please pick one of the two");
+            }
+
             AfterInstance.SafeInvoke(instance);
+
+            AsyncAfterInstance.SafeInvoke(instance);
 
             // parent chain
 
@@ -298,7 +305,7 @@ namespace NSpec.Domain
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, BeforeAllInstance, AfterAllInstance;
         public Func<Task> AsyncBefore, AsyncAfter, AsyncBeforeAll, AsyncAfterAll;
-        public Action<nspec> AsyncBeforeInstance, AsyncBeforeAllInstance;
+        public Action<nspec> AsyncBeforeInstance, AsyncAfterInstance, AsyncBeforeAllInstance;
         public Context Parent;
         public Exception Exception;
 
