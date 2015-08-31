@@ -62,7 +62,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void it_should_not_know_what_to_expect()
             {
-                true.should_be(true);
+                true.should_be_true();
             }
         }
 

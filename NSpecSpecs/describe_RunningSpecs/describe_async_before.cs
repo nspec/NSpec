@@ -45,7 +45,7 @@ namespace NSpecSpecs.describe_RunningSpecs
                     await Task.Run(() => state = 1);
                 };
 
-                it["Should not know what to expect"] = () => true.should_be(true);
+                it["Should not know what to expect"] = () => true.should_be_true();
             }
         }
 
