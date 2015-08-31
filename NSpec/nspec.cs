@@ -22,6 +22,7 @@ namespace NSpec
             xit = new ActionRegister((name, tags, action) => AddExample(new Example(name, tags, action, pending: true)));
 
             asyncIt = new AsyncActionRegister((name, tags, asyncAction) => AddExample(new AsyncExample(name, tags, asyncAction, pending: asyncAction == asyncTodo)));
+            xasyncIt = new AsyncActionRegister((name, tags, asyncAction) => AddExample(new AsyncExample(name, tags, asyncAction, pending: true)));
         }
 
         /// <summary>
@@ -246,11 +247,17 @@ namespace NSpec
         /// Mark a spec as pending 
         /// <para>For Example:</para>
         /// <para>xit["should return false"] = () => _controller.should_be(false);</para>
-        /// <para>(the example will be marked as pending any lambda provided will not be executed)</para>
+        /// <para>(the example will be marked as pending, any lambda provided will not be executed)</para>
         /// </summary>
         public ActionRegister xit;
 
-        // TODO-ASYNC xasyncIt
+        /// <summary>
+        /// Mark an asynchronous spec as pending 
+        /// <para>For Example:</para>
+        /// <para>xasyncIt["should return false"] = async () => (await GetResultAsync()).should_be(false);</para>
+        /// <para>(the example will be marked as pending, any lambda provided will not be executed)</para>
+        /// </summary>
+        public AsyncActionRegister xasyncIt;
 
         /// <summary>
         /// Set up a pending spec.

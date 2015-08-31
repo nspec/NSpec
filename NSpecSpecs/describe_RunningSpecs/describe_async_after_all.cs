@@ -56,7 +56,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        public void async_after_waits_for_task_to_complete()
+        public void async_after_all_waits_for_task_to_complete()
         {
             ExampleBase example = TheExample("Should have a specification");
 
@@ -69,7 +69,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
         [Test]
         [Ignore("Until 'AfterAlls' exceptions are not registered")]
-        public void context_with_both_sync_and_async_after_always_fails()
+        public void context_with_both_sync_and_async_after_all_always_fails()
         {
             ExampleBase example = TheExample("Should not know what to do");
 
