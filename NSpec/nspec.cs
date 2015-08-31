@@ -196,6 +196,16 @@ namespace NSpec
         }
 
         /// <summary>
+        /// Assign this member within your context.  The Function assigned will gets executed asynchronously
+        /// with every example in scope.  Befores will run first, then acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-Assert for all subcontexts.  For more information visit http://www.nspec.org
+        /// </summary>
+        public virtual Func<Task> asyncAct
+        {
+            get { return Context.AsyncAct; }
+            set { Context.AsyncAct = value; }
+        }
+
+        /// <summary>
         /// Create a subcontext.
         /// <para>For Examples see http://www.nspec.org</para>
         /// </summary>
@@ -239,6 +249,8 @@ namespace NSpec
         /// <para>(the example will be marked as pending any lambda provided will not be executed)</para>
         /// </summary>
         public ActionRegister xit;
+
+        // TODO-ASYNC xasyncIt
 
         /// <summary>
         /// Set up a pending spec.

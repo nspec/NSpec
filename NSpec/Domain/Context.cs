@@ -75,7 +75,14 @@ namespace NSpec.Domain
 
             // context-level
 
+            if (Act != null && AsyncAct != null)
+            {
+                throw new ArgumentException("A single context cannot have both an 'act' and an 'asyncAct' set, please pick one of the two");
+            }
+
             Act.SafeInvoke();
+
+            AsyncAct.SafeInvoke();
         }
 
         public void RunAfters(nspec instance)
@@ -309,7 +316,7 @@ namespace NSpec.Domain
             this.isPending = isPending;
         }
 
-        // TODO-ASYNC AsyncAct, AsyncActInstance
+        // TODO-ASYNC AsyncActInstance
 
         public string Name;
         public int Level;
@@ -318,7 +325,7 @@ namespace NSpec.Domain
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
         public Action<nspec> BeforeInstance, ActInstance, AfterInstance, BeforeAllInstance, AfterAllInstance;
-        public Func<Task> AsyncBefore, AsyncAfter, AsyncBeforeAll, AsyncAfterAll;
+        public Func<Task> AsyncBefore, AsyncAct, AsyncAfter, AsyncBeforeAll, AsyncAfterAll;
         public Action<nspec> AsyncBeforeInstance, AsyncAfterInstance, AsyncBeforeAllInstance, AsyncAfterAllInstance;
         public Context Parent;
         public Exception Exception;
