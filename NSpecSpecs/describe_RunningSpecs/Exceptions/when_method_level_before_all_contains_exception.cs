@@ -15,7 +15,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             void before_all()
             {
-                throw new InvalidOperationException();
+                throw new BeforeAllException();
             }
 
             void should_fail_this_example()
@@ -54,5 +54,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                         .Exception
                         .should_cast_to<ExampleFailureException>();
         }
+
+        class BeforeAllException : Exception { }
     }
 }

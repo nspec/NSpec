@@ -14,7 +14,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                after = () => { throw new InvalidOperationException(); };
+                after = () => { throw new AfterException(); };
 
                 it["should fail this example because of after"] = () => "1".should_be("1");
 
@@ -22,7 +22,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["exception thrown by both act and after"] = () =>
                 {
-                    act = () => { throw new ArgumentException("The after's exception should not overwrite the act's exception"); };
+                    act = () => { throw new ActException("The after's exception should not overwrite the act's exception"); };
 
                     it["tracks only the first exception from act"] = () => "1".should_be("1");
                 };
@@ -50,16 +50,23 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void examples_with_only_after_failure_should_only_fail_because_of_after()
         {
             TheExample("should fail this example because of after")
-                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(AfterException));
             TheExample("should also fail this example because of after")
-                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(AfterException));
         }
 
         [Test]
         public void it_should_throw_exception_from_act_not_from_after()
         {
             TheExample("tracks only the first exception from act")
-                .Exception.InnerException.GetType().should_be(typeof(ArgumentException));
+                .Exception.InnerException.GetType().should_be(typeof(ActException));
+        }
+
+        class AfterException : Exception { }
+
+        class ActException : Exception
+        {
+            public ActException(string message) : base(message) { }
         }
     }
 }
