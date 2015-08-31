@@ -113,6 +113,8 @@
     <Compile Include="describe_RunningSpecs\describe_todo.cs" />
     <Compile Include="describe_ContextCollection.cs" />
     <Compile Include="describe_DefaultConventions.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_after_all_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_before_all_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_after_all_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_after_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_before_all_contains_exception.cs" />
