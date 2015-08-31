@@ -111,7 +111,10 @@ namespace NSpec.Domain
         {
             // context-level
 
-            // TODO-ASYNC a single context cannot have bot sync and async afterAll
+            if (AfterAll != null && AsyncAfterAll != null)
+            {
+                throw new ArgumentException("A single context cannot have both an 'afterAll' and an 'asyncAfterAll' set, please pick one of the two");
+            }
 
             AfterAll.SafeInvoke();
 
