@@ -9,11 +9,11 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class when_method_level_before_contains_exception : when_running_specs
+    public class when_method_level_after_all_contains_exception : when_running_specs
     {
         class SpecClass : nspec
         {
-            void before_each()
+            void after_all()
             {
                 throw new InvalidOperationException();
             }
@@ -21,6 +21,11 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             void should_fail_this_example()
             {
                 it["should fail"] = () => "hello".should_be("hello");
+            }
+
+            void should_also_fail_this_example()
+            {
+                it["should also fail"] = () => "hello".should_be("hello");
             }
         }
 
@@ -31,10 +36,21 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        public void the_example_should_fail_with_framework_exception()
+        [Ignore("ToFix: Exceptions are not registered")]
+        public void the_first_example_should_fail_with_framework_exception()
         {
             classContext.AllExamples()
                         .First()
+                        .Exception
+                        .should_cast_to<ExampleFailureException>();
+        }
+
+        [Test]
+        [Ignore("ToFix: Exceptions are not registered")]
+        public void the_second_example_should_fail_with_framework_exception()
+        {
+            classContext.AllExamples()
+                        .Last()
                         .Exception
                         .should_cast_to<ExampleFailureException>();
         }
