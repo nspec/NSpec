@@ -11,6 +11,8 @@ namespace NSpec.Domain
         {
         }
 
+        // TODO-ASYNC extract common Run logic from AsyncMethodExample and AsyncMethodLevelHook
+
         public override void Run(nspec nspec)
         {
             if (method.ReturnType == typeof(void))

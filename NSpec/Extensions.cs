@@ -168,21 +168,21 @@ namespace NSpec
             if (action != null) action();
         }
 
-        public static void SafeInvoke<T>(this Func<T, Task> func, T t)
+        public static void SafeInvoke<T>(this Func<T, Task> asyncAction, T t)
         {
-            if (func != null) 
+            if (asyncAction != null) 
             {
-                Func<Task> asyncWork = () => func(t);
+                Func<Task> asyncWork = () => asyncAction(t);
 
                 asyncWork.Offload();
             }
         }
 
-        public static void SafeInvoke(this Func<Task> func)
+        public static void SafeInvoke(this Func<Task> asyncAction)
         {
-            if (func != null)
+            if (asyncAction != null)
             {
-                func.Offload();
+                asyncAction.Offload();
             }
         }
 

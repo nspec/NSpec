@@ -4,12 +4,13 @@ using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class describe_expected_exception : when_running_specs
+    public class describe_expected_exception : when_expecting_exception
     {
         private class SpecClass : nspec
         {
@@ -19,7 +20,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 it["throws expected exception"] = expect<InvalidOperationException>(() => { throw new InvalidOperationException(); });
 
-                it["throws expected exception with error message Testing"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Testing"); });
+                it["throws expected exception with expected error message"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Testing"); });
 
                 it["fails if expected exception does not throw"] = expect<InvalidOperationException>(() => { });
 
@@ -34,7 +35,48 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             Run(typeof(SpecClass));
         }
+    }
 
+    [TestFixture]
+    [Category("RunningSpecs")]
+    [Category("Async")]
+    public class describe_async_expected_exception : when_expecting_exception
+    {
+        private class SpecClass : nspec
+        {
+            void method_level_context()
+            {
+                before = () => { };
+
+                asyncIt["throws expected exception"] = asyncExpect<InvalidOperationException>(async () => 
+                    await Task.Run(() => 
+                    { 
+                        throw new InvalidOperationException(); 
+                    }));
+
+                asyncIt["throws expected exception with expected error message"] = asyncExpect<InvalidOperationException>("Testing", async () => 
+                    await Task.Run(() => { throw new InvalidOperationException("Testing"); }));
+
+                asyncIt["fails if expected exception does not throw"] = asyncExpect<InvalidOperationException>(async () => 
+                    await Task.Run(() => { }));
+
+                asyncIt["fails if wrong exception thrown"] = asyncExpect<InvalidOperationException>(async () => 
+                    await Task.Run(() => { throw new ArgumentException(); }));
+
+                asyncIt["fails if wrong error message is returned"] = asyncExpect<InvalidOperationException>("Testing", async () => 
+                    await Task.Run(() => { throw new InvalidOperationException("Blah"); }));
+            }
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            Run(typeof(SpecClass));
+        }
+    }
+
+    public abstract class when_expecting_exception : when_running_specs
+    {
         [Test]
         public void should_be_three_failures()
         {
@@ -50,7 +92,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void throws_expected_exception_with_error_message_Testing()
         {
-            TheExample("throws expected exception with error message Testing").should_have_passed();
+            TheExample("throws expected exception with expected error message").should_have_passed();
         }
 
         [Test]

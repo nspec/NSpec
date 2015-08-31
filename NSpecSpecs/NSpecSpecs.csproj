@@ -133,6 +133,7 @@
     <Compile Include="describe_RunningSpecs\describe_todo.cs" />
     <Compile Include="describe_ContextCollection.cs" />
     <Compile Include="describe_DefaultConventions.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_async_act_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_async_after_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_async_before_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_async_method_level_before_contains_exception.cs" />

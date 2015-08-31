@@ -336,13 +336,59 @@ namespace NSpec
                 try
                 {
                     action();
+
                     throw new ExceptionNotThrown(IncorrectType<T>());
                 }
                 catch (ExceptionNotThrown)
                 {
                     throw;
                 }
+                catch (Exception ex)
+                {
+                    if (ex.GetType() != closureType)
+                    {
+                        throw new ExceptionNotThrown(IncorrectType<T>());
+                    }
 
+                    if (expectedMessage != null && expectedMessage != ex.Message)
+                    {
+                        throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, ex.Message));
+                    }
+                }
+            };
+        }
+
+        /// <summary>
+        /// Set up an asynchronous expectation for a particular exception type to be thrown.
+        /// <para>For Example:</para>
+        /// <para>asyncIt["should throw exception"] = expect&lt;InvalidOperationException&gt;(async () => await SomeMethodThatThrowsExceptionAsync());</para>
+        /// </summary>
+        public virtual Func<Task> asyncExpect<T>(Func<Task> asyncAction) where T : Exception
+        {
+            return asyncExpect<T>(null, asyncAction);
+        }
+
+        /// <summary>
+        /// Set up an asynchronous expectation for a particular exception type to be thrown with an expected message.
+        /// <para>For Example:</para>
+        /// <para>asyncIt["should throw exception with message Error"] = expect&lt;InvalidOperationException&gt;("Error", async () => await SomeAsyncMethodThatThrowsException());</para>
+        /// </summary>
+        public virtual Func<Task> asyncExpect<T>(string expectedMessage, Func<Task> asyncAction) where T : Exception
+        {
+            return async () =>
+            {
+                var closureType = typeof(T);
+
+                try
+                {
+                    await asyncAction();
+
+                    throw new ExceptionNotThrown(IncorrectType<T>());
+                }
+                catch (ExceptionNotThrown)
+                {
+                    throw;
+                }
                 catch (Exception ex)
                 {
                     if (ex.GetType() != closureType)
@@ -380,12 +426,12 @@ namespace NSpec
             return originalException;
         }
 
-        string IncorrectType<T>() where T : Exception
+        static string IncorrectType<T>() where T : Exception
         {
             return "Exception of type " + typeof(T).Name + " was not thrown.";
         }
 
-        string IncorrectMessage(string expected, string actual)
+        static string IncorrectMessage(string expected, string actual)
         {
             return String.Format("Expected message: \"{0}\" But was: \"{1}\"", expected, actual);
         }
