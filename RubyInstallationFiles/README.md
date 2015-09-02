@@ -1,0 +1,5 @@
+- install ruby 1.9.3 (32 bit.. make sure to add it to the PATH), yes 1.9.3, 2.0+ won't work with nokogiri/native compilation
+- run `devkit.exe` (extract to c:\DevKit)
+- from c:\DevKit run `ruby dk.rb init`
+- then run `ruby dk.rb install`
+- then run `gem install json --platform=ruby` to make sure native compliations work
