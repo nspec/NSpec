@@ -35,7 +35,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void method_level_context()
             {
-                xasyncIt["should be pending"] = async () => await Task.Run(() => { });
+                xitAsync["should be pending"] = async () => await Task.Run(() => { });
             }
         }
 
@@ -74,7 +74,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void method_level_context()
             {
-                asyncIt["should be pending"] = asyncTodo;
+                itAsync["should be pending"] = todoAsync;
             }
         }
 

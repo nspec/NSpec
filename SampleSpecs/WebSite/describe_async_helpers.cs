@@ -7,12 +7,12 @@ class describe_async_helpers : nspec
     {
         context["that is 210 degrees"] = () =>
         {
-            asyncBefore = async () => await MakeTeaAsync(210);
+            beforeAsync = async () => await MakeTeaAsync(210);
             it["should be hot"] = () => tea.Taste().should_be("hot");
         };
         context["that is 90 degrees"] = () =>
         {
-            asyncBefore = async () => await MakeTeaAsync(90);
+            beforeAsync = async () => await MakeTeaAsync(90);
             it["should be cold"] = () => tea.Taste().should_be("cold");
         };
     }

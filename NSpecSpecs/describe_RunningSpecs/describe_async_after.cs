@@ -23,7 +23,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 it["Should have a specification"] = () => state.should_be(0);
 
-                asyncAfter = async () =>
+                afterAsync = async () =>
                 {
                     state = -1;
 
@@ -38,7 +38,7 @@ namespace NSpecSpecs.describe_RunningSpecs
                     state = 2;
                 };
 
-                asyncAfter = async () =>
+                afterAsync = async () =>
                 {
                     state = -1;
 

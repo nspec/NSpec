@@ -16,7 +16,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                asyncAct = async () => await Task.Run(() => { throw new InvalidOperationException(); });
+                actAsync = async () => await Task.Run(() => { throw new InvalidOperationException(); });
 
                 it["should fail this example because of act"] = () => "1".should_be("1");
 

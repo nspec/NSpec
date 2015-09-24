@@ -86,12 +86,12 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 context["when exception thrown from act and example itself has a failure"] = () =>
                 {
-                    asyncAct = async () => await Task.Run(() =>
+                    actAsync = async () => await Task.Run(() =>
                     {
                         throw new InvalidOperationException("unexpected failure");
                     });
 
-                    asyncIt["reports example level failure and act failure"] = async () => await Task.Run(() =>
+                    itAsync["reports example level failure and act failure"] = async () => await Task.Run(() =>
                     {
                         throw new InvalidOperationException("example level failure");
                     });
@@ -122,12 +122,12 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 context["when exception thrown from act and example itself has a failure"] = () =>
                 {
-                    asyncAct = async () => await Task.Run(() =>
+                    actAsync = async () => await Task.Run(() =>
                     {
                         throw new InvalidOperationException("unexpected failure");
                     });
 
-                    asyncIt["reports example level failure and act failure"] = async () =>
+                    itAsync["reports example level failure and act failure"] = async () =>
                     {
                         await Task.Delay(0);
 

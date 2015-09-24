@@ -53,7 +53,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["when exception thrown from act"] = () =>
                 {
-                    asyncAct = async () => await Task.Run(() => { throw new InvalidOperationException("Testing"); });
+                    actAsync = async () => await Task.Run(() => { throw new InvalidOperationException("Testing"); });
 
                     it["threw the expected exception in act"] = expect<InvalidOperationException>();
 

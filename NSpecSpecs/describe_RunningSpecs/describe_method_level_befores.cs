@@ -33,7 +33,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
                 context["sub context with async before"] = () =>
                 {
-                    asyncBefore = AsyncSubContextBefore;
+                    beforeAsync = AsyncSubContextBefore;
 
                     it["needs another example or it gets filtered"] = todo;
                 };
@@ -59,7 +59,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Category("Async")]
         public void it_should_not_set_async_method_level_before()
         {
-            classContext.AsyncBeforeInstance.should_be_null();
+            classContext.BeforeInstanceAsync.should_be_null();
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Category("Async")]
         public void it_should_set_async_before_on_sub_context()
         {
-            methodContext.Contexts.Last().AsyncBefore.should_be(SpecClass.AsyncSubContextBefore);
+            methodContext.Contexts.Last().BeforeAsync.should_be(SpecClass.AsyncSubContextBefore);
         }
     }
 }

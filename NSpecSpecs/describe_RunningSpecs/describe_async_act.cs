@@ -21,7 +21,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void given_async_act_is_set()
             {
-                asyncAct = async () =>
+                actAsync = async () =>
                 {
                     state = -1;
 
@@ -38,7 +38,7 @@ namespace NSpecSpecs.describe_RunningSpecs
                     state = 2;
                 };
 
-                asyncAct = async () =>
+                actAsync = async () =>
                 {
                     state = -1;
 

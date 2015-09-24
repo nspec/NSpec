@@ -55,7 +55,7 @@ namespace NSpec.Domain
 
             if (asyncBefores.Count > 0)
             {
-                AsyncBeforeInstance = instance => asyncBefores.Do(b => new AsyncMethodLevelBefore(b).Run(instance));
+                BeforeInstanceAsync = instance => asyncBefores.Do(b => new AsyncMethodLevelBefore(b).Run(instance));
             }
         }
 
@@ -72,7 +72,7 @@ namespace NSpec.Domain
 
             if (asyncBeforeAlls.Count > 0)
             {
-                AsyncBeforeAllInstance = instance => asyncBeforeAlls.Do(b => new AsyncMethodLevelBeforeAll(b).Run(instance));
+                BeforeAllInstanceAsync = instance => asyncBeforeAlls.Do(b => new AsyncMethodLevelBeforeAll(b).Run(instance));
             }
         }
 
@@ -89,7 +89,7 @@ namespace NSpec.Domain
 
             if (asyncActs.Count > 0)
             {
-                AsyncActInstance = instance => asyncActs.Do(a => new AsyncMethodLevelAct(a).Run(instance));
+                ActInstanceAsync = instance => asyncActs.Do(a => new AsyncMethodLevelAct(a).Run(instance));
             }
         }
 
@@ -106,7 +106,7 @@ namespace NSpec.Domain
 
             if (asyncAfters.Count > 0)
             {
-                AsyncAfterInstance = instance => asyncAfters.Do(a => new AsyncMethodLevelAfter(a).Run(instance));
+                AfterInstanceAsync = instance => asyncAfters.Do(a => new AsyncMethodLevelAfter(a).Run(instance));
             }
         }
 
@@ -123,7 +123,7 @@ namespace NSpec.Domain
 
             if (asyncAfterAlls.Count > 0)
             {
-                AsyncAfterAllInstance = instance => asyncAfterAlls.Do(a => new AsyncMethodLevelAfterAll(a).Run(instance));
+                AfterAllInstanceAsync = instance => asyncAfterAlls.Do(a => new AsyncMethodLevelAfterAll(a).Run(instance));
             }
         }
 

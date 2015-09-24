@@ -21,7 +21,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void given_async_before_is_set()
             {
-                asyncBefore = async () =>
+                beforeAsync = async () =>
                 {
                     state = -1;
 
@@ -38,7 +38,7 @@ namespace NSpecSpecs.describe_RunningSpecs
                     state = 2;
                 };
 
-                asyncBefore = async () =>
+                beforeAsync = async () =>
                 {
                     state = -1;
 

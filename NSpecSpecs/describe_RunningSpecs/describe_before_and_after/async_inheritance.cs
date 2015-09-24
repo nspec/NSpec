@@ -36,13 +36,13 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             void a_context()
             {
-                asyncBeforeAll = async () => await Task.Run(() => sequence += "B");
+                beforeAllAsync = async () => await Task.Run(() => sequence += "B");
 
-                asyncBefore = async () => await Task.Run(() => sequence += "D");
+                beforeAsync = async () => await Task.Run(() => sequence += "D");
                 specify = () => 1.Is(1);
-                asyncAfter = async () => await Task.Run(() => sequence += "E");
+                afterAsync = async () => await Task.Run(() => sequence += "E");
 
-                asyncAfterAll = async () => await Task.Run(() => sequence += "G");
+                afterAllAsync = async () => await Task.Run(() => sequence += "G");
             }
         }
 

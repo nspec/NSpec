@@ -21,7 +21,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void given_async_example_is_set()
             {
-                asyncIt["Should wait for its task to complete"] = async () =>
+                itAsync["Should wait for its task to complete"] = async () =>
                 {
                     state = -1;
 
@@ -33,7 +33,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void given_async_example_fails()
             {
-                asyncIt["Should fail asynchronously"] = async () =>
+                itAsync["Should fail asynchronously"] = async () =>
                 {
                     await Task.Run(() => 
                     { 

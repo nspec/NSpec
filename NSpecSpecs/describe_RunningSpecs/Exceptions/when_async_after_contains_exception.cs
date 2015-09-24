@@ -16,19 +16,19 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                asyncAfter = async () =>
+                afterAsync = async () =>
                 {
                     await Task.Delay(0);
                     throw new InvalidOperationException(); 
                 };
 
-                it["should fail this example because of asyncAfter"] = () => "1".should_be("1");
+                it["should fail this example because of afterAsync"] = () => "1".should_be("1");
 
-                it["should also fail this example because of asyncAfter"] = () => "1".should_be("1");
+                it["should also fail this example because of afterAsync"] = () => "1".should_be("1");
 
-                context["exception thrown by both act and asyncAfter"] = () =>
+                context["exception thrown by both act and afterAsync"] = () =>
                 {
-                    act = () => { throw new ArgumentException("The asyncAfter's exception should not overwrite the act's exception"); };
+                    act = () => { throw new ArgumentException("The afterAsync's exception should not overwrite the act's exception"); };
 
                     it["tracks only the first exception from act"] = () => "1".should_be("1");
                 };
@@ -44,9 +44,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void the_example_level_failure_should_indicate_a_context_failure()
         {
-            TheExample("should fail this example because of asyncAfter")
+            TheExample("should fail this example because of afterAsync")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("should also fail this example because of asyncAfter")
+            TheExample("should also fail this example because of afterAsync")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("tracks only the first exception from act")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
@@ -55,9 +55,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void examples_with_only_async_after_failure_should_only_fail_because_of_after()
         {
-            TheExample("should fail this example because of asyncAfter")
+            TheExample("should fail this example because of afterAsync")
                 .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
-            TheExample("should also fail this example because of asyncAfter")
+            TheExample("should also fail this example because of afterAsync")
                 .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
         }
 

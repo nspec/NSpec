@@ -21,8 +21,8 @@ namespace NSpec
             it = new ActionRegister((name, tags, action) => AddExample(new Example(name, tags, action, pending: action == todo)));
             xit = new ActionRegister((name, tags, action) => AddExample(new Example(name, tags, action, pending: true)));
 
-            asyncIt = new AsyncActionRegister((name, tags, asyncAction) => AddExample(new AsyncExample(name, tags, asyncAction, pending: asyncAction == asyncTodo)));
-            xasyncIt = new AsyncActionRegister((name, tags, asyncAction) => AddExample(new AsyncExample(name, tags, asyncAction, pending: true)));
+            itAsync = new AsyncActionRegister((name, tags, asyncAction) => AddExample(new AsyncExample(name, tags, asyncAction, pending: asyncAction == todoAsync)));
+            xitAsync = new AsyncActionRegister((name, tags, asyncAction) => AddExample(new AsyncExample(name, tags, asyncAction, pending: true)));
         }
 
         /// <summary>
@@ -36,11 +36,9 @@ namespace NSpec
             set { AddExample(new Example(value)); }
         }
 
-        /* No need for the following: 
-         * Async lambda expressions cannot be converted to expression trees
+        /* No need for the following, as async lambda expressions cannot be converted to expression trees:
 
-        public virtual Expression<Func<Task>> asyncSpecify
-        ...
+        public virtual Expression<Func<Task>> specifyAsync { ... }
          */
 
         /// <summary>
@@ -69,13 +67,13 @@ namespace NSpec
         /// <summary>
         /// This Function gets executed asynchronously before each example is run.
         /// <para>For Example:</para>
-        /// <para>asyncBefore = async () => someList = await GetListAsync();</para>
-        /// <para>The asyncBefore can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// <para>beforeAsync = async () => someList = await GetListAsync();</para>
+        /// <para>The beforeAsync can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
         /// </summary>
-        public virtual Func<Task> asyncBefore
+        public virtual Func<Task> beforeAsync
         {
-            get { return Context.AsyncBefore; }
-            set { Context.AsyncBefore = value; }
+            get { return Context.BeforeAsync; }
+            set { Context.BeforeAsync = value; }
         }
 
         /// <summary>
@@ -91,15 +89,15 @@ namespace NSpec
         }
 
         /// <summary>
-        /// This Function is an alias of asyncBefore. It gets executed asynchronously before each example is run.
+        /// This Function is an alias of beforeAsync. It gets executed asynchronously before each example is run.
         /// <para>For Example:</para>
-        /// <para>asyncBeforeEach = async () => someList = await GetListAsync();</para>
-        /// <para>The asyncBeforeEach can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// <para>beforeEachAsync = async () => someList = await GetListAsync();</para>
+        /// <para>The beforeEachAsync can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
         /// </summary>
-        public virtual Func<Task> asyncBeforeEach
+        public virtual Func<Task> beforeEachAsync
         {
-            get { return Context.AsyncBefore; }
-            set { Context.AsyncBefore = value; }
+            get { return Context.BeforeAsync; }
+            set { Context.BeforeAsync = value; }
         }
 
         /// <summary>
@@ -117,13 +115,13 @@ namespace NSpec
         /// <summary>
         /// This Function gets executed asynchronously before all examples in a context.
         /// <para>For Example:</para>
-        /// <para>asyncBeforeAll = async () => someList = await GetListAsync();</para>
-        /// <para>The asyncBeforeAll can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// <para>beforeAllAsync = async () => someList = await GetListAsync();</para>
+        /// <para>The beforeAllAsync can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
         /// </summary>
-        public virtual Func<Task> asyncBeforeAll
+        public virtual Func<Task> beforeAllAsync
         {
-            get { return Context.AsyncBeforeAll; }
-            set { Context.AsyncBeforeAll = value; }
+            get { return Context.BeforeAllAsync; }
+            set { Context.BeforeAllAsync = value; }
         }
 
         /// <summary>
@@ -141,13 +139,13 @@ namespace NSpec
         /// <summary>
         /// This Function gets executed asynchronously after each example is run.
         /// <para>For Example:</para>
-        /// <para>asyncAter = async () => someList = await GetListAsync();</para>
+        /// <para>afterAsync = async () => someList = await GetListAsync();</para>
         /// <para>The after can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
         /// </summary>
-        public virtual Func<Task> asyncAfter
+        public virtual Func<Task> afterAsync
         {
-            get { return Context.AsyncAfter; }
-            set { Context.AsyncAfter = value; }
+            get { return Context.AfterAsync; }
+            set { Context.AfterAsync = value; }
         }
 
         /// <summary>
@@ -161,6 +159,8 @@ namespace NSpec
             get { return Context.After; }
             set { Context.After = value; }
         }
+
+        // TODO add missing afterEachAsync alias
 
         /// <summary>
         /// This Action gets executed after all examples in a context.
@@ -177,13 +177,13 @@ namespace NSpec
         /// <summary>
         /// This Function gets executed asynchronously after all examples in a context.
         /// <para>For Example:</para>
-        /// <para>asyncAfterAll = async () => someList = await GetListAsync();</para>
-        /// <para>The asyncAfterAll can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// <para>afterAllAsync = async () => someList = await GetListAsync();</para>
+        /// <para>The afterAllAsync can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
         /// </summary>
-        public virtual Func<Task> asyncAfterAll
+        public virtual Func<Task> afterAllAsync
         {
-            get { return Context.AsyncAfterAll; }
-            set { Context.AsyncAfterAll = value; }
+            get { return Context.AfterAllAsync; }
+            set { Context.AfterAllAsync = value; }
         }
 
         /// <summary>
@@ -200,10 +200,10 @@ namespace NSpec
         /// Assign this member within your context.  The Function assigned will gets executed asynchronously
         /// with every example in scope.  Befores will run first, then acts, then your examples.  It's a way for you to define once a common Act in Arrange-Act-Assert for all subcontexts.  For more information visit http://www.nspec.org
         /// </summary>
-        public virtual Func<Task> asyncAct
+        public virtual Func<Task> actAsync
         {
-            get { return Context.AsyncAct; }
-            set { Context.AsyncAct = value; }
+            get { return Context.ActAsync; }
+            set { Context.ActAsync = value; }
         }
 
         /// <summary>
@@ -239,9 +239,9 @@ namespace NSpec
         /// <summary>
         /// Create an asynchronous specification/example using a name and an async lambda with an assertion(should).
         /// <para>For Example:</para>
-        /// <para>asyncIt["should return false"] = async () => (await GetResultAsync()).should_be(false);</para>
+        /// <para>itAsync["should return false"] = async () => (await GetResultAsync()).should_be(false);</para>
         /// </summary>
-        public AsyncActionRegister asyncIt;
+        public AsyncActionRegister itAsync;
 
         /// <summary>
         /// Mark a spec as pending 
@@ -254,10 +254,10 @@ namespace NSpec
         /// <summary>
         /// Mark an asynchronous spec as pending 
         /// <para>For Example:</para>
-        /// <para>xasyncIt["should return false"] = async () => (await GetResultAsync()).should_be(false);</para>
+        /// <para>xitAsync["should return false"] = async () => (await GetResultAsync()).should_be(false);</para>
         /// <para>(the example will be marked as pending, any lambda provided will not be executed)</para>
         /// </summary>
-        public AsyncActionRegister xasyncIt;
+        public AsyncActionRegister xitAsync;
 
         /// <summary>
         /// Set up a pending spec.
@@ -269,9 +269,9 @@ namespace NSpec
         /// <summary>
         /// Set up a pending asynchronous spec.
         /// <para>For Example:</para>
-        /// <para>asyncIt["a test i haven't flushed out yet, but need to"] = asyncTodo;</para>
+        /// <para>itAsync["a test i haven't flushed out yet, but need to"] = todoAsync;</para>
         /// </summary>
-        public readonly Func<Task> asyncTodo = () => Task.Run(() => { });
+        public readonly Func<Task> todoAsync = () => Task.Run(() => { });
 
         /// <summary>
         /// Set up an expectation for a particular exception type to be thrown.
@@ -361,19 +361,19 @@ namespace NSpec
         /// <summary>
         /// Set up an asynchronous expectation for a particular exception type to be thrown.
         /// <para>For Example:</para>
-        /// <para>asyncIt["should throw exception"] = expect&lt;InvalidOperationException&gt;(async () => await SomeMethodThatThrowsExceptionAsync());</para>
+        /// <para>itAsync["should throw exception"] = expectAsync&lt;InvalidOperationException&gt;(async () => await SomeAsyncMethodThatThrowsException());</para>
         /// </summary>
-        public virtual Func<Task> asyncExpect<T>(Func<Task> asyncAction) where T : Exception
+        public virtual Func<Task> expectAsync<T>(Func<Task> asyncAction) where T : Exception
         {
-            return asyncExpect<T>(null, asyncAction);
+            return expectAsync<T>(null, asyncAction);
         }
 
         /// <summary>
         /// Set up an asynchronous expectation for a particular exception type to be thrown with an expected message.
         /// <para>For Example:</para>
-        /// <para>asyncIt["should throw exception with message Error"] = expect&lt;InvalidOperationException&gt;("Error", async () => await SomeAsyncMethodThatThrowsException());</para>
+        /// <para>itAsync["should throw exception with message Error"] = expectAsync&lt;InvalidOperationException&gt;("Error", async () => await SomeAsyncMethodThatThrowsException());</para>
         /// </summary>
-        public virtual Func<Task> asyncExpect<T>(string expectedMessage, Func<Task> asyncAction) where T : Exception
+        public virtual Func<Task> expectAsync<T>(string expectedMessage, Func<Task> asyncAction) where T : Exception
         {
             return async () =>
             {

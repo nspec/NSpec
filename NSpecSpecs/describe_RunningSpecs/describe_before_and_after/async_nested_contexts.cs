@@ -13,22 +13,22 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             void a_context()
             {
-                asyncBeforeAll = async () => await Task.Run(() => sequence += "A");
-                asyncBefore = async () => await Task.Run(() => sequence += "C");
+                beforeAllAsync = async () => await Task.Run(() => sequence += "A");
+                beforeAsync = async () => await Task.Run(() => sequence += "C");
 
                 context["a subcontext"] = () =>
                 {
-                    asyncBeforeAll = async () => await Task.Run(() => sequence += "B");
-                    asyncBefore = async () => await Task.Run(() => sequence += "D");
+                    beforeAllAsync = async () => await Task.Run(() => sequence += "B");
+                    beforeAsync = async () => await Task.Run(() => sequence += "D");
 
                     specify = () => 1.Is(1);
 
-                    asyncAfter = async () => await Task.Run(() => sequence += "E");
-                    asyncAfterAll = async () => await Task.Run(() => sequence += "G");
+                    afterAsync = async () => await Task.Run(() => sequence += "E");
+                    afterAllAsync = async () => await Task.Run(() => sequence += "G");
                 };
 
-                asyncAfter = async () => await Task.Run(() => sequence += "F");
-                asyncAfterAll = async () => await Task.Run(() => sequence += "H");
+                afterAsync = async () => await Task.Run(() => sequence += "F");
+                afterAllAsync = async () => await Task.Run(() => sequence += "H");
             }
         }
 
