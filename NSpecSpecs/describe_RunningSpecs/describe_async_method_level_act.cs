@@ -17,11 +17,14 @@ namespace NSpecSpecs.describe_RunningSpecs
     {
         class SpecClass : nspec
         {
-            int state = 0;
+            public static int state = 0;
+            public static int expected = 1;
 
             async Task act_each()
             {
                 state = -1;
+
+                await Task.Delay(50);
 
                 await Task.Run(() => state = 1);
             }
@@ -42,6 +45,8 @@ namespace NSpecSpecs.describe_RunningSpecs
             example.HasRun.should_be_true();
 
             example.Exception.should_be_null();
+
+            SpecClass.state.should_be(SpecClass.expected);
         }
 
         class WrongSpecClass : nspec

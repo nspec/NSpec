@@ -18,10 +18,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         class SpecClass : nspec
         {
             public static int state = 0;
+            public static int expected = 1;
 
             async Task after_each()
             {
                 state = -1;
+
+                await Task.Delay(50);
 
                 await Task.Run(() => state = 1);
             }
@@ -37,13 +40,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             Run(typeof(SpecClass));
 
-            SpecClass.state.should_be(1);
-
             ExampleBase example = TheExample("it should have some spec");
 
             example.HasRun.should_be_true();
 
             example.Exception.should_be_null();
+
+            SpecClass.state.should_be(SpecClass.expected);
         }
 
         class WrongSpecClass : nspec

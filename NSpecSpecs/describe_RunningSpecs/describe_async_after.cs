@@ -18,6 +18,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         class SpecClass : nspec
         {
             public static int state = 0;
+            public static int expected = 1;
 
             void given_async_after_is_set()
             {
@@ -26,6 +27,8 @@ namespace NSpecSpecs.describe_RunningSpecs
                 afterAsync = async () =>
                 {
                     state = -1;
+
+                    await Task.Delay(50);
 
                     await Task.Run(() => state = 1);
                 };
@@ -77,7 +80,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             example.Exception.should_be_null();
 
-            SpecClass.state.should_be(1);
+            SpecClass.state.should_be(SpecClass.expected);
         }
 
         [Test]
