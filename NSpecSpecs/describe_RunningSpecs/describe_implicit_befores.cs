@@ -27,7 +27,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             }
         }
 
-        [Test, Ignore]
+        [Test, Ignore("It cannot be tested")]
         public void should_give_each_specify_a_new_instance_of_spec()
         {
             Run(typeof(SpecClass));
