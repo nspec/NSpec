@@ -160,7 +160,17 @@ namespace NSpec
             set { Context.After = value; }
         }
 
-        // TODO add missing afterEachAsync alias
+        /// <summary>
+        /// This Action is an alias of afterAsync. This Function gets executed asynchronously after each example is run.
+        /// <para>For Example:</para>
+        /// <para>afterEachAsync = async () => someList = await GetListAsync();</para>
+        /// <para>The after can be a multi-line lambda.  Setting the member multiple times through out sub-contexts will not override the action, but instead will append to your setup (this is a good thing).  For more information visit http://www.nspec.org</para>
+        /// </summary>
+        public virtual Func<Task> afterEachAsync
+        {
+            get { return Context.AfterAsync; }
+            set { Context.AfterAsync = value; }
+        }
 
         /// <summary>
         /// This Action gets executed after all examples in a context.
