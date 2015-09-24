@@ -9,9 +9,7 @@ namespace NSpec.Domain
     {
         public override void Run(nspec nspec)
         {
-            Func<Task> asyncWork = () => asyncAction();
-
-            asyncWork.Offload();
+            asyncAction.Offload();
         }
 
         /* No need for the following: 
