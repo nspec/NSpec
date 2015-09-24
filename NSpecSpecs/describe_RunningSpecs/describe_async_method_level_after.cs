@@ -13,25 +13,18 @@ namespace NSpecSpecs.describe_RunningSpecs
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Async")]
-    public class describe_async_method_level_after : when_running_specs
+    public class describe_async_method_level_after : when_describing_async_hooks
     {
-        class SpecClass : nspec
+        class SpecClass : BaseSpecClass
         {
-            public static int state = 0;
-            public static int expected = 1;
+            void it_should_have_initial_value()
+            {
+                ShouldHaveInitialState();
+            }
 
             async Task after_each()
             {
-                state = -1;
-
-                await Task.Delay(50);
-
-                await Task.Run(() => state = 1);
-            }
-
-            void it_should_have_some_spec()
-            {
-                state.should_be(0);
+                await SetStateAsync();
             }
         }
 
@@ -40,34 +33,24 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             Run(typeof(SpecClass));
 
-            ExampleBase example = TheExample("it should have some spec");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_be_null();
-
-            SpecClass.state.should_be(SpecClass.expected);
+            ExampleRunsWithExpectedState("it should have initial value");
         }
 
-        class WrongSpecClass : nspec
+        class WrongSpecClass : BaseSpecClass
         {
-            int state = 0;
+            void it_should_not_know_what_to_do()
+            {
+                PassAlways();
+            }
 
             void after_each()
             {
-                state = 2;
+                SetAnotherState();
             }
 
             async Task after_each_async()
             {
-                state = -1;
-
-                await Task.Run(() => state = 1);
-            }
-
-            void it_should_not_know_what_to_do()
-            {
-                state.should_be(0);
+                await SetStateAsync();
             }
         }
 
@@ -76,11 +59,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             Run(typeof(WrongSpecClass));
 
-            ExampleBase example = TheExample("it should not know what to do");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_not_be_null();
+            ExampleRunsWithException("it should not know what to do");
         }
     }
 }

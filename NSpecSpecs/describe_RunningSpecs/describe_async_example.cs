@@ -42,13 +42,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void async_example_waits_for_task_to_complete()
         {
-            async_hook_waits_for_task_to_complete("Should wait for its task to complete");
+            ExampleRunsWithExpectedState("Should wait for its task to complete");
         }
 
         [Test]
         public void async_example_with_exception_fails()
         {
-            async_hook_with_exception_fails("Should fail asynchronously");
+            ExampleRunsWithException("Should fail asynchronously");
         }
     }
 }

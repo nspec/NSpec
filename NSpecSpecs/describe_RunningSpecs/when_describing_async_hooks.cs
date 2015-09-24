@@ -60,7 +60,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             }
         }
 
-        protected void async_hook_waits_for_task_to_complete(string name)
+        protected void ExampleRunsWithExpectedState(string name)
         {
             ExampleBase example = TheExample(name);
 
@@ -71,16 +71,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             BaseSpecClass.state.should_be(BaseSpecClass.expected);
         }
 
-        protected void async_hook_with_exception_fails(string name)
-        {
-            ExampleBase example = TheExample(name);
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_not_be_null();
-        }
-
-        protected void context_with_both_sync_and_async_hook_always_fails(string name)
+        protected void ExampleRunsWithException(string name)
         {
             ExampleBase example = TheExample(name);
 

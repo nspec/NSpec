@@ -13,25 +13,18 @@ namespace NSpecSpecs.describe_RunningSpecs
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Async")]
-    public class describe_async_method_level_before_all : when_running_specs
+    public class describe_async_method_level_before_all : when_describing_async_hooks
     {
-        class SpecClass : nspec
+        class SpecClass : BaseSpecClass
         {
-            public static int state = 0;
-            public static int expected = 1;
-
             async Task before_all()
             {
-                state = -1;
-
-                await Task.Delay(50);
-
-                await Task.Run(() => state = 1);
+                await SetStateAsync();
             }
 
             void it_should_wait_for_its_task_to_complete()
             {
-                state.should_be(1);
+                ShouldHaveFinalState();
             }
         }
 
@@ -40,34 +33,24 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             Run(typeof(SpecClass));
 
-            ExampleBase example = TheExample("it should wait for its task to complete");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_be_null();
-
-            SpecClass.state.should_be(SpecClass.expected);
+            ExampleRunsWithExpectedState("it should wait for its task to complete");
         }
 
-        class WrongSpecClass : nspec
+        class WrongSpecClass : BaseSpecClass
         {
-            public int state = 0;  // public to avoid 'unused' warning
-
             void before_all()
             {
-                state = 2;
+                SetAnotherState();
             }
 
             async Task before_all_async()
             {
-                state = -1;
-
-                await Task.Run(() => state = 1);
+                await SetStateAsync();
             }
 
             void it_should_not_know_what_to_expect()
             {
-                true.should_be_true();
+                PassAlways();
             }
         }
 
@@ -76,11 +59,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             Run(typeof(WrongSpecClass));
 
-            ExampleBase example = TheExample("it should not know what to expect");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_not_be_null();
+            ExampleRunsWithException("it should not know what to expect");
         }
     }
 }

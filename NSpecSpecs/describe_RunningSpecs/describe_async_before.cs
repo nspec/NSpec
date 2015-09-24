@@ -50,19 +50,19 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void async_before_waits_for_task_to_complete()
         {
-            async_hook_waits_for_task_to_complete("Should have final value");
+            ExampleRunsWithExpectedState("Should have final value");
         }
 
         [Test]
         public void async_before_with_exception_fails()
         {
-            async_hook_with_exception_fails("Should fail");
+            ExampleRunsWithException("Should fail");
         }
 
         [Test]
         public void context_with_both_sync_and_async_before_always_fails()
         {
-            context_with_both_sync_and_async_hook_always_fails("Should not know what to expect");
+            ExampleRunsWithException("Should not know what to expect");
         }
     }
 }
