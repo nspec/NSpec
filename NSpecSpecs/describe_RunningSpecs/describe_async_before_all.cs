@@ -31,6 +31,19 @@ namespace NSpecSpecs.describe_RunningSpecs
                 it["Should wait for its task to complete"] = () => state.should_be(1);
             }
 
+            void given_async_before_all_fails()
+            {
+                beforeAllAsync = async () =>
+                {
+                    await Task.Run(() =>
+                    {
+                        throw new InvalidCastException("Some error message");
+                    });
+                };
+
+                it["Should fail"] = () => true.should_be_true();
+            }
+
             void given_both_sync_and_async_before_all_are_set()
             {
                 beforeAll = () =>
@@ -63,6 +76,16 @@ namespace NSpecSpecs.describe_RunningSpecs
             example.HasRun.should_be_true();
 
             example.Exception.should_be_null();
+        }
+
+        [Test]
+        public void async_before_all_with_exception_fails()
+        {
+            ExampleBase example = TheExample("Should fail");
+
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
         }
 
         [Test]

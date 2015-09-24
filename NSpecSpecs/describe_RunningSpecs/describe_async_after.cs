@@ -31,6 +31,19 @@ namespace NSpecSpecs.describe_RunningSpecs
                 };
             }
 
+            void given_async_after_fails()
+            {
+                afterAsync = async () =>
+                {
+                    await Task.Run(() =>
+                    {
+                        throw new InvalidCastException("Some error message");
+                    });
+                };
+
+                it["Should fail"] = () => true.should_be_true();
+            }
+
             void given_both_sync_and_async_after_are_set()
             {
                 after = () =>
@@ -65,6 +78,16 @@ namespace NSpecSpecs.describe_RunningSpecs
             example.Exception.should_be_null();
 
             SpecClass.state.should_be(1);
+        }
+
+        [Test]
+        public void async_after_with_exception_fails()
+        {
+            ExampleBase example = TheExample("Should fail");
+
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
         }
 
         [Test]
