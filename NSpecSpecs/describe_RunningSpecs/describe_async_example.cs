@@ -13,36 +13,23 @@ namespace NSpecSpecs.describe_RunningSpecs
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Async")]
-    public class describe_async_example : when_running_specs
+    public class describe_async_example : when_describing_async_hooks
     {
-        class SpecClass : nspec
+        class SpecClass : BaseSpecClass
         {
-            public static int state = 0;
-            public static int expected = 1;
-
             void given_async_example_is_set()
             {
                 itAsync["Should wait for its task to complete"] = async () =>
                 {
-                    state = -1;
+                    await SetStateAsync();
 
-                    await Task.Delay(50);
-
-                    await Task.Run(() => state = 1);
-
-                    state.should_be(1);
+                    ShouldHaveFinalState();
                 };
             }
 
             void given_async_example_fails()
             {
-                itAsync["Should fail asynchronously"] = async () =>
-                {
-                    await Task.Run(() => 
-                    { 
-                        throw new InvalidCastException("Some error message"); 
-                    });
-                };
+                itAsync["Should fail asynchronously"] = FailAsync;
             }
         }
 
@@ -55,23 +42,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void async_example_waits_for_task_to_complete()
         {
-            ExampleBase example = TheExample("Should wait for its task to complete");
-            
-            example.HasRun.should_be_true();
-
-            example.Exception.should_be_null();
-
-            SpecClass.state.should_be(SpecClass.expected);
+            async_hook_waits_for_task_to_complete("Should wait for its task to complete");
         }
 
         [Test]
         public void async_example_with_exception_fails()
         {
-            ExampleBase example = TheExample("Should fail asynchronously");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_not_be_null();
+            async_hook_with_exception_fails("Should fail asynchronously");
         }
     }
 }

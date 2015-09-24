@@ -13,55 +13,31 @@ namespace NSpecSpecs.describe_RunningSpecs
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Async")]
-    public class describe_async_after : when_running_specs
+    public class describe_async_after : when_describing_async_hooks
     {
-        class SpecClass : nspec
+        class SpecClass : BaseSpecClass
         {
-            public static int state = 0;
-            public static int expected = 1;
-
             void given_async_after_is_set()
             {
-                it["Should have a specification"] = () => state.should_be(0);
+                it["Should have initial value"] = ShouldHaveInitialState;
 
-                afterAsync = async () =>
-                {
-                    state = -1;
-
-                    await Task.Delay(50);
-
-                    await Task.Run(() => state = 1);
-                };
+                afterAsync = SetStateAsync;
             }
 
             void given_async_after_fails()
             {
-                afterAsync = async () =>
-                {
-                    await Task.Run(() =>
-                    {
-                        throw new InvalidCastException("Some error message");
-                    });
-                };
+                it["Should fail"] = PassAlways;
 
-                it["Should fail"] = () => true.should_be_true();
+                afterAsync = FailAsync;
             }
 
             void given_both_sync_and_async_after_are_set()
             {
-                after = () =>
-                {
-                    state = 2;
-                };
+                it["Should not know what to do"] = PassAlways;
 
-                afterAsync = async () =>
-                {
-                    state = -1;
+                after = SetAnotherState;
 
-                    await Task.Run(() => state = 1);
-                };
-
-                it["Should not know what to do"] = () => true.should_be_true();
+                afterAsync = SetStateAsync;
             }
         }
 
@@ -74,33 +50,19 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void async_after_waits_for_task_to_complete()
         {
-            ExampleBase example = TheExample("Should have a specification");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_be_null();
-
-            SpecClass.state.should_be(SpecClass.expected);
+            async_hook_waits_for_task_to_complete("Should have initial value");
         }
 
         [Test]
         public void async_after_with_exception_fails()
         {
-            ExampleBase example = TheExample("Should fail");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_not_be_null();
+            async_hook_with_exception_fails("Should fail");
         }
 
         [Test]
         public void context_with_both_sync_and_async_after_always_fails()
         {
-            ExampleBase example = TheExample("Should not know what to do");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_not_be_null();
+            context_with_both_sync_and_async_hook_always_fails("Should not know what to do");
         }
     }
 }

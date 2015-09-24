@@ -13,55 +13,31 @@ namespace NSpecSpecs.describe_RunningSpecs
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Async")]
-    public class describe_async_act : when_running_specs
+    public class describe_async_act : when_describing_async_hooks
     {
-        class SpecClass : nspec
+        class SpecClass : BaseSpecClass
         {
-            public static int state = 0;
-            public static int expected = 1;
-
             void given_async_act_is_set()
             {
-                actAsync = async () =>
-                {
-                    state = -1;
+                actAsync = SetStateAsync;
 
-                    await Task.Run(() => state = 1);
-                };
-
-                it["Should wait for its task to complete"] = () => state.should_be(1);
+                it["Should have final value"] = ShouldHaveFinalState;
             }
 
             void given_async_act_fails()
             {
-                actAsync = async () =>
-                {
-                    await Task.Run(() =>
-                    {
-                        throw new InvalidCastException("Some error message");
-                    });
-                };
+                actAsync = FailAsync;
 
-                it["Should fail"] = () => true.should_be_true();
+                it["Should fail"] = PassAlways;
             }
 
             void given_both_sync_and_async_act_are_set()
             {
-                act = () =>
-                {
-                    state = 2;
-                };
+                act = SetAnotherState;
 
-                actAsync = async () =>
-                {
-                    state = -1;
+                actAsync = SetStateAsync;
 
-                    await Task.Delay(50);
-
-                    await Task.Run(() => state = 1);
-                };
-
-                it["Should not know what to expect"] = () => true.should_be_true();
+                it["Should not know what to expect"] = PassAlways;
             }
         }
 
@@ -74,33 +50,19 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void async_act_waits_for_task_to_complete()
         {
-            ExampleBase example = TheExample("Should wait for its task to complete");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_be_null();
-
-            SpecClass.state.should_be(SpecClass.expected);
+            async_hook_waits_for_task_to_complete("Should have final value");
         }
 
         [Test]
         public void async_act_with_exception_fails()
         {
-            ExampleBase example = TheExample("Should fail");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_not_be_null();
+            async_hook_with_exception_fails("Should fail");
         }
 
         [Test]
         public void context_with_both_sync_and_async_act_always_fails()
         {
-            ExampleBase example = TheExample("Should not know what to expect");
-
-            example.HasRun.should_be_true();
-
-            example.Exception.should_not_be_null();
+            context_with_both_sync_and_async_hook_always_fails("Should not know what to expect");
         }
     }
 }
