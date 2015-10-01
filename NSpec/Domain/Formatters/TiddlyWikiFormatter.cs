@@ -88,7 +88,7 @@ namespace NSpec.Domain.Formatters
             return result.ToString();
         }
 
-        string BuildSpec(Example e, int level)
+        string BuildSpec(ExampleBase e, int level)
         {
             string output = "";
 

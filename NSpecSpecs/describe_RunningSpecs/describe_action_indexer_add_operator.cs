@@ -36,6 +36,8 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheExamples().First().should_cast_to<Example>().Spec.should_be("Hello should be Hello");
         }
 
+        // no 'specify' available for AsyncExample, hence no need to test that on ExampleBase
+
         private IEnumerable<object> TheExamples()
         {
             return classContext.Contexts.First().AllExamples();

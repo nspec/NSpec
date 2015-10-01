@@ -4,12 +4,13 @@ using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class describe_expected_exception_in_act : when_running_specs
+    public class describe_expected_exception_in_act : when_expecting_exception_in_act
     {
         private class SpecClass : nspec
         {
@@ -23,7 +24,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                     it["threw the expected exception in act"] = expect<InvalidOperationException>();
 
-                    it["threw the exception in act with error message Testing"] = expect<InvalidOperationException>("Testing");
+                    it["threw the exception in act with expected error message"] = expect<InvalidOperationException>("Testing");
 
                     it["fails if wrong exception thrown"] = expect<ArgumentException>();
 
@@ -37,7 +38,43 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             Run(typeof(SpecClass));
         }
+    }
 
+    [TestFixture]
+    [Category("RunningSpecs")]
+    [Category("Async")]
+    public class describe_expected_exception_in_async_act : when_expecting_exception_in_act
+    {
+        private class SpecClass : nspec
+        {
+            void method_level_context()
+            {
+                it["fails if no exception thrown"] = expect<InvalidOperationException>();
+
+                context["when exception thrown from act"] = () =>
+                {
+                    actAsync = async () => await Task.Run(() => { throw new InvalidOperationException("Testing"); });
+
+                    it["threw the expected exception in act"] = expect<InvalidOperationException>();
+
+                    it["threw the exception in act with expected error message"] = expect<InvalidOperationException>("Testing");
+
+                    it["fails if wrong exception thrown"] = expect<ArgumentException>();
+
+                    it["fails if wrong error message is returned"] = expect<InvalidOperationException>("Blah");
+                };
+            }
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            Run(typeof(SpecClass));
+        }
+    }
+
+    public abstract class when_expecting_exception_in_act : when_running_specs
+    {
         [Test]
         public void should_be_two_failures()
         {
@@ -53,7 +90,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void threw_the_exception_in_act_with_the_proper_error_message()
         {
-            TheExample("threw the exception in act with error message Testing").should_have_passed();
+            TheExample("threw the exception in act with expected error message").should_have_passed();
         }
 
         [Test]

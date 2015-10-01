@@ -1,6 +1,7 @@
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {

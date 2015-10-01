@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.ExceptionServices;
+using System.Threading.Tasks;
 
 namespace NSpec
 {
@@ -164,6 +166,38 @@ namespace NSpec
         public static void SafeInvoke(this Action action)
         {
             if (action != null) action();
+        }
+
+        public static void SafeInvoke<T>(this Func<T, Task> asyncAction, T t)
+        {
+            if (asyncAction != null) 
+            {
+                Func<Task> asyncWork = () => asyncAction(t);
+
+                asyncWork.Offload();
+            }
+        }
+
+        public static void SafeInvoke(this Func<Task> asyncAction)
+        {
+            if (asyncAction != null)
+            {
+                asyncAction.Offload();
+            }
+        }
+
+        public static void Offload(this Func<Task> asyncWork)
+        {
+            try
+            {
+                Task offloadedWork = Task.Run(asyncWork);
+
+                offloadedWork.Wait();
+            }
+            catch (AggregateException ex)
+            {
+                ExceptionDispatchInfo.Capture(ex.Flatten().InnerExceptions.First()).Throw();
+            }
         }
 
         public static string[] Sanitize(this object[] source)

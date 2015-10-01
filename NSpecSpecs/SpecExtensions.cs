@@ -6,12 +6,12 @@ namespace NSpecSpecs
 {
     public static class SpecExtensions
     {
-        public static void should_have_passed(this Example example)
+        public static void should_have_passed(this ExampleBase example)
         {
             (example.HasRun && example.Exception == null).is_true();
         }
 
-        public static void should_have_failed(this Example example)
+        public static void should_have_failed(this ExampleBase example)
         {
             (example.HasRun && example.Exception == null).is_false();
         }

@@ -24,7 +24,7 @@ namespace NSpec.Domain.Formatters
             Console.WriteLine(indent.Times(context.Level - 1) + context.Name);
         }
 
-        public void Write(Example e, int level)
+        public void Write(ExampleBase e, int level)
         {
             var noFailure = e.Exception == null;
 
@@ -56,7 +56,7 @@ namespace NSpec.Domain.Formatters
             return summary;
         }
 
-        public string WriteFailure(Example example)
+        public string WriteFailure(ExampleBase example)
         {
             var failure = Environment.NewLine + example.FullName().Replace("_", " ") + Environment.NewLine;
 

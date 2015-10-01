@@ -3,7 +3,8 @@ begin
   require 'cgi'
   require 'date'
   require 'zip/zipfilesystem'
-rescue LoadError
+rescue LoadError => e
+  puts e.message
   puts "looks like you don't have all the ruby libraries needed to build NSpec, make sure you have latest on https://github.com/mattflo/NSpec and you have run the command 'bundle install' (the bundler gem is required to run this command)"
   puts ""
   puts "If the 'bundle install' command fails, you have to install bundler first by running the command 'gem install bundler'"

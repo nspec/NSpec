@@ -78,7 +78,7 @@ namespace NSpec.Domain.Formatters
             sb.AppendLine("</ul>");
         }
 
-        void BuildSpec(StringBuilder sb, Example example)
+        void BuildSpec(StringBuilder sb, ExampleBase example)
         {
             sb.AppendFormat("<li>{0}", example.Spec);
             if (example.Exception != null)
