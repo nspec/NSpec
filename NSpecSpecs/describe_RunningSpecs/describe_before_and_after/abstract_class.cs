@@ -40,6 +40,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 sequence += "H";
             }
         }
+
         class Concrete : Abstract {}
 
         [Test]

@@ -19,11 +19,11 @@ namespace NSpecSpecs
 
             var context = new Context();
 
-            context.AddExample(new Example());
+            context.AddExample(new ExampleBaseWrap());
 
-            context.AddExample(new Example { Pending = true });
+            context.AddExample(new ExampleBaseWrap { Pending = true });
 
-            context.AddExample(new Example { Exception = new Exception() });
+            context.AddExample(new ExampleBaseWrap { Exception = new Exception() });
 
             context.Tags.Add(Tags.Focus);
 
@@ -58,7 +58,7 @@ namespace NSpecSpecs
         public void should_trim_skipped_contexts()
         {
             contexts.Add(new Context());
-            contexts[0].AddExample(new Example());
+            contexts[0].AddExample(new ExampleBaseWrap());
             contexts[0].Examples[0].HasRun = true;
             contexts.Count().should_be(2);
             contexts.TrimSkippedContexts();

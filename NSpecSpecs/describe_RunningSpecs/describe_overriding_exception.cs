@@ -5,6 +5,7 @@ using System.Text;
 using NSpec;
 using NUnit.Framework;
 using NSpecSpecs.WhenRunningSpecs;
+using System.Threading.Tasks;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -23,6 +24,13 @@ namespace NSpecSpecs.describe_RunningSpecs
                 "1".should_be("1");
             }
 
+            async Task specify_async_method_level_failure()
+            {
+                await Task.Delay(0);
+
+                "1".should_be("1");
+            }
+
             public override Exception ExceptionToReturn(Exception originalException)
             {
                 return new ArgumentException("Redefined exception.", originalException);
@@ -38,7 +46,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void the_examples_exception_is_replaced_with_exception_provided_in_override()
         {
-            AllExamples().First().Exception.InnerException.GetType().should_be(typeof(ArgumentException));
+            TheExample("specify method level failure").Exception.InnerException.GetType().should_be(typeof(ArgumentException));
+        }
+
+        [Test]
+        public void the_examples_exception_is_replaced_with_exception_provided_in_override_if_async_method()
+        {
+            TheExample("specify async method level failure").Exception.InnerException.GetType().should_be(typeof(ArgumentException));
         }
     }
 }

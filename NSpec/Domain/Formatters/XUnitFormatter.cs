@@ -47,7 +47,7 @@ namespace NSpec.Domain.Formatters
             }
         }
 
-        void BuildSpec(XmlTextWriter xml, Example example)
+        void BuildSpec(XmlTextWriter xml, ExampleBase example)
         {
             xml.WriteStartElement("testcase");
 

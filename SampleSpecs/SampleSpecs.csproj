@@ -72,6 +72,7 @@
     <Compile Include="WebSite\describe_class_level.cs" />
     <Compile Include="Demo\decribe_TicTacToeGame.cs" />
     <Compile Include="WebSite\describe_exception.cs" />
+    <Compile Include="WebSite\describe_async_helpers.cs" />
     <Compile Include="WebSite\describe_helpers.cs" />
     <Compile Include="Demo\describe_method_level_examples.cs">
       <SubType>Code</SubType>

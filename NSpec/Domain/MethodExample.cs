@@ -1,19 +1,18 @@
+using System;
 using System.Reflection;
 
 namespace NSpec.Domain
 {
-    public class MethodExample : Example
+    public class MethodExample : MethodExampleBase
     {
-        public MethodExample(MethodInfo method, string tags = null) : base(method.Name.Replace("_", " "), tags)
+        public MethodExample(MethodInfo method, string tags) 
+            : base(method, tags)
         {
-            this.method = method;
         }
 
         public override void Run(nspec nspec)
         {
             method.Invoke(nspec, null);
         }
-
-        MethodInfo method;
     }
 }

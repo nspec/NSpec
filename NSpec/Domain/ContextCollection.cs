@@ -6,17 +6,17 @@ namespace NSpec.Domain
 {
     public class ContextCollection : List<Context>
     {
-        public IEnumerable<Example> Examples()
+        public IEnumerable<ExampleBase> Examples()
         {
             return this.SelectMany(c => c.AllExamples());
         }
 
-        public IEnumerable<Example> Failures()
+        public IEnumerable<ExampleBase> Failures()
         {
             return Examples().Where(e => e.Exception != null);
         }
 
-        public IEnumerable<Example> Pendings()
+        public IEnumerable<ExampleBase> Pendings()
         {
             return Examples().Where(e => e.Pending);
         }
@@ -55,7 +55,7 @@ namespace NSpec.Domain
             return AllContexts().FirstOrDefault(c => c.Name == name);
         }
 
-        public Example FindExample(string name)
+        public ExampleBase FindExample(string name)
         {
             return Examples().FirstOrDefault(e => e.Spec == name);
         }

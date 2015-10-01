@@ -52,7 +52,11 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\AsyncActionRegister.cs" />
+    <Compile Include="Domain\AsyncMethodLevelHooks.cs" />
     <Compile Include="Domain\ClassContext.cs" />
+    <Compile Include="Domain\AsyncExample.cs" />
+    <Compile Include="Domain\ExampleBase.cs" />
     <Compile Include="Domain\ExampleFailureException.cs" />
     <Compile Include="Domain\Formatters\ConsoleFormatter.cs" />
     <Compile Include="Domain\ContextCollection.cs" />
@@ -68,7 +72,9 @@
     <Compile Include="Domain\MethodContext.cs" />
     <Compile Include="Domain\ExceptionNotThrown.cs" />
     <Compile Include="DefaultConventions.cs" />
+    <Compile Include="Domain\AsyncMethodExample.cs" />
     <Compile Include="Domain\MethodExample.cs" />
+    <Compile Include="Domain\MethodExampleBase.cs" />
     <Compile Include="Domain\RunnerInvocation.cs" />
     <Compile Include="Domain\Tags.cs" />
     <Compile Include="Each.cs" />

@@ -11,7 +11,7 @@ namespace NSpec
     {
         public static void should<T>(this T o, Expression<Predicate<T>> predicate)
         {
-            Assert.IsTrue(predicate.Compile()(o), Example.Parse(predicate.Body));
+            Assert.IsTrue(predicate.Compile()(o), ExampleBase.Parse(predicate.Body));
         }
 
         public static T should_not_be_null<T>(this T target) where T : class
