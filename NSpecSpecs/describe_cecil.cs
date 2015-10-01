@@ -8,7 +8,7 @@ namespace NSpecSpecs
     [TestFixture]
     public class describe_cecil
     {
-        [Test, Ignore]
+        [Test, Ignore("It has to be completed yet")]
         public void it_reflects_methods()
         {
             var def = AssemblyDefinition.ReadAssembly(@"C:\Projects\NSpec\NSpecSpecs\bin\Debug\SampleSpecs.dll");
