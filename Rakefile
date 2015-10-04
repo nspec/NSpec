@@ -101,7 +101,7 @@ desc 'Increments version number.'
 task :bump_version do
   node = get_version_node
 
-  nextVer = "0.9." + (node.text.split('.').last.to_i + 1).to_s
+  nextVer = "1.0." + (node.text.split('.').last.to_i + 1).to_s
 
   xml = Nokogiri::XML(File.read 'nspec.nuspec')
   xml.root.default_namespace = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"
