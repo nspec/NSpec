@@ -4,6 +4,7 @@ using System.Reflection;
 using NSpec;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
+using System.Collections.Generic;
 
 namespace NSpecRunner
 {
@@ -27,26 +28,24 @@ namespace NSpecRunner
 
                 var formatter = FindFormatter(formatterClassName);
 
-                args = RemoveOptionsAndSwitches(args);
-
                 if (args.Length > 1)
                 {
                     // see rspec and cucumber for ideas on better ways to handle tags on the command line:
                     // https://github.com/cucumber/cucumber/wiki/tags
                     // https://www.relishapp.com/rspec/rspec-core/v/2-4/docs/command-line/tag-option
-                    if (args[1] == "--tag" && args.Length > 2)
-                        argsTags = args[2];
-                    else
-                        argsTags = args[1];
+                    argsTags = GetTags(args);
                 }
 
-                var specDLL = args[0];
+                int failures = 0;
+                foreach (var specDLL in GetDlls(args))
+                {
 
-                var invocation = new RunnerInvocation(specDLL, argsTags, formatter, failFast);
+                    var invocation = new RunnerInvocation(specDLL, argsTags, formatter, failFast);
 
-                var domain = new NSpecDomain(specDLL + ".config");
+                    var domain = new NSpecDomain(specDLL + ".config");
 
-                var failures = domain.Run(invocation, i => i.Run().Failures().Count(), specDLL);
+                    failures += domain.Run(invocation, i => i.Run().Failures().Count(), specDLL);
+                }
 
                 if (failures > 0) Environment.Exit(1);
             }
@@ -58,6 +57,15 @@ namespace NSpecRunner
             }
         }
 
+        public static IEnumerable<string> GetDlls(string[] args)
+        {
+            foreach (var arg in args)
+            {
+                if (arg.StartsWith("--")) yield break;
+                yield return arg;
+            }
+        }
+
         public static string[] RemoveOptionsAndSwitches(string[] args)
         {
             return args.Where(s => !s.StartsWith("--") || s == "--tag" ).ToArray();
@@ -66,6 +74,18 @@ namespace NSpecRunner
         public static bool IsFailFast(string[] args)
         {
             return args.Any(s => s == "--failfast");
+        }
+
+        public static string GetTags(string[] args)
+        {
+            for (int index = 0; index < args.Length;index++ )
+            {
+                if (args[index].Contains("--tag"))
+                {
+                    return args[index+1];
+                }
+            }
+            return null;
         }
 
         public static string GetFormatterClassName(string[] args)
