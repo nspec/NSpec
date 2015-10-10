@@ -2,53 +2,29 @@
 layout: default
 ---
 
-<div class="zone zone-content">
-  <article class="content-item page">
-    <p style="font-size: 20px">
+    <p>
       NSpec is a BDD style testing framework for .NET. NSpec is heavily inspired by <a href="http://rspec.info/">RSpec</a>.
     </p>
-    <div class="group">
-      <p id="timestamp">
+    <p>
         {% include timestamp.html %}
-      </p>
-    </div>
-    <div class="group">
-      <div style="float: left;">
-        <ul>
-          <li><a href="#helloworld">Getting Started</a></li>
-          <li><a href="#why">Why NSpec?</a></li>
-          <li><a href="#specifications">Specifications</a></li>
-        </ul>
-      </div>
-      <div style="float: left;">
-        <ul>
-          <li><a href="#before">Befores</a></li>
-          <li><a href="#contexts">Contexts</a></li>
-          <li><a href="#pending">Pendings</a></li>
-        </ul>
-      </div>
-      <div style="float: left;">
-        <ul>
-          <li><a href="#helpers">Helpers</a></li>
-          <li><a href="#act">Act</a></li>
-          <li><a href="#class_level">Class Level</a></li>
-        </ul>
-      </div>
-      <div style="float: left;">
-        <ul>
-          <li><a href="#inheritance">Inheritance</a></li>
-          <li><a href="#exception">Exceptions</a></li>
-          <li><a href="#summary">Summary</a></li>
-        </ul>
-      </div>
-    </div>
-  </article>
-  <p><a name="helloworld"></a></p>
-  <div class="zone zone-sub-page-title">
-    <h1>Getting Started</h1>
-  </div>
-  <div id="layout-content" class="group" style="padding-top: 10px;">
-    <h1 style="font-size: 25px">Write Your First Spec</h1>
+    </p>
+    <ul>
+        <li><a href="#helloworld">Getting Started</a></li>
+        <li><a href="#why">Why NSpec?</a></li>
+        <li><a href="#specifications">Specifications</a></li>
+        <li><a href="#before">Befores</a></li>
+        <li><a href="#contexts">Contexts</a></li>
+        <li><a href="#pending">Pendings</a></li>
+        <li><a href="#helpers">Helpers</a></li>
+        <li><a href="#act">Act</a></li>
+        <li><a href="#class_level">Class Level</a></li>
+        <li><a href="#inheritance">Inheritance</a></li>
+        <li><a href="#exception">Exceptions</a></li>
+        <li><a href="#summary">Summary</a></li>
+    </ul>
+
+    <h2>Getting Started</h2>
+    <h3>Write Your First Spec</h3>
     <p>This tutorial will walk you through installing NSpec and running a simple spec.</p>
     <ol>
       <li>Open Visual Studio.</li>
@@ -86,14 +62,14 @@ class my_first_spec : nspec
     string name;
 }
     </pre>
-    <h2 style="font-size: 25px">Run Your First Spec</h2>
+    <h3>Run Your First Spec</h2>
     <p>Nuget placed NSpecRunner.exe in your PATH on the Package Manager Console.</p>
     <ol>
       <li>Build the class library.</li>
       <li>Run the following command in the Package Manager Console:</li>
     </ol>
-    <pre style="font-size: 1.2em !important;"> NSpecRunner.exe <em>YourClassLibraryName</em>\bin\debug\<em>YourClassLibraryName</em>.dll</pre>
-    <pre style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">
+    <pre> NSpecRunner.exe <em>YourClassLibraryName</em>\bin\debug\<em>YourClassLibraryName</em>.dll</pre>
+    <pre>
 my first spec
   it works
   describe nesting
@@ -102,25 +78,7 @@ my first spec
 
 4 Examples, 0 Failed, 0 Pending
     </pre>
-    <h2 style="font-size: 25px">Debugger Support</h2>
-    <p>
-        DebuggerShim.cs is a class file included with NSpec, you can use that to debug a test using TestDriven.net or Resharper's test runner (we're working on fully integrated support).
-    </p>
-    <p>
-    Definitely try <b><a href="/continuoustesting">specwatchr</a></b>.  Specwatchr will automatically run impacted tests for you when you save a file. If you ever need to debug a test simply use this line of code in your test:
-    </p>
-    <pre class="brush: csharp;">
-    [...]
 
-    System.Diagnostics.Debugger.Launch();
-
-    [...]
-    </pre>
-    <h2 style="font-size: 25px">Mono Support</h2>
-    <p>
-      <a href="https://github.com/amirrajan/NSpec-Mono-Binaries" style="font-size: 20px">Mono binaries and samples are available here. Simply clone/download this repository.</a>
-    </p>
-  </div>
   <p><a name="why"></a></p>
   <div class="zone zone-sub-page-title">
     <h1>Why NSpec? What NSpec Brings to the Table.</h1>
@@ -321,13 +279,13 @@ public static class AssertionExtensions
 <li>or download zip from github <a href="https://github.com/mattflo/NSpec/downloads">https://github.com/mattflo/NSpec/downloads</a> </li>
 <li>Requires .NET 3.5</li>
 <li>Classes inherit from nspec</li>
-<li>Classes and methods                                                                                                                                                     
+<li>Classes and methods
 <ul>
 <li>are contexts</li>
 <li>do not require an access modifier</li>
 </ul>
 </li>
-<li>Inside methods                                                                                                                                                    
+<li>Inside methods
 <ul>
 <li>sub contexts are created (context/describe)</li>
 <li>specifications are declared (it/specify)</li>
