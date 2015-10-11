@@ -189,7 +189,9 @@ namespace NSpec.Domain
 
             var nspec = savedInstance ?? instance;
 
-            if(AllExamples().Any(e=>e.ShouldNotSkip(nspec.tagsFilter))) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
+            bool itShouldRunAnyExample = AllExamples().Any(e => e.ShouldNotSkip(nspec.tagsFilter));
+
+            if (itShouldRunAnyExample) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
 
             //intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
@@ -210,7 +212,7 @@ namespace NSpec.Domain
 
             Contexts.Do(c => c.Run(formatter, failFast, nspec));
 
-            if (AllExamples().Count() > 0) RunAndHandleException(RunAfterAll, nspec, ref Exception);
+            if (itShouldRunAnyExample) RunAndHandleException(RunAfterAll, nspec, ref Exception);
         }
 
         public virtual void Build(nspec instance = null)
