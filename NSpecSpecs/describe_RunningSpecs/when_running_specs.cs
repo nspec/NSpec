@@ -55,12 +55,12 @@ namespace NSpecSpecs.WhenRunningSpecs
             return theContext;
         }
 
-        protected IEnumerable<Example> AllExamples()
+        protected IEnumerable<ExampleBase> AllExamples()
         {
             return contextCollection.SelectMany(s => s.AllExamples());
         }
 
-        protected Example TheExample(string name)
+        protected ExampleBase TheExample(string name)
         {
             var theExample = contextCollection
                 .SelectMany(rootContext => rootContext.AllContexts())

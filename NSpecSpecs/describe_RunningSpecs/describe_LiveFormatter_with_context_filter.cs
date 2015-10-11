@@ -85,12 +85,12 @@ namespace NSpecSpecs.describe_RunningSpecs
     public class FormatterStub : IFormatter, ILiveFormatter
     {
         public List<Context> WrittenContexts;
-        public List<Example> WrittenExamples;
+        public List<ExampleBase> WrittenExamples;
 
         public FormatterStub()
         {
             WrittenContexts = new List<Context>();
-            WrittenExamples = new List<Example>();
+            WrittenExamples = new List<ExampleBase>();
         }
 
         public void Write(ContextCollection contexts)
@@ -102,7 +102,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             WrittenContexts.Add(context);
         }
 
-        public void Write(Example example, int level)
+        public void Write(ExampleBase example, int level)
         {
             WrittenExamples.Add(example);
         }

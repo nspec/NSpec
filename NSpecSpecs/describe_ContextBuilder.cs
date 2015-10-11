@@ -6,6 +6,7 @@ using NSpec.Domain;
 using NSpecSpecs;
 using NUnit.Framework;
 using Rhino.Mocks;
+using System.Threading.Tasks;
 
 namespace NSpecNUnit.when_building_contexts
 {
@@ -104,6 +105,16 @@ namespace NSpecNUnit.when_building_contexts
             void it_should_be_considered_an_example() { }
 
             void specify_should_be_considered_as_an_example() { }
+
+            // -----
+
+            async Task it_should_be_considered_an_example_with_async() { await Task.Delay(0); }
+
+            async Task<long> it_should_be_considered_an_example_with_async_result() { await Task.Delay(0); return 0L; }
+
+            async void it_should_be_considered_an_example_with_async_void() { await Task.Delay(0); }
+
+            async Task specify_should_be_considered_as_an_example_with_async() { await Task.Delay(0); }
         }
 
         [SetUp]
@@ -119,9 +130,33 @@ namespace NSpecNUnit.when_building_contexts
         }
 
         [Test]
+        public void should_find_async_method_level_example_if_the_method_name_starts_with_the_word_IT()
+        {
+            ShouldContainExample("it should be considered an example with async");
+        }
+
+        [Test]
+        public void should_find_async_method_level_example_if_the_method_name_starts_with_the_word_IT_and_it_returns_result()
+        {
+            ShouldContainExample("it should be considered an example with async result");
+        }
+
+        [Test]
+        public void should_find_async_method_level_example_if_the_method_name_starts_with_the_word_IT_and_it_returns_void()
+        {
+            ShouldContainExample("it should be considered an example with async void");
+        }
+
+        [Test]
         public void should_find_method_level_example_if_the_method_starts_with_SPECIFY()
         {
             ShouldContainExample("specify should be considered as an example");
+        }
+
+        [Test]
+        public void should_find_async_method_level_example_if_the_method_starts_with_SPECIFY()
+        {
+            ShouldContainExample("specify should be considered as an example with async");
         }
 
         [Test]

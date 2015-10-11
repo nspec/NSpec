@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NSpec.Domain.Formatters;
+using System.Threading.Tasks;
 
 namespace NSpec.Domain
 {
@@ -10,46 +11,142 @@ namespace NSpec.Domain
     {
         public void RunBefores(nspec instance)
         {
+            // parent chain
+
             RecurseAncestors(c => c.RunBefores(instance));
+
+            // class (method-level)
+
+            if (BeforeInstance != null && BeforeInstanceAsync != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'before_each' set, please pick one of the two");
+            }
 
             BeforeInstance.SafeInvoke(instance);
 
+            BeforeInstanceAsync.SafeInvoke(instance);
+
+            // context-level
+
+            if (Before != null && BeforeAsync != null)
+            {
+                throw new ArgumentException("A single context cannot have both a 'before' and an 'beforeAsync' set, please pick one of the two");
+            }
+
             Before.SafeInvoke();
+
+            BeforeAsync.SafeInvoke();
         }
 
         void RunBeforeAll(nspec instance)
         {
+            // context-level
+
+            if (BeforeAll != null && BeforeAllAsync != null)
+            {
+                throw new ArgumentException("A single context cannot have both a 'beforeAll' and an 'beforeAllAsync' set, please pick one of the two");
+            }
+
             BeforeAll.SafeInvoke();
 
+            BeforeAllAsync.SafeInvoke();
+
+            // class (method-level)
+
+            if (BeforeAllInstance != null && BeforeAllInstanceAsync != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'before_all' set, please pick one of the two");
+            }
+
             BeforeAllInstance.SafeInvoke(instance);
+
+            BeforeAllInstanceAsync.SafeInvoke(instance);
         }
 
         public void RunActs(nspec instance)
         {
+            // parent chain
+
             RecurseAncestors(c => c.RunActs(instance));
+
+            // class (method-level)
+
+            if (ActInstance != null && ActInstanceAsync != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'act_each' set, please pick one of the two");
+            }
 
             ActInstance.SafeInvoke(instance);
 
+            ActInstanceAsync.SafeInvoke(instance);
+
+            // context-level
+
+            if (Act != null && ActAsync != null)
+            {
+                throw new ArgumentException("A single context cannot have both an 'act' and an 'actAsync' set, please pick one of the two");
+            }
+
             Act.SafeInvoke();
+
+            ActAsync.SafeInvoke();
         }
 
         public void RunAfters(nspec instance)
         {
+            // context-level
+
+            if (After != null && AfterAsync != null)
+            {
+                throw new ArgumentException("A single context cannot have both an 'after' and an 'afterAsync' set, please pick one of the two");
+            }
+
             After.SafeInvoke();
 
+            AfterAsync.SafeInvoke();
+
+            // class (method-level)
+
+            if (AfterInstance != null && AfterInstanceAsync != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'after_each' set, please pick one of the two");
+            }
+
             AfterInstance.SafeInvoke(instance);
+
+            AfterInstanceAsync.SafeInvoke(instance);
+
+            // parent chain
 
             RecurseAncestors(c => c.RunAfters(instance));
         }
 
         public void RunAfterAll(nspec instance)
         {
+            // context-level
+
+            if (AfterAll != null && AfterAllAsync != null)
+            {
+                throw new ArgumentException("A single context cannot have both an 'afterAll' and an 'afterAllAsync' set, please pick one of the two");
+            }
+
             AfterAll.SafeInvoke();
 
+            AfterAllAsync.SafeInvoke();
+
+            // class (method-level)
+
+            if (AfterAllInstance != null && AfterAllInstanceAsync != null)
+            {
+                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'after_all' set, please pick one of the two");
+            }
+
             AfterAllInstance.SafeInvoke(instance);
+
+            AfterAllInstanceAsync.SafeInvoke(instance);
         }
 
-        public void AddExample(Example example)
+        public void AddExample(ExampleBase example)
         {
             example.Context = this;
 
@@ -60,7 +157,7 @@ namespace NSpec.Domain
             example.Pending |= IsPending();
         }
 
-        public IEnumerable<Example> AllExamples()
+        public IEnumerable<ExampleBase> AllExamples()
         {
             return Contexts.Examples().Union(Examples);
         }
@@ -70,7 +167,7 @@ namespace NSpec.Domain
             return isPending || (Parent != null && Parent.IsPending());
         }
 
-        public IEnumerable<Example> Failures()
+        public IEnumerable<ExampleBase> Failures()
         {
             return AllExamples().Where(e => e.Exception != null);
         }
@@ -92,7 +189,9 @@ namespace NSpec.Domain
 
             var nspec = savedInstance ?? instance;
 
-            if(AllExamples().Any(e=>e.ShouldNotSkip(nspec.tagsFilter))) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
+            bool itShouldRunAnyExample = AllExamples().Any(e => e.ShouldNotSkip(nspec.tagsFilter));
+
+            if (itShouldRunAnyExample) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
 
             //intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
@@ -113,7 +212,7 @@ namespace NSpec.Domain
 
             Contexts.Do(c => c.Run(formatter, failFast, nspec));
 
-            if (AllExamples().Count() > 0) RunAndHandleException(RunAfterAll, nspec, ref Exception);
+            if (itShouldRunAnyExample) RunAndHandleException(RunAfterAll, nspec, ref Exception);
         }
 
         public virtual void Build(nspec instance = null)
@@ -146,7 +245,7 @@ namespace NSpec.Domain
             }
         }
 
-        public void Exercise(Example example, nspec nspec)
+        public void Exercise(ExampleBase example, nspec nspec)
         {
             if (example.ShouldSkip(nspec.tagsFilter)) return;
 
@@ -205,7 +304,6 @@ namespace NSpec.Domain
             if (Parent != null) ancestorAction(Parent);
         }
 
-
         void WriteAncestors(ILiveFormatter formatter)
         {
             if (Parent == null) return;
@@ -220,7 +318,7 @@ namespace NSpec.Domain
         public Context(string name = "", string tags = null, bool isPending = false)
         {
             Name = name.Replace("_", " ");
-            Examples = new List<Example>();
+            Examples = new List<ExampleBase>();
             Contexts = new ContextCollection();
             Tags = Domain.Tags.ParseTags(tags);
             this.isPending = isPending;
@@ -229,10 +327,12 @@ namespace NSpec.Domain
         public string Name;
         public int Level;
         public List<string> Tags;
-        public List<Example> Examples;
+        public List<ExampleBase> Examples;
         public ContextCollection Contexts;
         public Action Before, Act, After, BeforeAll, AfterAll;
-        public Action<nspec> BeforeInstance, ActInstance, AfterInstance, AfterAllInstance, BeforeAllInstance;
+        public Action<nspec> BeforeInstance, ActInstance, AfterInstance, BeforeAllInstance, AfterAllInstance;
+        public Func<Task> BeforeAsync, ActAsync, AfterAsync, BeforeAllAsync, AfterAllAsync;
+        public Action<nspec> BeforeInstanceAsync, ActInstanceAsync, AfterInstanceAsync, BeforeAllInstanceAsync, AfterAllInstanceAsync;
         public Context Parent;
         public Exception Exception;
 

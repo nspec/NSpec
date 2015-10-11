@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DC55CE3B-BB8C-42BB-A363-D3F1ED825A86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -36,30 +34,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -67,6 +41,24 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassContextBug\NestContextsTests.cs" />
@@ -76,8 +68,28 @@
     <Compile Include="describe_cecil.cs" />
     <Compile Include="describe_Conventions.cs" />
     <Compile Include="describe_output.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_after_all.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_after.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_act.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_after_all.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_after.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_act.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_before_all.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_before.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_before_all.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_example.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_before.cs" />
+    <Compile Include="describe_RunningSpecs\describe_async_method_level_examples.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\async_abstract_class.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\async_before_and_after.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\async_middle_abstract.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\async_class_levels_and_context_methods.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\async_inheritance.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\async_nested_contexts.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\async_class_levels.cs" />
+    <Compile Include="describe_RunningSpecs\describe_before_and_after\async_when_there_are_no_specs.cs" />
     <Compile Include="describe_RunningSpecs\describe_method_level_afters.cs" />
-    <Compile Include="describe_RunningSpecs\describe_skipped_before_alls_when_excluded_by_tag.cs" />
+    <Compile Include="describe_RunningSpecs\describe_skipped_before_after_alls_when_excluded_by_tag.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\abstract_class.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\nested_contexts.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\when_there_are_no_specs.cs" />
@@ -107,7 +119,7 @@
     <Compile Include="describe_DomainExtensions.cs" />
     <Compile Include="describe_RunningSpecs\describe_action_indexer_add_operator.cs" />
     <Compile Include="describe_Context.cs" />
-    <Compile Include="describe_Example.cs" />
+    <Compile Include="describe_ExampleBase.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\describe_expected_exception.cs" />
     <Compile Include="describe_RunningSpecs\describe_implicit_befores.cs" />
     <Compile Include="describe_RunningSpecs\describe_todo.cs" />
@@ -118,6 +130,12 @@
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_after_all_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_after_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_before_all_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_async_act_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_async_after_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_async_before_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_async_method_level_before_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\when_describing_async_hooks.cs" />
+    <Compile Include="ExampleBaseWrap.cs" />
     <Compile Include="SpecExtensions.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_before_contains_exception.cs" />
     <Compile Include="describe_Tags.cs" />

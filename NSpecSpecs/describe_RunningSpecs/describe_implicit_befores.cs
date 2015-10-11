@@ -27,7 +27,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             }
         }
 
-        [Test, Ignore]
+        [Test, Ignore("It cannot be tested")]
         public void should_give_each_specify_a_new_instance_of_spec()
         {
             Run(typeof(SpecClass));
@@ -36,7 +36,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheMethodContextExamples().Last().should_have_passed();
         }
 
-        private IEnumerable<Example> TheMethodContextExamples()
+        private IEnumerable<ExampleBase> TheMethodContextExamples()
         {
             return classContext.Contexts.First().AllExamples();
         }

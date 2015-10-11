@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DCE738AF-2C14-4279-96FB-16930BD1F459}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -37,13 +35,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bug\app_config_detection.cs" />
@@ -72,6 +70,7 @@
     <Compile Include="WebSite\describe_class_level.cs" />
     <Compile Include="Demo\decribe_TicTacToeGame.cs" />
     <Compile Include="WebSite\describe_exception.cs" />
+    <Compile Include="WebSite\describe_async_helpers.cs" />
     <Compile Include="WebSite\describe_helpers.cs" />
     <Compile Include="Demo\describe_method_level_examples.cs">
       <SubType>Code</SubType>
