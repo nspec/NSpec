@@ -189,7 +189,7 @@ namespace NSpec.Domain
 
             var nspec = savedInstance ?? instance;
 
-            bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec) && (inheritedException == null);
+            bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec);
 
             if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
 
