@@ -17,26 +17,26 @@ namespace NSpec
         public static T should_not_be_null<T>(this T target) where T : class
         {
             Assert.IsNotNull(target);
-			return target;
+            return target;
         }
 
-		public static Nullable<T> should_not_be_null<T>(this Nullable<T> target) where T : struct
-		{
-			Assert.IsTrue(target.HasValue);
-			return target;
-		}
+        public static Nullable<T> should_not_be_null<T>(this Nullable<T> target) where T : struct
+        {
+            Assert.IsTrue(target.HasValue);
+            return target;
+        }
 
-		public static T should_be_null<T>(this T target) where T : class
-		{
-			Assert.IsNull(target);
-			return target;
-		}
+        public static T should_be_null<T>(this T target) where T : class
+        {
+            Assert.IsNull(target);
+            return target;
+        }
 
-		public static Nullable<T> should_be_null<T>(this Nullable<T> target) where T : struct
-		{
-			Assert.IsFalse(target.HasValue);
-			return target;
-		}
+        public static Nullable<T> should_be_null<T>(this Nullable<T> target) where T : struct
+        {
+            Assert.IsFalse(target.HasValue);
+            return target;
+        }
 
         public static void should_not_be_default<T>(this T t)
         {
@@ -69,7 +69,6 @@ namespace NSpec
         {
             Assert.AreEqual(expected, actual);
         }
-
 
         public static void should_not_be(this object actual, object expected)
         {
@@ -131,18 +130,17 @@ namespace NSpec
             return collection;
         }
 
-		public static string should_not_be_empty(this string target)
-		{
-			Assert.IsNotNullOrEmpty(target);
-			return target;
-		}
+        public static string should_not_be_empty(this string target)
+        {
+            Assert.IsNotNullOrEmpty(target);
+            return target;
+        }
 
-
-		public static string should_be_empty(this string target)
-		{
-			Assert.IsNullOrEmpty(target);
-			return target;
-		}
+        public static string should_be_empty(this string target)
+        {
+            Assert.IsNullOrEmpty(target);
+            return target;
+        }
 
         public static IEnumerable<T> should_be_empty<T>(this IEnumerable<T> collection)
         {
