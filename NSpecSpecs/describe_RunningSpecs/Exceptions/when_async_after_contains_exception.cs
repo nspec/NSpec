@@ -19,18 +19,39 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 afterAsync = async () =>
                 {
                     await Task.Delay(0);
-                    throw new InvalidOperationException(); 
+                    throw new AfterException();
                 };
 
                 it["should fail this example because of afterAsync"] = () => "1".should_be("1");
 
                 it["should also fail this example because of afterAsync"] = () => "1".should_be("1");
 
-                context["exception thrown by both act and afterAsync"] = () =>
-                {
-                    act = () => { throw new ArgumentException("The afterAsync's exception should not overwrite the act's exception"); };
+                it["preserves exception from same level it"] = () => { throw new ItException(); };
 
-                    it["tracks only the first exception from act"] = () => "1".should_be("1");
+                context["exception thrown by both afterAsync and nested before"] = () =>
+                {
+                    before = () => { throw new BeforeException(); };
+
+                    it["preserves exception from nested before"] = () => "1".should_be("1");
+                };
+
+                context["exception thrown by both afterAsync and nested act"] = () =>
+                {
+                    act = () => { throw new ActException(); };
+
+                    it["preserves exception from nested act"] = () => "1".should_be("1");
+                };
+
+                context["exception thrown by both afterAsync and nested it"] = () =>
+                {
+                    it["preserves exception from nested it"] = () => { throw new ItException(); };
+                };
+
+                context["exception thrown by both afterAsync and nested afterAsync"] = () =>
+                {
+                    it["preserves exception from nested afterAsync"] = () => "1".should_be("1");
+
+                    afterAsync = () => { throw new AfterException(); };
                 };
             }
         }
@@ -48,24 +69,62 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("should also fail this example because of afterAsync")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("tracks only the first exception from act")
+            TheExample("preserves exception from same level it")
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
+            TheExample("preserves exception from nested before")
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
+            TheExample("preserves exception from nested act")
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
+            TheExample("preserves exception from nested it")
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
+            TheExample("preserves exception from nested after")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
         }
 
         [Test]
-        public void examples_with_only_async_after_failure_should_only_fail_because_of_after()
+        public void examples_with_only_after_async_failure_should_fail_because_of_after_async()
         {
             TheExample("should fail this example because of afterAsync")
-                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(AfterException));
             TheExample("should also fail this example because of afterAsync")
-                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(AfterException));
         }
 
         [Test]
-        public void it_should_throw_exception_from_act_not_from_async_after()
+        [Ignore("Double-check After exception registration")]
+        public void it_should_throw_exception_from_same_level_it_not_from_after_async()
         {
-            TheExample("tracks only the first exception from act")
-                .Exception.InnerException.GetType().should_be(typeof(ArgumentException));
+            TheExample("preserves exception from same level it")
+                .Exception.InnerException.GetType().should_be(typeof(ItException));
+        }
+
+        [Test]
+        public void it_should_throw_exception_from_nested_before_not_from_after_async()
+        {
+            TheExample("preserves exception from nested before")
+                .Exception.InnerException.GetType().should_be(typeof(BeforeException));
+        }
+
+        [Test]
+        public void it_should_throw_exception_from_nested_act_not_from_after_async()
+        {
+            TheExample("preserves exception from nested act")
+                .Exception.InnerException.GetType().should_be(typeof(ActException));
+        }
+
+        [Test]
+        [Ignore("Double-check After exception registration")]
+        public void it_should_throw_exception_from_nested_it_not_from_after_async()
+        {
+            TheExample("preserves exception from nested it")
+                .Exception.InnerException.GetType().should_be(typeof(ItException));
+        }
+
+        [Test]
+        public void it_should_throw_exception_from_nested_after_not_from_after_async()
+        {
+            TheExample("preserves exception from nested after")
+                .Exception.InnerException.GetType().should_be(typeof(AfterException));
         }
     }
 }
