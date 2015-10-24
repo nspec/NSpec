@@ -28,3 +28,5 @@ icarus.gallio
 _site
 *.#*
 TAGS
+TestResults/*.mdf
+TestResults/*.ldf
