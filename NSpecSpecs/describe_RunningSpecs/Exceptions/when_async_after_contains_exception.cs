@@ -47,11 +47,11 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                     it["preserves exception from nested it"] = () => { throw new ItException(); };
                 };
 
-                context["exception thrown by both afterAsync and nested afterAsync"] = () =>
+                context["exception thrown by both afterAsync and nested after"] = () =>
                 {
-                    it["preserves exception from nested afterAsync"] = () => "1".should_be("1");
+                    it["preserves exception from nested after"] = () => "1".should_be("1");
 
-                    afterAsync = () => { throw new AfterException(); };
+                    after = () => { throw new AfterException(); };
                 };
             }
         }
