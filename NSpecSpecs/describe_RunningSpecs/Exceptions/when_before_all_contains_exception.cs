@@ -16,15 +16,39 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 beforeAll = () => { throw new BeforeAllException(); };
 
+                // just by its presence, this will enforce tests as it should never be reported
+                afterAll = () => { throw new AfterAllException(); };
+
                 it["should fail this example because of beforeAll"] = () => "1".should_be("1");
 
                 it["should also fail this example because of beforeAll"] = () => "1".should_be("1");
 
-                context["exception thrown by both beforeAll and act"] = () =>
-                {
-                    act = () => { throw new ActException("this exception should never be thrown"); };
+                it["prevents exception from same level it"] = () => { throw new ItException(); };
 
-                    it["tracks only the first exception from 'beforeAll'"] = () => "1".should_be("1");
+                context["exception thrown by both beforeAll and nested before"] = () =>
+                {
+                    before = () => { throw new BeforeException(); };
+
+                    it["prevents exception from nested before"] = () => "1".should_be("1");
+                };
+
+                context["exception thrown by both beforeAll and nested act"] = () =>
+                {
+                    act = () => { throw new ActException(); };
+
+                    it["prevents exception from nested act"] = () => "1".should_be("1");
+                };
+
+                context["exception thrown by both beforeAll and nested it"] = () =>
+                {
+                    it["prevents exception from nested it"] = () => { throw new ItException(); };
+                };
+
+                context["exception thrown by both beforeAll and nested after"] = () =>
+                {
+                    it["prevents exception from nested after"] = () => "1".should_be("1");
+
+                    after = () => { throw new AfterException(); };
                 };
             }
         }
@@ -42,12 +66,23 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("should also fail this example because of beforeAll")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("tracks only the first exception from 'beforeAll'")
+            TheExample("prevents exception from same level it")
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
+            TheExample("prevents exception from nested before")
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
+            TheExample("prevents exception from nested act")
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
+            /*
+            // Ignore "BeforeAll exceptions are not registered"
+            TheExample("prevents exception from nested it")
+                .Exception.GetType().should_be(typeof(ExampleFailureException));
+             */
+            TheExample("prevents exception from nested after")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
         }
 
         [Test]
-        public void it_should_fail_all_examples_in_before_all()
+        public void examples_with_only_before_all_failure_should_fail_because_of_before_all()
         {
             TheExample("should fail this example because of beforeAll")
                 .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
@@ -56,18 +91,42 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("ToFix: Exceptions are not registered")]
-        public void it_should_throw_exception_from_before_all_not_from_act()
+        public void it_should_throw_exception_from_before_all_not_from_same_level_it()
         {
-            TheExample("tracks only the first exception from 'beforeAll'")
+            TheExample("prevents exception from same level it")
                 .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
         }
 
-        class BeforeAllException : Exception { }
-
-        class ActException : Exception
+        [Test]
+        [Ignore("BeforeAll exceptions are not registered")]
+        public void it_should_throw_exception_from_before_all_not_from_nested_before()
         {
-            public ActException(string message) : base(message) { }
+            TheExample("prevents exception from nested before")
+                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+        }
+
+        [Test]
+        [Ignore("BeforeAll exceptions are not registered")]
+        public void it_should_throw_exception_from_before_all_not_from_nested_act()
+        {
+            TheExample("prevents exception from nested act")
+                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+        }
+
+        [Test]
+        [Ignore("BeforeAll exceptions are not registered")]
+        public void it_should_throw_exception_from_before_all_not_from_nested_it()
+        {
+            TheExample("prevents exception from nested it")
+                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+        }
+
+        [Test]
+        [Ignore("BeforeAll exceptions are not registered")]
+        public void it_should_throw_exception_from_before_all_not_from_nested_after()
+        {
+            TheExample("prevents exception from nested after")
+                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
         }
     }
 }
