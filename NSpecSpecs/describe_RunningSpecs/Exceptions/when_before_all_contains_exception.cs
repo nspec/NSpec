@@ -72,11 +72,8 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("prevents exception from nested act")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            /*
-            // Ignore "BeforeAll exceptions are not registered"
             TheExample("prevents exception from nested it")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-             */
             TheExample("prevents exception from nested after")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
         }
@@ -98,7 +95,6 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("BeforeAll exceptions are not registered")]
         public void it_should_throw_exception_from_before_all_not_from_nested_before()
         {
             TheExample("prevents exception from nested before")
@@ -106,7 +102,6 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("BeforeAll exceptions are not registered")]
         public void it_should_throw_exception_from_before_all_not_from_nested_act()
         {
             TheExample("prevents exception from nested act")
@@ -114,7 +109,6 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("BeforeAll exceptions are not registered")]
         public void it_should_throw_exception_from_before_all_not_from_nested_it()
         {
             TheExample("prevents exception from nested it")
@@ -122,7 +116,6 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("BeforeAll exceptions are not registered")]
         public void it_should_throw_exception_from_before_all_not_from_nested_after()
         {
             TheExample("prevents exception from nested after")

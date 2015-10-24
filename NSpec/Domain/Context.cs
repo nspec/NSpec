@@ -183,23 +183,26 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
-        public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null)
+        public virtual void Run(ILiveFormatter formatter, bool failFast, Exception inheritedException, nspec instance = null)
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
             var nspec = savedInstance ?? instance;
 
-            bool itShouldRunAnyExample = AllExamples().Any(e => e.ShouldNotSkip(nspec.tagsFilter));
+            bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec) && (inheritedException == null);
 
-            if (itShouldRunAnyExample) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
+            if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
 
-            //intentionally using for loop to prevent collection was modified error in sample specs
+            inheritedException = inheritedException ?? Exception;
+
+            // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
             {
                 var example = Examples[i];
+
                 if (failFast && example.Context.HasAnyFailures()) return;
 
-                Exercise(example, nspec);
+                Exercise(example, inheritedException, nspec);
 
                 if (example.HasRun && !alreadyWritten)
                 {
@@ -210,9 +213,9 @@ namespace NSpec.Domain
                 if (example.HasRun) formatter.Write(example, Level);
             }
 
-            Contexts.Do(c => c.Run(formatter, failFast, nspec));
+            Contexts.Do(c => c.Run(formatter, failFast, inheritedException, nspec));
 
-            if (itShouldRunAnyExample) RunAndHandleException(RunAfterAll, nspec, ref Exception);
+            if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref Exception);
         }
 
         public virtual void Build(nspec instance = null)
@@ -245,9 +248,15 @@ namespace NSpec.Domain
             }
         }
 
-        public void Exercise(ExampleBase example, nspec nspec)
+        public void Exercise(ExampleBase example, Exception inheritedException, nspec nspec)
         {
             if (example.ShouldSkip(nspec.tagsFilter)) return;
+
+            if (inheritedException != null)
+            {
+                example.AssignProperException(inheritedException);
+                return;
+            }
 
             RunAndHandleException(RunBefores, nspec, ref Exception);
 
@@ -297,6 +306,15 @@ namespace NSpec.Domain
             Examples.RemoveAll(e => !e.HasRun);
 
             Contexts.Do(c => c.TrimSkippedDescendants());
+        }
+
+        bool AnyUnfilteredExampleInSubTree(nspec nspec)
+        {
+            Func<ExampleBase, bool> shouldNotSkip = e => e.ShouldNotSkip(nspec.tagsFilter);
+
+            bool anyExampleOrSubExample = Examples.Any(shouldNotSkip) || Contexts.Examples().Any(shouldNotSkip);
+
+            return anyExampleOrSubExample;
         }
 
         void RecurseAncestors(Action<Context> ancestorAction)

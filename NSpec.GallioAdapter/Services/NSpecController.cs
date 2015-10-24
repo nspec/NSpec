@@ -102,7 +102,9 @@ namespace NSpec.GallioAdapter.Services
             }
             else
             {
-                contextTest.Context.Exercise(exampleTest.Example, contextTest.Context.GetInstance());
+                Exception inheritedException = null;
+
+                contextTest.Context.Exercise(exampleTest.Example, inheritedException, contextTest.Context.GetInstance());
 
                 if (exampleTest.Example.Exception != null)
                 {
