@@ -86,10 +86,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
 				context["when exception thrown from act after awaiting another task"] = () =>
 				{
-					long count = 0;
 					actAsync = async () =>
 					{
-						await Task.Run(() => count++ );
+						await Task.Run(() => { } );
 
 						throw new InvalidOperationException("Testing");
 					};
@@ -127,17 +126,13 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 				{
 					actAsync = () =>
 					{
-						long count = 0;
 						var tasks = Enumerable.Range(0, 10)
-							.Select(
-								e => Task.Run(
-									() =>
-									{
-										if (e == 4)
-										{
-											throw new InvalidOperationException("Testing");
-										}
-									}));
+							.Select(e => Task.Run(() => {
+								if (e == 4)
+								{
+									throw new InvalidOperationException("Testing");
+								}
+							}));
 
 						return Task.WhenAll(tasks);
 					};
