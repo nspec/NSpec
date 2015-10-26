@@ -20,30 +20,30 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 it["should also fail this example because of before"] = () => "1".should_be("1");
 
-                it["overwrites exception from same level it"] = () => { throw new ItException(); };
+                it["overrides exception from same level it"] = () => { throw new ItException(); };
 
                 context["exception thrown by both before and nested before"] = () =>
                 {
                     before = () => { throw new BeforeException(); };
 
-                    it["overwrites exception from nested before"] = () => "1".should_be("1");
+                    it["overrides exception from nested before"] = () => "1".should_be("1");
                 };
 
                 context["exception thrown by both before and nested act"] = () =>
                 {
                     act = () => { throw new ActException(); };
 
-                    it["overwrites exception from nested act"] = () => "1".should_be("1");
+                    it["overrides exception from nested act"] = () => "1".should_be("1");
                 };
 
                 context["exception thrown by both before and nested it"] = () =>
                 {
-                    it["overwrites exception from nested it"] = () => { throw new ItException(); };
+                    it["overrides exception from nested it"] = () => { throw new ItException(); };
                 };
 
                 context["exception thrown by both before and nested after"] = () =>
                 {
-                    it["overwrites exception from nested after"] = () => "1".should_be("1");
+                    it["overrides exception from nested after"] = () => "1".should_be("1");
 
                     after = () => { throw new AfterException(); };
                 };
@@ -63,15 +63,15 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("should also fail this example because of before")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("overwrites exception from same level it")
+            TheExample("overrides exception from same level it")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("overwrites exception from nested before")
+            TheExample("overrides exception from nested before")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("overwrites exception from nested act")
+            TheExample("overrides exception from nested act")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("overwrites exception from nested it")
+            TheExample("overrides exception from nested it")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("overwrites exception from nested after")
+            TheExample("overrides exception from nested after")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
         }
 
@@ -87,35 +87,35 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void it_should_throw_exception_from_before_not_from_same_level_it()
         {
-            TheExample("overwrites exception from same level it")
+            TheExample("overrides exception from same level it")
                 .Exception.InnerException.GetType().should_be(typeof(BeforeException));
         }
 
         [Test]
         public void it_should_throw_exception_from_before_not_from_nested_before()
         {
-            TheExample("overwrites exception from nested before")
+            TheExample("overrides exception from nested before")
                 .Exception.InnerException.GetType().should_be(typeof(BeforeException));
         }
 
         [Test]
         public void it_should_throw_exception_from_before_not_from_nested_act()
         {
-            TheExample("overwrites exception from nested act")
+            TheExample("overrides exception from nested act")
                 .Exception.InnerException.GetType().should_be(typeof(BeforeException));
         }
 
         [Test]
         public void it_should_throw_exception_from_before_not_from_nested_it()
         {
-            TheExample("overwrites exception from nested it")
+            TheExample("overrides exception from nested it")
                 .Exception.InnerException.GetType().should_be(typeof(BeforeException));
         }
 
         [Test]
         public void it_should_throw_exception_from_before_not_from_nested_after()
         {
-            TheExample("overwrites exception from nested after")
+            TheExample("overrides exception from nested after")
                 .Exception.InnerException.GetType().should_be(typeof(BeforeException));
         }
     }
