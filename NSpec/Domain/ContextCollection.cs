@@ -36,7 +36,9 @@ namespace NSpec.Domain
 
         public void Run(ILiveFormatter formatter, bool failFast)
         {
-            this.Do(c => c.Run(formatter, failFast: failFast, inheritedException: null));
+            this.Do(c => c.Run(formatter, failFast: failFast));
+
+            this.Do(c => c.AssignExceptions());
         }
 
         public void TrimSkippedContexts()

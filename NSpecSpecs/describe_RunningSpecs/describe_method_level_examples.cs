@@ -96,7 +96,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             classContext.Build();
 
-            classContext.Run(new SilentLiveFormatter(), failFast: false, inheritedException: null);
+            classContext.Run(new SilentLiveFormatter(), failFast: false);
         }
 
         protected Context classContext;

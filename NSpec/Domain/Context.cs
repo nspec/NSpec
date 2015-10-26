@@ -183,7 +183,7 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
-        public virtual void Run(ILiveFormatter formatter, bool failFast, Exception inheritedException, nspec instance = null)
+        public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null)
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
@@ -191,9 +191,7 @@ namespace NSpec.Domain
 
             bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec);
 
-            if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
-
-            inheritedException = inheritedException ?? Exception;
+            if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref ExceptionBeforeAll);
 
             // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
@@ -202,7 +200,7 @@ namespace NSpec.Domain
 
                 if (failFast && example.Context.HasAnyFailures()) return;
 
-                Exercise(example, inheritedException, nspec);
+                Exercise(example, nspec);
 
                 if (example.HasRun && !alreadyWritten)
                 {
@@ -213,9 +211,34 @@ namespace NSpec.Domain
                 if (example.HasRun) formatter.Write(example, Level);
             }
 
-            Contexts.Do(c => c.Run(formatter, failFast, inheritedException, nspec));
+            Contexts.Do(c => c.Run(formatter, failFast, nspec));
 
-            if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref Exception);
+            if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref ExceptionAfterAll);
+        }
+
+        public virtual void AssignExceptions()
+        {
+            AssignExceptions(null, null);
+        }
+
+        protected virtual void AssignExceptions(Exception inheritedBeforeAllException, Exception inheritedAfterAllException)
+        {
+            inheritedBeforeAllException = inheritedBeforeAllException ?? ExceptionBeforeAll;
+            inheritedAfterAllException = ExceptionAfterAll ?? inheritedAfterAllException;
+
+            Exception contextException = (inheritedBeforeAllException ?? Exception) ?? inheritedAfterAllException;
+
+            for (int i = 0; i < Examples.Count; i++)
+            {
+                var example = Examples[i];
+
+                if (!example.Pending)
+                {
+                    example.AssignProperException(contextException);
+                }
+            }
+
+            Contexts.Do(c => c.AssignExceptions(inheritedBeforeAllException, inheritedAfterAllException));
         }
 
         public virtual void Build(nspec instance = null)
@@ -248,15 +271,9 @@ namespace NSpec.Domain
             }
         }
 
-        public void Exercise(ExampleBase example, Exception inheritedException, nspec nspec)
+        public void Exercise(ExampleBase example, nspec nspec)
         {
             if (example.ShouldSkip(nspec.tagsFilter)) return;
-
-            if (inheritedException != null)
-            {
-                example.AssignProperException(inheritedException);
-                return;
-            }
 
             RunAndHandleException(RunBefores, nspec, ref Exception);
 
@@ -265,8 +282,6 @@ namespace NSpec.Domain
             RunAndHandleException(example.Run, nspec, ref example.Exception);
 
             RunAndHandleException(RunAfters, nspec, ref Exception);
-
-            example.AssignProperException(Exception);
         }
 
         public virtual bool IsSub(Type baseType)
@@ -359,7 +374,7 @@ namespace NSpec.Domain
         public Func<Task> BeforeAsync, ActAsync, AfterAsync, BeforeAllAsync, AfterAllAsync;
         public Action<nspec> BeforeInstanceAsync, ActInstanceAsync, AfterInstanceAsync, BeforeAllInstanceAsync, AfterAllInstanceAsync;
         public Context Parent;
-        public Exception Exception;
+        public Exception ExceptionBeforeAll, Exception, ExceptionAfterAll;
 
         nspec savedInstance;
         bool alreadyWritten, isPending;
