@@ -36,7 +36,6 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("Method-level BeforeAll exceptions are not registered")]
         public void the_first_example_should_fail_with_framework_exception()
         {
             classContext.AllExamples()
@@ -46,7 +45,6 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("Method-level BeforeAll exceptions are not registered")]
         public void the_second_example_should_fail_with_framework_exception()
         {
             classContext.AllExamples()
