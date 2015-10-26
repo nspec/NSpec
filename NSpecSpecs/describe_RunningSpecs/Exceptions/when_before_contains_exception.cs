@@ -24,7 +24,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["exception thrown by both before and nested before"] = () =>
                 {
-                    before = () => { throw new BeforeException(); };
+                    before = () => { throw new NestedBeforeException(); };
 
                     it["overrides exception from nested before"] = () => "1".should_be("1");
                 };

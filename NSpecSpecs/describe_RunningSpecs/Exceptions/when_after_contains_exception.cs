@@ -45,7 +45,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 {
                     it["preserves exception from nested after"] = () => "1".should_be("1");
 
-                    after = () => { throw new AfterException(); };
+                    after = () => { throw new NestedAfterException(); };
                 };
             }
         }
@@ -116,7 +116,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void it_should_throw_exception_from_nested_after_not_from_after()
         {
             TheExample("preserves exception from nested after")
-                .Exception.InnerException.GetType().should_be(typeof(AfterException));
+                .Exception.InnerException.GetType().should_be(typeof(NestedAfterException));
         }
     }
 }

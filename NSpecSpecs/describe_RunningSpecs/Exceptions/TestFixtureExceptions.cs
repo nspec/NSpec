@@ -16,9 +16,19 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public BeforeException() : base("BeforeException") { }
     }
 
+    class NestedBeforeException : Exception
+    {
+        public NestedBeforeException() : base("NestedBeforeException") { }
+    }
+
     class ActException : Exception
     {
         public ActException() : base("ActException") { }
+    }
+
+    class NestedActException : Exception
+    {
+        public NestedActException() : base("NestedActException") { }
     }
 
     class ItException : Exception
@@ -29,6 +39,11 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     class AfterException : Exception
     {
         public AfterException() : base("AfterException") { }
+    }
+
+    class NestedAfterException : Exception
+    {
+        public NestedAfterException() : base("NestedAfterException") { }
     }
 
     class AfterAllException : Exception

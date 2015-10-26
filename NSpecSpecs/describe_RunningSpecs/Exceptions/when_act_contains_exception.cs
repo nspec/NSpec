@@ -31,7 +31,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["exception thrown by both act and nested act"] = () =>
                 {
-                    act = () => { throw new ActException(); };
+                    act = () => { throw new NestedActException(); };
 
                     it["overrides exception from nested act"] = () => "1".should_be("1");
                 };
