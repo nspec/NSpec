@@ -61,6 +61,15 @@ namespace NSpec.Domain
             return false == tagsFilter.ShouldSkip(Tags);
         }
 
+        public override string ToString()
+        {
+            string pendingPrefix = (Pending ? "(x)" : String.Empty);
+
+            string exceptionText = (Exception != null ? ", " + Exception.GetType().Name : String.Empty);
+
+            return String.Format("{0}{1}{2}", pendingPrefix, Spec, exceptionText);
+        }
+
         public ExampleBase(string name = "", string tags = "", bool pending = false)
         {
             Spec = name;
