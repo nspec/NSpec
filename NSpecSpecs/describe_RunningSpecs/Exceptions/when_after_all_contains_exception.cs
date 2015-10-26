@@ -20,7 +20,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 it["should also fail this example because of afterAll"] = () => "1".should_be("1");
 
-                it["preserves exception from same level it"] = () => { throw new ItException(); };
+                it["overrides exception from same level it"] = () => { throw new ItException(); };
 
                 context["exception thrown by both afterAll and nested before"] = () =>
                 {
@@ -38,7 +38,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["exception thrown by both afterAll and nested it"] = () =>
                 {
-                    it["preserves exception from nested it"] = () => { throw new ItException(); };
+                    it["overrides exception from nested it"] = () => { throw new ItException(); };
                 };
 
                 context["exception thrown by both afterAll and nested after"] = () =>
@@ -57,27 +57,25 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("AfterAll exceptions are not registered")]
         public void the_example_level_failure_should_indicate_a_context_failure()
         {
             TheExample("should fail this example because of afterAll")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("should also fail this example because of afterAll")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("preserves exception from same level it")
+            TheExample("overrides exception from same level it")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("preserves exception from nested before")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("preserves exception from nested act")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
-            TheExample("preserves exception from nested it")
+            TheExample("overrides exception from nested it")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
             TheExample("preserves exception from nested after")
                 .Exception.GetType().should_be(typeof(ExampleFailureException));
         }
 
         [Test]
-        [Ignore("AfterAll exceptions are not registered")]
         public void examples_with_only_after_all_failure_should_fail_because_of_after_all()
         {
             TheExample("should fail this example because of afterAll")
@@ -87,11 +85,10 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("Double-check AfterAll exceptions registration")]
-        public void it_should_throw_exception_from_same_level_it_not_from_after_all()
+        public void it_should_throw_exception_from_after_all_not_from_same_level_it()
         {
-            TheExample("preserves exception from same level it")
-                .Exception.InnerException.GetType().should_be(typeof(ItException));
+            TheExample("overrides exception from same level it")
+                .Exception.InnerException.GetType().should_be(typeof(AfterAllException));
         }
 
         [Test]
@@ -109,11 +106,10 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("Double-check AfterAll exceptions registration")]
-        public void it_should_throw_exception_from_nested_it_not_from_after_all()
+        public void it_should_throw_exception_from_after_all_not_from_nested_it()
         {
-            TheExample("preserves exception from nested it")
-                .Exception.InnerException.GetType().should_be(typeof(ItException));
+            TheExample("overrides exception from nested it")
+                .Exception.InnerException.GetType().should_be(typeof(AfterAllException));
         }
 
         [Test]
