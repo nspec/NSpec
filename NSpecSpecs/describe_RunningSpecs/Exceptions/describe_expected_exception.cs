@@ -18,15 +18,15 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 before = () => { };
 
-                it["throws expected exception"] = expect<InvalidOperationException>(() => { throw new InvalidOperationException(); });
+                it["throws expected exception"] = expect<KnownException>(() => { throw new KnownException(); });
 
-                it["throws expected exception with expected error message"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Testing"); });
+                it["throws expected exception with expected error message"] = expect<KnownException>("Testing", () => { throw new KnownException("Testing"); });
 
-                it["fails if expected exception does not throw"] = expect<InvalidOperationException>(() => { });
+                it["fails if expected exception does not throw"] = expect<KnownException>(() => { });
 
-                it["fails if wrong exception thrown"] = expect<InvalidOperationException>(() => { throw new ArgumentException(); });
+                it["fails if wrong exception thrown"] = expect<KnownException>(() => { throw new SomeOtherException(); });
 
-                it["fails if wrong error message is returned"] = expect<InvalidOperationException>("Testing", () => { throw new InvalidOperationException("Blah"); });
+                it["fails if wrong error message is returned"] = expect<KnownException>("Testing", () => { throw new KnownException("Blah"); });
             }
         }
 
@@ -48,23 +48,20 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 before = () => { };
 
-                itAsync["throws expected exception"] = expectAsync<InvalidOperationException>(async () => 
-                    await Task.Run(() => 
-                    { 
-                        throw new InvalidOperationException(); 
-                    }));
+                itAsync["throws expected exception"] = expectAsync<KnownException>(async () => 
+                    await Task.Run(() => { throw new KnownException(); }));
 
-                itAsync["throws expected exception with expected error message"] = expectAsync<InvalidOperationException>("Testing", async () => 
-                    await Task.Run(() => { throw new InvalidOperationException("Testing"); }));
+                itAsync["throws expected exception with expected error message"] = expectAsync<KnownException>("Testing", async () =>
+                    await Task.Run(() => { throw new KnownException("Testing"); }));
 
-                itAsync["fails if expected exception does not throw"] = expectAsync<InvalidOperationException>(async () => 
+                itAsync["fails if expected exception does not throw"] = expectAsync<KnownException>(async () => 
                     await Task.Run(() => { }));
 
-                itAsync["fails if wrong exception thrown"] = expectAsync<InvalidOperationException>(async () => 
-                    await Task.Run(() => { throw new ArgumentException(); }));
+                itAsync["fails if wrong exception thrown"] = expectAsync<KnownException>(async () =>
+                    await Task.Run(() => { throw new SomeOtherException(); }));
 
-                itAsync["fails if wrong error message is returned"] = expectAsync<InvalidOperationException>("Testing", async () => 
-                    await Task.Run(() => { throw new InvalidOperationException("Blah"); }));
+                itAsync["fails if wrong error message is returned"] = expectAsync<KnownException>("Testing", async () =>
+                    await Task.Run(() => { throw new KnownException("Blah"); }));
             }
         }
 
@@ -107,7 +104,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             var exception = TheExample("fails if wrong exception thrown").Exception;
 
             exception.GetType().should_be(typeof(ExceptionNotThrown));
-            exception.Message.should_be("Exception of type InvalidOperationException was not thrown.");
+            exception.Message.should_be("Exception of type KnownException was not thrown.");
         }
 
         [Test]

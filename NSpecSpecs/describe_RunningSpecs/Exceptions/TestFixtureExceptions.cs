@@ -50,4 +50,15 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     {
         public AfterAllException() : base("AfterAllException") { }
     }
+
+    class KnownException : Exception
+    {
+        public KnownException() : base() { }
+        public KnownException(string message) : base(message) { }
+    }
+
+    class SomeOtherException : Exception
+    {
+        public SomeOtherException() : base() { }
+    }
 }

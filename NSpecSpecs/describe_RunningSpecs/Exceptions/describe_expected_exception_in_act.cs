@@ -16,19 +16,19 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                it["fails if no exception thrown"] = expect<InvalidOperationException>();
+                it["fails if no exception thrown"] = expect<KnownException>();
 
                 context["when exception thrown from act"] = () =>
                 {
-                    act = () => { throw new InvalidOperationException("Testing"); };
+                    act = () => { throw new KnownException("Testing"); };
 
-                    it["threw the expected exception in act"] = expect<InvalidOperationException>();
+                    it["threw the expected exception in act"] = expect<KnownException>();
 
-                    it["threw the exception in act with expected error message"] = expect<InvalidOperationException>("Testing");
+                    it["threw the exception in act with expected error message"] = expect<KnownException>("Testing");
 
-                    it["fails if wrong exception thrown"] = expect<ArgumentException>();
+                    it["fails if wrong exception thrown"] = expect<SomeOtherException>();
 
-                    it["fails if wrong error message is returned"] = expect<InvalidOperationException>("Blah");
+                    it["fails if wrong error message is returned"] = expect<KnownException>("Blah");
                 };
             }
         }
@@ -49,19 +49,19 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                it["fails if no exception thrown"] = expect<InvalidOperationException>();
+                it["fails if no exception thrown"] = expect<KnownException>();
 
                 context["when exception thrown from act"] = () =>
                 {
-                    actAsync = async () => await Task.Run(() => { throw new InvalidOperationException("Testing"); });
+                    actAsync = async () => await Task.Run(() => { throw new KnownException("Testing"); });
 
-                    it["threw the expected exception in act"] = expect<InvalidOperationException>();
+                    it["threw the expected exception in act"] = expect<KnownException>();
 
-                    it["threw the exception in act with expected error message"] = expect<InvalidOperationException>("Testing");
+                    it["threw the exception in act with expected error message"] = expect<KnownException>("Testing");
 
-                    it["fails if wrong exception thrown"] = expect<ArgumentException>();
+                    it["fails if wrong exception thrown"] = expect<SomeOtherException>();
 
-                    it["fails if wrong error message is returned"] = expect<InvalidOperationException>("Blah");
+                    it["fails if wrong error message is returned"] = expect<KnownException>("Blah");
                 };
             }
         }
@@ -105,7 +105,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             var exception = TheExample("fails if wrong exception thrown").Exception;
 
             exception.GetType().should_be(typeof(ExceptionNotThrown));
-            exception.Message.should_be("Exception of type ArgumentException was not thrown.");
+            exception.Message.should_be("Exception of type SomeOtherException was not thrown.");
         }
 
         [Test]
