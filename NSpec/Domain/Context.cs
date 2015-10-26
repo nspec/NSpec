@@ -317,6 +317,13 @@ namespace NSpec.Domain
             return anyExampleOrSubExample;
         }
 
+        public override string ToString()
+        {
+            string exceptionText = (Exception != null ? ", " + Exception.GetType().Name : String.Empty);
+
+            return String.Format("{0}, L{1}, {2} exm, {3} ctx{4}", Name, Level, Examples.Count, Contexts.Count, exceptionText);
+        }
+
         void RecurseAncestors(Action<Context> ancestorAction)
         {
             if (Parent != null) ancestorAction(Parent);
