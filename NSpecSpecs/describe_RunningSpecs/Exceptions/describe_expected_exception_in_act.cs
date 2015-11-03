@@ -43,7 +43,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Async")]
-    public class describe_expected_exception_in_async_act : when_expecting_exception_in_act
+    public class describe_expected_exception_in_async_act_before_awaiting_a_task : when_expecting_exception_in_act
     {
         private class SpecClass : nspec
         {
@@ -53,7 +53,89 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["when exception thrown from act"] = () =>
                 {
-                    actAsync = async () => await Task.Run(() => { throw new InvalidOperationException("Testing"); });
+                    actAsync = () => Task.Run(() => { throw new InvalidOperationException("Testing"); });
+
+                    it["threw the expected exception in act"] = expect<InvalidOperationException>();
+
+                    it["threw the exception in act with expected error message"] = expect<InvalidOperationException>("Testing");
+
+                    it["fails if wrong exception thrown"] = expect<ArgumentException>();
+
+                    it["fails if wrong error message is returned"] = expect<InvalidOperationException>("Blah");
+                };
+            }
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            Run(typeof(SpecClass));
+        }
+    }
+
+    [TestFixture]
+    [Category("RunningSpecs")]
+    [Category("Async")]
+    public class describe_expected_exception_in_async_act_after_awaiting_a_task : when_expecting_exception_in_act
+    {
+        private class SpecClass : nspec
+        {
+            void method_level_context()
+            {
+                it["fails if no exception thrown"] = expect<InvalidOperationException>();
+
+				context["when exception thrown from act after awaiting another task"] = () =>
+				{
+					actAsync = async () =>
+					{
+						await Task.Run(() => { } );
+
+						throw new InvalidOperationException("Testing");
+					};
+
+                    it["threw the expected exception in act"] = expect<InvalidOperationException>();
+
+                    it["threw the exception in act with expected error message"] = expect<InvalidOperationException>("Testing");
+
+                    it["fails if wrong exception thrown"] = expect<ArgumentException>();
+
+                    it["fails if wrong error message is returned"] = expect<InvalidOperationException>("Blah");
+                };
+            }
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            Run(typeof(SpecClass));
+        }
+    }
+
+    [TestFixture]
+    [Category("RunningSpecs")]
+    [Category("Async")]
+    public class describe_expected_exception_in_async_act_within_list_of_tasks : when_expecting_exception_in_act
+    {
+        private class SpecClass : nspec
+        {
+            void method_level_context()
+            {
+                it["fails if no exception thrown"] = expect<InvalidOperationException>();
+
+				context["when exception thrown from act within a list of tasks"] = () =>
+				{
+					actAsync = () =>
+					{
+						var tasks = Enumerable.Range(0, 10)
+							.Select(e => Task.Run(() => {
+								if (e == 4)
+								{
+									throw new InvalidOperationException("Testing");
+								}
+							}));
+
+						return Task.WhenAll(tasks);
+					};
 
                     it["threw the expected exception in act"] = expect<InvalidOperationException>();
 
@@ -76,7 +158,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     public abstract class when_expecting_exception_in_act : when_running_specs
     {
         [Test]
-        public void should_be_two_failures()
+        public void should_be_three_failures()
         {
             classContext.Failures().Count().should_be(3);
         }
@@ -112,7 +194,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void fails_if_wrong_error_message_is_returned()
         {
             var exception = TheExample("fails if wrong error message is returned").Exception;
-            
+
             exception.GetType().should_be(typeof(ExceptionNotThrown));
             exception.Message.should_be("Expected message: \"Blah\" But was: \"Testing\"");
         }

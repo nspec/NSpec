@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace NSpec
 {
     /// <summary>
-    /// Inherit from this class to create your own specifications.  NSpecRunner will look through your project for 
+    /// Inherit from this class to create your own specifications.  NSpecRunner will look through your project for
     /// classes that derive from this class (inheritance chain is taken into consideration).
     /// </summary>
     public class nspec
@@ -26,7 +26,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Create a specification/example using a single line lambda with an assertion(should). 
+        /// Create a specification/example using a single line lambda with an assertion(should).
         /// The name of the specification will be parsed from the Expression
         /// <para>For Example:</para>
         /// <para>specify = () => _controller.should_be(false);</para>
@@ -42,7 +42,7 @@ namespace NSpec
          */
 
         /// <summary>
-        /// Mark a spec as pending 
+        /// Mark a spec as pending
         /// <para>For Example:</para>
         /// <para>xspecify = () => _controller.should_be(false);</para>
         /// <para>(the example will be marked as pending any lambda provided will not be executed)</para>
@@ -254,7 +254,7 @@ namespace NSpec
         public AsyncActionRegister itAsync;
 
         /// <summary>
-        /// Mark a spec as pending 
+        /// Mark a spec as pending
         /// <para>For Example:</para>
         /// <para>xit["should return false"] = () => _controller.should_be(false);</para>
         /// <para>(the example will be marked as pending, any lambda provided will not be executed)</para>
@@ -262,7 +262,7 @@ namespace NSpec
         public ActionRegister xit;
 
         /// <summary>
-        /// Mark an asynchronous spec as pending 
+        /// Mark an asynchronous spec as pending
         /// <para>For Example:</para>
         /// <para>xitAsync["should return false"] = async () => (await GetResultAsync()).should_be(false);</para>
         /// <para>(the example will be marked as pending, any lambda provided will not be executed)</para>
@@ -304,21 +304,11 @@ namespace NSpec
 
             return () =>
             {
-                if (specContext.Exception == null || specContext.Exception.GetType() != typeof(T))
+                if (specContext.Exception == null)
                     throw new ExceptionNotThrown(IncorrectType<T>());
 
-                if (expectedMessage != null && expectedMessage != specContext.Exception.Message)
-                {
-                    throw new ExceptionNotThrown(
-                        IncorrectMessage(
-                            expectedMessage,
-                            specContext.Exception.Message));
-                }
-
-                if (specContext.Exception.GetType() == typeof(T))
-                {
-                    specContext.Exception = null;
-                }
+				AssertExpectedException<T>(specContext.Exception, expectedMessage);
+				specContext.Exception = null;
             };
         }
 
@@ -355,15 +345,7 @@ namespace NSpec
                 }
                 catch (Exception ex)
                 {
-                    if (ex.GetType() != closureType)
-                    {
-                        throw new ExceptionNotThrown(IncorrectType<T>());
-                    }
-
-                    if (expectedMessage != null && expectedMessage != ex.Message)
-                    {
-                        throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, ex.Message));
-                    }
+					AssertExpectedException<T>(ex, expectedMessage);
                 }
             };
         }
@@ -401,15 +383,7 @@ namespace NSpec
                 }
                 catch (Exception ex)
                 {
-                    if (ex.GetType() != closureType)
-                    {
-                        throw new ExceptionNotThrown(IncorrectType<T>());
-                    }
-
-                    if (expectedMessage != null && expectedMessage != ex.Message)
-                    {
-                        throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, ex.Message));
-                    }
+	                AssertExpectedException<T>(ex, expectedMessage);
                 }
             };
         }
@@ -478,7 +452,43 @@ namespace NSpec
             Context = beforeContext;
         }
 
-        public virtual string OnError(string flattenedStackTrace)
+		void AssertExpectedException<T>(Exception actualException, string expectedMessage) where T : Exception
+		{
+			var expectedType = typeof(T);
+			Exception matchingException = null;
+
+			if (actualException.GetType() == expectedType)
+			{
+				matchingException = actualException;
+			}
+			else
+			{
+				var aggregateException = actualException as AggregateException;
+				if (aggregateException != null)
+				{
+					foreach (var innerException in aggregateException.InnerExceptions)
+					{
+						if (innerException.GetType() == expectedType)
+						{
+							matchingException = innerException;
+							break;
+						}
+					}
+				}
+			}
+
+			if (matchingException == null)
+			{
+				throw new ExceptionNotThrown(IncorrectType<T>());
+			}
+
+			if (expectedMessage != null && expectedMessage != matchingException.Message)
+			{
+				throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, matchingException.Message));
+			}
+		}
+
+		public virtual string OnError(string flattenedStackTrace)
         {
             return flattenedStackTrace;
         }
