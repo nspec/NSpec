@@ -307,8 +307,8 @@ namespace NSpec
                 if (specContext.Exception == null)
                     throw new ExceptionNotThrown(IncorrectType<T>());
 
-				AssertExpectedException<T>(specContext.Exception, expectedMessage);
-				specContext.Exception = null;
+                AssertExpectedException<T>(specContext.Exception, expectedMessage);
+                specContext.Exception = null;
             };
         }
 
@@ -345,7 +345,7 @@ namespace NSpec
                 }
                 catch (Exception ex)
                 {
-					AssertExpectedException<T>(ex, expectedMessage);
+                    AssertExpectedException<T>(ex, expectedMessage);
                 }
             };
         }
@@ -383,7 +383,7 @@ namespace NSpec
                 }
                 catch (Exception ex)
                 {
-	                AssertExpectedException<T>(ex, expectedMessage);
+                    AssertExpectedException<T>(ex, expectedMessage);
                 }
             };
         }
@@ -452,43 +452,43 @@ namespace NSpec
             Context = beforeContext;
         }
 
-		void AssertExpectedException<T>(Exception actualException, string expectedMessage) where T : Exception
-		{
-			var expectedType = typeof(T);
-			Exception matchingException = null;
+        void AssertExpectedException<T>(Exception actualException, string expectedMessage) where T : Exception
+        {
+            var expectedType = typeof(T);
+            Exception matchingException = null;
 
-			if (actualException.GetType() == expectedType)
-			{
-				matchingException = actualException;
-			}
-			else
-			{
-				var aggregateException = actualException as AggregateException;
-				if (aggregateException != null)
-				{
-					foreach (var innerException in aggregateException.InnerExceptions)
-					{
-						if (innerException.GetType() == expectedType)
-						{
-							matchingException = innerException;
-							break;
-						}
-					}
-				}
-			}
+            if (actualException.GetType() == expectedType)
+            {
+                matchingException = actualException;
+            }
+            else
+            {
+                var aggregateException = actualException as AggregateException;
+                if (aggregateException != null)
+                {
+                    foreach (var innerException in aggregateException.InnerExceptions)
+                    {
+                        if (innerException.GetType() == expectedType)
+                        {
+                            matchingException = innerException;
+                            break;
+                        }
+                    }
+                }
+            }
 
-			if (matchingException == null)
-			{
-				throw new ExceptionNotThrown(IncorrectType<T>());
-			}
+            if (matchingException == null)
+            {
+                throw new ExceptionNotThrown(IncorrectType<T>());
+            }
 
-			if (expectedMessage != null && expectedMessage != matchingException.Message)
-			{
-				throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, matchingException.Message));
-			}
-		}
+            if (expectedMessage != null && expectedMessage != matchingException.Message)
+            {
+                throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, matchingException.Message));
+            }
+        }
 
-		public virtual string OnError(string flattenedStackTrace)
+        public virtual string OnError(string flattenedStackTrace)
         {
             return flattenedStackTrace;
         }

@@ -89,14 +89,14 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 itAsync["throws expected exception"] = expectAsync<InvalidOperationException>(async () => {
                     await Task.Run(() => { });
 
-					throw new InvalidOperationException();
+                    throw new InvalidOperationException();
                 });
 
                 itAsync["throws expected exception with expected error message"] = expectAsync<InvalidOperationException>("Testing", async () => {
                     await Task.Run(() => { } );
 
-					throw new InvalidOperationException("Testing");
-				});
+                    throw new InvalidOperationException("Testing");
+                });
 
                 itAsync["fails if expected exception does not throw"] = expectAsync<InvalidOperationException>(async () =>
                     await Task.Run(() => { }));
@@ -104,14 +104,14 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 itAsync["fails if wrong exception thrown"] = expectAsync<InvalidOperationException>(async () => {
                     await Task.Run(() => { } );
 
-					throw new ArgumentException();
-				});
+                    throw new ArgumentException();
+                });
 
                 itAsync["fails if wrong error message is returned"] = expectAsync<InvalidOperationException>("Testing", async () => {
                     await Task.Run(() => {  } );
 
-					throw new InvalidOperationException("Blah");
-				});
+                    throw new InvalidOperationException("Blah");
+                });
             }
         }
 

@@ -84,14 +84,14 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 it["fails if no exception thrown"] = expect<InvalidOperationException>();
 
-				context["when exception thrown from act after awaiting another task"] = () =>
-				{
-					actAsync = async () =>
-					{
-						await Task.Run(() => { } );
+                context["when exception thrown from act after awaiting another task"] = () =>
+                {
+                    actAsync = async () =>
+                    {
+                        await Task.Run(() => { } );
 
-						throw new InvalidOperationException("Testing");
-					};
+                        throw new InvalidOperationException("Testing");
+                    };
 
                     it["threw the expected exception in act"] = expect<InvalidOperationException>();
 
@@ -122,20 +122,20 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 it["fails if no exception thrown"] = expect<InvalidOperationException>();
 
-				context["when exception thrown from act within a list of tasks"] = () =>
-				{
-					actAsync = () =>
-					{
-						var tasks = Enumerable.Range(0, 10)
-							.Select(e => Task.Run(() => {
-								if (e == 4)
-								{
-									throw new InvalidOperationException("Testing");
-								}
-							}));
+                context["when exception thrown from act within a list of tasks"] = () =>
+                {
+                    actAsync = () =>
+                    {
+                        var tasks = Enumerable.Range(0, 10)
+                            .Select(e => Task.Run(() => {
+                                if (e == 4)
+                                {
+                                    throw new InvalidOperationException("Testing");
+                                }
+                            }));
 
-						return Task.WhenAll(tasks);
-					};
+                        return Task.WhenAll(tasks);
+                    };
 
                     it["threw the expected exception in act"] = expect<InvalidOperationException>();
 
