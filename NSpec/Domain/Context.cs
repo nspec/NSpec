@@ -226,7 +226,9 @@ namespace NSpec.Domain
             inheritedBeforeAllException = inheritedBeforeAllException ?? ExceptionBeforeAll;
             inheritedAfterAllException = ExceptionAfterAll ?? inheritedAfterAllException;
 
-            Exception contextException = (inheritedBeforeAllException ?? Exception) ?? inheritedAfterAllException;
+            Exception unexpectedException = ClearExpectedException ? null : Exception;
+
+            Exception contextException = (inheritedBeforeAllException ?? unexpectedException) ?? inheritedAfterAllException;
 
             for (int i = 0; i < Examples.Count; i++)
             {
@@ -375,6 +377,7 @@ namespace NSpec.Domain
         public Action<nspec> BeforeInstanceAsync, ActInstanceAsync, AfterInstanceAsync, BeforeAllInstanceAsync, AfterAllInstanceAsync;
         public Context Parent;
         public Exception ExceptionBeforeAll, Exception, ExceptionAfterAll;
+        public bool ClearExpectedException;
 
         nspec savedInstance;
         bool alreadyWritten, isPending;

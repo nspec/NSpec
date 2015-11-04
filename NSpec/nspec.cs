@@ -308,7 +308,12 @@ namespace NSpec
                     throw new ExceptionNotThrown(IncorrectType<T>());
 
                 AssertExpectedException<T>(specContext.Exception, expectedMessage);
-                specContext.Exception = null;
+
+                // do not clear exception right now, during first phase, but leave a note for second phase
+                //
+                // **NOTE** if an expected exception is thrown before the example, and then another is thrown in 'after', 
+                // the former would go unnoticed!
+                specContext.ClearExpectedException = true;
             };
         }
 
