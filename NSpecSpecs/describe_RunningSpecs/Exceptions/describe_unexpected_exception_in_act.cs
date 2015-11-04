@@ -17,12 +17,12 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 {
                     act = () => 
                     { 
-                        throw new InvalidOperationException("unexpected failure"); 
+                        throw new KnownException("unexpected failure"); 
                     };
 
                     it["reports example level failure and act failure"] = () => 
                     {
-                        throw new InvalidOperationException("example level failure");
+                        throw new KnownException("example level failure");
                     };
                 };
             }
@@ -53,7 +53,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 {
                     act = () =>
                     {
-                        throw new InvalidOperationException("unexpected failure");
+                        throw new KnownException("unexpected failure");
                     };
 
                     it["reports example level failure and act failure"] = () =>
@@ -88,12 +88,12 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 {
                     actAsync = async () => await Task.Run(() =>
                     {
-                        throw new InvalidOperationException("unexpected failure");
+                        throw new KnownException("unexpected failure");
                     });
 
                     itAsync["reports example level failure and act failure"] = async () => await Task.Run(() =>
                     {
-                        throw new InvalidOperationException("example level failure");
+                        throw new KnownException("example level failure");
                     });
                 };
             }
@@ -124,7 +124,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 {
                     actAsync = async () => await Task.Run(() =>
                     {
-                        throw new InvalidOperationException("unexpected failure");
+                        throw new KnownException("unexpected failure");
                     });
 
                     itAsync["reports example level failure and act failure"] = async () =>
