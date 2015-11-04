@@ -40,7 +40,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Async")]
-    public class describe_async_expected_exception : when_expecting_exception
+    public class describe_async_expected_exception_before_awaiting_a_task : when_expecting_exception
     {
         private class SpecClass : nspec
         {
@@ -62,6 +62,57 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 itAsync["fails if wrong error message is returned"] = expectAsync<KnownException>("Testing", async () =>
                     await Task.Run(() => { throw new KnownException("Blah"); }));
+            }
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            Run(typeof(SpecClass));
+        }
+    }
+
+    [TestFixture]
+    [Category("RunningSpecs")]
+    [Category("Async")]
+    public class describe_async_expected_exception_after_awaiting_a_task : when_expecting_exception
+    {
+        private class SpecClass : nspec
+        {
+            void method_level_context()
+            {
+                before = () => { };
+
+                itAsync["throws expected exception"] = expectAsync<KnownException>(async () =>
+                {
+                    await Task.Run(() => { });
+
+                    throw new KnownException();
+                });
+
+                itAsync["throws expected exception with expected error message"] = expectAsync<KnownException>("Testing", async () =>
+                {
+                    await Task.Run(() => { } );
+
+                    throw new KnownException("Testing");
+                });
+
+                itAsync["fails if expected exception does not throw"] = expectAsync<KnownException>(async () =>
+                    await Task.Run(() => { }));
+
+                itAsync["fails if wrong exception thrown"] = expectAsync<KnownException>(async () =>
+                {
+                    await Task.Run(() => { } );
+
+                    throw new SomeOtherException();
+                });
+
+                itAsync["fails if wrong error message is returned"] = expectAsync<KnownException>("Testing", async () =>
+                {
+                    await Task.Run(() => {  } );
+
+                    throw new KnownException("Blah");
+                });
             }
         }
 
