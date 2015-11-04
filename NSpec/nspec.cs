@@ -284,7 +284,7 @@ namespace NSpec
         public readonly Func<Task> todoAsync = () => Task.Run(() => { });
 
         /// <summary>
-        /// Set up an expectation for a particular exception type to be thrown.
+        /// Set up an expectation for a particular exception type to be thrown before expectation.
         /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;();</para>
         /// </summary>
@@ -294,7 +294,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Set up an expectation for a particular exception type to be thrown.
+        /// Set up an expectation for a particular exception type to be thrown before expectation, with an expected message.
         /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;();</para>
         /// </summary>
@@ -307,13 +307,13 @@ namespace NSpec
                 if (specContext.Exception == null)
                     throw new ExceptionNotThrown(IncorrectType<T>());
 
-				AssertExpectedException<T>(specContext.Exception, expectedMessage);
-				specContext.Exception = null;
+                AssertExpectedException<T>(specContext.Exception, expectedMessage);
+                specContext.Exception = null;
             };
         }
 
         /// <summary>
-        /// Set up an expectation for a particular exception type to be thrown.
+        /// Set up an expectation for a particular exception type to be thrown inside passed action.
         /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;(() => SomeMethodThatThrowsException());</para>
         /// </summary>
@@ -323,7 +323,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Set up an expectation for a particular exception type to be thrown with an expected message.
+        /// Set up an expectation for a particular exception type to be thrown inside passed action, with an expected message.
         /// <para>For Example:</para>
         /// <para>it["should throw exception with message Error"] = expect&lt;InvalidOperationException&gt;("Error", () => SomeMethodThatThrowsException());</para>
         /// </summary>
@@ -345,13 +345,13 @@ namespace NSpec
                 }
                 catch (Exception ex)
                 {
-					AssertExpectedException<T>(ex, expectedMessage);
+                    AssertExpectedException<T>(ex, expectedMessage);
                 }
             };
         }
 
         /// <summary>
-        /// Set up an asynchronous expectation for a particular exception type to be thrown.
+        /// Set up an asynchronous expectation for a particular exception type to be thrown inside passed asynchronous action.
         /// <para>For Example:</para>
         /// <para>itAsync["should throw exception"] = expectAsync&lt;InvalidOperationException&gt;(async () => await SomeAsyncMethodThatThrowsException());</para>
         /// </summary>
@@ -361,7 +361,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Set up an asynchronous expectation for a particular exception type to be thrown with an expected message.
+        /// Set up an asynchronous expectation for a particular exception type to be thrown inside passed asynchronous action, with an expected message.
         /// <para>For Example:</para>
         /// <para>itAsync["should throw exception with message Error"] = expectAsync&lt;InvalidOperationException&gt;("Error", async () => await SomeAsyncMethodThatThrowsException());</para>
         /// </summary>
@@ -383,7 +383,7 @@ namespace NSpec
                 }
                 catch (Exception ex)
                 {
-	                AssertExpectedException<T>(ex, expectedMessage);
+                    AssertExpectedException<T>(ex, expectedMessage);
                 }
             };
         }
@@ -452,43 +452,43 @@ namespace NSpec
             Context = beforeContext;
         }
 
-		void AssertExpectedException<T>(Exception actualException, string expectedMessage) where T : Exception
-		{
-			var expectedType = typeof(T);
-			Exception matchingException = null;
+        void AssertExpectedException<T>(Exception actualException, string expectedMessage) where T : Exception
+        {
+            var expectedType = typeof(T);
+            Exception matchingException = null;
 
-			if (actualException.GetType() == expectedType)
-			{
-				matchingException = actualException;
-			}
-			else
-			{
-				var aggregateException = actualException as AggregateException;
-				if (aggregateException != null)
-				{
-					foreach (var innerException in aggregateException.InnerExceptions)
-					{
-						if (innerException.GetType() == expectedType)
-						{
-							matchingException = innerException;
-							break;
-						}
-					}
-				}
-			}
+            if (actualException.GetType() == expectedType)
+            {
+                matchingException = actualException;
+            }
+            else
+            {
+                var aggregateException = actualException as AggregateException;
+                if (aggregateException != null)
+                {
+                    foreach (var innerException in aggregateException.InnerExceptions)
+                    {
+                        if (innerException.GetType() == expectedType)
+                        {
+                            matchingException = innerException;
+                            break;
+                        }
+                    }
+                }
+            }
 
-			if (matchingException == null)
-			{
-				throw new ExceptionNotThrown(IncorrectType<T>());
-			}
+            if (matchingException == null)
+            {
+                throw new ExceptionNotThrown(IncorrectType<T>());
+            }
 
-			if (expectedMessage != null && expectedMessage != matchingException.Message)
-			{
-				throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, matchingException.Message));
-			}
-		}
+            if (expectedMessage != null && expectedMessage != matchingException.Message)
+            {
+                throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, matchingException.Message));
+            }
+        }
 
-		public virtual string OnError(string flattenedStackTrace)
+        public virtual string OnError(string flattenedStackTrace)
         {
             return flattenedStackTrace;
         }
