@@ -125,6 +125,7 @@
     <Compile Include="describe_RunningSpecs\describe_todo.cs" />
     <Compile Include="describe_ContextCollection.cs" />
     <Compile Include="describe_DefaultConventions.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\describe_unexpected_exception_in_after.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\TestFixtureExceptions.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_after_all_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_before_all_contains_exception.cs" />
