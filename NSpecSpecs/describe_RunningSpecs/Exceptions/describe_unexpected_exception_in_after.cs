@@ -44,7 +44,6 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("Exception in after is hidden by previously met expect<>")]
         public void should_fail_because_of_same_exception_in_after()
         {
             var example = TheExample("fails because of same exception thrown again in after");
@@ -54,7 +53,6 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        [Ignore("Exception in after is hidden by previously met expect<>")]
         public void should_fail_because_of_different_exception_in_after()
         {
             var example = TheExample("fails because of different exception thrown in after");

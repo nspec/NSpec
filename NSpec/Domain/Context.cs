@@ -257,8 +257,10 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        public void RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
+        public bool RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
         {
+            bool hasThrown = false;
+
             try
             {
                 action(nspec);
@@ -266,11 +268,17 @@ namespace NSpec.Domain
             catch (TargetInvocationException invocationException)
             {
                 if (exceptionToSet == null) exceptionToSet = nspec.ExceptionToReturn(invocationException.InnerException);
+
+                hasThrown = true;
             }
             catch (Exception exception)
             {
                 if (exceptionToSet == null) exceptionToSet = nspec.ExceptionToReturn(exception);
+
+                hasThrown = true;
             }
+
+            return hasThrown;
         }
 
         public void Exercise(ExampleBase example, nspec nspec)
@@ -283,7 +291,12 @@ namespace NSpec.Domain
 
             RunAndHandleException(example.Run, nspec, ref example.Exception);
 
-            RunAndHandleException(RunAfters, nspec, ref Exception);
+            bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref Exception);
+
+            // when an expected exception is thrown and is set to be cleared by 'expect<>',
+            // a subsequent exception thrown in 'after' would go unnoticed, so don't clear in this case
+
+            if (exceptionThrownInAfters) ClearExpectedException = false;
         }
 
         public virtual bool IsSub(Type baseType)
