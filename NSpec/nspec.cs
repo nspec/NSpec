@@ -284,7 +284,7 @@ namespace NSpec
         public readonly Func<Task> todoAsync = () => Task.Run(() => { });
 
         /// <summary>
-        /// Set up an expectation for a particular exception type to be thrown.
+        /// Set up an expectation for a particular exception type to be thrown before expectation.
         /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;();</para>
         /// </summary>
@@ -294,7 +294,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Set up an expectation for a particular exception type to be thrown.
+        /// Set up an expectation for a particular exception type to be thrown before expectation, with an expected message.
         /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;();</para>
         /// </summary>
@@ -313,7 +313,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Set up an expectation for a particular exception type to be thrown.
+        /// Set up an expectation for a particular exception type to be thrown inside passed action.
         /// <para>For Example:</para>
         /// <para>it["should throw exception"] = expect&lt;InvalidOperationException&gt;(() => SomeMethodThatThrowsException());</para>
         /// </summary>
@@ -323,7 +323,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Set up an expectation for a particular exception type to be thrown with an expected message.
+        /// Set up an expectation for a particular exception type to be thrown inside passed action, with an expected message.
         /// <para>For Example:</para>
         /// <para>it["should throw exception with message Error"] = expect&lt;InvalidOperationException&gt;("Error", () => SomeMethodThatThrowsException());</para>
         /// </summary>
@@ -351,7 +351,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Set up an asynchronous expectation for a particular exception type to be thrown.
+        /// Set up an asynchronous expectation for a particular exception type to be thrown inside passed asynchronous action.
         /// <para>For Example:</para>
         /// <para>itAsync["should throw exception"] = expectAsync&lt;InvalidOperationException&gt;(async () => await SomeAsyncMethodThatThrowsException());</para>
         /// </summary>
@@ -361,7 +361,7 @@ namespace NSpec
         }
 
         /// <summary>
-        /// Set up an asynchronous expectation for a particular exception type to be thrown with an expected message.
+        /// Set up an asynchronous expectation for a particular exception type to be thrown inside passed asynchronous action, with an expected message.
         /// <para>For Example:</para>
         /// <para>itAsync["should throw exception with message Error"] = expectAsync&lt;InvalidOperationException&gt;("Error", async () => await SomeAsyncMethodThatThrowsException());</para>
         /// </summary>
