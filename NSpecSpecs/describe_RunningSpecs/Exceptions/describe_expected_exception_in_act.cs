@@ -127,7 +127,8 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                     actAsync = () =>
                     {
                         var tasks = Enumerable.Range(0, 10)
-                            .Select(e => Task.Run(() => {
+                            .Select(e => Task.Run(() =>
+                            {
                                 if (e == 4)
                                 {
                                     throw new KnownException("Testing");

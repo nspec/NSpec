@@ -48,13 +48,16 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 before = () => { };
 
-                itAsync["throws expected exception"] = expectAsync<KnownException>(async () => 
-                    await Task.Run(() => { throw new KnownException(); }));
+                itAsync["throws expected exception"] = expectAsync<KnownException>(async () =>
+                    await Task.Run(() =>
+                    {
+                        throw new KnownException();
+                    }));
 
                 itAsync["throws expected exception with expected error message"] = expectAsync<KnownException>("Testing", async () =>
                     await Task.Run(() => { throw new KnownException("Testing"); }));
 
-                itAsync["fails if expected exception does not throw"] = expectAsync<KnownException>(async () => 
+                itAsync["fails if expected exception does not throw"] = expectAsync<KnownException>(async () =>
                     await Task.Run(() => { }));
 
                 itAsync["fails if wrong exception thrown"] = expectAsync<KnownException>(async () =>
