@@ -19,7 +19,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 beforeAsync = async () => 
                 { 
                     await Task.Delay(0);
-                    throw new InvalidOperationException(); 
+                    throw new BeforeException(); 
                 };
 
                 it["should fail this example because of beforeAsync"] = () => "1".should_be("1");
@@ -28,7 +28,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["exception thrown by both beforeAsync and act"] = () =>
                 {
-                    act = () => { throw new ArgumentException("this exception should never be thrown"); };
+                    act = () => { throw new ActException(); };
 
                     it["tracks only the first exception from 'beforeAsync'"] = () => "1".should_be("1");
                 };
@@ -56,16 +56,16 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void it_should_fail_all_examples_in_async_before()
         {
             TheExample("should fail this example because of beforeAsync")
-                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(BeforeException));
             TheExample("should also fail this example because of beforeAsync")
-                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(BeforeException));
         }
 
         [Test]
         public void it_should_throw_exception_from_async_before_not_from_act()
         {
             TheExample("tracks only the first exception from 'beforeAsync'")
-                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(BeforeException));
         }
     }
 }

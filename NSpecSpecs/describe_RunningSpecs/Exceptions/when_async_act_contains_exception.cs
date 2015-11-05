@@ -16,7 +16,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                actAsync = async () => await Task.Run(() => { throw new InvalidOperationException(); });
+                actAsync = async () => await Task.Run(() => { throw new ActException(); });
 
                 it["should fail this example because of act"] = () => "1".should_be("1");
 
@@ -43,9 +43,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void it_should_fail_all_examples_in_act()
         {
             TheExample("should fail this example because of act").Exception
-                .InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .InnerException.GetType().should_be(typeof(ActException));
             TheExample("should also fail this example because of act").Exception
-                .InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .InnerException.GetType().should_be(typeof(ActException));
         }
     }
 }

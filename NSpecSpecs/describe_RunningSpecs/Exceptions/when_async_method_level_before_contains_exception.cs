@@ -19,7 +19,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 await Task.Delay(0);
 
-                throw new InvalidOperationException();
+                throw new BeforeException();
             }
 
             void should_fail_this_example()

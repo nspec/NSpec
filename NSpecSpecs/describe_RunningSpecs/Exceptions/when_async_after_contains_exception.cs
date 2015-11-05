@@ -19,7 +19,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 afterAsync = async () =>
                 {
                     await Task.Delay(0);
-                    throw new InvalidOperationException(); 
+                    throw new AfterException(); 
                 };
 
                 it["should fail this example because of afterAsync"] = () => "1".should_be("1");
@@ -28,7 +28,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["exception thrown by both act and afterAsync"] = () =>
                 {
-                    act = () => { throw new ArgumentException("The afterAsync's exception should not overwrite the act's exception"); };
+                    act = () => { throw new ActException(); };
 
                     it["tracks only the first exception from act"] = () => "1".should_be("1");
                 };
@@ -56,16 +56,16 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void examples_with_only_async_after_failure_should_only_fail_because_of_after()
         {
             TheExample("should fail this example because of afterAsync")
-                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(AfterException));
             TheExample("should also fail this example because of afterAsync")
-                .Exception.InnerException.GetType().should_be(typeof(InvalidOperationException));
+                .Exception.InnerException.GetType().should_be(typeof(AfterException));
         }
 
         [Test]
         public void it_should_throw_exception_from_act_not_from_async_after()
         {
             TheExample("tracks only the first exception from act")
-                .Exception.InnerException.GetType().should_be(typeof(ArgumentException));
+                .Exception.InnerException.GetType().should_be(typeof(ActException));
         }
     }
 }
