@@ -183,6 +183,13 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
+        /// <summary>
+        /// Test execution happens in two phases: this is the first phase.
+        /// </summary>
+        /// <remarks>
+        /// Here all contexts and all their examples are run, collecting distinct exceptions 
+        /// from context itself (befores/ acts/ it/ afters), beforeAll, afterAll.
+        /// </remarks>
         public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null)
         {
             if (failFast && Parent.HasAnyFailures()) return;
@@ -216,6 +223,14 @@ namespace NSpec.Domain
             if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref ExceptionAfterAll);
         }
 
+        /// <summary>
+        /// Test execution happens in two phases: this is the second phase.
+        /// </summary>
+        /// <remarks>
+        /// Here all contexts and all their examples are traversed again to set proper exception
+        /// on examples, giving priority to exceptions from: inherithed beforeAll, beforeAll,
+        /// context (befores/ acts/ it/ afters), afterAll, inherithed afterAll.
+        /// </remarks>
         public virtual void AssignExceptions()
         {
             AssignExceptions(null, null);
@@ -226,6 +241,7 @@ namespace NSpec.Domain
             inheritedBeforeAllException = inheritedBeforeAllException ?? ExceptionBeforeAll;
             inheritedAfterAllException = ExceptionAfterAll ?? inheritedAfterAllException;
 
+            // if thrown exception was correctly expected, ignore this context Exception
             Exception unexpectedException = ClearExpectedException ? null : Exception;
 
             Exception contextException = (inheritedBeforeAllException ?? unexpectedException) ?? inheritedAfterAllException;
@@ -294,7 +310,7 @@ namespace NSpec.Domain
             bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref Exception);
 
             // when an expected exception is thrown and is set to be cleared by 'expect<>',
-            // a subsequent exception thrown in 'after' would go unnoticed, so don't clear in this case
+            // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
 
             if (exceptionThrownInAfters) ClearExpectedException = false;
         }
