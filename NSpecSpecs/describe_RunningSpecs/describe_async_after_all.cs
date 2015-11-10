@@ -54,14 +54,12 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        [Ignore("Until 'AfterAlls' exceptions are not registered")]
         public void async_after_all_with_exception_fails()
         {
             ExampleRunsWithException("Should fail");
         }
 
         [Test]
-        [Ignore("Until 'AfterAlls' exceptions are not registered")]
         public void context_with_both_sync_and_async_after_all_always_fails()
         {
             ExampleRunsWithException("Should not know what to do");

@@ -183,20 +183,28 @@ namespace NSpec.Domain
             Contexts.Add(child);
         }
 
+        /// <summary>
+        /// Test execution happens in two phases: this is the first phase.
+        /// </summary>
+        /// <remarks>
+        /// Here all contexts and all their examples are run, collecting distinct exceptions 
+        /// from context itself (befores/ acts/ it/ afters), beforeAll, afterAll.
+        /// </remarks>
         public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null)
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
             var nspec = savedInstance ?? instance;
 
-            bool itShouldRunAnyExample = AllExamples().Any(e => e.ShouldNotSkip(nspec.tagsFilter));
+            bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec);
 
-            if (itShouldRunAnyExample) RunAndHandleException(RunBeforeAll, nspec, ref Exception);
+            if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref ExceptionBeforeAll);
 
-            //intentionally using for loop to prevent collection was modified error in sample specs
+            // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
             {
                 var example = Examples[i];
+
                 if (failFast && example.Context.HasAnyFailures()) return;
 
                 Exercise(example, nspec);
@@ -212,7 +220,43 @@ namespace NSpec.Domain
 
             Contexts.Do(c => c.Run(formatter, failFast, nspec));
 
-            if (itShouldRunAnyExample) RunAndHandleException(RunAfterAll, nspec, ref Exception);
+            if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref ExceptionAfterAll);
+        }
+
+        /// <summary>
+        /// Test execution happens in two phases: this is the second phase.
+        /// </summary>
+        /// <remarks>
+        /// Here all contexts and all their examples are traversed again to set proper exception
+        /// on examples, giving priority to exceptions from: inherithed beforeAll, beforeAll,
+        /// context (befores/ acts/ it/ afters), afterAll, inherithed afterAll.
+        /// </remarks>
+        public virtual void AssignExceptions()
+        {
+            AssignExceptions(null, null);
+        }
+
+        protected virtual void AssignExceptions(Exception inheritedBeforeAllException, Exception inheritedAfterAllException)
+        {
+            inheritedBeforeAllException = inheritedBeforeAllException ?? ExceptionBeforeAll;
+            inheritedAfterAllException = ExceptionAfterAll ?? inheritedAfterAllException;
+
+            // if thrown exception was correctly expected, ignore this context Exception
+            Exception unexpectedException = ClearExpectedException ? null : Exception;
+
+            Exception contextException = (inheritedBeforeAllException ?? unexpectedException) ?? inheritedAfterAllException;
+
+            for (int i = 0; i < Examples.Count; i++)
+            {
+                var example = Examples[i];
+
+                if (!example.Pending)
+                {
+                    example.AssignProperException(contextException);
+                }
+            }
+
+            Contexts.Do(c => c.AssignExceptions(inheritedBeforeAllException, inheritedAfterAllException));
         }
 
         public virtual void Build(nspec instance = null)
@@ -229,8 +273,10 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        public void RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
+        public bool RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
         {
+            bool hasThrown = false;
+
             try
             {
                 action(nspec);
@@ -238,11 +284,17 @@ namespace NSpec.Domain
             catch (TargetInvocationException invocationException)
             {
                 if (exceptionToSet == null) exceptionToSet = nspec.ExceptionToReturn(invocationException.InnerException);
+
+                hasThrown = true;
             }
             catch (Exception exception)
             {
                 if (exceptionToSet == null) exceptionToSet = nspec.ExceptionToReturn(exception);
+
+                hasThrown = true;
             }
+
+            return hasThrown;
         }
 
         public void Exercise(ExampleBase example, nspec nspec)
@@ -255,9 +307,12 @@ namespace NSpec.Domain
 
             RunAndHandleException(example.Run, nspec, ref example.Exception);
 
-            RunAndHandleException(RunAfters, nspec, ref Exception);
+            bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref Exception);
 
-            example.AssignProperException(Exception);
+            // when an expected exception is thrown and is set to be cleared by 'expect<>',
+            // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
+
+            if (exceptionThrownInAfters) ClearExpectedException = false;
         }
 
         public virtual bool IsSub(Type baseType)
@@ -297,6 +352,15 @@ namespace NSpec.Domain
             Examples.RemoveAll(e => !e.HasRun);
 
             Contexts.Do(c => c.TrimSkippedDescendants());
+        }
+
+        bool AnyUnfilteredExampleInSubTree(nspec nspec)
+        {
+            Func<ExampleBase, bool> shouldNotSkip = e => e.ShouldNotSkip(nspec.tagsFilter);
+
+            bool anyExampleOrSubExample = Examples.Any(shouldNotSkip) || Contexts.Examples().Any(shouldNotSkip);
+
+            return anyExampleOrSubExample;
         }
 
         public override string ToString()
@@ -341,7 +405,8 @@ namespace NSpec.Domain
         public Func<Task> BeforeAsync, ActAsync, AfterAsync, BeforeAllAsync, AfterAllAsync;
         public Action<nspec> BeforeInstanceAsync, ActInstanceAsync, AfterInstanceAsync, BeforeAllInstanceAsync, AfterAllInstanceAsync;
         public Context Parent;
-        public Exception Exception;
+        public Exception ExceptionBeforeAll, Exception, ExceptionAfterAll;
+        public bool ClearExpectedException;
 
         nspec savedInstance;
         bool alreadyWritten, isPending;

@@ -55,7 +55,6 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        [Ignore("Until 'AfterAlls' exceptions are not registered")]
         public void class_with_both_sync_and_async_after_all_always_fails()
         {
             Run(typeof(WrongSpecClass));

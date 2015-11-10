@@ -53,7 +53,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["when exception thrown from act"] = () =>
                 {
-                    actAsync = () => Task.Run(() => { throw new KnownException("Testing"); });
+                    actAsync = async () => await Task.Run(() => { throw new KnownException("Testing"); });
 
                     it["threw the expected exception in act"] = expect<KnownException>();
 

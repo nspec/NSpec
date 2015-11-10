@@ -9,13 +9,13 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class when_method_level_before_contains_exception : when_running_specs
+    public class when_method_level_after_contains_exception : when_running_specs
     {
         class SpecClass : nspec
         {
-            void before_each()
+            void after_each()
             {
-                throw new BeforeEachException();
+                throw new AfterEachException();
             }
 
             void should_fail_this_example()
@@ -39,6 +39,6 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                         .should_cast_to<ExampleFailureException>();
         }
 
-        class BeforeEachException : Exception { }
+        class AfterEachException : Exception { }
     }
 }
