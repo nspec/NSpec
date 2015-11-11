@@ -5,7 +5,7 @@ using NSpec;
 
 namespace SampleSpecs.Bug
 {
-    internal class describe_failing_deserialization : nspec
+    public class describe_failing_deserialization : nspec
     {
         MemoryStream stream;
         BinaryFormatter formatter;

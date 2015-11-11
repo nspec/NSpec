@@ -1,6 +1,6 @@
 using NSpec;
 
-class describe_before : nspec
+public class describe_before : nspec
 {
     void they_run_before_each_example()
     {
@@ -25,4 +25,3 @@ describe before
 ";
     public static int ExitCode = 0;
 }
-

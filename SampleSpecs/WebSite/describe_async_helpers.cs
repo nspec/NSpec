@@ -1,7 +1,7 @@
 using NSpec;
 using System.Threading.Tasks;
 
-class describe_async_helpers : nspec
+public class describe_async_helpers : nspec
 {
     void when_making_tea()
     {

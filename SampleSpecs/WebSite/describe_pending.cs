@@ -1,6 +1,6 @@
 using NSpec;
 
-class describe_pending : nspec
+public class describe_pending : nspec
 {
     void when_creating_pending_specifications()
     {

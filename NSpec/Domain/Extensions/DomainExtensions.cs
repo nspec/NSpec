@@ -67,7 +67,7 @@ namespace NSpec.Domain.Extensions
 
         public static string CleanMessage(this Exception exception)
         {
-            var exc = exception.Message.Trim().Replace(Environment.NewLine, ", ").Trim();
+            var exc = exception.Message.Trim().Replace("\n", ", ").Trim();
 
             while (exc.Contains("  ")) exc = exc.Replace("  ", " ");
 

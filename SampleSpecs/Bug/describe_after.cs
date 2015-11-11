@@ -2,7 +2,7 @@
 
 namespace SampleSpecs.Bug
 {
-    class describe_after : nspec
+    public class describe_after : nspec
     {
         string sequence = "";
 

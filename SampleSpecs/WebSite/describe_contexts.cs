@@ -1,6 +1,6 @@
 using NSpec;
 
-class describe_contexts : nspec
+public class describe_contexts : nspec
 {
     //context methods require an underscore. For more info see DefaultConventions.cs.
     void describe_Account()

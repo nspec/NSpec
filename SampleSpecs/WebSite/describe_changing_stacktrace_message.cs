@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NSpec;
 
-class describe_changing_stacktrace_message : nspec
+public class describe_changing_stacktrace_message : nspec
 {
     void given_a_context_that_throws_an_exception()
     {
@@ -16,7 +16,7 @@ class describe_changing_stacktrace_message : nspec
 
     public override string StackTraceToPrint(string flattenedStackTrace)
     {
-        return flattenedStackTrace + "More Information to help diagnose issue\r\n";
+        return flattenedStackTrace + "More Information to help diagnose issue\n";
     }
 }
 
@@ -31,7 +31,6 @@ describe changing stacktrace message
 
 nspec. describe changing stacktrace message. given a context that throws an exception. the stack trace can be altered to provide more information.
 An exception was thrown
-   at describe_changing_stacktrace_message.<given_a_context_that_throws_an_exception>b__0() in SampleSpecs\WebSite\describe_changing_stacktrace_message.cs:line 13
 More Information to help diagnose issue
 
 1 Examples, 1 Failed, 0 Pending

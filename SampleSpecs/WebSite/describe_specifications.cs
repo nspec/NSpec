@@ -1,6 +1,6 @@
 using NSpec;
 
-class describe_specifications : nspec
+public class describe_specifications : nspec
 {
     void when_creating_specifications()
     {
@@ -15,7 +15,7 @@ class describe_specifications : nspec
         it["1 should not be 2"] = () => 1.should_not_be(2);
         it["\"\" should not be null"] = () => "".should_not_be_null();
         it["some object should not be null"] = () => someObject.should_not_be_null();
-        //EXPERIMENTAL - specify only takes a lambda and does 
+        //EXPERIMENTAL - specify only takes a lambda and does
         //its best to make a sentence out of the code. YMMV.
         specify = ()=> "ninja".should_not_be("pirate");
     }
@@ -43,23 +43,18 @@ describe specifications
 
 nspec. describe specifications. when creating specifications. true should be false.
 Expected: False, But was: True
-   at describe_specifications.<when_creating_specifications>b__0() in SampleSpecs\WebSite\describe_specifications.cs:line 8
 
 nspec. describe specifications. when creating specifications. enumerable should not contain 1.
 Expected: not collection containing 1, But was: < 1 >
-   at describe_specifications.<when_creating_specifications>b__3() in SampleSpecs\WebSite\describe_specifications.cs:line 11
 
 nspec. describe specifications. when creating specifications. 1 should be 2.
 Expected: 2, But was: 1
-   at describe_specifications.<when_creating_specifications>b__4() in SampleSpecs\WebSite\describe_specifications.cs:line 12
 
 nspec. describe specifications. when creating specifications. 1 should not be 1.
 Expected: not 1, But was: 1
-   at describe_specifications.<when_creating_specifications>b__6() in SampleSpecs\WebSite\describe_specifications.cs:line 14
 
 nspec. describe specifications. when creating specifications. some object should not be null.
 Expected: not null, But was: null
-   at describe_specifications.<when_creating_specifications>b__9() in SampleSpecs\WebSite\describe_specifications.cs:line 17
 
 11 Examples, 5 Failed, 0 Pending
 ";

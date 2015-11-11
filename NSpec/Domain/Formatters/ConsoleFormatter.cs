@@ -8,20 +8,26 @@ namespace NSpec.Domain.Formatters
     [Serializable]
     public class ConsoleFormatter : IFormatter, ILiveFormatter
     {
+        public Action<string> WriteLineDelegate { get; set; }
+
+        public ConsoleFormatter() {
+            WriteLineDelegate = Console.WriteLine;
+        }
+
         public void Write(ContextCollection contexts)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(FailureSummary(contexts));
+            WriteLineDelegate(FailureSummary(contexts));
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(Summary(contexts));
+            WriteLineDelegate(Summary(contexts));
             Console.ResetColor();
         }
 
         public void Write(Context context)
         {
-            if (context.Level == 1) Console.WriteLine();
+            if (context.Level == 1) WriteLineDelegate("");
 
-            Console.WriteLine(indent.Times(context.Level - 1) + context.Name);
+            WriteLineDelegate(indent.Times(context.Level - 1) + context.Name);
         }
 
         public void Write(ExampleBase e, int level)
@@ -40,7 +46,7 @@ namespace NSpec.Domain.Formatters
 
             if (e.Pending) Console.ForegroundColor = ConsoleColor.Yellow;
 
-            Console.WriteLine(result);
+            WriteLineDelegate(result);
 
             Console.ForegroundColor = ConsoleColor.White;
         }
@@ -49,7 +55,7 @@ namespace NSpec.Domain.Formatters
         {
             if (contexts.Failures().Count() == 0) return "";
 
-            var summary = Environment.NewLine + "**** FAILURES ****" + Environment.NewLine;
+            var summary = "\n" + "**** FAILURES ****" + "\n";
 
             contexts.Failures().Do(f => summary += WriteFailure(f));
 
@@ -58,15 +64,15 @@ namespace NSpec.Domain.Formatters
 
         public string WriteFailure(ExampleBase example)
         {
-            var failure = Environment.NewLine + example.FullName().Replace("_", " ") + Environment.NewLine;
+            var failure = "\n" + example.FullName().Replace("_", " ") + "\n";
 
-            failure += example.Exception.CleanMessage() + Environment.NewLine;
+            failure += example.Exception.CleanMessage() + "\n";
 
             var stackTrace = FailureLines(example.Exception);
 
             stackTrace.AddRange(FailureLines(example.Exception.InnerException));
 
-            var flattenedStackTrace = stackTrace.Flatten(Environment.NewLine).TrimEnd() + Environment.NewLine;
+            var flattenedStackTrace = stackTrace.Flatten("\n").TrimEnd() + "\n";
 
             failure += example.Context.GetInstance().StackTraceToPrint(flattenedStackTrace);
 
@@ -79,7 +85,7 @@ namespace NSpec.Domain.Formatters
 
             return exception
                 .GetOrFallback(e => e.StackTrace, "")
-                .Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries)
                 .Where(l => !internalNameSpaces.Any(l.Contains)).ToList();
         }
 
@@ -93,7 +99,7 @@ namespace NSpec.Domain.Formatters
 
             if (contexts.AnyTaggedWithFocus())
             {
-                summary += Environment.NewLine + Environment.NewLine + @"NSpec found context/examples tagged with ""focus"" and only ran those.";
+                summary += "\n" + "\n" + @"NSpec found context/examples tagged with ""focus"" and only ran those.";
             }
 
             return summary;

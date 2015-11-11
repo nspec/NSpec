@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NSpec;
 
-abstract class describe_ICollection : nspec
+public abstract class describe_ICollection : nspec
 {
     protected ICollection<string> collection;
 
@@ -16,7 +16,7 @@ abstract class describe_ICollection : nspec
     }
 }
 
-class describe_LinkedList : describe_ICollection
+public class describe_LinkedList : describe_ICollection
 {
     void before_each()
     {
@@ -28,7 +28,7 @@ class describe_LinkedList : describe_ICollection
     {
         before = () => collection.Add("Item 1");
 
-        it["can add an item at the begining with ease"] = () => 
+        it["can add an item at the begining with ease"] = () =>
         {
             linkedList.AddFirst("Item 2");
             linkedList.First.Value.should_be("Item 2");
@@ -37,7 +37,7 @@ class describe_LinkedList : describe_ICollection
     LinkedList<string> linkedList;
 }
 
-class describe_List : describe_ICollection
+public class describe_List : describe_ICollection
 {
     void before_each()
     {

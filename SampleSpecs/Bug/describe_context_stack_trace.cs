@@ -3,7 +3,7 @@ using NSpec;
 
 namespace SampleSpecs.Bug
 {
-    class describe_context_stack_trace : nspec
+    public class describe_context_stack_trace : nspec
     {
         bool isTrue = false;
 

@@ -2,7 +2,7 @@ using NSpec;
 
 namespace SampleSpecs.Bug
 {
-    class given_a_subcontext_that_fails : nspec
+    public class given_a_subcontext_that_fails : nspec
     {
         void when_totaling_failures()
         {

@@ -1,6 +1,6 @@
 using NSpec;
 
-class describe_helpers : nspec
+public class describe_helpers : nspec
 {
     void when_making_tea()
     {

@@ -97,7 +97,7 @@ namespace NSpecRunner
             Assembly nspecAssembly = typeof(IFormatter).Assembly;
 
             // Look for a class that implements IFormatter with the provided name
-            var formatterType = nspecAssembly.GetTypes().FirstOrDefault(type => 
+            var formatterType = nspecAssembly.GetTypes().FirstOrDefault(type =>
                 (type.Name.ToLowerInvariant() == formatterClassName)
                 && typeof(IFormatter).IsAssignableFrom(type) );
 
@@ -108,7 +108,7 @@ namespace NSpecRunner
             else
             {
                 throw new TypeLoadException("Could not find formatter type " + formatterClassName);
-                
+
             }
         }
 
@@ -137,7 +137,7 @@ namespace NSpecRunner
             Console.WriteLine("nspecrunner path_to_spec_dll [classname] --failfast");
             Console.WriteLine();
             Console.WriteLine("Adding --failfast to any of the commands above will stop execution immediately when a failure is encountered.");
-            Console.WriteLine(); 
+            Console.WriteLine();
             Console.WriteLine("nspecrunner path_to_spec_dll [classname] --formatter=formatterClass");
             Console.WriteLine();
             Console.WriteLine("You can optionally specify a formatter for the output by providing the class name of the desired formatter.");
