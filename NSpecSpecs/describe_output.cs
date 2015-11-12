@@ -87,16 +87,18 @@ namespace NSpecSpecs
             var expectedString = ScrubStackTrace(ScrubNewLines(output.GetField("Output").GetValue(null) as string));
             var actualString = ScrubStackTrace(String.Join("\n", actual)).Trim();
             actualString.should_be(expectedString);
+
+            var guid = Guid.NewGuid();
         }
 
         string ScrubNewLines(string s)
         {
-            return s.Trim().Replace("\r\n", "\n");
+            return s.Trim().Replace("\r\n", "\n").Replace("\r", "");
         }
 
         string ScrubStackTrace(string s)
         {
-            return String.Join("\n", s.Split('\n').Where(a => !a.Trim().StartsWith("at")));
+            return String.Join("\n", s.Split('\n').Where(a => !a.Trim().StartsWith("at"))).Replace("\r", "");
         }
     }
 }
