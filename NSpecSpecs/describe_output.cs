@@ -91,12 +91,12 @@ namespace NSpecSpecs
 
         string ScrubNewLines(string s)
         {
-            return s.Trim().Replace("\r\n", "\n");
+            return s.Trim().Replace("\r\n", "\n").Replace("\r", "");
         }
 
         string ScrubStackTrace(string s)
         {
-            return String.Join("\n", s.Split('\n').Where(a => !a.Trim().StartsWith("at")));
+            return String.Join("\n", s.Split('\n').Where(a => !a.Trim().StartsWith("at"))).Replace("\r", "");
         }
     }
 }
