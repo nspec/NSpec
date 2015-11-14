@@ -12,7 +12,7 @@ To run the NSpec test suite, you can use ncrunch or [Specwatchr](http://nspec.or
 
     NUnitRunner.nunit_path = 'C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe'
 
-Other wise you can get started by the running the following commands:
+Otherwise you can get started by running the following commands:
 
     bundle install              (installs all required gems)
     rake                        (builds and runs unit tests)
