@@ -16,7 +16,7 @@ Any NSpec test runner will be able to detect all the (aptly) named expectations 
 ```c-sharp
 public class describe_prime_factors : nspec
 {
-  void when_determining_prime_factors()
+  void given_first_ten_integer_numbers()
   {
       new Each<int, int[]>
       {
