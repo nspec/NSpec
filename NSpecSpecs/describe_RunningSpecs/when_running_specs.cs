@@ -57,7 +57,8 @@ namespace NSpecSpecs.WhenRunningSpecs
 
         protected IEnumerable<ExampleBase> AllExamples()
         {
-            return contextCollection.SelectMany(s => s.AllExamples());
+            return contextCollection
+                .SelectMany(rootContext => rootContext.AllExamples());
         }
 
         protected ExampleBase TheExample(string name)
