@@ -90,7 +90,6 @@
     <Compile Include="describe_RunningSpecs\describe_before_and_after\async_nested_contexts.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\async_class_levels.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\async_when_there_are_no_specs.cs" />
-    <Compile Include="describe_RunningSpecs\describe_data_driven_theory.cs" />
     <Compile Include="describe_RunningSpecs\describe_method_level_afters.cs" />
     <Compile Include="describe_RunningSpecs\describe_skipped_before_after_alls_when_excluded_by_tag.cs" />
     <Compile Include="describe_RunningSpecs\describe_before_and_after\abstract_class.cs" />

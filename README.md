@@ -14,24 +14,27 @@ Test frameworks of the xUnit family have dedicated attributes in order to suppor
 Any NSpec test runner will be able to detect all the (aptly) named expectations and run them. Here you can see a sample test case, where we took advantage of `NSpec.Each<>` class and `NSpec.Do()` extension to work more easily with data point enumeration, and `NSpec.With()` extension to have an easier time composing text:
 
 ```c-sharp
-void when_determining_prime_factors()
+public class describe_prime_factors : nspec
 {
-    new Each<int, int[]>
-    {
-        { 0, new int[] { } },
-        { 1, new int[] { } },
-        { 2, new[] { 2 } },
-        { 3, new[] { 3 } },
-        { 4, new[] { 2, 2 } },
-        { 5, new[] { 5 } },
-        { 6, new[] { 2, 3 } },
-        { 7, new[] { 7 } },
-        { 8, new[] { 2, 2, 2 } },
-        { 9, new[] { 3, 3 } },
+  void when_determining_prime_factors()
+  {
+      new Each<int, int[]>
+      {
+          { 0, new int[] { } },
+          { 1, new int[] { } },
+          { 2, new[] { 2 } },
+          { 3, new[] { 3 } },
+          { 4, new[] { 2, 2 } },
+          { 5, new[] { 5 } },
+          { 6, new[] { 2, 3 } },
+          { 7, new[] { 7 } },
+          { 8, new[] { 2, 2, 2 } },
+          { 9, new[] { 3, 3 } },
 
-    }.Do((given, expected) =>
-        it["{0} should be {1}".With(given, expected)] = () => given.Primes().should_be(expected)
-    );
+      }.Do((given, expected) =>
+          it["{0} should be {1}".With(given, expected)] = () => given.Primes().should_be(expected)
+      );
+  }
 }
 ```
 
