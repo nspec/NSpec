@@ -13,7 +13,7 @@ Test frameworks of the xUnit family have dedicated attributes in order to suppor
 
 Any NSpec test runner will be able to detect all the (aptly) named expectations and run them. Here you can see a sample test case, where we took advantage of `NSpec.Each<>` class and `NSpec.Do()` extension to work more easily with data point enumeration, and `NSpec.With()` extension to have an easier time composing text:
 
-```c-sharp
+```c#
 public class describe_prime_factors : nspec
 {
   void given_first_ten_integer_numbers()
