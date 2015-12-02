@@ -30,3 +30,4 @@ _site
 TAGS
 TestResults/*.mdf
 TestResults/*.ldf
+.vscode/
