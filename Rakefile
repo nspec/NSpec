@@ -1,3 +1,4 @@
+# coding: iso-8859-1
 begin
   require 'nokogiri'
   require 'cgi'
@@ -33,7 +34,7 @@ task :spec => :build do
 end
 
 desc 'run SampleSpecs with NSpecRunner. you can supply a single spec like so -> rake samples[spec_name]'
-task :samples, :spec do |t,args| 
+task :samples, :spec do |t,args|
   spec = args[:spec] || ''
 
   sh "NSpecRunner/bin/debug/NSpecRunner.exe SampleSpecs/bin/debug/SampleSpecs.dll #{spec}"
@@ -84,12 +85,12 @@ end
 desc 'merge nunit dll into nspec'
 task :ilmerge do
   File.rename 'NSpecRunner\bin\Debug\NSpec.dll','NSpecRunner\bin\Debug\NSpec-partial.dll'
-  sh 'ilmerge NSpecRunner\bin\Debug\NSpec-partial.dll NSpecRunner\bin\Debug\nunit.framework.dll /out:NSpecRunner\bin\Debug\NSpec.dll /internalize' 
+  sh 'ilmerge NSpecRunner\bin\Debug\NSpec-partial.dll NSpecRunner\bin\Debug\nunit.framework.dll /out:NSpecRunner\bin\Debug\NSpec.dll /internalize'
   File.delete'NSpecRunner\bin\Debug\NSpec-partial.dll'
   File.delete'NSpecRunner\bin\Debug\nunit.framework.dll'
 
   File.rename 'NSpec\bin\Debug\NSpec.dll','NSpec\bin\Debug\NSpec-partial.dll'
-  sh 'ilmerge NSpec\bin\Debug\NSpec-partial.dll NSpec\bin\Debug\nunit.framework.dll /out:NSpec\bin\Debug\NSpec.dll /internalize' 
+  sh 'ilmerge NSpec\bin\Debug\NSpec-partial.dll NSpec\bin\Debug\nunit.framework.dll /out:NSpec\bin\Debug\NSpec.dll /internalize'
   File.delete'NSpec\bin\Debug\NSpec-partial.dll'
 end
 
@@ -116,7 +117,7 @@ desc 'create and upload a nuget package. requires deploy.bat with secure hash to
 task :nuget => [:spec] do
   Dir['nspec*{nupkg}'].each {|f| File.delete(f)}
   create_nuget_package
-  sh "deployNuget.bat #{Dir['*{nupkg}'][0]}"
+  sh "nuget.exe push #{Dir['*{nupkg}'][0]}"
 end
 
 desc 'creates the nuget package without incrementing the version number'
@@ -141,13 +142,13 @@ end
 
 desc 'supply the current tutorial markup in index.html and generate a new index.html containing current source code and output'
 task :website => :spec do
-  if(!File.exists?("_includes")) 
+  if(!File.exists?("_includes"))
     `mkdir _includes`
   end
 
   files_to_comment = Array.new
 
-  Dir['SampleSpecs/WebSite/**/*.*'].each do |f| 
+  Dir['SampleSpecs/WebSite/**/*.*'].each do |f|
     file_name = generate_html f
 
     files_to_comment << file_name
@@ -173,7 +174,7 @@ task :website => :spec do
 
   cd "../gh-pages"
 
-  files_to_comment.each do |f| 
+  files_to_comment.each do |f|
     sh "git add #{f}"
   end
 
@@ -185,7 +186,7 @@ task :website => :spec do
 end
 
 def generate_html file
-  
+
   file_name = file.split('/').last.split('.').first.gsub /describe_/, ""
 
   anchor_name = file_name
@@ -193,13 +194,13 @@ def generate_html file
   title = file_name.gsub /_/, " "
 
   file_name = "_includes/" + file_name + ".html"
-  file_output = code_markup(file) + "\r\n" + output_markup(file) 
+  file_output = code_markup(file) + "\r\n" + output_markup(file)
 
-  file_output = "<p><a name=\"#{anchor_name}\"></a></p>\r\n<div class=\"zone zone-sub-page-title\">\r\n<h1>#{title}</h1>\r\n</div>\r\n<div id=\"layout-content\" class=\"group\" style=\"padding-top: 10px;\">" + 
-    "\r\n" + 
-    file_output + 
-    "\r\n" + 
-    "</div>"  
+  file_output = "<p><a name=\"#{anchor_name}\"></a></p>\r\n<div class=\"zone zone-sub-page-title\">\r\n<h1>#{title}</h1>\r\n</div>\r\n<div id=\"layout-content\" class=\"group\" style=\"padding-top: 10px;\">" +
+    "\r\n" +
+    file_output +
+    "\r\n" +
+    "</div>"
 
   File.open(file_name, 'w') { |f| f.write(file_output) }
 
@@ -211,7 +212,7 @@ def generate_html file
   if node.nil?
     puts "can't find pre with id = #{class_for(file)}_code"
   else
-    node.add_next_sibling  
+    node.add_next_sibling
 
     node.remove
 
@@ -225,7 +226,7 @@ def generate_html file
   if node.nil?
     puts "can't find pre with id = #{class_for(file)}_output"
   else
-    node.add_next_sibling output_markup file 
+    node.add_next_sibling output_markup file
 
     node.remove
 
@@ -277,9 +278,9 @@ task :version_gallio_adapter do
   if version.count('.') == 2
     version = version + '.0'
   end
-  
+
   xml = Nokogiri::XML(File.read file)
-  
+
   xml.root.xpath('//xmlns:assembly[@codeBase="NSpec.dll"]')[0].set_attribute('fullName', "NSpec, Version=#{version}, Culture=neutral, PublicKeyToken=null")
   xml.root.xpath('//xmlns:assembly[@codeBase="NSpec.GallioAdapter.dll"]')[0].set_attribute('fullName', "NSpec.GallioAdapter, Version=#{version}, Culture=neutral, PublicKeyToken=null")
 
