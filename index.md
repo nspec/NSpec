@@ -2,24 +2,10 @@
 layout: default
 ---
 
-NSpec is lambda based testing framework similar to RSpec and Mocha. NSpec puts a heavy emphasis on simplicity and low ceremony.
-
-<ul>
-  <li><a href="#helloworld">Getting Started</a></li>
-  <li><a href="#why">Why NSpec?</a></li>
-  <li><a href="#specifications">Specifications</a></li>
-  <li><a href="#before">Befores</a></li>
-  <li><a href="#contexts">Contexts</a></li>
-  <li><a href="#pending">Pendings</a></li>
-  <li><a href="#helpers">Helpers</a></li>
-  <li><a href="#act">Act</a></li>
-  <li><a href="#class_level">Class Level</a></li>
-  <li><a href="#inheritance">Inheritance</a></li>
-  <li><a href="#exception">Exceptions</a></li>
-  <li><a href="#summary">Summary</a></li>
-</ul>
+NSpec is lambda based testing framework similar to RSpec and Mocha.
 
 ##Getting Started
+<hr />
 
 <ol>
   <li>Create a new C# console applications.</li>
@@ -27,25 +13,22 @@ NSpec is lambda based testing framework similar to RSpec and Mocha. NSpec puts a
   <li>Install NSpec via Nuget.</li>
   <li>Install FluentAssertions via Nuget (or whatever assertion library you prefer).</li>
   <li>
-    Paste the following code into Program.cs
-    <pre>TODO</pre>
+    Paste the following code into Program.cs: <br/><br/>
+    <script src="https://gist.github.com/amirrajan/7ee4777788e6a5d76fee.js"></script>
   </li>
-  <li>Run.</li>
+  <li>Run the exe. Customize it as you wish.</li>
 </ol>
 
 ##Why NSpec?
+<hr />
 
 ###Consistent With Other Lambda Based Testing Frameworks
+<hr />
 
-If you've used any of the following testing frameworks,
-you'll feel right at home with NSpec:
-
-- RSpec
-- Minitest
-- Jasmine
-- Mocha
+If you've used RSpec, Mocha, FunSpec, or Jasmine, you'll feel right at home with NSpec.
 
 ###Less Ceremony
+<hr />
 
 - No need for access modifiers on tests.
 - NSpec test can live side by side with test from other testing frameworks (in the same project).
@@ -60,7 +43,7 @@ NUnit, XUnit, MSTest _force_ you to place attributes and public access modifiers
         [Test]
         public void it_just_works()
         {
-            Assert.AreEqual("hello", "hello"); //this is an arbitrary assertion
+            Assert.True();
         }
     }
 
@@ -70,7 +53,7 @@ NSpec uses conventions (any method that contains underscores), making your tests
     {
         void it_just_works()
         {
-            Assert.AreEqual("hello", "hello"); //this is an arbitrary assertion
+            Assert.True();
         }
     }
 
@@ -90,7 +73,7 @@ NUnit, XUnit, MSTest _force_ inheritance if you have shared setup:
         [Test]
         public void it_works_here()
         {
-            Assert.AreEqual("hello", "hello");
+            Assert.True();
         }
     }
 
@@ -106,13 +89,7 @@ NUnit, XUnit, MSTest _force_ inheritance if you have shared setup:
         [Test]
         public void it_also_works_here()
         {
-            Assert.AreEqual("hello", "hello");
-        }
-
-        [Test]
-        public void it_works_here_too()
-        {
-            Assert.AreEqual("hello", "hello");
+            Assert.True();
         }
     }
 
@@ -127,7 +104,7 @@ NSpec can do that too (with less code):
 
         void it_works_here()
         {
-            "hello".should_be("hello");
+            Assert.True();
         }
     }
 
@@ -140,39 +117,30 @@ NSpec can do that too (with less code):
 
         void it_also_works_here()
         {
-            "hello".should_be("hello");
-        }
 
-        void it_works_here_too()
+            Assert.True();
+        }
+    }
+
+However, NSpec *also* provides a more concise option (inline lambdas):
+
+    class describe_NSpec : nspec
+    {
+        void before_each()
         {
-            "hello".should_be("hello");
+            Console.WriteLine("I run before each test.");
+        }
+
+        void it_works_here()
+        {
+            Assert.True();
+        }
+
+        void a_category_of_examples()
+        {
+            before = () =>
+                Console.WriteLine("I run before each test defined in this context.");
+
+            it["also works here"] = () => Assert.True();
         }
     }
-
-However, NSpec *also* provides a more concise option:
-
-class describe_NSpec : nspec
-{
-    void before_each()
-    {
-        Console.WriteLine("I run before each test.");
-    }
-
-    void it_works_here()
-    {
-        "hello".should_be("hello");
-    }
-
-    void a_category_of_examples()
-    {
-        before = () =&gt; Console.WriteLine("I run before each test defined in this context.");
-
-        it["also works here"] = () => "hello".should_be("hello");
-
-        it["works here too"] = () => "hello".should_be("hello");
-    }
-}
-
-<p>
-  {% include timestamp.html %}
-</p>
