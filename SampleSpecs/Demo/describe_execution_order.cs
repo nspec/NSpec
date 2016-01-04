@@ -39,7 +39,7 @@ namespace SampleSpecs.Demo
 
         void before_each()
         {
-            Increase("parent: before each\n");
+            Write("parent: before each\n");
         }
 
         void it_works_parent_1()
@@ -54,7 +54,7 @@ namespace SampleSpecs.Demo
 
         void after_each()
         {
-            Decrease("parent: after each\n");
+            Write("parent: after each\n\n");
         }
 
         void after_all()
@@ -73,7 +73,7 @@ namespace SampleSpecs.Demo
 
         void before_each()
         {
-            Increase("child: before each\n");
+            Write("child: before each\n");
         }
 
         void it_works_child_3()
@@ -88,7 +88,7 @@ namespace SampleSpecs.Demo
 
         void after_each()
         {
-            Decrease("child: after each\n");
+            Write("child: after each\n");
         }
 
         void after_all()
@@ -100,13 +100,13 @@ namespace SampleSpecs.Demo
         {
             beforeAll = () => Increase("method: before all\n");
 
-            before = () => Increase("method: before each\n");
+            before = () => Write("method: before each\n");
 
             it["it works method 5"] = () => Write("method: it works 5\n");
 
             it["it works method 6"] = () => Write("method: it works 6\n");
 
-            after = () => Decrease("method: after each\n");
+            after = () => Write("method: after each\n");
 
             afterAll = () => Decrease("method: after all\n");
 
@@ -114,13 +114,13 @@ namespace SampleSpecs.Demo
             {
                 beforeAll = () => Increase("sub: before all\n");
 
-                before = () => Increase("sub: before each\n");
+                before = () => Write("sub: before each\n");
 
                 it["it works sub 7"] = () => Write("sub: it works 7 \n");
 
                 it["it works sub 8"] = () => Write("sub: it works 8 \n");
 
-                after = () => Decrease("sub: after each\n");
+                after = () => Write("sub: after each\n");
 
                 afterAll = () => Decrease("sub: after all\n");
             };
