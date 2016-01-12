@@ -72,6 +72,7 @@ namespace NSpecSpecs
          TestCase(typeof(describe_focus_output),
                   new [] { typeof(describe_focus) },
                   "focus")]
+        
         public void output_verification(Type output, Type []testClasses, string tags)
         {
             var finder = new SpecFinder(testClasses, "");
@@ -91,14 +92,20 @@ namespace NSpecSpecs
             var guid = Guid.NewGuid();
         }
 
-        string ScrubNewLines(string s)
+        static string ScrubNewLines(string s)
         {
             return s.Trim().Replace("\r\n", "\n").Replace("\r", "");
         }
 
-        string ScrubStackTrace(string s)
+        static string ScrubStackTrace(string s)
         {
-            return String.Join("\n", s.Split('\n').Where(a => !a.Trim().StartsWith("at"))).Replace("\r", "");
+            // Sort of a patch here: it could actually be generalized to more languages
+
+            var withoutStackTrace = s.Split('\n')
+                .Where(a => !a.Trim().StartsWith("at "))      // English OS
+                .Where(a => !a.Trim().StartsWith("in "));     // Italian OS
+
+            return String.Join("\n", withoutStackTrace).Replace("\r", "");
         }
     }
 }
