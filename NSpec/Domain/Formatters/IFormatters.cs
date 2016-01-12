@@ -10,13 +10,4 @@ namespace NSpec.Domain.Formatters
         void Write(Context context);
         void Write(ExampleBase example, int level);
     }
-
-    public class SilentLiveFormatter : ILiveFormatter, IFormatter
-    {
-        public void Write(Context context) {}
-
-        public void Write(ExampleBase example, int level) { }
-
-        public void Write(ContextCollection contexts) {}
-    }
 }
