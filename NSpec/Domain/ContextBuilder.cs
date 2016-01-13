@@ -131,7 +131,7 @@ namespace NSpec.Domain
             this.tagsFilter = tagsFilter;
         }
 
-        public Tags tagsFilter;
+        Tags tagsFilter;
 
         Conventions conventions;
 
