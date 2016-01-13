@@ -23,9 +23,11 @@ namespace NSpec.Domain
                 builder = new ContextBuilder(finder, new Tags().Parse(NSpec.Domain.Tags.Focus), new DefaultConventions());
 
                 runner = new ContextRunner(builder, Formatter, failFast);
+
+                contexts = builder.Contexts().Build();
             }
 
-            return runner.Run(builder.Contexts().Build());
+            return runner.Run(contexts);
         }
 
         public RunnerInvocation(string dll, string tags)
