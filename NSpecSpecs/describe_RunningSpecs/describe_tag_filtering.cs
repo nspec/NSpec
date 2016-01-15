@@ -93,7 +93,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void abstracted_classes_are_automatcially_included_in_class_tags()
+        public void abstracted_classes_are_automatically_included_in_class_tags()
         {
             Run(typeof(SpecClassDerived));
 
