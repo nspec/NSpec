@@ -50,7 +50,6 @@ namespace NSpec.Domain
 
         public string Tags;
         public IFormatter Formatter;
-        public bool inDomain;  // TODO it should be removed completely
         string dll;
         bool failFast;
     }
