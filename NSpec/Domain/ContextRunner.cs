@@ -16,7 +16,7 @@ namespace NSpec.Domain
 
                 contexts.Run(liveFormatter, failFast);
 
-                if (builder.tagsFilter.HasTagFilters()) contexts.TrimSkippedContexts();
+                if (tagsFilter.HasTagFilters()) contexts.TrimSkippedContexts();
 
                 formatter.Write(contexts);
             }
@@ -28,14 +28,14 @@ namespace NSpec.Domain
             return contexts;
         }
 
-        public ContextRunner(ContextBuilder builder, IFormatter formatter, bool failFast)
+        public ContextRunner(Tags tagsFilter, IFormatter formatter, bool failFast)
         {
             this.failFast = failFast;
-            this.builder = builder;
+            this.tagsFilter = tagsFilter;
             this.formatter = formatter;
         }
 
-        ContextBuilder builder;
+        Tags tagsFilter;
         bool failFast;
         IFormatter formatter;
     }

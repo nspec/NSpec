@@ -23,9 +23,11 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             this.types = types;
 
-            builder = new ContextBuilder(new SpecFinder(types), new Tags().Parse(tags), new DefaultConventions());
+            var tagsFilter = new Tags().Parse(tags);
 
-            runner = new ContextRunner(builder, formatter, failFast);
+            builder = new ContextBuilder(new SpecFinder(types), tagsFilter, new DefaultConventions());
+
+            runner = new ContextRunner(tagsFilter, formatter, failFast);
 
             contextCollection = builder.Contexts();
 

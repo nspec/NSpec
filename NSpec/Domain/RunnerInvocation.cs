@@ -12,17 +12,21 @@ namespace NSpec.Domain
 
             var finder = new SpecFinder(reflector);
 
-            var builder = new ContextBuilder(finder, new Tags().Parse(Tags), new DefaultConventions());
+            var tagsFilter = new Tags().Parse(Tags);
 
-            var runner = new ContextRunner(builder, Formatter, failFast);
+            var builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
+
+            var runner = new ContextRunner(tagsFilter, Formatter, failFast);
 
             var contexts = builder.Contexts().Build();
 
             if(contexts.AnyTaggedWithFocus())
             {
-                builder = new ContextBuilder(finder, new Tags().Parse(NSpec.Domain.Tags.Focus), new DefaultConventions());
+                tagsFilter = new Tags().Parse(NSpec.Domain.Tags.Focus);
 
-                runner = new ContextRunner(builder, Formatter, failFast);
+                builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
+
+                runner = new ContextRunner(tagsFilter, Formatter, failFast);
 
                 contexts = builder.Contexts().Build();
             }
