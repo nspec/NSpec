@@ -115,7 +115,7 @@ namespace NSpec.Domain
         }
 
         public ContextBuilder(ISpecFinder finder, Tags tagsFilter)
-            : this(finder, new DefaultConventions()) { }
+            : this(finder, new DefaultConventions()) { }  // TODO shouldn't it pass tagsFilter as well ?
 
         public ContextBuilder(ISpecFinder finder, Conventions conventions)
             : this(finder, new Tags(), conventions) { }
