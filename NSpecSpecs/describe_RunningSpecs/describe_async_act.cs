@@ -40,16 +40,33 @@ namespace NSpecSpecs.describe_RunningSpecs
                 it["Should not know what to expect"] = PassAlways;
             }
 
-            void given_sync_act_is_set_to_async_lambda()
+            void given_act_is_set_to_async_lambda()
             {
-                // No chance of error when async function return value is typed explicitly. The following would not even compile:
-                // act = SetStateAsync;
-                // Error chance arise with async lambda, whose return value is not explicit.
-
                 act = async () => { await Task.Delay(0); };
 
-                it["Should fail because async lambda set to sync"] = PassAlways;
+                it["Should fail because act is set to async lambda"] = PassAlways;
             }
+
+            // No chance of error when (async) return value is explicitly typed. The following do not even compile:
+            /*
+            Func<Task> asyncTaggedDelegate = async () => { await Task.Delay(0); };
+            Func<Task> asyncUntaggedDelegate = () => { return Task.Delay(0); };
+
+            void given_act_is_set_to_async_method()
+            {
+                act = SetStateAsync;
+            }
+
+            void given_act_is_set_to_async_tagged_lambda()
+            {
+                act = asyncTaggedDelegate;
+            }
+
+            void given_act_is_set_to_async_untagged_lambda()
+            {
+                act = asyncUntaggedDelegate;
+            }
+            */
         }
 
         [SetUp]
@@ -79,7 +96,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void sync_act_set_to_async_lambda_fails()
         {
-            ExampleRunsWithException("Should fail because async lambda set to sync");
+            ExampleRunsWithException("Should fail because act is set to async lambda");
         }
     }
 }

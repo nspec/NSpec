@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using NSpec.Domain.Formatters;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace NSpec.Domain
 {
@@ -85,6 +86,11 @@ namespace NSpec.Domain
             if (Act != null && ActAsync != null)
             {
                 throw new ArgumentException("A single context cannot have both an 'act' and an 'actAsync' set, please pick one of the two");
+            }
+
+            if (Act != null && IsAsyncDelegate(Act))
+            {
+                throw new ArgumentException("'act' cannot be set to an async delegate, please use 'actAsync' instead");
             }
 
             Act.SafeInvoke();
@@ -410,5 +416,12 @@ namespace NSpec.Domain
 
         nspec savedInstance;
         bool alreadyWritten, isPending;
+
+        static bool IsAsyncDelegate(Action action)
+        {
+            // See http://stackoverflow.com/questions/19024014/check-if-action-is-async-lambda
+
+            return action.Method.IsDefined(typeof(AsyncStateMachineAttribute), false);
+        }
     }
 }
