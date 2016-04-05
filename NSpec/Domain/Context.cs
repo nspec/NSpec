@@ -107,6 +107,11 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both an 'after' and an 'afterAsync' set, please pick one of the two");
             }
 
+            if (After != null && IsAsyncDelegate(After))
+            {
+                throw new ArgumentException("'after' cannot be set to an async delegate, please use 'afterAsync' instead");
+            }
+
             After.SafeInvoke();
 
             AfterAsync.SafeInvoke();
