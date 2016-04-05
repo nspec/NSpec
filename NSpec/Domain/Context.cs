@@ -34,6 +34,11 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both a 'before' and an 'beforeAsync' set, please pick one of the two");
             }
 
+            if (Before != null && IsAsyncDelegate(Before))
+            {
+                throw new ArgumentException("'before' cannot be set to an async delegate, please use 'beforeAsync' instead");
+            }
+
             Before.SafeInvoke();
 
             BeforeAsync.SafeInvoke();
