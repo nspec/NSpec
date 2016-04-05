@@ -53,6 +53,11 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both a 'beforeAll' and an 'beforeAllAsync' set, please pick one of the two");
             }
 
+            if (BeforeAll != null && IsAsyncDelegate(BeforeAll))
+            {
+                throw new ArgumentException("'beforeAll' cannot be set to an async delegate, please use 'beforeAllAsync' instead");
+            }
+
             BeforeAll.SafeInvoke();
 
             BeforeAllAsync.SafeInvoke();
