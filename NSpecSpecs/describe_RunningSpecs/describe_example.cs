@@ -28,7 +28,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         public void execution_status_changes_after_run()
         {
             Run(typeof(SpecClass));
-                
             var ex = TheExample("it changes status after run");
 
             //ex.HasRun.should_be_false(); //broken after making init and run happen all at once
@@ -52,7 +51,6 @@ namespace NSpecSpecs.WhenRunningSpecs
             TheExample("it fails").should_have_failed();
         }
 
-        class SpecClassWithAnonymouseLambdas : nspec
         {
             void describe_specs_with_anonymous_lambdas()
             {
@@ -77,6 +75,11 @@ namespace NSpecSpecs.WhenRunningSpecs
         public void finds_and_runs_only_one_example_ignoring_anonymous_lambdas()
         {
             Run(typeof(SpecClassWithAnonymouseLambdas));
+
+            TheExampleCount().should_be(1);
+        [Test]
+        public void finds_and_runs_only_one_example_ignoring_anonymous_lambdas()
+        {
 
             TheExampleCount().should_be(1);
         }
