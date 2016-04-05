@@ -88,7 +88,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         }
 
         [Test]
-        public void sync_act_set_to_async_lambda_fails()
+        public void sync_after_set_to_async_lambda_fails()
         {
             ExampleRunsWithException("Should fail because after is set to async lambda");
         }
