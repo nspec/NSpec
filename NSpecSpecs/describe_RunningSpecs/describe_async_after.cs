@@ -39,6 +39,28 @@ namespace NSpecSpecs.describe_RunningSpecs
 
                 afterAsync = SetStateAsync;
             }
+
+            void given_after_is_set_to_async_lambda()
+            {
+                after = async () => { await Task.Delay(0); };
+
+                it["Should fail because after is set to async lambda"] = PassAlways;
+
+                // No chance of error when (async) return value is explicitly typed. The following do not even compile:
+                /*
+                Func<Task> asyncTaggedDelegate = async () => { await Task.Delay(0); };
+                Func<Task> asyncUntaggedDelegate = () => { return Task.Delay(0); };
+
+                // set to async method
+                after = SetStateAsync;
+
+                // set to async tagged delegate
+                after = asyncTaggedDelegate;
+
+                // set to async untagged delegate
+                after = asyncUntaggedDelegate;
+                */
+            }
         }
 
         [SetUp]
@@ -63,6 +85,12 @@ namespace NSpecSpecs.describe_RunningSpecs
         public void context_with_both_sync_and_async_after_always_fails()
         {
             ExampleRunsWithException("Should not know what to do");
+        }
+
+        [Test]
+        public void sync_act_set_to_async_lambda_fails()
+        {
+            ExampleRunsWithException("Should fail because after is set to async lambda");
         }
     }
 }
