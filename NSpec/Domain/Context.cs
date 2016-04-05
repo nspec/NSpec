@@ -141,6 +141,11 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both an 'afterAll' and an 'afterAllAsync' set, please pick one of the two");
             }
 
+            if (AfterAll != null && IsAsyncDelegate(AfterAll))
+            {
+                throw new ArgumentException("'afterAll' cannot be set to an async delegate, please use 'afterAllAsync' instead");
+            }
+
             AfterAll.SafeInvoke();
 
             AfterAllAsync.SafeInvoke();
