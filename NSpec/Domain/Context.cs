@@ -1,10 +1,11 @@
-﻿using System;
+﻿using NSpec.Domain.Extensions;
+using NSpec.Domain.Formatters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSpec.Domain.Formatters;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace NSpec.Domain
 {
@@ -34,7 +35,7 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both a 'before' and an 'beforeAsync' set, please pick one of the two");
             }
 
-            if (Before != null && IsAsyncDelegate(Before))
+            if (Before != null && Before.IsAsync())
             {
                 throw new ArgumentException("'before' cannot be set to an async delegate, please use 'beforeAsync' instead");
             }
@@ -53,7 +54,7 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both a 'beforeAll' and an 'beforeAllAsync' set, please pick one of the two");
             }
 
-            if (BeforeAll != null && IsAsyncDelegate(BeforeAll))
+            if (BeforeAll != null && BeforeAll.IsAsync())
             {
                 throw new ArgumentException("'beforeAll' cannot be set to an async delegate, please use 'beforeAllAsync' instead");
             }
@@ -98,7 +99,7 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both an 'act' and an 'actAsync' set, please pick one of the two");
             }
 
-            if (Act != null && IsAsyncDelegate(Act))
+            if (Act != null && Act.IsAsync())
             {
                 throw new ArgumentException("'act' cannot be set to an async delegate, please use 'actAsync' instead");
             }
@@ -117,7 +118,7 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both an 'after' and an 'afterAsync' set, please pick one of the two");
             }
 
-            if (After != null && IsAsyncDelegate(After))
+            if (After != null && After.IsAsync())
             {
                 throw new ArgumentException("'after' cannot be set to an async delegate, please use 'afterAsync' instead");
             }
@@ -151,7 +152,7 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both an 'afterAll' and an 'afterAllAsync' set, please pick one of the two");
             }
 
-            if (AfterAll != null && IsAsyncDelegate(AfterAll))
+            if (AfterAll != null && AfterAll.IsAsync())
             {
                 throw new ArgumentException("'afterAll' cannot be set to an async delegate, please use 'afterAllAsync' instead");
             }
@@ -436,12 +437,5 @@ namespace NSpec.Domain
 
         nspec savedInstance;
         bool alreadyWritten, isPending;
-
-        static bool IsAsyncDelegate(Action action)
-        {
-            // See http://stackoverflow.com/questions/19024014/check-if-action-is-async-lambda
-
-            return action.Method.IsDefined(typeof(AsyncStateMachineAttribute), false);
-        }
     }
 }
