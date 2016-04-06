@@ -5,7 +5,7 @@ namespace NSpec.Domain
 {
     public class MethodExample : MethodExampleBase
     {
-        public MethodExample(MethodInfo method, string tags) 
+        public MethodExample(MethodInfo method, string tags)
             : base(method, tags)
         {
         }

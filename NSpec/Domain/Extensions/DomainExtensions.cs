@@ -90,6 +90,11 @@ namespace NSpec.Domain.Extensions
                    method.GetCustomAttributes(false).Any(attr => AsyncAttributeTypeName == attr.GetType().FullName);
         }
 
+        public static bool IsAsync(this Action action)
+        {
+            return IsAsync(action.Method);
+        }
+
         const string TaskTypeName = "System.Threading.Tasks.Task";
         const string AsyncAttributeTypeName = "System.Runtime.CompilerServices.AsyncStateMachineAttribute";
     }

@@ -12,10 +12,15 @@ namespace NSpec.Domain
             asyncAction.Offload();
         }
 
-        /* No need for the following: 
+        public override bool IsAsync
+        {
+            get { return true; }
+        }
+
+        /* No need for the following:
          * Async lambda expressions cannot be converted to expression trees
 
-        public AsyncExample(Expression<Func<Task>> asyncExpr, bool pending = false) 
+        public AsyncExample(Expression<Func<Task>> asyncExpr, bool pending = false)
             : this(Parse(asyncExpr), null, asyncExpr.Compile(), pending) { }
 
          */
