@@ -17,12 +17,37 @@ namespace NSpecSpecs.WhenRunningSpecs
             {
                 xit["should be pending"] = () => { };
             }
+
+            void given_pending_example_is_set_to_async_lambda()
+            {
+                xit["should fail because xit is set to async lambda"] = async () => { await Task.Delay(0); };
+
+                // No chance of error when (async) return value is explicitly typed. The following do not even compile:
+                /*
+                Func<Task> asyncTaggedDelegate = async () => { await Task.Delay(0); };
+                Func<Task> asyncUntaggedDelegate = () => { return Task.Delay(0); };
+
+                it["Should fail because xit is set to async tagged delegate"] = asyncTaggedDelegate;
+
+                it["Should fail because xit is set to async untagged delegate"] = asyncUntaggedDelegate;
+                */
+            }
         }
 
         [Test]
         public void example_should_be_pending()
         {
             ExampleFrom(typeof(XitClass)).Pending.should_be_true();
+        }
+
+        [Test]
+        public void sync_pending_example_set_to_async_lambda_fails()
+        {
+            ExampleBase example = TheExample("should fail because xit is set to async lambda");
+
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
         }
     }
 
