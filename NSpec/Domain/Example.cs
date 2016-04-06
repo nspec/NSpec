@@ -9,12 +9,17 @@ namespace NSpec.Domain
     {
         public override void Run(nspec nspec)
         {
-            if (action.IsAsync())
+            if (IsAsync)
             {
                 throw new ArgumentException("'it[]' cannot be set to an async delegate, please use 'itAsync[]' instead");
             }
 
             action();
+        }
+
+        public override bool IsAsync
+        {
+            get { return action.IsAsync(); }
         }
 
         public Example(Expression<Action> expr, bool pending = false)

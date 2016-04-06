@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSpec.Domain.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,6 +14,11 @@ namespace NSpec.Domain
             : base(method.Name.Replace("_", " "), tags)
         {
             this.method = method;
+        }
+
+        public override bool IsAsync
+        {
+            get { return method.IsAsync(); }
         }
 
         protected MethodInfo method;

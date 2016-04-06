@@ -26,6 +26,8 @@ namespace NSpec.Domain
 
         public abstract void Run(nspec nspec);
 
+        public abstract bool IsAsync { get; }
+
         public string FullName()
         {
             return Context.FullContext() + ". " + Spec + ".";
