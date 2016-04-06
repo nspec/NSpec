@@ -32,7 +32,7 @@ namespace NSpecSpecs.describe_RunningSpecs
                 itAsync["Should fail asynchronously"] = FailAsync;
             }
 
-            void given_act_is_set_to_async_lambda()
+            void given_example_is_set_to_async_lambda()
             {
                 it["Should fail because it is set to async lambda"] = async () => { await Task.Delay(0); };
 

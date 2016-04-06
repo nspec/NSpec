@@ -49,6 +49,8 @@ namespace NSpec.Domain
 
         public bool ShouldSkip(Tags tagsFilter)
         {
+            // TODO try to remove side effects from here (HasRun = true)
+
             return tagsFilter.ShouldSkip(Tags) || ((HasRun = true) && Pending);
         }
 
