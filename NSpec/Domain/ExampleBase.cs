@@ -12,7 +12,14 @@ namespace NSpec.Domain
 
             var cut = body.IndexOf(").");
 
-            var sentence = body.Substring(cut + 1, body.Length - cut - 1).Replace(")", " ").Replace(".", " ").Replace("(", " ").Replace("  ", " ").Trim().Replace("_", " ").Replace("\"", " ");
+            var sentence = body.Substring(cut + 1, body.Length - cut - 1)
+                .Replace(")", " ")
+                .Replace(".", " ")
+                .Replace("(", " ")
+                .Replace("  ", " ")
+                .Trim()
+                .Replace("_", " ")
+                .Replace("\"", " ");
 
             while (sentence.Contains("  ")) sentence = sentence.Replace("  ", " ");
 
