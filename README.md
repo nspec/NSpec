@@ -2,7 +2,7 @@
 
 NSpec is a BDD framework for .NET of the xSpec (context/specification) flavor. NSpec is intended to be used to drive development through specifying behavior at the unit level. NSpec is heavily inspired by RSpec and built upon the NUnit assertion library.
 
-NSpec is written by [Matt Florence](http://twitter.com/mattflo) and [Amir Rajan](http://twitter.com/amirrajan). It's shaped and benefited by hard work from our [contributors](https://github.com/mattflo/NSpec/contributors)
+NSpec is written by [Matt Florence](http://twitter.com/mattflo) and [Amir Rajan](http://twitter.com/amirrajan). It's shaped and benefited by hard work from our [contributors](https://github.com/mattflo/NSpec/contributors).
 
 ## Additional info
 
@@ -14,13 +14,15 @@ Please have a look at [this wiki page](https://github.com/mattflo/NSpec/wiki/Exe
 
 Your NSpec tests can run asynchronous code too.
 
-#### Context level
+#### Class level
 
 At a class level, you still declare hook methods with same names, but they must be *asynchronous* and return `async Task`, instead of `void`:
 
 ```c#
 public class an_example_with_async_hooks_at_class_level : nspec
 {
+  // Note the different return type and modifier
+
   async Task before_each()
   {
     await SetupScenarioAsync();
@@ -50,33 +52,34 @@ public class an_example_with_async_hooks_at_class_level : nspec
 }
 ```
 
-For all sync test hooks at class level you can find its corresponding async one, just by switching its signature:
+For all sync test hooks at class level you can find its corresponding async one, just by turning its signature to async:
 
 | Sync  | Async |
 | --- | --- |
-| `void before_all_each()` | `async Task before_all_each()` |
+| `void before_all()` | `async Task before_all()` |
 | `void before_each()` | `async Task before_each()` |
 | `void act_each()` | `async Task act_each()` |
 | `void it_xyz()` | `async Task it_xyz()` |
 | `void specify_xyz()` | `async Task specify_xyz()` |
 | `void after_each()` | `async Task after_each()` |
-| `void after_all_each()` | `async Task after_all_each()` |
+| `void after_all()` | `async Task after_all()` |
 
-Throughout the test class you can run both sync and async expectations as needed, so you can freely mix `void it_xyz` and `async Task it_abc`.
-Given a class context, for each test execution phase (before all/ before/ act/ after/ after all) you can choose to run either sync or async code according to your needs: so in the same class context you can mix e.g. `void before_all()` with `async Task before_each()`, `void act_each()` and `async task after_each()`. 
-What you can't do is to assign both sync and async hooks for the same phase, in the same class context: so e.g. the following will not work and break your build at compile time, for the same rules of method overloading:
+Throughout the test class you can run both sync and async expectations as needed, so you can freely mix `void it_xyz()` and `async Task it_abc()`.
+
+Given a class context, for each test execution phase (_before all_/ _before_/ _act_/ _after_/ _after all_) you can choose to run either sync or async code according to your needs: so in the same class context you can mix e.g. `void before_all()` with `async Task before_each()`, `void act_each()` and `async Task after_each()`. 
+What you **can't** do is to assign both sync and async hooks for the same phase, in the same class context: so e.g. the following will not work and break your build at compile time (for the same rules of method overloading):
 
 ```c#
 public class a_wrong_example_mixing_async_hooks_at_class_level : nspec
 {
-  // following two together will cause an error
+  // Watch out, this example will not work
 
-  void before_each()
+  void before_each() // this one, together with ...
   {
     SetupScenario();
   }
 
-  async Task before_each()
+  async Task before_each() // ... this other, will cause an error
   {
     await SetupScenarioAsync();
   }
@@ -114,6 +117,8 @@ public class an_example_with_async_hooks_at_context_level : nspec
 {
   void given_some_context()
   {
+    // Note the 'Async' suffix
+
     beforeAsync = async () => await SetupScenarioAsync();
 
     it["should do something"] = () => DoSomething();
@@ -161,17 +166,21 @@ For almost all sync test hooks and helpers you can find its corresponding async 
 | `xdescribe` | Not needed, context remains sync |
 
 Throughout the whole test class you can run both sync and async expectations as needed, so you can freely mix `it[]` and `itAsync[]`.
-Given a single context, for each test execution phase (before all/ before/ act/ after/ after all) you can choose to run either sync or async code according to your needs: so in the same context you can mix e.g. `beforeAll` with `beforeAsync`, `act` and `afterAsync`. 
-What you can't do is to assign both sync and async hooks for the same phase, in the same context: so e.g. the following will not work and throw an exception at runtime:
+
+Given a single context, for each test execution phase (_before all_/ _before_/ _act_/ _after_/ _after all_) you can choose to run either sync or async code according to your needs: so in the same context you can mix e.g. `beforeAll` with `beforeAsync`, `act` and `afterAsync`. 
+What you **can't** do is to assign both sync and async hooks for the same phase, in the same context: so e.g. the following will not work and throw an exception at runtime:
 
 ```c#
 public class a_wrong_example_mixing_async_hooks_at_context_level : nspec
 {
+  // Watch out, this example will not work
+
   void given_some_scenario()
   {
-    // following two together will cause an error
+    // this one, together with ...
     before = () => SetupScenario();
 
+    // ... this other, will cause an error
     beforeAsync = async () => await SetupScenarioAsync();
 
     it["should do something sync"] = () => DoSomething();
@@ -193,6 +202,13 @@ public class a_wrong_example_mixing_async_hooks_at_context_level : nspec
   // ...
 }
 ```
+
+If you want to dig deeper for any level, whether class- or context-, you might directly have a look at how async support is tested in NSpec unit tests. 
+Just look for `nspec`-derived classes in following files: 
+
+* [NSpecSpecs/describe_RunningSpecs/describe_async_*](https://github.com/mattflo/NSpec/tree/master/NSpecSpecs/describe_RunningSpecs)
+* [NSpecSpecs/describe_RunningSpecs/describe_before_and_after/async_*](https://github.com/mattflo/NSpec/tree/master/NSpecSpecs/describe_before_and_after)
+* [NSpecSpecs/describe_RunningSpecs/Exceptions/when_async_*](https://github.com/mattflo/NSpec/tree/master/NSpecSpecs/describe_RunningSpecs/Exceptions)
 
 ### Data-driven test cases
 
