@@ -47,3 +47,7 @@ public class describe_prime_factors : nspec
 ## Contributing
 
 See [contributing](CONTRIBUTING.md) doc page.
+
+## License
+
+[MIT](license.txt)
