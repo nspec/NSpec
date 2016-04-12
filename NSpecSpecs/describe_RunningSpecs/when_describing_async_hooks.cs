@@ -22,7 +22,7 @@ namespace NSpecSpecs.describe_RunningSpecs
                 state = 0;
             }
 
-            protected async Task SetStateAsync() 
+            protected async Task SetStateAsync()
             {
                 state = -1;
 

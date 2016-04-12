@@ -12,7 +12,14 @@ namespace NSpec.Domain
 
             var cut = body.IndexOf(").");
 
-            var sentence = body.Substring(cut + 1, body.Length - cut - 1).Replace(")", " ").Replace(".", " ").Replace("(", " ").Replace("  ", " ").Trim().Replace("_", " ").Replace("\"", " ");
+            var sentence = body.Substring(cut + 1, body.Length - cut - 1)
+                .Replace(")", " ")
+                .Replace(".", " ")
+                .Replace("(", " ")
+                .Replace("  ", " ")
+                .Trim()
+                .Replace("_", " ")
+                .Replace("\"", " ");
 
             while (sentence.Contains("  ")) sentence = sentence.Replace("  ", " ");
 
@@ -25,6 +32,8 @@ namespace NSpec.Domain
         }
 
         public abstract void Run(nspec nspec);
+
+        public abstract bool IsAsync { get; }
 
         public string FullName()
         {
@@ -49,6 +58,8 @@ namespace NSpec.Domain
 
         public bool ShouldSkip(Tags tagsFilter)
         {
+            // TODO try to remove side effects from here (HasRun = true)
+
             return tagsFilter.ShouldSkip(Tags) || ((HasRun = true) && Pending);
         }
 

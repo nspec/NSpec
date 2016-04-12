@@ -52,6 +52,11 @@ namespace NSpec
             set { AddExample(new Example(value, pending: true)); }
         }
 
+        /* No need for the following, as async lambda expressions cannot be converted to expression trees:
+
+        public virtual Expression<Func<Task>> xspecifyAsync { ... }
+         */
+
         /// <summary>
         /// This Action gets executed before each example is run.
         /// <para>For Example:</para>

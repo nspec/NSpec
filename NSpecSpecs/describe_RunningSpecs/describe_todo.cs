@@ -48,6 +48,42 @@ namespace NSpecSpecs.WhenRunningSpecs
 
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Async")]
+    public class using_async_lambda_with_xit : describe_todo
+    {
+        class AsyncLambdaClass : nspec
+        {
+            void method_level_context()
+            {
+                xit["should fail because xit is set to async lambda"] = async () => await Task.Run(() => { });
+
+                // No chance of error when (async) return value is explicitly typed. The following do not even compile:
+                /*
+                Func<Task> asyncTaggedDelegate = async () => await Task.Run(() => { });
+                Func<Task> asyncUntaggedDelegate = () => { return Task.Run(() => { }); };
+
+                it["Should fail because xit is set to async tagged delegate"] = asyncTaggedDelegate;
+
+                it["Should fail because xit is set to async untagged delegate"] = asyncUntaggedDelegate;
+                */
+            }
+        }
+
+        [Test]
+        public void sync_pending_example_set_to_async_lambda_fails()
+        {
+            var example = ExampleFrom(typeof(AsyncLambdaClass));
+
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
+
+            example.Pending.should_be_true();
+        }
+    }
+
+    [TestFixture]
+    [Category("RunningSpecs")]
     public class using_todo : describe_todo
     {
         class TodoClass : nspec

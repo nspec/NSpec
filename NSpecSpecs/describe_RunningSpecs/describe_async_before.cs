@@ -39,6 +39,28 @@ namespace NSpecSpecs.describe_RunningSpecs
 
                 it["Should not know what to expect"] = PassAlways;
             }
+
+            void given_before_is_set_to_async_lambda()
+            {
+                before = async () => { await Task.Delay(0); };
+
+                it["Should fail because before is set to async lambda"] = PassAlways;
+
+                // No chance of error when (async) return value is explicitly typed. The following do not even compile:
+                /*
+                Func<Task> asyncTaggedDelegate = async () => { await Task.Delay(0); };
+                Func<Task> asyncUntaggedDelegate = () => { return Task.Delay(0); };
+
+                // set to async method
+                before = SetStateAsync;
+
+                // set to async tagged delegate
+                before = asyncTaggedDelegate;
+
+                // set to async untagged delegate
+                before = asyncUntaggedDelegate;
+                */
+            }
         }
 
         [SetUp]
@@ -63,6 +85,12 @@ namespace NSpecSpecs.describe_RunningSpecs
         public void context_with_both_sync_and_async_before_always_fails()
         {
             ExampleRunsWithException("Should not know what to expect");
+        }
+
+        [Test]
+        public void sync_before_set_to_async_lambda_fails()
+        {
+            ExampleRunsWithException("Should fail because before is set to async lambda");
         }
     }
 }

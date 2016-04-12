@@ -1,8 +1,10 @@
-﻿using System;
+﻿using NSpec.Domain.Extensions;
+using NSpec.Domain.Formatters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSpec.Domain.Formatters;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace NSpec.Domain
@@ -33,6 +35,11 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both a 'before' and an 'beforeAsync' set, please pick one of the two");
             }
 
+            if (Before != null && Before.IsAsync())
+            {
+                throw new ArgumentException("'before' cannot be set to an async delegate, please use 'beforeAsync' instead");
+            }
+
             Before.SafeInvoke();
 
             BeforeAsync.SafeInvoke();
@@ -45,6 +52,11 @@ namespace NSpec.Domain
             if (BeforeAll != null && BeforeAllAsync != null)
             {
                 throw new ArgumentException("A single context cannot have both a 'beforeAll' and an 'beforeAllAsync' set, please pick one of the two");
+            }
+
+            if (BeforeAll != null && BeforeAll.IsAsync())
+            {
+                throw new ArgumentException("'beforeAll' cannot be set to an async delegate, please use 'beforeAllAsync' instead");
             }
 
             BeforeAll.SafeInvoke();
@@ -87,6 +99,11 @@ namespace NSpec.Domain
                 throw new ArgumentException("A single context cannot have both an 'act' and an 'actAsync' set, please pick one of the two");
             }
 
+            if (Act != null && Act.IsAsync())
+            {
+                throw new ArgumentException("'act' cannot be set to an async delegate, please use 'actAsync' instead");
+            }
+
             Act.SafeInvoke();
 
             ActAsync.SafeInvoke();
@@ -99,6 +116,11 @@ namespace NSpec.Domain
             if (After != null && AfterAsync != null)
             {
                 throw new ArgumentException("A single context cannot have both an 'after' and an 'afterAsync' set, please pick one of the two");
+            }
+
+            if (After != null && After.IsAsync())
+            {
+                throw new ArgumentException("'after' cannot be set to an async delegate, please use 'afterAsync' instead");
             }
 
             After.SafeInvoke();
@@ -128,6 +150,11 @@ namespace NSpec.Domain
             if (AfterAll != null && AfterAllAsync != null)
             {
                 throw new ArgumentException("A single context cannot have both an 'afterAll' and an 'afterAllAsync' set, please pick one of the two");
+            }
+
+            if (AfterAll != null && AfterAll.IsAsync())
+            {
+                throw new ArgumentException("'afterAll' cannot be set to an async delegate, please use 'afterAllAsync' instead");
             }
 
             AfterAll.SafeInvoke();
@@ -299,7 +326,14 @@ namespace NSpec.Domain
 
         public void Exercise(ExampleBase example, nspec nspec)
         {
-            if (example.ShouldSkip(nspec.tagsFilter)) return;
+            if (example.ShouldSkip(nspec.tagsFilter))
+            {
+                Action<nspec> dummyExampleRunner = _ => HandleSkipped(example);
+
+                RunAndHandleException(dummyExampleRunner, nspec, ref example.Exception);
+
+                return;
+            }
 
             RunAndHandleException(RunBefores, nspec, ref Exception);
 
@@ -361,6 +395,14 @@ namespace NSpec.Domain
             bool anyExampleOrSubExample = Examples.Any(shouldNotSkip) || Contexts.Examples().Any(shouldNotSkip);
 
             return anyExampleOrSubExample;
+        }
+
+        void HandleSkipped(ExampleBase example)
+        {
+            if (example != null && example.IsAsync)
+            {
+                throw new ArgumentException("'xit' cannot be set to an async delegate, please use 'xitAsync' instead");
+            }
         }
 
         public override string ToString()
