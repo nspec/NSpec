@@ -3,33 +3,10 @@
 <h1>act</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_act_code" data-timestamp="2015-10-04 17:01:48 -0600" class="brush: csharp;">﻿using NSpec;
+<pre id="describe_act_code" data-timestamp="2016-04-13 07:08:47 -0600" class="brush: csharp;">﻿using NSpec;
 
-[Tag(&quot;describe_act&quot;)]
-class describe_batman_sound_effects_as_text : nspec
-{
-    void they_are_loud_and_emphatic()
-    {
-        //act runs after all the befores, and before each spec
-        //declares a common act (arrange, act, assert) for all subcontexts
-        act = () =&gt; sound = sound.ToUpper() + &quot;!!!&quot;;
-        context[&quot;given bam&quot;] = () =&gt;
-        {
-            before = () =&gt; sound = &quot;bam&quot;;
-            it[&quot;should be BAM!!!&quot;] = 
-                () =&gt; sound.should_be(&quot;BAM!!!&quot;);
-        };
-        context[&quot;given whack&quot;] = () =&gt;
-        {
-            before = () =&gt; sound = &quot;whack&quot;;
-            it[&quot;should be WHACK!!!&quot;] = 
-                () =&gt; sound.should_be(&quot;WHACK!!!&quot;);
-        };
-    }
-    string sound;
-}
-</pre>
-<pre id="describe_act_output" data-timestamp="2015-10-04 17:01:48 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe batman sound effects as text
+[Tag(&quot;describe_act&quot;)]</pre>
+<pre id="describe_act_output" data-timestamp="2016-04-13 07:08:47 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe batman sound effects as text
   they are loud and emphatic
     given bam
       should be BAM!!!

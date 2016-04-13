@@ -3,33 +3,9 @@
 <h1>contexts</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_contexts_code" data-timestamp="2015-10-04 17:01:50 -0600" class="brush: csharp;">using NSpec;
-
-class describe_contexts : nspec
-{
-    //context methods require an underscore. For more info see DefaultConventions.cs.
-    void describe_Account()
-    {
-        //contexts can be nested n-deep and contain befores and specifications
-        context[&quot;when withdrawing cash&quot;] = () =&gt;
-        {
-            before = () =&gt; account = new Account();
-            context[&quot;account is in credit&quot;] = () =&gt;
-            {
-                before = () =&gt; account.Balance = 500;
-                it[&quot;the Account dispenses cash&quot;] = () =&gt; account.CanWithdraw(60).should_be_true();
-            };
-            context[&quot;account is overdrawn&quot;] = () =&gt;
-            {
-                before = () =&gt; account.Balance = -500;
-                it[&quot;the Account does not dispense cash&quot;] = () =&gt; account.CanWithdraw(60).should_be_false();
-            };
-        };
-    }
-    private Account account;
-}
+<pre id="describe_contexts_code" data-timestamp="2016-04-13 07:08:49 -0600" class="brush: csharp;">using NSpec;
 </pre>
-<pre id="describe_contexts_output" data-timestamp="2015-10-04 17:01:50 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe contexts
+<pre id="describe_contexts_output" data-timestamp="2016-04-13 07:08:49 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe contexts
   describe Account
     when withdrawing cash
       account is in credit
