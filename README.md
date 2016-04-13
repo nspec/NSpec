@@ -2,13 +2,213 @@
 
 NSpec is a BDD framework for .NET of the xSpec (context/specification) flavor. NSpec is intended to be used to drive development through specifying behavior at the unit level. NSpec is heavily inspired by RSpec and built upon the NUnit assertion library.
 
-NSpec is written by [Matt Florence](http://twitter.com/mattflo) and [Amir Rajan] (http://twitter.com/amirrajan). It's shaped and benefited by hard work from our [contributors](https://github.com/mattflo/NSpec/contributors)
+NSpec is written by [Matt Florence](http://twitter.com/mattflo) and [Amir Rajan](http://twitter.com/amirrajan). It's shaped and benefited by hard work from our [contributors](https://github.com/mattflo/NSpec/contributors).
 
 ## Additional info
 
 ### Execution order
 
 Please have a look at [this wiki page](https://github.com/mattflo/NSpec/wiki/Execution-Orders) for an overview on which test hooks are executed when: execution order in xSpec family frameworks can get tricky when dealing with more complicated test configurations, like inherithing from an abstract test class or mixing `before_each` with `before_all` at different context levels.
+
+### Async/await support
+
+Your NSpec tests can run asynchronous code too.
+
+#### Class level
+
+At a class level, you still declare hook methods with same names, but they must be *asynchronous* and return `async Task`, instead of `void`:
+
+```c#
+public class an_example_with_async_hooks_at_class_level : nspec
+{
+  // Note the different return type and modifier
+
+  async Task before_each()
+  {
+    await SetupScenarioAsync();
+  }
+
+  async Task act_each()
+  {
+    await DoActAsync();
+  }
+
+  void it_should_do_something()
+  {
+    DoSomething();
+  }
+
+  async Task it_should_do_something_async()
+  {
+    await DoSomethingAsync();
+  }
+
+  void after_each()
+  {
+    CleanupScenario();
+  }
+
+  // ...
+}
+```
+
+For all sync test hooks at class level you can find its corresponding async one, just by turning its signature to async:
+
+| Sync  | Async |
+| --- | --- |
+| `void before_all()` | `async Task before_all()` |
+| `void before_each()` | `async Task before_each()` |
+| `void act_each()` | `async Task act_each()` |
+| `void it_xyz()` | `async Task it_xyz()` |
+| `void specify_xyz()` | `async Task specify_xyz()` |
+| `void after_each()` | `async Task after_each()` |
+| `void after_all()` | `async Task after_all()` |
+
+Throughout the test class you can run both sync and async expectations as needed, so you can freely mix `void it_xyz()` and `async Task it_abc()`.
+
+Given a class context, for each test execution phase (_before all_/ _before_/ _act_/ _after_/ _after all_) you can choose to run either sync or async code according to your needs: so in the same class context you can mix e.g. `void before_all()` with `async Task before_each()`, `void act_each()` and `async Task after_each()`. 
+What you **can't** do is to assign both sync and async hooks for the same phase, in the same class context: so e.g. the following will not work and break your build at compile time (for the same rules of method overloading):
+
+```c#
+public class a_wrong_example_mixing_async_hooks_at_class_level : nspec
+{
+  // Watch out, this example will not work
+
+  void before_each() // this one, together with ...
+  {
+    SetupScenario();
+  }
+
+  async Task before_each() // ... this other, will cause an error
+  {
+    await SetupScenarioAsync();
+  }
+
+  async Task act_each()
+  {
+    await DoActAsync();
+  }
+
+  void it_should_do_something()
+  {
+    DoSomething();
+  }
+
+  async Task it_should_do_something_async()
+  {
+    await DoSomethingAsync();
+  }
+
+  void after_each()
+  {
+    CleanupScenario();
+  }
+
+  // ...
+}
+```
+
+#### Context level
+
+At a context and sub-context level, you need to set _asynchronous_ test hooks provided by NSpec, instead of the synchronous ones:
+
+```c#
+public class an_example_with_async_hooks_at_context_level : nspec
+{
+  void given_some_context()
+  {
+    // Note the 'Async' suffix
+
+    beforeAsync = async () => await SetupScenarioAsync();
+
+    it["should do something"] = () => DoSomething();
+
+    itAsync["should do something async"] = async () => await DoSomethingAsync();
+
+    context["given some nested scenario"] = () => 
+    {
+       before = () => SetupNestedScenario();
+
+       actAsync = async () => await DoActAsync();
+
+       itAsync["is not yet implemented async"] = todoAsync;
+
+       afterAsync = async () => await CleanupNestedScenarioAsync();
+    };
+
+    after = () => CleanupScenario();
+  }
+
+  // ...
+}
+```
+
+For almost all sync test hooks and helpers you can find its corresponding async one:
+
+| Sync  | Async |
+| --- | --- |
+| `beforeAll` | `beforeAllAsync` |
+| `before` | `beforeAsync` |
+| `beforeEach` | `beforeEachAsync` |
+| `act` | `actAsync` |
+| `it` | `itAsync` |
+| `xit` | `xitAsync` |
+| `expect` | `expectAsync` |
+| `todo` | `todoAsync` |
+| `after` | `afterAsync` |
+| `afterEach` | `afterEachAsync` |
+| `afterAll` | `afterAllAsync` |
+| `specify` | Not available |
+| `xspecify` | Not available |
+| `context` | Not needed, context remains sync |
+| `xcontext` | Not needed, context remains sync |
+| `describe` | Not needed, context remains sync |
+| `xdescribe` | Not needed, context remains sync |
+
+Throughout the whole test class you can run both sync and async expectations as needed, so you can freely mix `it[]` and `itAsync[]`.
+
+Given a single context, for each test execution phase (_before all_/ _before_/ _act_/ _after_/ _after all_) you can choose to run either sync or async code according to your needs: so in the same context you can mix e.g. `beforeAll` with `beforeAsync`, `act` and `afterAsync`. 
+What you **can't** do is to assign both sync and async hooks for the same phase, in the same context: so e.g. the following will not work and throw an exception at runtime:
+
+```c#
+public class a_wrong_example_mixing_async_hooks_at_context_level : nspec
+{
+  // Watch out, this example will not work
+
+  void given_some_scenario()
+  {
+    // this one, together with ...
+    before = () => SetupScenario();
+
+    // ... this other, will cause an error
+    beforeAsync = async () => await SetupScenarioAsync();
+
+    it["should do something sync"] = () => DoSomething();
+
+    itAsync["should do something async"] = async () => await DoSomethingAsync();
+
+    context["given some nested scenario"] = () => 
+    {
+       before = () => SetupNestedScenario();
+
+       itAsync["is not yet implemented async"] = todoAsync;
+
+       afterAsync = async () => await CleanupNestedScenarioAsync();
+    };
+
+    after = () => CleanupScenario();
+  }
+
+  // ...
+}
+```
+
+If you want to dig deeper for any level, whether class- or context-, you might directly have a look at how async support is tested in NSpec unit tests. 
+Just look for `nspec`-derived classes in following files: 
+
+* [NSpecSpecs/describe_RunningSpecs/describe_async_*](https://github.com/mattflo/NSpec/tree/master/NSpecSpecs/describe_RunningSpecs)
+* [NSpecSpecs/describe_RunningSpecs/describe_before_and_after/async_*](https://github.com/mattflo/NSpec/tree/master/NSpecSpecs/describe_before_and_after)
+* [NSpecSpecs/describe_RunningSpecs/Exceptions/when_async_*](https://github.com/mattflo/NSpec/tree/master/NSpecSpecs/describe_RunningSpecs/Exceptions)
 
 ### Data-driven test cases
 
@@ -46,57 +246,8 @@ public class describe_prime_factors : nspec
 
 ## Contributing
 
-The Nspec test suite is written in NUnit. The test project is NSpecSpecs. Not to be confused with SampleSpecs which hosts numerous tests written in NSpec, some of which are intended to fail.
+See [contributing](CONTRIBUTING.md) doc page.
 
-To run the NSpec test suite, you can use ncrunch or [Specwatchr](http://nspec.org/continuoustesting) which has support for `NUnit 2.5.9`. For Specwatchr, the `dotnet.watchr.rb` file contains a hard reference to the `2.5.9` binary which may need to be updated to your installed version. To do so, locate the following line:
+## License
 
-    NUnitRunner.nunit_path = 'C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe'
-
-Otherwise you can get started by running the following commands:
-
-    bundle install              (installs all required gems)
-    rake                        (builds and runs unit tests)
-    rake build                  (builds solution)
-    rake spec                   (runs NSpecSpecs test suite with NUnit)
-    rake samples [spec_name]    (runs spec_name in SampleSpecs with NSpecRunner)
-
-If you have Resharper 6.1 there is a team-shared settings file in the repository. Please use the settings to format any new code you write.
-
-Fork the project, make your changes, and then send a Pull Request.
-
-### Branch housekeeping
-
-If you are a direct contributor to the project, please keep an eye on your past development or features branches and think about archiving them once they're no longer needed. 
-No worries, their commits will still be available under named tags, it's just that they will not pollute the branch list.
-
-If you're running on a Windows OS, there's a batch script available at `scripts\archive-branch.bat`. Otherwise, the command sequence to run in a *nix shell is the following:
-
-```bash
-# Get local branch from remote, if needed
-git checkout <your-branch-name>
-
-# Go back to master
-git checkout master
-
-# Create local tag
-git tag archive/<your-branch-name> <your-branch-name>
-
-# Create remote tag
-git push origin archive/<your-branch-name>
-
-# Delete local branch
-git branch -d <your-branch-name>
-
-# Delete remote branch
-git push origin --delete <your-branch-name>
-```
-
-If you need to later retrieve an archived branch, just run the following commands:
-
-```bash
-# Checkout archive tag
-git checkout archive/<your-branch-name>
-
-# (Re)Create branch
-git checkout -b <some-branch-name>
-```
+[MIT](license.txt)
