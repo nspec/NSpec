@@ -52,18 +52,6 @@ namespace NSpec.Domain
             return this.SelectMany(c => c.AllContexts());
         }
 
-        // TODO this is used only in unit tests, maybe turn it to a test helper function
-        public Context Find(string name)
-        {
-            return AllContexts().FirstOrDefault(c => c.Name == name);
-        }
-
-        // TODO this is used only in unit tests, maybe turn it to a test helper function
-        public ExampleBase FindExample(string name)
-        {
-            return Examples().FirstOrDefault(e => e.Spec == name);
-        }
-
         public ContextCollection(IEnumerable<Context> contexts) : base(contexts) {}
 
         public ContextCollection() {}
