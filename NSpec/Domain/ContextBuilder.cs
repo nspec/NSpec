@@ -43,7 +43,7 @@ namespace NSpec.Domain
             return context;
         }
 
-        // TODO this is public only because of unit tests
+        // Note: this is public only because of unit tests
         public void BuildMethodContexts(Context classContext, Type specClass)
         {
             specClass
