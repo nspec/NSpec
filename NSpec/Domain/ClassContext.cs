@@ -20,7 +20,7 @@ namespace NSpec.Domain
 
             BuildMethodLevelAfterAll();
 
-            var nspec = type.Instance<nspec>();
+            var nspec = SpecType.CreateInstanceAs<nspec>();
 
             nspec.tagsFilter = tagsFilter ?? new Tags();
 
@@ -34,7 +34,7 @@ namespace NSpec.Domain
                 baseType = baseType.BaseType;
             }
 
-            return baseType == type;
+            return baseType == SpecType;
         }
 
         IEnumerable<MethodInfo> GetMethodsFromHierarchy(Func<Type, MethodInfo> methodAccessor)
@@ -130,7 +130,7 @@ namespace NSpec.Domain
         public ClassContext(Type type, Conventions conventions = null, Tags tagsFilter = null, string tags = null)
             : base(type.CleanName(), tags)
         {
-            this.type = type;
+            this.SpecType = type;
 
             this.conventions = conventions ?? new DefaultConventions().Initialize();
 
@@ -142,7 +142,7 @@ namespace NSpec.Domain
             }
         }
 
-        public Type type;  // TODO improve naming, e.g Type, or ClassType, SpecType
+        public Type SpecType;
 
         Tags tagsFilter;
         List<Type> classHierarchyToClass = new List<Type>();
