@@ -142,9 +142,9 @@ namespace NSpec.Domain
             }
         }
 
-        public Type type;
+        public Type type;  // TODO improve naming, e.g Type, or ClassType, SpecType
 
-        public Tags tagsFilter;
+        Tags tagsFilter;
         List<Type> classHierarchyToClass = new List<Type>();
         Conventions conventions;
     }

@@ -52,11 +52,13 @@ namespace NSpec.Domain
             return this.SelectMany(c => c.AllContexts());
         }
 
+        // TODO this is used only in unit tests, maybe turn it to a test helper function
         public Context Find(string name)
         {
             return AllContexts().FirstOrDefault(c => c.Name == name);
         }
 
+        // TODO this is used only in unit tests, maybe turn it to a test helper function
         public ExampleBase FindExample(string name)
         {
             return Examples().FirstOrDefault(e => e.Spec == name);
@@ -71,17 +73,17 @@ namespace NSpec.Domain
             return AnyTaggedWith(Tags.Focus);
         }
 
-        public bool AnyTaggedWith(string tag)
+        bool AnyTaggedWith(string tag)
         {
             return AnyExamplesTaggedWith(tag) || AnyContextsTaggedWith(tag);
         }
 
-        public bool AnyContextsTaggedWith(string tag)
+        bool AnyContextsTaggedWith(string tag)
         {
             return AllContexts().Any(s => s.Tags.Contains(tag));
         }
 
-        public bool AnyExamplesTaggedWith(string tag)
+        bool AnyExamplesTaggedWith(string tag)
         {
             return AllContexts().SelectMany(s => s.AllExamples()).Any(s => s.Tags.Contains(tag));
         }

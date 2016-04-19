@@ -11,6 +11,7 @@ namespace NSpec.Domain
 {
     public class Context
     {
+        // this is public only because of unit testing
         public void RunBefores(nspec instance)
         {
             // parent chain
@@ -75,6 +76,7 @@ namespace NSpec.Domain
             BeforeAllInstanceAsync.SafeInvoke(instance);
         }
 
+        // this is public only because of unit testing
         public void RunActs(nspec instance)
         {
             // parent chain
@@ -109,7 +111,7 @@ namespace NSpec.Domain
             ActAsync.SafeInvoke();
         }
 
-        public void RunAfters(nspec instance)
+        void RunAfters(nspec instance)
         {
             // context-level
 
@@ -143,7 +145,7 @@ namespace NSpec.Domain
             RecurseAncestors(c => c.RunAfters(instance));
         }
 
-        public void RunAfterAll(nspec instance)
+        void RunAfterAll(nspec instance)
         {
             // context-level
 
@@ -300,7 +302,7 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        public bool RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
+        bool RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
         {
             bool hasThrown = false;
 
@@ -364,12 +366,12 @@ namespace NSpec.Domain
             return new[] { this }.Union(ChildContexts());
         }
 
-        public IEnumerable<Context> ChildContexts()
+        IEnumerable<Context> ChildContexts()
         {
             return Contexts.SelectMany(c => new[] { c }.Union(c.ChildContexts()));
         }
 
-        public bool HasAnyFailures()
+        bool HasAnyFailures()
         {
             return AllExamples().Any(e => e.Failed());
         }

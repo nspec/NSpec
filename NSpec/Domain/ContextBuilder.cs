@@ -26,7 +26,7 @@ namespace NSpec.Domain
             return contexts;
         }
 
-        public ClassContext CreateClassContext(Type type)
+        ClassContext CreateClassContext(Type type)
         {
             var tagAttributes = ((TagAttribute[])type.GetCustomAttributes(typeof(TagAttribute), false)).ToList();
 
@@ -43,6 +43,7 @@ namespace NSpec.Domain
             return context;
         }
 
+        // TODO this is public only because of unit tests
         public void BuildMethodContexts(Context classContext, Type specClass)
         {
             specClass
@@ -56,12 +57,12 @@ namespace NSpec.Domain
                 });
         }
 
-        public void BuildMethodLevelExamples(Context classContext, Type specClass)
+        void BuildMethodLevelExamples(Context classContext, Type specClass)
         {
-            Func<MethodInfo, MethodExampleBase> buildMethodLevel = method => 
+            Func<MethodInfo, MethodExampleBase> buildMethodLevel = method =>
                 new MethodExample(method, TagStringFor(method));
 
-            Func<MethodInfo, MethodExampleBase> buildAsyncMethodLevel = method => 
+            Func<MethodInfo, MethodExampleBase> buildAsyncMethodLevel = method =>
                 new AsyncMethodExample(method, TagStringFor(method));
 
             specClass
@@ -69,7 +70,7 @@ namespace NSpec.Domain
                 .Union(specClass
                     .AsyncMethods())
                 .Where(method => conventions.IsMethodLevelExample(method.Name))
-                .Select(method => 
+                .Select(method =>
                 {
                     return method.IsAsync()
                         ? buildAsyncMethodLevel(method)

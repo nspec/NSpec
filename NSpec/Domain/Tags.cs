@@ -58,22 +58,28 @@ namespace NSpec.Domain
             return false;
         }
 
+        // TODO remove if not used anywhere
+        /*
         public bool Includes(string tag)
         {
             return !IncludeTags.Any() || IncludeTags.Contains(tag);
         }
+        */
 
-        public bool IncludesAny(List<string> tags)
+        bool IncludesAny(List<string> tags)
         {
             return !IncludeTags.Any() || IncludeTags.Intersect(tags).Any();
         }
 
+        // TODO remove if not used anywhere
+        /*
         public bool Excludes(string tag)
         {
             return ExcludeTags.Any() && ExcludeTags.Contains(tag);
         }
+        */
 
-        public bool ExcludesAny(List<string> tags)
+        bool ExcludesAny(List<string> tags)
         {
             return ExcludeTags.Any() && ExcludeTags.Intersect(tags).Any();
         }
