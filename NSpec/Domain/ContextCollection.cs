@@ -61,17 +61,17 @@ namespace NSpec.Domain
             return AnyTaggedWith(Tags.Focus);
         }
 
-        bool AnyTaggedWith(string tag)
+        public bool AnyTaggedWith(string tag)
         {
             return AnyExamplesTaggedWith(tag) || AnyContextsTaggedWith(tag);
         }
 
-        bool AnyContextsTaggedWith(string tag)
+        public bool AnyContextsTaggedWith(string tag)
         {
             return AllContexts().Any(s => s.Tags.Contains(tag));
         }
 
-        bool AnyExamplesTaggedWith(string tag)
+        public bool AnyExamplesTaggedWith(string tag)
         {
             return AllContexts().SelectMany(s => s.AllExamples()).Any(s => s.Tags.Contains(tag));
         }

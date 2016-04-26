@@ -26,7 +26,7 @@ namespace NSpec.Domain
             return contexts;
         }
 
-        ClassContext CreateClassContext(Type type)
+        public ClassContext CreateClassContext(Type type)
         {
             var tagAttributes = ((TagAttribute[])type.GetCustomAttributes(typeof(TagAttribute), false)).ToList();
 
@@ -43,7 +43,6 @@ namespace NSpec.Domain
             return context;
         }
 
-        // Note: this is public only because of unit tests
         public void BuildMethodContexts(Context classContext, Type specClass)
         {
             specClass
@@ -57,7 +56,7 @@ namespace NSpec.Domain
                 });
         }
 
-        void BuildMethodLevelExamples(Context classContext, Type specClass)
+        public void BuildMethodLevelExamples(Context classContext, Type specClass)
         {
             Func<MethodInfo, MethodExampleBase> buildMethodLevel = method =>
                 new MethodExample(method, TagStringFor(method));
