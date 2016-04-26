@@ -3,7 +3,7 @@
 <h1>shared behavior</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_shared_behavior_code" data-timestamp="2016-04-26 16:12:06 -0600" class="brush: csharp;">﻿using System;
+<pre id="describe_shared_behavior_code" data-timestamp="2016-04-26 16:13:53 -0600" class="brush: csharp;">﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSpec;
@@ -20,7 +20,8 @@ public abstract class describe_ICollection : nspec
             collection.Contains(&quot;Item 1&quot;).should_be(true);
     }
 }
-\nclass describe_LinkedList : describe_ICollection
+
+class describe_LinkedList : describe_ICollection
 {
     void before_each()
     {
@@ -40,7 +41,8 @@ public abstract class describe_ICollection : nspec
     }
     LinkedList&lt;string&gt; linkedList;
 }
-\nclass describe_List : describe_ICollection
+
+class describe_List : describe_ICollection
 {
     void before_each()
     {
@@ -58,6 +60,6 @@ public abstract class describe_ICollection : nspec
     List&lt;string&gt; list;
 }
 </pre>
-<pre id="describe_shared_behavior_output" data-timestamp="2016-04-26 16:12:06 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">0 Examples, 0 Failed, 0 Pending
+<pre id="describe_shared_behavior_output" data-timestamp="2016-04-26 16:13:53 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">0 Examples, 0 Failed, 0 Pending
 </pre>
 </div>
