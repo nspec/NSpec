@@ -3,7 +3,7 @@
 <h1>shared behavior</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_shared_behavior_code" data-timestamp="2016-04-26 16:08:31 -0600" class="brush: csharp;">﻿using System;
+<pre id="describe_shared_behavior_code" data-timestamp="2016-04-26 16:12:06 -0600" class="brush: csharp;">﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSpec;
@@ -20,7 +20,7 @@ public abstract class describe_ICollection : nspec
             collection.Contains(&quot;Item 1&quot;).should_be(true);
     }
 }
-class describe_LinkedList : describe_ICollection
+\nclass describe_LinkedList : describe_ICollection
 {
     void before_each()
     {
@@ -40,7 +40,7 @@ class describe_LinkedList : describe_ICollection
     }
     LinkedList&lt;string&gt; linkedList;
 }
-class describe_List : describe_ICollection
+\nclass describe_List : describe_ICollection
 {
     void before_each()
     {
@@ -57,27 +57,7 @@ class describe_List : describe_ICollection
     }
     List&lt;string&gt; list;
 }
-
-public static class describe_ICollection_output
-{
-    public static string Output = @&quot;
-describe LinkedList
-  adding to collection
-    contains the entry
-  specific actions
-    can add an item at the begining with ease
-
-describe List
-  adding to collection
-    contains the entry
-  specific actions
-    an item can be referenced by index
-
-4 Examples, 0 Failed, 0 Pending
-&quot;;
-    public static int ExitCode = 0;
-}
 </pre>
-<pre id="describe_shared_behavior_output" data-timestamp="2016-04-26 16:08:31 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">0 Examples, 0 Failed, 0 Pending
+<pre id="describe_shared_behavior_output" data-timestamp="2016-04-26 16:12:06 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">0 Examples, 0 Failed, 0 Pending
 </pre>
 </div>

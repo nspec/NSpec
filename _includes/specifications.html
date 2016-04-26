@@ -3,8 +3,8 @@
 <h1>specifications</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_specifications_code" data-timestamp="2016-04-26 16:08:31 -0600" class="brush: csharp;">using NSpec;
-class describe_specifications : nspec
+<pre id="describe_specifications_code" data-timestamp="2016-04-26 16:12:07 -0600" class="brush: csharp;">using NSpec;
+\nclass describe_specifications : nspec
 {
     void when_creating_specifications()
     {
@@ -25,47 +25,8 @@ class describe_specifications : nspec
     }
     object someObject = null;
 }
-
-public static class describe_specifications_output
-{
-    public static string Output = @&quot;
-describe specifications
-  when creating specifications
-    true should be false - FAILED - Expected: False, But was: True
-    enumerable should be empty
-    enumerable should contain 1
-    enumerable should not contain 1 - FAILED - Expected: not collection containing 1, But was: &lt; 1 &gt;
-    1 should be 2 - FAILED - Expected: 2, But was: 1
-    1 should be 1
-    1 should not be 1 - FAILED - Expected: not 1, But was: 1
-    1 should not be 2
-    &quot;&quot;&quot;&quot; should not be null
-    some object should not be null - FAILED - Expected: not null, But was: null
-    ninja should not be pirate
-
-**** FAILURES ****
-
-nspec. describe specifications. when creating specifications. true should be false.
-Expected: False, But was: True
-
-nspec. describe specifications. when creating specifications. enumerable should not contain 1.
-Expected: not collection containing 1, But was: &lt; 1 &gt;
-
-nspec. describe specifications. when creating specifications. 1 should be 2.
-Expected: 2, But was: 1
-
-nspec. describe specifications. when creating specifications. 1 should not be 1.
-Expected: not 1, But was: 1
-
-nspec. describe specifications. when creating specifications. some object should not be null.
-Expected: not null, But was: null
-
-11 Examples, 5 Failed, 0 Pending
-&quot;;
-    public static int ExitCode = 1;
-}
 </pre>
-<pre id="describe_specifications_output" data-timestamp="2016-04-26 16:08:31 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe specifications
+<pre id="describe_specifications_output" data-timestamp="2016-04-26 16:12:07 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe specifications
   when creating specifications
     true should be false - FAILED - Expected: False
 , But was: True
