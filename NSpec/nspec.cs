@@ -417,6 +417,12 @@ namespace NSpec
             return originalException;
         }
 
+        // TODO if this is intendend to be overridden by client spec classes, add describing comments
+        public virtual string OnError(string flattenedStackTrace)
+        {
+            return flattenedStackTrace;
+        }
+
         static string IncorrectType<T>() where T : Exception
         {
             return "Exception of type " + typeof(T).Name + " was not thrown.";
@@ -493,11 +499,6 @@ namespace NSpec
             {
                 throw new ExceptionNotThrown(IncorrectMessage(expectedMessage, matchingException.Message));
             }
-        }
-
-        public virtual string OnError(string flattenedStackTrace)
-        {
-            return flattenedStackTrace;
         }
 
         internal Context Context { get; set; }

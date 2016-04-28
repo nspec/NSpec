@@ -8,7 +8,7 @@ namespace NSpec.Domain.Extensions
 {
     public static class DomainExtensions
     {
-        public static T Instance<T>(this Type type) where T : class
+        public static T CreateInstanceAs<T>(this Type type) where T : class
         {
             return type.GetConstructors()[0].Invoke(new object[0]) as T;
         }

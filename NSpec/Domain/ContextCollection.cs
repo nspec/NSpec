@@ -52,16 +52,6 @@ namespace NSpec.Domain
             return this.SelectMany(c => c.AllContexts());
         }
 
-        public Context Find(string name)
-        {
-            return AllContexts().FirstOrDefault(c => c.Name == name);
-        }
-
-        public ExampleBase FindExample(string name)
-        {
-            return Examples().FirstOrDefault(e => e.Spec == name);
-        }
-
         public ContextCollection(IEnumerable<Context> contexts) : base(contexts) {}
 
         public ContextCollection() {}

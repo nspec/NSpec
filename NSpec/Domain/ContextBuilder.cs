@@ -58,10 +58,10 @@ namespace NSpec.Domain
 
         public void BuildMethodLevelExamples(Context classContext, Type specClass)
         {
-            Func<MethodInfo, MethodExampleBase> buildMethodLevel = method => 
+            Func<MethodInfo, MethodExampleBase> buildMethodLevel = method =>
                 new MethodExample(method, TagStringFor(method));
 
-            Func<MethodInfo, MethodExampleBase> buildAsyncMethodLevel = method => 
+            Func<MethodInfo, MethodExampleBase> buildAsyncMethodLevel = method =>
                 new AsyncMethodExample(method, TagStringFor(method));
 
             specClass
@@ -69,7 +69,7 @@ namespace NSpec.Domain
                 .Union(specClass
                     .AsyncMethods())
                 .Where(method => conventions.IsMethodLevelExample(method.Name))
-                .Select(method => 
+                .Select(method =>
                 {
                     return method.IsAsync()
                         ? buildAsyncMethodLevel(method)
