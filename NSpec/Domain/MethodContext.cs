@@ -33,7 +33,10 @@ namespace NSpec.Domain
                 ? targetEx.InnerException
                 : targetEx;
 
-            string exampleName = "{0} throws an exception of type {1}".With(method.Name, reportedEx.GetType().Name);
+            string exampleName = "Method context body throws an exception of type {0}".With(reportedEx.GetType().Name);
+
+            // TODO create a specific exception type (e.g. BareCodeException) wrapping original reported exception
+            // specific exception should explain more accurately to user what happened
 
             instance.it[exampleName] = () => { throw reportedEx; };
         }

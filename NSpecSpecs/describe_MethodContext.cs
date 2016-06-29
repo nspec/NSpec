@@ -50,7 +50,7 @@ namespace NSpecSpecs
         [Test]
         public void it_should_add_example_named_after_context_and_exception()
         {
-            string expected = "SpecClass. method level context. method_level_context throws an exception of type KnownException.";
+            string expected = "SpecClass. method level context. Method context body throws an exception of type KnownException.";
 
             classContext.Build();
 
