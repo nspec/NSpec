@@ -4,10 +4,12 @@ using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
 using NSpecSpecs;
+using NSpecSpecs.describe_RunningSpecs.Exceptions;
 
 namespace NSpecNUnit
 {
     [TestFixture]
+    [Category("Context")]
     public class describe_Context
     {
         [Test]
@@ -18,6 +20,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
+    [Category("Context")]
     public class when_counting_failures
     {
         [Test]
@@ -53,6 +56,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
+    [Category("Context")]
     public class when_creating_act_contexts_for_derived_class
     {
         [SetUp]
@@ -100,6 +104,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
+    [Category("Context")]
     public class when_creating_contexts_for_derived_classes
     {
         [SetUp]
@@ -136,6 +141,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
+    [Category("Context")]
     public class when_creating_before_contexts_for_derived_class
     {
         [SetUp]
@@ -191,6 +197,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
+    [Category("Context")]
     public class trimming_unexecuted_contexts_one_level_deep : trimming_contexts
     {
         Context contextWithExample;
@@ -227,6 +234,7 @@ namespace NSpecNUnit
     }
 
     [TestFixture]
+    [Category("Context")]
     public class trimming_unexecuted_contexts_two_levels_deep : trimming_contexts
     {
         Context childContext;
@@ -282,5 +290,64 @@ namespace NSpecNUnit
 
             rootContext.AllContexts().should_not_contain(childContext);
         }
+    }
+
+    [TestFixture]
+    [Category("Context")]
+    public class when_bare_code_throws
+    {
+        public class SpecClass : nspec
+        {
+            public void method_level_context()
+            {
+                context["sub level context"] = () =>
+                {
+                    DoSomethingThatThrows();
+
+                    before = () => { };
+
+                    it["should pass"] = () => { };
+                };
+            }
+
+            void DoSomethingThatThrows()
+            {
+                throw new KnownException("Bare code threw exception");
+            }
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            var specType = typeof(SpecClass);
+
+            classContext = new ClassContext(specType);
+
+            var methodInfo = specType.GetMethod("method_level_context");
+
+            var methodContext = new MethodContext(methodInfo);
+
+            classContext.AddContext(methodContext);
+        }
+
+        [Test]
+        public void building_should_not_throw()
+        {
+            Assert.DoesNotThrow(() => classContext.Build());
+        }
+
+        [Test]
+        public void it_should_add_example_named_after_context_and_exception()
+        {
+            string expected = "SpecClass. method level context. sub level context. Context body throws an exception of type KnownException.";
+
+            classContext.Build();
+
+            string actual = classContext.AllExamples().Single().FullName();
+
+            actual.should_be(expected);
+        }
+
+        ClassContext classContext;
     }
 }
