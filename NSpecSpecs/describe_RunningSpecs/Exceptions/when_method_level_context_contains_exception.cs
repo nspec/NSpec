@@ -34,7 +34,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void example_named_after_context_should_fail_with_same_exception()
         {
-            var example = TheExample("method_level_context throws an exception of type KnownException");
+            var example = TheExample("Method context body throws an exception of type KnownException");
 
             example.Exception.GetType().should_be(typeof(KnownException));
         }
