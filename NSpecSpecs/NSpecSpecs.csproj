@@ -69,6 +69,7 @@
     <Compile Include="describe_Assertions.cs" />
     <Compile Include="describe_cecil.cs" />
     <Compile Include="describe_Conventions.cs" />
+    <Compile Include="describe_MethodContext.cs" />
     <Compile Include="describe_output.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_after_all.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_after.cs" />

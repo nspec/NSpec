@@ -196,7 +196,7 @@ namespace NSpecNUnit
         Context contextWithExample;
 
         Context contextWithoutExample;
-        
+
         [SetUp]
         public void given_nested_contexts_with_and_without_executed_examples()
         {

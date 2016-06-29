@@ -13,11 +13,11 @@ namespace NSpec.Domain
             {
                 method.Invoke(instance, null);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine("Exception executing context: {0}".With(FullContext()));
+                Console.WriteLine("Exception executing method-level context: {0}".With(FullContext()));
 
-                throw e;
+                AddFailingExample(instance, ex);
             }
         }
 
@@ -25,6 +25,17 @@ namespace NSpec.Domain
             : base(method.Name, tags)
         {
             this.method = method;
+        }
+
+        void AddFailingExample(nspec instance, Exception targetEx)
+        {
+            var reportedEx = (targetEx.InnerException != null)
+                ? targetEx.InnerException
+                : targetEx;
+
+            string exampleName = "{0} throws an exception of type {1}".With(method.Name, reportedEx.GetType().Name);
+
+            instance.it[exampleName] = () => { /* TODO Fill failing example body */ };
         }
 
         MethodInfo method;
