@@ -139,6 +139,7 @@
     <Compile Include="describe_RunningSpecs\Exceptions\when_async_after_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_async_before_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_async_method_level_before_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_context_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\when_describing_async_hooks.cs" />
     <Compile Include="ExampleBaseWrap.cs" />
     <Compile Include="SpecExtensions.cs" />

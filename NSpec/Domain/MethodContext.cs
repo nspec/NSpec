@@ -35,7 +35,7 @@ namespace NSpec.Domain
 
             string exampleName = "{0} throws an exception of type {1}".With(method.Name, reportedEx.GetType().Name);
 
-            instance.it[exampleName] = () => { /* TODO Fill failing example body */ };
+            instance.it[exampleName] = () => { throw reportedEx; };
         }
 
         MethodInfo method;

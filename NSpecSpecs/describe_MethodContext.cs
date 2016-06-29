@@ -12,13 +12,13 @@ namespace NSpecSpecs
     {
         public class SpecClass : nspec
         {
-            public void Given_some_context()
+            public void method_level_context()
             {
                 DoSomethingThatThrows();
 
                 before = () => { };
 
-                it["Should pass"] = () => { };
+                it["should pass"] = () => { };
             }
 
             void DoSomethingThatThrows()
@@ -34,7 +34,7 @@ namespace NSpecSpecs
 
             classContext = new ClassContext(specType);
 
-            var methodInfo = specType.GetMethod("Given_some_context");
+            var methodInfo = specType.GetMethod("method_level_context");
 
             var methodContext = new MethodContext(methodInfo);
 
@@ -50,7 +50,7 @@ namespace NSpecSpecs
         [Test]
         public void it_should_add_example_named_after_context_and_exception()
         {
-            string expected = "SpecClass. Given some context. Given_some_context throws an exception of type KnownException.";
+            string expected = "SpecClass. method level context. method_level_context throws an exception of type KnownException.";
 
             classContext.Build();
 
