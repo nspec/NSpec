@@ -9,12 +9,23 @@ namespace NSpec.Domain.Formatters
     [Serializable]
     public class XUnitFormatter : IFormatter
     {
+        string file;
+
+        public XUnitFormatter(string file)
+        {
+            this.file = file ?? "nspec-results.xml";
+        }
+
+        public XUnitFormatter():this(null)
+        {
+            
+        }
         public void Write(ContextCollection contexts)
         {
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             XmlTextWriter xml = new XmlTextWriter(sw);
-
+            
             xml.WriteStartElement("testsuites");
             xml.WriteAttributeString("tests", contexts.Examples().Count().ToString());
             xml.WriteAttributeString("errors", "0");
@@ -24,7 +35,15 @@ namespace NSpec.Domain.Formatters
             contexts.Do(c => this.BuildContext(xml, c));
             xml.WriteEndElement();
 
-            Console.WriteLine(sb.ToString());
+            var filePath = Path.Combine(Environment.CurrentDirectory, this.file);
+            using (StreamWriter ostream = new StreamWriter(filePath, false))
+            {
+                ostream.WriteLine(sb.ToString());
+                Console.WriteLine($"Test results published to: {filePath}");
+            }
+            
+                        
+            
         }
 
         void BuildContext(XmlTextWriter xml, Context context)
