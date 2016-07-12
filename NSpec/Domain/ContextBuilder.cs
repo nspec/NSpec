@@ -15,7 +15,7 @@ namespace NSpec.Domain
 
             conventions.Initialize();
 
-            var specClasses = finder.SpecClasses();
+            var specClasses = finder.SpecClasses().OrderBy(type => type.Name);
 
             var container = new ClassContext(typeof(nspec), conventions, tagsFilter);
 
