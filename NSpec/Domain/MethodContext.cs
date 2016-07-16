@@ -35,10 +35,7 @@ namespace NSpec.Domain
 
             string exampleName = "Method context body throws an exception of type {0}".With(reportedEx.GetType().Name);
 
-            // TODO create a specific exception type (e.g. BareCodeException) wrapping original reported exception
-            // specific exception should explain more accurately to user what happened
-
-            instance.it[exampleName] = () => { throw reportedEx; };
+            instance.it[exampleName] = () => { throw new ContextBareCodeException(reportedEx); };
         }
 
         MethodInfo method;

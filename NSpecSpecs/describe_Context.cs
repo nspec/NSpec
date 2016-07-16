@@ -294,6 +294,7 @@ namespace NSpecNUnit
 
     [TestFixture]
     [Category("Context")]
+    [Category("BareCode")]
     public class when_bare_code_throws
     {
         public class SpecClass : nspec

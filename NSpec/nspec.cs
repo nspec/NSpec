@@ -478,10 +478,7 @@ namespace NSpec
         {
             string exampleName = "Context body throws an exception of type {0}".With(reportedEx.GetType().Name);
 
-            // TODO create a specific exception type (e.g. BareCodeException) wrapping original reported exception
-            // specific exception should explain more accurately to user what happened
-
-            it[exampleName] = () => { throw reportedEx; };
+            it[exampleName] = () => { throw new ContextBareCodeException(reportedEx); };
         }
 
         void AssertExpectedException<T>(Exception actualException, string expectedMessage) where T : Exception

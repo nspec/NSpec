@@ -1,11 +1,14 @@
 using NSpec;
+using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using System;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("BareCode")]
     public class when_method_level_context_contains_exception : when_running_specs
     {
         public class SpecClass : nspec
@@ -21,8 +24,14 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
             void DoSomethingThatThrows()
             {
-                throw new KnownException("Bare code threw exception");
+                var specEx = new KnownException("Bare code threw exception");
+
+                SpecException = specEx;
+
+                throw specEx;
             }
+
+            public static Exception SpecException;
         }
 
         [SetUp]
@@ -32,11 +41,19 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        public void example_named_after_context_should_fail_with_same_exception()
+        public void example_named_after_context_should_fail_with_bare_code_exception()
         {
             var example = TheExample("Method context body throws an exception of type KnownException");
 
-            example.Exception.GetType().should_be(typeof(KnownException));
+            example.Exception.GetType().should_be(typeof(ContextBareCodeException));
+        }
+
+        [Test]
+        public void bare_code_exception_should_wrap_spec_exception()
+        {
+            var example = TheExample("Method context body throws an exception of type KnownException");
+
+            example.Exception.InnerException.should_be(SpecClass.SpecException);
         }
     }
 }
