@@ -38,8 +38,20 @@ namespace NSpec.Domain.Formatters
             var failureMessage = noFailure ? "" : " - FAILED - {0}".With(e.Exception.CleanMessage());
 
             var whiteSpace = indent.Times(level);
-
-            var result = e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + failureMessage;
+            string duration;
+            if (e.Duration.TotalMinutes > 1)
+            {
+                duration = $" ({e.Duration.Minutes}min {e.Duration.Seconds}s)";
+            }else if (e.Duration.TotalSeconds > 1)
+            {
+                duration = $" ({e.Duration.TotalSeconds:F0}s)";
+            }
+            else
+            {
+                duration = $" ({e.Duration.TotalMilliseconds:F0}ms)";
+            }
+                                                            
+            var result = e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + duration + failureMessage;
 
             Console.ForegroundColor = ConsoleColor.Green;
 

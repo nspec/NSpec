@@ -2,6 +2,7 @@
 using NSpec.Domain.Formatters;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -331,10 +332,11 @@ namespace NSpec.Domain
                 Action<nspec> dummyExampleRunner = _ => HandleSkipped(example);
 
                 RunAndHandleException(dummyExampleRunner, nspec, ref example.Exception);
-
+                
                 return;
             }
-
+            var sw = new Stopwatch();
+            sw.Start();
             RunAndHandleException(RunBefores, nspec, ref Exception);
 
             RunAndHandleException(RunActs, nspec, ref Exception);
@@ -345,7 +347,8 @@ namespace NSpec.Domain
 
             // when an expected exception is thrown and is set to be cleared by 'expect<>',
             // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
-
+            sw.Stop();
+            example.Duration = sw.Elapsed;
             if (exceptionThrownInAfters) ClearExpectedException = false;
         }
 

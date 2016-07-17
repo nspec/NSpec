@@ -34,6 +34,7 @@ namespace NSpec.Domain
         public abstract void Run(nspec nspec);
 
         public abstract bool IsAsync { get; }
+        public TimeSpan Duration { get; set; }
 
         public string FullName()
         {
