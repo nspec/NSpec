@@ -69,6 +69,7 @@
     <Compile Include="describe_Assertions.cs" />
     <Compile Include="describe_cecil.cs" />
     <Compile Include="describe_Conventions.cs" />
+    <Compile Include="describe_MethodContext.cs" />
     <Compile Include="describe_output.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_after_all.cs" />
     <Compile Include="describe_RunningSpecs\describe_async_after.cs" />
@@ -138,6 +139,8 @@
     <Compile Include="describe_RunningSpecs\Exceptions\when_async_after_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_async_before_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\Exceptions\when_async_method_level_before_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_method_level_context_contains_exception.cs" />
+    <Compile Include="describe_RunningSpecs\Exceptions\when_sub_context_contains_exception.cs" />
     <Compile Include="describe_RunningSpecs\when_describing_async_hooks.cs" />
     <Compile Include="ExampleBaseWrap.cs" />
     <Compile Include="SpecExtensions.cs" />

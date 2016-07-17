@@ -55,6 +55,7 @@
     <Compile Include="Domain\AsyncMethodLevelHooks.cs" />
     <Compile Include="Domain\ClassContext.cs" />
     <Compile Include="Domain\AsyncExample.cs" />
+    <Compile Include="Domain\ContextBareCodeException.cs" />
     <Compile Include="Domain\ExampleBase.cs" />
     <Compile Include="Domain\ExampleFailureException.cs" />
     <Compile Include="Domain\Formatters\ConsoleFormatter.cs" />
