@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -48,6 +49,8 @@ namespace NSpec.Domain.Formatters
 
             Console.WriteLine(sb.ToString());
         }
+
+        public IDictionary<string, string> Options { get; set; }
 
         void BuildParentContext(StringBuilder sb, Context context)
         {

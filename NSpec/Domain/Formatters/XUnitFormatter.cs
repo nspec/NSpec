@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,12 +10,14 @@ namespace NSpec.Domain.Formatters
     [Serializable]
     public class XUnitFormatter : IFormatter
     {
+        string file;
+
         public void Write(ContextCollection contexts)
         {
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             XmlTextWriter xml = new XmlTextWriter(sw);
-
+            
             xml.WriteStartElement("testsuites");
             xml.WriteAttributeString("tests", contexts.Examples().Count().ToString());
             xml.WriteAttributeString("errors", "0");
@@ -23,9 +26,26 @@ namespace NSpec.Domain.Formatters
 
             contexts.Do(c => this.BuildContext(xml, c));
             xml.WriteEndElement();
+            var results = sb.ToString();
+            bool didWriteToFile = false;
+            if (Options.ContainsKey("file"))
+            {
+                var filePath = Path.Combine(Environment.CurrentDirectory, Options["file"]);
+                using (StreamWriter ostream = new StreamWriter(filePath, false))
+                {
+                    ostream.WriteLine(results);
+                    Console.WriteLine($"Test results published to: {filePath}");
+                }
+                didWriteToFile = true;
+            }
+            if (didWriteToFile && Options.ContainsKey("console"))
+                Console.WriteLine(results);
 
-            Console.WriteLine(sb.ToString());
+            if (!didWriteToFile)
+                Console.WriteLine(results);
         }
+
+        public IDictionary<string, string> Options { get; set; }
 
         void BuildContext(XmlTextWriter xml, Context context)
         {
