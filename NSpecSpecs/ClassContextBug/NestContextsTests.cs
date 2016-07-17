@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection;
 using NSpec;
 using NSpec.Domain;
@@ -63,5 +64,7 @@ namespace NSpecSpecs.ClassContextBug
         {
             this.Contexts = contexts;
         }
+
+        public IDictionary<string, string> Options { get; set; }
     }
 }

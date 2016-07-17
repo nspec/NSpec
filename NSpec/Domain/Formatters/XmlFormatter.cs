@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,8 @@ namespace NSpec.Domain.Formatters
 
             Console.WriteLine(sb.ToString());
         }
+
+        public IDictionary<string, string> Options { get; set; }
 
         void BuildContext(XmlTextWriter xml, Context context)
         {

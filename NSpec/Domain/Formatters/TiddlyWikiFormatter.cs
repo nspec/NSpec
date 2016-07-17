@@ -31,6 +31,8 @@ namespace NSpec.Domain.Formatters
                                  examplesCount, failuresCount, pendingsCount);
         }
 
+        public IDictionary<string, string> Options { get; set; }
+
         void WriteTiddlyWiki(
             string menuItems, string tiddlerItems,
             int examplesCount, int failuresCount, int pendingCount)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,15 +12,6 @@ namespace NSpec.Domain.Formatters
     {
         string file;
 
-        public XUnitFormatter(string file)
-        {
-            this.file = file ?? "nspec-results.xml";
-        }
-
-        public XUnitFormatter():this(null)
-        {
-            
-        }
         public void Write(ContextCollection contexts)
         {
             StringBuilder sb = new StringBuilder();
@@ -34,19 +26,26 @@ namespace NSpec.Domain.Formatters
 
             contexts.Do(c => this.BuildContext(xml, c));
             xml.WriteEndElement();
-
-            var filePath = Path.Combine(Environment.CurrentDirectory, this.file);
-            using (StreamWriter ostream = new StreamWriter(filePath, false))
+            var results = sb.ToString();
+            bool didWriteToFile = false;
+            if (Options.ContainsKey("file"))
             {
-                var results = sb.ToString();
-                ostream.WriteLine(results);
-                Console.WriteLine(results);
-                //Console.WriteLine($"Test results published to: {filePath}");
+                var filePath = Path.Combine(Environment.CurrentDirectory, Options["file"]);
+                using (StreamWriter ostream = new StreamWriter(filePath, false))
+                {
+                    ostream.WriteLine(results);
+                    Console.WriteLine($"Test results published to: {filePath}");
+                }
+                didWriteToFile = true;
             }
-            
-                        
-            
+            if (didWriteToFile && Options.ContainsKey("console"))
+                Console.WriteLine(results);
+
+            if (!didWriteToFile)
+                Console.WriteLine(results);
         }
+
+        public IDictionary<string, string> Options { get; set; }
 
         void BuildContext(XmlTextWriter xml, Context context)
         {
