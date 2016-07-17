@@ -38,8 +38,10 @@ namespace NSpec.Domain.Formatters
             var filePath = Path.Combine(Environment.CurrentDirectory, this.file);
             using (StreamWriter ostream = new StreamWriter(filePath, false))
             {
-                ostream.WriteLine(sb.ToString());
-                Console.WriteLine($"Test results published to: {filePath}");
+                var results = sb.ToString();
+                ostream.WriteLine(results);
+                Console.WriteLine(results);
+                //Console.WriteLine($"Test results published to: {filePath}");
             }
             
                         
