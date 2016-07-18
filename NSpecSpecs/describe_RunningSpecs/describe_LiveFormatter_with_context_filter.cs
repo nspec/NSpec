@@ -97,6 +97,9 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
         }
 
+        public IDictionary<string, string> Options { get; set; }
+
+
         public void Write(Context context)
         {
             WrittenContexts.Add(context);

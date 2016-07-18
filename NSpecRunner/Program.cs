@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NSpec;
@@ -24,8 +25,9 @@ namespace NSpecRunner
 
                 var failFast = IsFailFast(args);
                 var formatterClassName = GetFormatterClassName(args);
+                var formatterOptions = GetFormatterOptions(args);
+                var formatter = FindFormatter(formatterClassName, formatterOptions);
 
-                var formatter = FindFormatter(formatterClassName);
 
                 args = RemoveOptionsAndSwitches(args);
 
@@ -58,6 +60,20 @@ namespace NSpecRunner
             }
         }
 
+        static IDictionary<string, string> GetFormatterOptions(string[] args)
+        {
+            var formatterOptions = args.Where(s => s.StartsWith("--formatterOptions:", StringComparison.InvariantCultureIgnoreCase));
+            return formatterOptions.Select(s =>
+            {
+                var opt = s.Substring("--formatterOptions:".Length);
+                var parts = opt.Split('=');
+                if (parts.Length == 2)
+                    return new KeyValuePair<string, string>(parts[0], parts[1]);
+                else
+                    return new KeyValuePair<string, string>(parts[0], parts[0]);
+            }).ToDictionary(pair => pair.Key, pair => pair.Value);
+        }
+
         public static string[] RemoveOptionsAndSwitches(string[] args)
         {
             return args.Where(s => !s.StartsWith("--") || s == "--tag" ).ToArray();
@@ -85,13 +101,16 @@ namespace NSpecRunner
         /// Find an implementation of IFormatter with the given class name
         /// </summary>
         /// <param name="formatterClassName"></param>
+        /// <param name="formatterOptions"></param>
         /// <returns></returns>
-        private static IFormatter FindFormatter(string formatterClassName)
+        private static IFormatter FindFormatter(string formatterClassName, IDictionary<string, string> formatterOptions)
         {
             // Default formatter is the standard console formatter
             if (string.IsNullOrEmpty(formatterClassName))
             {
-                return new ConsoleFormatter();
+                var consoleFormatter = new ConsoleFormatter();
+                consoleFormatter.Options = formatterOptions;
+                return consoleFormatter;
             }
 
             Assembly nspecAssembly = typeof(IFormatter).Assembly;
@@ -103,7 +122,9 @@ namespace NSpecRunner
 
             if (formatterType != null)
             {
-                return (IFormatter)Activator.CreateInstance(formatterType);
+                var formatter = (IFormatter)Activator.CreateInstance(formatterType);
+                formatter.Options = formatterOptions;
+                return formatter;
             }
             else
             {
@@ -141,6 +162,9 @@ namespace NSpecRunner
             Console.WriteLine("nspecrunner path_to_spec_dll [classname] --formatter=formatterClass");
             Console.WriteLine();
             Console.WriteLine("You can optionally specify a formatter for the output by providing the class name of the desired formatter.");
+            Console.WriteLine("nspecrunner path_to_spec_dll [classname] --formatter=formatterClass --formatterOptions:optName=optValue");
+            Console.WriteLine();
+            Console.WriteLine("You can optionally specify options for the formatter. These are passed to the formatter class. See formatters for supported options");
 
         }
     }

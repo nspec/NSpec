@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,21 +12,12 @@ namespace NSpec.Domain.Formatters
     {
         string file;
 
-        public XUnitFormatter(string file)
-        {
-            this.file = file ?? "nspec-results.xml";
-        }
-
-        public XUnitFormatter():this(null)
-        {
-            
-        }
         public void Write(ContextCollection contexts)
         {
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             XmlTextWriter xml = new XmlTextWriter(sw);
-            
+
             xml.WriteStartElement("testsuites");
             xml.WriteAttributeString("tests", contexts.Examples().Count().ToString());
             xml.WriteAttributeString("errors", "0");
@@ -34,17 +26,26 @@ namespace NSpec.Domain.Formatters
 
             contexts.Do(c => this.BuildContext(xml, c));
             xml.WriteEndElement();
-
-            var filePath = Path.Combine(Environment.CurrentDirectory, this.file);
-            using (StreamWriter ostream = new StreamWriter(filePath, false))
+            var results = sb.ToString();
+            bool didWriteToFile = false;
+            if (Options.ContainsKey("file"))
             {
-                ostream.WriteLine(sb.ToString());
-                Console.WriteLine($"Test results published to: {filePath}");
+                var filePath = Path.Combine(Environment.CurrentDirectory, Options["file"]);
+                using (StreamWriter ostream = new StreamWriter(filePath, false))
+                {
+                    ostream.WriteLine(results);
+                    Console.WriteLine("Test results published to: {0}".With(filePath));
+                }
+                didWriteToFile = true;
             }
-            
-                        
-            
+            if (didWriteToFile && Options.ContainsKey("console"))
+                Console.WriteLine(results);
+
+            if (!didWriteToFile)
+                Console.WriteLine(results);
         }
+
+        public IDictionary<string, string> Options { get; set; }
 
         void BuildContext(XmlTextWriter xml, Context context)
         {
@@ -59,7 +60,7 @@ namespace NSpec.Domain.Formatters
 
             context.Examples.Do(e => this.BuildSpec(xml, e));
             context.Contexts.Do(c => this.BuildContext(xml, c));
-            
+
             if (context.Level == 1)
             {
                 xml.WriteEndElement();
@@ -71,14 +72,14 @@ namespace NSpec.Domain.Formatters
             xml.WriteStartElement("testcase");
 
             string testName = example.Spec;
-			StringBuilder className = new StringBuilder();
-			ComposePartialName(example.Context, className);
+            StringBuilder className = new StringBuilder();
+            ComposePartialName(example.Context, className);
 
             xml.WriteAttributeString("classname", className.ToString());
             xml.WriteAttributeString("name", testName);
 
             if (example.Exception != null)
-            {                
+            {
                 xml.WriteStartElement("failure");
                 xml.WriteAttributeString("type", example.Exception.GetType().Name);
                 xml.WriteAttributeString("message", example.Exception.Message);
@@ -91,12 +92,12 @@ namespace NSpec.Domain.Formatters
 
         private void ComposePartialName(Context context, StringBuilder contextName)
         {
-			if (context.Level <= 1) { return; }
+            if (context.Level <= 1) { return; }
 
-			ComposePartialName(context.Parent, contextName);
-			if (contextName.Length > 0) { contextName.Append(", "); }
+            ComposePartialName(context.Parent, contextName);
+            if (contextName.Length > 0) { contextName.Append(", "); }
 
-			contextName.Append(context.Name);            
+            contextName.Append(context.Name);
         }
     }
 }

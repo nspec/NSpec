@@ -13,5 +13,7 @@ namespace NSpec.Domain.Formatters
         public void Write(ExampleBase example, int level) { }
 
         public void Write(ContextCollection contexts) { }
+
+        public IDictionary<string, string> Options { get; set; }
     }
 }

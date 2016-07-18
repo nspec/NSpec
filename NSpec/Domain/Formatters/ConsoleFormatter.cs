@@ -23,6 +23,7 @@ namespace NSpec.Domain.Formatters
             Console.ResetColor();
         }
 
+        public IDictionary<string, string> Options { get; set; }
         public void Write(Context context)
         {
             if (context.Level == 1) WriteLineDelegate("");

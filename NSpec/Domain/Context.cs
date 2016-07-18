@@ -21,7 +21,7 @@ namespace NSpec.Domain
 
             if (BeforeInstance != null && BeforeInstanceAsync != null)
             {
-                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'before_each' set, please pick one of the two");
+                throw new ArgumentException("A spec class with all its ancestors cannot set both sync and async class-level 'before_each' hooks, they should either be all sync or all async");
             }
 
             BeforeInstance.SafeInvoke(instance);
@@ -32,7 +32,7 @@ namespace NSpec.Domain
 
             if (Before != null && BeforeAsync != null)
             {
-                throw new ArgumentException("A single context cannot have both a 'before' and an 'beforeAsync' set, please pick one of the two");
+                throw new ArgumentException("A single context cannot set both a 'before' and an 'beforeAsync', please pick one of the two");
             }
 
             if (Before != null && Before.IsAsync())
@@ -51,7 +51,7 @@ namespace NSpec.Domain
 
             if (BeforeAll != null && BeforeAllAsync != null)
             {
-                throw new ArgumentException("A single context cannot have both a 'beforeAll' and an 'beforeAllAsync' set, please pick one of the two");
+                throw new ArgumentException("A single context cannot set both a 'beforeAll' and an 'beforeAllAsync', please pick one of the two");
             }
 
             if (BeforeAll != null && BeforeAll.IsAsync())
@@ -67,7 +67,7 @@ namespace NSpec.Domain
 
             if (BeforeAllInstance != null && BeforeAllInstanceAsync != null)
             {
-                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'before_all' set, please pick one of the two");
+                throw new ArgumentException("A spec class with all its ancestors cannot set both sync and async class-level 'before_all' hooks, they should either be all sync or all async");
             }
 
             BeforeAllInstance.SafeInvoke(instance);
@@ -85,7 +85,7 @@ namespace NSpec.Domain
 
             if (ActInstance != null && ActInstanceAsync != null)
             {
-                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'act_each' set, please pick one of the two");
+                throw new ArgumentException("A spec class with all its ancestors cannot set both sync and async class-level 'act_each' hooks, they should either be all sync or all async");
             }
 
             ActInstance.SafeInvoke(instance);
@@ -96,7 +96,7 @@ namespace NSpec.Domain
 
             if (Act != null && ActAsync != null)
             {
-                throw new ArgumentException("A single context cannot have both an 'act' and an 'actAsync' set, please pick one of the two");
+                throw new ArgumentException("A single context cannot set both an 'act' and an 'actAsync', please pick one of the two");
             }
 
             if (Act != null && Act.IsAsync())
@@ -115,7 +115,7 @@ namespace NSpec.Domain
 
             if (After != null && AfterAsync != null)
             {
-                throw new ArgumentException("A single context cannot have both an 'after' and an 'afterAsync' set, please pick one of the two");
+                throw new ArgumentException("A single context cannot set both an 'after' and an 'afterAsync', please pick one of the two");
             }
 
             if (After != null && After.IsAsync())
@@ -131,7 +131,7 @@ namespace NSpec.Domain
 
             if (AfterInstance != null && AfterInstanceAsync != null)
             {
-                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'after_each' set, please pick one of the two");
+                throw new ArgumentException("A spec class with all its ancestors cannot set both sync and async class-level 'after_each' hooks, they should either be all sync or all async");
             }
 
             AfterInstance.SafeInvoke(instance);
@@ -149,7 +149,7 @@ namespace NSpec.Domain
 
             if (AfterAll != null && AfterAllAsync != null)
             {
-                throw new ArgumentException("A single context cannot have both an 'afterAll' and an 'afterAllAsync' set, please pick one of the two");
+                throw new ArgumentException("A single context cannot set both an 'afterAll' and an 'afterAllAsync', please pick one of the two");
             }
 
             if (AfterAll != null && AfterAll.IsAsync())
@@ -165,7 +165,7 @@ namespace NSpec.Domain
 
             if (AfterAllInstance != null && AfterAllInstanceAsync != null)
             {
-                throw new ArgumentException("A single class cannot have both a sync and an async class-level 'after_all' set, please pick one of the two");
+                throw new ArgumentException("A spec class with all its ancestors cannot set both sync and async class-level 'after_all' hooks, they should either be all sync or all async");
             }
 
             AfterAllInstance.SafeInvoke(instance);

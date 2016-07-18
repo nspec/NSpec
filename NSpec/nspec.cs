@@ -460,9 +460,25 @@ namespace NSpec
 
             Context = context;
 
-            action();
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception executing context: {0}".With(context.FullContext()));
+
+                AddFailingExample(ex);
+            }
 
             Context = beforeContext;
+        }
+
+        void AddFailingExample(Exception reportedEx)
+        {
+            string exampleName = "Context body throws an exception of type {0}".With(reportedEx.GetType().Name);
+
+            it[exampleName] = () => { throw new ContextBareCodeException(reportedEx); };
         }
 
         void AssertExpectedException<T>(Exception actualException, string expectedMessage) where T : Exception
