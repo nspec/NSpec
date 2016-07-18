@@ -17,7 +17,7 @@ namespace NSpec.Domain.Formatters
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
             XmlTextWriter xml = new XmlTextWriter(sw);
-            
+
             xml.WriteStartElement("testsuites");
             xml.WriteAttributeString("tests", contexts.Examples().Count().ToString());
             xml.WriteAttributeString("errors", "0");
@@ -34,7 +34,7 @@ namespace NSpec.Domain.Formatters
                 using (StreamWriter ostream = new StreamWriter(filePath, false))
                 {
                     ostream.WriteLine(results);
-                    Console.WriteLine($"Test results published to: {filePath}");
+                    Console.WriteLine("Test results published to: {0}".With(filePath));
                 }
                 didWriteToFile = true;
             }
@@ -60,7 +60,7 @@ namespace NSpec.Domain.Formatters
 
             context.Examples.Do(e => this.BuildSpec(xml, e));
             context.Contexts.Do(c => this.BuildContext(xml, c));
-            
+
             if (context.Level == 1)
             {
                 xml.WriteEndElement();
@@ -72,14 +72,14 @@ namespace NSpec.Domain.Formatters
             xml.WriteStartElement("testcase");
 
             string testName = example.Spec;
-			StringBuilder className = new StringBuilder();
-			ComposePartialName(example.Context, className);
+            StringBuilder className = new StringBuilder();
+            ComposePartialName(example.Context, className);
 
             xml.WriteAttributeString("classname", className.ToString());
             xml.WriteAttributeString("name", testName);
 
             if (example.Exception != null)
-            {                
+            {
                 xml.WriteStartElement("failure");
                 xml.WriteAttributeString("type", example.Exception.GetType().Name);
                 xml.WriteAttributeString("message", example.Exception.Message);
@@ -92,12 +92,12 @@ namespace NSpec.Domain.Formatters
 
         private void ComposePartialName(Context context, StringBuilder contextName)
         {
-			if (context.Level <= 1) { return; }
+            if (context.Level <= 1) { return; }
 
-			ComposePartialName(context.Parent, contextName);
-			if (contextName.Length > 0) { contextName.Append(", "); }
+            ComposePartialName(context.Parent, contextName);
+            if (contextName.Length > 0) { contextName.Append(", "); }
 
-			contextName.Append(context.Name);            
+            contextName.Append(context.Name);
         }
     }
 }
