@@ -41,14 +41,14 @@ namespace NSpec.Domain.Formatters
             string duration;
             if (e.Duration.TotalMinutes > 1)
             {
-                duration = $" ({e.Duration.Minutes}min {e.Duration.Seconds}s)";
+                duration = string.Format(" ({0}min {1}s)", e.Duration.Minutes, e.Duration.Seconds);
             }else if (e.Duration.TotalSeconds > 1)
             {
-                duration = $" ({e.Duration.TotalSeconds:F0}s)";
+                duration = string.Format(" ({0:F0}s)", e.Duration.TotalSeconds);
             }
             else
             {
-                duration = $" ({e.Duration.TotalMilliseconds:F0}ms)";
+                duration = string.Format(" ({0:F0}ms)", e.Duration.TotalMilliseconds);
             }
                                                             
             var result = e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + duration + failureMessage;
