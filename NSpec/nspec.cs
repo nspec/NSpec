@@ -452,13 +452,13 @@ namespace NSpec
             RunContext(ignored, action);
         }
 
-        void RunContext(Context context, Action action)
+        void RunContext(Context subContext, Action action)
         {
-            Context.AddContext(context);
+            Context.AddContext(subContext);
 
-            var beforeContext = Context;
+            var originalContext = Context;
 
-            Context = context;
+            Context = subContext;
 
             try
             {
@@ -469,7 +469,7 @@ namespace NSpec
                 AddFailingExample(ex);
             }
 
-            Context = beforeContext;
+            Context = originalContext;
         }
 
         void AddFailingExample(Exception reportedEx)
