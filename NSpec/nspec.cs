@@ -466,8 +466,6 @@ namespace NSpec
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception executing context: {0}".With(context.FullContext()));
-
                 AddFailingExample(ex);
             }
 
