@@ -43,7 +43,7 @@ namespace NSpec.Domain.Formatters
             while (!templateReader.EndOfStream)
             {
                 string data = templateReader.ReadLine();
-                if (!String.IsNullOrEmpty(data))
+                if (!string.IsNullOrEmpty(data))
                 {
                     data = data.Replace("$MAIN_MENU_CONTEXT_NAMES_GO_HERE$", menuItems);
                     data = data.Replace("<div id=\"storeArea\">", "<div id=\"storeArea\">" + tiddlerItems);

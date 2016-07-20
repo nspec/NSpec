@@ -18,8 +18,12 @@ namespace NSpec.Domain
                 Types.Where(t => t.IsClass
                                  && !t.IsAbstract
                                  && BaseTypes(t).Any(s => s == typeof(nspec))
-                                 && (t.Methods().Count() > 0 || t.AsyncMethods().Count() > 0)
-                                 && (string.IsNullOrEmpty(filter) || regex.IsMatch(t.FullName)));
+                                 && (t.Methods().Any() || t.AsyncMethods().Any()));
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                leafTypes = leafTypes.Where(t => regex.IsMatch(t.FullName));
+            }
 
             var finalList = new List<Type>();
             finalList.AddRange(leafTypes);
