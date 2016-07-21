@@ -15,8 +15,6 @@ namespace NSpec.Domain
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception executing method-level context: {0}".With(FullContext()));
-
                 AddFailingExample(instance, ex);
             }
         }
