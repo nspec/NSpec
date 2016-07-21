@@ -1,12 +1,10 @@
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Linq;
-using NUnit.Framework;
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using NSpec;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
+using NUnit.Framework;
 using SampleSpecs.Bug;
 
 namespace NSpecSpecs
@@ -72,7 +70,7 @@ namespace NSpecSpecs
          TestCase(typeof(describe_focus_output),
                   new [] { typeof(describe_focus) },
                   "focus")]
-        
+
         public void output_verification(Type output, Type []testClasses, string tags)
         {
             var finder = new SpecFinder(testClasses, "");
@@ -86,16 +84,19 @@ namespace NSpecSpecs
             var runner = new ContextRunner(tagsFilter, consoleFormatter, false);
             runner.Run(builder.Contexts().Build());
 
-            var expectedString = ScrubStackTrace(ScrubNewLines(output.GetField("Output").GetValue(null) as string));
-            var actualString = ScrubStackTrace(String.Join("\n", actual)).Trim();
+            var expectedString = ScrubTimes(ScrubStackTrace(ScrubNewLines(output.GetField("Output").GetValue(null) as string)));
+            var actualString = ScrubTimes(ScrubStackTrace(String.Join("\n", actual)).Trim());
             actualString.should_be(expectedString);
-
-            var guid = Guid.NewGuid();
         }
 
         static string ScrubNewLines(string s)
         {
             return s.Trim().Replace("\r\n", "\n").Replace("\r", "");
+        }
+
+        static string ScrubTimes(string s)
+        {
+            return Regex.Replace(s, @" \(.*ms\)", "");
         }
 
         static string ScrubStackTrace(string s)
