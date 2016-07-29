@@ -215,7 +215,7 @@ namespace NSpec.Domain
         /// Test execution happens in two phases: this is the first phase.
         /// </summary>
         /// <remarks>
-        /// Here all contexts and all their examples are run, collecting distinct exceptions 
+        /// Here all contexts and all their examples are run, collecting distinct exceptions
         /// from context itself (befores/ acts/ it/ afters), beforeAll, afterAll.
         /// </remarks>
         public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null)
@@ -332,11 +332,13 @@ namespace NSpec.Domain
                 Action<nspec> dummyExampleRunner = _ => HandleSkipped(example);
 
                 RunAndHandleException(dummyExampleRunner, nspec, ref example.Exception);
-                
+
                 return;
             }
+
             var sw = new Stopwatch();
             sw.Start();
+
             RunAndHandleException(RunBefores, nspec, ref Exception);
 
             RunAndHandleException(RunActs, nspec, ref Exception);
@@ -345,10 +347,12 @@ namespace NSpec.Domain
 
             bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref Exception);
 
-            // when an expected exception is thrown and is set to be cleared by 'expect<>',
-            // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
             sw.Stop();
             example.Duration = sw.Elapsed;
+
+            // when an expected exception is thrown and is set to be cleared by 'expect<>',
+            // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
+
             if (exceptionThrownInAfters) ClearExpectedException = false;
         }
 
