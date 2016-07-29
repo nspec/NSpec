@@ -6,6 +6,14 @@ REM Usage: archive-branch <your-branch-name>
 ECHO.
 ECHO Starting...
 
+IF "%~1"=="" (
+  ECHO This command requires 1 input argument.
+  ECHO.
+  ECHO Usage: archive-branch ^<your-branch-name^>
+  
+  GOTO :EndOfScript
+)
+
 ECHO.
 ECHO * 1. Get local branch from remote, if needed
 ECHO.
