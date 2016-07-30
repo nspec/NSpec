@@ -6,6 +6,7 @@ using NSpec;
 using NUnit.Framework;
 using NSpecSpecs.WhenRunningSpecs;
 using System.Threading.Tasks;
+using NSpecSpecs.describe_RunningSpecs.Exceptions;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -16,7 +17,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void before_each()
             {
-                throw new InvalidOperationException("Exception to replace.");
+                throw new SomeOtherException("Exception to replace.");
             }
 
             void specify_method_level_failure()
@@ -33,7 +34,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             public override Exception ExceptionToReturn(Exception originalException)
             {
-                return new ArgumentException("Redefined exception.", originalException);
+                return new KnownException("Redefined exception.", originalException);
             }
         }
 
@@ -46,13 +47,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void the_examples_exception_is_replaced_with_exception_provided_in_override()
         {
-            TheExample("specify method level failure").Exception.InnerException.GetType().should_be(typeof(ArgumentException));
+            TheExample("specify method level failure").Exception.InnerException.GetType().should_be(typeof(KnownException));
         }
 
         [Test]
         public void the_examples_exception_is_replaced_with_exception_provided_in_override_if_async_method()
         {
-            TheExample("specify async method level failure").Exception.InnerException.GetType().should_be(typeof(ArgumentException));
+            TheExample("specify async method level failure").Exception.InnerException.GetType().should_be(typeof(KnownException));
         }
     }
 }

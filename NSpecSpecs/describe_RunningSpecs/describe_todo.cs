@@ -29,7 +29,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void example_should_not_have_ran()
+        public void example_body_should_not_run()
         {
             XitClass.executed.should_be_false();
         }
@@ -58,11 +58,15 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void example_should_be_pending()
         {
-            ExampleFrom(typeof(AsyncXitClass)).Pending.should_be_true();
+            var example = ExampleFrom(typeof(AsyncXitClass));
+
+            example.HasRun.should_be_true();
+
+            example.Pending.should_be_true();
         }
 
         [Test]
-        public void example_should_not_have_ran()
+        public void example_body_should_not_run()
         {
             AsyncXitClass.executed.should_be_false();
         }
@@ -99,19 +103,27 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void example_should_throw()
+        public void example_should_be_pending()
         {
             var example = ExampleFrom(typeof(XitClassWithAsyncLambda));
 
             example.HasRun.should_be_true();
 
-            example.Exception.should_not_be_null();
-
             example.Pending.should_be_true();
         }
 
         [Test]
-        public void example_should_not_have_ran()
+        public void example_should_throw()
+        {
+            var example = ExampleFrom(typeof(XitClassWithAsyncLambda));
+
+            example.Exception.should_not_be_null();
+
+            example.Exception.GetType().should_be(typeof(AsyncMismatchException));
+        }
+
+        [Test]
+        public void example_body_should_not_run()
         {
             XitClassWithAsyncLambda.executed.should_be_false();
         }
@@ -141,7 +153,11 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void example_should_be_pending()
         {
-            ExampleFrom(typeof(TodoClass)).Pending.should_be_true();
+            var example = ExampleFrom(typeof(TodoClass));
+
+            example.HasRun.should_be_true();
+
+            example.Pending.should_be_true();
         }
     }
 
@@ -162,7 +178,11 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void example_should_be_pending()
         {
-            ExampleFrom(typeof(AsyncTodoClass)).Pending.should_be_true();
+            var example = ExampleFrom(typeof(AsyncTodoClass));
+
+            example.HasRun.should_be_true();
+
+            example.Pending.should_be_true();
         }
     }
 
@@ -182,9 +202,21 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void example_should_not_fail_but_be_pending()
+        public void example_should_be_pending()
         {
-            ExampleFrom(typeof(TodoClass)).Pending.should_be_true();
+            var example = ExampleFrom(typeof(TodoClass));
+
+            example.HasRun.should_be_true();
+
+            example.Pending.should_be_true();
+        }
+
+        [Test]
+        public void example_should_not_throw()
+        {
+            var example = ExampleFrom(typeof(TodoClass));
+
+            example.Exception.should_be_null();
         }
     }
 

@@ -55,10 +55,12 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     {
         public KnownException() : base() { }
         public KnownException(string message) : base(message) { }
+        public KnownException(string message, Exception inner) : base(message, inner) { }
     }
 
     class SomeOtherException : Exception
     {
         public SomeOtherException() : base() { }
+        public SomeOtherException(string message) : base(message) { }
     }
 }
