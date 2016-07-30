@@ -33,6 +33,8 @@ namespace NSpec.Domain
 
         public abstract void Run(nspec nspec);
 
+        public abstract void Skip(nspec nspec);
+
         public abstract bool IsAsync { get; }
         public TimeSpan Duration { get; set; }
 

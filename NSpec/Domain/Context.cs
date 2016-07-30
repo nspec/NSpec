@@ -345,9 +345,7 @@ namespace NSpec.Domain
         {
             if (example.ShouldSkip(nspec.tagsFilter))
             {
-                Action<nspec> dummyExampleRun = _ => HandleSkipped(example);
-
-                RunAndHandleException(dummyExampleRun, nspec, ref example.Exception);
+                RunAndHandleException(example.Skip, nspec, ref example.Exception);
 
                 return;
             }
@@ -418,15 +416,6 @@ namespace NSpec.Domain
             bool anyExampleOrSubExample = Examples.Any(shouldNotSkip) || Contexts.Examples().Any(shouldNotSkip);
 
             return anyExampleOrSubExample;
-        }
-
-        void HandleSkipped(ExampleBase example)
-        {
-            if (example != null && example.IsAsync)
-            {
-                throw new AsyncMismatchException(
-                    "'xit' cannot be set to an async delegate, please use 'xitAsync' instead");
-            }
         }
 
         public override string ToString()

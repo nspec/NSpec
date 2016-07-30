@@ -11,10 +11,23 @@ namespace NSpec.Domain
         {
             if (IsAsync)
             {
-                throw new AsyncMismatchException("'it[]' cannot be set to an async delegate, please use 'itAsync[]' instead");
+                throw new AsyncMismatchException(
+                    "'it[]' cannot be set to an async delegate, please use 'itAsync[]' instead");
             }
 
             action();
+        }
+
+        public override void Skip(nspec nspec)
+        {
+            // don't run example body, as this example is being skipped;
+            // just check for consistency in passed example body
+
+            if (IsAsync)
+            {
+                throw new AsyncMismatchException(
+                    "'xit' cannot be set to an async delegate, please use 'xitAsync' instead");
+            }
         }
 
         public override bool IsAsync

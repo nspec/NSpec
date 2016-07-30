@@ -29,6 +29,11 @@ namespace NSpecSpecs
             throw new NotImplementedException();
         }
 
+        public override void Skip(nspec nspec)
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool IsAsync
         {
             get { throw new NotImplementedException(); }

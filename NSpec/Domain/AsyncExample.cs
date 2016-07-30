@@ -12,6 +12,12 @@ namespace NSpec.Domain
             asyncAction.Offload();
         }
 
+        public override void Skip(nspec nspec)
+        {
+            // don't run example body, as this example is being skipped;
+            // and no consistency check to perform on passed example body
+        }
+
         public override bool IsAsync
         {
             get { return true; }
