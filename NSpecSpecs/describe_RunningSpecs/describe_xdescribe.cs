@@ -6,6 +6,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Pending")]
     public class describe_xdescribe : when_running_specs
     {
         class SpecClass : nspec

@@ -9,14 +9,17 @@ namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Pending")]
     public class using_xit : describe_todo
     {
         class XitClass : nspec
         {
             void method_level_context()
             {
-                xit["should be pending"] = () => { };
+                xit["should be pending"] = () => { executed = true; };
             }
+
+            public static bool executed = false;
         }
 
         [Test]
@@ -24,10 +27,17 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             ExampleFrom(typeof(XitClass)).Pending.should_be_true();
         }
+
+        [Test]
+        public void example_should_not_have_ran()
+        {
+            XitClass.executed.should_be_false();
+        }
     }
 
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Pending")]
     [Category("Async")]
     public class using_async_xit : describe_todo
     {
@@ -35,8 +45,14 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void method_level_context()
             {
-                xitAsync["should be pending"] = async () => await Task.Run(() => { });
+                xitAsync["should be pending"] = async () =>
+                {
+                    executed = true;
+                    await Task.Run(() => { });
+                };
             }
+
+            public static bool executed = false;
         }
 
         [Test]
@@ -44,35 +60,48 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             ExampleFrom(typeof(AsyncXitClass)).Pending.should_be_true();
         }
+
+        [Test]
+        public void example_should_not_have_ran()
+        {
+            AsyncXitClass.executed.should_be_false();
+        }
     }
 
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Pending")]
     [Category("Async")]
-    public class using_async_lambda_with_xit : describe_todo
+    public class using_xit_with_async_lambda : describe_todo
     {
-        class AsyncLambdaClass : nspec
+        class XitClassWithAsyncLambda : nspec
         {
             void method_level_context()
             {
-                xit["should fail because xit is set to async lambda"] = async () => await Task.Run(() => { });
+                xit["should fail because xit is set to async lambda"] = async () =>
+                {
+                    executed = false;
+                    await Task.Run(() => { });
+                };
 
                 // No chance of error when (async) return value is explicitly typed. The following do not even compile:
                 /*
                 Func<Task> asyncTaggedDelegate = async () => await Task.Run(() => { });
                 Func<Task> asyncUntaggedDelegate = () => { return Task.Run(() => { }); };
 
-                it["Should fail because xit is set to async tagged delegate"] = asyncTaggedDelegate;
+                xit["Should fail because xit is set to async tagged delegate"] = asyncTaggedDelegate;
 
-                it["Should fail because xit is set to async untagged delegate"] = asyncUntaggedDelegate;
+                xit["Should fail because xit is set to async untagged delegate"] = asyncUntaggedDelegate;
                 */
             }
+
+            public static bool executed = false;
         }
 
         [Test]
-        public void sync_pending_example_set_to_async_lambda_fails()
+        public void example_should_throw()
         {
-            var example = ExampleFrom(typeof(AsyncLambdaClass));
+            var example = ExampleFrom(typeof(XitClassWithAsyncLambda));
 
             example.HasRun.should_be_true();
 
@@ -80,10 +109,25 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             example.Pending.should_be_true();
         }
+
+        [Test]
+        public void example_should_not_have_ran()
+        {
+            XitClassWithAsyncLambda.executed.should_be_false();
+        }
     }
+
+    /*
+     * Test case on using async xit with sync lambda cannot be performed,
+     * as setting xitAsync to a sync lambda does not even compile:
+     *
+     * xitAsync["should fail because xit is set to sync lambda"] = () => { executed = false; };
+     *
+     */
 
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Pending")]
     public class using_todo : describe_todo
     {
         class TodoClass : nspec
@@ -103,6 +147,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Pending")]
     [Category("Async")]
     public class using_async_todo : describe_todo
     {
@@ -123,6 +168,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Pending")]
     public class using_todo_with_throwing_before : describe_todo
     {
         class TodoClass : nspec
@@ -130,6 +176,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             void method_level_context()
             {
                 before = () => { throw new Exception(); };
+
                 it["should be pending"] = todo;
             }
         }

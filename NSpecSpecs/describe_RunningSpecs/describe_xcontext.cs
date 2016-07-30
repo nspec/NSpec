@@ -7,6 +7,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 {
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Pending")]
     public class describe_it_behaviour_in_xcontext : when_running_specs
     {
         class SpecClass : nspec
@@ -36,6 +37,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
     [TestFixture]
     [Category("RunningSpecs")]
+    [Category("Pending")]
     public class describe_xcontext : when_running_specs
     {
         class SpecClass : nspec

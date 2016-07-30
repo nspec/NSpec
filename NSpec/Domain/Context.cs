@@ -329,9 +329,9 @@ namespace NSpec.Domain
         {
             if (example.ShouldSkip(nspec.tagsFilter))
             {
-                Action<nspec> dummyExampleRunner = _ => HandleSkipped(example);
+                Action<nspec> dummyExampleRun = _ => HandleSkipped(example);
 
-                RunAndHandleException(dummyExampleRunner, nspec, ref example.Exception);
+                RunAndHandleException(dummyExampleRun, nspec, ref example.Exception);
 
                 return;
             }

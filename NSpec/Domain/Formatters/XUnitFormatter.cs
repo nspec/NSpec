@@ -10,8 +10,6 @@ namespace NSpec.Domain.Formatters
     [Serializable]
     public class XUnitFormatter : IFormatter
     {
-        string file;
-
         public void Write(ContextCollection contexts)
         {
             StringBuilder sb = new StringBuilder();

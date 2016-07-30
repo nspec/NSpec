@@ -61,7 +61,11 @@ namespace NSpec.Domain
         {
             // TODO try to remove side effects from here (HasRun = true)
 
-            return tagsFilter.ShouldSkip(Tags) || ((HasRun = true) && Pending);
+            if (tagsFilter.ShouldSkip(Tags)) return true;
+
+            HasRun = true;
+
+            return Pending;
         }
 
         public bool ShouldNotSkip(Tags tagsFilter)
