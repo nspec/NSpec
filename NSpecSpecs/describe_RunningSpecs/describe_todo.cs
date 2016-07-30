@@ -25,7 +25,17 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void example_should_be_pending()
         {
-            ExampleFrom(typeof(XitClass)).Pending.should_be_true();
+            var example = ExampleFrom(typeof(XitClass));
+
+            example.Pending.should_be_true();
+        }
+
+        [Test]
+        public void example_should_not_throw()
+        {
+            var example = ExampleFrom(typeof(XitClass));
+
+            example.Exception.should_be_null();
         }
 
         [Test]
@@ -63,6 +73,14 @@ namespace NSpecSpecs.WhenRunningSpecs
             example.HasRun.should_be_true();
 
             example.Pending.should_be_true();
+        }
+
+        [Test]
+        public void example_should_not_throw()
+        {
+            var example = ExampleFrom(typeof(AsyncXitClass));
+
+            example.Exception.should_be_null();
         }
 
         [Test]
