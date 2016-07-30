@@ -84,13 +84,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void context_with_both_sync_and_async_act_always_fails()
         {
-            ExampleRunsWithException("Should not know what to expect");
+            ExampleRunsWithInnerAsyncMismatchException("Should not know what to expect");
         }
 
         [Test]
         public void sync_act_set_to_async_lambda_fails()
         {
-            ExampleRunsWithException("Should fail because act is set to async lambda");
+            ExampleRunsWithInnerAsyncMismatchException("Should fail because act is set to async lambda");
         }
     }
 }

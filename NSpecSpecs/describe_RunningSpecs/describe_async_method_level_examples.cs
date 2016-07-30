@@ -1,4 +1,5 @@
 ﻿using NSpec;
+using NSpec.Domain;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -73,27 +74,27 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
-        public void async_example_with_result_should_execute()
-        {
-            classContext.Examples[0].HasRun.should_be_true();
-        }
-
-        [Test]
         public void async_example_with_result_should_fail()
         {
-            classContext.Examples[0].Exception.should_not_be_null();
-        }
+            var example = classContext.Examples[0];
 
-        [Test]
-        public void async_example_with_void_should_execute()
-        {
-            classContext.Examples[1].HasRun.should_be_true();
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
+
+            example.Exception.GetType().should_be(typeof(AsyncMismatchException));
         }
 
         [Test]
         public void async_example_with_void_should_fail()
         {
-            classContext.Examples[1].Exception.should_not_be_null();
+            var example = classContext.Examples[1];
+
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
+
+            example.Exception.GetType().should_be(typeof(AsyncMismatchException));
         }
     }
 }

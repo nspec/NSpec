@@ -71,7 +71,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void sync_example_set_to_async_lambda_fails()
         {
-            ExampleRunsWithException("Should fail because it is set to async lambda");
+            ExampleRunsWithAsyncMismatchException("Should fail because it is set to async lambda");
         }
     }
 }

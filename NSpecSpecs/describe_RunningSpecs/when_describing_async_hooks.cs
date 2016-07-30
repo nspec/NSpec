@@ -79,5 +79,29 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             example.Exception.should_not_be_null();
         }
+
+        protected void ExampleRunsWithAsyncMismatchException(string name)
+        {
+            ExampleBase example = TheExample(name);
+
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
+
+            example.Exception.GetType().should_be(typeof(AsyncMismatchException));
+        }
+
+        protected void ExampleRunsWithInnerAsyncMismatchException(string name)
+        {
+            ExampleBase example = TheExample(name);
+
+            example.HasRun.should_be_true();
+
+            example.Exception.should_not_be_null();
+
+            example.Exception.InnerException.should_not_be_null();
+
+            example.Exception.InnerException.GetType().should_be(typeof(AsyncMismatchException));
+        }
     }
 }

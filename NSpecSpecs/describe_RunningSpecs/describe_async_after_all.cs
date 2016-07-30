@@ -84,13 +84,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void context_with_both_sync_and_async_after_all_always_fails()
         {
-            ExampleRunsWithException("Should not know what to do");
+            ExampleRunsWithInnerAsyncMismatchException("Should not know what to do");
         }
 
         [Test]
         public void sync_after_all_set_to_async_lambda_fails()
         {
-            ExampleRunsWithException("Should fail because afterAll is set to async lambda");
+            ExampleRunsWithInnerAsyncMismatchException("Should fail because afterAll is set to async lambda");
         }
     }
 }

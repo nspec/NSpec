@@ -59,7 +59,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             Run(typeof(WrongSpecClass));
 
-            ExampleRunsWithException("it should not know what to do");
+            ExampleRunsWithInnerAsyncMismatchException("it should not know what to do");
         }
     }
 }

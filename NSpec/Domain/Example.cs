@@ -11,7 +11,7 @@ namespace NSpec.Domain
         {
             if (IsAsync)
             {
-                throw new ArgumentException("'it[]' cannot be set to an async delegate, please use 'itAsync[]' instead");
+                throw new AsyncMismatchException("'it[]' cannot be set to an async delegate, please use 'itAsync[]' instead");
             }
 
             action();

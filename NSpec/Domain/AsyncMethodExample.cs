@@ -32,12 +32,14 @@ namespace NSpec.Domain
         {
             if (method.ReturnType == typeof(void))
             {
-                throw new ArgumentException("'async void' method-level {0} is not supported, please use 'async Task' instead", hookName);
+                throw new AsyncMismatchException(
+                    "'async void' method-level {0} is not supported, please use 'async Task' instead".With(hookName));
             }
 
             if (method.ReturnType.IsGenericType)
             {
-                throw new ArgumentException("'async Task<T>' method-level {0} is not supported, please use 'async Task' instead", hookName);
+                throw new AsyncMismatchException(
+                    "'async Task<T>' method-level {0} is not supported, please use 'async Task' instead".With(hookName));
             }
 
             Func<Task> asyncWork = () => (Task)method.Invoke(nspec, null);
