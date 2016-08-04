@@ -9,12 +9,12 @@ namespace NSpecSpecs
     {
         public static Context Find(this ContextCollection contextCollection, string name)
         {
-            return contextCollection.AllContexts().FirstOrDefault(c => c.Name == name);
+            return contextCollection.AllContexts().SingleOrDefault(c => c.Name == name);
         }
 
         public static ExampleBase FindExample(this ContextCollection contextCollection, string name)
         {
-            return contextCollection.Examples().FirstOrDefault(e => e.Spec == name);
+            return contextCollection.Examples().SingleOrDefault(e => e.Spec == name);
         }
 
         public static void should_have_passed(this ExampleBase example)
