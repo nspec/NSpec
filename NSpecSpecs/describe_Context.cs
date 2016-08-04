@@ -315,6 +315,8 @@ namespace NSpecNUnit
             {
                 throw new KnownException("Bare code threw exception");
             }
+
+            public static string ExceptionTypeName = typeof(KnownException).Name;
         }
 
         [SetUp]
@@ -338,15 +340,13 @@ namespace NSpecNUnit
         }
 
         [Test]
-        public void it_should_add_example_named_after_context_and_exception()
+        public void it_should_add_example_named_after_exception()
         {
-            string expected = "SpecClass. method level context. sub level context. Context body throws an exception of type KnownException.";
-
             classContext.Build();
 
             string actual = classContext.AllExamples().Single().FullName();
 
-            actual.should_be(expected);
+            actual.should_contain(SpecClass.ExceptionTypeName);
         }
 
         ClassContext classContext;

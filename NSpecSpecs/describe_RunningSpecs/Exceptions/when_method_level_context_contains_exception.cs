@@ -3,6 +3,7 @@ using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
@@ -32,6 +33,8 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             }
 
             public static Exception SpecException;
+
+            public static string ExceptionTypeName = typeof(KnownException).Name;
         }
 
         [SetUp]
@@ -41,9 +44,17 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        public void example_named_after_context_should_fail_with_bare_code_exception()
+        public void synthetic_example_name_should_show_exception()
         {
-            var example = TheExample("Method context body throws an exception of type KnownException");
+            var example = FindSyntheticExample();
+
+            example.should_not_be_null();
+        }
+
+        [Test]
+        public void synthetic_example_should_fail_with_bare_code_exception()
+        {
+            var example = FindSyntheticExample();
 
             example.Exception.GetType().should_be(typeof(ContextBareCodeException));
         }
@@ -51,9 +62,22 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void bare_code_exception_should_wrap_spec_exception()
         {
-            var example = TheExample("Method context body throws an exception of type KnownException");
+            var example = FindSyntheticExample();
 
             example.Exception.InnerException.should_be(SpecClass.SpecException);
+        }
+
+        ExampleBase FindSyntheticExample()
+        {
+            var filteredExamples =
+                from exm in AllExamples()
+                let fullname = exm.FullName()
+                where fullname.Contains(SpecClass.ExceptionTypeName)
+                select exm;
+
+            var example = filteredExamples.FirstOrDefault();
+
+            return example;
         }
     }
 }
