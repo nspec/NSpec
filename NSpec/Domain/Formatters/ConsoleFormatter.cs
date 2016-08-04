@@ -62,6 +62,14 @@ namespace NSpec.Domain.Formatters
             WriteLineDelegate(result);
 
             Console.ForegroundColor = ConsoleColor.White;
+            if (!string.IsNullOrWhiteSpace(e.CapturedOutput))
+            {
+                WriteLineDelegate(indent.Times(level + 1) + "//Console output");
+                foreach (var line in e.CapturedOutput.TrimEnd('\n').Split('\n'))
+                {
+                    WriteLineDelegate(indent.Times(level + 1) + line);
+                }
+            }
         }
 
         public string FailureSummary(ContextCollection contexts)

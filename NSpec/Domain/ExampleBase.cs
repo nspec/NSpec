@@ -37,6 +37,7 @@ namespace NSpec.Domain
 
         public abstract bool IsAsync { get; }
         public TimeSpan Duration { get; set; }
+        public string CapturedOutput { get; set; }
 
         public string FullName()
         {

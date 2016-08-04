@@ -3,6 +3,7 @@ using NSpec.Domain.Formatters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -251,14 +252,22 @@ namespace NSpec.Domain
 
                 if (failFast && example.Context.HasAnyFailures()) return;
 
+                var stringWriter = new StringWriter();
+                var stdout = Console.Out;
+                var stderr = Console.Error;
+                Console.SetOut(stringWriter);
+                Console.SetError(stringWriter);
                 Exercise(example, nspec);
 
+                example.CapturedOutput = stringWriter.ToString();
+                Console.SetOut(stdout);
+                Console.SetError(stderr);
                 if (example.HasRun && !alreadyWritten)
                 {
                     WriteAncestors(formatter);
                     alreadyWritten = true;
                 }
-
+                
                 if (example.HasRun) formatter.Write(example, Level);
             }
 
