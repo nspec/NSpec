@@ -9,7 +9,7 @@ namespace NSpecSpecs
     [TestFixture]
     [Category("MethodContext")]
     [Category("BareCode")]
-    public class when_bare_code_throws
+    public class when_bare_code_throws_in_method_context
     {
         public class SpecClass : nspec
         {

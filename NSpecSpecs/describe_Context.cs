@@ -295,7 +295,71 @@ namespace NSpecNUnit
     [TestFixture]
     [Category("Context")]
     [Category("BareCode")]
-    public class when_bare_code_throws
+    public class when_bare_code_throws_in_class_context
+    {
+        public class SpecClass : nspec
+        {
+            readonly object someTestObject = DoSomethingThatThrows();
+
+            public void method_level_context()
+            {
+                before = () => { };
+
+                it["should pass"] = () => { };
+            }
+
+            static object DoSomethingThatThrows()
+            {
+                var specEx = new KnownException("Bare code threw exception");
+
+                SpecException = specEx;
+
+                throw specEx;
+            }
+
+            public static Exception SpecException;
+
+            public static string TypeFullName = typeof(SpecClass).FullName;
+            public static string ExceptionTypeName = typeof(KnownException).Name;
+        }
+
+        [SetUp]
+        public void setup()
+        {
+            var specType = typeof(SpecClass);
+
+            classContext = new ClassContext(specType);
+
+            var methodInfo = specType.GetMethod("method_level_context");
+
+            var methodContext = new MethodContext(methodInfo);
+
+            classContext.AddContext(methodContext);
+        }
+
+        [Test]
+        public void building_should_not_throw()
+        {
+            Assert.DoesNotThrow(() => classContext.Build());
+        }
+
+        [Test]
+        public void it_should_add_example_named_after_exception()
+        {
+            classContext.Build();
+
+            string actual = classContext.AllExamples().Single().FullName();
+
+            actual.should_contain(SpecClass.ExceptionTypeName);
+        }
+
+        ClassContext classContext;
+    }
+
+    [TestFixture]
+    [Category("Context")]
+    [Category("BareCode")]
+    public class when_bare_code_throws_in_nested_context
     {
         public class SpecClass : nspec
         {
