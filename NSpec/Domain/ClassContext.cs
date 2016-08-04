@@ -8,7 +8,7 @@ namespace NSpec.Domain
 {
     public class ClassContext : Context
     {
-        public override void Build(nspec instance = null)
+        public override void Build(nspec unused = null)
         {
             BuildMethodLevelBefore();
 
@@ -20,11 +20,18 @@ namespace NSpec.Domain
 
             BuildMethodLevelAfterAll();
 
-            var nspec = SpecType.CreateInstanceAs<nspec>();
+            try
+            {
+                var nspec = SpecType.CreateInstanceAs<nspec>();
 
-            nspec.tagsFilter = tagsFilter ?? new Tags();
+                nspec.tagsFilter = tagsFilter ?? new Tags();
 
-            base.Build(nspec);
+                base.Build(nspec);
+            }
+            catch (Exception ex)
+            {
+                AddFailingExample(ex);
+            }
         }
 
         public override bool IsSub(Type baseType)
@@ -125,6 +132,26 @@ namespace NSpec.Domain
             {
                 AfterAllInstanceAsync = instance => asyncAfterAlls.Do(a => new AsyncMethodLevelAfterAll(a).Run(instance));
             }
+        }
+
+        void AddFailingExample(Exception targetEx)
+        {
+            var reportedEx = (targetEx.InnerException != null)
+                ? targetEx.InnerException
+                : targetEx;
+
+            string exampleName = "Constructor in spec class '{0}' throws an exception of type '{1}'"
+                .With(SpecType.FullName, reportedEx.GetType().Name);
+
+            Action emptyAction = () => { };
+
+            var failingExample = new Example(exampleName, action: emptyAction)
+            {
+                HasRun = true,
+                Exception = new ContextBareCodeException(reportedEx),
+            };
+
+            this.AddExample(failingExample);
         }
 
         public ClassContext(Type type, Conventions conventions = null, Tags tagsFilter = null, string tags = null)

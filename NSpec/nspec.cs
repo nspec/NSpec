@@ -474,7 +474,7 @@ namespace NSpec
 
         void AddFailingExample(Exception reportedEx)
         {
-            string exampleName = "Context body throws an exception of type {0}".With(reportedEx.GetType().Name);
+            string exampleName = "Context body throws an exception of type '{0}'".With(reportedEx.GetType().Name);
 
             it[exampleName] = () => { throw new ContextBareCodeException(reportedEx); };
         }

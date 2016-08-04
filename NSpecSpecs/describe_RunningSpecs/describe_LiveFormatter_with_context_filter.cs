@@ -22,7 +22,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 context["a context with an example"] = () =>
                 {
-                    it["1 is 1"] = () => 1.Is(1);
+                    it["liveconsole: 1 is 1"] = () => 1.Is(1);
                 };
             }
 
@@ -42,7 +42,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void it_writes_the_example()
         {
-            formatter.WrittenExamples.should_contain(contexts.FindExample("1 is 1"));
+            formatter.WrittenExamples.should_contain(contexts.FindExample("liveconsole: 1 is 1"));
         }
 
         [Test]

@@ -31,7 +31,7 @@ namespace NSpec.Domain
                 ? targetEx.InnerException
                 : targetEx;
 
-            string exampleName = "Method context body throws an exception of type {0}".With(reportedEx.GetType().Name);
+            string exampleName = "Method context body throws an exception of type '{0}'".With(reportedEx.GetType().Name);
 
             instance.it[exampleName] = () => { throw new ContextBareCodeException(reportedEx); };
         }

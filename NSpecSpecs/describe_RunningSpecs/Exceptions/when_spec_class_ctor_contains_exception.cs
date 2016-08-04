@@ -1,4 +1,4 @@
-using NSpec;
+﻿using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
@@ -10,23 +10,20 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("BareCode")]
-    public class when_sub_context_contains_exception : when_running_specs
+    public class when_spec_class_ctor_contains_exception : when_running_specs
     {
         public class SpecClass : nspec
         {
+            readonly object someTestObject = DoSomethingThatThrows();
+
             public void method_level_context()
             {
-                context["sub level context"] = () =>
-                {
-                    DoSomethingThatThrows();
+                before = () => { };
 
-                    before = () => { };
-
-                    it["should pass"] = () => { };
-                };
+                it["should pass"] = () => { };
             }
 
-            void DoSomethingThatThrows()
+            static object DoSomethingThatThrows()
             {
                 var specEx = new KnownException("Bare code threw exception");
 
@@ -37,6 +34,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
             public static Exception SpecException;
 
+            public static string TypeFullName = typeof(SpecClass).FullName;
             public static string ExceptionTypeName = typeof(KnownException).Name;
         }
 
@@ -47,7 +45,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         }
 
         [Test]
-        public void synthetic_example_name_should_show_exception()
+        public void synthetic_example_name_should_show_class_and_exception()
         {
             var example = FindSyntheticExample();
 
@@ -75,7 +73,8 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             var filteredExamples =
                 from exm in AllExamples()
                 let fullname = exm.FullName()
-                where fullname.Contains(SpecClass.ExceptionTypeName)
+                where fullname.Contains(SpecClass.TypeFullName) &&
+                    fullname.Contains(SpecClass.ExceptionTypeName)
                 select exm;
 
             var example = filteredExamples.FirstOrDefault();
