@@ -242,9 +242,16 @@ namespace NSpec.Domain
             var nspec = savedInstance ?? instance;
 
             bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec);
+            var stringWriter = new StringWriter();
+            var stdout = Console.Out;
+            var stderr = Console.Error;
+            Console.SetOut(stringWriter);
+            Console.SetError(stringWriter);
 
             if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref ExceptionBeforeAll);
-
+            Console.SetOut(stdout);
+            Console.SetError(stderr);
+            this.CapturedOutput = stringWriter.ToString();
             // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
             {
@@ -252,9 +259,9 @@ namespace NSpec.Domain
 
                 if (failFast && example.Context.HasAnyFailures()) return;
 
-                var stringWriter = new StringWriter();
-                var stdout = Console.Out;
-                var stderr = Console.Error;
+                stringWriter = new StringWriter();
+                stdout = Console.Out;
+                stderr = Console.Error;
                 Console.SetOut(stringWriter);
                 Console.SetError(stringWriter);
                 Exercise(example, nspec);
@@ -275,6 +282,8 @@ namespace NSpec.Domain
 
             if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref ExceptionAfterAll);
         }
+
+        public string CapturedOutput { get; set; }
 
         /// <summary>
         /// Test execution happens in two phases: this is the second phase.
