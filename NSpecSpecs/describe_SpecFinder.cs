@@ -4,9 +4,9 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
-using Rhino.Mocks;
 using describe_OtherNameSpace;
 using describe_SomeNameSpace;
+using Moq;
 
 namespace NSpecNUnit
 {
@@ -48,7 +48,7 @@ namespace NSpecNUnit
         [Test]
         public void it_should_get_types_from_reflection()
         {
-            reflector.AssertWasCalled(r => r.GetTypesFrom());
+            reflector.Verify(r => r.GetTypesFrom());
         }
 
         [Test]
@@ -176,27 +176,27 @@ namespace NSpecNUnit
     {
         protected void GivenDllContains(params Type[] types)
         {
-            reflector = MockRepository.GenerateMock<IReflector>();
+            reflector = new Mock<IReflector>();
 
-            reflector.Stub(r => r.GetTypesFrom()).Return(types);
+            reflector.Setup(r => r.GetTypesFrom()).Returns(types);
 
             someDLL = "an nspec project dll";
 
-            finder = new SpecFinder(reflector);
+            finder = new SpecFinder(reflector.Object);
         }
 
         protected void GivenFilter(string filter)
         {
-            finder = new SpecFinder(reflector, filter);
+            finder = new SpecFinder(reflector.Object, filter);
         }
-        
+
         protected IEnumerable<Type> TheSpecClasses()
         {
             return finder.SpecClasses();
         }
 
         protected ISpecFinder finder;
-        protected IReflector reflector;
+        protected Mock<IReflector> reflector;
         protected string someDLL;
     }
 }
@@ -207,7 +207,6 @@ namespace describe_SomeNameSpace
     {
         void context_method()
         {
-            
         }
     }
 
@@ -215,7 +214,6 @@ namespace describe_SomeNameSpace
     {
         void context_method()
         {
-
         }
     }
 
@@ -223,7 +221,6 @@ namespace describe_SomeNameSpace
     {
         void context_method()
         {
-
         }
     }
 }
@@ -234,7 +231,6 @@ namespace describe_OtherNameSpace
     {
         void context_method()
         {
-
         }
     }
 }
