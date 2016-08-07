@@ -5,15 +5,15 @@ using NSpec;
 using NSpec.Domain;
 using NSpecSpecs;
 using NUnit.Framework;
-using Rhino.Mocks;
 using System.Threading.Tasks;
+using Moq;
 
 namespace NSpecNUnit.when_building_contexts
 {
     [TestFixture]
     public class describe_ContextBuilder
     {
-        protected ISpecFinder finder;
+        protected Mock<ISpecFinder> finder;
 
         protected ContextBuilder builder;
 
@@ -24,17 +24,17 @@ namespace NSpecNUnit.when_building_contexts
         [SetUp]
         public void setup_base()
         {
-            finder = MockRepository.GenerateMock<ISpecFinder>();
+            finder = new Mock<ISpecFinder>();
 
             typesForFinder = new List<Type>();
 
-            finder.Stub(f => f.SpecClasses()).IgnoreArguments().Return(typesForFinder);
+            finder.Setup(f => f.SpecClasses()).Returns(typesForFinder);
 
             DefaultConventions conventions = new DefaultConventions();
 
             conventions.Initialize();
 
-            builder = new ContextBuilder(finder, conventions);
+            builder = new ContextBuilder(finder.Object, conventions);
         }
 
         public void GivenTypes(params Type[] types)
@@ -68,7 +68,7 @@ namespace NSpecNUnit.when_building_contexts
         [Test]
         public void should_get_specs_from_specFinder()
         {
-            finder.AssertWasCalled(f => f.SpecClasses());
+            finder.Verify(f => f.SpecClasses());
         }
 
         [Test]
@@ -190,13 +190,13 @@ namespace NSpecNUnit.when_building_contexts
         [SetUp]
         public void setup()
         {
-            var finder = MockRepository.GenerateMock<ISpecFinder>();
+            var finder = new Mock<ISpecFinder>();
 
             DefaultConventions defaultConvention = new DefaultConventions();
 
             defaultConvention.Initialize();
 
-            var builder = new ContextBuilder(finder, defaultConvention);
+            var builder = new ContextBuilder(finder.Object, defaultConvention);
 
             classContext = new Context("class");
 
