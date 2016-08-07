@@ -136,36 +136,35 @@ namespace NSpecRunner
         private static void ShowUsage()
         {
             Console.WriteLine("VERSION: {0}".With(Assembly.GetExecutingAssembly().GetName().Version));
-            Console.WriteLine();
-            Console.WriteLine("Example usage:");
-            Console.WriteLine();
-            Console.WriteLine("nspecrunner path_to_spec_dll [classname]");
-            Console.WriteLine();
-            Console.WriteLine("The second parameter is optional. If supplied, only that specific test class will run.  Otherwise all spec classes in the dll will be run.");
-            Console.WriteLine();
-            Console.WriteLine("nspecrunner path_to_spec_dll --tag classname");
-            Console.WriteLine();
-            Console.WriteLine("The command above is equivalent to specifing the second parameter in: nspecrunner path_to_spec_dll [classname]");
-            Console.WriteLine();
-            Console.WriteLine("Example usage (tagging):");
-            Console.WriteLine();
-            Console.WriteLine("nspecrunner path_to_spec_dll --tag tag1,tag2,tag3");
-            Console.WriteLine();
-            Console.WriteLine("This will run all tests under tags specified.  A test class's name is automatically considered in tagging.");
-            Console.WriteLine();
-            Console.WriteLine("Example usage (failfast):");
-            Console.WriteLine();
-            Console.WriteLine("nspecrunner path_to_spec_dll [classname] --failfast");
-            Console.WriteLine();
-            Console.WriteLine("Adding --failfast to any of the commands above will stop execution immediately when a failure is encountered.");
-            Console.WriteLine();
-            Console.WriteLine("nspecrunner path_to_spec_dll [classname] --formatter=formatterClass");
-            Console.WriteLine();
-            Console.WriteLine("You can optionally specify a formatter for the output by providing the class name of the desired formatter.");
-            Console.WriteLine("nspecrunner path_to_spec_dll [classname] --formatter=formatterClass --formatterOptions:optName=optValue");
-            Console.WriteLine();
-            Console.WriteLine("You can optionally specify options for the formatter. These are passed to the formatter class. See formatters for supported options");
+            Console.WriteLine(@"
+Example usage:
 
+nspecrunner path_to_spec_dll [classname]
+
+The second parameter is optional. If supplied, only that specific test class will run.  Otherwise all spec classes in the dll will be run.
+
+nspecrunner path_to_spec_dll --tag classname
+
+The command above is equivalent to specifing the second parameter in: nspecrunner path_to_spec_dll [classname]
+
+Example usage (tagging):
+
+nspecrunner path_to_spec_dll --tag tag1,tag2,tag3
+
+This will run all tests under tags specified.  A test class's name is automatically considered in tagging.
+
+Example usage (failfast):
+
+nspecrunner path_to_spec_dll [classname] --failfast
+
+Adding --failfast to any of the commands above will stop execution immediately when a failure is encountered.
+
+nspecrunner path_to_spec_dll [classname] --formatter=formatterClass
+
+You can optionally specify a formatter for the output by providing the class name of the desired formatter.
+nspecrunner path_to_spec_dll [classname] --formatter=formatterClass --formatterOptions:optName=optValue
+
+You can optionally specify options for the formatter. These are passed to the formatter class. See formatters for supported options");
         }
     }
 }
