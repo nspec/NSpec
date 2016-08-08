@@ -345,13 +345,19 @@ namespace NSpec.Domain
         {
             if (example.ShouldSkip(nspec.tagsFilter))
             {
-                RunAndHandleException(example.Skip, nspec, ref example.Exception);
+                return;
+            }
+
+            example.HasRun = true;
+
+            if (example.Pending)
+            {
+                RunAndHandleException(example.RunPending, nspec, ref example.Exception);
 
                 return;
             }
 
-            var sw = new Stopwatch();
-            sw.Start();
+            var stopWatch = example.StartTiming();
 
             RunAndHandleException(RunBefores, nspec, ref Exception);
 
@@ -361,8 +367,7 @@ namespace NSpec.Domain
 
             bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref Exception);
 
-            sw.Stop();
-            example.Duration = sw.Elapsed;
+            example.StopTiming(stopWatch);
 
             // when an expected exception is thrown and is set to be cleared by 'expect<>',
             // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace NSpec.Domain
@@ -32,8 +33,7 @@ namespace NSpec.Domain
         }
 
         public abstract void Run(nspec nspec);
-
-        public abstract void Skip(nspec nspec);
+        public abstract void RunPending(nspec nspec);
 
         public abstract bool IsAsync { get; }
         public TimeSpan Duration { get; set; }
@@ -46,6 +46,21 @@ namespace NSpec.Domain
         public bool Failed()
         {
             return Exception != null;
+        }
+
+        public Stopwatch StartTiming()
+        {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            return stopWatch;
+        }
+
+        public void StopTiming(Stopwatch stopWatch)
+        {
+            stopWatch.Stop();
+
+            Duration = stopWatch.Elapsed;
         }
 
         public void AssignProperException(Exception contextException)
@@ -61,22 +76,12 @@ namespace NSpec.Domain
 
         public bool ShouldSkip(Tags tagsFilter)
         {
-            // TODO try to remove side effects from here (HasRun = true)
-
-            if (tagsFilter.ShouldSkip(Tags)) return true;
-
-            HasRun = true;
-
-            return Pending;
+            return tagsFilter.ShouldSkip(Tags);
         }
 
         public bool ShouldNotSkip(Tags tagsFilter)
         {
-            //really should be the opposite of ShouldSkip.
-            //but unfortunately calling ShouldSkip has side effects
-            //see the HasRun assignment. calling ShouldSkip here thus
-            //has side effects that fail some tests.
-            return false == tagsFilter.ShouldSkip(Tags);
+            return !tagsFilter.ShouldSkip(Tags);
         }
 
         public override string ToString()

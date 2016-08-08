@@ -28,7 +28,6 @@ namespace NSpecRunner
                 var formatterOptions = GetFormatterOptions(args);
                 var formatter = FindFormatter(formatterClassName, formatterOptions);
 
-
                 args = RemoveOptionsAndSwitches(args);
 
                 if (args.Length > 1)

@@ -25,7 +25,7 @@ namespace NSpec.Domain
             this.method = method;
         }
 
-        void AddFailingExample(nspec instance, Exception targetEx)
+        static void AddFailingExample(nspec instance, Exception targetEx)
         {
             var reportedEx = (targetEx.InnerException != null)
                 ? targetEx.InnerException

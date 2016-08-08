@@ -16,7 +16,7 @@ namespace NSpec.Domain
             this.method = method;
         }
 
-        public override void Skip(nspec nspec)
+        public override void RunPending(nspec nspec)
         {
             // don't run example body, as this example is being skipped;
             // and no consistency check to perform on passed example body

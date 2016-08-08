@@ -37,6 +37,16 @@ namespace NSpecSpecs.WhenRunningSpecs
         }
 
         [Test]
+        public void duration_is_set_after_run()
+        {
+            Run(typeof(SpecClass));
+
+            var ex = TheExample("it changes status after run");
+
+            ex.Duration.should_be_greater_than(TimeSpan.Zero);
+        }
+
+        [Test]
         public void passing_status_is_passed_when_it_succeeds()
         {
             Run(typeof(SpecClass));

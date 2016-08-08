@@ -29,7 +29,7 @@ namespace NSpecSpecs
             throw new NotImplementedException();
         }
 
-        public override void Skip(nspec nspec)
+        public override void RunPending(nspec nspec)
         {
             throw new NotImplementedException();
         }
