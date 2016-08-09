@@ -69,7 +69,13 @@ namespace NSpecSpecs
                   ""),
          TestCase(typeof(describe_focus_output),
                   new [] { typeof(describe_focus) },
-                  "focus")]
+                  "focus"),
+         TestCase(typeof(describe_output_capture_output),
+                    new[] {typeof(describe_output_capture)},
+                    ""),
+         TestCase(typeof(describe_context_output_capture_output),
+                    new[] { typeof(describe_context_output_capture) },
+                    "")]
 
         public void output_verification(Type output, Type []testClasses, string tags)
         {

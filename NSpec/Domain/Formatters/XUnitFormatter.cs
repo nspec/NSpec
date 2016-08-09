@@ -75,6 +75,7 @@ namespace NSpec.Domain.Formatters
 
             xml.WriteAttributeString("classname", className.ToString());
             xml.WriteAttributeString("name", testName);
+            xml.WriteAttributeString("time", example.Duration.TotalSeconds.ToString("F2"));
 
             if (example.Exception != null)
             {
@@ -84,7 +85,12 @@ namespace NSpec.Domain.Formatters
                 xml.WriteString(example.Exception.ToString());
                 xml.WriteEndElement();
             }
-
+            if (!string.IsNullOrWhiteSpace(example.CapturedOutput))
+            {
+                xml.WriteStartElement("system-out");
+                xml.WriteCData("\n" + example.CapturedOutput);
+                xml.WriteEndElement();
+            }
             xml.WriteEndElement();
         }
 

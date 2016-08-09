@@ -29,6 +29,14 @@ namespace NSpec.Domain.Formatters
             if (context.Level == 1) WriteLineDelegate("");
 
             WriteLineDelegate(indent.Times(context.Level - 1) + context.Name);
+            if (!string.IsNullOrEmpty(context.CapturedOutput))
+            {
+                WriteLineDelegate(indent.Times(context.Level - 1) + "//Console output");
+                foreach (var l in context.CapturedOutput.TrimEnd('\n').Split('\n'))
+                {
+                    WriteLineDelegate(indent.Times(context.Level - 1) + l);
+                }
+            }
         }
 
         public void Write(ExampleBase e, int level)
@@ -62,6 +70,14 @@ namespace NSpec.Domain.Formatters
             WriteLineDelegate(result);
 
             Console.ForegroundColor = ConsoleColor.White;
+            if (!string.IsNullOrWhiteSpace(e.CapturedOutput))
+            {
+                WriteLineDelegate(indent.Times(level + 1) + "//Console output");
+                foreach (var line in e.CapturedOutput.TrimEnd('\n').Split('\n'))
+                {
+                    WriteLineDelegate(indent.Times(level + 1) + line);
+                }
+            }
         }
 
         public string FailureSummary(ContextCollection contexts)
