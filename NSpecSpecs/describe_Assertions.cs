@@ -89,49 +89,49 @@ namespace NSpecSpecs
             200.0.should_be_close_to(200.5, .5);
         }
 
-		[Test]
-		public void given_an_empty_string_it_should_be_empty()
-		{
-			"".should_be_empty();
-			((string)null).should_be_empty();
-		}
+        [Test]
+        public void given_an_empty_string_it_should_be_empty()
+        {
+            "".should_be_empty();
+            ((string)null).should_be_empty();
+        }
 
-		[Test]
-		public void given_a_nonempty_string_it_should_not_be_empty()
-		{
-			"a".should_not_be_empty();
-		}
+        [Test]
+        public void given_a_nonempty_string_it_should_not_be_empty()
+        {
+            "a".should_not_be_empty();
+        }
 
-		[Test]
-		public void given_a_null_class_instance_it_should_be_null()
-		{
-			((string)null).should_be_null();
-			((List<int>)null).should_be_null();
-		}
+        [Test]
+        public void given_a_null_class_instance_it_should_be_null()
+        {
+            ((string)null).should_be_null();
+            ((List<int>)null).should_be_null();
+        }
 
-		[Test]
-		public void given_a_non_null_class_instance_it_should_not_be_null()
-		{
-			((string)"").should_not_be_null();
-			(new List<int>()).should_not_be_null();
-		}
+        [Test]
+        public void given_a_non_null_class_instance_it_should_not_be_null()
+        {
+            ((string)"").should_not_be_null();
+            (new List<int>()).should_not_be_null();
+        }
 
-		[Test]
-		public void given_a_null_nullable_struct_it_should_be_null()
-		{
-			int? i = null;
-			Nullable<decimal> j = null;
-			i.should_be_null();
-			j.should_be_null();
-		}
+        [Test]
+        public void given_a_null_nullable_struct_it_should_be_null()
+        {
+            int? i = null;
+            Nullable<decimal> j = null;
+            i.should_be_null();
+            j.should_be_null();
+        }
 
-		[Test]
-		public void given_a_null_nullable_struct_it_should_not_be_null()
-		{
-			int? i = 2;
-			Nullable<decimal> j = 3;
-			i.should_not_be_null();
-			j.should_not_be_null();
-		}
+        [Test]
+        public void given_a_null_nullable_struct_it_should_not_be_null()
+        {
+            int? i = 2;
+            Nullable<decimal> j = 3;
+            i.should_not_be_null();
+            j.should_not_be_null();
+        }
     }
 }

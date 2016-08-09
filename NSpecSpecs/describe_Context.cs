@@ -6,7 +6,7 @@ using NUnit.Framework;
 using NSpecSpecs;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
 
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     [TestFixture]
     [Category("Context")]

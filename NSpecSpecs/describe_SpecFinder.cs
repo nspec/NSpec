@@ -8,7 +8,7 @@ using describe_OtherNameSpace;
 using describe_SomeNameSpace;
 using Moq;
 
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     public class SpecClass : nspec
     {

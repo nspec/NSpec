@@ -4,7 +4,7 @@ using NSpecSpecs;
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace NSpecNUnit
+namespace NSpecSpecs
 {
     [TestFixture]
     [Category("Example")]
