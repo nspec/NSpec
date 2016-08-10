@@ -12,7 +12,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [Category("BareCode")]
     public class when_sub_context_contains_exception : when_running_specs
     {
-        public class SpecClass : nspec
+        public class SubContextThrowsSpecClass : nspec
         {
             public void method_level_context()
             {
@@ -43,7 +43,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
-            Run(typeof(SpecClass));
+            Run(typeof(SubContextThrowsSpecClass));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var example = FindSyntheticExample();
 
-            example.Exception.InnerException.should_be(SpecClass.SpecException);
+            example.Exception.InnerException.should_be(SubContextThrowsSpecClass.SpecException);
         }
 
         ExampleBase FindSyntheticExample()
@@ -75,7 +75,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             var filteredExamples =
                 from exm in AllExamples()
                 let fullname = exm.FullName()
-                where fullname.Contains(SpecClass.ExceptionTypeName)
+                where fullname.Contains(SubContextThrowsSpecClass.ExceptionTypeName)
                 select exm;
 
             var example = filteredExamples.FirstOrDefault();

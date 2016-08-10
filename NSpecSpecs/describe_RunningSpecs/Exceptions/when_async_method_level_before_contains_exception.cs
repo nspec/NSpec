@@ -13,7 +13,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [Category("Async")]
     public class when_async_method_level_before_contains_exception : when_running_specs
     {
-        class SpecClass : nspec
+        class AsyncMethodBeforeThrowsSpecClass : nspec
         {
             async Task before_each()
             {
@@ -31,7 +31,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
-            Run(typeof(SpecClass));
+            Run(typeof(AsyncMethodBeforeThrowsSpecClass));
         }
 
         [Test]

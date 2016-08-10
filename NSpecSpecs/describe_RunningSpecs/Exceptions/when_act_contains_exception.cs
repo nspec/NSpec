@@ -10,7 +10,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [Category("RunningSpecs")]
     public class when_act_contains_exception : when_running_specs
     {
-        private class SpecClass : nspec
+        private class ActThrowsSpecClass : nspec
         {
             void method_level_context()
             {
@@ -53,7 +53,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
-            Run(typeof(SpecClass));
+            Run(typeof(ActThrowsSpecClass));
         }
 
         [Test]

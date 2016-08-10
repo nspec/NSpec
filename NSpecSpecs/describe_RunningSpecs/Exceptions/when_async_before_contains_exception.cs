@@ -12,7 +12,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [Category("Async")]
     public class when_async_before_contains_exception : when_running_specs
     {
-        class SpecClass : nspec
+        class AsyncBeforeThrowsSpecClass : nspec
         {
             void method_level_context()
             {
@@ -59,7 +59,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
-            Run(typeof(SpecClass));
+            Run(typeof(AsyncBeforeThrowsSpecClass));
         }
 
         [Test]

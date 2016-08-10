@@ -11,7 +11,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [Category("RunningSpecs")]
     public class when_method_level_after_all_contains_exception : when_running_specs
     {
-        class SpecClass : nspec
+        class MethodAfterAllThrowsSpecClass : nspec
         {
             void after_all()
             {
@@ -32,7 +32,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
-            Run(typeof(SpecClass));
+            Run(typeof(MethodAfterAllThrowsSpecClass));
         }
 
         [Test]

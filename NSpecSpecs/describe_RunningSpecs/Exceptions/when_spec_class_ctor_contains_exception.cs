@@ -12,7 +12,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [Category("BareCode")]
     public class when_spec_class_ctor_contains_exception : when_running_specs
     {
-        public class SpecClass : nspec
+        public class CtorThrowsSpecClass : nspec
         {
             readonly object someTestObject = DoSomethingThatThrows();
 
@@ -34,14 +34,14 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
             public static Exception SpecException;
 
-            public static string TypeFullName = typeof(SpecClass).FullName;
+            public static string TypeFullName = typeof(CtorThrowsSpecClass).FullName;
             public static string ExceptionTypeName = typeof(KnownException).Name;
         }
 
         [SetUp]
         public void setup()
         {
-            Run(typeof(SpecClass));
+            Run(typeof(CtorThrowsSpecClass));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var example = FindSyntheticExample();
 
-            example.Exception.InnerException.should_be(SpecClass.SpecException);
+            example.Exception.InnerException.should_be(CtorThrowsSpecClass.SpecException);
         }
 
         ExampleBase FindSyntheticExample()
@@ -73,8 +73,8 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             var filteredExamples =
                 from exm in AllExamples()
                 let fullname = exm.FullName()
-                where fullname.Contains(SpecClass.TypeFullName) &&
-                    fullname.Contains(SpecClass.ExceptionTypeName)
+                where fullname.Contains(CtorThrowsSpecClass.TypeFullName) &&
+                    fullname.Contains(CtorThrowsSpecClass.ExceptionTypeName)
                 select exm;
 
             var example = filteredExamples.FirstOrDefault();
