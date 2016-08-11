@@ -30,6 +30,8 @@ namespace NSpec.Domain
             }
             catch (Exception ex)
             {
+                cantCreateInstance = true;
+
                 AddFailingExample(ex);
             }
         }
@@ -147,11 +149,24 @@ namespace NSpec.Domain
 
             var failingExample = new Example(exampleName, action: emptyAction)
             {
-                HasRun = true,
                 Exception = new ContextBareCodeException(reportedEx),
             };
 
             this.AddExample(failingExample);
+        }
+
+        public override void Run(Formatters.ILiveFormatter formatter, bool failFast, nspec instance = null)
+        {
+            if (cantCreateInstance)
+            {
+                // flag the one and only failing example as being run;
+                // nothing else is needed: no parents, no childs, no before/after hooks
+                Examples.Single().HasRun = true;
+            }
+            else
+            {
+                base.Run(formatter, failFast, instance);
+            }
         }
 
         public ClassContext(Type type, Conventions conventions = null, Tags tagsFilter = null, string tags = null)
@@ -174,5 +189,6 @@ namespace NSpec.Domain
         Tags tagsFilter;
         List<Type> classHierarchyToClass = new List<Type>();
         Conventions conventions;
+        bool cantCreateInstance = false;
     }
 }
