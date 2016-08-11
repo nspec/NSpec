@@ -46,7 +46,6 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bug\app_config_detection.cs" />
     <Compile Include="Bug\describe_after.cs" />
     <Compile Include="Bug\describe_context_stack_trace.cs" />
     <Compile Include="Bug\describe_failing_deserialization.cs" />
@@ -100,9 +99,6 @@
       <Project>{36862628-1F0C-4EA5-8963-C79BAF958DC1}</Project>
       <Name>NSpec</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
