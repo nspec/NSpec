@@ -2,6 +2,7 @@
 using System.Linq;
 using NSpec;
 using NUnit.Framework;
+using NSpecSpecs.describe_RunningSpecs.Exceptions;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -43,8 +44,8 @@ namespace NSpecSpecs.WhenRunningSpecs
         class SpecClass : nspec
         {
             public static string output = string.Empty;
-            public static Action MethodLevelBefore = () => { throw new Exception("this should not run."); };
-            public static Action SubContextBefore = () => { throw new Exception("this should not run."); };
+            public static Action MethodLevelBefore = () => { throw new KnownException("this should not run."); };
+            public static Action SubContextBefore = () => { throw new KnownException("this should not run."); };
 
             void method_level_context()
             {

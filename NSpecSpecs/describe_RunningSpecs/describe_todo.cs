@@ -4,6 +4,7 @@ using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using NSpecSpecs.describe_RunningSpecs.Exceptions;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -213,7 +214,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void method_level_context()
             {
-                before = () => { throw new Exception(); };
+                before = () => { throw new KnownException(); };
 
                 it["should be pending"] = todo;
             }

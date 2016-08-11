@@ -28,7 +28,7 @@ namespace NSpecSpecs
         {
             var child = new Context("child");
 
-            child.AddExample(new ExampleBaseWrap { Exception = new Exception() });
+            child.AddExample(new ExampleBaseWrap { Exception = new KnownException() });
 
             var parent = new Context("parent");
 
