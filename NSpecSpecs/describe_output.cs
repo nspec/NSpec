@@ -90,22 +90,38 @@ namespace NSpecSpecs
             var runner = new ContextRunner(tagsFilter, consoleFormatter, false);
             runner.Run(builder.Contexts().Build());
 
-            var expectedString = ScrubTimes(ScrubStackTrace(ScrubNewLines(output.GetField("Output").GetValue(null) as string)));
-            var actualString = ScrubTimes(ScrubStackTrace(String.Join("\n", actual)).Trim());
+            var expectedString = GetExpectedOutput(output)
+                .ScrubNewLines()
+                .ScrubStackTrace()
+                .ScrubTimes();
+
+            var actualString = String.Join("\n", actual)
+                .ScrubStackTrace()
+                .Trim()
+                .ScrubTimes();
+
             actualString.should_be(expectedString);
         }
 
-        static string ScrubNewLines(string s)
+        private static string GetExpectedOutput(Type output)
+        {
+            return output.GetField("Output").GetValue(null) as string;
+        }
+    }
+
+    public static class OutputStringExtensions
+    {
+        public static string ScrubNewLines(this string s)
         {
             return s.Trim().Replace("\r\n", "\n").Replace("\r", "");
         }
 
-        static string ScrubTimes(string s)
+        public static string ScrubTimes(this string s)
         {
-            return Regex.Replace(s, @" \(.*ms\)", "");
+            return Regex.Replace(s, @" \(.*(ms|s)\)", "");
         }
 
-        static string ScrubStackTrace(string s)
+        public static string ScrubStackTrace(this string s)
         {
             // Sort of a patch here: it could actually be generalized to more languages
 
