@@ -48,6 +48,7 @@ namespace NSpec.Domain.Formatters
             var failureMessage = noFailure ? "" : " - FAILED - {0}".With(e.Exception.CleanMessage());
 
             var whiteSpace = indent.Times(level);
+
             string duration;
             if (e.Duration.TotalMinutes > 1)
             {
@@ -138,14 +139,9 @@ namespace NSpec.Domain.Formatters
             return summary;
         }
 
-        public string FocusNotification(ContextCollection contexts)
-        {
-            return "";
-        }
-
         string indent = "  ";
 
-        string[] internalNameSpaces = new[]
+        string[] internalNameSpaces =
         {
             "NSpec.Domain",
             "NSpec.AssertionExtensions",
