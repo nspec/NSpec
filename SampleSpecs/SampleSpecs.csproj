@@ -72,6 +72,7 @@
     <Compile Include="WebSite\describe_changing_failure_exception.cs" />
     <Compile Include="WebSite\describe_class_level.cs" />
     <Compile Include="Demo\decribe_TicTacToeGame.cs" />
+    <Compile Include="WebSite\describe_context_output_capture.cs" />
     <Compile Include="WebSite\describe_exception.cs" />
     <Compile Include="WebSite\describe_async_helpers.cs" />
     <Compile Include="WebSite\describe_helpers.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="WebSite\describe_inheritance.cs" />
     <Compile Include="Demo\describe_Math.cs" />
     <Compile Include="WebSite\describe_changing_stacktrace_message.cs" />
+    <Compile Include="WebSite\describe_output_capture.cs" />
     <Compile Include="WebSite\describe_pending.cs" />
     <Compile Include="Demo\describe_PrimeFactors.cs" />
     <Compile Include="WebSite\describe_shared_behavior.cs" />
