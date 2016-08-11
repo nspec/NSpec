@@ -8,7 +8,7 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 using Moq;
 
-namespace NSpecSpecs.when_building_contexts
+namespace NSpecSpecs
 {
     [TestFixture]
     public class describe_ContextBuilder

@@ -242,6 +242,7 @@ namespace NSpec.Domain
             var nspec = savedInstance ?? instance;
 
             bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec);
+
             var stringWriter = new StringWriter();
             var stdout = Console.Out;
             var stderr = Console.Error;
@@ -249,9 +250,11 @@ namespace NSpec.Domain
             Console.SetError(stringWriter);
 
             if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref ExceptionBeforeAll);
+
             Console.SetOut(stdout);
             Console.SetError(stderr);
             this.CapturedOutput = stringWriter.ToString();
+
             // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
             {
@@ -264,17 +267,19 @@ namespace NSpec.Domain
                 stderr = Console.Error;
                 Console.SetOut(stringWriter);
                 Console.SetError(stringWriter);
+
                 Exercise(example, nspec);
 
-                example.CapturedOutput = stringWriter.ToString();
                 Console.SetOut(stdout);
                 Console.SetError(stderr);
+                example.CapturedOutput = stringWriter.ToString();
+
                 if (example.HasRun && !alreadyWritten)
                 {
                     WriteAncestors(formatter);
                     alreadyWritten = true;
                 }
-                
+
                 if (example.HasRun) formatter.Write(example, Level);
             }
 

@@ -85,12 +85,14 @@ namespace NSpec.Domain.Formatters
                 xml.WriteString(example.Exception.ToString());
                 xml.WriteEndElement();
             }
+
             if (!string.IsNullOrWhiteSpace(example.CapturedOutput))
             {
                 xml.WriteStartElement("system-out");
                 xml.WriteCData("\n" + example.CapturedOutput);
                 xml.WriteEndElement();
             }
+
             xml.WriteEndElement();
         }
 
