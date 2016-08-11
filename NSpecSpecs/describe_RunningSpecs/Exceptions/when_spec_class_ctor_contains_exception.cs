@@ -47,15 +47,17 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void synthetic_example_name_should_show_class_and_exception()
         {
-            var example = FindSyntheticExample();
+            var example = AllExamples().Single();
 
-            example.should_not_be_null();
+            example.FullName().should_contain(CtorThrowsSpecClass.TypeFullName);
+
+            example.FullName().should_contain(CtorThrowsSpecClass.ExceptionTypeName);
         }
 
         [Test]
         public void synthetic_example_should_fail_with_bare_code_exception()
         {
-            var example = FindSyntheticExample();
+            var example = AllExamples().Single();
 
             example.Exception.GetType().should_be(typeof(ContextBareCodeException));
         }
@@ -63,23 +65,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void bare_code_exception_should_wrap_spec_exception()
         {
-            var example = FindSyntheticExample();
+            var example = AllExamples().Single();
 
             example.Exception.InnerException.should_be(CtorThrowsSpecClass.SpecException);
-        }
-
-        ExampleBase FindSyntheticExample()
-        {
-            var filteredExamples =
-                from exm in AllExamples()
-                let fullname = exm.FullName()
-                where fullname.Contains(CtorThrowsSpecClass.TypeFullName) &&
-                    fullname.Contains(CtorThrowsSpecClass.ExceptionTypeName)
-                select exm;
-
-            var example = filteredExamples.FirstOrDefault();
-
-            return example;
         }
     }
 }
