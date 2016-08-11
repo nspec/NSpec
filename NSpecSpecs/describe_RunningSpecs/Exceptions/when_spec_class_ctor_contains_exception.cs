@@ -12,7 +12,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
     [Category("BareCode")]
     public class when_spec_class_ctor_contains_exception : when_running_specs
     {
-        public class SpecClass : nspec
+        public class CtorThrowsSpecClass : nspec
         {
             readonly object someTestObject = DoSomethingThatThrows();
 
@@ -34,28 +34,30 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
             public static Exception SpecException;
 
-            public static string TypeFullName = typeof(SpecClass).FullName;
+            public static string TypeFullName = typeof(CtorThrowsSpecClass).FullName;
             public static string ExceptionTypeName = typeof(KnownException).Name;
         }
 
         [SetUp]
         public void setup()
         {
-            Run(typeof(SpecClass));
+            Run(typeof(CtorThrowsSpecClass));
         }
 
         [Test]
         public void synthetic_example_name_should_show_class_and_exception()
         {
-            var example = FindSyntheticExample();
+            var example = AllExamples().Single();
 
-            example.should_not_be_null();
+            example.FullName().should_contain(CtorThrowsSpecClass.TypeFullName);
+
+            example.FullName().should_contain(CtorThrowsSpecClass.ExceptionTypeName);
         }
 
         [Test]
         public void synthetic_example_should_fail_with_bare_code_exception()
         {
-            var example = FindSyntheticExample();
+            var example = AllExamples().Single();
 
             example.Exception.GetType().should_be(typeof(ContextBareCodeException));
         }
@@ -63,23 +65,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void bare_code_exception_should_wrap_spec_exception()
         {
-            var example = FindSyntheticExample();
+            var example = AllExamples().Single();
 
-            example.Exception.InnerException.should_be(SpecClass.SpecException);
-        }
-
-        ExampleBase FindSyntheticExample()
-        {
-            var filteredExamples =
-                from exm in AllExamples()
-                let fullname = exm.FullName()
-                where fullname.Contains(SpecClass.TypeFullName) &&
-                    fullname.Contains(SpecClass.ExceptionTypeName)
-                select exm;
-
-            var example = filteredExamples.FirstOrDefault();
-
-            return example;
+            example.Exception.InnerException.should_be(CtorThrowsSpecClass.SpecException);
         }
     }
 }

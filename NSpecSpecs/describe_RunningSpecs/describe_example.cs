@@ -1,6 +1,7 @@
 ﻿using System;
 using NSpec;
 using NUnit.Framework;
+using NSpecSpecs.describe_RunningSpecs.Exceptions;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -20,7 +21,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             void it_fails()
             {
-                throw new Exception();
+                throw new KnownException();
             }
         }
 

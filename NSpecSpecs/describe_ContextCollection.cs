@@ -3,6 +3,7 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
+using NSpecSpecs.describe_RunningSpecs.Exceptions;
 
 namespace NSpecSpecs
 {
@@ -23,7 +24,7 @@ namespace NSpecSpecs
 
             context.AddExample(new ExampleBaseWrap { Pending = true });
 
-            context.AddExample(new ExampleBaseWrap { Exception = new Exception() });
+            context.AddExample(new ExampleBaseWrap { Exception = new KnownException() });
 
             context.Tags.Add(Tags.Focus);
 
