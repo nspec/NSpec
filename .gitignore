@@ -30,6 +30,7 @@ packages/*
 icarus.gallio
 _site
 *.#*
+**/*~HEAD
 TAGS
 **/TestResults/
 **/.vscode/
