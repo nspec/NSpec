@@ -25,7 +25,7 @@ public static class describe_changing_stacktrace_message_output
     public static string Output = @"
 describe changing stacktrace message
   given a context that throws an exception
-    the stack trace can be altered to provide more information - FAILED - An exception was thrown
+    the stack trace can be altered to provide more information (__ms) - FAILED - An exception was thrown
 
 **** FAILURES ****
 

@@ -1,5 +1,7 @@
 ﻿using NSpec;
 
+// TODO rename containing folder. Consider wrapping in namespace
+
 [Tag("describe_act")]
 public class describe_batman_sound_effects_as_text : nspec
 {
@@ -30,9 +32,9 @@ public static class describe_batman_sound_effects_as_text_output
 describe batman sound effects as text
   they are loud and emphatic
     given bam
-      should be BAM!!!
+      should be BAM!!! (__ms)
     given whack
-      should be WHACK!!!
+      should be WHACK!!! (__ms)
 
 2 Examples, 0 Failed, 0 Pending
 ";

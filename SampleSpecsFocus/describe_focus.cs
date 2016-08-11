@@ -16,7 +16,7 @@ public static class describe_focus_output
 {
     public static string Output = @"
 describe focus
-  it is run
+  it is run (__ms)
 
 1 Examples, 0 Failed, 0 Pending
 

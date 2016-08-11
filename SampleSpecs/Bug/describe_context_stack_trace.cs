@@ -30,7 +30,7 @@ namespace SampleSpecs.Bug
         public static string Output = @"
 describe context stack trace
   exception thrown in act
-    is true - FAILED - Expected: True, But was: False
+    is true (__ms) - FAILED - Expected: True, But was: False
 
 **** FAILURES ****
 

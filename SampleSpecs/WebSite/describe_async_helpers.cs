@@ -32,9 +32,9 @@ public static class describe_async_helpers_output
 describe async helpers
   when making tea
     that is 210 degrees
-      should be hot
+      should be hot (__ms)
     that is 90 degrees
-      should be cold
+      should be cold (__ms)
 
 2 Examples, 0 Failed, 0 Pending
 ";

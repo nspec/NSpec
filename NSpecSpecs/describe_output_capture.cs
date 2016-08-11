@@ -3,6 +3,8 @@ using NSpec;
 
 namespace NSpecSpecs
 {
+    // TODO move to SampleSpecs with the others
+
     public class describe_output_capture : nspec
     {
         void output_capture()
@@ -19,7 +21,7 @@ namespace NSpecSpecs
         public static string Output = @"
 describe output capture
   output capture
-    should capture output
+    should capture output (__ms)
       //Console output
       this is console output
 

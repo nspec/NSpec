@@ -23,7 +23,7 @@ public static class describe_changing_failure_exception_output
     public static string Output = @"
 describe changing failure exception
   given a context that throws an exception
-    the exception can be changed to provide out of proc information - FAILED - A more detailed exception message.
+    the exception can be changed to provide out of proc information (__ms) - FAILED - A more detailed exception message.
 
 **** FAILURES ****
 

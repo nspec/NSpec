@@ -3,6 +3,8 @@ using NSpec;
 
 namespace NSpecSpecs
 {
+    // TODO move to SampleSpecs with the others
+
     public class describe_context_output_capture : nspec
     {
         void before_all()
@@ -37,7 +39,7 @@ this is before all
   output capture
   //Console output
   this is context before all
-    should capture output
+    should capture output (__ms)
       //Console output
       this is before each
       this is console output

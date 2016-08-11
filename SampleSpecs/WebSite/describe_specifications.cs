@@ -27,17 +27,17 @@ public static class describe_specifications_output
     public static string Output = @"
 describe specifications
   when creating specifications
-    true should be false - FAILED - Expected: False, But was: True
-    enumerable should be empty
-    enumerable should contain 1
-    enumerable should not contain 1 - FAILED - Expected: not collection containing 1, But was: < 1 >
-    1 should be 2 - FAILED - Expected: 2, But was: 1
-    1 should be 1
-    1 should not be 1 - FAILED - Expected: not 1, But was: 1
-    1 should not be 2
-    """" should not be null
-    some object should not be null - FAILED - Expected: not null, But was: null
-    ninja should not be pirate
+    true should be false (__ms) - FAILED - Expected: False, But was: True
+    enumerable should be empty (__ms)
+    enumerable should contain 1 (__ms)
+    enumerable should not contain 1 (__ms) - FAILED - Expected: not collection containing 1, But was: < 1 >
+    1 should be 2 (__ms) - FAILED - Expected: 2, But was: 1
+    1 should be 1 (__ms)
+    1 should not be 1 (__ms) - FAILED - Expected: not 1, But was: 1
+    1 should not be 2 (__ms)
+    """" should not be null (__ms)
+    some object should not be null (__ms) - FAILED - Expected: not null, But was: null
+    ninja should not be pirate (__ms)
 
 **** FAILURES ****
 

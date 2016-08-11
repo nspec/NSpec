@@ -32,7 +32,7 @@ public static class given_the_sequence_continues_with_2_output
 given the sequence starts with 1
   given the sequence continues with 2
     given the sequence continues with 3
-      sequence should be ""123""
+      sequence should be ""123"" (__ms)
 
 1 Examples, 0 Failed, 0 Pending
 ";

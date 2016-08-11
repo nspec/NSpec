@@ -26,7 +26,7 @@ public static class describe_class_level_output
 {
     public static string Output = @"
 describe class level
-  specify given befores and acts run in the correct sequence
+  specify given befores and acts run in the correct sequence (__ms)
 
 1 Examples, 0 Failed, 0 Pending
 ";

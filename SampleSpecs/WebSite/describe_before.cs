@@ -18,8 +18,8 @@ public static class describe_before_output
     public static string Output = @"
 describe before
   they run before each example
-    number should be 2
-    number should be 1
+    number should be 2 (__ms)
+    number should be 1 (__ms)
 
 2 Examples, 0 Failed, 0 Pending
 ";

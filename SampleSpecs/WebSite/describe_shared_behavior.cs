@@ -60,15 +60,15 @@ public static class describe_ICollection_output
     public static string Output = @"
 describe LinkedList
   adding to collection
-    contains the entry
+    contains the entry (__ms)
   specific actions
-    can add an item at the begining with ease
+    can add an item at the begining with ease (__ms)
 
 describe List
   adding to collection
-    contains the entry
+    contains the entry (__ms)
   specific actions
-    an item can be referenced by index
+    an item can be referenced by index (__ms)
 
 4 Examples, 0 Failed, 0 Pending
 ";

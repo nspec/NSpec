@@ -13,7 +13,7 @@ public static class my_first_spec_output
     public static string Output = @"
 my first spec
   given the world has not come to an end
-    Hello World should be Hello World
+    Hello World should be Hello World (__ms)
 
 1 Examples, 0 Failed, 0 Pending
 ";
