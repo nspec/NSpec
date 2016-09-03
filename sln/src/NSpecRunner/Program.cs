@@ -143,11 +143,12 @@ nspecrunner path_to_spec_dll [classname]
 .NET Core:
 dotnet path_to\NSpecRunner.dll path_to_spec_dll [classname]
 
-The second parameter is optional. If supplied, only that specific test class will run.  Otherwise all spec classes in the dll will be run.
+The `classname` parameter is optional. If supplied, only that specific test class will be run.  Otherwise all spec classes in the dll will be run.
+From here one, when not specified, .NET Core syntax follows same rules as .NET Framework syntax.
 
 nspecrunner path_to_spec_dll --tag classname
 
-The command above is equivalent to specifing the second parameter in: nspecrunner path_to_spec_dll [classname]
+The command above is equivalent to specifing the `classname` parameter in: nspecrunner path_to_spec_dll [classname].
 
 Example usage (tagging):
 
