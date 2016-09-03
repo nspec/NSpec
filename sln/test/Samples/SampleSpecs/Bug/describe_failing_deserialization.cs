@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !NETSTANDARD1_6
+
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using NSpec;
@@ -45,3 +47,4 @@ namespace SampleSpecs.Bug
         }
     }
 }
+#endif

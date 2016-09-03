@@ -5,6 +5,7 @@ using NSpec.Domain;
 using NUnit.Framework;
 using NSpecSpecs;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
+using System.Reflection;
 
 namespace NSpecSpecs
 {
@@ -53,7 +54,6 @@ namespace NSpecSpecs
         public class parent_act : nspec
         {
             public string actResult;
-
             void act_each()
             {
                 actResult = "parent";
@@ -102,7 +102,6 @@ namespace NSpecSpecs
         public class parent_before : nspec
         {
             public string beforeResult;
-
             void before_each()
             {
                 beforeResult = "parent";
@@ -157,7 +156,6 @@ namespace NSpecSpecs
         public class parent_before : nspec
         {
             public string beforeResult;
-
             void before_each()
             {
                 beforeResult = "parent";
@@ -350,7 +348,7 @@ namespace NSpecSpecs
 
             classContext = new ClassContext(specType);
 
-            var methodInfo = specType.GetMethod("method_level_context");
+            var methodInfo = specType.GetTypeInfo().GetMethod("method_level_context");
 
             var methodContext = new MethodContext(methodInfo);
 
@@ -410,7 +408,7 @@ namespace NSpecSpecs
 
             classContext = new ClassContext(specType);
 
-            var methodInfo = specType.GetMethod("method_level_context");
+            var methodInfo = specType.GetTypeInfo().GetMethod("method_level_context");
 
             var methodContext = new MethodContext(methodInfo);
 

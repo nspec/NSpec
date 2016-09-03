@@ -6,6 +6,7 @@ using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using NUnit.Framework;
 using SampleSpecs.Bug;
+using System.Reflection;
 
 namespace NSpecSpecs
 {
@@ -71,7 +72,7 @@ namespace NSpecSpecs
                   new [] { typeof(describe_focus) },
                   "focus"),
          TestCase(typeof(describe_output_capture_output),
-                    new[] {typeof(describe_output_capture)},
+                    new[] { typeof(describe_output_capture) },
                     ""),
          TestCase(typeof(describe_context_output_capture_output),
                     new[] { typeof(describe_context_output_capture) },

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSpec.Compatibility;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,9 @@ namespace NSpec.Domain.Formatters
         {
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
-            XmlTextWriter xml = new XmlTextWriter(sw);
+            XmlWriteWrapper xmlWrapper = new XmlWriteWrapper(sw);
+
+            var xml = xmlWrapper.Xml;
 
             xml.WriteStartElement("testsuites");
             xml.WriteAttributeString("tests", contexts.Examples().Count().ToString());
@@ -22,14 +25,15 @@ namespace NSpec.Domain.Formatters
             xml.WriteAttributeString("failures", contexts.Failures().Count().ToString());
             xml.WriteAttributeString("skip", contexts.Pendings().Count().ToString());
 
-            contexts.Do(c => this.BuildContext(xml, c));
+            contexts.Do(c => this.BuildContext(xmlWrapper, c));
             xml.WriteEndElement();
             var results = sb.ToString();
             bool didWriteToFile = false;
             if (Options.ContainsKey("file"))
             {
-                var filePath = Path.Combine(Environment.CurrentDirectory, Options["file"]);
-                using (StreamWriter ostream = new StreamWriter(filePath, false))
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), Options["file"]);
+
+                using (StreamWriter ostream = File.CreateText(filePath))
                 {
                     ostream.WriteLine(results);
                     Console.WriteLine("Test results published to: {0}".With(filePath));
@@ -45,8 +49,10 @@ namespace NSpec.Domain.Formatters
 
         public IDictionary<string, string> Options { get; set; }
 
-        void BuildContext(XmlTextWriter xml, Context context)
+        void BuildContext(XmlWriteWrapper xmlWrapper, Context context)
         {
+            var xml = xmlWrapper.Xml;
+
             if (context.Level == 1)
             {
                 xml.WriteStartElement("testsuite");
@@ -56,8 +62,8 @@ namespace NSpec.Domain.Formatters
                 xml.WriteAttributeString("failures", context.Failures().Count().ToString());
             }
 
-            context.Examples.Do(e => this.BuildSpec(xml, e));
-            context.Contexts.Do(c => this.BuildContext(xml, c));
+            context.Examples.Do(e => this.BuildSpec(xmlWrapper, e));
+            context.Contexts.Do(c => this.BuildContext(xmlWrapper, c));
 
             if (context.Level == 1)
             {
@@ -65,8 +71,10 @@ namespace NSpec.Domain.Formatters
             }
         }
 
-        void BuildSpec(XmlTextWriter xml, ExampleBase example)
+        void BuildSpec(XmlWriteWrapper xmlWrapper, ExampleBase example)
         {
+            var xml = xmlWrapper.Xml;
+
             xml.WriteStartElement("testcase");
 
             string testName = example.Spec;

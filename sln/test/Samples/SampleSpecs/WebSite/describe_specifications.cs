@@ -33,7 +33,7 @@ describe specifications
     enumerable should not contain 1 (__ms) - FAILED - Expected: not collection containing 1, But was: < 1 >
     1 should be 2 (__ms) - FAILED - Expected: 2, But was: 1
     1 should be 1 (__ms)
-    1 should not be 1 (__ms) - FAILED - Expected: not 1, But was: 1
+    1 should not be 1 (__ms) - FAILED - Expected: not equal to 1, But was: 1
     1 should not be 2 (__ms)
     """" should not be null (__ms)
     some object should not be null (__ms) - FAILED - Expected: not null, But was: null
@@ -51,7 +51,7 @@ nspec. describe specifications. when creating specifications. 1 should be 2.
 Expected: 2, But was: 1
 
 nspec. describe specifications. when creating specifications. 1 should not be 1.
-Expected: not 1, But was: 1
+Expected: not equal to 1, But was: 1
 
 nspec. describe specifications. when creating specifications. some object should not be null.
 Expected: not null, But was: null

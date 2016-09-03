@@ -10,16 +10,16 @@ namespace NSpec.Domain.Extensions
     {
         public static T CreateInstanceAs<T>(this Type type) where T : class
         {
-            return type.GetConstructors()[0].Invoke(new object[0]) as T;
+            return type.GetTypeInfo().GetConstructors()[0].Invoke(new object[0]) as T;
         }
 
         public static IEnumerable<MethodInfo> Methods(this Type type)
         {
             var flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly;
 
-            var exclusions = typeof(nspec).GetMethods(flags).Select(m => m.Name);
+            var exclusions = typeof(nspec).GetTypeInfo().GetMethods(flags).Select(m => m.Name);
 
-            var methodInfos = type.GetAbstractBaseClassChainWithClass().SelectMany(t => t.GetMethods(flags));
+            var methodInfos = type.GetAbstractBaseClassChainWithClass().SelectMany(t => t.GetTypeInfo().GetMethods(flags));
 
             return methodInfos
                 .Where(m => !exclusions.Contains(m.Name) && !(m.Name.Contains("<") || m.Name.Contains("$")) && m.Name.Contains("_"))
@@ -32,9 +32,9 @@ namespace NSpec.Domain.Extensions
         {
             var flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly;
 
-            var exclusions = typeof(nspec).GetMethods(flags).Select(m => m.Name);
+            var exclusions = typeof(nspec).GetTypeInfo().GetMethods(flags).Select(m => m.Name);
 
-            var methodInfos = type.GetAbstractBaseClassChainWithClass().SelectMany(t => t.GetMethods(flags));
+            var methodInfos = type.GetAbstractBaseClassChainWithClass().SelectMany(t => t.GetTypeInfo().GetMethods(flags));
 
             return methodInfos
                 .Where(m => !exclusions.Contains(m.Name) && !(m.Name.Contains("<") || m.Name.Contains("$")) && m.Name.Contains("_"))
@@ -46,9 +46,9 @@ namespace NSpec.Domain.Extensions
         {
             var baseClasses = new Stack<Type>();
 
-            for (Type baseClass = type.BaseType;
-                 baseClass != null && baseClass.IsAbstract;
-                 baseClass = baseClass.BaseType)
+            for (Type baseClass = type.GetTypeInfo().BaseType;
+                 baseClass != null && baseClass.GetTypeInfo().IsAbstract;
+                 baseClass = baseClass.GetTypeInfo().BaseType)
             {
                 baseClasses.Push(baseClass);
             }
@@ -60,9 +60,9 @@ namespace NSpec.Domain.Extensions
 
         public static string CleanName(this Type type)
         {
-            if (!type.IsGenericType) return type.Name;
+            if (!type.GetTypeInfo().IsGenericType) return type.Name;
 
-            return string.Format("{0}<{1}>", type.Name.Remove(type.Name.IndexOf('`')), string.Join(", ", type.GetGenericArguments().Select(CleanName).ToArray()));
+            return string.Format("{0}<{1}>", type.Name.Remove(type.Name.IndexOf('`')), string.Join(", ", type.GetTypeInfo().GetGenericArguments().Select(CleanName).ToArray()));
         }
 
         public static string CleanMessage(this Exception exception)
@@ -84,15 +84,30 @@ namespace NSpec.Domain.Extensions
 
         public static bool IsAsync(this MethodInfo method)
         {
-            // Taken from: https://github.com/nunit/nunit/blob/master/src/NUnitFramework/framework/Internal/AsyncInvocationRegion.cs
+            // Inspired from: https://github.com/nunit/nunit/blob/master/src/NUnitFramework/framework/Internal/AsyncInvocationRegion.cs
 
-            return method.ReturnType.FullName.StartsWith(TaskTypeName) ||
-                   method.GetCustomAttributes(false).Any(attr => AsyncAttributeTypeName == attr.GetType().FullName);
+            return MethodReturnsTask(method) || MethodIsAsync(method);
+        }
+
+        private static bool MethodReturnsTask(MethodInfo method)
+        {
+            return method.ReturnType.FullName.StartsWith(TaskTypeName);
+        }
+
+        private static bool MethodIsAsync(MethodInfo method)
+        {
+            var attributes = method.GetCustomAttributes(false);
+
+            bool? hasAsyncAttribute = attributes?
+                .Any(attr => AsyncAttributeTypeName == attr.GetType().FullName);
+
+            return hasAsyncAttribute
+                ?? false;
         }
 
         public static bool IsAsync(this Action action)
         {
-            return IsAsync(action.Method);
+            return IsAsync(action.GetMethodInfo());
         }
 
         const string TaskTypeName = "System.Threading.Tasks.Task";

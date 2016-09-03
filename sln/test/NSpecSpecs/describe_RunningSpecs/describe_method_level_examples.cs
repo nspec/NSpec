@@ -3,7 +3,6 @@ using NSpec;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using NUnit.Framework;
-using System.Threading.Tasks;
 using System;
 using Moq;
 
@@ -86,7 +85,7 @@ namespace NSpecSpecs.WhenRunningSpecs
     {
         protected void RunWithReflector(Type specClassType)
         {
-            var reflector = new Mock<IReflector>();
+            Mock<IReflector> reflector = new Mock<IReflector>();
 
             reflector.Setup(r => r.GetTypesFrom()).Returns(new[] { specClassType });
 

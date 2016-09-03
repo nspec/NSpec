@@ -38,9 +38,9 @@ namespace NSpec.Domain
 
         public override bool IsSub(Type baseType)
         {
-            while (baseType != null && baseType.IsAbstract)
+            while (baseType != null && baseType.GetTypeInfo().IsAbstract)
             {
-                baseType = baseType.BaseType;
+                baseType = baseType.GetTypeInfo().BaseType;
             }
 
             return baseType == SpecType;

@@ -1,6 +1,5 @@
 ﻿using NSpec.Domain.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace NSpec.Domain

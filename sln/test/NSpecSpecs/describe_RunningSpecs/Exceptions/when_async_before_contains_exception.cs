@@ -16,10 +16,10 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                beforeAsync = async () => 
-                { 
+                beforeAsync = async () =>
+                {
                     await Task.Delay(0);
-                    throw new BeforeException(); 
+                    throw new BeforeException();
                 };
 
                 it["should fail this example because of beforeAsync"] = () => "1".should_be("1");

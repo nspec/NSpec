@@ -1,4 +1,8 @@
-﻿using System;
+﻿#if false
+
+// NETCORE This will not be ported. Marshaling/remoting is not supported and will not be used.
+
+using System;
 using NSpec.Domain;
 
 namespace NSpecRunner
@@ -16,3 +20,4 @@ namespace NSpecRunner
         }
     }
 }
+#endif

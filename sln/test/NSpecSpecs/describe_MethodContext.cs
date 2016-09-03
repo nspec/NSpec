@@ -3,6 +3,7 @@ using NSpec.Domain;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
 using NUnit.Framework;
 using System.Linq;
+using System.Reflection;
 
 namespace NSpecSpecs
 {
@@ -37,7 +38,7 @@ namespace NSpecSpecs
 
             classContext = new ClassContext(specType);
 
-            var methodInfo = specType.GetMethod("method_level_context");
+            var methodInfo = specType.GetTypeInfo().GetMethod("method_level_context");
 
             var methodContext = new MethodContext(methodInfo);
 

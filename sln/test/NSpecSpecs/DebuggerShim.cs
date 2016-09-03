@@ -28,7 +28,7 @@ public class DebuggerShim
     {
         var tagOrClassName = "class_or_tag_you_want_to_debug";
 
-        var types = GetType().Assembly.GetTypes(); 
+        var types = GetType().GetTypeInfo().Assembly.GetTypes(); 
         // OR
         // var types = new Type[]{typeof(Some_Type_Containg_some_Specs)};
 

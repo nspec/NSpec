@@ -15,8 +15,8 @@ namespace NSpec.Domain
             var regex = new Regex(filter);
 
             var leafTypes =
-                Types.Where(t => t.IsClass
-                                 && !t.IsAbstract
+                Types.Where(t => t.GetTypeInfo().IsClass
+                                 && !t.GetTypeInfo().IsAbstract
                                  && BaseTypes(t).Any(s => s == typeof(nspec))
                                  && (t.Methods().Any() || t.AsyncMethods().Any()));
 
@@ -34,19 +34,19 @@ namespace NSpec.Domain
             }
 
             return finalList.Distinct(new TypeComparer())
-                .Where(s => s != typeof(nspec) && s != typeof(object) && !s.IsAbstract);
+                .Where(s => s != typeof(nspec) && s != typeof(object) && !s.GetTypeInfo().IsAbstract);
         }
 
         public IEnumerable<Type> BaseTypes(Type type)
         {
             var types = new List<Type>();
 
-            var currentType = type.BaseType;
+            var currentType = type.GetTypeInfo().BaseType;
 
             while (currentType != null)
             {
                 types.Add(currentType);
-                currentType = currentType.BaseType;
+                currentType = currentType.GetTypeInfo().BaseType;
             }
 
             return types;

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using NSpec.Compatibility;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
 
 namespace NSpec.Domain.Formatters
 {
@@ -37,25 +37,23 @@ namespace NSpec.Domain.Formatters
             string menuItems, string tiddlerItems,
             int examplesCount, int failuresCount, int pendingCount)
         {
-            StreamReader templateReader = new StreamReader(templateFile);
-            StreamWriter outputWriter = new StreamWriter(outputFile);
-
-            while (!templateReader.EndOfStream)
+            using (StreamReader templateReader = File.OpenText(templateFile))
+            using (StreamWriter outputWriter = File.CreateText(outputFile))
             {
-                string data = templateReader.ReadLine();
-                if (!string.IsNullOrEmpty(data))
+                while (!templateReader.EndOfStream)
                 {
-                    data = data.Replace("$MAIN_MENU_CONTEXT_NAMES_GO_HERE$", menuItems);
-                    data = data.Replace("<div id=\"storeArea\">", "<div id=\"storeArea\">" + tiddlerItems);
-                    data = data.Replace("$TOTAL_SPECS$", examplesCount.ToString());
-                    data = data.Replace("$TOTAL_FAILED_SPECS$", failuresCount.ToString());
-                    data = data.Replace("$TOTAL_PENDING_SPECS$", pendingCount.ToString());
+                    string data = templateReader.ReadLine();
+                    if (!string.IsNullOrEmpty(data))
+                    {
+                        data = data.Replace("$MAIN_MENU_CONTEXT_NAMES_GO_HERE$", menuItems);
+                        data = data.Replace("<div id=\"storeArea\">", "<div id=\"storeArea\">" + tiddlerItems);
+                        data = data.Replace("$TOTAL_SPECS$", examplesCount.ToString());
+                        data = data.Replace("$TOTAL_FAILED_SPECS$", failuresCount.ToString());
+                        data = data.Replace("$TOTAL_PENDING_SPECS$", pendingCount.ToString());
+                    }
+                    outputWriter.WriteLine(data);
                 }
-                outputWriter.WriteLine(data);
             }
-
-            templateReader.Close();
-            outputWriter.Close();
         }
 
         string BuildTiddlerFrom(Context context)
@@ -97,7 +95,7 @@ namespace NSpec.Domain.Formatters
             if (e.Exception != null)
             {
                 output = String.Format("{0}&lt;&lt;markSpecAsFailed '{1}'&gt;&gt; &lt;&lt;showException 'error_{2}' '{3}''&gt;&gt;",
-                                       "*".Times(level), e.Spec, Guid.NewGuid(), HttpUtility.HtmlEncode(e.Exception.ToString()));
+                                       "*".Times(level), e.Spec, Guid.NewGuid(), HtmlUtils.Encode(e.Exception.ToString()));
             }
             else if (e.Pending)
             {

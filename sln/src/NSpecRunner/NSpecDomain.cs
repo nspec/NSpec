@@ -1,8 +1,13 @@
-﻿using System;
+﻿#if false
+
+// NETCORE This will not be ported. AppDomain is not supported and will not be used.
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using NSpec.Domain;
+using System.Runtime.Loader;
 
 namespace NSpecRunner
 {
@@ -25,13 +30,13 @@ namespace NSpecRunner
 
             setup.ConfigurationFile = Path.GetFullPath(config);
 
-            setup.ApplicationBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            setup.ApplicationBase = Path.GetDirectoryName(typeof(NSpecDomain).GetTypeInfo().Assembly.Location);
 
             domain = AppDomain.CreateDomain("NSpecDomain.Run", null, setup);
 
             var type = typeof(Wrapper);
 
-            var assemblyName = type.Assembly.GetName().Name;
+            var assemblyName = type.GetTypeInfo().Assembly.GetName().Name;
 
             var typeName = type.FullName;
 
@@ -61,7 +66,12 @@ namespace NSpecRunner
 
             var missing = Path.Combine(Path.GetDirectoryName(dll), name);
 
-            if (File.Exists(missing)) return Assembly.LoadFrom(missing);
+            if (File.Exists(missing))
+            {
+                var assemblyName = AssemblyLoadContext.GetAssemblyName(missing);
+
+                return Assembly.Load(assemblyName);
+            }
 
             return null;
         }
@@ -71,3 +81,4 @@ namespace NSpecRunner
         string dll;
     }
 }
+#endif

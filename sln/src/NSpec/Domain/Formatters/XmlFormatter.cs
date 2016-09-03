@@ -1,9 +1,9 @@
+using NSpec.Compatibility;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
 
 namespace NSpec.Domain.Formatters
 {
@@ -14,7 +14,9 @@ namespace NSpec.Domain.Formatters
         {
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
-            XmlTextWriter xml = new XmlTextWriter(sw);
+            XmlWriteWrapper xmlWrapper = new XmlWriteWrapper(sw);
+
+            var xml = xmlWrapper.Xml;
 
             xml.WriteStartElement("Contexts");
             xml.WriteAttributeString("TotalSpecs", contexts.Examples().Count().ToString());
@@ -22,7 +24,7 @@ namespace NSpec.Domain.Formatters
             xml.WriteAttributeString("TotalPending", contexts.Pendings().Count().ToString());
 
             xml.WriteAttributeString("RunDate", DateTime.Now.ToString());
-            contexts.Do(c => this.BuildContext(xml, c));
+            contexts.Do(c => this.BuildContext(xmlWrapper, c));
             xml.WriteEndElement();
 
             Console.WriteLine(sb.ToString());
@@ -30,8 +32,10 @@ namespace NSpec.Domain.Formatters
 
         public IDictionary<string, string> Options { get; set; }
 
-        void BuildContext(XmlTextWriter xml, Context context)
+        void BuildContext(XmlWriteWrapper xmlWrapper, Context context)
         {
+            var xml = xmlWrapper.Xml;
+
             xml.WriteStartElement("Context");
             xml.WriteAttributeString("Name", context.Name);
 
@@ -39,19 +43,21 @@ namespace NSpec.Domain.Formatters
             {
                 xml.WriteStartElement("Specs");
             }
-            context.Examples.Do(e => this.BuildSpec(xml, e));
+            context.Examples.Do(e => this.BuildSpec(xmlWrapper, e));
             if (context.Examples.Count > 0)
             {
                 xml.WriteEndElement();
             }
 
-            context.Contexts.Do(c => this.BuildContext(xml, c));
+            context.Contexts.Do(c => this.BuildContext(xmlWrapper, c));
 
             xml.WriteEndElement();
         }
 
-        void BuildSpec(XmlTextWriter xml, ExampleBase example)
+        void BuildSpec(XmlWriteWrapper xmlWrapper, ExampleBase example)
         {
+            var xml = xmlWrapper.Xml;
+
             xml.WriteStartElement("Spec");
             xml.WriteAttributeString("Name", example.Spec);
 

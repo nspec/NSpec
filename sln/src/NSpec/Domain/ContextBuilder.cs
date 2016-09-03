@@ -28,7 +28,7 @@ namespace NSpec.Domain
 
         public ClassContext CreateClassContext(Type type)
         {
-            var tagAttributes = ((TagAttribute[])type.GetCustomAttributes(typeof(TagAttribute), false)).ToList();
+            var tagAttributes = ((TagAttribute[])type.GetTypeInfo().GetCustomAttributes(typeof(TagAttribute), false)).ToList();
 
             tagAttributes.Add(new TagAttribute(type.Name));
 
@@ -83,7 +83,7 @@ namespace NSpec.Domain
 
         void Build(Context parent, IEnumerable<Type> allSpecClasses)
         {
-            var derivedTypes = allSpecClasses.Where(s => parent.IsSub(s.BaseType));
+            var derivedTypes = allSpecClasses.Where(s => parent.IsSub(s.GetTypeInfo().BaseType));
 
             foreach (var derived in derivedTypes)
             {

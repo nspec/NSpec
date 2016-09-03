@@ -45,7 +45,8 @@ namespace NSpec
 
         public static void is_not_null_or_empty(this string source)
         {
-            Assert.IsNotNullOrEmpty(source);
+            Assert.IsNotNull(source);
+            Assert.IsNotEmpty(source);
         }
 
         public static void is_true(this bool actual) { actual.should_be_true(); }
@@ -132,13 +133,14 @@ namespace NSpec
 
         public static string should_not_be_empty(this string target)
         {
-            Assert.IsNotNullOrEmpty(target);
+            Assert.IsNotNull(target);
+            Assert.IsNotEmpty(target);
             return target;
         }
 
         public static string should_be_empty(this string target)
         {
-            Assert.IsNullOrEmpty(target);
+            Assert.True(String.IsNullOrEmpty(target));
             return target;
         }
 

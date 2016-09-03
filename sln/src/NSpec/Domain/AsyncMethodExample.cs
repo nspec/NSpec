@@ -36,7 +36,7 @@ namespace NSpec.Domain
                     "'async void' method-level {0} is not supported, please use 'async Task' instead".With(hookName));
             }
 
-            if (method.ReturnType.IsGenericType)
+            if (method.ReturnType.GetTypeInfo().IsGenericType)
             {
                 throw new AsyncMismatchException(
                     "'async Task<T>' method-level {0} is not supported, please use 'async Task' instead".With(hookName));

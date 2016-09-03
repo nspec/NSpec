@@ -5,6 +5,7 @@ using NSpec;
 using NSpec.Domain.Extensions;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace NSpecSpecs
 {
@@ -222,7 +223,7 @@ namespace NSpecSpecs
          TestCase(typeof(Bar32), "Bar3<Bar1, Bar2<Bar1>>")]
         public void should_generate_pretty_type_names(Type derivedType, string expectedNameForBaseType)
         {
-            string name = derivedType.BaseType.CleanName();
+            string name = derivedType.GetTypeInfo().BaseType.CleanName();
 
             name.should_be(expectedNameForBaseType);
         }

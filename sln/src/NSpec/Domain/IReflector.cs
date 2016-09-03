@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSpec.Compatibility;
+using System;
 using System.Reflection;
 
 namespace NSpec.Domain
@@ -14,7 +15,9 @@ namespace NSpec.Domain
 
         public Type[] GetTypesFrom()
         {
-            return Assembly.LoadFrom(dll).GetTypes();
+            var assembly = AssemblyUtils.LoadFromPath(dll);
+
+            return assembly.GetTypes();
         }
 
         public Type[] GetTypesFrom(Assembly assembly)

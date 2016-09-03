@@ -38,19 +38,17 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void the_first_example_should_fail_with_framework_exception()
         {
-            classContext.AllExamples()
-                        .First()
-                        .Exception
-                        .should_cast_to<ExampleFailureException>();
+            var example = classContext.AllExamples().First();
+
+            example.Exception.should_cast_to<ExampleFailureException>();
         }
 
         [Test]
         public void the_second_example_should_fail_with_framework_exception()
         {
-            classContext.AllExamples()
-                        .Last()
-                        .Exception
-                        .should_cast_to<ExampleFailureException>();
+            var example = classContext.AllExamples().Last();
+
+            example.Exception.should_cast_to<ExampleFailureException>();
         }
 
         class BeforeAllException : Exception { }

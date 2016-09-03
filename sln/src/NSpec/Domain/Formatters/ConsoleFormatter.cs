@@ -48,6 +48,7 @@ namespace NSpec.Domain.Formatters
             var failureMessage = noFailure ? "" : " - FAILED - {0}".With(e.Exception.CleanMessage());
 
             var whiteSpace = indent.Times(level);
+
             string duration;
             if (e.Duration.TotalMinutes > 1)
             {
