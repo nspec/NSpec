@@ -8494,6 +8494,7 @@
     "": [
       "Moq >= 4.6.36-alpha",
       "NSpec",
+      "NUnit >= 3.4.1",
       "SampleSpecs",
       "SampleSpecsFocus",
       "dotnet-test-nunit >= 3.4.0-beta-1"
