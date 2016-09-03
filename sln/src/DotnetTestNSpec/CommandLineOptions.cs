@@ -2,6 +2,8 @@
 {
     public class CommandLineOptions
     {
+        public string Project { get; set; }
+
         public int? ParentProcessId { get; set; }
 
         public int? Port { get; set; }

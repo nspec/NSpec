@@ -8,20 +8,44 @@ namespace DotnetTestNSpec
     {
         public CommandLineOptions Parse(string[] args)
         {
+            string[] knownArgKeys =
+            {
+                parentProcessArgKey,
+                portArgKey,
+            };
+
             IEnumerable<string> dotNetTestArgs = args.TakeWhile(arg => arg != "--");
             IEnumerable<string> nSpecArgs = args.Skip(dotNetTestArgs.Count() + 1);
 
             var options = new CommandLineOptions();
 
-            var remainingArgs = SetValueForOptionalArg(dotNetTestArgs,
+            // check for first argument (the project), before remaining dotnet-test options
+
+            string firstArg = dotNetTestArgs.FirstOrDefault();
+            IEnumerable<string> dotNetTestOptions;
+
+            if (!knownArgKeys.Contains(firstArg))
+            {
+                options.Project = firstArg;
+
+                dotNetTestOptions = dotNetTestArgs.Skip(1);
+            }
+            else
+            {
+                dotNetTestOptions = dotNetTestArgs;
+            }
+
+            // check for remaining dotnet-test options
+
+            var remainingOptions = SetValueForOptionalArg(dotNetTestOptions,
                 parentProcessArgKey, value => options.ParentProcessId = value);
 
-            remainingArgs = SetValueForOptionalArg(remainingArgs,
+            remainingOptions = SetValueForOptionalArg(remainingOptions,
                 portArgKey, value => options.Port = value);
 
             options.NSpecArgs = nSpecArgs.ToArray();
 
-            options.UnknownArgs = remainingArgs.ToArray();
+            options.UnknownArgs = remainingOptions.ToArray();
 
             return options;
         }
