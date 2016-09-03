@@ -1,6 +1,5 @@
 ﻿using DotnetTestNSpec.Compatibility;
 using System;
-using System.Linq;
 using System.Reflection;
 
 namespace DotnetTestNSpec
@@ -12,9 +11,6 @@ namespace DotnetTestNSpec
             var testRunnerAssembly = typeof(Program).GetTypeInfo().Assembly;
 
             Console.WriteLine(testRunnerAssembly.GetPrintInfo());
-
-            var dotNetTestArgs = args.TakeWhile(arg => arg != "--");
-            var nSpecArgs = args.Skip(dotNetTestArgs.Count() + 1);
 
             /*
             var nSpecAssembly = ...;

@@ -41,6 +41,40 @@ namespace DotnetTestNSpecSpecs
 
     [TestFixture]
     [Category("ArgumentParser")]
+    public class when_some_dotnet_test_arg_missing
+    {
+        CommandLineOptions actual = null;
+
+        [SetUp]
+        public void setup()
+        {
+            string[] args =
+            {
+                "--parentProcessId", "123",
+            };
+
+            var parser = new ArgumentParser();
+
+            actual = parser.Parse(args);
+        }
+
+        [Test]
+        public void it_should_return_found_args_only()
+        {
+            var expected = new CommandLineOptions()
+            {
+                ParentProcessId = 123,
+                Port = null,
+                NSpecArgs = new string[0],
+                UnknownArgs = new string[0],
+            };
+
+            actual.ShouldBeEquivalentTo(expected);
+        }
+    }
+
+    [TestFixture]
+    [Category("ArgumentParser")]
     public class when_dotnet_test_and_nspec_args_found
     {
         CommandLineOptions actual = null;
