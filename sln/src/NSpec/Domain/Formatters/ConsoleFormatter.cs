@@ -139,14 +139,9 @@ namespace NSpec.Domain.Formatters
             return summary;
         }
 
-        public string FocusNotification(ContextCollection contexts)
-        {
-            return "";
-        }
-
         string indent = "  ";
 
-        string[] internalNameSpaces = new[]
+        string[] internalNameSpaces =
         {
             "NSpec.Domain",
             "NSpec.AssertionExtensions",

@@ -119,7 +119,9 @@ namespace NSpecSpecs
 
         public static string ScrubTimes(this string s)
         {
-            return Regex.Replace(s, @" \(.*(ms|s)\)", " (__ms)");
+            string withoutTime = Regex.Replace(s, @" \([0-9]+(ms|s)\)", " (__ms)");
+
+            return Regex.Replace(withoutTime, @" \([0-9]+min [0-9]+s\)", " (__ms)");
         }
 
         public static string ScrubStackTrace(this string s)
