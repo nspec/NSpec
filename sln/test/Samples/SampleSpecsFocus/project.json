@@ -1,14 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
 
-  "buildOptions": {
-    "compile": {
-      "includeFiles": [
-        "../../../SharedAssemblyInfo.cs"
-      ]
-    }
-  },
-
   "dependencies": {
     "NSpec": {
       "target": "project"
