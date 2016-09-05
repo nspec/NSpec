@@ -1,4 +1,6 @@
-﻿namespace DotnetTestNSpec
+﻿using System;
+
+namespace DotnetTestNSpec
 {
     public class Program
     {
@@ -6,9 +8,24 @@
         {
             var consoleRunner = new ConsoleRunner();
 
-            int returnCode = consoleRunner.Run(args);
+            try
+            {
+                consoleRunner.Run(args);
 
-            return returnCode;
+                return ReturnCodes.Ok;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                return ReturnCodes.Error;
+            }
+        }
+
+        public static class ReturnCodes
+        {
+            public const int Ok = 0;
+            public const int Error = -1;
         }
     }
 }

@@ -6,18 +6,22 @@ namespace DotnetTestNSpec
 {
     public class ConsoleRunner
     {
-        public int Run(string[] args)
+        public void Run(string[] args)
         {
             var testRunnerAssembly = typeof(Program).GetTypeInfo().Assembly;
 
             Console.WriteLine(testRunnerAssembly.GetPrintInfo());
 
+            var argumentParser = new ArgumentParser();
+
+            CommandLineOptions options = argumentParser.Parse(args);
+
+            Console.WriteLine(options);
+
             /*
             var nSpecAssembly = ...;
             Console.WriteLine(nSpecAssembly.GetPrintInfo());
             */
-
-            return ReturnCodes.Ok;
         }
     }
 }
