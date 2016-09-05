@@ -1,5 +1,5 @@
 @ECHO OFF
-REM archive-branch.bat 
+REM archive-branch.bat
 REM Usage: archive-branch <your-branch-name>
 
 :TopOfScript
@@ -10,7 +10,7 @@ IF "%~1"=="" (
   ECHO This command requires 1 input argument.
   ECHO.
   ECHO Usage: archive-branch ^<your-branch-name^>
-  
+
   GOTO :EndOfScript
 )
 

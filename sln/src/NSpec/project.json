@@ -31,5 +31,11 @@
         "System.Web": ""
       }
     }
+  },
+
+  "scripts": {
+    "postcompile": [
+      "../../../scripts/delete-local-package.bat %project:Name%"
+    ]
   }
 }
