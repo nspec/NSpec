@@ -2,11 +2,7 @@
 
 The Nspec test suite is written in NUnit. The test project is NSpecSpecs. Not to be confused with SampleSpecs which hosts numerous tests written in NSpec, some of which are intended to fail.
 
-To run the NSpec test suite, you can use ncrunch or [Specwatchr](http://nspec.org/continuoustesting) which has support for `NUnit 2.5.9`. For Specwatchr, the `dotnet.watchr.rb` file contains a hard reference to the `2.5.9` binary which may need to be updated to your installed version. To do so, locate the following line:
-
-    NUnitRunner.nunit_path = 'C:\program files (x86)\nunit 2.5.9\bin\net-2.0\nunit-console-x86.exe'
-
-Otherwise you can get started by running the following commands:
+To run tests, use the `rake spec` command (or your test runner of choice in Visual Studio TDD.Net, NCrunch, Resharper's Test Runner, et al). Here is a list of other `rake` commands:
 
     bundle install              (installs all required gems)
     rake                        (builds and runs unit tests)
