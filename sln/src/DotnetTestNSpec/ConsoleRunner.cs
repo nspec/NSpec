@@ -1,8 +1,8 @@
-﻿using DotnetTestNSpec.Compatibility;
+﻿using DotNetTestNSpec.Compatibility;
 using System;
 using System.Reflection;
 
-namespace DotnetTestNSpec
+namespace DotNetTestNSpec
 {
     public class ConsoleRunner
     {

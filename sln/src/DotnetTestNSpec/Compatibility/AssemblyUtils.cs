@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace DotnetTestNSpec.Compatibility
+namespace DotNetTestNSpec.Compatibility
 {
     public static class AssemblyUtils
     {

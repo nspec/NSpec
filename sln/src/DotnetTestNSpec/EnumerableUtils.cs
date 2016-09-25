@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DotnetTestNSpec
+namespace DotNetTestNSpec
 {
     public static class EnumerableUtils
     {

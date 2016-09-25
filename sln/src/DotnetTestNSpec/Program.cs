@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DotnetTestNSpec
+namespace DotNetTestNSpec
 {
     public class Program
     {

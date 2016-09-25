@@ -1,9 +1,9 @@
-﻿using DotnetTestNSpec;
+﻿using DotNetTestNSpec;
 using FluentAssertions;
 using NUnit.Framework;
 using System;
 
-namespace DotnetTestNSpecSpecs
+namespace DotNetTestNSpecSpecs
 {
     [TestFixture]
     [Category("ArgumentParser")]

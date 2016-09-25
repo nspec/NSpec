@@ -10,7 +10,7 @@
   },
 
   "dependencies": {
-    "DotnetTestNSpec": {
+    "DotNetTestNSpec": {
       "target": "project"
     },
     "dotnet-test-nunit": "3.4.0-beta-1",

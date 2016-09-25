@@ -31,9 +31,9 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleSpecs", "test\Samples
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleSpecsFocus", "test\Samples\SampleSpecsFocus\SampleSpecsFocus.xproj", "{11728D62-6D9B-4D49-9B82-536969751801}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DotnetTestNSpec", "src\DotnetTestNSpec\DotnetTestNSpec.xproj", "{53AEE478-DE4B-47B6-ADCF-DF34E4621340}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DotNetTestNSpec", "src\DotNetTestNSpec\DotNetTestNSpec.xproj", "{53AEE478-DE4B-47B6-ADCF-DF34E4621340}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DotnetTestNSpecSpecs", "test\DotnetTestNSpecSpecs\DotnetTestNSpecSpecs.xproj", "{6A28B43E-3FA2-461D-BDC9-A61E6FBEC709}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DotNetTestNSpecSpecs", "test\DotNetTestNSpecSpecs\DotNetTestNSpecSpecs.xproj", "{6A28B43E-3FA2-461D-BDC9-A61E6FBEC709}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

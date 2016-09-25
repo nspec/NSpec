@@ -2,7 +2,7 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    "DotnetTestNSpec": "1.0.0-*",
+    "DotNetTestNSpec": "1.0.0-*",
     "LibraryUnderTest": {
       "target": "project"
     },
