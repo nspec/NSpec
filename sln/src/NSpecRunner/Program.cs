@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NSpec;
-using NSpec.Domain;
-using NSpec.Domain.Formatters;
 using System.IO;
+using NSpec.Api;
 
 namespace NSpecRunner
 {
@@ -27,7 +26,6 @@ namespace NSpecRunner
                 var failFast = IsFailFast(args);
                 var formatterClassName = GetFormatterClassName(args);
                 var formatterOptions = GetFormatterOptions(args);
-                var formatter = FindFormatter(formatterClassName, formatterOptions);
 
                 args = RemoveOptionsAndSwitches(args);
 
@@ -44,9 +42,9 @@ namespace NSpecRunner
 
                 var specDLL = Path.GetFullPath(args[0]);
 
-                var invocation = new RunnerInvocation(specDLL, argsTags, formatter, failFast);
+                var controller = new Controller();
 
-                var failures = invocation.Run().Failures().Count();
+                var failures = controller.Run(specDLL, argsTags, formatterClassName, formatterOptions, failFast);
 
                 if (failures > 0) Environment.Exit(1);
             }
@@ -92,42 +90,6 @@ namespace NSpecRunner
             else
             {
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// Find an implementation of IFormatter with the given class name
-        /// </summary>
-        /// <param name="formatterClassName"></param>
-        /// <param name="formatterOptions"></param>
-        /// <returns></returns>
-        private static IFormatter FindFormatter(string formatterClassName, IDictionary<string, string> formatterOptions)
-        {
-            // Default formatter is the standard console formatter
-            if (string.IsNullOrEmpty(formatterClassName))
-            {
-                var consoleFormatter = new ConsoleFormatter();
-                consoleFormatter.Options = formatterOptions;
-                return consoleFormatter;
-            }
-
-            Assembly nspecAssembly = typeof(IFormatter).GetTypeInfo().Assembly;
-
-            // Look for a class that implements IFormatter with the provided name
-            var formatterType = nspecAssembly.GetTypes().FirstOrDefault(type =>
-                (type.Name.ToLowerInvariant() == formatterClassName)
-                && typeof(IFormatter).IsAssignableFrom(type) );
-
-            if (formatterType != null)
-            {
-                var formatter = (IFormatter)Activator.CreateInstance(formatterType);
-                formatter.Options = formatterOptions;
-                return formatter;
-            }
-            else
-            {
-                throw new TypeLoadException("Could not find formatter type " + formatterClassName);
-
             }
         }
 
