@@ -117,6 +117,7 @@ desc 'create and upload a nuget package. requires deploy.bat with secure hash to
 task :nuget => [:spec] do
   Dir['nspec*{nupkg}'].each {|f| File.delete(f)}
   create_nuget_package
+  puts "nuget.exe push #{Dir['*{nupkg}'][0]}"
   sh "nuget.exe push #{Dir['*{nupkg}'][0]}"
 end
 
@@ -264,29 +265,10 @@ end
 # Custom tasks (add your own tasks here)
 #
 #############################################################################
-task :version => [:bump_version, :version_gallio_adapter] do
+task :version => [:bump_version] do
   lines = ["[assembly: AssemblyVersion(\"#{get_version_node.text}\")]",
            "[assembly: AssemblyFileVersion(\"#{get_version_node.text}\")]"]
   update_version 'SharedAssemblyInfo.cs', lines
-end
-
-desc 'update GallioAdapter plugin version'
-task :version_gallio_adapter do
-  file = 'NSpec.GallioAdapter/NSpec.GallioAdapter.plugin'
-
-  version = get_version_node.text
-  if version.count('.') == 2
-    version = version + '.0'
-  end
-
-  xml = Nokogiri::XML(File.read file)
-
-  xml.root.xpath('//xmlns:assembly[@codeBase="NSpec.dll"]')[0].set_attribute('fullName', "NSpec, Version=#{version}, Culture=neutral, PublicKeyToken=null")
-  xml.root.xpath('//xmlns:assembly[@codeBase="NSpec.GallioAdapter.dll"]')[0].set_attribute('fullName', "NSpec.GallioAdapter, Version=#{version}, Culture=neutral, PublicKeyToken=null")
-
-  xml.root.xpath('//xmlns:version').each {|n| n.inner_html = version}
-  xml.root.xpath('//xmlns:component[@componentId="NSpec.TestFramework"]/xmlns:traits/xmlns:frameworkAssemblies')[0].inner_html = "NSpec, Version=#{version}"
-  File.open(file, 'w') {|f| f.write(xml.to_xml) }
 end
 
 def update_version file, version_lines

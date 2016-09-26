@@ -1,0 +1,26 @@
+<p><a name="context_output_capture"></a></p>
+<div class="zone zone-sub-page-title">
+<h1>context output capture</h1>
+</div>
+<div id="layout-content" class="group" style="padding-top: 10px;">
+<pre id="describe_context_output_capture_code" data-timestamp="2016-09-26 10:19:00 -0600" class="brush: csharp;">using System;
+using NSpec;
+</pre>
+<pre id="describe_context_output_capture_output" data-timestamp="2016-09-26 10:19:00 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe context output capture
+//Console output
+this is before all
+
+  output capture
+  //Console output
+  this is context before all
+
+    should capture output (1ms)
+      //Console output
+      this is before each
+
+      this is console output
+
+
+1 Examples, 0 Failed, 0 Pending
+</pre>
+</div>
