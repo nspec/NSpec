@@ -7,14 +7,27 @@ ECHO.
 ECHO Starting...
 
 IF "%~1"=="" (
-  ECHO This command requires 1 input argument.
-  ECHO.
-  ECHO Usage: delete-local-branch ^<package-directory^>
-
-  GOTO :EndOfScript
+  GOTO :Usage
 )
 
-DEL /F /S /Q %USERPROFILE%\.nuget\packages\%1
+SET packageDirPath=%USERPROFILE%\.nuget\packages\%1
+
+IF EXIST %packageDirPath%\NUL (
+	ECHO Deleting files from '%packageDirPath%' ...
+
+	DEL /F /S /Q %packageDirPath%
+
+	FOR /F "delims=" %%d IN ('DIR /A:D /B %packageDirPath%') DO RMDIR /S /Q "%packageDirPath%\%%d"
+) ELSE (
+	ECHO No Files to delete in '%packageDirPath%'.
+)
+
+GOTO :EndOfScript
+
+:Usage
+ECHO This command requires 1 input argument.
+ECHO.
+ECHO Usage: delete-local-branch ^<package-directory^>
 
 :EndOfScript
 ECHO.
