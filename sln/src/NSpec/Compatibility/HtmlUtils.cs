@@ -6,10 +6,10 @@
         {
             string encoded;
 
-#if NETSTANDARD1_6
-            encoded = System.Text.Encodings.Web.HtmlEncoder.Default.Encode(value);
-#else
+#if NET452
             encoded = System.Web.HttpUtility.HtmlEncode(value);
+#else
+            encoded = System.Text.Encodings.Web.HtmlEncoder.Default.Encode(value);
 #endif
 
             return encoded;

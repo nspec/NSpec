@@ -25,12 +25,12 @@ namespace DotNetTestNSpec.Compatibility
         {
             Assembly assembly;
 
-#if NETCOREAPP1_0
+#if NET452
+            assembly = Assembly.LoadFrom(filePath);
+#else
             var assemblyName = Path.GetFileNameWithoutExtension(filePath);
 
             assembly = Assembly.Load(new AssemblyName(assemblyName));
-#else
-            assembly = Assembly.LoadFrom(filePath);
 #endif
 
             return assembly;

@@ -7,17 +7,17 @@ namespace NSpec.Compatibility
     {
         public XmlWriteWrapper(StringWriter sw)
         {
-#if NETSTANDARD1_6
-            Xml = XmlWriter.Create(sw);
-#else
+#if NET452
             Xml = new XmlTextWriter(sw);
+#else
+            Xml = XmlWriter.Create(sw);
 #endif
         }
 
-#if NETSTANDARD1_6
-        public XmlWriter Xml { get; private set; }
-#else
+#if NET452
         public XmlTextWriter Xml { get; private set; }
+#else
+        public XmlWriter Xml { get; private set; }
 #endif
     }
 }
