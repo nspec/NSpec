@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
+
+// TODO: turn all solution #if NETSTANDARD/NETCORE into opposite #if NET452
 
 namespace NSpec.Compatibility
 {
@@ -9,8 +12,9 @@ namespace NSpec.Compatibility
             Assembly assembly;
 
 #if NETSTANDARD1_6
-            var context = System.Runtime.Loader.AssemblyLoadContext.Default;
-            assembly = context.LoadFromAssemblyPath(filePath);
+            var assemblyName = Path.GetFileNameWithoutExtension(filePath);
+
+            assembly = Assembly.Load(new AssemblyName(assemblyName));
 #else
             assembly = Assembly.LoadFrom(filePath);
 #endif

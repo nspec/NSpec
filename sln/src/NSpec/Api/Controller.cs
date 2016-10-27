@@ -4,15 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NSpec.Api
 {
     public class Controller
     {
         public int Run(
-            string specAssemblyPath,
+            string testAssemblyPath,
             string tags,
             string formatterClassName,
             IDictionary<string, string> formatterOptions,
@@ -20,7 +18,7 @@ namespace NSpec.Api
         {
             var formatter = FindFormatter(formatterClassName, formatterOptions);
 
-            var invocation = new RunnerInvocation(specAssemblyPath, tags, formatter, failFast);
+            var invocation = new RunnerInvocation(testAssemblyPath, tags, formatter, failFast);
 
             int nrOfFailures = invocation.Run().Failures().Count();
 
