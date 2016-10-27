@@ -3,63 +3,11 @@
 <h1>shared behavior</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_shared_behavior_code" data-timestamp="2015-10-04 17:01:51 -0600" class="brush: csharp;">﻿using System;
+<pre id="describe_shared_behavior_code" data-timestamp="2016-09-26 10:19:02 -0600" class="brush: csharp;">﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSpec;
-
-abstract class describe_ICollection : nspec
-{
-    protected ICollection&lt;string&gt; collection;
-
-    void adding_to_collection()
-    {
-        before = () =&gt; collection.Add(&quot;Item 1&quot;);
-
-        it[&quot;contains the entry&quot;] = () =&gt;
-            collection.Contains(&quot;Item 1&quot;).should_be(true);
-    }
-}
-
-class describe_LinkedList : describe_ICollection
-{
-    void before_each()
-    {
-        linkedList = new LinkedList&lt;string&gt;();
-        collection = linkedList;
-    }
-
-    void specific_actions()
-    {
-        before = () =&gt; collection.Add(&quot;Item 1&quot;);
-
-        it[&quot;can add an item at the begining with ease&quot;] = () =&gt; 
-        {
-            linkedList.AddFirst(&quot;Item 2&quot;);
-            linkedList.First.Value.should_be(&quot;Item 2&quot;);
-        };
-    }
-    LinkedList&lt;string&gt; linkedList;
-}
-
-class describe_List : describe_ICollection
-{
-    void before_each()
-    {
-        list = new List&lt;string&gt;();
-        collection = list;
-    }
-
-    void specific_actions()
-    {
-        before = () =&gt; collection.Add(&quot;Item 1&quot;);
-
-        it[&quot;an item can be referenced by index&quot;] = () =&gt;
-            list[0].should_be(&quot;Item 1&quot;);
-    }
-    List&lt;string&gt; list;
-}
 </pre>
-<pre id="describe_shared_behavior_output" data-timestamp="2015-10-04 17:01:51 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">0 Examples, 0 Failed, 0 Pending
+<pre id="describe_shared_behavior_output" data-timestamp="2016-09-26 10:19:02 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">0 Examples, 0 Failed, 0 Pending
 </pre>
 </div>

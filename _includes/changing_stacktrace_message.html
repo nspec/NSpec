@@ -3,31 +3,15 @@
 <h1>changing stacktrace message</h1>
 </div>
 <div id="layout-content" class="group" style="padding-top: 10px;">
-<pre id="describe_changing_stacktrace_message_code" data-timestamp="2015-10-04 17:01:49 -0600" class="brush: csharp;">﻿using System;
+<pre id="describe_changing_stacktrace_message_code" data-timestamp="2016-09-26 10:18:59 -0600" class="brush: csharp;">﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NSpec;
-
-class describe_changing_stacktrace_message : nspec
-{
-    void given_a_context_that_throws_an_exception()
-    {
-        it[&quot;the stack trace can be altered to provide more information&quot;] = () =&gt;
-        {
-            throw new InvalidOperationException(&quot;An exception was thrown&quot;);
-        };
-    }
-
-    public override string StackTraceToPrint(string flattenedStackTrace)
-    {
-        return flattenedStackTrace + &quot;More Information to help diagnose issue\r\n&quot;;
-    }
-}
 </pre>
-<pre id="describe_changing_stacktrace_message_output" data-timestamp="2015-10-04 17:01:49 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe changing stacktrace message
+<pre id="describe_changing_stacktrace_message_output" data-timestamp="2016-09-26 10:18:59 -0600" style="font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;">describe changing stacktrace message
   given a context that throws an exception
-    the stack trace can be altered to provide more information - FAILED - An exception was thr...
+    the stack trace can be altered to provide more information (2ms) - FAILED - An exception w...
 
 **** FAILURES ****
 
