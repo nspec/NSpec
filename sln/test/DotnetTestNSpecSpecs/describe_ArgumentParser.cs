@@ -5,13 +5,17 @@ using System;
 
 namespace DotNetTestNSpecSpecs
 {
+    public class describe_ArgumnetParser
+    {
+        protected CommandLineOptions actual = null;
+
+        protected const string projectValue = @"Path\To\Some\Project";
+    }
+
     [TestFixture]
     [Category("ArgumentParser")]
-    public class when_only_dotnet_test_args_found
+    public class when_only_dotnet_test_args_found : describe_ArgumnetParser
     {
-        CommandLineOptions actual = null;
-        const string projectValue = @"Path\To\Some\Project";
-
         [SetUp]
         public void setup()
         {
@@ -45,10 +49,8 @@ namespace DotNetTestNSpecSpecs
 
     [TestFixture]
     [Category("ArgumentParser")]
-    public class when_dotnet_test_project_arg_missing
+    public class when_dotnet_test_project_arg_missing : describe_ArgumnetParser
     {
-        CommandLineOptions actual = null;
-
         [SetUp]
         public void setup()
         {
@@ -81,11 +83,8 @@ namespace DotNetTestNSpecSpecs
 
     [TestFixture]
     [Category("ArgumentParser")]
-    public class when_some_dotnet_test_arg_missing
+    public class when_some_dotnet_test_arg_missing : describe_ArgumnetParser
     {
-        CommandLineOptions actual = null;
-        const string projectValue = @"Path\To\Some\Project";
-
         [SetUp]
         public void setup()
         {
@@ -118,9 +117,8 @@ namespace DotNetTestNSpecSpecs
 
     [TestFixture]
     [Category("ArgumentParser")]
-    public class when_dotnet_test_arg_value_missing
+    public class when_dotnet_test_arg_value_missing : describe_ArgumnetParser
     {
-        const string projectValue = @"Path\To\Some\Project";
         ArgumentParser parser = null;
         string[] args = null;
 
@@ -146,11 +144,8 @@ namespace DotNetTestNSpecSpecs
 
     [TestFixture]
     [Category("ArgumentParser")]
-    public class when_dotnet_test_and_nspec_args_found
+    public class when_dotnet_test_and_nspec_args_found : describe_ArgumnetParser
     {
-        CommandLineOptions actual = null;
-        const string projectValue = @"Path\To\Some\Project";
-
         [SetUp]
         public void setup()
         {
@@ -193,11 +188,8 @@ namespace DotNetTestNSpecSpecs
 
     [TestFixture]
     [Category("ArgumentParser")]
-    public class when_no_nspec_args_found_after_separator
+    public class when_no_nspec_args_found_after_separator : describe_ArgumnetParser
     {
-        CommandLineOptions actual = null;
-        const string projectValue = @"Path\To\Some\Project";
-
         [SetUp]
         public void setup()
         {
@@ -232,11 +224,8 @@ namespace DotNetTestNSpecSpecs
 
     [TestFixture]
     [Category("ArgumentParser")]
-    public class when_unknown_args_found_before_separator
+    public class when_unknown_args_found_before_separator : describe_ArgumnetParser
     {
-        CommandLineOptions actual = null;
-        const string projectValue = @"Path\To\Some\Project";
-
         [SetUp]
         public void setup()
         {
