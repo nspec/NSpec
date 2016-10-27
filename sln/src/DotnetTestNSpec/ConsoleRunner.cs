@@ -18,12 +18,24 @@ namespace DotNetTestNSpec
 
             CommandLineOptions options = argumentParser.Parse(args);
 
+            // TODO delete
+            /*
             Console.WriteLine(options);
+            */
 
             if (options.Project == null)
             {
                 throw new DotNetTestNSpecException("Command line arguments must include path of test project assembly");
             }
+
+            var nspecArgumentParser = new NSpecArgumentParser();
+
+            NSpecCommandLineOptions nspecOptions = nspecArgumentParser.Parse(options.NSpecArgs);
+
+            // TODO delete
+            /*
+            Console.WriteLine(nspecOptions);
+            */
 
             var nspecLibraryAssembly = GetNSpecLibraryAssembly(options.Project);
 
@@ -31,8 +43,12 @@ namespace DotNetTestNSpec
 
             var controllerProxy = new ControllerProxy(nspecLibraryAssembly);
 
-            // TODO extract and pass all controller parameter: tags, formatterClassName, formatterOptions
-            int nrOfFailures = controllerProxy.Run(options.Project, "", "", new Dictionary<string, string>(), false);
+            int nrOfFailures = controllerProxy.Run(
+                testAssemblyPath: options.Project,
+                tags: nspecOptions.Tags,
+                formatterClassName: nspecOptions.FormatterName,
+                formatterOptions: nspecOptions.FormatterOptions,
+                failFast: nspecOptions.FailFast);
 
             return nrOfFailures;
         }
