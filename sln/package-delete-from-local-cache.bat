@@ -1,6 +1,6 @@
 @ECHO OFF
-REM delete-local-package.bat
-REM Usage: delete-local-package <package-directory>
+REM delete-from-local-cache.bat
+REM Usage: delete-from-local-cache <package-name>
 
 :TopOfScript
 ECHO.
@@ -27,7 +27,7 @@ GOTO :EndOfScript
 :Usage
 ECHO This command requires 1 input argument.
 ECHO.
-ECHO Usage: delete-local-branch ^<package-directory^>
+ECHO Usage: delete-from-local-cache ^<package-name^>
 
 :EndOfScript
 ECHO.

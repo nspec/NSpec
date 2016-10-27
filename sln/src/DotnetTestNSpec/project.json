@@ -26,11 +26,5 @@
     },
     "net452": {
     }
-  },
-
-  "scripts": {
-    "postcompile": [
-      "../../../scripts/delete-local-package.bat %project:Name%"
-    ]
   }
 }
