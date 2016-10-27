@@ -16,7 +16,7 @@ namespace DotNetTestNSpec.Compatibility
                 ? versionInfoAttribute.InformationalVersion
                 : assembly.GetName().Version.ToString();
 
-            string versionInfo = $"{name}: {version}";
+            string versionInfo = $"{name} version: {version}";
 
             return versionInfo;
         }

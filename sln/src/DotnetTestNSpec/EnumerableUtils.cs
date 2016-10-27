@@ -12,7 +12,7 @@ namespace DotNetTestNSpec
 
         public static string ToObjectString<T>(IEnumerable<T> items, bool breakLines = false)
         {
-            return ToItemsString("{{", "}}", items, breakLines);
+            return ToItemsString("{", "}", items, breakLines);
         }
 
         public static string ToItemsString<T>(string opening, string closing, IEnumerable<T> items, bool breakLines = false)
