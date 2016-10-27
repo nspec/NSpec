@@ -26,7 +26,7 @@ namespace DotNetTestNSpec
             var options = new NSpecCommandLineOptions()
             {
                 ClassName = null,
-                Tags = new string[0],
+                Tags = null,
                 FailFast = false,
                 FormatterName = null,
                 FormatterOptions = new Dictionary<string, string>(),
@@ -51,7 +51,7 @@ namespace DotNetTestNSpec
             // check for remaining named options
 
             remainingArgs = ParsingUtils.SetTextForOptionalArg(remainingArgs,
-                tagsKey, value => options.Tags = value.Split(','));
+                tagsKey, value => options.Tags = value);
 
             remainingArgs = SetOptionalFlag(remainingArgs,
                 failFastKey, value => options.FailFast = value);
@@ -120,7 +120,7 @@ namespace DotNetTestNSpec
 
         string[] knownArgPrefixes;
 
-        const string tagsKey = "--tags";
+        const string tagsKey = "--tag";
         const string failFastKey = "--failfast";
         const string formatterPrefix = "--formatter=";
         const string formatterOptionsPrefix = "--formatterOptions:";

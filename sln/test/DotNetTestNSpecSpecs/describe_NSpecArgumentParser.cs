@@ -10,6 +10,7 @@ namespace DotNetTestNSpecSpecs
         protected NSpecCommandLineOptions actual = null;
 
         protected const string someClassName = @"someClassName";
+        protected const string someTags = "tag1,tag2,tag3";
         protected const string someFormatterName = @"someFormatterName";
     }
 
@@ -23,7 +24,7 @@ namespace DotNetTestNSpecSpecs
             string[] args =
             {
                 someClassName,
-                "--tags", "tag1,tag2,tag3",
+                "--tag", someTags,
                 "--failfast",
                 "--formatter=" + someFormatterName,
                 "--formatterOptions:optName1=optValue1",
@@ -42,7 +43,7 @@ namespace DotNetTestNSpecSpecs
             var expected = new NSpecCommandLineOptions()
             {
                 ClassName = someClassName,
-                Tags = new[] { "tag1", "tag2", "tag3" },
+                Tags = someTags,
                 FailFast = true,
                 FormatterName = someFormatterName,
                 FormatterOptions = new Dictionary<string, string>()
@@ -67,7 +68,7 @@ namespace DotNetTestNSpecSpecs
         {
             string[] args =
             {
-                "--tags", "tag1,tag2,tag3",
+                "--tag", someTags,
                 "--failfast",
                 "--formatter=" + someFormatterName,
                 "--formatterOptions:optName1=optValue1",
@@ -86,7 +87,7 @@ namespace DotNetTestNSpecSpecs
             var expected = new NSpecCommandLineOptions()
             {
                 ClassName = null,
-                Tags = new[] { "tag1", "tag2", "tag3" },
+                Tags = someTags,
                 FailFast = true,
                 FormatterName = someFormatterName,
                 FormatterOptions = new Dictionary<string, string>()
@@ -130,7 +131,7 @@ namespace DotNetTestNSpecSpecs
             var expected = new NSpecCommandLineOptions()
             {
                 ClassName = someClassName,
-                Tags = new string[0],
+                Tags = null,
                 FailFast = true,
                 FormatterName = someFormatterName,
                 FormatterOptions = new Dictionary<string, string>()
@@ -156,7 +157,7 @@ namespace DotNetTestNSpecSpecs
             string[] args =
             {
                 someClassName,
-                "--tags", "tag1,tag2,tag3",
+                "--tag", someTags,
                 "--formatter=" + someFormatterName,
                 "--formatterOptions:optName1=optValue1",
                 "--formatterOptions:optName2",
@@ -174,7 +175,7 @@ namespace DotNetTestNSpecSpecs
             var expected = new NSpecCommandLineOptions()
             {
                 ClassName = someClassName,
-                Tags = new[] { "tag1", "tag2", "tag3" },
+                Tags = someTags,
                 FailFast = false,
                 FormatterName = someFormatterName,
                 FormatterOptions = new Dictionary<string, string>()
@@ -200,7 +201,7 @@ namespace DotNetTestNSpecSpecs
             string[] args =
             {
                 someClassName,
-                "--tags", "tag1,tag2,tag3",
+                "--tag", someTags,
                 "--failfast",
                 "--formatterOptions:optName1=optValue1",
                 "--formatterOptions:optName2",
@@ -218,7 +219,7 @@ namespace DotNetTestNSpecSpecs
             var expected = new NSpecCommandLineOptions()
             {
                 ClassName = someClassName,
-                Tags = new[] { "tag1", "tag2", "tag3" },
+                Tags = someTags,
                 FailFast = true,
                 FormatterName = null,
                 FormatterOptions = new Dictionary<string, string>()
@@ -244,7 +245,7 @@ namespace DotNetTestNSpecSpecs
             string[] args =
             {
                 someClassName,
-                "--tags", "tag1,tag2,tag3",
+                "--tag", someTags,
                 "--failfast",
                 "--formatter=" + someFormatterName,
             };
@@ -260,7 +261,7 @@ namespace DotNetTestNSpecSpecs
             var expected = new NSpecCommandLineOptions()
             {
                 ClassName = someClassName,
-                Tags = new[] { "tag1", "tag2", "tag3" },
+                Tags = someTags,
                 FailFast = true,
                 FormatterName = someFormatterName,
                 FormatterOptions = new Dictionary<string, string>(),
@@ -282,7 +283,7 @@ namespace DotNetTestNSpecSpecs
             {
                 someClassName,
                 "unknown1",
-                "--tags", "tag1,tag2,tag3",
+                "--tag", someTags,
                 "--failfast",
                 "unknown2",
                 "--formatter=" + someFormatterName,
@@ -303,7 +304,7 @@ namespace DotNetTestNSpecSpecs
             var expected = new NSpecCommandLineOptions()
             {
                 ClassName = someClassName,
-                Tags = new[] { "tag1", "tag2", "tag3" },
+                Tags = someTags,
                 FailFast = true,
                 FormatterName = someFormatterName,
                 FormatterOptions = new Dictionary<string, string>()

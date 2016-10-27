@@ -6,7 +6,7 @@ namespace DotNetTestNSpec
     {
         public string ClassName { get; set; }
 
-        public string[] Tags { get; set; }
+        public string Tags { get; set; }
 
         public bool FailFast { get; set; }
 
@@ -21,7 +21,7 @@ namespace DotNetTestNSpec
             return EnumerableUtils.ToObjectString(new string[]
             {
                 $"{nameof(ClassName)}: {ClassName}",
-                $"{nameof(Tags)}: {EnumerableUtils.ToArrayString(Tags)}",
+                $"{nameof(Tags)}: {Tags}",
                 $"{nameof(FailFast)}: {FailFast}",
                 $"{nameof(FormatterName)}: {FormatterName}",
                 $"{nameof(FormatterOptions)}: {DictionaryUtils.ToArrayString(FormatterOptions)}",
