@@ -15,7 +15,7 @@ namespace DotNetTestNSpec
             return ToItemsString("{{", "}}", items, breakLines);
         }
 
-        static string ToItemsString<T>(string opening, string closing, IEnumerable<T> items, bool breakLines = false)
+        public static string ToItemsString<T>(string opening, string closing, IEnumerable<T> items, bool breakLines = false)
         {
             string start = breakLines
                 ? "\n"

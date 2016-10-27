@@ -6,14 +6,17 @@ namespace DotNetTestNSpec
 {
     public class ArgumentParser
     {
-        public CommandLineOptions Parse(string[] args)
+        public ArgumentParser()
         {
-            string[] knownArgKeys =
+            knownArgKeys = new[]
             {
                 parentProcessArgKey,
                 portArgKey,
             };
+        }
 
+        public CommandLineOptions Parse(string[] args)
+        {
             IEnumerable<string> dotNetTestArgs = args.TakeWhile(arg => arg != "--");
             IEnumerable<string> nSpecArgs = args.Skip(dotNetTestArgs.Count() + 1);
 
@@ -22,45 +25,35 @@ namespace DotNetTestNSpec
             // check for first argument (the project), before remaining dotnet-test options
 
             string firstArg = dotNetTestArgs.FirstOrDefault();
-            IEnumerable<string> dotNetTestOptions;
 
             if (!knownArgKeys.Contains(firstArg))
             {
                 options.Project = firstArg;
 
-                dotNetTestOptions = dotNetTestArgs.Skip(1);
-            }
-            else
-            {
-                dotNetTestOptions = dotNetTestArgs;
+                dotNetTestArgs = dotNetTestArgs.Skip(1);
             }
 
             // check for remaining dotnet-test options
 
-            var remainingOptions = SetValueForOptionalArg(dotNetTestOptions,
+            var remainingArgs = SetIntForOptionalArg(dotNetTestArgs,
                 parentProcessArgKey, value => options.ParentProcessId = value);
 
-            remainingOptions = SetValueForOptionalArg(remainingOptions,
+            remainingArgs = SetIntForOptionalArg(remainingArgs,
                 portArgKey, value => options.Port = value);
 
             options.NSpecArgs = nSpecArgs.ToArray();
 
-            options.UnknownArgs = remainingOptions.ToArray();
+            options.UnknownArgs = remainingArgs.ToArray();
 
             return options;
         }
 
-        static IEnumerable<string> SetValueForOptionalArg(IEnumerable<string> args, string argKey, Action<int> setValue)
+        static IEnumerable<string> SetIntForOptionalArg(IEnumerable<string> args, string argKey, Action<int> setValue)
         {
-            var argTail = args.SkipWhile(arg => arg != argKey);
-            IEnumerable<string> unusedArgs;
-
-            if (argTail.Any())
+            return ParsingUtils.SetTextForOptionalArg(args, argKey, text =>
             {
-                string potentialArgValue = argTail.Skip(1).FirstOrDefault();
-
                 int value;
-                bool argValueFound = Int32.TryParse(potentialArgValue, out value);
+                bool argValueFound = Int32.TryParse(text, out value);
 
                 if (!argValueFound)
                 {
@@ -68,18 +61,10 @@ namespace DotNetTestNSpec
                 }
 
                 setValue(value);
-
-                unusedArgs = args
-                    .TakeWhile(arg => arg != argKey)
-                    .Concat(argTail.Skip(2));
-            }
-            else
-            {
-                unusedArgs = args;
-            }
-
-            return unusedArgs;
+            });
         }
+
+        string[] knownArgKeys;
 
         const string parentProcessArgKey = "--parentProcessId";
         const string portArgKey = "--port";
