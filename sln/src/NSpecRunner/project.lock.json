@@ -2148,7 +2148,7 @@
           "lib/netstandard1.3/_._": {}
         }
       },
-      "NSpec/1.0.0": {
+      "NSpec/2.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -2176,7 +2176,7 @@
           "lib/net45/nunit.framework.dll": {}
         }
       },
-      "NSpec/1.0.0": {
+      "NSpec/2.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.2",
         "dependencies": {
@@ -7051,7 +7051,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "NSpec/1.0.0": {
+    "NSpec/2.0.0": {
       "type": "project",
       "path": "../NSpec/project.json",
       "msbuildProject": "../NSpec/NSpec.xproj"
@@ -7059,7 +7059,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "NSpec >= 1.0.0-*"
+      "NSpec >= 2.0.0-*"
     ],
     ".NETCoreApp,Version=v1.0": [
       "Microsoft.NETCore.App >= 1.0.0"

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-*",
+  "version": "2.0.0-*",
 
   "buildOptions": {
     "compile": {
@@ -11,7 +11,7 @@
   },
 
   "dependencies": {
-    "NSpec": "1.0.0-*"
+    "NSpec": "2.0.0-*"
   },
 
   "frameworks": {
