@@ -1,6 +1,6 @@
 ﻿using DotNetTestNSpec.Compatibility;
+using DotNetTestNSpec.Parsing;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -18,11 +18,6 @@ namespace DotNetTestNSpec
 
             CommandLineOptions options = argumentParser.Parse(args);
 
-            // TODO delete
-            /*
-            Console.WriteLine(options);
-            */
-
             if (options.Project == null)
             {
                 throw new DotNetTestNSpecException("Command line arguments must include path of test project assembly");
@@ -31,11 +26,6 @@ namespace DotNetTestNSpec
             var nspecArgumentParser = new NSpecArgumentParser();
 
             NSpecCommandLineOptions nspecOptions = nspecArgumentParser.Parse(options.NSpecArgs);
-
-            // TODO delete
-            /*
-            Console.WriteLine(nspecOptions);
-            */
 
             var nspecLibraryAssembly = GetNSpecLibraryAssembly(options.Project);
 

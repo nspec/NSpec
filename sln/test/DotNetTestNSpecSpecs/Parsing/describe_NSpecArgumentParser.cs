@@ -1,9 +1,10 @@
 ﻿using DotNetTestNSpec;
+using DotNetTestNSpec.Parsing;
 using FluentAssertions;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace DotNetTestNSpecSpecs
+namespace DotNetTestNSpecSpecs.Parsing
 {
     public class describe_NSpecArgumentParser
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DotNetTestNSpec
+namespace DotNetTestNSpec.Parsing
 {
     public class ArgumentParser
     {
