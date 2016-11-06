@@ -1,6 +1,9 @@
 @ECHO OFF
-REM delete-from-local-cache.bat
-REM Usage: delete-from-local-cache <package-name>
+REM package-delete-from-local-cache.bat
+REM Deletes a named package from NuGet local cache on machine.
+REM Usage: package-delete-from-local-cache <package-name>
+
+SET scriptName=package-delete-from-local-cache
 
 :TopOfScript
 ECHO.
@@ -26,8 +29,9 @@ GOTO :EndOfScript
 
 :Usage
 ECHO This command requires 1 input argument.
+ECHO Deletes a named package from NuGet local cache on machine.
 ECHO.
-ECHO Usage: delete-from-local-cache ^<package-name^>
+ECHO Usage: %scriptName% ^<package-name^>
 
 :EndOfScript
 ECHO.
