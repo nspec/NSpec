@@ -11,7 +11,9 @@
   },
 
   "dependencies": {
-    "NSpec": "1.1.0-*"
+    "NSpec": {
+      "target": "project"
+    }
   },
 
   "frameworks": {
