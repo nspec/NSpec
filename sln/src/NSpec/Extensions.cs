@@ -122,6 +122,7 @@ namespace NSpec
         /// </summary>
         [DebuggerNonUserCode]
         public static U GetOrFallback<T, U>(this T t, Func<T, U> func, U fallback)
+            where U : class
         {
             try
             {

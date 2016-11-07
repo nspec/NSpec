@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD1_6
+﻿#if NET452
 
 using System;
 using System.IO;

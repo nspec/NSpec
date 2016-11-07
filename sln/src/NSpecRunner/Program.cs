@@ -72,7 +72,7 @@ namespace NSpecRunner
 
         public static string[] RemoveOptionsAndSwitches(string[] args)
         {
-            return args.Where(s => !s.StartsWith("--") || s == "--tag" ).ToArray();
+            return args.Where(s => !s.StartsWith("--", StringComparison.OrdinalIgnoreCase) || s == "--tag" ).ToArray();
         }
 
         public static bool IsFailFast(string[] args)
@@ -82,7 +82,7 @@ namespace NSpecRunner
 
         public static string GetFormatterClassName(string[] args)
         {
-            string formatter = args.FirstOrDefault(s => s.StartsWith("--formatter=") );
+            string formatter = args.FirstOrDefault(s => s.StartsWith("--formatter=", StringComparison.OrdinalIgnoreCase) );
             if (formatter != null)
             {
                 return formatter.Substring("--formatter=".Length).ToLowerInvariant();
