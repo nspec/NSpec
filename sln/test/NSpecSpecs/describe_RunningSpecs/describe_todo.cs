@@ -139,7 +139,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             example.Exception.Should().NotBeNull();
 
-            example.Exception.GetType().Should().Be(typeof(AsyncMismatchException));
+            example.Exception.Should().BeOfType<AsyncMismatchException>();
         }
 
         [Test]

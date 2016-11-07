@@ -3,7 +3,6 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
-using NSpecSpecs;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
 using System.Reflection;
 using FluentAssertions;

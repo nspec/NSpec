@@ -50,7 +50,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             var example = TheExample("fails because of same exception thrown again in after");
 
             example.Exception.Should().NotBeNull();
-            example.Exception.GetType().Should().Be(typeof(ExampleFailureException));
+            example.Exception.Should().BeOfType<ExampleFailureException>();
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             var example = TheExample("fails because of different exception thrown in after");
 
             example.Exception.Should().NotBeNull();
-            example.Exception.GetType().Should().Be(typeof(ExampleFailureException));
+            example.Exception.Should().BeOfType<ExampleFailureException>();
         }
     }
 }

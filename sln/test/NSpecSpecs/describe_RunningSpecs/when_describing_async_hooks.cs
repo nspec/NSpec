@@ -81,7 +81,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             example.Exception.Should().NotBeNull();
 
-            example.Exception.GetType().Should().Be(typeof(AsyncMismatchException));
+            example.Exception.Should().BeOfType<AsyncMismatchException>();
         }
 
         protected void ExampleRunsWithInnerAsyncMismatchException(string name)
@@ -94,7 +94,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             example.Exception.InnerException.Should().NotBeNull();
 
-            example.Exception.InnerException.GetType().Should().Be(typeof(AsyncMismatchException));
+            example.Exception.InnerException.Should().BeOfType<AsyncMismatchException>();
         }
     }
 }

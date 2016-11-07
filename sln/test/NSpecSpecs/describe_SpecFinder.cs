@@ -208,7 +208,6 @@ namespace describe_SomeNameSpace
     {
         void context_method()
         {
-            
         }
     }
 
@@ -216,7 +215,6 @@ namespace describe_SomeNameSpace
     {
         void context_method()
         {
-
         }
     }
 
@@ -224,7 +222,6 @@ namespace describe_SomeNameSpace
     {
         void context_method()
         {
-
         }
     }
 }
@@ -235,7 +232,6 @@ namespace describe_OtherNameSpace
     {
         void context_method()
         {
-
         }
     }
 }

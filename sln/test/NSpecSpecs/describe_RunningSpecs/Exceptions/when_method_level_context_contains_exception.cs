@@ -57,7 +57,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var example = AllExamples().Single();
 
-            example.Exception.GetType().Should().Be(typeof(ContextBareCodeException));
+            example.Exception.Should().BeOfType<ContextBareCodeException>();
         }
 
         [Test]

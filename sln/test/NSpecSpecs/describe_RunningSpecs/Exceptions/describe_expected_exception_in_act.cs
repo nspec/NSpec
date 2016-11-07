@@ -179,7 +179,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void fails_if_no_exception_thrown()
         {
-            TheExample("fails if no exception thrown").Exception.GetType().Should().Be(typeof(ExceptionNotThrown));
+            TheExample("fails if no exception thrown").Exception.Should().BeOfType<ExceptionNotThrown>();
         }
 
         [Test]
@@ -187,7 +187,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var exception = TheExample("fails if wrong exception thrown").Exception;
 
-            exception.GetType().Should().Be(typeof(ExceptionNotThrown));
+            exception.Should().BeOfType<ExceptionNotThrown>();
             exception.Message.Should().Be("Exception of type SomeOtherException was not thrown.");
         }
 
@@ -196,7 +196,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var exception = TheExample("fails if wrong error message is returned").Exception;
 
-            exception.GetType().Should().Be(typeof(ExceptionNotThrown));
+            exception.Should().BeOfType<ExceptionNotThrown>();
             exception.Message.Should().Be("Expected message: \"Blah\" But was: \"Testing\"");
         }
     }

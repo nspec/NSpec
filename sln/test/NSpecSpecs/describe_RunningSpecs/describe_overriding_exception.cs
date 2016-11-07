@@ -48,13 +48,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void the_examples_exception_is_replaced_with_exception_provided_in_override()
         {
-            TheExample("specify method level failure").Exception.InnerException.GetType().Should().Be(typeof(KnownException));
+            TheExample("specify method level failure").Exception.InnerException.Should().BeOfType<KnownException>();
         }
 
         [Test]
         public void the_examples_exception_is_replaced_with_exception_provided_in_override_if_async_method()
         {
-            TheExample("specify async method level failure").Exception.InnerException.GetType().Should().Be(typeof(KnownException));
+            TheExample("specify async method level failure").Exception.InnerException.Should().BeOfType<KnownException>();
         }
     }
 }
