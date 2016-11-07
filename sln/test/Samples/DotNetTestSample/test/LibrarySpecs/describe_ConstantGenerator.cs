@@ -1,5 +1,6 @@
 ﻿using LibraryUnderTest;
 using NSpec;
+using Shouldly;
 
 namespace LibrarySpecs
 {
@@ -23,7 +24,7 @@ namespace LibrarySpecs
                 second = generator.GetNumber();
             };
 
-            it["Should return same number"] = () => first.should_be(second);
+            it["Should return same number"] = () => first.ShouldBe(second);
         }
     }
 }
