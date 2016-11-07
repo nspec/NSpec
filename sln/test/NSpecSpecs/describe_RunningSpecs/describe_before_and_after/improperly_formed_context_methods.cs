@@ -2,6 +2,7 @@
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {
@@ -50,10 +51,12 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
             //while nspec is building up its model of contexts and examples
             //then the class level before and properly crafted spec (wrapped in lambda) is executed.
 
-            //The moral of the story is context methods that don't have their behavior wrapped 
+            //The moral of the story is context methods that don't have their behavior wrapped
             //in lambdas (incorrectly so), run in the order that they are declared (disregarding alphabetical ordering).
             //FYI, alphabetical ordering can easily be implemented in the 'Methods' extension method.
-            CollectionAssert.AreEqual(new[] { "messed_up_context", "another_messed_up_context", "before_all", "a_regular_context_method" }, before_all_sampleSpec.sequence);
+
+            before_all_sampleSpec.sequence.Should().Equal(
+                new[] { "messed_up_context", "another_messed_up_context", "before_all", "a_regular_context_method" });
         }
 
     }

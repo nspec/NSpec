@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace NSpec.Domain
 {
@@ -9,20 +10,22 @@ namespace NSpec.Domain
     {
         public static string Parse(Expression expressionBody)
         {
-            var body = expressionBody.ToString();
+            const string parensPattern = @"\((.*?)\)";
+            const string otherSeparatorsPattern = @"[._""]";
+            const string commmasPattern = @"\s+,";
+            const string multiSpacesPattern = @"\s{2,}";
 
-            var cut = body.IndexOf(").");
+            string body = expressionBody.ToString();
+            string sentence = body;
 
-            var sentence = body.Substring(cut + 1, body.Length - cut - 1)
-                .Replace(")", " ")
-                .Replace(".", " ")
-                .Replace("(", " ")
-                .Replace("  ", " ")
-                .Trim()
-                .Replace("_", " ")
-                .Replace("\"", " ");
-
-            while (sentence.Contains("  ")) sentence = sentence.Replace("  ", " ");
+            // allow for 3 levels of nested parenthesis
+            for (int i = 0; i < 3; i++)
+            {
+                sentence = Regex.Replace(sentence, parensPattern, @"$1");
+            }
+            sentence = Regex.Replace(sentence, otherSeparatorsPattern, " ");
+            sentence = Regex.Replace(sentence, commmasPattern, ",");
+            sentence = Regex.Replace(sentence, multiSpacesPattern, " ");
 
             return sentence.Trim();
         }

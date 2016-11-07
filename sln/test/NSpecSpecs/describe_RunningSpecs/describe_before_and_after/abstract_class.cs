@@ -1,8 +1,6 @@
 using FluentAssertions;
-using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
-using System;
 
 namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {
@@ -26,7 +24,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 beforeAll = () => sequence += "B";
 
                 before = () => sequence += "D";
-                specify = () => 1.Should().Be(1, String.Empty);
+                specify = () => Assert.That(true, Is.True);
                 after = () => sequence += "E";
 
                 afterAll = () => sequence += "G";

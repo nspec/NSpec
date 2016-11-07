@@ -50,7 +50,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void it_should_not_know_what_to_expect()
             {
-                PassAlways();
+                Assert.That(true, Is.True);
             }
         }
 

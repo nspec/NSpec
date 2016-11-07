@@ -23,7 +23,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 context["a context with an example"] = () =>
                 {
-                    it["liveconsole: 1 is 1"] = () => 1.Should().Be(1);
+                    it["liveconsole: 1 is 1"] = () => Assert.That(true, Is.True);
                 };
             }
 

@@ -11,11 +11,11 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void method_level_context()
             {
-                it["1 is 1"] = () => 1.Should().Be(1);
+                it["1 is 1"] = () => Assert.That(true, Is.True);
 
                 context["except in crazy world"] = () =>
                 {
-                    it["1 is 2"] = () => 1.Should().Be(2);
+                    it["1 is 2"] = () => Assert.That(1, Is.EqualTo(2));
                 };
             }
         }

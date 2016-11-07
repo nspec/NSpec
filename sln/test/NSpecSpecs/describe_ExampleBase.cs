@@ -1,10 +1,7 @@
 using FluentAssertions;
-using NSpec;
 using NSpec.Domain;
-using NSpecSpecs;
 using NUnit.Framework;
 using System;
-using System.Threading.Tasks;
 
 namespace NSpecSpecs
 {
@@ -15,7 +12,8 @@ namespace NSpecSpecs
         [Test]
         public void should_clear_quotes()
         {
-            new Example(() => "hello".Should().Be("hello", String.Empty)).Spec.Should().Be("hello should be hello");
+            new Example(() => Assert.That("hello", Is.EqualTo("hello"))).Spec
+                .Should().Be("That hello, EqualTo hello");
         }
 
         // no 'specify' available for AsyncExample, hence no way to test that on AsyncExample

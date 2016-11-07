@@ -1,9 +1,9 @@
-using System.Linq;
+using FluentAssertions;
 using NSpec;
 using NSpec.Domain;
-using NUnit.Framework;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
-using FluentAssertions;
+using NUnit.Framework;
+using System.Linq;
 
 namespace NSpecSpecs
 {

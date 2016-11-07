@@ -14,7 +14,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void specify_an_example_in_abstract_class()
             {
-                true.Should().BeTrue();
+                Assert.That(true, Is.True);
             }
         }
 
@@ -22,7 +22,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void specify_an_example_in_another_abstract_class()
             {
-                true.Should().BeTrue();
+                Assert.That(true, Is.True);
             }
         }
 
@@ -30,7 +30,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void specify_an_example()
             {
-                true.Should().BeTrue();
+                Assert.That(true, Is.True);
             }
         }
 
@@ -38,7 +38,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void specify_an_example_in_derived_concrete_class()
             {
-                true.Should().BeTrue();
+                Assert.That(true, Is.True);
             }
         }
 

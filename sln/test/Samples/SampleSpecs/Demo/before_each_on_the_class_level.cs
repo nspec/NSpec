@@ -18,7 +18,7 @@ namespace SampleSpecs.Demo
         {
             before = () => ints.Add(12);
 
-            specify = () => ints.Count.Should().Be(1, String.Empty);
+            specify = () => ints.Count.Should().Be(1, "");
         }
     }
 }

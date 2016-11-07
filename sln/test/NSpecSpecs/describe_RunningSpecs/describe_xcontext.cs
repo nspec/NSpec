@@ -19,7 +19,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                 xcontext["sub context"] = () =>
                 {
                     it["needs an example or it gets filtered"] =
-                        () => "Hello World".Should().Be("Hello World");
+                        () => Assert.That(true, Is.True);
                 };
             }
         }
@@ -57,7 +57,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                     before = SubContextBefore;
 
                     it["needs an example or it gets filtered"] =
-                        () => "Hello World".Should().Be("Hello World");
+                        () => Assert.That(true, Is.True);
                 };
             }
         }

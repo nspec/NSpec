@@ -14,7 +14,6 @@ namespace NSpecSpecs.WhenRunningSpecs
             [Tag("method-tag-zero")]
             void it_has_an_empty_example()
             {
-
             }
         }
 
@@ -22,7 +21,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void specify_empty_example()
             {
-                
             }
         }
 
@@ -30,7 +28,6 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void specify_another_empty_example()
             {
-                
             }
         }
 
@@ -40,7 +37,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             [Tag("method-tag-one")]
             void has_tag_at_method_level_context()
             {
-                it["tests nothing"] = () => 1.Should().Be(1);
+                it["tests nothing"] = () => Assert.That(true, Is.True);
             }
 
             [Tag("method-tag-two")]
@@ -48,24 +45,24 @@ namespace NSpecSpecs.WhenRunningSpecs
             {
                 context["is tagged with 'mytag'", "mytag"] = () =>
                 {
-                    it["is tagged with 'mytag'"] = () => 1.Should().Be(1);
+                    it["is tagged with 'mytag'"] = () => Assert.That(true, Is.True);
                 };
 
                 context["has three tags", "mytag,expect-to-failure,foobar"] = () =>
                 {
-                    it["has three tags"] = () => { 1.Should().Be(1); };
+                    it["has three tags"] = () => { Assert.That(true, Is.True); };
                 };
 
                 context["does not have a tag"] = () =>
                 {
-                    it["does not have a tag"] = () => { true.Should().BeTrue(); };
+                    it["does not have a tag"] = () => { Assert.That(true, Is.True); };
                 };
 
                 context["has a nested context"] = () =>
                 {
                     context["is the nested context", "foobar"] = () =>
                     {
-                        it["is the nested example", "nested-tag"] = () => { true.Should().BeTrue(); };
+                        it["is the nested example", "nested-tag"] = () => { Assert.That(true, Is.True); };
                     };
                 };
             }
@@ -77,18 +74,18 @@ namespace NSpecSpecs.WhenRunningSpecs
             {
                 context["has only example level tags"] = () =>
                 {
-                    it["should run and be in output", "shouldbeinoutput"] = () => true.Should().BeTrue();
-                    it["should not run and not be in output", "barbaz"] = () => true.Should().BeTrue();
-                    it["should also not run too not be in output"] = () => true.Should().BeTrue();
+                    it["should run and be in output", "shouldbeinoutput"] = () => Assert.That(true, Is.True);
+                    it["should not run and not be in output", "barbaz"] = () => Assert.That(true, Is.True);
+                    it["should also not run too not be in output"] = () => Assert.That(true, Is.True);
 
-                    xit["pending but should be in output", "shouldbeinoutput"] = () => true.Should().BeTrue();
+                    xit["pending but should be in output", "shouldbeinoutput"] = () => Assert.That(true, Is.True);
                     it["also pending but should be in output", "shouldbeinoutput"] = todo;
                 };
 
                 context["has context level tags", "shouldbeinoutput"] = () =>
                 {
-                    it["should also run and be in output", "barbaz"] = () => true.Should().BeTrue();
-                    it["should yet also run and be in output"] = () => true.Should().BeTrue();
+                    it["should also run and be in output", "barbaz"] = () => Assert.That(true, Is.True);
+                    it["should yet also run and be in output"] = () => Assert.That(true, Is.True);
                 };
             }
         }

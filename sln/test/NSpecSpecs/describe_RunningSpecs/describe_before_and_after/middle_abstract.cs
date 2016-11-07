@@ -45,7 +45,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             void it_one_is_one()
             {
-                1.Should().Be(1);
+                Assert.That(true, Is.True);
             }
         }
 

@@ -28,7 +28,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 beforeAllAsync = FailAsync;
 
-                it["Should fail"] = PassAlways;
+                it["Should fail"] = () => Assert.That(true, Is.True);
             }
 
             void given_both_sync_and_async_before_all_are_set()
@@ -37,14 +37,14 @@ namespace NSpecSpecs.describe_RunningSpecs
 
                 beforeAllAsync = SetStateAsync;
 
-                it["Should not know what to expect"] = PassAlways;
+                it["Should not know what to expect"] = () => Assert.That(true, Is.True);
             }
 
             void given_before_all_is_set_to_async_lambda()
             {
                 beforeAll = async () => { await Task.Delay(0); };
 
-                it["Should fail because beforeAll is set to async lambda"] = PassAlways;
+                it["Should fail because beforeAll is set to async lambda"] = () => Assert.That(true, Is.True);
 
                 // No chance of error when (async) return value is explicitly typed. The following do not even compile:
                 /*

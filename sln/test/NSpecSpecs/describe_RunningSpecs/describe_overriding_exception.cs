@@ -23,14 +23,14 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void specify_method_level_failure()
             {
-                "1".Should().Be("1");
+                Assert.That(true, Is.True);
             }
 
             async Task specify_async_method_level_failure()
             {
                 await Task.Delay(0);
 
-                "1".Should().Be("1");
+                Assert.That(true, Is.True);
             }
 
             public override Exception ExceptionToReturn(Exception originalException)

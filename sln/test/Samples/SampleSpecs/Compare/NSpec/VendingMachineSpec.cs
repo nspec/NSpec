@@ -20,17 +20,17 @@ namespace SampleSpecs.Compare.NSpec
             {
                 before = () => machine.RegisterItem("A1", "doritos", .5m);
 
-                specify = () => machine.Items().Count().Should().Be(1, String.Empty);
+                specify = () => machine.Items().Count().Should().Be(1, "");
 
-                specify = () => machine.Item("A1").Name.Should().Be("doritos", String.Empty);
+                specify = () => machine.Item("A1").Name.Should().Be("doritos", "");
 
-                specify = () => machine.Item("A1").Price.Should().Be(.5m, String.Empty);
+                specify = () => machine.Item("A1").Price.Should().Be(.5m, "");
 
                 context["given a second item is registered"] = () =>
                 {
                     before = () => machine.RegisterItem("A2", "mountain dew", .6m);
 
-                    specify = () => machine.Items().Count().Should().Be(2, String.Empty);
+                    specify = () => machine.Items().Count().Should().Be(2, "");
                 };
             };
             //got to force/refactor getting rid of the dictionary soon

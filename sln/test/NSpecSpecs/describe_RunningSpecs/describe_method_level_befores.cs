@@ -18,15 +18,15 @@ namespace NSpecSpecs.WhenRunningSpecs
             public static Func<Task> AsyncSubContextBefore = async () => { await Task.Delay(0); };
 
             // method- (or class-) level before
-            void before_each() 
-            { 
+            void before_each()
+            {
             }
 
             void method_level_context()
             {
                 before = ContextLevelBefore;
 
-                context["sub context"] = () => 
+                context["sub context"] = () =>
                 {
                     before = SubContextBefore;
 

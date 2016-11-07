@@ -13,7 +13,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void it_is()
             {
-                "is".Should().Be("is");
+                Assert.That("is", Is.EqualTo("is"));
             }
         }
 

@@ -4,6 +4,8 @@ using NUnit.Framework;
 
 namespace NSpecSpecs
 {
+    // TODO Double-check if these are still needed
+
     [TestFixture]
     [Category("Conventions")]
     public class when_find_before
@@ -14,7 +16,6 @@ namespace NSpecSpecs
         {
             void before_each()
             {
-
             }
         }
 
@@ -33,14 +34,12 @@ namespace NSpecSpecs
         {
             void BeforeEach()
             {
-
             }
         }
 
         [SetUp]
         public void Setup()
         {
-
         }
     }
 }

@@ -13,25 +13,25 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void given_a_spec_with_multiple_failures()
             {
-                it["this one isn't a failure"] = () => "not failure".Should().Be("not failure");
+                it["this one isn't a failure"] = () => Assert.That("not failure", Is.EqualTo("not failure"));
 
-                it["this one is a failure"] = () => "hi".Should().Be("hello");
+                it["this one is a failure"] = () => Assert.That("hi", Is.EqualTo("hello"));
 
-                it["this one also fails"] = () => "another".Should().Be("failure");
+                it["this one also fails"] = () => Assert.That("another", Is.EqualTo("failure"));
 
                 context["nested examples"] = () =>
                 {
-                    it["is skipped"] = () => "skipped".Should().Be("skipped");
+                    it["is skipped"] = () => Assert.That("skipped", Is.EqualTo("skipped"));
 
-                    it["is also skipped"] = () => "skipped".Should().Be("skipped");
+                    it["is also skipped"] = () => Assert.That("skipped", Is.EqualTo("skipped"));
                 };
             }
 
             void another_context()
             {
-                it["does not run because of failure on line 20"] = () => true.Should().BeTrue();
+                it["does not run because of failure on line 20"] = () => Assert.That(true, Is.True);
 
-                it["also does not run because of failure on line 20"] = () => true.Should().BeTrue();
+                it["also does not run because of failure on line 20"] = () => Assert.That(true, Is.True);
             }
         }
 

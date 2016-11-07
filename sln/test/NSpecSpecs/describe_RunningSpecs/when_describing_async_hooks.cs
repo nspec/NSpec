@@ -1,12 +1,9 @@
 ﻿using FluentAssertions;
 using NSpec;
 using NSpec.Domain;
+using NSpecSpecs.describe_RunningSpecs.Exceptions;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NSpecSpecs.describe_RunningSpecs
@@ -41,23 +38,18 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 await Task.Run(() =>
                 {
-                    throw new InvalidCastException("Some error message");
+                    throw new KnownException("Some error message");
                 });
             }
 
             protected void ShouldHaveInitialState()
             {
-                state.Should().Be(0);
+                Assert.That(state, Is.EqualTo(0));
             }
 
             protected void ShouldHaveFinalState()
             {
-                state.Should().Be(1);
-            }
-
-            protected void PassAlways()
-            {
-                true.Should().BeTrue();
+                Assert.That(state, Is.EqualTo(1));
             }
         }
 

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using FluentAssertions;
 using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using System.Linq;
 using System.Threading.Tasks;
-using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {

@@ -17,9 +17,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 after = () => { throw new AfterException(); };
 
-                it["should fail this example because of after"] = () => "1".Should().Be("1");
+                it["should fail this example because of after"] = () => Assert.That(true, Is.True);
 
-                it["should also fail this example because of after"] = () => "1".Should().Be("1");
+                it["should also fail this example because of after"] = () => Assert.That(true, Is.True);
 
                 it["overrides exception from same level it"] = () => { throw new ItException(); };
 
@@ -27,14 +27,14 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 {
                     before = () => { throw new BeforeException(); };
 
-                    it["preserves exception from nested before"] = () => "1".Should().Be("1");
+                    it["preserves exception from nested before"] = () => Assert.That(true, Is.True);
                 };
 
                 context["exception thrown by both after and nested act"] = () =>
                 {
                     act = () => { throw new ActException(); };
 
-                    it["preserves exception from nested act"] = () => "1".Should().Be("1");
+                    it["preserves exception from nested act"] = () => Assert.That(true, Is.True);
                 };
 
                 context["exception thrown by both after and nested it"] = () =>
@@ -44,7 +44,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["exception thrown by both after and nested after"] = () =>
                 {
-                    it["preserves exception from nested after"] = () => "1".Should().Be("1");
+                    it["preserves exception from nested after"] = () => Assert.That(true, Is.True);
 
                     after = () => { throw new NestedAfterException(); };
                 };

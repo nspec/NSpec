@@ -31,12 +31,12 @@ namespace SampleSpecs.Bug
         public static string Output = @"
 describe context stack trace
   exception thrown in act
-    is true (__ms) - FAILED - Expected: True, But was: False
+    is true (__ms) - FAILED - Expected True, but found False.
 
 **** FAILURES ****
 
 nspec. describe context stack trace. exception thrown in act. is true.
-Context Failure: Exception in act., Example Failure: Expected: True, But was: False
+Context Failure: Exception in act., Example Failure: Expected True, but found False.
 
 1 Examples, 1 Failed, 0 Pending
 ";

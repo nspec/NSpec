@@ -24,7 +24,8 @@ namespace NSpecSpecs.WhenRunningSpecs
                 await Task.Run(() =>
                 {
                     first_async_example_executed = true;
-                    "hello".Should().Be("hello");
+
+                    Assert.That("hello", Is.EqualTo("hello"));
                 });
             }
 
@@ -33,7 +34,8 @@ namespace NSpecSpecs.WhenRunningSpecs
                 await Task.Run(() =>
                 {
                     last_async_example_executed = true;
-                    "hello".Should().NotBe("hello");
+
+                    Assert.That("hello", Is.Not.EqualTo("hello"));
                 });
             }
         }
@@ -57,14 +59,14 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             async Task<long> it_should_be_failing_with_task_result()
             {
-                await Task.Run(() => "hello".Should().Be("hello"));
+                await Task.Run(() => Assert.That("hello", Is.EqualTo("hello")));
 
                 return -1L;
             }
 
             async void it_should_throw_with_async_void()
             {
-                await Task.Run(() => "hello".Should().Be("hello"));
+                await Task.Run(() => Assert.That("hello", Is.EqualTo("hello")));
             }
         }
 

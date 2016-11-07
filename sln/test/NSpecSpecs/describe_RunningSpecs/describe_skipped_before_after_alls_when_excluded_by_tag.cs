@@ -21,7 +21,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void context_bystander()
             {
-                it["should not run because of tags"] = () => "not tagged".Should().Be("not tagged");
+                it["should not run because of tags"] = () => Assert.That("not tagged", Is.EqualTo("not tagged"));
             }
         }
 
@@ -29,7 +29,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void it_specifies_something()
             {
-                specify = () => true.Should().BeTrue(String.Empty);
+                specify = () => Assert.That(true, Is.True);
             }
         }
 
@@ -69,7 +69,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void it_specifies_something()
             {
-                specify = () => true.Should().BeTrue(String.Empty);
+                specify = () => Assert.That(true, Is.True);
             }
         }
 

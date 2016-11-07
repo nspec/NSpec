@@ -49,7 +49,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
             {
                 await Task.Delay(0);
 
-                1.Should().Be(1);
+                Assert.That(true, Is.True);
             }
         }
 

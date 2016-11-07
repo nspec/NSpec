@@ -21,14 +21,14 @@ namespace SampleSpecs.Bug
                 {
                     before = () => ints.Add(1);                               //      before(:each) { @array << "sibling 1" }
 
-                    specify = () => ints.Count.Should().Be(1, String.Empty);  //      it { @array.count.should == 1 }
+                    specify = () => ints.Count.Should().Be(1, "");  //      it { @array.count.should == 1 }
                 };                                                            //    end
 
                 describe["another sibling context"] = () =>                   //    context "another sibling context" do
                 {
                     before = () => ints.Add(1);                               //      before(:each) { @array << "sibling 2" }
 
-                    specify = () => ints.Count.Should().Be(1, String.Empty);  //      it { @array.count.should == 1 }
+                    specify = () => ints.Count.Should().Be(1, "");  //      it { @array.count.should == 1 }
                 };                                                            //    end
             };                                                                //  end
         }                                                                     //end

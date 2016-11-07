@@ -13,7 +13,7 @@ namespace SampleSpecs.Demo
         {
             before = () => user = new User();
 
-            specify = () => user.Id.Should().NotBe(0, String.Empty);
+            specify = () => user.Id.Should().NotBe(0, "");
 
             context["user is admin"] = () =>
             {

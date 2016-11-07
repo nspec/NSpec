@@ -12,7 +12,7 @@ namespace SampleSpecs.Demo
     {
         void should_still_run_tests()
         {
-            specify = () => "Test".Should().Be("Test", String.Empty);
+            specify = () => "Test".Should().Be("Test", "");
         }
     }
 }

@@ -40,7 +40,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void it_should_not_know_what_to_do()
             {
-                PassAlways();
+                Assert.That(true, Is.True);
             }
 
             void after_each()

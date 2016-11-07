@@ -25,7 +25,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
             void should_fail_this_example()
             {
-                it["should fail"] = () => "hello".Should().Be("hello");
+                it["should fail"] = () => Assert.That("hello", Is.EqualTo("hello"));
             }
         }
 

@@ -1,11 +1,4 @@
-﻿using NSpec;
-using NSpec.Domain;
-using NSpecSpecs.WhenRunningSpecs;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using NUnit.Framework;
 using System.Threading.Tasks;
 
 namespace NSpecSpecs.describe_RunningSpecs
@@ -28,7 +21,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 actAsync = FailAsync;
 
-                it["Should fail because of exception"] = PassAlways;
+                it["Should fail because of exception"] = () => Assert.That(true, Is.True);
             }
 
             void given_both_sync_and_async_act_are_set()
@@ -37,14 +30,14 @@ namespace NSpecSpecs.describe_RunningSpecs
 
                 actAsync = SetStateAsync;
 
-                it["Should not know what to expect"] = PassAlways;
+                it["Should not know what to expect"] = () => Assert.That(true, Is.True);
             }
 
             void given_act_is_set_to_async_lambda()
             {
                 act = async () => { await Task.Delay(0); };
 
-                it["Should fail because act is set to async lambda"] = PassAlways;
+                it["Should fail because act is set to async lambda"] = () => Assert.That(true, Is.True);
 
                 // No chance of error when (async) return value is explicitly typed. The following do not even compile:
                 /*

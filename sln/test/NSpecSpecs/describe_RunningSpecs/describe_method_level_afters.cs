@@ -26,7 +26,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             {
                 after = ContextLevelAfter;
 
-                context["sub context"] = () => 
+                context["sub context"] = () =>
                 {
                     after = SubContextAfter;
 

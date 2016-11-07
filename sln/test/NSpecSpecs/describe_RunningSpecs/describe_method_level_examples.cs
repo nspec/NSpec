@@ -6,7 +6,6 @@ using NUnit.Framework;
 using System;
 using Moq;
 using FluentAssertions;
-using FluentAssertions.Execution;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -21,13 +20,15 @@ namespace NSpecSpecs.WhenRunningSpecs
             void it_should_be_an_example()
             {
                 first_example_executed = true;
-                "hello".Should().Be("hello");
+
+                Assert.That("hello", Is.EqualTo("hello"));
             }
 
             void it_should_be_failing()
             {
                 last_example_executed = true;
-                "hello".Should().NotBe("hello");
+
+                Assert.That("hello", Is.Not.EqualTo("hello"));
             }
         }
 
@@ -73,7 +74,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void the_last_example_should_be_failing()
         {
-            classContext.Examples.Last().Exception.Should().BeAssignableTo<AssertionFailedException>();
+            classContext.Examples.Last().Exception.Should().BeAssignableTo<NUnit.Framework.AssertionException>();
         }
 
         [Test]

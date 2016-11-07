@@ -26,14 +26,14 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void given_async_after_all_fails()
             {
-                it["Should fail"] = PassAlways;
+                it["Should fail"] = () => Assert.That(true, Is.True);
 
                 afterAllAsync = FailAsync;
             }
 
             void given_both_sync_and_async_after_all_are_set()
             {
-                it["Should not know what to do"] = PassAlways;
+                it["Should not know what to do"] = () => Assert.That(true, Is.True);
 
                 afterAll = SetAnotherState;
 
@@ -44,7 +44,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 afterAll = async () => { await Task.Delay(0); };
 
-                it["Should fail because afterAll is set to async lambda"] = PassAlways;
+                it["Should fail because afterAll is set to async lambda"] = () => Assert.That(true, Is.True);
 
                 // No chance of error when (async) return value is explicitly typed. The following do not even compile:
                 /*

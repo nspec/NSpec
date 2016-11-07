@@ -13,24 +13,24 @@ namespace NSpecSpecs.WhenRunningSpecs
             {
                 context["is tagged with 'mytag'", "mytag"] = () =>
                 {
-                    it["is tagged with 'mytag'"] = () => { 1.Should().Be(1); };
+                    it["is tagged with 'mytag'"] = () => { Assert.That(true, Is.True); };
                 };
 
                 context["has three tags", "mytag, expect-to-failure, foobar"] = () =>
                 {
-                    it["has three tags"] = () => { 1.Should().Be(1); };
+                    it["has three tags"] = () => { Assert.That(true, Is.True); };
                 };
 
                 context["does not have a tag"] = () =>
                 {
-                    it["does not have a tag"] = () => { true.Should().BeTrue(); };
+                    it["does not have a tag"] = () => { Assert.That(true, Is.True); };
                 };
 
                 context["has a nested context", "nested-tag"] = () =>
                 {
                     context["is the nested context"] = () =>
                     {
-                        it["is the nested example"] = () => { true.Should().BeTrue(); };
+                        it["is the nested example"] = () => { Assert.That(true, Is.True); };
                     };
                 };
             }

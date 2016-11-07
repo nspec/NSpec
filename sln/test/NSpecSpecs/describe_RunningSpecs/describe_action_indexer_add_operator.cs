@@ -16,7 +16,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void method_level_context()
             {
-                specify = () => "Hello".Should().Be("Hello", String.Empty);
+                it["Should have this name"] = () => Assert.That(true, Is.True);
             }
         }
 
@@ -39,7 +39,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             var example = (Example)TheExamples().First();
 
-            example.Spec.Should().Be("Hello should be Hello");
+            example.Spec.Should().Be("Should have this name");
         }
 
         // no 'specify' available for AsyncExample, hence no need to test that on ExampleBase

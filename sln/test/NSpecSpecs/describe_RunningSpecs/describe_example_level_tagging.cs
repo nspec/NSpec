@@ -12,11 +12,11 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void has_tags_in_examples()
             {
-                it["is tagged with 'mytag'", "mytag"] = () => { 1.Should().Be(1); };
+                it["is tagged with 'mytag'", "mytag"] = () => { Assert.That(true, Is.True); };
 
-                it["has three tags", "mytag, expect-to-failure, foobar"] = () => { 1.Should().Be(1); };
+                it["has three tags", "mytag, expect-to-failure, foobar"] = () => { Assert.That(true, Is.True); };
 
-                it["does not have a tag"] = () => { true.Should().BeTrue(); };
+                it["does not have a tag"] = () => { Assert.That(true, Is.True); };
             }
         }
 

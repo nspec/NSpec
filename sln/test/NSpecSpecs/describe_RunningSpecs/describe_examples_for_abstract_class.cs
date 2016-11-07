@@ -2,7 +2,6 @@
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
-using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -22,7 +21,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void list_manipulations()
             {
-                it["should be 1"] = () => ints.Should().Equal(1);
+                it["should be 1"] = () => Assert.That(ints, Is.EqualTo(new[] { 1 }));
             }
         }
 
@@ -37,7 +36,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 //since abstract classes can only run in derived concrete context classes
                 //the context isn't quite what you might expect.
-                it["should be 1, 2, 3"] = () => ints.Should().Equal(1, 2, 3);
+                it["should be 1, 2, 3"] = () => Assert.That(ints, Is.EqualTo(new[] { 1, 2, 3 }));
             }
         }
 
@@ -50,7 +49,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void list_manipulations()
             {
-                it["should be 1, 2, 3 too"] = () => ints.Should().Equal(1, 2, 3);
+                it["should be 1, 2, 3 too"] = () => Assert.That(ints, Is.EqualTo(new[] { 1, 2, 3 }));
             }
         }
 

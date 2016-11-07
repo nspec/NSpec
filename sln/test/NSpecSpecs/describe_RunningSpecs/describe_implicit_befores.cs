@@ -22,10 +22,10 @@ namespace NSpecSpecs.WhenRunningSpecs
                 it["should have two entries"] = () =>
                 {
                     ints.Add(16);
-                    ints.Count.Should().Be(1);
+                    Assert.That(ints.Count, Is.EqualTo(1));
                 };
 
-                specify = () => ints.Count.Should().Be(1, String.Empty);
+                specify = () => Assert.That(ints.Count, Is.EqualTo(1));
             }
         }
 

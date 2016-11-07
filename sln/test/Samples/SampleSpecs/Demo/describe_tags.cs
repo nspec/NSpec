@@ -13,11 +13,11 @@ namespace SampleSpecs.Demo
 
             context["when tags are specified at the context level", "mytag-one"] = () =>
             {
-                it["tags all examples within that context"] = () => { 1.Should().Be(1); };
+                it["tags all examples within that context"] = () => { true.Should().BeTrue(); };
 
                 context["when tags are nested", "mytag-two"] = () =>
                 {
-                    it["tags all the nested examples and nested contexts cumlatively"] = () => { 1.Should().Be(1); };
+                    it["tags all the nested examples and nested contexts cumlatively"] = () => { true.Should().BeTrue(); };
                 };
             };
 
