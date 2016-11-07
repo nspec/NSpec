@@ -6,7 +6,6 @@ using System.Text;
 
 namespace NSpec.Domain.Formatters
 {
-    [Serializable]
     public class HtmlFormatter : IFormatter
     {
         public void Write(ContextCollection contexts)

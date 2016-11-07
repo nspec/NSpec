@@ -10,7 +10,6 @@
   },
 
   "dependencies": {
-    "NUnit": "3.4.1"
   },
 
   "frameworks": {

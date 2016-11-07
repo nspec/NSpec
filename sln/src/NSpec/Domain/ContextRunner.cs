@@ -3,7 +3,6 @@ using NSpec.Domain.Formatters;
 
 namespace NSpec.Domain
 {
-    [Serializable]
     public class ContextRunner
     {
         public ContextCollection Run(ContextCollection contexts)

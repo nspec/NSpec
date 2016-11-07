@@ -7,7 +7,6 @@ using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {
-    [Serializable]
     public class SpecFinder : ISpecFinder
     {
         public virtual IEnumerable<Type> SpecClasses()

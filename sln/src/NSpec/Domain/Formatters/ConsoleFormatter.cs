@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 namespace NSpec.Domain.Formatters
 {
-    [Serializable]
     public class ConsoleFormatter : IFormatter, ILiveFormatter
     {
         public Action<string> WriteLineDelegate { get; set; }

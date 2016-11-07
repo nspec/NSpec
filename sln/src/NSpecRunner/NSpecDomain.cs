@@ -11,7 +11,6 @@ using System.Runtime.Loader;
 
 namespace NSpecRunner
 {
-    [Serializable]
     public class NSpecDomain
     {
         //largely inspired from:

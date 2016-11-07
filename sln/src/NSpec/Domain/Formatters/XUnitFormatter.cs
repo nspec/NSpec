@@ -8,7 +8,6 @@ using System.Xml;
 
 namespace NSpec.Domain.Formatters
 {
-    [Serializable]
     public class XUnitFormatter : IFormatter
     {
         public void Write(ContextCollection contexts)

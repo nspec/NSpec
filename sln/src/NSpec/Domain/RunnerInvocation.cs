@@ -1,11 +1,7 @@
-using System;
 using NSpec.Domain.Formatters;
 
 namespace NSpec.Domain
 {
-    // TODO remove all Serializable attribute occurences, once NSpec.VsAdapter is not needed anymore
-
-    [Serializable]
     public class RunnerInvocation
     {
         public ContextCollection Run()
