@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
 using System;
@@ -23,7 +24,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                 await Task.Run(() =>
                 {
                     first_async_example_executed = true;
-                    "hello".should_be("hello");
+                    "hello".Should().Be("hello");
                 });
             }
 
@@ -32,7 +33,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                 await Task.Run(() =>
                 {
                     last_async_example_executed = true;
-                    "hello".should_not_be("hello");
+                    "hello".Should().NotBe("hello");
                 });
             }
         }
@@ -56,14 +57,14 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             async Task<long> it_should_be_failing_with_task_result()
             {
-                await Task.Run(() => "hello".should_be("hello"));
+                await Task.Run(() => "hello".Should().Be("hello"));
 
                 return -1L;
             }
 
             async void it_should_throw_with_async_void()
             {
-                await Task.Run(() => "hello".should_be("hello"));
+                await Task.Run(() => "hello".Should().Be("hello"));
             }
         }
 
@@ -78,11 +79,11 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = classContext.Examples[0];
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Exception.should_not_be_null();
+            example.Exception.Should().NotBeNull();
 
-            example.Exception.GetType().should_be(typeof(AsyncMismatchException));
+            example.Exception.GetType().Should().Be(typeof(AsyncMismatchException));
         }
 
         [Test]
@@ -90,11 +91,11 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = classContext.Examples[1];
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Exception.should_not_be_null();
+            example.Exception.Should().NotBeNull();
 
-            example.Exception.GetType().should_be(typeof(AsyncMismatchException));
+            example.Exception.GetType().Should().Be(typeof(AsyncMismatchException));
         }
     }
 }

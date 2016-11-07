@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
 
@@ -35,9 +36,9 @@ namespace NSpecSpecs
 
         void ShouldBeBefore(string methodName)
         {
-            defaultConvention.IsMethodLevelBefore(methodName).should_be_true();
+            defaultConvention.IsMethodLevelBefore(methodName).Should().BeTrue();
 
-            defaultConvention.IsMethodLevelContext(methodName).should_be_false();
+            defaultConvention.IsMethodLevelContext(methodName).Should().BeFalse();
         }
     }
 
@@ -59,9 +60,9 @@ namespace NSpecSpecs
 
         void ShouldBeAct(string methodName)
         {
-            defaultConvention.IsMethodLevelAct(methodName).should_be_true();
+            defaultConvention.IsMethodLevelAct(methodName).Should().BeTrue();
 
-            defaultConvention.IsMethodLevelContext(methodName).should_be_false();
+            defaultConvention.IsMethodLevelContext(methodName).Should().BeFalse();
         }
     }
 
@@ -96,14 +97,14 @@ namespace NSpecSpecs
         [Test]
         public void should_not_match_IterationShould()
         {
-            defaultConvention.IsMethodLevelExample("IterationShould").should_be_false();
+            defaultConvention.IsMethodLevelExample("IterationShould").Should().BeFalse();
         }
 
         void ShouldBeExample(string methodName)
         {
-            defaultConvention.IsMethodLevelExample(methodName).should_be_true();
+            defaultConvention.IsMethodLevelExample(methodName).Should().BeTrue();
 
-            defaultConvention.IsMethodLevelContext(methodName).should_be_false();
+            defaultConvention.IsMethodLevelContext(methodName).Should().BeFalse();
         }
     }
 
@@ -114,19 +115,19 @@ namespace NSpecSpecs
         [Test]
         public void should_be_match_describe_a_specification()
         {
-            defaultConvention.IsMethodLevelContext("describe_a_specification").should_be_true();
+            defaultConvention.IsMethodLevelContext("describe_a_specification").Should().BeTrue();
         }
 
         [Test]
         public void should_ignore_case()
         {
-            defaultConvention.IsMethodLevelContext("Describe_A_Specification").should_be_true();
+            defaultConvention.IsMethodLevelContext("Describe_A_Specification").Should().BeTrue();
         }
 
         [Test]
         public void should_not_match_methods_dont_contain_underscores()
         {
-            defaultConvention.IsMethodLevelContext("GivenUser").should_be_false();
+            defaultConvention.IsMethodLevelContext("GivenUser").Should().BeFalse();
         }
     }
 

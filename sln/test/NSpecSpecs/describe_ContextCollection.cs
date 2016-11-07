@@ -3,6 +3,7 @@ using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
+using FluentAssertions;
 
 namespace NSpecSpecs
 {
@@ -33,25 +34,25 @@ namespace NSpecSpecs
         [Test]
         public void should_aggregate_examples()
         {
-            contexts.Examples().Count().should_be(3);
+            contexts.Examples().Count().Should().Be(3);
         }
 
         [Test]
         public void is_marked_with_focus()
         {
-            contexts.AnyTaggedWithFocus().should_be_true();
+            contexts.AnyTaggedWithFocus().Should().BeTrue();
         }
 
         [Test]
         public void should_aggregate_failures()
         {
-            contexts.Failures().Count().should_be(1);
+            contexts.Failures().Count().Should().Be(1);
         }
 
         [Test]
         public void should_aggregate_pendings()
         {
-            contexts.Pendings().Count().should_be(1);
+            contexts.Pendings().Count().Should().Be(1);
         }
 
         [Test]
@@ -60,9 +61,9 @@ namespace NSpecSpecs
             contexts.Add(new Context());
             contexts[0].AddExample(new ExampleBaseWrap());
             contexts[0].Examples[0].HasRun = true;
-            contexts.Count().should_be(2);
+            contexts.Count().Should().Be(2);
             contexts.TrimSkippedContexts();
-            contexts.Count().should_be(1);
+            contexts.Count().Should().Be(1);
         }
     }
 }

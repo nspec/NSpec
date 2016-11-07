@@ -1,7 +1,9 @@
+using FluentAssertions;
 using NSpec;
 using NSpec.Domain;
 using NSpecSpecs;
 using NUnit.Framework;
+using System;
 using System.Threading.Tasks;
 
 namespace NSpecSpecs
@@ -13,7 +15,7 @@ namespace NSpecSpecs
         [Test]
         public void should_clear_quotes()
         {
-            new Example(() => "hello".should_be("hello")).Spec.should_be("hello should be hello");
+            new Example(() => "hello".Should().Be("hello", String.Empty)).Spec.Should().Be("hello should be hello");
         }
 
         // no 'specify' available for AsyncExample, hence no way to test that on AsyncExample
@@ -32,7 +34,7 @@ namespace NSpecSpecs
 
             context.AddExample(example);
 
-            example.FullName().should_be("context name. example name.");
+            example.FullName().Should().Be("context name. example name.");
         }
 
         [Test]
@@ -44,7 +46,7 @@ namespace NSpecSpecs
 
             context.AddExample(example);
 
-            example.Pending.should_be_true();
+            example.Pending.Should().BeTrue();
         }
 
         [Test]
@@ -58,7 +60,7 @@ namespace NSpecSpecs
 
             context.AddExample(example);
 
-            example.Pending.should_be_true();
+            example.Pending.Should().BeTrue();
         }
     }
 }

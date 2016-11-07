@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSpec;
 
 namespace NSpecSpecs.ClassContextBug
@@ -18,7 +19,7 @@ namespace NSpecSpecs.ClassContextBug
 
         void Grand_Parent_Context()
         {
-            it["TestValue should be \"Grand Parent!!!\""] = () => TestValue.should_be("Grand Parent!!!");
+            it["TestValue should be \"Grand Parent!!!\""] = () => TestValue.Should().Be("Grand Parent!!!");
         }
     }
 
@@ -36,7 +37,7 @@ namespace NSpecSpecs.ClassContextBug
 
         void Parent_Context()
         {
-            it["TestValue should be \"Grand Parent.Parent!!!@@@\""] = () => TestValue.should_be("Grand Parent.Parent!!!@@@");
+            it["TestValue should be \"Grand Parent.Parent!!!@@@\""] = () => TestValue.Should().Be("Grand Parent.Parent!!!@@@");
         }
     }
 
@@ -54,7 +55,7 @@ namespace NSpecSpecs.ClassContextBug
 
         void Child_Context()
         {
-            it["TestValue should be \"Grand Parent.Parent.Child!!!@@@###\""] = () => TestValue.should_be("Grand Parent.Parent.Child!!!@@@###");
+            it["TestValue should be \"Grand Parent.Parent.Child!!!@@@###\""] = () => TestValue.Should().Be("Grand Parent.Parent.Child!!!@@@###");
         }
     }
 }

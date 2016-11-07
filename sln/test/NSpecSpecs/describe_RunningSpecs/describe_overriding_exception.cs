@@ -7,6 +7,7 @@ using NUnit.Framework;
 using NSpecSpecs.WhenRunningSpecs;
 using System.Threading.Tasks;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
+using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -22,14 +23,14 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void specify_method_level_failure()
             {
-                "1".should_be("1");
+                "1".Should().Be("1");
             }
 
             async Task specify_async_method_level_failure()
             {
                 await Task.Delay(0);
 
-                "1".should_be("1");
+                "1".Should().Be("1");
             }
 
             public override Exception ExceptionToReturn(Exception originalException)
@@ -47,13 +48,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void the_examples_exception_is_replaced_with_exception_provided_in_override()
         {
-            TheExample("specify method level failure").Exception.InnerException.GetType().should_be(typeof(KnownException));
+            TheExample("specify method level failure").Exception.InnerException.GetType().Should().Be(typeof(KnownException));
         }
 
         [Test]
         public void the_examples_exception_is_replaced_with_exception_provided_in_override_if_async_method()
         {
-            TheExample("specify async method level failure").Exception.InnerException.GetType().should_be(typeof(KnownException));
+            TheExample("specify async method level failure").Exception.InnerException.GetType().Should().Be(typeof(KnownException));
         }
     }
 }

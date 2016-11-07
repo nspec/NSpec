@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
@@ -28,7 +29,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             Run(typeof(SpecClass));
 
-            SpecClass.sequence.Is("AB1CB2CD");
+            SpecClass.sequence.Should().Be("AB1CB2CD");
         }
     }
 
@@ -54,7 +55,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             Run(typeof(SpecClass));
 
-            SpecClass.sequence.Is("AB1CB2CD");
+            SpecClass.sequence.Should().Be("AB1CB2CD");
         }
     }
 }

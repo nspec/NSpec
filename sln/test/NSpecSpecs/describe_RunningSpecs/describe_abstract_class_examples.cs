@@ -3,6 +3,7 @@ using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -13,7 +14,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void specify_an_example_in_abstract_class()
             {
-                true.should_be_true();
+                true.Should().BeTrue();
             }
         }
 
@@ -21,7 +22,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void specify_an_example_in_another_abstract_class()
             {
-                true.should_be_true();
+                true.Should().BeTrue();
             }
         }
 
@@ -29,7 +30,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void specify_an_example()
             {
-                true.should_be_true();
+                true.Should().BeTrue();
             }
         }
 
@@ -37,7 +38,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void specify_an_example_in_derived_concrete_class()
             {
-                true.should_be_true();
+                true.Should().BeTrue();
             }
         }
 
@@ -53,31 +54,31 @@ namespace NSpecSpecs.describe_RunningSpecs
             var allClassContexts =
                 contextCollection[0].AllContexts().Where(c => c is ClassContext).ToList();
 
-            allClassContexts.should_contain(c => c.Name == "ConcreteClass");
+            allClassContexts.Should().Contain(c => c.Name == "ConcreteClass");
 
-            allClassContexts.should_not_contain(c => c.Name == "AbstractClass");
+            allClassContexts.Should().NotContain(c => c.Name == "AbstractClass");
 
-            allClassContexts.should_not_contain(c => c.Name == "AnotherAbstractClassInChain");
+            allClassContexts.Should().NotContain(c => c.Name == "AnotherAbstractClassInChain");
         }
 
-        //TODO: specify that concrete classes must have an example of their own or they won't host 
+        //TODO: specify that concrete classes must have an example of their own or they won't host
         //abstract superclass's examples or do away with abstract classes altogether .
         //I'm not sure this complexity is warranted.
 
         [Test]
         public void examples_of_abtract_classes_are_included_in_the_first_derived_concrete_class()
         {
-            TheContext("ConcreteClass").Examples.Count().should_be(3);
+            TheContext("ConcreteClass").Examples.Count().Should().Be(3);
 
-            TheExample("specify an example in abstract class").should_have_passed();
+            TheExample("specify an example in abstract class").ShouldHavePassed();
 
-            TheExample("specify an example in another abstract class").should_have_passed();
+            TheExample("specify an example in another abstract class").ShouldHavePassed();
         }
 
         [Test]
         public void subsequent_derived_concrete_class_do_not_contain_the_examples_from_the_abtract_class()
         {
-            TheContext("DerivedConcreteClass").Examples.Count().should_be(1);
+            TheContext("DerivedConcreteClass").Examples.Count().Should().Be(1);
         }
     }
 }

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NSpec;
+using FluentAssertions;
 
 public class describe_changing_failure_exception : nspec
 {
     void given_a_context_that_throws_an_exception()
     {
         it["the exception can be changed to provide out of proc information"] = () =>
-            "1".should_be("2");
+            "1".Should().Be("2");
     }
 
     public override Exception ExceptionToReturn(Exception originalException)

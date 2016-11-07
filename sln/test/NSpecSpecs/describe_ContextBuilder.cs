@@ -7,6 +7,7 @@ using NSpecSpecs;
 using NUnit.Framework;
 using System.Threading.Tasks;
 using Moq;
+using FluentAssertions;
 
 namespace NSpecSpecs
 {
@@ -74,25 +75,25 @@ namespace NSpecSpecs
         [Test]
         public void the_primary_context_should_be_parent()
         {
-            TheContexts().First().Name.should_be(typeof(parent).Name);
+            TheContexts().First().ShouldBeNamedAfter(typeof(parent));
         }
 
         [Test]
         public void the_parent_should_have_the_child_context()
         {
-            TheContexts().First().Contexts.First().Name.should_be(typeof(child).Name);
+            TheContexts().First().Contexts.First().ShouldBeNamedAfter(typeof(child));
         }
 
         [Test]
         public void it_should_only_have_the_parent_once()
         {
-            TheContexts().Count().should_be(1);
+            TheContexts().Count().Should().Be(1);
         }
 
         [Test]
         public void it_should_have_the_sibling()
         {
-            TheContexts().First().Contexts.should_contain(c => c.Name == typeof(sibling).Name);
+            TheContexts().First().Contexts.Should().Contain(c => c.Name == typeof(sibling).Name);
         }
 
     }
@@ -162,7 +163,7 @@ namespace NSpecSpecs
         [Test]
         public void should_exclude_methods_that_start_with_ITs_from_child_context()
         {
-            TheContexts().First().Contexts.Count.should_be(0);
+            TheContexts().First().Contexts.Count.Should().Be(0);
         }
 
         private void ShouldContainExample(string exampleName)
@@ -206,25 +207,25 @@ namespace NSpecSpecs
         [Test]
         public void it_should_add_the_public_method_as_a_sub_context()
         {
-            classContext.Contexts.should_contain(c => c.Name == "public method");
+            classContext.Contexts.Should().Contain(c => c.Name == "public method");
         }
 
         [Test]
         public void it_should_not_create_a_sub_context_for_the_private_method()
         {
-            classContext.Contexts.should_contain(c => c.Name == "private method");
+            classContext.Contexts.Should().Contain(c => c.Name == "private method");
         }
 
         [Test]
         public void it_should_disregard_method_called_before_each()
         {
-            classContext.Contexts.should_not_contain(c => c.Name == "before each");
+            classContext.Contexts.Should().NotContain(c => c.Name == "before each");
         }
 
         [Test]
         public void it_should_disregard_method_called_act_each()
         {
-            classContext.Contexts.should_not_contain(c => c.Name == "act each");
+            classContext.Contexts.Should().NotContain(c => c.Name == "act each");
         }
     }
 
@@ -248,14 +249,14 @@ namespace NSpecSpecs
         public void it_should_tag_class_context()
         {
             var classContext = TheContexts()[0];
-            classContext.Tags.should_contain_tag("@class-tag");
+            classContext.Tags.Should().Contain("@class-tag");
         }
 
         [Test]
         public void it_should_tag_method_context()
         {
             var methodContext = TheContexts()[0].Contexts[0];
-            methodContext.Tags.should_contain_tag("@method-tag");
+            methodContext.Tags.Should().Contain("@method-tag");
         }
     }
 
@@ -280,27 +281,30 @@ namespace NSpecSpecs
         [Test]
         public void the_root_context_should_be_base_spec()
         {
-            TheContexts().First().Name.should_be(typeof(base_spec));
+            TheContexts().First().ShouldBeNamedAfter(typeof(base_spec));
         }
 
         [Test]
         public void the_next_context_should_be_derived_spec()
         {
-            TheContexts().First().Contexts.First().Name.should_be(typeof(child_spec));
+            TheContexts().First().Contexts.First().ShouldBeNamedAfter(typeof(child_spec));
         }
 
         [Test]
         public void the_next_next_context_should_be_derived_spec()
         {
-            TheContexts().First().Contexts.First().Contexts.First().Name.should_be(typeof(grand_child_spec));
+            TheContexts().First().Contexts.First().Contexts.First().ShouldBeNamedAfter(typeof(grand_child_spec));
         }
     }
+
     public static class InheritanceExtentions
     {
-        public static void should_be(this string actualName, Type expectedType)
+        public static void ShouldBeNamedAfter(this Context context, Type expectedType)
         {
-            Assert.AreEqual(expectedType.Name.Replace("_", " "), actualName);
-        }
+            string actual = context.Name;
+            string expected = expectedType.Name.Replace("_", " ");
 
+            actual.Should().Be(expected);
+        }
     }
 }

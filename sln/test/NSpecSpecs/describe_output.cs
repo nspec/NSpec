@@ -7,6 +7,7 @@ using NSpec.Domain.Formatters;
 using NUnit.Framework;
 using SampleSpecs.Bug;
 using System.Reflection;
+using FluentAssertions;
 
 namespace NSpecSpecs
 {
@@ -101,7 +102,7 @@ namespace NSpecSpecs
                 .Trim()
                 .ScrubTimes();
 
-            actualString.should_be(expectedString);
+            actualString.Should().Be(expectedString);
         }
 
         private static string GetExpectedOutput(Type output)

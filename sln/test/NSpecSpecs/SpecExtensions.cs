@@ -2,6 +2,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using NSpec;
 using NSpec.Domain;
+using FluentAssertions;
 
 namespace NSpecSpecs
 {
@@ -17,14 +18,14 @@ namespace NSpecSpecs
             return contextCollection.Examples().SingleOrDefault(e => e.Spec == name);
         }
 
-        public static void should_have_passed(this ExampleBase example)
+        public static void ShouldHavePassed(this ExampleBase example)
         {
-            (example.HasRun && example.Exception == null).is_true();
+            (example.HasRun && example.Exception == null).Should().BeTrue();
         }
 
-        public static void should_have_failed(this ExampleBase example)
+        public static void ShouldHaveFailed(this ExampleBase example)
         {
-            (example.HasRun && example.Exception == null).is_false();
+            (example.HasRun && example.Exception == null).Should().BeFalse();
         }
 
         public static string RegexReplace(this string input, string pattern, string replace)

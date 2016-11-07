@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 
 class describe_PrimeFactors : nspec
 {
@@ -19,7 +20,7 @@ class describe_PrimeFactors : nspec
 
         }.Do((given, expected) =>
             it["{0} should be {1}".With(given, expected)] = () =>
-                given.Primes().should_be(expected)
+                given.Primes().Should().Equal(expected)
         );
     }
 }

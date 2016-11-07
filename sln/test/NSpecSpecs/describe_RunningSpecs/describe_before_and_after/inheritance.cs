@@ -1,6 +1,8 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using System;
 
 namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
 {
@@ -37,7 +39,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 beforeAll = () => sequence += "B";
 
                 before = () => sequence += "D";
-                specify = () => 1.Is(1);
+                specify = () => 1.Should().Be(1, String.Empty);
                 after = () => sequence += "E";
 
                 afterAll = () => sequence += "G";
@@ -53,13 +55,13 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         [Test]
         public void before_alls_at_every_level_run_before_before_eaches_from_the_outside_in()
         {
-            DerivedClass.sequence.should_start_with("ABCD");
+            DerivedClass.sequence.Should().StartWith("ABCD");
         }
 
         [Test]
         public void after_alls_at_every_level_run_after_after_eaches_from_the_inside_out()
         {
-            DerivedClass.sequence.should_end_with("EFGH");
+            DerivedClass.sequence.Should().EndWith("EFGH");
         }
     }
 }

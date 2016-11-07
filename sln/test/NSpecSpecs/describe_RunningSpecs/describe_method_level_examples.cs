@@ -5,6 +5,8 @@ using NSpec.Domain.Formatters;
 using NUnit.Framework;
 using System;
 using Moq;
+using FluentAssertions;
+using FluentAssertions.Execution;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -19,13 +21,13 @@ namespace NSpecSpecs.WhenRunningSpecs
             void it_should_be_an_example()
             {
                 first_example_executed = true;
-                "hello".should_be("hello");
+                "hello".Should().Be("hello");
             }
 
             void it_should_be_failing()
             {
                 last_example_executed = true;
-                "hello".should_not_be("hello");
+                "hello".Should().NotBe("hello");
             }
         }
 
@@ -47,37 +49,37 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void the_class_context_should_contain_a_class_level_example()
         {
-            classContext.Examples.Count.should_be(2);
+            classContext.Examples.Count.Should().Be(2);
         }
 
         [Test]
         public void there_should_be_only_one_failure()
         {
-            classContext.Failures().Count().should_be(1);
+            classContext.Failures().Count().Should().Be(1);
         }
 
         [Test]
         public void should_execute_first_example()
         {
-            FirstExampleExecuted.should_be_true();
+            FirstExampleExecuted.Should().BeTrue();
         }
 
         [Test]
         public void should_execute_last_example()
         {
-            LastExampleExecuted.should_be_true();
+            LastExampleExecuted.Should().BeTrue();
         }
 
         [Test]
         public void the_last_example_should_be_failing()
         {
-            classContext.Examples.Last().Exception.should_cast_to<AssertionException>();
+            classContext.Examples.Last().Exception.Should().BeAssignableTo<AssertionFailedException>();
         }
 
         [Test]
         public void the_stack_trace_for_last_example_should_be_the_the_original_stack_trace()
         {
-            classContext.Examples.Last().Exception.StackTrace.should_not_match("^.*at NSpec.Domain.Example");
+            classContext.Examples.Last().Exception.StackTrace.Should().NotMatch("^.*at NSpec.Domain.Example");
         }
     }
 

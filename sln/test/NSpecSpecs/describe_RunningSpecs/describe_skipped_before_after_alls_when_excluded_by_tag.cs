@@ -2,6 +2,8 @@
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using FluentAssertions;
+using System;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -19,7 +21,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void context_bystander()
             {
-                it["should not run because of tags"] = () => "not tagged".should_be("not tagged");
+                it["should not run because of tags"] = () => "not tagged".Should().Be("not tagged");
             }
         }
 
@@ -27,7 +29,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void it_specifies_something()
             {
-                specify = () => true.is_true();
+                specify = () => true.Should().BeTrue(String.Empty);
             }
         }
 
@@ -41,7 +43,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void should_skip_innocent_bystander_before_all()
         {
-            InnocentBystander.sequence.Is("");
+            InnocentBystander.sequence.Should().Be("");
         }
     }
 
@@ -54,7 +56,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void context_bystander()
             {
-                it["should not run because of tags"] = () => "not tagged".should_be("not tagged");
+                it["should not run because of tags"] = () => "not tagged".Should().Be("not tagged");
             }
 
             void after_all()
@@ -67,7 +69,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void it_specifies_something()
             {
-                specify = () => true.is_true();
+                specify = () => true.Should().BeTrue(String.Empty);
             }
         }
 
@@ -81,7 +83,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void should_skip_innocent_bystander_after_all()
         {
-            InnocentBystander.sequence.Is("");
+            InnocentBystander.sequence.Should().Be("");
         }
     }
 }

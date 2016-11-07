@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSpec;
+using FluentAssertions;
 
 public abstract class describe_ICollection : nspec
 {
@@ -12,7 +13,7 @@ public abstract class describe_ICollection : nspec
         before = () => collection.Add("Item 1");
 
         it["contains the entry"] = () =>
-            collection.Contains("Item 1").should_be(true);
+            collection.Contains("Item 1").Should().Be(true);
     }
 }
 
@@ -31,7 +32,7 @@ public class describe_LinkedList : describe_ICollection
         it["can add an item at the begining with ease"] = () =>
         {
             linkedList.AddFirst("Item 2");
-            linkedList.First.Value.should_be("Item 2");
+            linkedList.First.Value.Should().Be("Item 2");
         };
     }
     LinkedList<string> linkedList;
@@ -50,7 +51,7 @@ public class describe_List : describe_ICollection
         before = () => collection.Add("Item 1");
 
         it["an item can be referenced by index"] = () =>
-            list[0].should_be("Item 1");
+            list[0].Should().Be("Item 1");
     }
     List<string> list;
 }

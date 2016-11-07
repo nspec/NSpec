@@ -1,4 +1,6 @@
+using FluentAssertions;
 using NSpec;
+using System;
 
 namespace SampleSpecs.Demo
 {
@@ -7,7 +9,7 @@ namespace SampleSpecs.Demo
         void soon()
         {
             it["everyone will have a drink"] = todo;
-            xspecify = ()=> true.should_be_false();
+            xspecify = ()=> true.Should().BeFalse(String.Empty);
         }
     }
 }

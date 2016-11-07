@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NSpec;
 using NUnit.Framework;
+using FluentAssertions;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -39,7 +40,7 @@ namespace NSpecSpecs.WhenRunningSpecs
             [Tag("method-tag-one")]
             void has_tag_at_method_level_context()
             {
-                it["tests nothing"] = () => 1.should_be(1);
+                it["tests nothing"] = () => 1.Should().Be(1);
             }
 
             [Tag("method-tag-two")]
@@ -47,24 +48,24 @@ namespace NSpecSpecs.WhenRunningSpecs
             {
                 context["is tagged with 'mytag'", "mytag"] = () =>
                 {
-                    it["is tagged with 'mytag'"] = () => 1.should_be(1);
+                    it["is tagged with 'mytag'"] = () => 1.Should().Be(1);
                 };
 
                 context["has three tags", "mytag,expect-to-failure,foobar"] = () =>
                 {
-                    it["has three tags"] = () => { 1.should_be(1); };
+                    it["has three tags"] = () => { 1.Should().Be(1); };
                 };
 
                 context["does not have a tag"] = () =>
                 {
-                    it["does not have a tag"] = () => { true.should_be_true(); };
+                    it["does not have a tag"] = () => { true.Should().BeTrue(); };
                 };
 
                 context["has a nested context"] = () =>
                 {
                     context["is the nested context", "foobar"] = () =>
                     {
-                        it["is the nested example", "nested-tag"] = () => { true.should_be_true(); };
+                        it["is the nested example", "nested-tag"] = () => { true.Should().BeTrue(); };
                     };
                 };
             }
@@ -76,18 +77,18 @@ namespace NSpecSpecs.WhenRunningSpecs
             {
                 context["has only example level tags"] = () =>
                 {
-                    it["should run and be in output", "shouldbeinoutput"] = () => true.should_be_true();
-                    it["should not run and not be in output", "barbaz"] = () => true.should_be_true();
-                    it["should also not run too not be in output"] = () => true.should_be_true();
+                    it["should run and be in output", "shouldbeinoutput"] = () => true.Should().BeTrue();
+                    it["should not run and not be in output", "barbaz"] = () => true.Should().BeTrue();
+                    it["should also not run too not be in output"] = () => true.Should().BeTrue();
 
-                    xit["pending but should be in output", "shouldbeinoutput"] = () => true.should_be_true();
+                    xit["pending but should be in output", "shouldbeinoutput"] = () => true.Should().BeTrue();
                     it["also pending but should be in output", "shouldbeinoutput"] = todo;
                 };
 
                 context["has context level tags", "shouldbeinoutput"] = () =>
                 {
-                    it["should also run and be in output", "barbaz"] = () => true.should_be_true();
-                    it["should yet also run and be in output"] = () => true.should_be_true();
+                    it["should also run and be in output", "barbaz"] = () => true.Should().BeTrue();
+                    it["should yet also run and be in output"] = () => true.Should().BeTrue();
                 };
             }
         }
@@ -97,9 +98,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClassDerived));
 
-            classContext.Tags.should_contain("SpecClassBase");
+            classContext.Tags.Should().Contain("SpecClassBase");
 
-            classContext.Tags.should_contain("SpecClassDerived");
+            classContext.Tags.Should().Contain("SpecClassDerived");
         }
 
         [Test]
@@ -107,9 +108,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClass0));
 
-            classContext.Tags.should_contain("class-tag-zero");
+            classContext.Tags.Should().Contain("class-tag-zero");
 
-            classContext.Tags.should_contain("SpecClass0");
+            classContext.Tags.Should().Contain("SpecClass0");
         }
 
         [Test]
@@ -117,7 +118,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             tags = "mytag";
             Run(typeof(SpecClass));
-            classContext.AllContexts().Count().should_be(4);
+            classContext.AllContexts().Count().Should().Be(4);
         }
 
         [Test]
@@ -125,8 +126,8 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             tags = "~mytag";
             Run(typeof(SpecClass));
-            classContext.AllContexts().Count().should_be(6);
-            classContext.AllContexts().should_not_contain(c => c.Tags.Contains("mytag"));
+            classContext.AllContexts().Count().Should().Be(6);
+            classContext.AllContexts().Should().NotContain(c => c.Tags.Contains("mytag"));
         }
 
         [Test]
@@ -134,9 +135,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             tags = "mytag,~foobar";
             Run(typeof(SpecClass));
-            classContext.AllContexts().should_contain(c => c.Tags.Contains("mytag"));
-            classContext.AllContexts().should_not_contain(c => c.Tags.Contains("foobar"));
-            classContext.AllContexts().Count().should_be(3);
+            classContext.AllContexts().Should().Contain(c => c.Tags.Contains("mytag"));
+            classContext.AllContexts().Should().NotContain(c => c.Tags.Contains("foobar"));
+            classContext.AllContexts().Count().Should().Be(3);
         }
 
         [Test]
@@ -144,7 +145,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             tags = "class-tag-zero";
             Run(typeof(SpecClass0));
-            classContext.AllContexts().Count().should_be(1);
+            classContext.AllContexts().Count().Should().Be(1);
         }
 
         [Test]
@@ -152,7 +153,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             tags = "method-tag-zero";
             Run(typeof(SpecClass0));
-            classContext.AllContexts().SelectMany(s => s.Examples).Count().should_be(1);
+            classContext.AllContexts().SelectMany(s => s.Examples).Count().Should().Be(1);
         }
 
         [Test]
@@ -160,7 +161,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             tags = "~class-tag";
             Run(new[] { typeof(SpecClass), typeof(SpecClass0) });
-            contextCollection.Count.should_be(1);
+            contextCollection.Count.Should().Be(1);
         }
 
         [Test]
@@ -168,7 +169,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             tags = "method-tag-one";
             Run(typeof(SpecClass));
-            classContext.AllContexts().Count().should_be(2);
+            classContext.AllContexts().Count().Should().Be(2);
         }
 
         [Test]
@@ -176,7 +177,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             tags = "~method-tag-one";
             Run(typeof(SpecClass));
-            classContext.AllContexts().Count().should_be(7);
+            classContext.AllContexts().Count().Should().Be(7);
         }
 
         [Test]
@@ -185,13 +186,13 @@ namespace NSpecSpecs.WhenRunningSpecs
             tags = "shouldbeinoutput";
             Run(typeof(SpecClass1));
             var allExamples = classContext.AllContexts().SelectMany(c => c.AllExamples()).ToList();
-            allExamples.should_contain(e => e.Spec == "should run and be in output");
-            allExamples.should_contain(e => e.Spec == "should also run and be in output");
-            allExamples.should_contain(e => e.Spec == "should yet also run and be in output");
-            allExamples.should_contain(e => e.Spec == "pending but should be in output");
-            allExamples.should_contain(e => e.Spec == "also pending but should be in output");
-            allExamples.should_not_contain(e => e.Spec == "should not run and not be in output");
-            allExamples.should_not_contain(e => e.Spec == "should also not run too not be in output");
+            allExamples.Should().Contain(e => e.Spec == "should run and be in output");
+            allExamples.Should().Contain(e => e.Spec == "should also run and be in output");
+            allExamples.Should().Contain(e => e.Spec == "should yet also run and be in output");
+            allExamples.Should().Contain(e => e.Spec == "pending but should be in output");
+            allExamples.Should().Contain(e => e.Spec == "also pending but should be in output");
+            allExamples.Should().NotContain(e => e.Spec == "should not run and not be in output");
+            allExamples.Should().NotContain(e => e.Spec == "should also not run too not be in output");
         }
     }
 }

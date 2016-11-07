@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSpec;
 
 public class describe_pending : nspec
@@ -6,7 +7,7 @@ public class describe_pending : nspec
     {
         it["pending spec"] = todo;
         //or just add an 'x' at the beginning of a specification that isn't quite ready
-        xit["\"\" should be \"something else\""] = () => "".should_be("something else");
+        xit["\"\" should be \"something else\""] = () => "".Should().Be("something else");
     }
 }
 

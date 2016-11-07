@@ -3,6 +3,7 @@ using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
@@ -19,9 +20,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 // just by its presence, this will enforce tests as it should never be reported
                 afterAll = () => { throw new AfterAllException(); };
 
-                it["should fail this example because of beforeAll"] = () => "1".should_be("1");
+                it["should fail this example because of beforeAll"] = () => "1".Should().Be("1");
 
-                it["should also fail this example because of beforeAll"] = () => "1".should_be("1");
+                it["should also fail this example because of beforeAll"] = () => "1".Should().Be("1");
 
                 it["overrides exception from same level it"] = () => { throw new ItException(); };
 
@@ -29,14 +30,14 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                 {
                     before = () => { throw new BeforeException(); };
 
-                    it["overrides exception from nested before"] = () => "1".should_be("1");
+                    it["overrides exception from nested before"] = () => "1".Should().Be("1");
                 };
 
                 context["exception thrown by both beforeAll and nested act"] = () =>
                 {
                     act = () => { throw new ActException(); };
 
-                    it["overrides exception from nested act"] = () => "1".should_be("1");
+                    it["overrides exception from nested act"] = () => "1".Should().Be("1");
                 };
 
                 context["exception thrown by both beforeAll and nested it"] = () =>
@@ -46,7 +47,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                 context["exception thrown by both beforeAll and nested after"] = () =>
                 {
-                    it["overrides exception from nested after"] = () => "1".should_be("1");
+                    it["overrides exception from nested after"] = () => "1".Should().Be("1");
 
                     after = () => { throw new AfterException(); };
                 };
@@ -63,63 +64,63 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void the_example_level_failure_should_indicate_a_context_failure()
         {
             TheExample("should fail this example because of beforeAll")
-                .Exception.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().Should().Be(typeof(ExampleFailureException));
             TheExample("should also fail this example because of beforeAll")
-                .Exception.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().Should().Be(typeof(ExampleFailureException));
             TheExample("overrides exception from same level it")
-                .Exception.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().Should().Be(typeof(ExampleFailureException));
             TheExample("overrides exception from nested before")
-                .Exception.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().Should().Be(typeof(ExampleFailureException));
             TheExample("overrides exception from nested act")
-                .Exception.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().Should().Be(typeof(ExampleFailureException));
             TheExample("overrides exception from nested it")
-                .Exception.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().Should().Be(typeof(ExampleFailureException));
             TheExample("overrides exception from nested after")
-                .Exception.GetType().should_be(typeof(ExampleFailureException));
+                .Exception.GetType().Should().Be(typeof(ExampleFailureException));
         }
 
         [Test]
         public void examples_with_only_before_all_failure_should_fail_because_of_before_all()
         {
             TheExample("should fail this example because of beforeAll")
-                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+                .Exception.InnerException.GetType().Should().Be(typeof(BeforeAllException));
             TheExample("should also fail this example because of beforeAll")
-                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+                .Exception.InnerException.GetType().Should().Be(typeof(BeforeAllException));
         }
 
         [Test]
         public void it_should_throw_exception_from_before_all_not_from_same_level_it()
         {
             TheExample("overrides exception from same level it")
-                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+                .Exception.InnerException.GetType().Should().Be(typeof(BeforeAllException));
         }
 
         [Test]
         public void it_should_throw_exception_from_before_all_not_from_nested_before()
         {
             TheExample("overrides exception from nested before")
-                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+                .Exception.InnerException.GetType().Should().Be(typeof(BeforeAllException));
         }
 
         [Test]
         public void it_should_throw_exception_from_before_all_not_from_nested_act()
         {
             TheExample("overrides exception from nested act")
-                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+                .Exception.InnerException.GetType().Should().Be(typeof(BeforeAllException));
         }
 
         [Test]
         public void it_should_throw_exception_from_before_all_not_from_nested_it()
         {
             TheExample("overrides exception from nested it")
-                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+                .Exception.InnerException.GetType().Should().Be(typeof(BeforeAllException));
         }
 
         [Test]
         public void it_should_throw_exception_from_before_all_not_from_nested_after()
         {
             TheExample("overrides exception from nested after")
-                .Exception.InnerException.GetType().should_be(typeof(BeforeAllException));
+                .Exception.InnerException.GetType().Should().Be(typeof(BeforeAllException));
         }
     }
 }

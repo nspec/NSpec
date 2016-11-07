@@ -3,6 +3,7 @@ using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
@@ -15,12 +16,12 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             {
                 context["when exception thrown from act and example itself has a failure"] = () =>
                 {
-                    act = () => 
-                    { 
-                        throw new KnownException("unexpected failure"); 
+                    act = () =>
+                    {
+                        throw new KnownException("unexpected failure");
                     };
 
-                    it["reports example level failure and act failure"] = () => 
+                    it["reports example level failure and act failure"] = () =>
                     {
                         throw new KnownException("example level failure");
                     };
@@ -38,7 +39,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void should_report_both_method_level_failure_and_act_level_failure()
         {
             TheExample("reports example level failure and act failure")
-                .Exception.Message.should_be("Context Failure: unexpected failure, Example Failure: example level failure");
+                .Exception.Message.Should().Be("Context Failure: unexpected failure, Example Failure: example level failure");
         }
     }
 
@@ -58,7 +59,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
                     it["reports example level failure and act failure"] = () =>
                     {
-                        "expected".should_be("expected");
+                        "expected".Should().Be("expected");
                     };
                 };
             }
@@ -74,7 +75,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void should_report_both_method_level_failure_and_act_level_failure()
         {
             TheExample("reports example level failure and act failure")
-                .Exception.Message.should_be("Context Failure: unexpected failure");
+                .Exception.Message.Should().Be("Context Failure: unexpected failure");
         }
     }
     [TestFixture]
@@ -109,7 +110,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void should_report_both_method_level_failure_and_act_level_failure()
         {
             TheExample("reports example level failure and act failure")
-                .Exception.Message.should_be("Context Failure: unexpected failure, Example Failure: example level failure");
+                .Exception.Message.Should().Be("Context Failure: unexpected failure, Example Failure: example level failure");
         }
     }
 
@@ -131,7 +132,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
                     {
                         await Task.Delay(0);
 
-                        "expected".should_be("expected");
+                        "expected".Should().Be("expected");
                     };
                 };
             }
@@ -147,7 +148,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         public void should_report_both_method_level_failure_and_act_level_failure()
         {
             TheExample("reports example level failure and act failure")
-                .Exception.Message.should_be("Context Failure: unexpected failure");
+                .Exception.Message.Should().Be("Context Failure: unexpected failure");
         }
     }
 }

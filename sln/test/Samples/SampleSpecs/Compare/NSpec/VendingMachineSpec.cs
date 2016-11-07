@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSpec;
+using FluentAssertions;
 
 namespace SampleSpecs.Compare.NSpec
 {
@@ -11,7 +12,7 @@ namespace SampleSpecs.Compare.NSpec
         {
             before = () => machine = new VendingMachine();
 
-            specify = ()=> machine.Items().should_be_empty();
+            specify = () => machine.Items().Should().BeEmpty(String.Empty);
 
             it["getting item A1 should throw ItemNotRegistered"] = expect<ItemNotRegisteredException>(() => machine.Item("A1"));
 
@@ -19,17 +20,17 @@ namespace SampleSpecs.Compare.NSpec
             {
                 before = () => machine.RegisterItem("A1", "doritos", .5m);
 
-                specify = () => machine.Items().Count().should_be(1);
+                specify = () => machine.Items().Count().Should().Be(1, String.Empty);
 
-                specify = () => machine.Item("A1").Name.should_be("doritos");
+                specify = () => machine.Item("A1").Name.Should().Be("doritos", String.Empty);
 
-                specify = () => machine.Item("A1").Price.should_be(.5m);
+                specify = () => machine.Item("A1").Price.Should().Be(.5m, String.Empty);
 
                 context["given a second item is registered"] = () =>
                 {
                     before = () => machine.RegisterItem("A2", "mountain dew", .6m);
 
-                    specify = () => machine.Items().Count().should_be(2);
+                    specify = () => machine.Items().Count().Should().Be(2, String.Empty);
                 };
             };
             //got to force/refactor getting rid of the dictionary soon

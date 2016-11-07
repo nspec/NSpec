@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
@@ -44,7 +45,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             void it_one_is_one()
             {
-                1.Is(1);
+                1.Should().Be(1);
             }
         }
 
@@ -59,7 +60,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             Run(typeof(Concrete));
 
-            Concrete.sequence.should_start_with("ABC");
+            Concrete.sequence.Should().StartWith("ABC");
         }
 
         [Test]
@@ -67,7 +68,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             Run(typeof(Concrete));
 
-            Concrete.sequence.should_end_with("DEF");
+            Concrete.sequence.Should().EndWith("DEF");
         }
     }
 }

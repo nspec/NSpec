@@ -1,4 +1,6 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
+using System;
 
 namespace SampleSpecs.Demo
 {
@@ -10,7 +12,7 @@ namespace SampleSpecs.Demo
     {
         void should_still_run_tests()
         {
-            specify = () => "Test".should_be("Test");
+            specify = () => "Test".Should().Be("Test", String.Empty);
         }
     }
 }

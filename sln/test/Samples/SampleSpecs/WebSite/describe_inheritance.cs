@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 
 [Tag("describe_inheritance")]
 public class given_the_sequence_continues_with_2 : given_the_sequence_starts_with_1
@@ -13,7 +14,7 @@ public class given_the_sequence_continues_with_2 : given_the_sequence_starts_wit
 
         //the befores run in the order you would expect
         it["sequence should be \"123\""] =
-            () => sequence.should_be("123");
+            () => sequence.Should().Be("123");
     }
 }
 

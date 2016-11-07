@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
@@ -48,8 +49,8 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var example = TheExample("fails because of same exception thrown again in after");
 
-            example.Exception.should_not_be_null();
-            example.Exception.GetType().should_be(typeof(ExampleFailureException));
+            example.Exception.Should().NotBeNull();
+            example.Exception.GetType().Should().Be(typeof(ExampleFailureException));
         }
 
         [Test]
@@ -57,8 +58,8 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var example = TheExample("fails because of different exception thrown in after");
 
-            example.Exception.should_not_be_null();
-            example.Exception.GetType().should_be(typeof(ExampleFailureException));
+            example.Exception.Should().NotBeNull();
+            example.Exception.GetType().Should().Be(typeof(ExampleFailureException));
         }
     }
 }

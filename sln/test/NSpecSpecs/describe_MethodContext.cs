@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
@@ -58,7 +59,7 @@ namespace NSpecSpecs
 
             string actual = classContext.AllExamples().Single().FullName();
 
-            actual.should_contain(SpecClass.ExceptionTypeName);
+            actual.Should().Contain(SpecClass.ExceptionTypeName);
         }
 
         ClassContext classContext;

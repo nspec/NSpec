@@ -2,6 +2,7 @@
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -11,7 +12,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         class Base : nspec
         {
             protected List<int> ints;
-            
+
             void before_each()
             {
                 ints = new List<int>();
@@ -21,7 +22,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void list_manipulations()
             {
-                it["should be 1"] = () => ints.should_be(1);
+                it["should be 1"] = () => ints.Should().Equal(1);
             }
         }
 
@@ -36,7 +37,7 @@ namespace NSpecSpecs.describe_RunningSpecs
             {
                 //since abstract classes can only run in derived concrete context classes
                 //the context isn't quite what you might expect.
-                it["should be 1, 2, 3"] = () => ints.should_be(1, 2, 3);
+                it["should be 1, 2, 3"] = () => ints.Should().Equal(1, 2, 3);
             }
         }
 
@@ -49,7 +50,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             void list_manipulations()
             {
-                it["should be 1, 2, 3 too"] = () => ints.should_be(1, 2, 3);
+                it["should be 1, 2, 3 too"] = () => ints.Should().Equal(1, 2, 3);
             }
         }
 
@@ -62,15 +63,15 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void should_run_example_within_a_sub_context_in_a_derived_class()
         {
-            TheExample("should be 1").should_have_passed();
+            TheExample("should be 1").ShouldHavePassed();
         }
 
         [Test]
         public void it_runs_examples_from_abstract_class_as_if_they_belonged_to_concrete_class()
         {
-            TheExample("should be 1, 2, 3").should_have_passed();
+            TheExample("should be 1, 2, 3").ShouldHavePassed();
 
-            TheExample("should be 1, 2, 3 too").should_have_passed();
+            TheExample("should be 1, 2, 3 too").ShouldHavePassed();
         }
     }
 }

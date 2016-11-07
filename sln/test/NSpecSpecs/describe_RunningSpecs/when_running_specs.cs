@@ -5,6 +5,7 @@ using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.describe_RunningSpecs;
 using NUnit.Framework;
+using FluentAssertions;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -52,7 +53,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                 .SelectMany(rootContext => rootContext.AllContexts())
                 .SelectMany(contexts => contexts.AllContexts().Where(context => context.Name == name)).First();
 
-            theContext.Name.should_be(name);
+            theContext.Name.Should().Be(name);
 
             return theContext;
         }
@@ -71,7 +72,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             if (theExample == null) Assert.Fail("Did not find example named: " + name);
 
-            theExample.Spec.should_be(name);
+            theExample.Spec.Should().Be(name);
 
             return theExample;
         }

@@ -5,6 +5,7 @@ using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
@@ -161,25 +162,25 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         [Test]
         public void should_be_three_failures()
         {
-            classContext.Failures().Count().should_be(3);
+            classContext.Failures().Count().Should().Be(3);
         }
 
         [Test]
         public void threw_expected_exception_in_act()
         {
-            TheExample("threw the expected exception in act").should_have_passed();
+            TheExample("threw the expected exception in act").ShouldHavePassed();
         }
 
         [Test]
         public void threw_the_exception_in_act_with_the_proper_error_message()
         {
-            TheExample("threw the exception in act with expected error message").should_have_passed();
+            TheExample("threw the exception in act with expected error message").ShouldHavePassed();
         }
 
         [Test]
         public void fails_if_no_exception_thrown()
         {
-            TheExample("fails if no exception thrown").Exception.GetType().should_be(typeof(ExceptionNotThrown));
+            TheExample("fails if no exception thrown").Exception.GetType().Should().Be(typeof(ExceptionNotThrown));
         }
 
         [Test]
@@ -187,8 +188,8 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var exception = TheExample("fails if wrong exception thrown").Exception;
 
-            exception.GetType().should_be(typeof(ExceptionNotThrown));
-            exception.Message.should_be("Exception of type SomeOtherException was not thrown.");
+            exception.GetType().Should().Be(typeof(ExceptionNotThrown));
+            exception.Message.Should().Be("Exception of type SomeOtherException was not thrown.");
         }
 
         [Test]
@@ -196,8 +197,8 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var exception = TheExample("fails if wrong error message is returned").Exception;
 
-            exception.GetType().should_be(typeof(ExceptionNotThrown));
-            exception.Message.should_be("Expected message: \"Blah\" But was: \"Testing\"");
+            exception.GetType().Should().Be(typeof(ExceptionNotThrown));
+            exception.Message.Should().Be("Expected message: \"Blah\" But was: \"Testing\"");
         }
     }
 }

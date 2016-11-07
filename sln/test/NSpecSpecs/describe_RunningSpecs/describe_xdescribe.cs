@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NSpec;
 using NUnit.Framework;
+using FluentAssertions;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -16,7 +17,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                 xdescribe["sub context"] = () =>
                 {
                     it["needs an example or it gets filtered"] =
-                        () => "Hello World".should_be("Hello World");
+                        () => "Hello World".Should().Be("Hello World");
                 };
             }
         }
@@ -30,7 +31,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void the_example_should_be_pending()
         {
-            methodContext.Contexts.First().Examples.First().Pending.should_be(true);
+            methodContext.Contexts.First().Examples.First().Pending.Should().Be(true);
         }
     }
 }

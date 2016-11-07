@@ -7,6 +7,7 @@ using NUnit.Framework;
 using describe_OtherNameSpace;
 using describe_SomeNameSpace;
 using Moq;
+using FluentAssertions;
 
 namespace NSpecSpecs
 {
@@ -56,7 +57,7 @@ namespace NSpecSpecs
         {
             GivenDllContains(typeof(SpecClass));
 
-            finder.SpecClasses().should_contain(typeof(SpecClass));
+            finder.SpecClasses().Should().Contain(typeof(SpecClass));
         }
 
         [Test]
@@ -64,7 +65,7 @@ namespace NSpecSpecs
         {
             GivenDllContains(typeof(SpecClassWithNoParameterLessMethods));
 
-            finder.SpecClasses().should_be_empty();
+            finder.SpecClasses().Should().BeEmpty();
         }
 
         [Test]
@@ -72,7 +73,7 @@ namespace NSpecSpecs
         {
             GivenDllContains(typeof(NonSpecClass));
 
-            finder.SpecClasses().should_be_empty();
+            finder.SpecClasses().Should().BeEmpty();
         }
 
         [Test]
@@ -80,7 +81,7 @@ namespace NSpecSpecs
         {
             GivenDllContains(typeof(SpecClassWithNoVoidMethods));
 
-            finder.SpecClasses().should_be_empty();
+            finder.SpecClasses().Should().BeEmpty();
         }
     }
 
@@ -95,7 +96,7 @@ namespace NSpecSpecs
 
             GivenFilter(typeof(AnotherSpecClass).Name);
 
-            finder.SpecClasses().should_contain(typeof(AnotherSpecClass));
+            finder.SpecClasses().Should().Contain(typeof(AnotherSpecClass));
         }
 
         [Test]
@@ -105,7 +106,7 @@ namespace NSpecSpecs
 
             GivenFilter(typeof(AnotherSpecClass).Name);
 
-            finder.SpecClasses().should_be_empty();
+            finder.SpecClasses().Should().BeEmpty();
         }
     }
 
@@ -128,9 +129,9 @@ namespace NSpecSpecs
             GivenFilter("");
 
             TheSpecClasses()
-                .should_contain(typeof(SomeClass))
-                .should_contain(typeof(SomeDerivedClass))
-                .should_contain(typeof(SomeClassInOtherNameSpace));
+                .Should().Contain(typeof(SomeClass))
+                .And.Contain(typeof(SomeDerivedClass))
+                .And.Contain(typeof(SomeClassInOtherNameSpace));
         }
 
         [Test]
@@ -139,12 +140,12 @@ namespace NSpecSpecs
             GivenFilter("DerivedClass$");
 
             TheSpecClasses()
-                .should_contain(typeof(SomeClass))
-                .should_contain(typeof(SomeDerivedClass))
-                .should_contain(typeof(SomeDerivedDerivedClass))
-                .should_not_contain(typeof(SomeClassInOtherNameSpace));
+                .Should().Contain(typeof(SomeClass))
+                .And.Contain(typeof(SomeDerivedClass))
+                .And.Contain(typeof(SomeDerivedDerivedClass))
+                .And.NotContain(typeof(SomeClassInOtherNameSpace));
 
-            TheSpecClasses().Count().should_be(3);
+            TheSpecClasses().Count().Should().Be(3);
         }
 
         [Test]
@@ -153,9 +154,9 @@ namespace NSpecSpecs
             GivenFilter("describe_SomeNameSpace");
 
             TheSpecClasses()
-                .should_contain(typeof(SomeClass))
-                .should_contain(typeof(SomeDerivedClass))
-                .should_not_contain(typeof(SomeClassInOtherNameSpace));
+                .Should().Contain(typeof(SomeClass))
+                .And.Contain(typeof(SomeDerivedClass))
+                .And.NotContain(typeof(SomeClassInOtherNameSpace));
         }
 
         [Test]
@@ -164,11 +165,11 @@ namespace NSpecSpecs
             GivenFilter("Derived");
 
             TheSpecClasses()
-                .should_contain(typeof(SomeClass))
-                .should_contain(typeof(SomeDerivedClass))
-                .should_contain(typeof(SomeDerivedDerivedClass));
+                .Should().Contain(typeof(SomeClass))
+                .And.Contain(typeof(SomeDerivedClass))
+                .And.Contain(typeof(SomeDerivedDerivedClass));
 
-            TheSpecClasses().Count().should_be(3);
+            TheSpecClasses().Count().Should().Be(3);
         }
     }
 
@@ -189,7 +190,7 @@ namespace NSpecSpecs
         {
             finder = new SpecFinder(reflector.Object, filter);
         }
-        
+
         protected IEnumerable<Type> TheSpecClasses()
         {
             return finder.SpecClasses();

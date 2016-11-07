@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using FluentAssertions;
 using NSpec;
 
 namespace SampleSpecs.Bug
@@ -30,7 +31,7 @@ namespace SampleSpecs.Bug
                 it["should deserialize them again"] = () => // fails
                 {
                     stream.Position = 0;
-                    formatter.Deserialize(stream).should_not_be_null();
+                    formatter.Deserialize(stream).Should().NotBeNull();
                 };
             };
 
@@ -41,7 +42,7 @@ namespace SampleSpecs.Bug
                 it["should deserialize them again"] = () =>
                 {
                     stream.Position = 0;
-                    formatter.Deserialize(stream).should_not_be_null();
+                    formatter.Deserialize(stream).Should().NotBeNull();
                 };
             };
         }

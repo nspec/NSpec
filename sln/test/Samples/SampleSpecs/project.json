@@ -2,6 +2,7 @@
   "version": "1.0.0-*",
 
   "dependencies": {
+    "FluentAssertions": "4.13.1",
     "NSpec": {
       "target": "project"
     }

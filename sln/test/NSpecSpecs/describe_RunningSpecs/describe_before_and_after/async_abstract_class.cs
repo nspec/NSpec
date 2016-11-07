@@ -1,6 +1,8 @@
+using FluentAssertions;
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using System;
 using System.Threading.Tasks;
 
 namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
@@ -26,7 +28,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
                 beforeAllAsync = async () => await Task.Run(() => sequence += "B");
 
                 beforeAsync = async () => await Task.Run(() => sequence += "D");
-                specify = () => 1.Is(1);
+                specify = () => 1.Should().Be(1, String.Empty);
                 afterAsync = async () => await Task.Run(() => sequence += "E");
 
                 afterAllAsync = async () => await Task.Run(() => sequence += "G");
@@ -49,7 +51,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         public void all_async_features_are_supported_from_abstract_classes_when_run_under_the_context_of_a_derived_concrete()
         {
             Run(typeof(Concrete));
-            Concrete.sequence.Is("ABCDEFGH");
+            Concrete.sequence.Should().Be("ABCDEFGH");
         }
     }
 }

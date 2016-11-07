@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
@@ -27,7 +28,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             Run(typeof (before_all_example_spec));
 
-            sequence_spec.sequence.Is("");
+            sequence_spec.sequence.Should().Be("");
         }
 
         class before_each_example_spec : sequence_spec
@@ -43,7 +44,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             Run(typeof (before_each_example_spec));
 
-            sequence_spec.sequence.Is("");
+            sequence_spec.sequence.Should().Be("");
         }
 
         class after_each_example_spec : sequence_spec
@@ -59,7 +60,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             Run(typeof (after_each_example_spec));
 
-            sequence_spec.sequence.Is("");
+            sequence_spec.sequence.Should().Be("");
         }
 
         class after_all_example_spec : sequence_spec
@@ -75,7 +76,7 @@ namespace NSpecSpecs.describe_RunningSpecs.describe_before_and_after
         {
             Run(typeof (after_all_example_spec));
 
-            sequence_spec.sequence.Is("");
+            sequence_spec.sequence.Should().Be("");
         }
     }
 }

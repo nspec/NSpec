@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
@@ -46,17 +47,17 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             protected void ShouldHaveInitialState()
             {
-                state.should_be(0);
+                state.Should().Be(0);
             }
 
             protected void ShouldHaveFinalState()
             {
-                state.should_be(1);
+                state.Should().Be(1);
             }
 
             protected void PassAlways()
             {
-                true.should_be_true();
+                true.Should().BeTrue();
             }
         }
 
@@ -64,44 +65,44 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             ExampleBase example = TheExample(name);
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Exception.should_be_null();
+            example.Exception.Should().BeNull();
 
-            BaseSpecClass.state.should_be(BaseSpecClass.expected);
+            BaseSpecClass.state.Should().Be(BaseSpecClass.expected);
         }
 
         protected void ExampleRunsWithException(string name)
         {
             ExampleBase example = TheExample(name);
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Exception.should_not_be_null();
+            example.Exception.Should().NotBeNull();
         }
 
         protected void ExampleRunsWithAsyncMismatchException(string name)
         {
             ExampleBase example = TheExample(name);
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Exception.should_not_be_null();
+            example.Exception.Should().NotBeNull();
 
-            example.Exception.GetType().should_be(typeof(AsyncMismatchException));
+            example.Exception.GetType().Should().Be(typeof(AsyncMismatchException));
         }
 
         protected void ExampleRunsWithInnerAsyncMismatchException(string name)
         {
             ExampleBase example = TheExample(name);
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Exception.should_not_be_null();
+            example.Exception.Should().NotBeNull();
 
-            example.Exception.InnerException.should_not_be_null();
+            example.Exception.InnerException.Should().NotBeNull();
 
-            example.Exception.InnerException.GetType().should_be(typeof(AsyncMismatchException));
+            example.Exception.InnerException.GetType().Should().Be(typeof(AsyncMismatchException));
         }
     }
 }

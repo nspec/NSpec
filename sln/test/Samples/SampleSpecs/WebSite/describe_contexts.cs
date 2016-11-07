@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSpec;
 
 public class describe_contexts : nspec
@@ -12,12 +13,12 @@ public class describe_contexts : nspec
             context["account is in credit"] = () =>
             {
                 before = () => account.Balance = 500;
-                it["the Account dispenses cash"] = () => account.CanWithdraw(60).should_be_true();
+                it["the Account dispenses cash"] = () => account.CanWithdraw(60).Should().BeTrue();
             };
             context["account is overdrawn"] = () =>
             {
                 before = () => account.Balance = -500;
-                it["the Account does not dispense cash"] = () => account.CanWithdraw(60).should_be_false();
+                it["the Account does not dispense cash"] = () => account.CanWithdraw(60).Should().BeFalse();
             };
         };
     }

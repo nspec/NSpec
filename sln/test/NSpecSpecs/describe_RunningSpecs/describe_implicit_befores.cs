@@ -3,6 +3,8 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
+using FluentAssertions;
+using System;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -20,10 +22,10 @@ namespace NSpecSpecs.WhenRunningSpecs
                 it["should have two entries"] = () =>
                 {
                     ints.Add(16);
-                    ints.Count.should_be(1);
+                    ints.Count.Should().Be(1);
                 };
 
-                specify = () => ints.Count.should_be(1);
+                specify = () => ints.Count.Should().Be(1, String.Empty);
             }
         }
 
@@ -32,8 +34,8 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClass));
             Assert.Inconclusive("I dont think this is possible....");
-            TheMethodContextExamples().First().should_have_passed();
-            TheMethodContextExamples().Last().should_have_passed();
+            TheMethodContextExamples().First().ShouldHavePassed();
+            TheMethodContextExamples().Last().ShouldHavePassed();
         }
 
         private IEnumerable<ExampleBase> TheMethodContextExamples()

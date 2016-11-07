@@ -2,6 +2,7 @@
 using NSpec;
 using NUnit.Framework;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
+using FluentAssertions;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -32,9 +33,9 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             var ex = TheExample("it changes status after run");
 
-            //ex.HasRun.should_be_false(); //broken after making init and run happen all at once
+            //ex.HasRun.Should().BeFalse(); //broken after making init and run happen all at once
 
-            ex.HasRun.should_be_true();
+            ex.HasRun.Should().BeTrue();
         }
 
         [Test]
@@ -44,7 +45,7 @@ namespace NSpecSpecs.WhenRunningSpecs
 
             var ex = TheExample("it changes status after run");
 
-            ex.Duration.should_be_greater_than(TimeSpan.Zero);
+            ex.Duration.Should().BeGreaterThan(TimeSpan.Zero);
         }
 
         [Test]
@@ -52,7 +53,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClass));
 
-            TheExample("it passes").should_have_passed();
+            TheExample("it passes").ShouldHavePassed();
         }
 
         [Test]
@@ -60,7 +61,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClass));
 
-            TheExample("it fails").should_have_failed();
+            TheExample("it fails").ShouldHaveFailed();
         }
 
         class SpecClassWithAnonymousLambdas : nspec
@@ -81,7 +82,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClass));
 
-            TheExampleCount().should_be(3);
+            TheExampleCount().Should().Be(3);
         }
 
         [Test]
@@ -89,7 +90,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             Run(typeof(SpecClassWithAnonymousLambdas));
 
-            TheExampleCount().should_be(1);
+            TheExampleCount().Should().Be(1);
         }
     }
 }

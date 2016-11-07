@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
@@ -49,9 +50,9 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var example = AllExamples().Single();
 
-            example.FullName().should_contain(CtorThrowsSpecClass.TypeFullName);
+            example.FullName().Should().Contain(CtorThrowsSpecClass.TypeFullName);
 
-            example.FullName().should_contain(CtorThrowsSpecClass.ExceptionTypeName);
+            example.FullName().Should().Contain(CtorThrowsSpecClass.ExceptionTypeName);
         }
 
         [Test]
@@ -59,7 +60,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var example = AllExamples().Single();
 
-            example.Exception.GetType().should_be(typeof(ContextBareCodeException));
+            example.Exception.GetType().Should().Be(typeof(ContextBareCodeException));
         }
 
         [Test]
@@ -67,7 +68,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
         {
             var example = AllExamples().Single();
 
-            example.Exception.InnerException.should_be(CtorThrowsSpecClass.SpecException);
+            example.Exception.InnerException.Should().Be(CtorThrowsSpecClass.SpecException);
         }
     }
 }

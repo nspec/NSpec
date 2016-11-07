@@ -2,6 +2,7 @@ using System;
 using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs
 {
@@ -161,7 +162,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             var specInstance = classContext.GetInstance() as Class1;
 
-            specInstance.beforeExecutionOrder.should_be(beforeExecutionLog);
+            specInstance.beforeExecutionOrder.Should().Be(beforeExecutionLog);
         }
 
         [Test(Description = "act_each() in concrete classes affects base abstracts"),
@@ -177,7 +178,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             var specInstance = classContext.GetInstance() as Class1;
 
-            specInstance.actExecutionOrder.should_be(actExecutionLog);
+            specInstance.actExecutionOrder.Should().Be(actExecutionLog);
         }
 
         [Test(Description = "after_each() in concrete classes affects base abstracts"),
@@ -193,7 +194,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             var specInstance = classContext.GetInstance() as Class1;
 
-            specInstance.afterExecutionOrder.should_be(afterExecutionLog);
+            specInstance.afterExecutionOrder.Should().Be(afterExecutionLog);
         }
 
         [Test,
@@ -209,7 +210,7 @@ namespace NSpecSpecs.describe_RunningSpecs
 
             var specInstance = classContext.GetInstance() as Class1;
 
-            specInstance.allExecutions.should_be(fullExecutionLog);
+            specInstance.allExecutions.Should().Be(fullExecutionLog);
         }
     }
 }

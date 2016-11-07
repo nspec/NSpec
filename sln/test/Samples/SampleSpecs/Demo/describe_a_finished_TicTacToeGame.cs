@@ -1,4 +1,6 @@
+using FluentAssertions;
 using NSpec;
+using System;
 
 namespace SampleSpecs.Demo
 {
@@ -15,8 +17,8 @@ namespace SampleSpecs.Demo
                         )
                     );
 
-                specify = () => game.Finished.should_be_true();
-                specify = () => game.Draw.should_be_true();
+                specify = () => game.Finished.Should().BeTrue(String.Empty);
+                specify = () => game.Draw.Should().BeTrue(String.Empty);
             };
         }
 
@@ -30,18 +32,18 @@ namespace SampleSpecs.Demo
                 {
                     before = () => 0.To(2).Do(column => game.Play(player, index, column));
 
-                    specify = () => game.Finished.should_be_true();
+                    specify = () => game.Finished.Should().BeTrue(String.Empty);
 
-                    it["winner should be {0}".With(player)] = () => game.Winner.should_be(player);
+                    it["winner should be {0}".With(player)] = () => game.Winner.Should().Be(player);
                 };
 
                 context["3 {0}'s in row {1}".With(player, index)] = () =>
                 {
                     before = () => 0.To(2).Do(row => game.Play(player, row, index));
 
-                    specify = () => game.Finished.should_be_true();
+                    specify = () => game.Finished.Should().BeTrue(String.Empty);
 
-                    it["winner should be {0}".With(player)] = () => game.Winner.should_be(player);
+                    it["winner should be {0}".With(player)] = () => game.Winner.Should().Be(player);
                 };
             }));
 
@@ -51,9 +53,9 @@ namespace SampleSpecs.Demo
                 {
                     before = () => 0.To(2).Do(index => game.Play(player, index, index));
 
-                    specify = () => game.Finished.should_be_true();
+                    specify = () => game.Finished.Should().BeTrue(String.Empty);
 
-                    it["winner should be {0}".With(player)] = () => game.Winner.should_be(player);
+                    it["winner should be {0}".With(player)] = () => game.Winner.Should().Be(player);
                 };
 
                 context["3 {0}'s right to left".With(player)] = () =>
@@ -65,9 +67,9 @@ namespace SampleSpecs.Demo
                         game.Play(player, 0, 2);
                     };
 
-                    specify = () => game.Finished.should_be_true();
+                    specify = () => game.Finished.Should().BeTrue(String.Empty);
 
-                    it["winner should be {0}".With(player)] = () => game.Winner.should_be(player);
+                    it["winner should be {0}".With(player)] = () => game.Winner.Should().Be(player);
                 };
             });
 

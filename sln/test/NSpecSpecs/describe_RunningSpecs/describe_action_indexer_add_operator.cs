@@ -3,6 +3,8 @@ using System.Linq;
 using NSpec;
 using NSpec.Domain;
 using NUnit.Framework;
+using FluentAssertions;
+using System;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -14,7 +16,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             void method_level_context()
             {
-                specify = () => "Hello".should_be("Hello");
+                specify = () => "Hello".Should().Be("Hello", String.Empty);
             }
         }
 
@@ -27,13 +29,17 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void should_contain_pending_test()
         {
-            TheExamples().Count().should_be(1);
+            TheExamples().Count().Should().Be(1);
         }
 
         [Test]
         public void spec_name_should_reflect_name_specified_in_ActionRegister()
         {
-            TheExamples().First().should_cast_to<Example>().Spec.should_be("Hello should be Hello");
+            TheExamples().First().Should().BeAssignableTo<Example>();
+
+            var example = (Example)TheExamples().First();
+
+            example.Spec.Should().Be("Hello should be Hello");
         }
 
         // no 'specify' available for AsyncExample, hence no need to test that on ExampleBase

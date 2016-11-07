@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSpec;
 
 namespace SampleSpecs.Demo
@@ -6,12 +7,12 @@ namespace SampleSpecs.Demo
     {
         void when_creating_ranges()
         {
-            it["1.To(2) should be [1,2]"]= () => 1.To(2).should_be(1,2); 
+            it["1.To(2) should be [1,2]"]= () => 1.To(2).Should().Equal(1,2);
         }
 
         void describe_Flatten()
         {
-            it["[\"fifty\",\"two\"] should be fiftytwo"] = () => new[] { "fifty", "two" }.Flatten(",").should_be("fifty,two");
+            it["[\"fifty\",\"two\"] should be fiftytwo"] = () => new[] { "fifty", "two" }.Flatten(",").Should().Be("fifty,two");
         }
     }
 }

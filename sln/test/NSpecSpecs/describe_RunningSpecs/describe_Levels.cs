@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
@@ -10,11 +11,11 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void method_level_context()
             {
-                it["1 is 1"] = () => 1.Is(1);
+                it["1 is 1"] = () => 1.Should().Be(1);
 
                 context["except in crazy world"] = () =>
                 {
-                    it["1 is 2"] = () => 1.Is(2);
+                    it["1 is 2"] = () => 1.Should().Be(2);
                 };
             }
         }
@@ -28,19 +29,19 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void classes_that_directly_inherit_nspec_have_level_1()
         {
-            TheContext("describe numbers").Level.Is(1);
+            TheContext("describe numbers").Level.Should().Be(1);
         }
 
         [Test]
         public void method_level_contexts_have_one_level_deeper()
         {
-            TheContext("method level context").Level.Is(2);
+            TheContext("method level context").Level.Should().Be(2);
         }
 
         [Test]
         public void and_nested_contexts_one_more_deep()
         {
-            TheContext("except in crazy world").Level.Is(3);
+            TheContext("except in crazy world").Level.Should().Be(3);
         }
     }
 }

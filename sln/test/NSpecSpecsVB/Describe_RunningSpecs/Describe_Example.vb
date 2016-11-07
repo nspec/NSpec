@@ -2,6 +2,7 @@
 Imports NUnit.Framework
 Imports NSpecSpecs
 Imports NSpecSpecs.WhenRunningSpecs
+Imports FluentAssertions
 
 Namespace WhenRunningSpecs
 
@@ -32,21 +33,21 @@ Namespace WhenRunningSpecs
 
             Dim ex = TheExample("It Changes Status After Run")
 
-            ex.HasRun.should_be_true()
+            ex.HasRun.Should().BeTrue()
         End Sub
 
         <Test()>
         Public Sub Passing_Status_Is_Passed_When_It_Succeeds()
             Run(GetType(SpecClass))
 
-            TheExample("It Passes").should_have_passed()
+            TheExample("It Passes").ShouldHavePassed()
         End Sub
 
         <Test()>
         Public Sub Passing_Status_Is_Not_Passed_When_It_Fails()
             Run(GetType(SpecClass))
 
-            TheExample("It Fails").should_have_failed()
+            TheExample("It Fails").ShouldHaveFailed()
         End Sub
 
         Public Class SpecClassWithAnonymousLambdas
@@ -65,14 +66,14 @@ Namespace WhenRunningSpecs
         Public Sub Finds_And_Runs_Three_Class_Level_Examples()
             Run(GetType(SpecClass))
 
-            TheExampleCount().should_be(3)
+            TheExampleCount().Should().Be(3)
         End Sub
 
         <Test()>
         Public Sub Finds_Only_One_Example_Ignoring_Anonymous_Lambdas()
             Run(GetType(SpecClassWithAnonymousLambdas))
 
-            TheExampleCount().should_be(1)
+            TheExampleCount().Should().Be(1)
         End Sub
 
     End Class

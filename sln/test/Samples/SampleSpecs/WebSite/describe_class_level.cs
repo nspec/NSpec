@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 
 public class describe_class_level : nspec
 {
@@ -16,7 +17,7 @@ public class describe_class_level : nspec
     //will tell nspec to treat the method as an example
     void specify_given_befores_and_acts_run_in_the_correct_sequence()
     {
-        sequence.should_be("arrange, act");
+        sequence.Should().Be("arrange, act");
     }
 
     string sequence;

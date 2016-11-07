@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 
 // TODO rename containing folder. Consider wrapping in namespace
 
@@ -14,13 +15,13 @@ public class describe_batman_sound_effects_as_text : nspec
         {
             before = () => sound = "bam";
             it["should be BAM!!!"] =
-                () => sound.should_be("BAM!!!");
+                () => sound.Should().Be("BAM!!!");
         };
         context["given whack"] = () =>
         {
             before = () => sound = "whack";
             it["should be WHACK!!!"] =
-                () => sound.should_be("WHACK!!!");
+                () => sound.Should().Be("WHACK!!!");
         };
     }
     string sound;

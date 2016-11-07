@@ -1,5 +1,6 @@
 ﻿using System;
 using NSpec;
+using FluentAssertions;
 
 namespace SampleSpecs.Bug
 {
@@ -16,7 +17,7 @@ namespace SampleSpecs.Bug
                 isTrue = true;
             };
 
-            it["is true"] = () => isTrue.should_be_true();
+            it["is true"] = () => isTrue.Should().BeTrue();
         }
 
         void MethodThrowsExceptionAndShouldBeInStackTrace()

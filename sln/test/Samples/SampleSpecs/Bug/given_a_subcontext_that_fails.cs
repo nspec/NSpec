@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSpec;
 
 namespace SampleSpecs.Bug
@@ -10,7 +11,7 @@ namespace SampleSpecs.Bug
             //that didn't require using the broken behavior
             //which led to an impossibility of getting the spec to fail with the broken code
             //and pass with the correct code.... NUnit???
-            it["should count this failure"] = () => 1.should_be(2);
+            it["should count this failure"] = () => 1.Should().Be(2);
         }
     }
 }

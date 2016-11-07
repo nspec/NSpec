@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSpec;
 
 namespace SampleSpecs.Demo
@@ -6,7 +7,7 @@ namespace SampleSpecs.Demo
     {
         void given_a_non_empty_list()
         {
-            it["should not be empty"] = () => new [] { 1 }.should_not_be_empty();
+            it["should not be empty"] = () => new [] { 1 }.Should().NotBeEmpty();
         }
     }
 }

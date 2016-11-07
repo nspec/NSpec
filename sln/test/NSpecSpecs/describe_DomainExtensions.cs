@@ -6,6 +6,7 @@ using NSpec.Domain.Extensions;
 using NUnit.Framework;
 using System.Threading.Tasks;
 using System.Reflection;
+using FluentAssertions;
 
 namespace NSpecSpecs
 {
@@ -150,30 +151,30 @@ namespace NSpecSpecs
 
         public void ShouldContain(string name)
         {
-            var methodInfos = typeof(child).Methods();
+            var methodInfos = DomainExtensions.Methods(typeof(child));
 
-            methodInfos.Any(m => m.Name == name).should_be(true);
+            methodInfos.Any(m => m.Name == name).Should().Be(true);
         }
 
         public void ShouldNotContain(string name, Type type)
         {
-            var methodInfos = type.Methods();
+            var methodInfos = DomainExtensions.Methods(type);
 
-            methodInfos.Any(m => m.Name == name).should_be(false);
+            methodInfos.Any(m => m.Name == name).Should().Be(false);
         }
 
         public void AsyncShouldContain(string name)
         {
             var methodInfos = typeof(child).AsyncMethods();
 
-            methodInfos.Any(m => m.Name == name).should_be(true);
+            methodInfos.Any(m => m.Name == name).Should().Be(true);
         }
 
         public void AsyncShouldNotContain(string name, Type type)
         {
             var methodInfos = type.AsyncMethods();
 
-            methodInfos.Any(m => m.Name == name).should_be(false);
+            methodInfos.Any(m => m.Name == name).Should().Be(false);
         }
 
         class Foo1{}
@@ -199,7 +200,7 @@ namespace NSpecSpecs
         {
             IEnumerable<Type> generatedChain = type.GetAbstractBaseClassChainWithClass();
 
-            generatedChain.SequenceEqual(chain).should_be_true();
+            generatedChain.SequenceEqual(chain).Should().BeTrue();
         }
 
         class Bar1{}
@@ -225,7 +226,7 @@ namespace NSpecSpecs
         {
             string name = derivedType.GetTypeInfo().BaseType.CleanName();
 
-            name.should_be(expectedNameForBaseType);
+            name.Should().Be(expectedNameForBaseType);
         }
     }
 }

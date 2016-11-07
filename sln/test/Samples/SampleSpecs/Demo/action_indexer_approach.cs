@@ -1,5 +1,7 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using SampleSpecs.Model;
+using System;
 
 namespace SampleSpecs.Demo
 {
@@ -11,23 +13,23 @@ namespace SampleSpecs.Demo
         {
             before = () => user = new User();
 
-            specify = () => user.Id.should_not_be_default();
+            specify = () => user.Id.Should().NotBe(0, String.Empty);
 
             context["user is admin"] = () =>
             {
                 before = () => user.Admin = true;
 
-                specify = () => user.Admin.should_be_true();
+                specify = () => user.Admin.Should().BeTrue(String.Empty);
 
                 context["user is terminated"] = () =>
                 {
                     before = () => user.Terminated = true;
 
-                    specify = () => user.Terminated.should_be_true();
+                    specify = () => user.Terminated.Should().BeTrue(String.Empty);
                 };
             };
 
-            specify = () => user.Admin.should_be_false();
+            specify = () => user.Admin.Should().BeFalse(String.Empty);
 
             it["should work"] = () =>
             {

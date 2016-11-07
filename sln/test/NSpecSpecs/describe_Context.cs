@@ -6,6 +6,7 @@ using NUnit.Framework;
 using NSpecSpecs;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
 using System.Reflection;
+using FluentAssertions;
 
 namespace NSpecSpecs
 {
@@ -16,7 +17,7 @@ namespace NSpecSpecs
         [Test]
         public void it_should_make_a_sentence_from_underscored_context_names()
         {
-            new Context("i_love_underscores").Name.should_be("i love underscores");
+            new Context("i_love_underscores").Name.Should().Be("i love underscores");
         }
     }
 
@@ -35,7 +36,7 @@ namespace NSpecSpecs
 
             parent.AddContext(child);
 
-            parent.Failures().Count().should_be(1);
+            parent.Failures().Count().Should().Be(1);
         }
     }
 
@@ -79,7 +80,7 @@ namespace NSpecSpecs
         {
             childContext.RunActs(instance);
 
-            instance.actResult.should_be("parentchild");
+            instance.actResult.Should().Be("parentchild");
         }
 
         ClassContext childContext, parentContext;
@@ -125,13 +126,13 @@ namespace NSpecSpecs
         [Test]
         public void the_root_context_should_be_the_parent()
         {
-            parentContext.Name.should_be(typeof(parent_before).Name.Replace("_", " "));
+            parentContext.Name.Should().Be(typeof(parent_before).Name.Replace("_", " "));
         }
 
         [Test]
         public void it_should_have_the_child_as_a_context()
         {
-            parentContext.Contexts.First().Name.should_be(typeof(child_before).Name.Replace("_", " "));
+            parentContext.Contexts.First().Name.Should().Be(typeof(child_before).Name.Replace("_", " "));
         }
 
         private ClassContext childContext;
@@ -181,7 +182,7 @@ namespace NSpecSpecs
         {
             childContext.RunBefores(instance);
 
-            instance.beforeResult.should_be("parentchild");
+            instance.beforeResult.Should().Be("parentchild");
         }
 
         ClassContext childContext, parentContext;
@@ -233,7 +234,7 @@ namespace NSpecSpecs
 
             rootContext.AddContext(contextWithExample);
 
-            rootContext.Contexts.Count().should_be(2);
+            rootContext.Contexts.Count().Should().Be(2);
 
             rootContext.TrimSkippedDescendants();
         }
@@ -241,13 +242,13 @@ namespace NSpecSpecs
         [Test]
         public void it_contains_context_with_example()
         {
-            rootContext.AllContexts().should_contain(contextWithExample);
+            rootContext.AllContexts().Should().Contain(contextWithExample);
         }
 
         [Test]
         public void it_doesnt_contain_empty_context()
         {
-            rootContext.AllContexts().should_not_contain(contextWithoutExample);
+            rootContext.AllContexts().Should().NotContain(contextWithoutExample);
         }
     }
 
@@ -269,7 +270,7 @@ namespace NSpecSpecs
 
             rootContext.AddContext(parentContext);
 
-            rootContext.AllContexts().should_contain(parentContext);
+            rootContext.AllContexts().Should().Contain(parentContext);
         }
 
         public void GivenContextWithAChildContextThatHasNoExample()
@@ -282,7 +283,7 @@ namespace NSpecSpecs
 
             rootContext.AddContext(parentContext);
 
-            rootContext.AllContexts().should_contain(parentContext);
+            rootContext.AllContexts().Should().Contain(parentContext);
         }
 
         [Test]
@@ -292,9 +293,9 @@ namespace NSpecSpecs
 
             rootContext.TrimSkippedDescendants();
 
-            rootContext.AllContexts().should_contain(parentContext);
+            rootContext.AllContexts().Should().Contain(parentContext);
 
-            rootContext.AllContexts().should_contain(childContext);
+            rootContext.AllContexts().Should().Contain(childContext);
         }
 
         [Test]
@@ -304,9 +305,9 @@ namespace NSpecSpecs
 
             rootContext.TrimSkippedDescendants();
 
-            rootContext.AllContexts().should_not_contain(parentContext);
+            rootContext.AllContexts().Should().NotContain(parentContext);
 
-            rootContext.AllContexts().should_not_contain(childContext);
+            rootContext.AllContexts().Should().NotContain(childContext);
         }
     }
 
@@ -368,7 +369,7 @@ namespace NSpecSpecs
 
             string actual = classContext.AllExamples().Single().FullName();
 
-            actual.should_contain(CtorThrowsSpecClass.ExceptionTypeName);
+            actual.Should().Contain(CtorThrowsSpecClass.ExceptionTypeName);
         }
 
         ClassContext classContext;
@@ -428,7 +429,7 @@ namespace NSpecSpecs
 
             string actual = classContext.AllExamples().Single().FullName();
 
-            actual.should_contain(NestedContextThrowsSpecClass.ExceptionTypeName);
+            actual.Should().Contain(NestedContextThrowsSpecClass.ExceptionTypeName);
         }
 
         ClassContext classContext;

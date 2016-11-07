@@ -4,6 +4,7 @@ using NSpec;
 using NSpec.Domain;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
+using FluentAssertions;
 
 namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 {
@@ -20,12 +21,12 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
 
             void should_fail_this_example()
             {
-                it["should fail"] = () => "hello".should_be("hello");
+                it["should fail"] = () => "hello".Should().Be("hello");
             }
 
             void should_also_fail_this_example()
             {
-                it["should also fail"] = () => "hello".should_be("hello");
+                it["should also fail"] = () => "hello".Should().Be("hello");
             }
         }
 
@@ -41,7 +42,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             classContext.AllExamples()
                         .First()
                         .Exception
-                        .should_cast_to<ExampleFailureException>();
+                        .Should().BeAssignableTo<ExampleFailureException>();
         }
 
         [Test]
@@ -50,7 +51,7 @@ namespace NSpecSpecs.describe_RunningSpecs.Exceptions
             classContext.AllExamples()
                         .Last()
                         .Exception
-                        .should_cast_to<ExampleFailureException>();
+                        .Should().BeAssignableTo<ExampleFailureException>();
         }
 
         class AfterAllException : Exception { }

@@ -5,6 +5,7 @@ using NSpec.Domain;
 using NUnit.Framework;
 using System.Threading.Tasks;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
+using FluentAssertions;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -28,7 +29,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(XitClass));
 
-            example.Pending.should_be_true();
+            example.Pending.Should().BeTrue();
         }
 
         [Test]
@@ -36,13 +37,13 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(XitClass));
 
-            example.Exception.should_be_null();
+            example.Exception.Should().BeNull();
         }
 
         [Test]
         public void example_body_should_not_run()
         {
-            XitClass.executed.should_be_false();
+            XitClass.executed.Should().BeFalse();
         }
     }
 
@@ -71,9 +72,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(AsyncXitClass));
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Pending.should_be_true();
+            example.Pending.Should().BeTrue();
         }
 
         [Test]
@@ -81,13 +82,13 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(AsyncXitClass));
 
-            example.Exception.should_be_null();
+            example.Exception.Should().BeNull();
         }
 
         [Test]
         public void example_body_should_not_run()
         {
-            AsyncXitClass.executed.should_be_false();
+            AsyncXitClass.executed.Should().BeFalse();
         }
     }
 
@@ -126,9 +127,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(XitClassWithAsyncLambda));
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Pending.should_be_true();
+            example.Pending.Should().BeTrue();
         }
 
         [Test]
@@ -136,15 +137,15 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(XitClassWithAsyncLambda));
 
-            example.Exception.should_not_be_null();
+            example.Exception.Should().NotBeNull();
 
-            example.Exception.GetType().should_be(typeof(AsyncMismatchException));
+            example.Exception.GetType().Should().Be(typeof(AsyncMismatchException));
         }
 
         [Test]
         public void example_body_should_not_run()
         {
-            XitClassWithAsyncLambda.executed.should_be_false();
+            XitClassWithAsyncLambda.executed.Should().BeFalse();
         }
     }
 
@@ -174,9 +175,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(TodoClass));
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Pending.should_be_true();
+            example.Pending.Should().BeTrue();
         }
     }
 
@@ -199,9 +200,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(AsyncTodoClass));
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Pending.should_be_true();
+            example.Pending.Should().BeTrue();
         }
     }
 
@@ -225,9 +226,9 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(TodoClass));
 
-            example.HasRun.should_be_true();
+            example.HasRun.Should().BeTrue();
 
-            example.Pending.should_be_true();
+            example.Pending.Should().BeTrue();
         }
 
         [Test]
@@ -235,7 +236,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         {
             var example = ExampleFrom(typeof(TodoClass));
 
-            example.Exception.should_be_null();
+            example.Exception.Should().BeNull();
         }
     }
 

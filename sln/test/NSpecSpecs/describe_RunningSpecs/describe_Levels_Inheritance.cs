@@ -1,4 +1,5 @@
-﻿using NSpec;
+﻿using FluentAssertions;
+using NSpec;
 using NSpecSpecs.WhenRunningSpecs;
 using NUnit.Framework;
 
@@ -12,7 +13,7 @@ namespace NSpecSpecs.describe_RunningSpecs
         {
             void it_is()
             {
-                "is".Is("is");
+                "is".Should().Be("is");
             }
         }
 
@@ -25,13 +26,13 @@ namespace NSpecSpecs.describe_RunningSpecs
         [Test]
         public void parent_class_is_level_1()
         {
-            TheContext("parent context").Level.Is(1);
+            TheContext("parent context").Level.Should().Be(1);
         }
 
         [Test]
         public void child_class_is_level_2()
         {
-            TheContext("child context").Level.Is(2);
+            TheContext("child context").Level.Should().Be(2);
         }
     }
 }

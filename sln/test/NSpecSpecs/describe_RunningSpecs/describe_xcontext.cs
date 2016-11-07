@@ -3,6 +3,7 @@ using System.Linq;
 using NSpec;
 using NUnit.Framework;
 using NSpecSpecs.describe_RunningSpecs.Exceptions;
+using FluentAssertions;
 
 namespace NSpecSpecs.WhenRunningSpecs
 {
@@ -18,7 +19,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                 xcontext["sub context"] = () =>
                 {
                     it["needs an example or it gets filtered"] =
-                        () => "Hello World".should_be("Hello World");
+                        () => "Hello World".Should().Be("Hello World");
                 };
             }
         }
@@ -32,7 +33,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void the_example_should_be_pending()
         {
-            methodContext.Contexts.First().Examples.First().Pending.should_be(true);
+            methodContext.Contexts.First().Examples.First().Pending.Should().Be(true);
         }
     }
 
@@ -56,7 +57,7 @@ namespace NSpecSpecs.WhenRunningSpecs
                     before = SubContextBefore;
 
                     it["needs an example or it gets filtered"] =
-                        () => "Hello World".should_be("Hello World");
+                        () => "Hello World".Should().Be("Hello World");
                 };
             }
         }
@@ -70,7 +71,7 @@ namespace NSpecSpecs.WhenRunningSpecs
         [Test]
         public void it_should_not_run_befores_on_pending_context()
         {
-            methodContext.AllExamples().First().Exception.should_be(null);
+            methodContext.AllExamples().First().Exception.Should().Be(null);
         }
     }
 }
