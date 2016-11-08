@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>NSpec</id>
+    <version>1.1.0</version>
+    <title>NSpec</title>
+    <summary>NSpec is a testing framework for .NET. NSpec is heavily inspired by RSpec and Mocha.</summary>
+    <description>NSpec is a BDD-style testing framework for .NET. NSpec is intended to drive development by specifying behavior within a context or scenario. NSpec belongs to the xSpec (Context/Specification) family and is heavily inspired by RSpec and Mocha.</description>
+    <authors>Matt Florence, Amir Rajan</authors>
+    <owners>Matt Florence, Amir Rajan</owners>
+    <licenseUrl>https://github.com/mattflo/NSpec/blob/master/license.txt</licenseUrl>
+    <projectUrl>http://www.nspec.org</projectUrl>
+    <iconUrl>http://nspec.org/images/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes></releaseNotes>
+    <tags>testing bdd tdd rspec mocha</tags>
+    <language>en-US</language>
+    <contentFiles>
+      <files include="**" buildAction="Compile" copyToOutput="false" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="..\..\src\NSpec\bin\Debug\**" target="lib\"/>
+    <file src="..\..\src\NSpecRunner\bin\Debug\**" target="tools\"/>
+    <file src="..\..\test\NSpecSpecs\DebuggerShim.cs" target="content"/>
+  </files>
+</package>

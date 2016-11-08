@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NSpec")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("NSpec is a BDD-style testing framework for .NET. NSpec is intended to drive development by specifying behavior within a context or scenario. NSpec belongs to the xSpec (Context/Specification) family and is heavily inspired by RSpec and Mocha.")]
 [assembly: AssemblyConfiguration("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
