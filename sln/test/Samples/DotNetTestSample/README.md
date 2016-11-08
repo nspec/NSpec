@@ -1,19 +1,14 @@
 # DotNetTestSample
 
-Until *NSpec* and *DotNetTestNSpec* packages in this same repository are not 
-publicly available on NuGet, please add the following package sources in 
-*Tools\Options\NuGet Package Manager\Package Sources* menu:
+Until *NSpec* and *DotNetTestNSpec* packages supporting .NET Core are not publicly available on NuGet or other feed, 
+please make sure to pack *NSpec* and *DotNetTestNSpec* locally and make them available respectively at:
 
-* `YourDrive:\Path\To\NSpec\Repo\sln\src\NSpec\bin\Debug`
-* `YourDrive:\Path\To\NSpec\Repo\sln\src\DotNetTestNSpec\bin\Debug`
+* `Path\To\This\Repo\sln\src\NSpec\bin\Debug`
+* `Path\To\This\Repo\sln\src\DotNetTestNSpec\bin\Debug`
 
-then manually build and create local packages for those two projects 
-from command line:
+To do that, you can open command line and run:
 
 ```
-> YourDrive:
-> cd Path\To\NSpec\Repo\sln\src\NSpec
-> dotnet pack
-> Path\To\NSpec\Repo\sln\src\DotNetTestNSpec
-> dotnet pack
+> dotnet pack Path\To\This\Repo\sln\src\NSpec\project.json
+> dotnet pack Path\To\This\Repo\sln\src\DotNetTestNSpec\project.json
 ```
