@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "FluentAssertions": "4.13.1",
+    "NSpec": {
+      "target": "project"
+    }
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50",
+      "dependencies": {
+        "NETStandard.Library": "1.6.0"
+      }
+    },
+    "net452": {
+    }
+  }
+}

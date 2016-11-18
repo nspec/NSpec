@@ -1,0 +1,32 @@
+{
+  "version": "1.1.0-*",
+
+  "buildOptions": {
+    "compile": {
+      "includeFiles": [
+        "../../SharedAssemblyInfo.cs"
+      ]
+    },
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "NSpec": {
+      "target": "project"
+    }
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50",
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      }
+    },
+    "net452": {
+    }
+  }
+}
