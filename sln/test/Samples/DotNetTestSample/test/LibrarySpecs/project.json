@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0-*",
+
+  "testRunner": "nspec",
+
+  "dependencies": {
+    "DotnetTestNSpec": "1.1.0",
+    "LibraryUnderTest": {
+      "target": "project"
+    },
+    "NSpec": "1.1.0",
+    "Shouldly": "2.8.2"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "netcoreapp1.0",
+        "portable-net45+win8",
+        "dnxcore50"
+      ],
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      }
+    },
+    "net452": {
+    }
+  }
+}

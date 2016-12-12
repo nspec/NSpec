@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E4842B5-6D20-48EA-9BDC-AA353051090A}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet.Config = NuGet.Config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3BBA52B0-07B3-4675-A85F-B7C812542654}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5EA66519-840F-45DC-8E05-0D85B9ADA494}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryUnderTest", "src\LibraryUnderTest\LibraryUnderTest.csproj", "{DD0F7F1F-2811-4B81-BF2C-7DEEB1D24617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarySpecs", "test\LibrarySpecs\LibrarySpecs.csproj", "{3D28621F-8B99-4D3F-884F-7AD754AA8785}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD0F7F1F-2811-4B81-BF2C-7DEEB1D24617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD0F7F1F-2811-4B81-BF2C-7DEEB1D24617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD0F7F1F-2811-4B81-BF2C-7DEEB1D24617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD0F7F1F-2811-4B81-BF2C-7DEEB1D24617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D28621F-8B99-4D3F-884F-7AD754AA8785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D28621F-8B99-4D3F-884F-7AD754AA8785}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D28621F-8B99-4D3F-884F-7AD754AA8785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D28621F-8B99-4D3F-884F-7AD754AA8785}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD0F7F1F-2811-4B81-BF2C-7DEEB1D24617} = {3BBA52B0-07B3-4675-A85F-B7C812542654}
+		{3D28621F-8B99-4D3F-884F-7AD754AA8785} = {5EA66519-840F-45DC-8E05-0D85B9ADA494}
+	EndGlobalSection
+EndGlobal
