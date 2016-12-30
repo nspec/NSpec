@@ -145,52 +145,11 @@ def get_version_node
 end
 
 desc 'supply the current tutorial markup in index.html and generate a new index.html containing current source code and output'
-task :website => :spec do
-  if(!File.exists?("_includes"))
-    `mkdir _includes`
-  end
-
-  files_to_comment = Array.new
-
-  Dir['sln/test/Samples/SampleSpecs/WebSite/**/*.*'].each do |f|
-    file_name = generate_html f
-
-    files_to_comment << file_name
-
-    sh "git add #{file_name}"
-
-    FileUtils.copy(file_name, "../gh-pages/_includes")
-  end
-
-  version_number = get_version_node.inner_html
-
-  file_name = "_includes/timestamp.html"
-
-  File.open(file_name, 'w') { |f| f.write("Sample code and output automatically executed against nspec version #{version_number} on #{Time.now}.") }
-
-  sh "git add #{file_name}"
-
-  FileUtils.copy(file_name, "../gh-pages/_includes")
-
-  files_to_comment << file_name
-
-  # sh "git commit -m \"updated website on master\""
-
-  cd "../gh-pages"
-
-  files_to_comment.each do |f|
-    sh "git add #{f}"
-  end
-
-  sh "git commit -m \"updated website\""
-
-  sh "git push"
-
-  cd "../src"
+task :website do
+  puts "Website is no longer auto generated, the output rarely changes and this was getting error prone. Just, go to the gh-pages branch's index.md file and update the website as needed."
 end
 
 def generate_html file
-
   file_name = file.split('/').last.split('.').first.gsub /describe_/, ""
 
   anchor_name = file_name
