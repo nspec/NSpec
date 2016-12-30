@@ -1,7 +1,0 @@
-﻿Name: Classic
-Author: Jon Wall
-Description: Orchard Classic Blog Theme
-Version: 1.0
-Tags: Classic, Blog
-Website: http://orchardproject.net
-Zones: BeforeHeader, Header, Navigation, Messages, Featured, BeforeContent, Content, AfterContent, AsideSecond,  FooterQuadFirst, FooterQuadSecond, FooterQuadThird, FooterQuadFourth, Footer

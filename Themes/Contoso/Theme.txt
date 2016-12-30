@@ -1,7 +1,0 @@
-Name: Contoso
-Author: The Orchard Team
-Description: A subtle and simple CMS theme perfect for any modern product or service business website. 
-Version: 1.0
-Tags: business, cms, modern, simple, subtle, product, service
-Website: http://www.orchardproject.net
-Zones: Header, Navigation, HomeFeaturedImage, HomeFeaturedHeadline, Messages, Content, ContentAside, TripelFirst, TripelSecond, TripelThird, Footer
