@@ -170,7 +170,8 @@ System.Diagnostics.Debugger.Launch()
 
 NSpec also includes `DebuggerShim.cs` when you install it via Nuget. So you can use TDD.NET/ReSharper to run your tests.
 
-### Or ###
+### Console App ###
+<hr />
 
 Or you can do something even fancier, and build your own console
 app! Instead of creating a Class Library for the test project,
