@@ -9,13 +9,12 @@ nuget:
 build_script:
 - ps: sln\src\NSpec\build\Build-Package.ps1
 test: off
-configuration: Release
 artifacts:
 - path: sln\src\NSpec\publish\*.nupkg
   name: NuGet
 deploy:
 - provider: NuGet
-  name: ci
+  name: CD Pipeline
   server: https://www.myget.org/F/nspec/api/v2/package
   api_key:
     secure: fLdJBSqSl6dP8rxk7vNJMYQxGchdEfMpOSF0DxKJJMmyfMaW+0Gx139YA3QxwXWm
