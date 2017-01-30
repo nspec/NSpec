@@ -45,10 +45,17 @@ function CleanProject([string]$projectPath) {
 ) | ForEach-Object { & "dotnet" build -c Release $_ }
 
 # Package
-$suffixOpt = if ($env:APPVEYOR_BUILD_NUMBER -ne $null) {
-	@( "-suffix", $env:APPVEYOR_BUILD_NUMBER )
+$isContinuous = ($env:APPVEYOR_BUILD_NUMBER -ne $null)
+$isProduction = ($env:APPVEYOR_REPO_TAG -ne $null)
+
+$versioningOpt = if ($isContinuous) {
+	if ($isProduction) {
+		@( "-version", $env:APPVEYOR_REPO_TAG )
+	} else {
+		@( "-suffix", "dev-$env:APPVEYOR_BUILD_NUMBER" )
+	}
 } else {
 	@()
 }
 
-& "nuget" pack sln\src\NSpec\NSpec.nuspec -outputdirectory sln\src\NSpec\publish\ -properties Configuration=Release $suffixOpt
+& "nuget" pack sln\src\NSpec\NSpec.nuspec -outputdirectory sln\src\NSpec\publish\ -properties Configuration=Release $versioningOpt
