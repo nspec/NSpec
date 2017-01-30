@@ -2,8 +2,8 @@
 
 function CleanContent([string]$path) {
 	if (Test-Path $path) {
-		$globPath = Join-Path -Path $path -ChildPath *
-		Remove-Item -Force -Recurse -Path $globPath
+		$globPath = Join-Path $path *
+		Remove-Item -Force -Recurse $globPath
 	}
 }
 
@@ -17,8 +17,6 @@ function CleanProject([string]$projectPath) {
 }
 
 ###
-
-<#
 
 # Clean
 @(
@@ -45,8 +43,6 @@ function CleanProject([string]$projectPath) {
 	###"sln\test\NSpecSpecs\"
 
 ) | ForEach-Object { & "dotnet" build -c Release $_ }
-
-#>
 
 # Package
 $suffixOpt = if ($env:APPVEYOR_BUILD_NUMBER -ne $null) {
