@@ -35,25 +35,5 @@
   "title": "NSpec",
   "description": "NSpec is a BDD (Behavior Driven Development)-style testing framework for .NET. NSpec is intended to drive development by specifying behavior within a context or scenario. NSpec belongs to the xSpec (Context/Specification) family and is heavily inspired by RSpec and Mocha.",
   "authors": [ "Matt Florence", "Amir Rajan" ],
-  "language": "en-US",
-
-  "packOptions": {
-    "summary": "NSpec is a testing framework for .NET. NSpec is heavily inspired by RSpec and Mocha.",
-    "owners": [ "Matt Florence", "Amir Rajan" ],
-    "tags": [ "testing", "bdd", "tdd", "rspec", "mocha" ],
-    "projectUrl": "http://www.nspec.org",
-    "iconUrl": "http://nspec.org/images/logo.png",
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/mattflo/NSpec"
-    },
-    "licenseUrl": "https://github.com/mattflo/NSpec/blob/master/license.txt",
-    "requireLicenseAcceptance": false,
-    "files": {
-      "mappings": {
-        "tools/": "../NSpecRunner/bin/Debug/**",
-        "contentFiles/cs/any/DebuggerShim.cs": "../../test/NSpecSpecs/DebuggerShim.cs"
-      }
-    }
-  }
+  "language": "en-US"
 }

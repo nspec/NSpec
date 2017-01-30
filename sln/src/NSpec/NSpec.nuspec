@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>NSpec</id>
-    <version>1.1.0</version>
+    <version>1.1.0-*</version>
     <title>NSpec</title>
     <summary>NSpec is a testing framework for .NET. NSpec is heavily inspired by RSpec and Mocha.</summary>
     <description>NSpec is a BDD-style testing framework for .NET. NSpec is intended to drive development by specifying behavior within a context or scenario. NSpec belongs to the xSpec (Context/Specification) family and is heavily inspired by RSpec and Mocha.</description>
@@ -20,8 +20,8 @@
     </contentFiles>
   </metadata>
   <files>
-    <file src="..\..\src\NSpec\bin\Debug\**" target="lib\"/>
-    <file src="..\..\src\NSpecRunner\bin\Debug\**" target="tools\"/>
+    <file src="bin\Release\**" target="lib"/>
+    <file src="..\..\src\NSpecRunner\bin\Release\**" target="tools"/>
     <file src="..\..\test\NSpecSpecs\DebuggerShim.cs" target="content"/>
   </files>
 </package>
