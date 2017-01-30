@@ -73,11 +73,14 @@ $isProduction = [bool]$env:APPVEYOR_REPO_TAG
 
 $versioningOpt = if ($isContinuous) {
 	if ($isProduction) {
+		Write-Host "Continuous Delivery, Production package"
 		@( "-version", $env:APPVEYOR_REPO_TAG )
 	} else {
+		Write-Host "Continuous Delivery, Development package"
 		@( "-suffix", "dev-$env:APPVEYOR_BUILD_NUMBER" )
 	}
 } else {
+	Write-Host "Local machine"
 	@()
 }
 
