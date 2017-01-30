@@ -4,11 +4,11 @@
   "testRunner": "nspec",
 
   "dependencies": {
-    "DotnetTestNSpec": "1.1.0",
+    "DotnetTestNSpec": "1.1.*",
     "LibraryUnderTest": {
       "target": "project"
     },
-    "NSpec": "1.1.0",
+    "NSpec": "1.1.0-dev-16",
     "Shouldly": "2.8.2"
   },
 
