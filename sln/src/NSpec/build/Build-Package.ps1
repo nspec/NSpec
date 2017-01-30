@@ -71,6 +71,8 @@ function CleanProject([string]$projectPath) {
 $isContinuous = ($env:APPVEYOR_BUILD_NUMBER -ne $null)
 $isProduction = ($env:APPVEYOR_REPO_TAG -ne $null)
 
+Write-Host "Repo tag__$env:APPVEYOR_REPO_TAG__"
+
 $versioningOpt = if ($isContinuous) {
 	if ($isProduction) {
 		@( "-version", $env:APPVEYOR_REPO_TAG )
