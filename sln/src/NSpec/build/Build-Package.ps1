@@ -68,16 +68,18 @@ function CleanProject([string]$projectPath) {
 ) | ForEach-Object { Exec { & "dotnet" build -c Release $_ } }
 
 # Package
-$isContinuous = [bool]$env:APPVEYOR_BUILD_NUMBER
-$isProduction = [bool]$env:APPVEYOR_REPO_TAG
+$isContinuous = !!($env:APPVEYOR_BUILD_NUMBER)
+$isProduction = !!($env:APPVEYOR_REPO_TAG)
 
 $versioningOpt = if ($isContinuous) {
 	if ($isProduction) {
-		Write-Host "Continuous Delivery, Production package"
-		@( "-version", $env:APPVEYOR_REPO_TAG )
+		$version = $env:APPVEYOR_REPO_TAG
+		Write-Host "Continuous Delivery, Production package, version: '$version'."
+		@( "-version", $version )
 	} else {
-		Write-Host "Continuous Delivery, Development package"
-		@( "-suffix", "dev-$env:APPVEYOR_BUILD_NUMBER" )
+		$suffix = "dev-$env:APPVEYOR_BUILD_NUMBER"
+		Write-Host "Continuous Delivery, Development package, version suffix: '$suffix'."
+		@( "-suffix", $suffix )
 	}
 } else {
 	Write-Host "Local machine"
