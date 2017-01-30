@@ -69,7 +69,7 @@ function CleanProject([string]$projectPath) {
 
 # Package
 $isContinuous = [bool]$env:APPVEYOR_BUILD_NUMBER
-$isProduction = $env:APPVEYOR_REPO_TAG
+$isProduction = [bool]$env:APPVEYOR_REPO_TAG_NAME
 
 $versioningOpt = if ($isContinuous) {
 	if ($isProduction) {
