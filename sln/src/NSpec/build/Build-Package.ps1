@@ -1,19 +1,58 @@
+# Utilities
+
+function CleanContent([string]$path) {
+	if (Test-Path $path) {
+		$globPath = Join-Path -Path $path -ChildPath *
+		Remove-Item -Force -Recurse -Path $globPath
+	}
+}
+
+function CleanProject([string]$projectPath) {
+	@(
+		(Join-Path $projectPath bin\ ), `
+		(Join-Path $projectPath obj\ ), `
+		(Join-Path $projectPath publish\ ) `
+
+	) | ForEach-Object { CleanContent $_ }
+}
+
+###
+
+<#
+
 # Clean
-if (Test-Path sln\src\NSpec\bin\) { Remove-Item sln\src\NSpec\bin\* -Force -Recurse }
-if (Test-Path sln\src\NSpec\obj\) { Remove-Item sln\src\NSpec\obj\* -Force -Recurse }
-if (Test-Path sln\src\NSpec\publish\ ) { Remove-Item sln\src\NSpec\publish\* -Force -Recurse }
+@(
+	"sln\src\NSpec", `
+	"sln\src\NSpecRunner" `
+
+) | ForEach-Object { CleanProject $_ }
 
 # Initialize
-& "dotnet" restore sln\src\NSpec\
-# Skip test until issue with restoring samples is fixed
-###& "dotnet" restore sln\test\NSpecSpecs\
+@(
+	"sln\src\NSpec", `
+	"sln\src\NSpecRunner" `
+	# Skip test until issue with restoring samples is fixed
+	###"sln\test\NSpecSpecs\"
+
+) | ForEach-Object { & "dotnet" restore $_ }
+
 
 # Build
-& "dotnet" build -c Release sln\src\NSpec\
+@(
+	"sln\src\NSpec", `
+	"sln\src\NSpecRunner" `
+	# Skip test until issue with restoring samples is fixed
+	###"sln\test\NSpecSpecs\"
 
-# Test
-# Skip test until issue with restoring samples is fixed
-###& "dotnet" test -c Release sln\test\NSpecSpecs\
+) | ForEach-Object { & "dotnet" build -c Release $_ }
+
+#>
 
 # Package
-& "dotnet" pack -c Release sln\src\NSpec\ -o sln\src\NSpec\publish\ --version-suffix=$env:APPVEYOR_BUILD_NUMBER
+$suffixOpt = if ($env:APPVEYOR_BUILD_NUMBER -ne $null) {
+	@( "-suffix", $env:APPVEYOR_BUILD_NUMBER )
+} else {
+	@()
+}
+
+& "nuget" pack sln\src\NSpec\NSpec.nuspec -outputdirectory sln\src\NSpec\publish\ -properties Configuration=Release $suffixOpt
