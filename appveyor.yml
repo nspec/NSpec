@@ -1,5 +1,4 @@
-﻿version: '{build}'
-###pull_requests:
+﻿###pull_requests:
 ###  do_not_increment_build_number: true
 branches:
   only:
@@ -14,7 +13,8 @@ artifacts:
   name: NuGet
 deploy:
 - provider: NuGet
-  name: CD Pipeline
+  name: Development
+  version: 'dev-{build}'
   server: https://www.myget.org/F/nspec/api/v2/package
   api_key:
     secure: fLdJBSqSl6dP8rxk7vNJMYQxGchdEfMpOSF0DxKJJMmyfMaW+0Gx139YA3QxwXWm
@@ -22,7 +22,8 @@ deploy:
   on:
     branch: master
 - provider: NuGet
-  name: production
+  name: Production
+  version: '{build}'
   api_key:
     secure: yC++3vJi0VQue3koutRC6PWdbN1uuXqXYvaAZTA3SZq6UKuJP5hKx6JhgkdOI8/M
   on:
