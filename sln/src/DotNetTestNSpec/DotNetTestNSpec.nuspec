@@ -20,6 +20,6 @@
     </contentFiles>
   </metadata>
   <files>
-    <file src="bin\Release\**" target="lib"/>
+    <file src="bin\Release\**" exclude="**\*.pdb;**\*.deps.json;**\*.dev.json;**\win7-x64\*" target="lib"/>
   </files>
 </package>
