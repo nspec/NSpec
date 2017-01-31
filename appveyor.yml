@@ -1,17 +1,17 @@
 ﻿version: '{build}'
-###pull_requests:
-###  do_not_increment_build_number: true
 branches:
   only:
   - master
 nuget:
   disable_publish_on_pr: true
 build_script:
-- ps: sln\src\NSpec\build\Build-Package.ps1
+- ps: sln\Build-Package.ps1
 test: off
 artifacts:
 - path: sln\src\NSpec\publish\*.nupkg
-  name: NuGet
+  name: NSpec
+- path: sln\src\DotNetTestNSpec\publish\*.nupkg
+  name: DotNetTestNSpec
 deploy:
 - provider: NuGet
   name: Development
@@ -23,6 +23,8 @@ deploy:
     branch: master
 - provider: NuGet
   name: Production
+  artifact: NSpec
+  ### add DotNetTestNSpec artifact when package is registered on NuGet
   api_key:
     secure: yC++3vJi0VQue3koutRC6PWdbN1uuXqXYvaAZTA3SZq6UKuJP5hKx6JhgkdOI8/M
   on:

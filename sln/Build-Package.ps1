@@ -17,6 +17,7 @@ function Exec
 		[Parameter(Position=0,Mandatory=1)][scriptblock]$cmd,
 		[Parameter(Position=1,Mandatory=0)][string]$errorMessage = ($msgs.error_bad_command -f $cmd)
 	)
+	$global:lastexitcode = 0
 	& $cmd
 	if ($lastexitcode -ne 0) {
 		throw ("Exec: " + $errorMessage)
@@ -44,16 +45,19 @@ function CleanProject([string]$projectPath) {
 # Clean
 @(
 	"sln\src\NSpec", `
-	"sln\src\NSpecRunner" `
+	"sln\src\NSpecRunner", `
+	"sln\src\DotNetTestNSpec" `
 
 ) | ForEach-Object { CleanProject $_ }
 
 # Initialize
 @(
 	"sln\src\NSpec", `
-	"sln\src\NSpecRunner" `
+	"sln\src\NSpecRunner", `
+	"sln\src\DotNetTestNSpec" `
 	# Skip test until issue with restoring samples is fixed
-	###"sln\test\NSpecSpecs\"
+	###"sln\test\NSpecSpecs\", `
+	###"sln\test\DotNetTestNSpecSpecs\"
 
 ) | ForEach-Object { Exec { & "dotnet" restore $_ } }
 
@@ -61,9 +65,11 @@ function CleanProject([string]$projectPath) {
 # Build
 @(
 	"sln\src\NSpec", `
-	"sln\src\NSpecRunner" `
+	"sln\src\NSpecRunner", `
+	"sln\src\DotNetTestNSpec" `
 	# Skip test until issue with restoring samples is fixed
-	###"sln\test\NSpecSpecs\"
+	###"sln\test\NSpecSpecs\", `
+	###"sln\test\DotNetTestNSpecSpecs\"
 
 ) | ForEach-Object { Exec { & "dotnet" build -c Release $_ } }
 
@@ -90,5 +96,12 @@ Exec {
 	& "nuget" pack sln\src\NSpec\NSpec.nuspec `
 		$versioningOpt `
 		-outputdirectory sln\src\NSpec\publish\ `
+		-properties Configuration=Release
+}
+
+Exec {
+	& "nuget" pack sln\src\DotNetTestNSpec\DotNetTestNSpec.nuspec `
+		$versioningOpt `
+		-outputdirectory sln\src\DotNetTestNSpec\publish\ `
 		-properties Configuration=Release
 }
