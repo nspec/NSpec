@@ -54,7 +54,11 @@ function CleanProject([string]$projectPath) {
 
 # Initialize
 @(
-	"sln\"
+	"sln\src\NSpec", `
+	"sln\src\NSpecRunner", `
+	"sln\src\DotNetTestNSpec", `
+	"sln\test\NSpecSpecs", `
+	"sln\test\DotNetTestNSpecSpecs"
 
 ) | ForEach-Object { Exec { & "dotnet" restore $_ } }
 
@@ -84,16 +88,15 @@ $isProduction = [bool]$env:APPVEYOR_REPO_TAG_NAME
 
 $versioningOpt = if ($isContinuous) {
 	if ($isProduction) {
-		$version = $env:APPVEYOR_REPO_TAG_NAME
-		Write-Host "Continuous Delivery, Production package, version: '$version'."
-		@( "-version", $version )
+		Write-Host "Continuous Delivery, Production package, keeping nuspec version."
+		@()
 	} else {
 		$suffix = "dev-$env:APPVEYOR_BUILD_NUMBER"
 		Write-Host "Continuous Delivery, Development package, version suffix: '$suffix'."
 		@( "-suffix", $suffix )
 	}
 } else {
-	Write-Host "Local machine"
+	Write-Host "Local machine, keeping nuspec version."
 	@()
 }
 
