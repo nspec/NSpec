@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>dotnet-test-nspec</id>
+    <version>1.1.0.0</version>
+    <title>NSpec dotnet test runner</title>
+    <summary>NSpec console runner for dotnet test CLI.</summary>
+    <description>Runs NSpec tests on .NET Core and .NET Framework projects through dotnet test command line interface.</description>
+    <authors>BrainCrumbz</authors>
+    <owners>Matt Florence, Amir Rajan, BrainCrumbz</owners>
+    <licenseUrl>https://github.com/mattflo/NSpec/blob/master/license.txt</licenseUrl>
+    <projectUrl>http://www.nspec.org</projectUrl>
+    <iconUrl>http://nspec.org/images/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes></releaseNotes>
+    <tags>testing bdd tdd rspec mocha dotnet core test</tags>
+    <language>en-US</language>
+    <contentFiles>
+      <files include="**" buildAction="Compile" copyToOutput="false" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="bin\Release\**" exclude="**\*.pdb;**\*.deps.json;**\*.dev.json;**\win7-x64\*" target="lib"/>
+  </files>
+</package>
