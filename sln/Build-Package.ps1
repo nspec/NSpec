@@ -46,18 +46,15 @@ function CleanProject([string]$projectPath) {
 @(
 	"sln\src\NSpec", `
 	"sln\src\NSpecRunner", `
-	"sln\src\DotNetTestNSpec" `
+	"sln\src\DotNetTestNSpec", `
+	"sln\test\NSpecSpecs", `
+	"sln\test\DotNetTestNSpecSpecs"
 
 ) | ForEach-Object { CleanProject $_ }
 
 # Initialize
 @(
-	"sln\src\NSpec", `
-	"sln\src\NSpecRunner", `
-	"sln\src\DotNetTestNSpec" `
-	# Skip test until issue with restoring samples is fixed
-	###"sln\test\NSpecSpecs\", `
-	###"sln\test\DotNetTestNSpecSpecs\"
+	"sln\"
 
 ) | ForEach-Object { Exec { & "dotnet" restore $_ } }
 
@@ -66,12 +63,20 @@ function CleanProject([string]$projectPath) {
 @(
 	"sln\src\NSpec", `
 	"sln\src\NSpecRunner", `
-	"sln\src\DotNetTestNSpec" `
-	# Skip test until issue with restoring samples is fixed
-	###"sln\test\NSpecSpecs\", `
-	###"sln\test\DotNetTestNSpecSpecs\"
+	"sln\src\DotNetTestNSpec", `
+	"sln\test\NSpecSpecs", `
+	"sln\test\DotNetTestNSpecSpecs"
 
 ) | ForEach-Object { Exec { & "dotnet" build -c Release $_ } }
+
+
+# Test
+@(
+	"sln\test\NSpecSpecs", `
+	"sln\test\DotNetTestNSpecSpecs"
+
+) | ForEach-Object { Exec { & "dotnet" test -c Release $_ } }
+
 
 # Package
 $isContinuous = [bool]$env:APPVEYOR_BUILD_NUMBER
