@@ -48,6 +48,8 @@ function CleanProject([string]$projectPath) {
 	"sln\src\NSpecRunner", `
 	"sln\src\DotNetTestNSpec", `
 	"sln\test\NSpecSpecs", `
+	"sln\test\Samples\SampleSpecs", `
+	"sln\test\Samples\SampleSpecsFocus", `
 	"sln\test\DotNetTestNSpecSpecs"
 
 ) | ForEach-Object { CleanProject $_ }
@@ -58,6 +60,8 @@ function CleanProject([string]$projectPath) {
 	"sln\src\NSpecRunner", `
 	"sln\src\DotNetTestNSpec", `
 	"sln\test\NSpecSpecs", `
+	"sln\test\Samples\SampleSpecs", `
+	"sln\test\Samples\SampleSpecsFocus", `
 	"sln\test\DotNetTestNSpecSpecs"
 
 ) | ForEach-Object { Exec { & "dotnet" restore $_ } }
