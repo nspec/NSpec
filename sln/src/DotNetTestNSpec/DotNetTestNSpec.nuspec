@@ -5,7 +5,11 @@
     <version>0.1.0.0</version>
     <title>NSpec dotnet test runner</title>
     <summary>NSpec console runner for dotnet test CLI.</summary>
-    <description>Runs NSpec tests on .NET Core and .NET Framework projects through dotnet test command line interface.</description>
+    <description>
+      Runs NSpec tests on .NET Core and .NET Framework projects through dotnet test command line interface.
+      
+      NOTE: Visual Studio integration is on its way.
+    </description>
     <authors>BrainCrumbz</authors>
     <owners>Matt Florence, Amir Rajan, BrainCrumbz</owners>
     <licenseUrl>https://github.com/mattflo/NSpec/blob/master/license.txt</licenseUrl>
