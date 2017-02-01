@@ -23,8 +23,6 @@ deploy:
     branch: master
 - provider: NuGet
   name: Production
-  artifact: NSpec
-  ### add DotNetTestNSpec artifact when package is registered on NuGet
   api_key:
     secure: yC++3vJi0VQue3koutRC6PWdbN1uuXqXYvaAZTA3SZq6UKuJP5hKx6JhgkdOI8/M
   on:
