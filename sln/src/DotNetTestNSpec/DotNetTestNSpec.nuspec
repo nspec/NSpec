@@ -10,7 +10,7 @@
     <owners>Matt Florence, Amir Rajan, BrainCrumbz</owners>
     <licenseUrl>https://github.com/mattflo/NSpec/blob/master/license.txt</licenseUrl>
     <projectUrl>http://www.nspec.org</projectUrl>
-    <iconUrl>http://nspec.org/images/logo.png</iconUrl>
+    <iconUrl>http://nspec.org/assets/images/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes></releaseNotes>
     <tags>testing bdd tdd rspec mocha dotnet core test</tags>
