@@ -1,17 +1,26 @@
 ﻿version: '{build}'
+
 branches:
   only:
   - master
+
 nuget:
   disable_publish_on_pr: true
+
+skip_commits:
+  message: /docs(.*):/
+
 build_script:
 - ps: sln\Build-Package.ps1
+
 test: off
+
 artifacts:
 - path: sln\src\NSpec\publish\*.nupkg
   name: NSpec
 - path: sln\src\DotNetTestNSpec\publish\*.nupkg
   name: DotNetTestNSpec
+
 deploy:
 - provider: NuGet
   name: Development
