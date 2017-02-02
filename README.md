@@ -246,7 +246,7 @@ public class describe_prime_factors : nspec
 
 ## Breaking changes
 
-To check for potential breaking changes, see [BREAKING_CHANGES.md](./BREAKING_CHANGES.md).
+To check for potential breaking changes, see [BREAKING-CHANGES.md](./BREAKING-CHANGES.md).
 
 ## Contributing
 
