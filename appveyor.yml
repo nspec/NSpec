@@ -8,7 +8,7 @@ nuget:
   disable_publish_on_pr: true
 
 skip_commits:
-  message: /docs(.*):/
+  message: /docs\(.*\):/
 
 skip_commits:
   files: '*.md'
