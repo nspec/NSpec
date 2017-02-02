@@ -10,6 +10,9 @@ nuget:
 skip_commits:
   message: /docs(.*):/
 
+skip_commits:
+  files: '*.md'
+
 build_script:
 - ps: sln\Build-Package.ps1
 
@@ -35,5 +38,4 @@ deploy:
   api_key:
     secure: yC++3vJi0VQue3koutRC6PWdbN1uuXqXYvaAZTA3SZq6UKuJP5hKx6JhgkdOI8/M
   on:
-    branch: master
     appveyor_repo_tag: true
