@@ -10,7 +10,7 @@
     <owners>Matt Florence, Amir Rajan</owners>
     <licenseUrl>https://github.com/mattflo/NSpec/blob/master/license.txt</licenseUrl>
     <projectUrl>http://www.nspec.org</projectUrl>
-    <iconUrl>http://nspec.org/assets/images/logo.png</iconUrl>
+    <iconUrl>https://cdn.rawgit.com/mattflo/NSpec/gh-pages/assets/images/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes></releaseNotes>
     <tags>testing bdd tdd rspec mocha</tags>
