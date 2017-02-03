@@ -8,6 +8,16 @@ NSpec is written by [Matt Florence](http://twitter.com/mattflo) and [Amir Rajan]
 
 See [nspec.org](http://nspec.org/) for instructions on getting started and documentation.
 
+## Samples
+
+See under [sln/test/Samples](./sln/test/Samples):
+
+- [DotNetTestSample](./sln/test/DotnetTestNSpecSpecs) and [NetFrameworkSample](./sln/test/NetFrameworkSample):
+those are independent solutions with code under test and test project, importing NSpec packages
+
+- [SampleSpecs](./sln/test/SampleSpecs) and [SampleSpecsFocus](./sln/test/SampleSpecsFocus):
+those are projects found within main NSpec solution, needed when testing NSpec itself, with examples of test classes
+
 ## Breaking changes
 
 To check for potential breaking changes, see [BREAKING-CHANGES.md](./BREAKING-CHANGES.md).
