@@ -12,10 +12,10 @@ See [nspec.org](http://nspec.org/) for instructions on getting started and docum
 
 See under [sln/test/Samples](./sln/test/Samples):
 
-- [DotNetTestSample](./sln/test/DotnetTestNSpecSpecs) and [NetFrameworkSample](./sln/test/NetFrameworkSample):
+- [DotNetTestSample](./sln/test/Samples/DotNetTestSample) and [NetFrameworkSample](./sln/test/Samples/NetFrameworkSample):
 those are independent solutions with code under test and test project, importing NSpec packages
 
-- [SampleSpecs](./sln/test/SampleSpecs) and [SampleSpecsFocus](./sln/test/SampleSpecsFocus):
+- [SampleSpecs](./sln/test/Samples/SampleSpecs) and [SampleSpecsFocus](./sln/test/Samples/SampleSpecsFocus):
 those are projects found within main NSpec solution, needed when testing NSpec itself, with examples of test classes
 
 ## Breaking changes
