@@ -9,8 +9,6 @@ nuget:
 
 skip_commits:
   message: /docs\(.*\):/
-
-skip_commits:
   files: '*.md'
 
 build_script:
