@@ -40,17 +40,36 @@ function CleanProject([string]$projectPath) {
 	) | ForEach-Object { CleanContent $_ }
 }
 
+function BuildVersioningOptions() {
+	$isContinuous = [bool]$env:APPVEYOR_BUILD_NUMBER
+	$isProduction = [bool]$env:APPVEYOR_REPO_TAG_NAME
+
+	$versioningOpt = if ($isContinuous) {
+		if ($isProduction) {
+			Write-Host "Continuous Delivery, Production package, keeping nuspec version."
+			@()
+		} else {
+			$suffix = "dev-$env:APPVEYOR_BUILD_NUMBER"
+			Write-Host "Continuous Delivery, Development package, version suffix: '$suffix'."
+			@( "-suffix", $suffix )
+		}
+	} else {
+		Write-Host "Local machine, keeping nuspec version."
+		@()
+	}
+
+	return $versioningOpt
+}
+
 ###
 
 # Clean
 @(
 	"sln\src\NSpec", `
 	"sln\src\NSpecRunner", `
-	"sln\src\DotNetTestNSpec", `
 	"sln\test\NSpecSpecs", `
 	"sln\test\Samples\SampleSpecs", `
-	"sln\test\Samples\SampleSpecsFocus", `
-	"sln\test\DotNetTestNSpecSpecs"
+	"sln\test\Samples\SampleSpecsFocus"
 
 ) | ForEach-Object { CleanProject $_ }
 
@@ -58,11 +77,9 @@ function CleanProject([string]$projectPath) {
 @(
 	"sln\src\NSpec", `
 	"sln\src\NSpecRunner", `
-	"sln\src\DotNetTestNSpec", `
 	"sln\test\NSpecSpecs", `
 	"sln\test\Samples\SampleSpecs", `
-	"sln\test\Samples\SampleSpecsFocus", `
-	"sln\test\DotNetTestNSpecSpecs"
+	"sln\test\Samples\SampleSpecsFocus"
 
 ) | ForEach-Object { Exec { & "dotnet" restore $_ } }
 
@@ -71,49 +88,24 @@ function CleanProject([string]$projectPath) {
 @(
 	"sln\src\NSpec", `
 	"sln\src\NSpecRunner", `
-	"sln\src\DotNetTestNSpec", `
-	"sln\test\NSpecSpecs", `
-	"sln\test\DotNetTestNSpecSpecs"
+	"sln\test\NSpecSpecs"
 
 ) | ForEach-Object { Exec { & "dotnet" build -c Release $_ } }
 
 
 # Test
 @(
-	"sln\test\NSpecSpecs", `
-	"sln\test\DotNetTestNSpecSpecs"
+	"sln\test\NSpecSpecs"
 
 ) | ForEach-Object { Exec { & "dotnet" test -c Release $_ } }
 
 
 # Package
-$isContinuous = [bool]$env:APPVEYOR_BUILD_NUMBER
-$isProduction = [bool]$env:APPVEYOR_REPO_TAG_NAME
-
-$versioningOpt = if ($isContinuous) {
-	if ($isProduction) {
-		Write-Host "Continuous Delivery, Production package, keeping nuspec version."
-		@()
-	} else {
-		$suffix = "dev-$env:APPVEYOR_BUILD_NUMBER"
-		Write-Host "Continuous Delivery, Development package, version suffix: '$suffix'."
-		@( "-suffix", $suffix )
-	}
-} else {
-	Write-Host "Local machine, keeping nuspec version."
-	@()
-}
+$versioningOpt = BuildVersioningOptions
 
 Exec {
 	& "nuget" pack sln\src\NSpec\NSpec.nuspec `
 		$versioningOpt `
 		-outputdirectory sln\src\NSpec\publish\ `
-		-properties Configuration=Release
-}
-
-Exec {
-	& "nuget" pack sln\src\DotNetTestNSpec\DotNetTestNSpec.nuspec `
-		$versioningOpt `
-		-outputdirectory sln\src\DotNetTestNSpec\publish\ `
 		-properties Configuration=Release
 }

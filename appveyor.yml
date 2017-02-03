@@ -19,8 +19,6 @@ test: off
 artifacts:
 - path: sln\src\NSpec\publish\*.nupkg
   name: NSpec
-- path: sln\src\DotNetTestNSpec\publish\*.nupkg
-  name: DotNetTestNSpec
 
 deploy:
 - provider: NuGet
