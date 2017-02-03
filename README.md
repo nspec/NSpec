@@ -28,4 +28,4 @@ See [contributing](CONTRIBUTING.md) doc page.
 
 ## License
 
-[MIT](license.txt)
+[MIT](./license.txt)
