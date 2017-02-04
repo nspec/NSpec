@@ -3,6 +3,29 @@ layout: page
 title:
 ---
 
+## Table of Contents ##
+
+- [Getting Started](#getting-started)
+- [Why NSpec?](#why-nspec)
+  * [Noise Free Tests](#noise-free-tests)
+  * [Fluid Test Structures](#fluid-test-structures)
+- [Features](#features)
+
+  |  |  |
+  | --- | --- |
+  | [Assertions](#assertions) | [Before](#before) |
+  | [Context](#context) | [Pending Tests](#pending-tests) |
+  | [Helper Methods](#helper-methods) | [Act](#act) |
+  | [Inheritance](#inheritance) | [Class Level](#class-level) |
+  | [Debugger Support](#debugger-support) | [Console App](#console-app) |
+  |  |  |
+
+- [Async/await support](#asyncawait-support)
+  * [Class Level](#class-level-1)
+  * [Context level](#context-level)
+- [Data-driven test cases](#data-driven-test-cases)
+- [Additional info](#additional-info)
+
 ## Getting Started ##
 <hr />
 
@@ -419,6 +442,6 @@ public class describe_prime_factors : nspec
 
 ## Additional info
 
-### Execution order
+### Order of execution
 
 Please have a look at [this wiki page](https://github.com/nspec/NSpec/wiki/Execution-Orders) for an overview on which test hooks are executed when: execution order in xSpec family frameworks can get tricky when dealing with more complicated test configurations, like inherithing from an abstract test class or mixing `before_each` with `before_all` at different context levels.
