@@ -3,28 +3,32 @@ layout: page
 title:
 ---
 
+
 ## Table of Contents ##
+<hr />
 
 - [Getting Started](#getting-started)
 - [Why NSpec?](#why-nspec)
+  * [Consistent With Modern Testing Frameworks](#consistent-with-modern-testing-frameworks)
   * [Noise Free Tests](#noise-free-tests)
   * [Fluid Test Structures](#fluid-test-structures)
 - [Features](#features)
-
-  |  |  |
-  | --- | --- |
-  | [Assertions](#assertions) | [Before](#before) |
-  | [Context](#context) | [Pending Tests](#pending-tests) |
-  | [Helper Methods](#helper-methods) | [Act](#act) |
-  | [Inheritance](#inheritance) | [Class Level](#class-level) |
-  | [Debugger Support](#debugger-support) | [Console App](#console-app) |
-  |  |  |
-
+  * [Assertions](#assertions)
+  * [Before](#before)
+  * [Context](#context)
+  * [Pending Tests](#pending-tests)
+  * [Helper Methods](#helper-methods)
+  * [Act](#act)
+  * [Inheritance](#inheritance)
+  * [Class Level](#class-level)
+  * [Debugger Support](#debugger-support)
+  * [Console App](#console-app)
 - [Async/await support](#asyncawait-support)
   * [Class Level](#class-level-1)
   * [Context level](#context-level)
 - [Data-driven test cases](#data-driven-test-cases)
 - [Additional info](#additional-info)
+  * [Order of execution](#order-of-execution)
 
 ## Getting Started ##
 <hr />
