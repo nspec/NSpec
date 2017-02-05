@@ -80,3 +80,22 @@ iframe {
   white-space: -o-pre-wrap;    /* Opera 7 */
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
+
+table {
+  border: solid 1px silver;
+  padding: 3px;
+}
+
+table th {
+  border: solid 1px silver;
+  padding: 3px;
+}
+
+table td {
+  border: solid 1px silver;
+  padding: 3px;
+}
+
+td.blob-num {
+  border: none;
+}
