@@ -5,7 +5,7 @@ To run locally, make sure you have `ruby 2.3.1p112+` installed.
 Then run:
 
 ```
-gem install bundler`
+gem install bundler
 bundle
 bundle exec jekyll server --watch
 ```
