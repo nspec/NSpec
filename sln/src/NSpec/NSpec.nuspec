@@ -22,6 +22,6 @@
   <files>
     <file src="bin\Release\**" exclude="**\*.pdb;**\*.deps.json" target="lib"/>
     <file src="..\..\src\NSpecRunner\bin\Release\**" exclude="**\*.pdb;**netcore**\*;**\win7-x64\*" target="tools"/>
-    <file src="..\..\test\NSpecSpecs\DebuggerShim.cs" target="content"/>
+    <file src="..\..\test\NSpec.Tests\DebuggerShim.cs" target="content"/>
   </files>
 </package>
