@@ -67,7 +67,7 @@ function BuildVersioningOptions() {
 @(
 	"sln\src\NSpec", `
 	"sln\src\NSpecRunner", `
-	"sln\test\NSpecSpecs", `
+	"sln\test\NSpec.Tests", `
 	"sln\test\Samples\SampleSpecs", `
 	"sln\test\Samples\SampleSpecsFocus"
 
@@ -77,7 +77,7 @@ function BuildVersioningOptions() {
 @(
 	"sln\src\NSpec", `
 	"sln\src\NSpecRunner", `
-	"sln\test\NSpecSpecs", `
+	"sln\test\NSpec.Tests", `
 	"sln\test\Samples\SampleSpecs", `
 	"sln\test\Samples\SampleSpecsFocus"
 
@@ -88,14 +88,14 @@ function BuildVersioningOptions() {
 @(
 	"sln\src\NSpec", `
 	"sln\src\NSpecRunner", `
-	"sln\test\NSpecSpecs"
+	"sln\test\NSpec.Tests"
 
 ) | ForEach-Object { Exec { & "dotnet" build -c Release $_ } }
 
 
 # Test
 @(
-	"sln\test\NSpecSpecs"
+	"sln\test\NSpec.Tests"
 
 ) | ForEach-Object { Exec { & "dotnet" test -c Release $_ } }
 
