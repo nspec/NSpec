@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 
-namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
+namespace NSpec.Tests.WhenRunningSpecs.BeforeAndAfter
 {
     [TestFixture]
     public class inheritance : when_running_specs

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using FluentAssertions;
 
-namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
+namespace NSpec.Tests.WhenRunningSpecs.BeforeAndAfter
 {
     [TestFixture]
     public class improperly_formed_context_methods : when_running_specs

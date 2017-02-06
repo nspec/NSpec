@@ -1,43 +1,45 @@
 using FluentAssertions;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
-namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
+namespace NSpec.Tests.WhenRunningSpecs.BeforeAndAfter
 {
     [TestFixture]
     [Category("RunningSpecs")]
-    public class class_levels_and_context_methods : when_running_specs
+    [Category("Async")]
+    public class async_class_levels_and_context_methods : when_running_specs
     {
         class SpecClass : sequence_spec
         {
-            void before_all()
+            async Task before_all()
             {
-                sequence = "A";
+                await Task.Run(() => sequence = "A");
             }
 
-            void before_each()
+            async Task before_each()
             {
-                sequence += "C";
+                await Task.Run(() => sequence += "C");
             }
 
             void a_context()
             {
-                beforeAll = () => sequence += "B";
+                beforeAllAsync = async () => await Task.Run(() => sequence += "B");
 
-                before = () => sequence += "D";
+                beforeAsync = async () => await Task.Run(() => sequence += "D");
                 specify = () => Assert.That(true, Is.True);
-                after = () => sequence += "E";
+                afterAsync = async () => await Task.Run(() => sequence += "E");
 
-                afterAll = () => sequence += "G";
+                afterAllAsync = async () => await Task.Run(() => sequence += "G");
             }
 
-            void after_each()
+            async Task after_each()
             {
-                sequence += "F";
+                await Task.Run(() => sequence += "F");
             }
 
-            void after_all()
+            async Task after_all()
             {
-                sequence += "H";
+                await Task.Run(() => sequence += "H");
             }
         }
 

@@ -1,12 +1,13 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
+namespace NSpec.Tests.WhenRunningSpecs.BeforeAndAfter
 {
     [TestFixture]
-    public class abstract_class : when_running_specs
+    [Category("RunningSpecs")]
+    public class class_levels_and_context_methods : when_running_specs
     {
-        abstract class Abstract : sequence_spec
+        class SpecClass : sequence_spec
         {
             void before_all()
             {
@@ -40,13 +41,22 @@ namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
             }
         }
 
-        class Concrete : Abstract {}
+        [SetUp]
+        public void setup()
+        {
+            Run(typeof(SpecClass));
+        }
 
         [Test]
-        public void all_features_are_supported_from_abstract_classes_when_run_under_the_context_of_a_derived_concrete()
+        public void before_alls_at_every_level_run_before_before_eaches_from_the_outside_in()
         {
-            Run(typeof(Concrete));
-            Concrete.sequence.Should().Be("ABCDEFGH");
+            SpecClass.sequence.Should().StartWith("ABCD");
+        }
+
+        [Test]
+        public void after_alls_at_every_level_run_after_after_eaches_from_the_inside_out()
+        {
+            SpecClass.sequence.Should().EndWith("EFGH");
         }
     }
 }

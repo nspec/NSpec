@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
+namespace NSpec.Tests.WhenRunningSpecs.BeforeAndAfter
 {
     [TestFixture]
     [Category("Async")]

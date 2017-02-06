@@ -1,12 +1,10 @@
 using FluentAssertions;
 using NUnit.Framework;
-using System.Threading.Tasks;
 
-namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
+namespace NSpec.Tests.WhenRunningSpecs.BeforeAndAfter
 {
     [TestFixture]
-    [Category("Async")]
-    public class async_when_there_are_no_specs : when_running_specs
+    public class when_there_are_no_specs : when_running_specs
     {
         [SetUp]
         public void setup()
@@ -14,43 +12,43 @@ namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
             sequence_spec.sequence = "";
         }
 
-        class async_before_all_example_spec : sequence_spec
+        class before_all_example_spec : sequence_spec
         {
-            async Task before_all()
+            void before_all()
             {
-                await Task.Run(() => sequence = "executed");
+                sequence = "executed";
             }
         }
 
         [Test]
-        public void async_before_all_is_not_executed()
+        public void before_all_is_not_executed()
         {
-            Run(typeof(async_before_all_example_spec));
+            Run(typeof (before_all_example_spec));
 
             sequence_spec.sequence.Should().Be("");
         }
 
-        class async_before_each_example_spec : sequence_spec
+        class before_each_example_spec : sequence_spec
         {
-            async Task before_each()
+            void before_each()
             {
-                await Task.Run(() => sequence = "executed");
+                sequence = "executed";
             }
         }
 
         [Test]
-        public void async_before_each_is_not_executed()
+        public void before_each_is_not_executed()
         {
-            Run(typeof(async_before_each_example_spec));
+            Run(typeof (before_each_example_spec));
 
             sequence_spec.sequence.Should().Be("");
         }
 
         class after_each_example_spec : sequence_spec
         {
-            async Task after_each()
+            void after_each()
             {
-                await Task.Run(() => sequence += "executed");
+                sequence = "executed";
             }
         }
 
@@ -64,9 +62,9 @@ namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
 
         class after_all_example_spec : sequence_spec
         {
-            async Task after_all()
+            void after_all()
             {
-                await Task.Run(() => sequence += "executed");
+                sequence = "executed";
             }
         }
 

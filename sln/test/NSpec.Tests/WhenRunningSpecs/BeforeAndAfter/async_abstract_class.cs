@@ -2,14 +2,13 @@ using FluentAssertions;
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
+namespace NSpec.Tests.WhenRunningSpecs.BeforeAndAfter
 {
     [TestFixture]
-    [Category("RunningSpecs")]
     [Category("Async")]
-    public class async_class_levels_and_context_methods : when_running_specs
+    public class async_abstract_class : when_running_specs
     {
-        class SpecClass : sequence_spec
+        abstract class Abstract : sequence_spec
         {
             async Task before_all()
             {
@@ -43,22 +42,13 @@ namespace NSpec.Tests.WhenRunningSpecs.describe_before_and_after
             }
         }
 
-        [SetUp]
-        public void setup()
-        {
-            Run(typeof(SpecClass));
-        }
+        class Concrete : Abstract {}
 
         [Test]
-        public void before_alls_at_every_level_run_before_before_eaches_from_the_outside_in()
+        public void all_async_features_are_supported_from_abstract_classes_when_run_under_the_context_of_a_derived_concrete()
         {
-            SpecClass.sequence.Should().StartWith("ABCD");
-        }
-
-        [Test]
-        public void after_alls_at_every_level_run_after_after_eaches_from_the_inside_out()
-        {
-            SpecClass.sequence.Should().EndWith("EFGH");
+            Run(typeof(Concrete));
+            Concrete.sequence.Should().Be("ABCDEFGH");
         }
     }
 }
