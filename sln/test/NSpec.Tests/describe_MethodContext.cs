@@ -1,6 +1,6 @@
 using FluentAssertions;
 using NSpec.Domain;
-using NSpec.Tests.describe_RunningSpecs.Exceptions;
+using NSpec.Tests.WhenRunningSpecs.Exceptions;
 using NUnit.Framework;
 using System.Linq;
 using System.Reflection;

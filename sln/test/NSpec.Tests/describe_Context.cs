@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using NSpec.Domain;
 using NUnit.Framework;
-using NSpec.Tests.describe_RunningSpecs.Exceptions;
+using NSpec.Tests.WhenRunningSpecs.Exceptions;
 using System.Reflection;
 using FluentAssertions;
 
