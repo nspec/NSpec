@@ -4,7 +4,7 @@
   "buildOptions": {
     "compile": {
       "includeFiles": [
-        "../../LibrarySharedAssemblyInfo.cs"
+        "../../SharedAssemblyInfo.cs"
       ]
     }
   },

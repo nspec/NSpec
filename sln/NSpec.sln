@@ -8,9 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC384EC3-E8E5-4997-B0F5-888287842481}"
 	ProjectSection(SolutionItems) = preProject
 		Build-Package.ps1 = Build-Package.ps1
-		DotNetTestSharedAssemblyInfo.cs = DotNetTestSharedAssemblyInfo.cs
 		global.json = global.json
-		LibrarySharedAssemblyInfo.cs = LibrarySharedAssemblyInfo.cs
+		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NSpec", "src\NSpec\NSpec.xproj", "{525F4324-139E-4B18-AB97-76C93BAAD11F}"
