@@ -1,7 +1,7 @@
 ﻿Imports NSpec
 Imports NUnit.Framework
-Imports NSpecSpecs
-Imports NSpecSpecs.WhenRunningSpecs
+Imports NSpec.Tests
+Imports NSpec.Tests.WhenRunningSpecs
 Imports FluentAssertions
 
 Namespace WhenRunningSpecs
@@ -12,7 +12,7 @@ Namespace WhenRunningSpecs
         Inherits when_running_specs
 
         Public Class SpecClass
-            Inherits NSpec.nspec
+            Inherits nspec
 
             Sub It_Changes_Status_After_Run()
 
@@ -51,7 +51,7 @@ Namespace WhenRunningSpecs
         End Sub
 
         Public Class SpecClassWithAnonymousLambdas
-            Inherits NSpec.nspec
+            Inherits nspec
 
             Sub Describe_Specs_In_VB_With_Anonymous_Lambdas()
                 context("Some context with an anonymous Lambda") =

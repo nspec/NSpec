@@ -9,8 +9,8 @@
     </SchemaVersion>
     <ProjectGuid>{FBCF1115-4F77-4706-AE32-B4251561C492}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>NSpecSpecsVB</RootNamespace>
-    <AssemblyName>NSpecSpecsVB</AssemblyName>
+    <RootNamespace>NSpec.Tests.VB</RootNamespace>
+    <AssemblyName>NSpec.Tests.VB</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -23,7 +23,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>NSpecSpecsVB.xml</DocumentationFile>
+    <DocumentationFile>NSpec.Tests.VB.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>NSpecSpecsVB.xml</DocumentationFile>
+    <DocumentationFile>NSpec.Tests.VB.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -57,14 +57,6 @@
     <Reference Include="FluentAssertions.Core, Version=4.13.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentAssertions.4.13.1\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="NSpec, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\src\NSpec\bin\Debug\net452\NSpec.dll</HintPath>
-    </Reference>
-    <Reference Include="NSpecSpecs, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\NSpecSpecs\bin\Debug\net452\NSpecSpecs.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
@@ -139,6 +131,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\NSpec\NSpec.xproj">
+      <Project>{525f4324-139e-4b18-ab97-76c93baad11f}</Project>
+      <Name>NSpec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NSpec.Tests\NSpec.Tests.xproj">
+      <Project>{ccd063fc-37cc-471c-93eb-a0e9ea155c89}</Project>
+      <Name>NSpec.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

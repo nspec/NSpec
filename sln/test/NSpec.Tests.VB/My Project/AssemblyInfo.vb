@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("NSpecSpecsVB")> 
+<Assembly: AssemblyTitle("NSpec.Tests.VB")>
 <Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("Microsoft")> 
-<Assembly: AssemblyProduct("NSpecSpecsVB")> 
+<Assembly: AssemblyCompany("Microsoft")>
+<Assembly: AssemblyProduct("NSpec.Tests.VB")>
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2014")> 
 <Assembly: AssemblyTrademark("")> 
 
