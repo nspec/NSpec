@@ -120,8 +120,9 @@ Lets take a look at some features of NSpec.
 <hr />
 
 NSpec has some simple assertions, but you should really just use
-[FluentAssertions](http://www.fluentassertions.com/). You can build
-your own assertions by using extention
+[FluentAssertions](http://www.fluentassertions.com/), or
+[Shouldly](https://github.com/shouldly/shouldly), or another assertion
+framework. You can build your own assertions by using extension
 methods. For example:
 
 <script src="https://gist.github.com/amirrajan/6710f0237a101487ebf5dac882da45c0.js"></script>
@@ -171,7 +172,7 @@ context will execute `act` before assertions are run.
 ### Inheritance ###
 <hr />
 
-Being able to nest tests is awesome. But you'll can always use
+Being able to nest tests is awesome. But you can always use
 inheritance to "flatten" tests if needed.
 
 <script src="https://gist.github.com/amirrajan/23193314d218c5ec47a38d336325a913.js"></script>
@@ -187,7 +188,7 @@ you'd write a `before`, `act`, and `it/specify` at the class level.
 ### Debugger Support ###
 <hr />
 
-If you want to hook into the debugger quickly. Just place the
+If you want to hook into the debugger quickly, just place the
 following line inside of your tests. When you run `NSpecRunner.exe`,
 the debugger will pop right up:
 
@@ -203,7 +204,7 @@ Nuget. So you can use TDD.NET/ReSharper to run your tests.
 
 Or you can do something even fancier, and build your own console
 app! Instead of creating a Class Library for the test project,
-create a Console Project. Add the following code in `Program.cs`:
+create a Console Application. Add the following code in `Program.cs`:
 
 <script src="https://gist.github.com/amirrajan/236cbaafef2c7c2195b47c41cbf9c918.js"></script>
 
