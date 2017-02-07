@@ -29,6 +29,8 @@ title:
 - [Data-driven test cases](#data-driven-test-cases)
 - [Additional info](#additional-info)
   * [Order of execution](#order-of-execution)
+- [Extensions](#extensions)
+  * [NSpec in NUnit](#nspecinnunit)
 
 ## Getting Started ##
 <hr />
@@ -345,3 +347,16 @@ in xSpec family frameworks can get tricky when dealing with more
 complicated test configurations, like inherithing from an abstract
 test class or mixing `before_each` with `before_all` at different
 context levels.
+
+## Extensions
+<hr />
+
+### NSpec in NUnit
+<hr />
+
+NSpec examples can be run as NUnit tests from inside Visual Studio (using for example the
+ReSharper test runner) or on a CI server using the NUnit console runner. To do this,
+install the [NSpecInNUnit](https://www.nuget.org/packages/NSpecInNUnit/) package and 
+extend a special base class. Full usage instructions are at the [project site](https://github.com/provegard/NSpecInNUnit)
+for NSpecInNUnit.
+
