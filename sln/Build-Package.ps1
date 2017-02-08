@@ -97,7 +97,7 @@ function BuildVersioningOptions() {
 @(
 	"sln\test\NSpec.Tests"
 
-) | ForEach-Object { Exec { & dotnet test -c Release $_ } }
+) | ForEach-Object { Exec { & dotnet test -c Release --labels Off $_ } }
 
 
 # Package
