@@ -1,4 +1,6 @@
-﻿using NSpec.Domain;
+﻿using Newtonsoft.Json;
+using NSpec.Api.Discovery;
+using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,17 @@ namespace NSpec.Api
             int nrOfFailures = invocation.Run().Failures().Count();
 
             return nrOfFailures;
+        }
+
+        public string List(string testAssemblyPath)
+        {
+            var exampleSelector = new ExampleSelector();
+
+            var discoveredExamples = exampleSelector.Select(testAssemblyPath);
+
+            string serialized = JsonConvert.SerializeObject(discoveredExamples);
+
+            return serialized;
         }
 
         /// <summary>

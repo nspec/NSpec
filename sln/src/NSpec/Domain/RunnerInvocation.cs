@@ -6,28 +6,20 @@ namespace NSpec.Domain
     {
         public ContextCollection Run()
         {
-            var reflector = new Reflector(this.dll);
+            var selector = new ContextSelector();
 
-            var finder = new SpecFinder(reflector);
+            selector.Select(this.dll, Tags);
 
-            var tagsFilter = new Tags().Parse(Tags);
+            if (selector.Contexts.AnyTaggedWithFocus())
+            {
+                selector.Select(this.dll, Domain.Tags.Focus);
+            }
 
-            var builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
+            var contexts = selector.Contexts;
+
+            var tagsFilter = selector.TagsFilter;
 
             var runner = new ContextRunner(tagsFilter, Formatter, failFast);
-
-            var contexts = builder.Contexts().Build();
-
-            if(contexts.AnyTaggedWithFocus())
-            {
-                tagsFilter = new Tags().Parse(NSpec.Domain.Tags.Focus);
-
-                builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
-
-                runner = new ContextRunner(tagsFilter, Formatter, failFast);
-
-                contexts = builder.Contexts().Build();
-            }
 
             return runner.Run(contexts);
         }
