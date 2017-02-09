@@ -30,7 +30,6 @@
   "frameworks": {
     "netcoreapp1.0": {
       "imports": [
-        "netcoreapp1.0",
         "portable-net45+win8"
       ],
       "dependencies": {
