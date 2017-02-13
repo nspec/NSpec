@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NSpec.Api.Discovery;
+using NSpec.Api.Execution;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using System;
@@ -38,13 +39,38 @@ namespace NSpec.Api
             return serialized;
         }
 
+        public void Run(
+            string testAssemblyPath,
+            IEnumerable<string> exampleFullNames,
+            Action<string> onExampleStarted,
+            Action<string> onExampleCompleted)
+        {
+            Action<DiscoveredExample> onDiscovered = example =>
+            {
+                string serialized = JsonConvert.SerializeObject(example);
+
+                onExampleStarted(serialized);
+            };
+
+            Action<ExecutedExample> onExecuted = example =>
+            {
+                string serialized = JsonConvert.SerializeObject(example);
+
+                onExampleCompleted(serialized);
+            };
+
+            var exampleRunner = new ExampleRunner(testAssemblyPath, onDiscovered, onExecuted);
+
+            exampleRunner.Start(exampleFullNames);
+        }
+
         /// <summary>
         /// Find an implementation of IFormatter with the given class name
         /// </summary>
         /// <param name="formatterClassName"></param>
         /// <param name="formatterOptions"></param>
         /// <returns></returns>
-        private static IFormatter FindFormatter(string formatterClassName, IDictionary<string, string> formatterOptions)
+        static IFormatter FindFormatter(string formatterClassName, IDictionary<string, string> formatterOptions)
         {
             // Default formatter is the standard console formatter
             if (string.IsNullOrEmpty(formatterClassName))
