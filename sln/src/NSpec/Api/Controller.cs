@@ -39,7 +39,7 @@ namespace NSpec.Api
             return serialized;
         }
 
-        public void Run(
+        public void Execute(
             string testAssemblyPath,
             IEnumerable<string> exampleFullNames,
             Action<string> onExampleStarted,
