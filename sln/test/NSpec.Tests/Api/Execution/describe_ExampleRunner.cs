@@ -62,7 +62,7 @@ namespace NSpec.Tests.Api.Execution
         }
 
         [Test]
-        public void it_should_discover_examples()
+        public void it_should_discover_all_examples()
         {
             var expecteds = ApiTestData.allDiscoveredExamples;
 
@@ -70,7 +70,7 @@ namespace NSpec.Tests.Api.Execution
         }
 
         [Test]
-        public void it_should_execute_examples()
+        public void it_should_execute_all_examples()
         {
             var expecteds = ApiTestData.allExecutedExamples;
 
@@ -111,7 +111,7 @@ namespace NSpec.Tests.Api.Execution
         }
 
         [Test]
-        public void it_should_discover_examples()
+        public void it_should_discover_sibling_examples()
         {
             var expecteds = ApiTestData.allDiscoveredExamples
                 .Where((_, index) => runIndexes.Contains(index));
@@ -120,7 +120,7 @@ namespace NSpec.Tests.Api.Execution
         }
 
         [Test]
-        public void it_should_execute_examples()
+        public void it_should_execute_sibling_examples()
         {
             var expecteds = ApiTestData.allExecutedExamples
                 .Where((_, index) => runIndexes.Contains(index));

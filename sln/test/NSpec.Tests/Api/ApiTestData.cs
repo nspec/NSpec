@@ -143,7 +143,7 @@ namespace NSpec.Tests.Api
                 Failed = true,
                 Pending = false,
                 ExceptionMessage = "Expected false, but was $True.",
-                ExceptionStackTrace = @"SampleSpecsApi\desc_SystemUnderTest.cs:line 49",
+                ExceptionStackTrace = "at NSpec.AssertionExtensions.ShouldBeFalse(Boolean actual)",
             },
             new ExecutedExample()
             {
