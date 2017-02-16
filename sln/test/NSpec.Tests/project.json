@@ -20,6 +20,9 @@
     "SampleSpecs": {
       "target": "project"
     },
+    "SampleSpecsApi": {
+      "target": "project"
+    },
     "SampleSpecsFocus": {
       "target": "project"
     }
