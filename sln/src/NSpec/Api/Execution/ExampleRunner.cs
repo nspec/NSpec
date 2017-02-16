@@ -32,11 +32,19 @@ namespace NSpec.Api.Execution
 
             var contexts = selector.Contexts;
 
+            var allExamples = contexts.SelectMany(ctx => ctx.AllExamples());
+
+            var selectedExamples = allExamples.Where(exm => selectedNames.Contains(exm.FullName()));
+
+            var selectedContexts = selectedExamples.Select(exm => exm.Context).Distinct();
+
+            /*
             Func<ExampleBase, bool> isSelected =
                 exm => selectedNames.Contains(exm.FullName());
 
             var selectedContexts = contexts
                 .Where(ctx => ctx.Examples.Any(isSelected));
+            */
 
             foreach (var context in selectedContexts)
             {
@@ -61,7 +69,7 @@ namespace NSpec.Api.Execution
 
         public void Write(Context context)
         {
-            throw new InvalidOperationException("This method should have never been called");
+            // nothing to do
         }
 
         void RunContext(Context context)

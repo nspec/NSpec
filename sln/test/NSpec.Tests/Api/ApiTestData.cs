@@ -1,4 +1,5 @@
 ﻿using NSpec.Api.Discovery;
+using NSpec.Api.Execution;
 using System.Reflection;
 
 namespace NSpec.Tests.Api
@@ -14,7 +15,7 @@ namespace NSpec.Tests.Api
         }
 
         public static readonly string testAssemblyPath =
-            typeof(SampleSpecsApi.DummyPublicClass).GetTypeInfo().Assembly.Location;
+            typeof(SampleSpecsApi.PublicPlaceholderClass).GetTypeInfo().Assembly.Location;
 
         public static readonly DiscoveredExample[] allDiscoveredExamples =
         {
@@ -101,6 +102,54 @@ namespace NSpec.Tests.Api
                     "ChildSpec",
                     "ParentSpec",
                 },
+            },
+        };
+
+        public static readonly ExecutedExample[] allExecutedExamples =
+        {
+            new ExecutedExample()
+            {
+                FullName = "nspec. ParentSpec. method context 1. parent example 1A.",
+                Failed = false,
+                Pending = false,
+            },
+            new ExecutedExample()
+            {
+                FullName = "nspec. ParentSpec. method context 1. parent example 1B.",
+                Failed = false,
+                Pending = false,
+            },
+            new ExecutedExample()
+            {
+                FullName = "nspec. ParentSpec. method context 2. parent example 2A.",
+                Failed = false,
+                Pending = false,
+            },
+            new ExecutedExample()
+            {
+                FullName = "nspec. ParentSpec. ChildSpec. method context 3. child example 3A skipped.",
+                Failed = false,
+                Pending = true,
+            },
+            new ExecutedExample()
+            {
+                FullName = "nspec. ParentSpec. ChildSpec. method context 4. child example 4A.",
+                Failed = false,
+                Pending = false,
+            },
+            new ExecutedExample()
+            {
+                FullName = "nspec. ParentSpec. ChildSpec. method context 5. sub context 5-1. child example 5-1A failing.",
+                Failed = true,
+                Pending = false,
+                ExceptionMessage = "Expected false, but was $True.",
+                ExceptionStackTrace = @"SampleSpecsApi\desc_SystemUnderTest.cs:line 49",
+            },
+            new ExecutedExample()
+            {
+                FullName = "nspec. ParentSpec. ChildSpec. method context 5. sub context 5-1. child example 5-1B.",
+                Failed = false,
+                Pending = false,
             },
         };
     }

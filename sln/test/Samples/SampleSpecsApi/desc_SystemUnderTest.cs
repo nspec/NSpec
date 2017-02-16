@@ -1,7 +1,7 @@
 ﻿using NSpec;
 using SampleSpecsApi.SampleSystem;
-// Do not move the following spec classes around, to avoid rewriting line numbers. This should be line nr.3
 
+// Do not move the following spec classes around, to avoid rewriting line numbers. This should be stuck at line nr. 4
 namespace SampleSpecsApi
 {
     class ParentSpec : nspec
@@ -55,7 +55,7 @@ namespace SampleSpecsApi
 
     // Do not move the preceding spec classes around, to avoid rewriting line numbers
 
-    public class DummyPublicClass
+    public class PublicPlaceholderClass
     {
     }
 }
