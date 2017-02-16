@@ -32,19 +32,14 @@ namespace NSpec.Api.Execution
 
             var contexts = selector.Contexts;
 
+            // original idea taken from osoftware/NSpecTestAdapter:
+            // see https://github.com/osoftware/NSpecTestAdapter/blob/master/NSpec.TestAdapter/Executor.cs
+
             var allExamples = contexts.SelectMany(ctx => ctx.AllExamples());
 
             var selectedExamples = allExamples.Where(exm => selectedNames.Contains(exm.FullName()));
 
             var selectedContexts = selectedExamples.Select(exm => exm.Context).Distinct();
-
-            /*
-            Func<ExampleBase, bool> isSelected =
-                exm => selectedNames.Contains(exm.FullName());
-
-            var selectedContexts = contexts
-                .Where(ctx => ctx.Examples.Any(isSelected));
-            */
 
             foreach (var context in selectedContexts)
             {
