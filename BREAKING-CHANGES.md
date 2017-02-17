@@ -2,7 +2,7 @@
 
 ## NSpec 2.0.0
 
-Removed support for .NET Framework 4.5. Minimum required version is not .NET 4.5.2.
+Removed support for .NET Framework 4.5. Minimum required version is now .NET 4.5.2.
 
 ### Reason
 
