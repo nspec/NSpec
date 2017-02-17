@@ -21,7 +21,7 @@
         "System.Text.Encodings.Web": "4.0.0"
       }
     },
-    "net452": {
+    "net451": {
       "frameworkAssemblies": {
         "System.IO": "",
         "System.Runtime.Serialization.Xml": "",

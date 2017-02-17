@@ -6,7 +6,7 @@
         {
             string encoded;
 
-#if NET452
+#if NET451
             encoded = System.Web.HttpUtility.HtmlEncode(value);
 #else
             encoded = System.Text.Encodings.Web.HtmlEncoder.Default.Encode(value);

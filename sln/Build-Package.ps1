@@ -81,7 +81,7 @@ function BuildVersioningOptions() {
 	"sln\test\Samples\SampleSpecs", `
 	"sln\test\Samples\SampleSpecsFocus"
 
-) | ForEach-Object { Exec { & "dotnet" restore $_ } }
+) | ForEach-Object { Exec { & dotnet restore $_ } }
 
 
 # Build
@@ -90,14 +90,14 @@ function BuildVersioningOptions() {
 	"sln\src\NSpecRunner", `
 	"sln\test\NSpec.Tests"
 
-) | ForEach-Object { Exec { & "dotnet" build -c Release $_ } }
+) | ForEach-Object { Exec { & dotnet build -c Release $_ } }
 
 
 # Test
 @(
 	"sln\test\NSpec.Tests"
 
-) | ForEach-Object { Exec { & "dotnet" test -c Release $_ } }
+) | ForEach-Object { Exec { & dotnet test -c Release $_ } }
 
 
 # Package

@@ -29,15 +29,15 @@ end
 
 desc 'run specs'
 task :spec => :build do
-  sh '"libs\NUnit.Runners.2.6.0.12051\tools\nunit-console-x86.exe" /nologo sln/test/NSpecSpecs/bin/Debug/net452/NSpecSpecs.dll'
-  sh '"libs\NUnit.Runners.2.6.0.12051\tools\nunit-console-x86.exe" /nologo sln/test/NSpecSpecsVB/bin/Debug/net452/NSpecSpecsVB.dll'
+  sh '"libs\NUnit.Runners.2.6.0.12051\tools\nunit-console-x86.exe" /nologo sln/test/NSpecSpecs/bin/Debug/net451/NSpecSpecs.dll'
+  sh '"libs\NUnit.Runners.2.6.0.12051\tools\nunit-console-x86.exe" /nologo sln/test/NSpecSpecsVB/bin/Debug/net451/NSpecSpecsVB.dll'
 end
 
 desc 'run SampleSpecs with NSpecRunner. you can supply a single spec like so -> rake samples[spec_name]'
 task :samples, :spec do |t,args|
   spec = args[:spec] || ''
 
-  sh "sln/src/NSpecRunner/bin/Debug/net452/NSpecRunner.exe sln/test/Samples/SampleSpecs/bin/Debug/net452/SampleSpecs.dll #{spec}"
+  sh "sln/src/NSpecRunner/bin/Debug/net451/NSpecRunner.exe sln/test/Samples/SampleSpecs/bin/Debug/net451/SampleSpecs.dll #{spec}"
 end
 
 desc 'supply commit message as parameter - rake all m="commit message" - version bump, nuget, zip and everything shall be done for you'
@@ -45,12 +45,12 @@ task :all => [:pull,:version,:nuget,:commit,:website]
 
 desc 'run the sample describe_before'
 task :before do
-  sh "sln/src/NSpecRunner/bin/Debug/net452/NSpecRunner.exe sln/test/Samples/SampleSpecs/bin/Debug/net452/SampleSpecs.dll describe_before"
+  sh "sln/src/NSpecRunner/bin/Debug/net451/NSpecRunner.exe sln/test/Samples/SampleSpecs/bin/Debug/net451/SampleSpecs.dll describe_before"
 end
 
 desc 'run the sample describe_specfications'
 task :specifies do
-  sh "sln/src/NSpecRunner/bin/Debug/net452/NSpecRunner.exe sln/test/Samples/SampleSpecs/bin/Debug/net452/SampleSpecs.dll describe_specifications"
+  sh "sln/src/NSpecRunner/bin/Debug/net451/NSpecRunner.exe sln/test/Samples/SampleSpecs/bin/Debug/net451/SampleSpecs.dll describe_specifications"
 end
 
 desc 'test failure exit code'
@@ -210,7 +210,7 @@ end
 
 def output_markup file
   out = "<pre id=\"#{class_for(file)}_output\" data-timestamp=\"#{Time.new.inspect}\" style=\"font-size: 1.1em !important; color: #5ce632; background-color: #1b2426; padding: 10px;\">"
-  output =  `sln/src/NSpecRunner/bin/Debug/net452/NSpecRunner.exe sln/test/Samples/SampleSpecs/bin/Debug/net452/SampleSpecs.dll #{class_for(file)}`.strip#.gsub("\ï\»\¿","")
+  output =  `sln/src/NSpecRunner/bin/Debug/net451/NSpecRunner.exe sln/test/Samples/SampleSpecs/bin/Debug/net451/SampleSpecs.dll #{class_for(file)}`.strip#.gsub("\ï\»\¿","")
   output.each_line do |line|
     cleanLine = line.rstrip
     if cleanLine.length <= 94

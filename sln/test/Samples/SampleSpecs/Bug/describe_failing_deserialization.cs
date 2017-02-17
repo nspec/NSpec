@@ -1,4 +1,4 @@
-﻿#if NET452
+﻿#if NET451
 
 using System;
 using System.IO;

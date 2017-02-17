@@ -9,7 +9,7 @@ namespace NSpec.Compatibility
         {
             Assembly assembly;
 
-#if NET452
+#if NET451
             assembly = Assembly.LoadFrom(filePath);
 #else
             var assemblyName = Path.GetFileNameWithoutExtension(filePath);
