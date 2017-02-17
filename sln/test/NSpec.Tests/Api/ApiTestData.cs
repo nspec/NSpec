@@ -11,12 +11,16 @@ namespace NSpec.Tests.Api
         {
             string thisAssemblyPath = typeof(ApiTestData).GetTypeInfo().Assembly.Location;
 
-            // go up from test\{Project}\bin\{Config}\{Framework}\{Assembly}.dll
+            // .NET Core:      go up from test\{Project}\bin\{Config}\{Framework}\{Assembly}.dll
+            // .NET Framework: go up from test\{Project}\bin\{Config}\{Framework}\{Platform}\{Assembly}.dll
             string testDirPath = Directory
                 .GetParent(thisAssemblyPath)
                 .Parent
                 .Parent
                 .Parent
+#if NET451
+                .Parent
+#endif
                 .Parent.FullName;
 
             string singleTestSourceFilePath = Path.Combine(new[]
@@ -161,7 +165,7 @@ namespace NSpec.Tests.Api
                 Failed = true,
                 Pending = false,
                 ExceptionMessage = "Expected false, but was $True.",
-                ExceptionStackTrace = "at NSpec.AssertionExtensions.ShouldBeFalse(Boolean actual)",
+                ExceptionStackTrace = "NSpec.AssertionExtensions.ShouldBeFalse(Boolean actual)",
             },
             new ExecutedExample()
             {
