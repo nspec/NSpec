@@ -4,6 +4,7 @@ using System.Linq;
 using NSpec.Api.Discovery;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
+using NSpec.SourceInfo;
 
 namespace NSpec.Api.Execution
 {
@@ -17,6 +18,8 @@ namespace NSpec.Api.Execution
             this.testAssemblyPath = testAssemblyPath;
             this.onDiscovered = onDiscovered;
             this.onExecuted = onExecuted;
+
+            debugInfoProvider = new DebugInfoProvider(testAssemblyPath);
         }
 
         public void Start(
@@ -79,27 +82,19 @@ namespace NSpec.Api.Execution
             context.AssignExceptions();
         }
 
-        readonly string testAssemblyPath;
-        readonly Action<DiscoveredExample> onDiscovered;
-        readonly Action<ExecutedExample> onExecuted;
-
-        // TODO Extract from ExampleSelector.MapToDiscovered
-        static DiscoveredExample MapToDiscovered(ExampleBase example, string binaryPath)
+        DiscoveredExample MapToDiscovered(ExampleBase example, string binaryPath)
         {
-            var discoveredExample = new DiscoveredExample()
-            {
-                FullName = example.FullName(),
-                SourceAssembly = binaryPath,
-                // TODO complete with source information
-                SourceFilePath = String.Empty,
-                SourceLineNumber = 0,
-                Tags = example.Tags
-                    .Select(tag => tag.Replace("_", " "))
-                    .ToArray(),
-            };
+            var sourceInfo = debugInfoProvider.GetSourceInfo(example);
+
+            var discoveredExample = DiscoveryUtils.MapToDiscovered(example, binaryPath, sourceInfo);
 
             return discoveredExample;
         }
+
+        readonly string testAssemblyPath;
+        readonly Action<DiscoveredExample> onDiscovered;
+        readonly Action<ExecutedExample> onExecuted;
+        readonly DebugInfoProvider debugInfoProvider;
 
         static ExecutedExample MapToExecuted(ExampleBase example)
         {

@@ -1,4 +1,5 @@
 ﻿using NSpec.Domain;
+using NSpec.SourceInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,14 @@ namespace NSpec.Api.Discovery
 {
     public class ExampleSelector
     {
-        public IEnumerable<DiscoveredExample> Select(string testAssemblyPath)
+        public ExampleSelector(string testAssemblyPath)
+        {
+            this.testAssemblyPath = testAssemblyPath;
+
+            debugInfoProvider = new DebugInfoProvider(testAssemblyPath);
+        }
+
+        public IEnumerable<DiscoveredExample> Select()
         {
             var selector = new ContextSelector();
 
@@ -28,19 +36,14 @@ namespace NSpec.Api.Discovery
 
         DiscoveredExample MapToDiscovered(ExampleBase example, string binaryPath)
         {
-            var discoveredExample = new DiscoveredExample()
-            {
-                FullName = example.FullName(),
-                SourceAssembly = binaryPath,
-                // TODO complete with source information
-                SourceFilePath = String.Empty,
-                SourceLineNumber = 0,
-                Tags = example.Tags
-                    .Select(tag => tag.Replace("_", " "))
-                    .ToArray(),
-            };
+            var sourceInfo = debugInfoProvider.GetSourceInfo(example);
+
+            var discoveredExample = DiscoveryUtils.MapToDiscovered(example, binaryPath, sourceInfo);
 
             return discoveredExample;
         }
+
+        readonly string testAssemblyPath;
+        readonly DebugInfoProvider debugInfoProvider;
     }
 }

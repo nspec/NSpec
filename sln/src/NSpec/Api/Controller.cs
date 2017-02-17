@@ -30,9 +30,9 @@ namespace NSpec.Api
 
         public string List(string testAssemblyPath)
         {
-            var exampleSelector = new ExampleSelector();
+            var exampleSelector = new ExampleSelector(testAssemblyPath);
 
-            var discoveredExamples = exampleSelector.Select(testAssemblyPath);
+            var discoveredExamples = exampleSelector.Select();
 
             string serialized = JsonConvert.SerializeObject(discoveredExamples);
 

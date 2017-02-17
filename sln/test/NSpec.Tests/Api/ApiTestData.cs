@@ -1,5 +1,6 @@
 ﻿using NSpec.Api.Discovery;
 using NSpec.Api.Execution;
+using System.IO;
 using System.Reflection;
 
 namespace NSpec.Tests.Api
@@ -8,9 +9,27 @@ namespace NSpec.Tests.Api
     {
         static ApiTestData()
         {
+            string thisProjectDirPath = Directory.GetCurrentDirectory();
+
+            string testDirPath = Path.GetFullPath(Path.Combine(
+                thisProjectDirPath, @".."));
+
+            string singleTestSourceFilePath = Path.Combine(new[]
+            {
+                testDirPath,
+                "Samples",
+                "SampleSpecsApi",
+                "desc_SystemUnderTest.cs"
+            });
+
             foreach (var exm in allDiscoveredExamples)
             {
                 exm.SourceAssembly = testAssemblyPath;
+
+                if (exm.SourceLineNumber != 0)
+                {
+                    exm.SourceFilePath = singleTestSourceFilePath;
+                }
             }
         }
 
@@ -22,8 +41,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. method context 1. parent example 1A.",
-                SourceFilePath = "",
-                SourceLineNumber = 0,
+                SourceLineNumber = 19,
                 Tags = new[]
                 {
                     "Tag-1A",
@@ -34,8 +52,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. method context 1. parent example 1B.",
-                SourceFilePath = "",
-                SourceLineNumber = 0,
+                SourceLineNumber = 21,
                 Tags = new[]
                 {
                     "Tag-1A",
@@ -46,8 +63,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. method context 2. parent example 2A.",
-                SourceFilePath = "",
-                SourceLineNumber = 0,
+                SourceLineNumber = 26,
                 Tags = new[]
                 {
                     "ParentSpec",
@@ -56,7 +72,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. method context 3. child example 3A skipped.",
-                SourceFilePath = "",
+                // No source code info available for pending tests
                 SourceLineNumber = 0,
                 Tags = new[]
                 {
@@ -69,8 +85,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. method context 4. child example 4A.",
-                SourceFilePath = "",
-                SourceLineNumber = 0,
+                SourceLineNumber = 42,
                 Tags = new[]
                 {
                     "Tag with underscores",
@@ -82,8 +97,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. method context 5. sub context 5-1. child example 5-1A failing.",
-                SourceFilePath = "",
-                SourceLineNumber = 0,
+                SourceLineNumber = 49,
                 Tags = new[]
                 {
                     "Tag-Child",
@@ -94,8 +108,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. method context 5. sub context 5-1. child example 5-1B.",
-                SourceFilePath = "",
-                SourceLineNumber = 0,
+                SourceLineNumber = 51,
                 Tags = new[]
                 {
                     "Tag-Child",

@@ -23,9 +23,9 @@ namespace NSpec.Tests.Api.Discovery
         [SetUp]
         public void setup()
         {
-            selector = new ExampleSelector();
+            selector = new ExampleSelector(testAssemblyPath);
 
-            actuals = selector.Select(testAssemblyPath);
+            actuals = selector.Select();
         }
 
         [Test]
