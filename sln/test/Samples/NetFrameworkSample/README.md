@@ -11,7 +11,7 @@ Highlights:
     ```
     > cd path\to\NetFrameworkSample
 
-    > packages\NSpec.x.y.z\tools\net452\NSpecRunner.exe ^
+    > packages\NSpec.x.y.z\tools\net451\NSpecRunner.exe ^
         test\LibrarySpecs\bin\Debug\LibrarySpecs.dll
     ```
 - Tests can be run from Visual Studio Test Explorer, if a suitable adapter is installed, e.g. as a VSIX extension
