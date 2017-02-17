@@ -9,10 +9,15 @@ namespace NSpec.Tests.Api
     {
         static ApiTestData()
         {
-            string thisProjectDirPath = Directory.GetCurrentDirectory();
+            string thisAssemblyPath = typeof(ApiTestData).GetTypeInfo().Assembly.Location;
 
-            string testDirPath = Path.GetFullPath(Path.Combine(
-                thisProjectDirPath, @".."));
+            // go up from test\{Project}\bin\{Config}\{Framework}\{Assembly}.dll
+            string testDirPath = Directory
+                .GetParent(thisAssemblyPath)
+                .Parent
+                .Parent
+                .Parent
+                .Parent.FullName;
 
             string singleTestSourceFilePath = Path.Combine(new[]
             {
