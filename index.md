@@ -8,6 +8,8 @@ title:
 <hr />
 
 - [Getting Started](#getting-started)
+  * [Classic .NET Framework](#classic-net-framework)
+  * [.NET Core](#net-core)
 - [Why NSpec?](#why-nspec)
   * [Consistent With Modern Testing Frameworks](#consistent-with-modern-testing-frameworks)
   * [Noise Free Tests](#noise-free-tests)
@@ -29,10 +31,15 @@ title:
 - [Data-driven test cases](#data-driven-test-cases)
 - [Additional info](#additional-info)
   * [Order of execution](#order-of-execution)
+- [Targeting .NET Core](#targeting-net-core)
+  * [.NET Core Tooling Preview 2](#net-core-tooling-preview-2)
 - [Extensions](#extensions)
   * [NSpec in NUnit](#nspecinnunit)
 
 ## Getting Started ##
+<hr />
+
+### Classic .NET Framework ##
 <hr />
 
 - Open Visual Studio.
@@ -49,12 +56,13 @@ Install-Package FluentAssertions
 
 - Create a class file called `my_first_spec.cs` and put the following code in it:
 
+<a name="my-first-spec"></a>
 <script src="https://gist.github.com/amirrajan/573054053513fd7fbfe5430127212c9b.js"></script>
 
 - Then run the tests using `NSpecRunner.exe`:
 
 ```
->NSpecRunner.exe YourClassLibraryName\bin\debug\YourClassLibraryName.dll
+PM> NSpecRunner.exe YourClassLibraryName\bin\debug\YourClassLibraryName.dll
 my first spec
   asserts at the method level
   describe nesting
@@ -62,6 +70,11 @@ my first spec
     more nesting
       also asserts in a lambda
 ```
+
+### .NET Core
+<hr />
+
+Please see [Targeting .NET Core](#targeting-net-core) section down below.
 
 ## Why NSpec? ##
 <hr />
@@ -348,6 +361,93 @@ complicated test configurations, like inherithing from an abstract
 test class or mixing `before_each` with `before_all` at different
 context levels.
 
+## Targeting .NET Core
+<hr />
+
+Besides targeting classic .NET Framework, NSpec supports writing tests
+for projects targeting .NET Core too. That means you can also run tests
+from console with `dotnet test` Command Line Interface.
+
+### .NET Core Tooling Preview 2
+<hr />
+
+The following setup holds for projects based on `.xproj` and
+`project.json`, currently working with .NET Core 1.0 and .NET Core Tooling
+Preview 2.
+
+As of today this scenario is deemed to become obsolete, once
+.NET Core Tooling reaches RTM with projects based back again on `.csproj`
+and MSBuild.
+
+To setup test project you can proceed from scratch, or take advantage of
+xUnit template and start modifying from there. Either way, the final
+result is to have a `project.json` as the following (also targeting
+`net451`):
+
+```
+{
+  "version": "1.0.0-*",
+
+  "testRunner": "nspec",
+
+  "dependencies": {
+    "dotnet-test-nspec": "0.1.1",
+    "LibraryUnderTest": {
+      "target": "project"
+    },
+    "NSpec": "2.0.1",
+    "Shouldly": "2.8.2"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "portable-net45+win8"
+      ],
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      }
+    },
+    "net451": {
+    }
+  }
+}
+```
+
+#### From scratch
+
+* Create a .NET Core **Console Application** project to hold your tests
+* Delete `buildOptions.emitEntryPoint` property from `project.json`
+* Add a reference to main project under test
+* Add a reference to `NSpec` NuGet package
+* Add a reference to `dotnet-test-nspec` NuGet package
+* Add a `testRunner` property set to `nspec` in `project.json`
+* Add a reference to your favourite assertion library package
+
+#### From template
+
+* Create a new xUnit test project from command line by running
+`dotnet new -t xunittest`
+* Replace `xunit` NuGet package dependency in `project.json` with
+`NSpec`
+* Replace `dotnet-test-xunit` NuGet package dependency in `project.json`
+with `dotnet-test-nspec`
+* Replace `xunit` as `testRunner` property in `project.json` with
+`nspec`
+
+Whichever way you choose, project is now setup. From a command line
+located at test project directory, run `dotnet restore`. Add your test
+class, like the one shown at [the top of this page](#my-first-spec),
+then from the same command line run:
+
+```
+> dotnet build
+> dotnet test
+```
+
 ## Extensions
 <hr />
 
@@ -356,7 +456,7 @@ context levels.
 
 NSpec examples can be run as NUnit tests from inside Visual Studio (using for example the
 ReSharper test runner) or on a CI server using the NUnit console runner. To do this,
-install the [NSpecInNUnit](https://www.nuget.org/packages/NSpecInNUnit/) package and 
+install the [NSpecInNUnit](https://www.nuget.org/packages/NSpecInNUnit/) package and
 extend a special base class. Full usage instructions are at the [project site](https://github.com/provegard/NSpecInNUnit)
 for NSpecInNUnit.
 
