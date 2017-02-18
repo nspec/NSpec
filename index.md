@@ -421,10 +421,10 @@ result is to have a `project.json` as the following (also targeting
 
 * Create a .NET Core **Console Application** project to hold your tests
 * Delete `buildOptions.emitEntryPoint` property from `project.json`
-* Add a reference to main project under test
 * Add a reference to `NSpec` NuGet package
 * Add a reference to `dotnet-test-nspec` NuGet package
 * Add a `testRunner` property set to `nspec` in `project.json`
+* Add a reference to main project under test
 * Add a reference to your favourite assertion library package
 
 #### From template
@@ -435,8 +435,10 @@ result is to have a `project.json` as the following (also targeting
 `NSpec`
 * Replace `dotnet-test-xunit` NuGet package dependency in `project.json`
 with `dotnet-test-nspec`
-* Replace `xunit` as `testRunner` property in `project.json` with
+* Replace `xunit` value of `testRunner` property in `project.json` with
 `nspec`
+* Add a reference to main project under test
+* Add a reference to your favourite assertion library package
 
 Whichever way you choose, project is now setup. From a command line
 located at test project directory, run `dotnet restore`. Add your test
