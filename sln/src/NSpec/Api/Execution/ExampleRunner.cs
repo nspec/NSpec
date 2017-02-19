@@ -103,6 +103,7 @@ namespace NSpec.Api.Execution
                 FullName = example.FullName(),
                 Pending = example.Pending,
                 Failed = example.Failed(),
+                Duration = example.Duration,
             };
 
             if (example.Exception != null)

@@ -1,4 +1,6 @@
-﻿namespace NSpec.Api.Execution
+﻿using System;
+
+namespace NSpec.Api.Execution
 {
     public class ExecutedExample
     {
@@ -11,5 +13,7 @@
         public string ExceptionMessage { get; set; }
 
         public string ExceptionStackTrace { get; set; }
+
+        public TimeSpan Duration { get; set; }
     }
 }

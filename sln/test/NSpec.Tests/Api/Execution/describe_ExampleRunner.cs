@@ -3,6 +3,7 @@ using FluentAssertions.Equivalency;
 using NSpec.Api.Discovery;
 using NSpec.Api.Execution;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,12 +39,50 @@ namespace NSpec.Tests.Api.Execution
         {
             actualExecutedExamples.Add(example);
         }
+    }
 
-        protected EquivalencyAssertionOptions<List<ExecutedExample>> ExpectPartialStackTrace(
-            EquivalencyAssertionOptions<List<ExecutedExample>> opts)
+    public static class ExampleRunnerAssertionExtensions
+    {
+        public static EquivalencyAssertionOptions<List<ExecutedExample>> ExpectPartialStackTrace(
+            this EquivalencyAssertionOptions<List<ExecutedExample>> opts)
         {
-            opts.Using<string>(ctx => ctx.Subject?.Should().Contain(ctx.Expectation))
-                .When(subj => subj.SelectedMemberPath.EndsWith(".ExceptionStackTrace", System.StringComparison.Ordinal));
+            opts.Using<string>(ctx =>
+                {
+                    string actual = ctx.Subject;
+                    string expected = ctx.Expectation;
+
+                    if (expected == null)
+                    {
+                        actual.Should().BeNull();
+                    }
+                    else
+                    {
+                        actual.Should().NotBeNull().And.Contain(expected);
+                    }
+                })
+                .When(subj => subj.SelectedMemberPath.EndsWith(".ExceptionStackTrace", StringComparison.Ordinal));
+
+            return opts;
+        }
+
+        public static EquivalencyAssertionOptions<List<ExecutedExample>> ExpectSomeDuration(
+            this EquivalencyAssertionOptions<List<ExecutedExample>> opts)
+        {
+            opts.Using<TimeSpan>(ctx =>
+                {
+                    TimeSpan actual = ctx.Subject;
+                    TimeSpan expected = ctx.Expectation;
+
+                    if (expected == TimeSpan.Zero)
+                    {
+                        actual.Should().Be(TimeSpan.Zero);
+                    }
+                    else
+                    {
+                        actual.Should().BeGreaterThan(TimeSpan.Zero);
+                    }
+                })
+                .When(subj => subj.SelectedMemberPath.EndsWith(".Duration", StringComparison.Ordinal));
 
             return opts;
         }
@@ -74,7 +113,9 @@ namespace NSpec.Tests.Api.Execution
         {
             var expecteds = ApiTestData.allExecutedExamples;
 
-            actualExecutedExamples.ShouldBeEquivalentTo(expecteds, ExpectPartialStackTrace);
+            actualExecutedExamples.ShouldBeEquivalentTo(expecteds, opts => opts
+                .ExpectPartialStackTrace()
+                .ExpectSomeDuration());
         }
     }
 
@@ -125,7 +166,9 @@ namespace NSpec.Tests.Api.Execution
             var expecteds = ApiTestData.allExecutedExamples
                 .Where((_, index) => runIndexes.Contains(index));
 
-            actualExecutedExamples.ShouldBeEquivalentTo(expecteds, ExpectPartialStackTrace);
+            actualExecutedExamples.ShouldBeEquivalentTo(expecteds, opts => opts
+                .ExpectPartialStackTrace()
+                .ExpectSomeDuration());
         }
     }
 }

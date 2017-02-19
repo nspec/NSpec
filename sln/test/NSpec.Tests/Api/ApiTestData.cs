@@ -1,5 +1,6 @@
 ﻿using NSpec.Api.Discovery;
 using NSpec.Api.Execution;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -38,6 +39,16 @@ namespace NSpec.Tests.Api
                 if (exm.SourceLineNumber != 0)
                 {
                     exm.SourceFilePath = singleTestSourceFilePath;
+                }
+            }
+
+            TimeSpan nonZeroDuration = new TimeSpan(1, 2, 3);
+
+            foreach (var exm in allExecutedExamples)
+            {
+                if (!exm.Pending)
+                {
+                    exm.Duration = nonZeroDuration;
                 }
             }
         }
