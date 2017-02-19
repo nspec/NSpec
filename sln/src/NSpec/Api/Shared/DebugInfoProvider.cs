@@ -3,7 +3,7 @@ using Microsoft.Extensions.Testing.Abstractions;
 using NSpec.Domain;
 using System.IO;
 
-namespace NSpec.SourceInfo
+namespace NSpec.Api.Shared
 {
     public class DebugInfoProvider
     {
@@ -24,7 +24,7 @@ namespace NSpec.SourceInfo
                 return emptyInfo;
             }
 
-            var methodInfo = ExampleUtils.GetBodyMethodInfo(example);
+            var methodInfo = example.BodyMethodInfo;
 
             var sourceInfo = sourceInfoProvider.GetSourceInformation(methodInfo);
 

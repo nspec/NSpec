@@ -1,5 +1,6 @@
 ﻿using NSpec.Domain;
 using System;
+using System.Reflection;
 
 namespace NSpec.Tests
 {
@@ -15,7 +16,6 @@ namespace NSpec.Tests
         }
 
         public ExampleBaseWrap()
-            : base()
         {
         }
 
@@ -30,6 +30,11 @@ namespace NSpec.Tests
         }
 
         public override bool IsAsync
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override MethodInfo BodyMethodInfo
         {
             get { throw new NotImplementedException(); }
         }

@@ -1,10 +1,5 @@
 ﻿using NSpec.Domain.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NSpec.Domain
 {
@@ -25,6 +20,11 @@ namespace NSpec.Domain
         public override bool IsAsync
         {
             get { return method.IsAsync(); }
+        }
+
+        public override MethodInfo BodyMethodInfo
+        {
+            get { return method; }
         }
 
         protected MethodInfo method;

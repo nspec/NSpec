@@ -4,7 +4,7 @@ using System.Linq;
 using NSpec.Api.Discovery;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
-using NSpec.SourceInfo;
+using NSpec.Api.Shared;
 
 namespace NSpec.Api.Execution
 {

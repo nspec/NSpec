@@ -1,5 +1,5 @@
-﻿using NSpec.Domain;
-using NSpec.SourceInfo;
+﻿using NSpec.Api.Shared;
+using NSpec.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

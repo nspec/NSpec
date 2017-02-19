@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace NSpec.Domain
@@ -39,6 +40,8 @@ namespace NSpec.Domain
         public abstract void RunPending(nspec nspec);
 
         public abstract bool IsAsync { get; }
+        public abstract MethodInfo BodyMethodInfo { get; }
+
         public TimeSpan Duration { get; set; }
         public string CapturedOutput { get; set; }
 
