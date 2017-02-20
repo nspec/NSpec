@@ -77,9 +77,14 @@ namespace NSpec.Api.Execution
 
             var instance = context.GetInstance();
 
-            context.Run(this, false, instance);
+            context.Run(
+                formatter: this,
+                failFast: false,
+                instance: instance,
+                recurse: false);
 
-            context.AssignExceptions();
+            context.AssignExceptions(
+                recurse: false);
         }
 
         DiscoveredExample MapToDiscovered(ExampleBase example, string binaryPath)

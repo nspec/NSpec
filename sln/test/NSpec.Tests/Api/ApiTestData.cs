@@ -136,6 +136,28 @@ namespace NSpec.Tests.Api
                     "ParentSpec",
                 },
             },
+            new DiscoveredExample()
+            {
+                FullName = "nspec. ParentSpec. ChildSpec. method context 5. child example 5A.",
+                SourceLineNumber = 54,
+                Tags = new[]
+                {
+                    "Tag-Child",
+                    "ChildSpec",
+                    "ParentSpec",
+                },
+            },
+            new DiscoveredExample()
+            {
+                FullName = "nspec. ParentSpec. ChildSpec. it child method example A.",
+                SourceLineNumber = 58,
+                Tags = new[]
+                {
+                    "Tag-Child",
+                    "ChildSpec",
+                    "ParentSpec",
+                },
+            },
         };
 
         public static readonly ExecutedExample[] allExecutedExamples =
@@ -181,6 +203,18 @@ namespace NSpec.Tests.Api
             new ExecutedExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. method context 5. sub context 5-1. child example 5-1B.",
+                Failed = false,
+                Pending = false,
+            },
+            new ExecutedExample()
+            {
+                FullName = "nspec. ParentSpec. ChildSpec. method context 5. child example 5A.",
+                Failed = false,
+                Pending = false,
+            },
+            new ExecutedExample()
+            {
+                FullName = "nspec. ParentSpec. ChildSpec. it child method example A.",
                 Failed = false,
                 Pending = false,
             },

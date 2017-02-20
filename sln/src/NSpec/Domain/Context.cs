@@ -232,7 +232,7 @@ namespace NSpec.Domain
         /// Here all contexts and all their examples are run, collecting distinct exceptions
         /// from context itself (befores/ acts/ it/ afters), beforeAll, afterAll.
         /// </remarks>
-        public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null)
+        public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null, bool recurse = true)
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
@@ -266,7 +266,10 @@ namespace NSpec.Domain
                 if (example.HasRun) formatter.Write(example, Level);
             }
 
-            Contexts.Do(c => c.Run(formatter, failFast, nspec));
+            if (recurse)
+            {
+                Contexts.Do(c => c.Run(formatter, failFast, nspec));
+            }
 
             if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref ExceptionAfterAll);
         }
@@ -279,12 +282,12 @@ namespace NSpec.Domain
         /// on examples, giving priority to exceptions from: inherithed beforeAll, beforeAll,
         /// context (befores/ acts/ it/ afters), afterAll, inherithed afterAll.
         /// </remarks>
-        public virtual void AssignExceptions()
+        public virtual void AssignExceptions(bool recurse = true)
         {
-            AssignExceptions(null, null);
+            AssignExceptions(null, null, recurse);
         }
 
-        protected virtual void AssignExceptions(Exception inheritedBeforeAllException, Exception inheritedAfterAllException)
+        protected virtual void AssignExceptions(Exception inheritedBeforeAllException, Exception inheritedAfterAllException, bool recurse)
         {
             inheritedBeforeAllException = inheritedBeforeAllException ?? ExceptionBeforeAll;
             inheritedAfterAllException = ExceptionAfterAll ?? inheritedAfterAllException;
@@ -304,7 +307,10 @@ namespace NSpec.Domain
                 }
             }
 
-            Contexts.Do(c => c.AssignExceptions(inheritedBeforeAllException, inheritedAfterAllException));
+            if (recurse)
+            {
+                Contexts.Do(c => c.AssignExceptions(inheritedBeforeAllException, inheritedAfterAllException, recurse));
+            }
         }
 
         public virtual void Build(nspec instance = null)

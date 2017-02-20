@@ -129,6 +129,8 @@ namespace NSpec.Tests.Api.Execution
             3,
             // method_context_5. sub context 5-1
             5,
+            // ChildSpec
+            8,
         };
         readonly int[] runIndexes =
         {
@@ -138,6 +140,8 @@ namespace NSpec.Tests.Api.Execution
             3,
             // method_context_5. sub context 5-1
             5, 6,
+            // ChildSpec
+            8,
         };
 
         public override void setup()

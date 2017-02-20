@@ -50,7 +50,14 @@ namespace SampleSpecsApi
 
                 it["child example 5-1B"] = () => systemUnderTest.IsAlwaysTrue().ShouldBeTrue(); // # 51
             };
-        } // # 53
+
+            it["child example 5A"] = () => systemUnderTest.IsAlwaysTrue().ShouldBeTrue(); // # 54
+        } // # 55
+
+        void it_child_method_example_A()
+        { // # 58
+            systemUnderTest.IsAlwaysTrue().ShouldBeTrue();
+        }
     }
 
     // Do not move the preceding spec classes around, to avoid rewriting line numbers
