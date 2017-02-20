@@ -150,7 +150,12 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. it child method example A.",
+#if DEBUG
                 SourceLineNumber = 58,
+#endif
+#if RELEASE
+                SourceLineNumber = 59,
+#endif
                 Tags = new[]
                 {
                     "Tag-Child",
