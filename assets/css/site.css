@@ -67,6 +67,11 @@ pre {
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
+pre > code {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 iframe {
   max-width: 100%;
   display: block;
