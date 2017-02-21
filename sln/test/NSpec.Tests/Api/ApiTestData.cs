@@ -1,46 +1,65 @@
 ﻿using NSpec.Api.Discovery;
 using NSpec.Api.Execution;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace NSpec.Tests.Api
 {
     public static class ApiTestData
     {
+        public static readonly string testAssemblyPath =
+            typeof(SampleSpecsApi.PublicPlaceholderClass).GetTypeInfo().Assembly.Location;
+
+        public static readonly IEnumerable<DiscoveredExample> allDiscoveredExamples;
+
         static ApiTestData()
         {
-            string thisAssemblyPath = typeof(ApiTestData).GetTypeInfo().Assembly.Location;
-
-            // .NET Core:      go up from test\{Project}\bin\{Config}\{Framework}\{Assembly}.dll
-            // .NET Framework: go up from test\{Project}\bin\{Config}\{Framework}\{Platform}\{Assembly}.dll
-            string testDirPath = Directory
-                .GetParent(thisAssemblyPath)
-                .Parent
-                .Parent
-                .Parent
-#if NET451
-                .Parent
-#endif
-                .Parent.FullName;
-
-            string singleTestSourceFilePath = Path.Combine(new[]
+            string sampleSpecsApiProjPath = Path.Combine(new[]
             {
-                testDirPath,
+                BuildTestDirectoryPath(),
                 "Samples",
                 "SampleSpecsApi",
-                "desc_SystemUnderTest.cs"
             });
 
-            foreach (var exm in allDiscoveredExamples)
+            string descSystemUnderTestFilePath = Path.Combine(new[]
             {
-                exm.SourceAssembly = testAssemblyPath;
+                sampleSpecsApiProjPath,
+                "desc_SystemUnderTest.cs",
+            });
 
-                if (exm.SourceLineNumber != 0)
+            string descAsyncSystemUnderTestFilePath = Path.Combine(new[]
+            {
+                sampleSpecsApiProjPath,
+                "desc_AsyncSystemUnderTest.cs",
+            });
+
+            var systemUnderTestExampleGroup =
+                from exm in descSystemUnderTestDiscoveredExamples
+                select new { Example = exm, SourcePath = descSystemUnderTestFilePath };
+
+            var asyncSystemUnderTestExampleGroup =
+                from exm in descAsyncSystemUnderTestDiscoveredExamples
+                select new { Example = exm, SourcePath = descAsyncSystemUnderTestFilePath };
+
+            allDiscoveredExamples = systemUnderTestExampleGroup
+                .Concat(asyncSystemUnderTestExampleGroup)
+                .Select(item =>
                 {
-                    exm.SourceFilePath = singleTestSourceFilePath;
-                }
-            }
+                    var example = item.Example;
+
+                    // No source code info available for pending tests
+                    if (example.SourceLineNumber != 0)
+                    {
+                        example.SourceFilePath = item.SourcePath;
+                    }
+
+                    example.SourceAssembly = testAssemblyPath;
+
+                    return example;
+                });
 
             TimeSpan nonZeroDuration = new TimeSpan(1, 2, 3);
 
@@ -53,10 +72,7 @@ namespace NSpec.Tests.Api
             }
         }
 
-        public static readonly string testAssemblyPath =
-            typeof(SampleSpecsApi.PublicPlaceholderClass).GetTypeInfo().Assembly.Location;
-
-        public static readonly DiscoveredExample[] allDiscoveredExamples =
+        static readonly DiscoveredExample[] descSystemUnderTestDiscoveredExamples =
         {
             new DiscoveredExample()
             {
@@ -165,8 +181,42 @@ namespace NSpec.Tests.Api
             },
         };
 
+        static readonly DiscoveredExample[] descAsyncSystemUnderTestDiscoveredExamples =
+        {
+            new DiscoveredExample()
+            {
+                FullName = "nspec. AsyncSpec. it async method example.",
+#if DEBUG
+                SourceLineNumber = 18,
+#endif
+#if RELEASE
+                SourceLineNumber = 19,
+#endif
+                Tags = new[]
+                {
+                    "AsyncSpec",
+                },
+            },
+            new DiscoveredExample()
+            {
+                FullName = "nspec. AsyncSpec. method context. async context example.",
+#if DEBUG
+                SourceLineNumber = 27,
+#endif
+#if RELEASE
+                SourceLineNumber = 28,
+#endif
+                Tags = new[]
+                {
+                    "AsyncSpec",
+                },
+            },
+        };
+
         public static readonly ExecutedExample[] allExecutedExamples =
         {
+            // desc_SystemUnderTest.cs
+
             new ExecutedExample()
             {
                 FullName = "nspec. ParentSpec. method context 1. parent example 1A.",
@@ -223,6 +273,40 @@ namespace NSpec.Tests.Api
                 Failed = false,
                 Pending = false,
             },
+
+            // desc_AsyncSystemUnderTest.cs
+
+            new ExecutedExample()
+            {
+                FullName = "nspec. AsyncSpec. it async method example.",
+                Failed = false,
+                Pending = false,
+            },
+            new ExecutedExample()
+            {
+                FullName = "nspec. AsyncSpec. method context. async context example.",
+                Failed = false,
+                Pending = false,
+            },
         };
+
+        static string BuildTestDirectoryPath()
+        {
+            string thisAssemblyPath = typeof(ApiTestData).GetTypeInfo().Assembly.Location;
+
+            // .NET Framework: go up from test\{Project}\bin\{Config}\{Framework}\{Platform}\{Assembly}.dll
+            // .NET Core:      go up from test\{Project}\bin\{Config}\{Framework}\{Assembly}.dll
+            string testDirPath = Directory
+                .GetParent(thisAssemblyPath)
+#if NET451
+                .Parent
+#endif
+                .Parent
+                .Parent
+                .Parent
+                .Parent.FullName;
+
+            return testDirPath;
+        }
     }
 }

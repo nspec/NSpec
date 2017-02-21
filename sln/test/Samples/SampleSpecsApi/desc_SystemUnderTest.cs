@@ -1,9 +1,9 @@
 ﻿using NSpec;
 using SampleSpecsApi.SampleSystem;
 
-// Do not move the following spec classes around, to avoid rewriting line numbers. This should be stuck at line nr. 4
 namespace SampleSpecsApi
 {
+    // Do not move the following spec classes around, to avoid rewriting line numbers. This should be stuck at line nr. 6
     class ParentSpec : nspec
     {
         protected SystemUnderTest systemUnderTest;
