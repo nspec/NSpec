@@ -1,7 +1,7 @@
 using System;
 using NSpec;
 
-public class describe_output_capture : nspec
+public class describe_capturing_example_console : nspec
 {
     void output_capture()
     {
@@ -12,10 +12,10 @@ public class describe_output_capture : nspec
     }
 }
 
-public static class describe_output_capture_output
+public static class describe_capturing_example_console_output
 {
     public static string Output = @"
-describe output capture
+describe capturing example console
   output capture
     should capture output (__ms)
       //Console output
