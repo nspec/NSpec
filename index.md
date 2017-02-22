@@ -426,6 +426,7 @@ result is to have a `project.json` as the following (also targeting
 * Add a `testRunner` property set to `nspec` in `project.json`
 * Add a reference to main project under test
 * Add a reference to your favourite assertion library package
+* Delete `Program.cs` file
 
 #### From template
 
