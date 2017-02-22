@@ -426,7 +426,6 @@ result is to have a `project.json` as the following (also targeting
 * Add a `testRunner` property set to `nspec` in `project.json`
 * Add a reference to main project under test
 * Add a reference to your favourite assertion library package
-* Delete `Program.cs` file
 
 #### From template
 
@@ -462,4 +461,3 @@ ReSharper test runner) or on a CI server using the NUnit console runner. To do t
 install the [NSpecInNUnit](https://www.nuget.org/packages/NSpecInNUnit/) package and
 extend a special base class. Full usage instructions are at the [project site](https://github.com/provegard/NSpecInNUnit)
 for NSpecInNUnit.
-
