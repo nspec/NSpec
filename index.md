@@ -420,6 +420,7 @@ result is to have a `project.json` as the following (also targeting
 #### From scratch
 
 * Create a .NET Core **Console Application** project to hold your tests
+* Delete `Program.cs`
 * Delete `buildOptions.emitEntryPoint` property from `project.json`
 * Add a reference to `NSpec` NuGet package
 * Add a reference to `dotnet-test-nspec` NuGet package
