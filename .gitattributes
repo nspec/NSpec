@@ -1,0 +1,5 @@
+# Exclude additional vendor directories from GitHub language statistics
+^libs/* linguist-vendored
+^NUnit.Runners*/* linguist-vendored
+^packages/* linguist-vendored
+^RubyInstallationFiles/* linguist-vendored
