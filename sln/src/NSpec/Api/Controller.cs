@@ -8,7 +8,7 @@ namespace NSpec.Api
 {
     public class Controller
     {
-        public int Run(
+        public int RunBatch(
             string testAssemblyPath,
             string tags,
             string formatterClassName,
@@ -34,7 +34,7 @@ namespace NSpec.Api
             return serialized;
         }
 
-        public void Execute(
+        public void RunInteractive(
             string testAssemblyPath,
             IEnumerable<string> exampleFullNames,
             Action<string> onExampleStarted,

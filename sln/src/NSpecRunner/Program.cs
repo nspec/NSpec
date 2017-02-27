@@ -40,11 +40,11 @@ namespace NSpecRunner
                         argsTags = args[1];
                 }
 
-                var specDLL = Path.GetFullPath(args[0]);
+                var specDllPath = Path.GetFullPath(args[0]);
 
                 var controller = new Controller();
 
-                int failures = controller.Run(specDLL, argsTags, formatterClassName, formatterOptions, failFast);
+                int failures = controller.RunBatch(specDllPath, argsTags, formatterClassName, formatterOptions, failFast);
 
                 if (failures > 0) Environment.Exit(1);
             }
