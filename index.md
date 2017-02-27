@@ -417,18 +417,20 @@ result is to have a `project.json` as the following (also targeting
 }
 ```
 
-#### From scratch
+#### From custom NSpec template
 
-* Create a .NET Core **Console Application** project to hold your tests
-* Delete `buildOptions.emitEntryPoint` property from `project.json`
-* Add a reference to `NSpec` NuGet package
-* Add a reference to `dotnet-test-nspec` NuGet package
-* Add a `testRunner` property set to `nspec` in `project.json`
+* Install latest version of [NSpec .NET Core templates](https://www.nuget.org/packages/dotnet-new-nspec)
+from command line by running
+`dotnet new --install dotnet-new-nspec::*`
+* Create a new NSpec test project from command line by running
+`dotnet new nspectest -n MyTestProject`
 * Add a reference to main project under test
 * Add a reference to your favourite assertion library package
-* Delete `Program.cs` file
 
-#### From template
+> **NOTE:** Even if template currently creates a project supporting *.NET Core Tools Preview 2* (the one based on project.json),
+in order to install custom CLI templates like this you need to have at least **.NET Core Tools RC4** on your development machine.
+
+#### From built-in XUnit template
 
 * Create a new xUnit test project from command line by running
 `dotnet new -t xunittest`
@@ -440,6 +442,17 @@ with `dotnet-test-nspec`
 `nspec`
 * Add a reference to main project under test
 * Add a reference to your favourite assertion library package
+
+#### From scratch
+
+* Create a .NET Core **Console Application** project to hold your tests
+* Delete `buildOptions.emitEntryPoint` property from `project.json`
+* Add a reference to `NSpec` NuGet package
+* Add a reference to `dotnet-test-nspec` NuGet package
+* Add a `testRunner` property set to `nspec` in `project.json`
+* Add a reference to main project under test
+* Add a reference to your favourite assertion library package
+* Delete `Program.cs` file
 
 Whichever way you choose, project is now setup. From a command line
 located at test project directory, run `dotnet restore`. Add your test
