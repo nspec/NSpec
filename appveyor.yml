@@ -3,6 +3,8 @@
 branches:
   only:
   - master
+  except:
+  - /gh-pages.*/
 
 nuget:
   disable_publish_on_pr: true
