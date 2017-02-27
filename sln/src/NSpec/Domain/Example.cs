@@ -1,6 +1,7 @@
 ﻿using NSpec.Domain.Extensions;
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace NSpec.Domain
 {
@@ -32,6 +33,11 @@ namespace NSpec.Domain
         public override bool IsAsync
         {
             get { return action.IsAsync(); }
+        }
+
+        public override MethodInfo BodyMethodInfo
+        {
+            get { return action.GetMethodInfo(); }
         }
 
         public Example(Expression<Action> expr, bool pending = false)

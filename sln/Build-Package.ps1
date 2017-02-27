@@ -69,6 +69,7 @@ function BuildVersioningOptions() {
 	"sln\src\NSpecRunner", `
 	"sln\test\NSpec.Tests", `
 	"sln\test\Samples\SampleSpecs", `
+	"sln\test\Samples\SampleSpecsApi", `
 	"sln\test\Samples\SampleSpecsFocus"
 
 ) | ForEach-Object { CleanProject $_ }
@@ -79,6 +80,7 @@ function BuildVersioningOptions() {
 	"sln\src\NSpecRunner", `
 	"sln\test\NSpec.Tests", `
 	"sln\test\Samples\SampleSpecs", `
+	"sln\test\Samples\SampleSpecsApi", `
 	"sln\test\Samples\SampleSpecsFocus"
 
 ) | ForEach-Object { Exec { & dotnet restore $_ } }

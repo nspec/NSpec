@@ -10,7 +10,7 @@
   },
 
   "dependencies": {
-    "dotnet-test-nunit": "3.4.0-beta-1",
+    "dotnet-test-nunit": "3.4.0-beta-3",
     "FluentAssertions": "4.13.1",
     "Moq": "4.6.36-alpha",
     "NSpec": {
@@ -18,6 +18,9 @@
     },
     "NUnit": "3.4.1",
     "SampleSpecs": {
+      "target": "project"
+    },
+    "SampleSpecsApi": {
       "target": "project"
     },
     "SampleSpecsFocus": {
