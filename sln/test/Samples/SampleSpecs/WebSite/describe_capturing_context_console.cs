@@ -1,7 +1,7 @@
 using System;
 using NSpec;
 
-public class describe_context_output_capture : nspec
+public class describe_capturing_context_console : nspec
 {
     void before_all()
     {
@@ -26,10 +26,10 @@ public class describe_context_output_capture : nspec
     }
 }
 
-public static class describe_context_output_capture_output
+public static class describe_capturing_context_console_output
 {
     public static string Output = @"
-describe context output capture
+describe capturing context console
 //Console output
 this is before all
   output capture

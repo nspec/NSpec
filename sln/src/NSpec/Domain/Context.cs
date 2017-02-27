@@ -2,8 +2,6 @@
 using NSpec.Domain.Formatters;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -242,17 +240,10 @@ namespace NSpec.Domain
 
             bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec);
 
-            var stringWriter = new StringWriter();
-            var stdout = Console.Out;
-            var stderr = Console.Error;
-            Console.SetOut(stringWriter);
-            Console.SetError(stringWriter);
-
-            if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref ExceptionBeforeAll);
-
-            Console.SetOut(stdout);
-            Console.SetError(stderr);
-            this.CapturedOutput = stringWriter.ToString();
+            using (new ConsoleCatcher(output => this.CapturedOutput = output))
+            {
+                if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref ExceptionBeforeAll);
+            }
 
             // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
@@ -261,17 +252,10 @@ namespace NSpec.Domain
 
                 if (failFast && example.Context.HasAnyFailures()) return;
 
-                stringWriter = new StringWriter();
-                stdout = Console.Out;
-                stderr = Console.Error;
-                Console.SetOut(stringWriter);
-                Console.SetError(stringWriter);
-
-                Exercise(example, nspec);
-
-                Console.SetOut(stdout);
-                Console.SetError(stderr);
-                example.CapturedOutput = stringWriter.ToString();
+                using (new ConsoleCatcher(output => example.CapturedOutput = output))
+                {
+                    Exercise(example, nspec);
+                }
 
                 if (example.HasRun && !alreadyWritten)
                 {
@@ -286,8 +270,6 @@ namespace NSpec.Domain
 
             if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref ExceptionAfterAll);
         }
-
-        public string CapturedOutput { get; set; }
 
         /// <summary>
         /// Test execution happens in two phases: this is the second phase.
@@ -489,6 +471,7 @@ namespace NSpec.Domain
         public Context Parent;
         public Exception ExceptionBeforeAll, Exception, ExceptionAfterAll;
         public bool ClearExpectedException;
+        public string CapturedOutput;
 
         nspec savedInstance;
         bool alreadyWritten, isPending;

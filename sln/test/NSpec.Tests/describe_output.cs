@@ -71,11 +71,11 @@ namespace NSpec.Tests
          TestCase(typeof(describe_focus_output),
                   new [] { typeof(describe_focus) },
                   "focus"),
-         TestCase(typeof(describe_output_capture_output),
-                    new[] { typeof(describe_output_capture) },
+         TestCase(typeof(describe_capturing_example_console_output),
+                    new[] { typeof(describe_capturing_example_console) },
                     ""),
-         TestCase(typeof(describe_context_output_capture_output),
-                    new[] { typeof(describe_context_output_capture) },
+         TestCase(typeof(describe_capturing_context_console_output),
+                    new[] { typeof(describe_capturing_context_console) },
                     "")]
 
         public void output_verification(Type output, Type []testClasses, string tags)
