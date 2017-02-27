@@ -433,7 +433,8 @@ in order to install custom CLI templates like this you need to have at least **.
 #### From built-in XUnit template
 
 * Create a new xUnit test project from command line by running
-`dotnet new -t xunittest`
+`dotnet new -t xunittest` (when you have .NET Core Tools Preview 2)
+or `dotnet new xunit -n MyTestProject` (when you have .NET Core Tools RC4)
 * Replace `xunit` NuGet package dependency in `project.json` with
 `NSpec`
 * Replace `dotnet-test-xunit` NuGet package dependency in `project.json`
