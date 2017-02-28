@@ -1,6 +1,6 @@
 # Breaking Changes
 
-## NSpec 2.0.0
+## 2.0.0
 
 ### .NET Framework 4.5
 
@@ -16,7 +16,8 @@ Remain on NSpec 1.0.13 if you need to support .NET Framework 4.5 or 4.5.1.
 
 ### Assertions and NUnit dependency
 
-Removed most assertions. The few left (on true/false expectation) have been renamed to follow .NET naming conventions. Removed dependency from NUnit.
+Removed most assertions. The few left (on true/false expectation) have been renamed to
+follow .NET naming conventions. Removed dependency from NUnit.
 
 #### Reason
 
@@ -24,6 +25,9 @@ In order to remove dependency from NUnit and keep NSpec focused as a testing fra
 
 #### Workraround
 
-Use an assertion library, like e.g. [FluentAssertions](http://www.fluentassertions.com/) or [Shouldly](http://shouldly.readthedocs.io/en/latest/), and replace old NSpec assertions with theirs.
+Use an assertion library, like e.g. [FluentAssertions](http://www.fluentassertions.com/)
+or [Shouldly](http://shouldly.readthedocs.io/en/latest/), and replace old NSpec assertions
+with theirs.
 
-If your project relied on NUnit transitive dependency from NSpec, install NUnit directly in your project.
+If your project relied on NUnit transitive dependency from NSpec, install NUnit directly
+in your project.
