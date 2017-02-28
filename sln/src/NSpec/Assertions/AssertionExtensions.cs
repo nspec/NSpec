@@ -1,6 +1,6 @@
 ﻿using NSpec.Domain;
 
-namespace NSpec
+namespace NSpec.Assertions
 {
     public static class AssertionExtensions
     {
