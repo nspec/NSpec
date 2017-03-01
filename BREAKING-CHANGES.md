@@ -1,5 +1,20 @@
 # Breaking Changes
 
+## 3.0.0
+
+### Assertions
+
+Assertions have been moved from `NSpec` namespace to `NSpec.Assertions`.
+
+#### Reason
+
+When client test code is also using Shouldly, NSpec assertions go in conflict
+with those from `Shouldly` namespace.
+
+#### Workaround
+
+Everywhere NSpec assertions are used, add a `using NSpec.Assertions;` directive.
+
 ## 2.0.0
 
 ### .NET Framework 4.5

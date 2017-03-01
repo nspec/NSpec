@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>NSpec</id>
-    <version>2.0.1.0</version>
+    <version>3.0.0.0</version>
     <title>NSpec</title>
     <summary>NSpec is a testing framework for .NET. NSpec is heavily inspired by RSpec and Mocha.</summary>
     <description>NSpec is a BDD-style testing framework for .NET. NSpec is intended to drive development by specifying behavior within a context or scenario. NSpec belongs to the xSpec (Context/Specification) family and is heavily inspired by RSpec and Mocha.</description>
