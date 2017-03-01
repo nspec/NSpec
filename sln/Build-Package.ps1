@@ -63,41 +63,43 @@ function BuildVersioningOptions() {
 
 ###
 
+cd sln
+
 # Clean
 @(
-	"sln\src\NSpec", `
-	"sln\src\NSpecRunner", `
-	"sln\test\NSpec.Tests", `
-	"sln\test\Samples\SampleSpecs", `
-	"sln\test\Samples\SampleSpecsApi", `
-	"sln\test\Samples\SampleSpecsFocus"
+	"src\NSpec", `
+	"src\NSpecRunner", `
+	"test\NSpec.Tests", `
+	"test\Samples\SampleSpecs", `
+	"test\Samples\SampleSpecsApi", `
+	"test\Samples\SampleSpecsFocus"
 
 ) | ForEach-Object { CleanProject $_ }
 
 # Initialize
 @(
-	"sln\src\NSpec", `
-	"sln\src\NSpecRunner", `
-	"sln\test\NSpec.Tests", `
-	"sln\test\Samples\SampleSpecs", `
-	"sln\test\Samples\SampleSpecsApi", `
-	"sln\test\Samples\SampleSpecsFocus"
+	"src\NSpec", `
+	"src\NSpecRunner", `
+	"test\NSpec.Tests", `
+	"test\Samples\SampleSpecs", `
+	"test\Samples\SampleSpecsApi", `
+	"test\Samples\SampleSpecsFocus"
 
 ) | ForEach-Object { Exec { & dotnet restore $_ } }
 
 
 # Build
 @(
-	"sln\src\NSpec", `
-	"sln\src\NSpecRunner", `
-	"sln\test\NSpec.Tests"
+	"src\NSpec", `
+	"src\NSpecRunner", `
+	"test\NSpec.Tests"
 
 ) | ForEach-Object { Exec { & dotnet build -c Release $_ } }
 
 
 # Test
 @(
-	"sln\test\NSpec.Tests"
+	"test\NSpec.Tests"
 
 ) | ForEach-Object { Exec { & dotnet test -c Release $_ } }
 
@@ -106,8 +108,8 @@ function BuildVersioningOptions() {
 $versioningOpt = BuildVersioningOptions
 
 Exec {
-	& "nuget" pack sln\src\NSpec\NSpec.nuspec `
+	& "nuget" pack src\NSpec\NSpec.nuspec `
 		$versioningOpt `
-		-outputdirectory sln\src\NSpec\publish\ `
+		-outputdirectory src\NSpec\publish\ `
 		-properties Configuration=Release
 }
