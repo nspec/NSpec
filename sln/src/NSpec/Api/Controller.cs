@@ -8,7 +8,7 @@ namespace NSpec.Api
 {
     public class Controller
     {
-        public int RunBatch(
+        public int Run(
             string testAssemblyPath,
             string tags,
             string formatterClassName,

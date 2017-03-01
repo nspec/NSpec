@@ -44,7 +44,7 @@ namespace NSpecRunner
 
                 var controller = new Controller();
 
-                int failures = controller.RunBatch(specDllPath, argsTags, formatterClassName, formatterOptions, failFast);
+                int failures = controller.Run(specDllPath, argsTags, formatterClassName, formatterOptions, failFast);
 
                 if (failures > 0) Environment.Exit(1);
             }
