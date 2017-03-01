@@ -77,7 +77,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. method context 1. parent example 1A.",
-                SourceLineNumber = 19,
+                SourceLineNumber = 24,
                 Tags = new[]
                 {
                     "Tag-1A",
@@ -88,7 +88,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. method context 1. parent example 1B.",
-                SourceLineNumber = 21,
+                SourceLineNumber = 26,
                 Tags = new[]
                 {
                     "Tag-1A",
@@ -99,7 +99,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. method context 2. parent example 2A.",
-                SourceLineNumber = 26,
+                SourceLineNumber = 31,
                 Tags = new[]
                 {
                     "ParentSpec",
@@ -121,7 +121,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. method context 4. child example 4A.",
-                SourceLineNumber = 42,
+                SourceLineNumber = 47,
                 Tags = new[]
                 {
                     "Tag with underscores",
@@ -133,7 +133,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. method context 5. sub context 5-1. child example 5-1A failing.",
-                SourceLineNumber = 49,
+                SourceLineNumber = 54,
                 Tags = new[]
                 {
                     "Tag-Child",
@@ -144,7 +144,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. method context 5. sub context 5-1. child example 5-1B.",
-                SourceLineNumber = 51,
+                SourceLineNumber = 56,
                 Tags = new[]
                 {
                     "Tag-Child",
@@ -155,7 +155,7 @@ namespace NSpec.Tests.Api
             new DiscoveredExample()
             {
                 FullName = "nspec. ParentSpec. ChildSpec. method context 5. child example 5A.",
-                SourceLineNumber = 54,
+                SourceLineNumber = 59,
                 Tags = new[]
                 {
                     "Tag-Child",
@@ -167,10 +167,10 @@ namespace NSpec.Tests.Api
             {
                 FullName = "nspec. ParentSpec. ChildSpec. it child method example A.",
 #if DEBUG
-                SourceLineNumber = 58,
+                SourceLineNumber = 63,
 #endif
 #if RELEASE
-                SourceLineNumber = 59,
+                SourceLineNumber = 64,
 #endif
                 Tags = new[]
                 {
@@ -187,10 +187,10 @@ namespace NSpec.Tests.Api
             {
                 FullName = "nspec. AsyncSpec. it async method example.",
 #if DEBUG
-                SourceLineNumber = 18,
+                SourceLineNumber = 22,
 #endif
 #if RELEASE
-                SourceLineNumber = 19,
+                SourceLineNumber = 23,
 #endif
                 Tags = new[]
                 {
@@ -201,10 +201,10 @@ namespace NSpec.Tests.Api
             {
                 FullName = "nspec. AsyncSpec. method context. async context example.",
 #if DEBUG
-                SourceLineNumber = 27,
+                SourceLineNumber = 31,
 #endif
 #if RELEASE
-                SourceLineNumber = 28,
+                SourceLineNumber = 32,
 #endif
                 Tags = new[]
                 {
@@ -253,7 +253,7 @@ namespace NSpec.Tests.Api
                 Failed = true,
                 Pending = false,
                 ExceptionMessage = "Expected false, but was $True.",
-                ExceptionStackTrace = "NSpec.AssertionExtensions.ShouldBeFalse(Boolean actual)",
+                ExceptionStackTrace = "NSpec.Assertions.AssertionExtensions.ShouldBeFalse(Boolean actual)",
             },
             new ExecutedExample()
             {

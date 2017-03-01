@@ -1,10 +1,14 @@
 ﻿using NSpec;
+using NSpec.Assertions;
 using SampleSpecsApi.SampleSystem;
 using System.Threading.Tasks;
 
+
+
+
 namespace SampleSpecsApi
 {
-    // Do not move the following spec classes around, to avoid rewriting line numbers. This should be stuck at line nr. 7
+    // Do not move the following spec classes around, to avoid rewriting line numbers. This should be stuck at line nr. 11
     public class AsyncSpec : nspec
     {
         protected AsyncSystemUnderTest systemUnderTest;
@@ -15,21 +19,21 @@ namespace SampleSpecsApi
         }
 
         async Task it_async_method_example()
-        { // # 18
+        { // # 22
             bool actual = await systemUnderTest.IsAlwaysTrueAsync();
 
             actual.ShouldBeTrue();
-        } // # 22
+        }
 
         void method_context()
-        { // # 25
+        {
             itAsync["async context example"] = async () =>
-            { // # 27
+            { // # 31
                 bool actual = await systemUnderTest.IsAlwaysTrueAsync();
 
                 actual.ShouldBeTrue();
-            }; // # 31
-        } // # 32
+            };
+        }
     }
 
     // Do not move the preceding spec classes around, to avoid rewriting line numbers
