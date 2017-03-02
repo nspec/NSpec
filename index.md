@@ -391,11 +391,11 @@ result is to have a `project.json` as the following (also targeting
   "testRunner": "nspec",
 
   "dependencies": {
-    "dotnet-test-nspec": "0.1.1",
+    "dotnet-test-nspec": "0.2.0",
     "LibraryUnderTest": {
       "target": "project"
     },
-    "NSpec": "2.0.1",
+    "NSpec": "3.0.0",
     "Shouldly": "2.8.2"
   },
 
@@ -405,6 +405,7 @@ result is to have a `project.json` as the following (also targeting
         "portable-net45+win8"
       ],
       "dependencies": {
+        "Microsoft.Extensions.Testing.Abstractions": "1.0.0-preview2-003121",
         "Microsoft.NETCore.App": {
           "type": "platform",
           "version": "1.0.0"
@@ -412,6 +413,10 @@ result is to have a `project.json` as the following (also targeting
       }
     },
     "net451": {
+      "dependencies": {
+        "Microsoft.DiaSymReader.Native": "1.4.2",
+        "Microsoft.NETCore.Platforms": "1.1.0"
+      }
     }
   }
 }
@@ -441,6 +446,10 @@ or `dotnet new xunit -n MyTestProject` (when you have .NET Core Tools RC4)
 with `dotnet-test-nspec`
 * Replace `xunit` value of `testRunner` property in `project.json` with
 `nspec`
+* On .NET Core target, add package dependency on
+`Microsoft.Extensions.Testing.Abstractions`
+* On .NET Framework target, add package dependencies on
+`Microsoft.DiaSymReader.Native` and `Microsoft.NETCore.Platforms`
 * Add a reference to main project under test
 * Add a reference to your favourite assertion library package
 
@@ -451,6 +460,10 @@ with `dotnet-test-nspec`
 * Add a reference to `NSpec` NuGet package
 * Add a reference to `dotnet-test-nspec` NuGet package
 * Add a `testRunner` property set to `nspec` in `project.json`
+* On .NET Core target, add package dependency on
+`Microsoft.Extensions.Testing.Abstractions`
+* On .NET Framework target, add package dependencies on
+`Microsoft.DiaSymReader.Native` and `Microsoft.NETCore.Platforms`
 * Add a reference to main project under test
 * Add a reference to your favourite assertion library package
 * Delete `Program.cs` file
@@ -464,6 +477,9 @@ then from the same command line run:
 > dotnet build
 > dotnet test
 ```
+
+or, from within Visual Studio 2015, build solution then open Test Explorer
+window in order to list and run tests.
 
 ## Extensions
 <hr />
