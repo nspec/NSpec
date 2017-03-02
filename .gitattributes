@@ -1,5 +1,7 @@
-.nuget/* linguist-vendored
-libs/* linguist-vendored
-NUnit.Runners.2.6.4/* linguist-vendored
-packages/* linguist-vendored
-RubyInstallationFiles/* linguist-vendored
+# Exclude additional vendor directories from GitHub language statistics
+
+.nuget/**                 linguist-vendored
+libs/**                   linguist-vendored
+NUnit.Runners*/**         linguist-vendored
+packages/**               linguist-vendored
+RubyInstallationFiles/**  linguist-vendored
