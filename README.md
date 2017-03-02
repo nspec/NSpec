@@ -1,6 +1,7 @@
 # NSpec
 
-[![NuGet Version and Downloads count](https://buildstats.info/nuget/NSpec)](https://www.nuget.org/packages/NSpec) [![Build status](https://ci.appveyor.com/api/projects/status/5mmtg044ds5xx8xr/branch/master?svg=true)](https://ci.appveyor.com/project/BrainCrumbz/nspec/branch/master)
+[![NuGet Version and Downloads count](https://buildstats.info/nuget/NSpec)](https://www.nuget.org/packages/NSpec) 
+[![Build status](https://ci.appveyor.com/api/projects/status/5mmtg044ds5xx8xr/branch/master?svg=true)](https://ci.appveyor.com/project/BrainCrumbz/nspec/branch/master)
 
 NSpec is a BDD framework for .NET of the xSpec (context/specification) flavor. NSpec is
 intended to be used to drive development through specifying behavior at the unit level.
@@ -10,17 +11,20 @@ NSpec is heavily inspired by RSpec and built upon the NUnit assertion library.
 
 See [nspec.org](http://nspec.org/) for instructions on getting started and documentation.
 
-## Samples
+## Examples
 
-See under [sln/test/Samples](./sln/test/Samples):
+See under [examples/](./examples):
 
-- [DotNetTestSample](./sln/test/Samples/DotNetTestSample) and
-[NetFrameworkSample](./sln/test/Samples/NetFrameworkSample): those are independent
-solutions with separate main and test project, importing NSpec needed packages
+- [DotNetTestSample](./examples/DotNetTestSample)  
+Sample solution showing how to setup a NSpec test project targeting .NET Core
 
-- [SampleSpecs](./sln/test/Samples/SampleSpecs) and [SampleSpecsFocus](./sln/test/Samples/SampleSpecsFocus):
-those are projects found within main NSpec solution, needed when testing NSpec itself,
-with examples of test classes
+- [NetFrameworkSample](./examples/NetFrameworkSample)  
+Sample solution showing how to setup a NSpec test project targeting .NET Framework
+
+Also, there are a couple of projects under [sln/test/Samples/](./sln/test/Samples) path,
+[SampleSpecs](./sln/test/Samples/SampleSpecs) and [SampleSpecsFocus](./sln/test/Samples/SampleSpecsFocus).
+Those are part of main NSpec solution, needed when testing NSpec itself, and contain several
+mixed examples of NSpec test classes.
 
 ## Breaking changes
 
