@@ -5,3 +5,4 @@ libs/**                   linguist-vendored
 NUnit.Runners*/**         linguist-vendored
 packages/**               linguist-vendored
 RubyInstallationFiles/**  linguist-vendored
+**/NSpec/Domain/Formatters/Templates/*.html  linguist-vendored
