@@ -22,7 +22,8 @@ artifacts:
 - path: sln\src\NSpec\publish\*.nupkg
   name: NSpec
 
-project_feed: true
+nuget:
+  project_feed: true
 
 deploy:
 - provider: NuGet
