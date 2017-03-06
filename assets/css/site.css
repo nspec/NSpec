@@ -67,10 +67,15 @@ pre {
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
+/* set same background for the whole area, not only code lines */
+pre.highlight {
+  background-color: #f5f5f5;
+}
+
+/* remove tiny spacing at beginning/end of code block */
 pre > code {
   padding-left: 0;
   padding-right: 0;
-  background-color: inherit;
 }
 
 iframe {
