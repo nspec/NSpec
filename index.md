@@ -208,7 +208,7 @@ If you want to hook into the debugger quickly, just place the
 following line inside of your tests. When you run `NSpecRunner.exe`,
 the debugger will pop right up:
 
-```
+```dotnet
 System.Diagnostics.Debugger.Launch()
 ```
 
@@ -385,7 +385,7 @@ xUnit template and start modifying from there. Either way, the final
 result is to have a `project.json` as the following (also targeting
 `net451`):
 
-```
+```json
 {
   "version": "1.0.0-*",
 
