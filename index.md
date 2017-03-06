@@ -177,7 +177,8 @@ class describe_exceptions : nspec
 
         it["throws expected exception type"] = expect<KnownException>(() => { throw new KnownException(); });
 
-        it["throws expected exception type and error message"] = expect<KnownException>("My message", () => { throw new KnownException("My message"); });
+        it["throws expected exception type and error message"] =
+            expect<KnownException>("My message", () => { throw new KnownException("My message"); });
     }
 }
 ```
