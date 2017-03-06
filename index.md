@@ -18,6 +18,7 @@ title: NSpec - A testing framework that's like Mocha and RSpec, but for C#
   * [Assertions](#assertions)
   * [Before](#before)
   * [Context](#context)
+  * [Exceptions](#exceptions)
   * [Pending Tests](#pending-tests)
   * [Helper Methods](#helper-methods)
   * [Act](#act)
@@ -31,6 +32,7 @@ title: NSpec - A testing framework that's like Mocha and RSpec, but for C#
 - [Data-driven test cases](#data-driven-test-cases)
 - [Additional info](#additional-info)
   * [Order of execution](#order-of-execution)
+  * [Expect and assert](#expect-and-assert)
 - [Targeting .NET Core](#targeting-net-core)
   * [.NET Core Tooling Preview 2](#net-core-tooling-preview-2)
 - [Setup examples](#setup-examples)
@@ -160,6 +162,34 @@ method that starts with `it_` or `specify_` will be treated as just a
 simple NUnit/XUnit style test case.
 
 <script src="https://gist.github.com/amirrajan/c30019b07bb13958b85f3fdcb07690b8.js"></script>
+
+### Exceptions
+<hr />
+
+When your code should throw under specific conditions, you can assert that it does so with an expected Exception of known type and message.
+
+```c#
+class describe_exceptions : nspec
+{
+    void when_code_throws()
+    {
+        before = () => { };
+
+        it["throws expected exception type"] = expect<KnownException>(() => { throw new KnownException(); });
+
+        it["throws expected exception type and error message"] = expect<KnownException>("My message", () => { throw new KnownException("My message"); });
+    }
+}
+```
+
+```
+describe exceptions
+  when code throws
+    throws expected exception type
+    throws expected exception type and error message
+
+2 Examples, 0 Failed, 0 Pending
+```
 
 ### Pending Tests ###
 <hr />
@@ -353,14 +383,77 @@ extension to have an easier time composing text:
 ### Order of execution
 <hr />
 
-Please have a look
-at
+Please have a look at
 [this wiki page](https://github.com/nspec/NSpec/wiki/Execution-Orders)
 for an overview on which test hooks are executed when: execution order
 in xSpec family frameworks can get tricky when dealing with more
 complicated test configurations, like inherithing from an abstract
 test class or mixing `before_each` with `before_all` at different
 context levels.
+
+### Expect and assert
+<hr />
+
+Currently with NSpec out-of-the-box you can only expect that some code
+under test throws, but you cannot *at the same time* perform any further
+assertion, e.g. that some flag has been set or resource disposed in a
+`finally` block.
+
+One workaround to this scenario is to add a custom helper like the
+following to your test class:
+
+```cs
+class describe_expect_and_assert : nspec
+{
+    void ExpectAndAssert<TEx>(string testName,
+        Action actionThatThrows,
+        Action<TEx> assertAfter)
+        where TEx : Exception
+    {
+        it[testName] = () =>
+        {
+            bool exceptionThrown = false;
+
+            try
+            {
+                actionThatThrows();
+            }
+            catch(TEx ex)
+            {
+                exceptionThrown = true;
+                assertAfter(ex);
+            }
+
+            if(!exceptionThrown) throw new InvalidOperationException("Exception was not thrown when expected");
+        };
+    }
+
+    // ...
+}
+```
+
+and then use it to both expect some specific Exception type to be thrown,
+as well as asserting some further expectation:
+
+```cs
+class describe_expect_and_assert : nspec
+{
+    // before_each ...
+
+    void a_context()
+    {
+        // add a specification
+        ExpectAndAssert<KnownException>("throws an exception",
+          () => someObject.DoSomething(),
+          ex => someObject.Flag.should_be(true));
+
+        // add another specification
+        ExpectAndAssert<OtherKnownException>("throws another exception",
+          () => someObject.DoSomethingElse(),
+          ex => someObject.OtherFlag.should_be(true));
+    }
+}
+```
 
 ## Targeting .NET Core
 <hr />
@@ -466,7 +559,7 @@ located at test project directory, run `dotnet restore`. Add your test
 class, like the one shown at [the top of this page](#my-first-spec),
 then from the same command line run:
 
-```
+```console
 > dotnet build
 > dotnet test
 ```
