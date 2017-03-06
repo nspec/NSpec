@@ -33,6 +33,7 @@ title:
   * [Order of execution](#order-of-execution)
 - [Targeting .NET Core](#targeting-net-core)
   * [.NET Core Tooling Preview 2](#net-core-tooling-preview-2)
+- [Setup examples](#setup-examples)
 - [Extensions](#extensions)
   * [NSpec in NUnit](#nspecinnunit)
 
@@ -472,6 +473,18 @@ then from the same command line run:
 
 or, from within Visual Studio 2015, build solution then open Test Explorer
 window in order to list and run tests.
+
+## Setup examples
+<hr />
+
+See under [examples/](https://github.com/nspec/NSpec/tree/master/examples) in
+GitHub repository:
+
+- [DotNetTestSample](https://github.com/nspec/NSpec/tree/master/examples/DotNetTestSample)  
+Sample solution showing how to setup a NSpec test project targeting .NET Core
+
+- [NetFrameworkSample](https://github.com/nspec/NSpec/tree/master/examples/NetFrameworkSample)  
+Sample solution showing how to setup a NSpec test project targeting .NET Framework
 
 ## Extensions
 <hr />
