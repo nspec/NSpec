@@ -108,7 +108,7 @@ cd sln
 $versioningOpt = BuildVersioningOptions
 
 Exec {
-	& "nuget" pack src\NSpec\NSpec.nuspec `
+	& nuget pack src\NSpec\NSpec.nuspec `
 		$versioningOpt `
 		-outputdirectory src\NSpec\publish\ `
 		-properties Configuration=Release
