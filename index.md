@@ -448,8 +448,6 @@ with `dotnet-test-nspec`
 `nspec`
 * On .NET Core target, add package dependency on
 `Microsoft.Extensions.Testing.Abstractions`
-* On .NET Framework target, add package dependencies on
-`Microsoft.DiaSymReader.Native` and `Microsoft.NETCore.Platforms`
 * Add a reference to main project under test
 * Add a reference to your favourite assertion library package
 
@@ -462,8 +460,6 @@ with `dotnet-test-nspec`
 * Add a `testRunner` property set to `nspec` in `project.json`
 * On .NET Core target, add package dependency on
 `Microsoft.Extensions.Testing.Abstractions`
-* On .NET Framework target, add package dependencies on
-`Microsoft.DiaSymReader.Native` and `Microsoft.NETCore.Platforms`
 * Add a reference to main project under test
 * Add a reference to your favourite assertion library package
 * Delete `Program.cs` file
