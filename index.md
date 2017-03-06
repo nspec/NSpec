@@ -413,10 +413,6 @@ result is to have a `project.json` as the following (also targeting
       }
     },
     "net451": {
-      "dependencies": {
-        "Microsoft.DiaSymReader.Native": "1.4.2",
-        "Microsoft.NETCore.Platforms": "1.1.0"
-      }
     }
   }
 }
