@@ -9,7 +9,6 @@ Highlights:
 - Test project `project.json` has a `testRunner` property set to `nspec`
 - Test project targeting `netcoreapp1.0` takes an explicit dependency on `"Microsoft.Extensions.Testing.Abstractions": "1.0.0-preview2-003121"`,
 due to an issue between .NET Core CLI Tools Preview 2 and NuGet v3 that will not get solved (as *project.json* is being deprecated in favour of MSBuild)
-- Test project targeting `net451` takes an explicit dependency on `"Microsoft.DiaSymReader.Native": "1.4.2"` and `"Microsoft.NETCore.Platforms": "1.1.0"` for similar reasons
 - NSpec is installed into test project as a NuGet package, version 2.0.0 minimum
 - dotnet-test-nspec runner too is installed into test project as a NuGet package
 - Tests can be run from command line through *dotnet test*, as in:

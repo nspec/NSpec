@@ -4,11 +4,11 @@
   "testRunner": "nspec",
 
   "dependencies": {
-    "dotnet-test-nspec": "0.2.0",
+    "dotnet-test-nspec": "0.2.1",
     "LibraryUnderTest": {
       "target": "project"
     },
-    "NSpec": "3.0.0",
+    "NSpec": "3.0.1",
     "Shouldly": "2.8.2"
   },
 
@@ -26,10 +26,6 @@
       }
     },
     "net451": {
-      "dependencies": {
-        "Microsoft.DiaSymReader.Native": "1.4.2",
-        "Microsoft.NETCore.Platforms": "1.1.0"
-      }
     }
   }
 }
