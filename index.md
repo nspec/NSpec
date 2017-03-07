@@ -49,12 +49,12 @@ title: NSpec - A testing framework that's like Mocha and RSpec, but for C#
 - Create a class library project.
 - Open the Package Manager Console and type:
 
-```
-Install-Package nspec
+```console
+PM> Install-Package nspec
 ```
 
-```
-Install-Package FluentAssertions
+```console
+PM> Install-Package FluentAssertions
 ```
 
 - Create a class file called `my_first_spec.cs` and put the following code in it:
@@ -64,7 +64,7 @@ Install-Package FluentAssertions
 
 - Then run the tests using `NSpecRunner.exe`:
 
-```
+```console
 PM> NSpecRunner.exe YourClassLibraryName\bin\debug\YourClassLibraryName.dll
 my first spec
   asserts at the method level
@@ -239,7 +239,7 @@ If you want to hook into the debugger quickly, just place the
 following line inside of your tests. When you run `NSpecRunner.exe`,
 the debugger will pop right up:
 
-```dotnet
+```c#
 System.Diagnostics.Debugger.Launch()
 ```
 
@@ -403,7 +403,7 @@ assertion, e.g. that some flag has been set or resource disposed in a
 One workaround to this scenario is to add a custom helper like the
 following to your test class:
 
-```cs
+```c#
 class describe_expect_and_assert : nspec
 {
     void ExpectAndAssert<TEx>(string testName,
@@ -436,7 +436,7 @@ class describe_expect_and_assert : nspec
 and then use it to both expect some specific Exception type to be thrown,
 as well as asserting some further expectation:
 
-```cs
+```c#
 class describe_expect_and_assert : nspec
 {
     // before_each ...
