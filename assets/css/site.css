@@ -28,16 +28,20 @@ a:visited {
 }
 
 h1 {
-  font-size: 23px;
+  font-size: 25px;
 }
 
 h2 {
-  font-size: 22px;
+  font-size: 23px;
   margin-bottom: 3px;
 }
 
 h3 {
-  font-size: 21px;
+  font-size: 19px;
+}
+
+h4 {
+  font-size: 16px;
 }
 
 hr {
