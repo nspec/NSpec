@@ -5,7 +5,6 @@ title: NSpec - A testing framework that's like Mocha and RSpec, but for C#
 
 
 ## Table of Contents ##
-<hr />
 
 - [Getting Started](#getting-started)
   * [Classic .NET Framework](#classic-net-framework)
@@ -40,10 +39,8 @@ title: NSpec - A testing framework that's like Mocha and RSpec, but for C#
   * [NSpec in NUnit](#nspecinnunit)
 
 ## Getting Started ##
-<hr />
 
 ### Classic .NET Framework ##
-<hr />
 
 - Open Visual Studio.
 - Create a class library project.
@@ -75,15 +72,12 @@ my first spec
 ```
 
 ### .NET Core
-<hr />
 
 Please see [Targeting .NET Core](#targeting-net-core) section down below.
 
 ## Why NSpec? ##
-<hr />
 
 ### Consistent With Modern Testing Frameworks ##
-<hr />
 
 If you've used any of the following testing frameworks, you'll feel
 right at home with NSpec:
@@ -95,7 +89,6 @@ right at home with NSpec:
 - FunSpec
 
 ### Noise Free Tests ##
-<hr />
 
 In NSpec, there is no need for access modifiers on tests, and no need to decorate test methods with attributes.
 
@@ -109,7 +102,6 @@ modifiers or attributes):
 <script src="https://gist.github.com/amirrajan/5ba036142600fe75c658e4ff31630ff7.js"></script>
 
 ### Fluid Test Structures ###
-<hr />
 
 You can nest a lambda within a method (you can defer inheritance hierarchies):
 
@@ -130,12 +122,10 @@ gross and poopy. Specifically:
 <script src="https://gist.github.com/amirrajan/7934a30a49ef52d35d566c050c393139.js"></script>
 
 ## Features ##
-<hr />
 
 Lets take a look at some features of NSpec.
 
 ### Assertions ###
-<hr />
 
 NSpec has some simple assertions, but you should really just use
 [FluentAssertions](http://www.fluentassertions.com/), or
@@ -146,7 +136,6 @@ methods. For example:
 <script src="https://gist.github.com/amirrajan/6710f0237a101487ebf5dac882da45c0.js"></script>
 
 ### Before ###
-<hr />
 
 Want to do some setup before tests are run? Use `before`. The state of
 the class is reset with each test case (side effects/mutations don't spill over).
@@ -154,7 +143,6 @@ the class is reset with each test case (side effects/mutations don't spill over)
 <script src="https://gist.github.com/amirrajan/b488af0929424f67588e3aa4be757c2c.js"></script>
 
 ### Context ###
-<hr />
 
 Test hierarchies are communicated through the `context` keyword. If a
 method contains underscores, then it will be picked up by NSpec. Any
@@ -164,7 +152,6 @@ simple NUnit/XUnit style test case.
 <script src="https://gist.github.com/amirrajan/c30019b07bb13958b85f3fdcb07690b8.js"></script>
 
 ### Exceptions
-<hr />
 
 When your code should throw under specific conditions, you can assert that it does so with an expected Exception of known type and message.
 
@@ -193,7 +180,6 @@ describe exceptions
 ```
 
 ### Pending Tests ###
-<hr />
 
 You can ignore tests by preceding any structure with an `x`. Or you can
 use the `todo` keyword provided by NSpec.
@@ -201,14 +187,12 @@ use the `todo` keyword provided by NSpec.
 <script src="https://gist.github.com/amirrajan/ebd12173b818c21b093ec6a081d8e7a5.js"></script>
 
 ### Helper Methods ###
-<hr />
 
 Title cased (conventional C#) methods are ignored my NSpec.
 
 <script src="https://gist.github.com/amirrajan/cb3087a12310cd29842d300391e4c873.js"></script>
 
 ### Act ###
-<hr />
 
 Here's a fancy feature. Sometimes, what is done to a class remains the
 same, but the setup varies. You can use `act`. Each nested
@@ -217,7 +201,6 @@ context will execute `act` before assertions are run.
 <script src="https://gist.github.com/amirrajan/3c35123d0052f794a12afda2f75477a9.js"></script>
 
 ### Inheritance ###
-<hr />
 
 Being able to nest tests is awesome. But you can always use
 inheritance to "flatten" tests if needed.
@@ -225,7 +208,6 @@ inheritance to "flatten" tests if needed.
 <script src="https://gist.github.com/amirrajan/23193314d218c5ec47a38d336325a913.js"></script>
 
 ### Class Level ###
-<hr />
 
 All test structures are supported at the class level too. Here is how
 you'd write a `before`, `act`, and `it/specify` at the class level.
@@ -233,7 +215,6 @@ you'd write a `before`, `act`, and `it/specify` at the class level.
 <script src="https://gist.github.com/amirrajan/a94d9567ff32e78e140edb31c72e7049.js"></script>
 
 ### Debugger Support ###
-<hr />
 
 If you want to hook into the debugger quickly, just place the
 following line inside of your tests. When you run `NSpecRunner.exe`,
@@ -247,7 +228,6 @@ NSpec also includes `DebuggerShim.cs` when you install it via
 Nuget. So you can use TDD.NET/ReSharper to run your tests.
 
 ### Console App ###
-<hr />
 
 Or you can do something even fancier, and build your own console
 app! Instead of creating a Class Library for the test project,
@@ -260,12 +240,10 @@ importantly, creating your own console app gives you the _power_ to
 tailor input and output to your liking using NSpecs's API/constructs.
 
 ## Async/Await Support ##
-<hr />
 
 Your NSpec tests can run asynchronous code too.
 
 ### Class Level ###
-<hr />
 
 At a class level, you still declare hook methods with same names, but
 they must be *asynchronous* and return `async Task`, instead of
@@ -304,7 +282,6 @@ method overloading):
 <script src="https://gist.github.com/amirrajan/36553f95d0aebf0036263b6d5c3cd4de.js"></script>
 
 ### Context level ###
-<hr />
 
 At a context and sub-context level, you need to set _asynchronous_
 test hooks provided by NSpec, instead of the synchronous ones:
@@ -358,7 +335,6 @@ Just look for `nspec`-derived classes in following files:
 * [How Before/After Async is Implemented](https://github.com/nspec/NSpec/tree/master/sln/test/NSpecSpecs/describe_RunningSpecs/describe_before_and_after)
 
 ## Data-driven test cases ##
-<hr />
 
 Test frameworks of the xUnit family have dedicated attributes in order
 to support data-driven test cases (so-called *theories*). NSpec, as a
@@ -379,10 +355,8 @@ extension to have an easier time composing text:
 <script src="https://gist.github.com/amirrajan/2e32b75f13d5cb3c4d98beef2109bc37.js"></script>
 
 ## Additional info
-<hr />
 
 ### Order of execution
-<hr />
 
 Please have a look at
 [this wiki page](https://github.com/nspec/NSpec/wiki/Execution-Orders)
@@ -393,7 +367,6 @@ test class or mixing `before_each` with `before_all` at different
 context levels.
 
 ### Expect and assert
-<hr />
 
 Currently with NSpec out-of-the-box you can only expect that some code
 under test throws, but you cannot *at the same time* perform any further
@@ -457,14 +430,12 @@ class describe_expect_and_assert : nspec
 ```
 
 ## Targeting .NET Core
-<hr />
 
 Besides targeting classic .NET Framework, NSpec supports writing tests
 for projects targeting .NET Core too. That means you can also run tests
 from console with `dotnet test` Command Line Interface.
 
 ### .NET Core Tooling Preview 2
-<hr />
 
 The following setup holds for projects based on `.xproj` and
 `project.json`, currently working with .NET Core 1.0 and .NET Core Tooling
@@ -569,7 +540,6 @@ or, from within Visual Studio 2015, build solution then open Test Explorer
 window in order to list and run tests.
 
 ## Setup examples
-<hr />
 
 See under [examples/](https://github.com/nspec/NSpec/tree/master/examples) in
 GitHub repository:
@@ -581,10 +551,8 @@ Sample solution showing how to setup a NSpec test project targeting .NET Core
 Sample solution showing how to setup a NSpec test project targeting .NET Framework
 
 ## Extensions
-<hr />
 
 ### NSpec in NUnit
-<hr />
 
 NSpec examples can be run as NUnit tests from inside Visual Studio (using for example the
 ReSharper test runner) or on a CI server using the NUnit console runner. To do this,

@@ -29,6 +29,7 @@ a:visited {
 
 h1 {
   font-size: 25px;
+  line-height: 28px;
 }
 
 h2 {
@@ -52,6 +53,27 @@ hr {
   background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
   background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
   background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+}
+
+h1:after,
+h2:after {
+  content: '';
+  display: block;
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+  background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+  background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+  background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+}
+
+h1:after {
+  margin-top: 28px;
+}
+
+h2:after {
+  margin-top: 8px;
 }
 
 code {
