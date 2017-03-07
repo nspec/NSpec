@@ -3,9 +3,9 @@
 [![NuGet Version and Downloads count](https://buildstats.info/nuget/NSpec)](https://www.nuget.org/packages/NSpec) 
 [![Build status](https://ci.appveyor.com/api/projects/status/5mmtg044ds5xx8xr/branch/master?svg=true)](https://ci.appveyor.com/project/BrainCrumbz/nspec/branch/master)
 
-NSpec is a BDD framework for .NET of the xSpec (context/specification) flavor. NSpec is
-intended to be used to drive development through specifying behavior at the unit level.
-NSpec is heavily inspired by RSpec and built upon the NUnit assertion library.
+NSpec is a BDD (Behavior Driven Development) testing framework of the xSpec (Context/Specification)
+flavor for .NET. NSpec is intended to drive development by specifying behavior within
+a declared context or scenario. NSpec is heavily inspired by RSpec and Mocha.
 
 ## Documentation
 
