@@ -118,3 +118,5 @@ Exec {
 		-outputdirectory src\NSpec\publish\ `
 		-properties Configuration=Release
 }
+
+cd ..

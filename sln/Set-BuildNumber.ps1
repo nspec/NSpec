@@ -37,3 +37,5 @@ $uniqueBuildNumber = "$nuSpecVersion-$suffix"
 Write-Host "Changing build number to '$uniqueBuildNumber'..."
 
 Update-AppveyorBuild -Version $uniqueBuildNumber
+
+cd ..
