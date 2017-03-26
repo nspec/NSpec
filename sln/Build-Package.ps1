@@ -40,29 +40,58 @@ function CleanProject([string]$projectPath) {
 	) | ForEach-Object { CleanContent $_ }
 }
 
-function BuildVersioningOptions() {
-	$isContinuous = [bool]$env:APPVEYOR_BUILD_NUMBER
-	$isProduction = [bool]$env:APPVEYOR_REPO_TAG_NAME
-
-	$versioningOpt = if ($isContinuous) {
-		if ($isProduction) {
-			Write-Host "Continuous Delivery, Production package, keeping nuspec version."
-			@()
-		} else {
-			$suffix = "dev-$env:APPVEYOR_BUILD_NUMBER"
-			Write-Host "Continuous Delivery, Development package, version suffix: '$suffix'."
-			@( "-suffix", $suffix )
-		}
-	} else {
-		Write-Host "Local machine, keeping nuspec version."
-		@()
+function GetNuSpecVersion([string]$path) {
+	if (-Not (Test-Path $path)) {
+		return "0.0.0"
 	}
 
-	return $versioningOpt
+	$versionRegex = [regex] '<version>(.*)</version>'
+
+	$content = Get-Content $path -Raw
+
+	if ($content -notmatch $versionRegex) {
+		return "0.0.0"
+	}
+
+	$nuSpecVersion = $matches[1].TrimEnd()
+
+	return $nuSpecVersion
+}
+
+function SetupVersionNumbers([string]$nuSpecPath) {
+	$isContinuous = [bool]$env:APPVEYOR
+	$isProduction = [bool]$env:APPVEYOR_REPO_TAG_NAME
+
+	if ($isContinuous) {
+		if ($isProduction) {
+			Write-Host "Continuous Delivery, Production package, keeping nupkg version as is."
+			$versionOpts = @()
+		} else {
+			Write-Host "Continuous Delivery, Development package... " -NoNewLine
+
+			$buildNumber = $env:APPVEYOR_BUILD_NUMBER
+
+			$suffix = "dev-$buildNumber"
+			$versionOpts = @( "-suffix", $suffix )
+
+			# override AppVeyor build number, trying to avoid collisions
+			$nuSpecVersion = GetNuSpecVersion $nuSpecPath
+			$uniqueBuildNumber = "$nuSpecVersion-$suffix"
+			Update-AppveyorBuild -Version $uniqueBuildNumber
+
+			Write-Host "changing nupkg version to '$uniqueBuildNumber'."
+		}
+	} else {
+		Write-Host "Local machine, keeping nupkg version as is."
+		$versionOpts = @()
+	}
+
+	return $versionOpts
 }
 
 ###
 
+# move to global.json directory
 cd sln
 
 # Clean
@@ -105,11 +134,11 @@ cd sln
 
 
 # Package
-$versioningOpt = BuildVersioningOptions
+$versionOpts = SetupVersionNumbers "src\NSpec\NSpec.nuspec"
 
 Exec {
 	& nuget pack src\NSpec\NSpec.nuspec `
-		$versioningOpt `
+		$versionOpts `
 		-outputdirectory src\NSpec\publish\ `
 		-properties Configuration=Release
 }
