@@ -15,6 +15,9 @@ skip_commits:
   message: /docs\(.*\):/
   files: '*.md'
 
+install:
+- ps: sln\Set-BuildNumber.ps1
+
 build_script:
 - ps: sln\Build-Package.ps1
 

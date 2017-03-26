@@ -40,25 +40,7 @@ function CleanProject([string]$projectPath) {
 	) | ForEach-Object { CleanContent $_ }
 }
 
-function GetNuSpecVersion([string]$path) {
-	if (-Not (Test-Path $path)) {
-		return "0.0.0"
-	}
-
-	$versionRegex = [regex] '<version>(.*)</version>'
-
-	$content = Get-Content $path -Raw
-
-	if ($content -notmatch $versionRegex) {
-		return "0.0.0"
-	}
-
-	$nuSpecVersion = $matches[1].TrimEnd()
-
-	return $nuSpecVersion
-}
-
-function SetupVersionNumbers([string]$nuSpecPath) {
+function GetVersionOptions([string]$nuSpecPath) {
 	$isContinuous = [bool]$env:APPVEYOR
 	$isProduction = [bool]$env:APPVEYOR_REPO_TAG_NAME
 
@@ -67,19 +49,12 @@ function SetupVersionNumbers([string]$nuSpecPath) {
 			Write-Host "Continuous Delivery, Production package, keeping nupkg version as is."
 			$versionOpts = @()
 		} else {
-			Write-Host "Continuous Delivery, Development package... " -NoNewLine
+			# this should have already been updated to development full version number (<vers nr>-dev-<build nr>)
+			$devVersionNumber = $env:APPVEYOR_BUILD_NUMBER
 
-			$buildNumber = $env:APPVEYOR_BUILD_NUMBER
+			Write-Host "Continuous Delivery, Development package, changing nupkg version to '$devVersionNumber'."
 
-			$suffix = "dev-$buildNumber"
-			$versionOpts = @( "-suffix", $suffix )
-
-			# override AppVeyor build number, trying to avoid collisions
-			$nuSpecVersion = GetNuSpecVersion $nuSpecPath
-			$uniqueBuildNumber = "$nuSpecVersion-$suffix"
-			Update-AppveyorBuild -Version $uniqueBuildNumber
-
-			Write-Host "changing nupkg version to '$uniqueBuildNumber'."
+			$versionOpts = @( "-version", $devVersionNumber )
 		}
 	} else {
 		Write-Host "Local machine, keeping nupkg version as is."
@@ -90,6 +65,8 @@ function SetupVersionNumbers([string]$nuSpecPath) {
 }
 
 ###
+
+# Main
 
 # move to global.json directory
 cd sln
@@ -132,9 +109,8 @@ cd sln
 
 ) | ForEach-Object { Exec { & dotnet test -c Release $_ } }
 
-
 # Package
-$versionOpts = SetupVersionNumbers "src\NSpec\NSpec.nuspec"
+$versionOpts = GetVersionOptions "src\NSpec\NSpec.nuspec"
 
 Exec {
 	& nuget pack src\NSpec\NSpec.nuspec `
