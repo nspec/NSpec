@@ -9,6 +9,8 @@ branches:
 nuget:
   disable_publish_on_pr: true
 
+shallow_clone: true
+
 skip_commits:
   message: /docs\(.*\):/
   files: '*.md'
