@@ -31,8 +31,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\**\NSpec.*" exclude="**\*.pdb;**\*.deps.json" target="lib"/>
-    <file src="..\..\src\NSpecRunner\bin\Release\**" exclude="**\*.pdb;**netcore**\*;**\win7-x64\*" target="tools"/>
+    <file src="bin\$configuration$\**\NSpec.*" exclude="**\*.pdb;**\*.deps.json" target="lib"/>
+    <file src="..\..\src\NSpecRunner\bin\$configuration$\**" exclude="**\*.pdb;**netcore**\*;**\win7-x64\*" target="tools"/>
     <file src="..\..\content\DebuggerShim.cs" target="content"/>
   </files>
 </package>
