@@ -49,12 +49,12 @@ function GetVersionOptions([string]$nuSpecPath) {
 			Write-Host "Continuous Delivery, Production package, keeping nupkg version as is."
 			$versionOpts = @()
 		} else {
-			# this should have already been updated to development full version number (<vers nr>-dev-<build nr>)
-			$devVersionNumber = $env:APPVEYOR_BUILD_NUMBER
+			# this should have already been updated to development version number (<nuspec vers>-dev-<build nr>)
+			$devPackageVersion = $env:APPVEYOR_BUILD_VERSION
 
-			Write-Host "Continuous Delivery, Development package, changing nupkg version to '$devVersionNumber'."
+			Write-Host "Continuous Delivery, Development package, changing nupkg version to '$devPackageVersion'."
 
-			$versionOpts = @( "-version", $devVersionNumber )
+			$versionOpts = @( "-version", $devPackageVersion )
 		}
 	} else {
 		Write-Host "Local machine, keeping nupkg version as is."
@@ -69,7 +69,7 @@ function GetVersionOptions([string]$nuSpecPath) {
 # Main
 
 # move to global.json directory
-cd sln
+Push-Location sln
 
 # Clean
 @(
@@ -119,4 +119,4 @@ Exec {
 		-properties Configuration=Release
 }
 
-cd ..
+Pop-Location

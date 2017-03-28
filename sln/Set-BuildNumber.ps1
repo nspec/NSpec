@@ -22,9 +22,9 @@ function GetNuSpecVersion([string]$path) {
 
 # Main
 
-cd sln
+Push-Location sln
 
-# override AppVeyor build number, trying to avoid collisions
+# override AppVeyor build version, trying to avoid collisions
 
 $nuSpecPath = "src\NSpec\NSpec.nuspec"
 
@@ -32,10 +32,10 @@ $buildNumber = $env:APPVEYOR_BUILD_NUMBER
 $suffix = "dev-$buildNumber"
 
 $nuSpecVersion = GetNuSpecVersion $nuSpecPath
-$uniqueBuildNumber = "$nuSpecVersion-$suffix"
+$uniqueBuildVersion = "$nuSpecVersion-$suffix"
 
-Write-Host "Changing build number to '$uniqueBuildNumber'..."
+Write-Host "Changing build version to '$uniqueBuildVersion'..."
 
-Update-AppveyorBuild -Version $uniqueBuildNumber
+Update-AppveyorBuild -Version $uniqueBuildVersion
 
-cd ..
+Pop-Location
