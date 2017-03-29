@@ -26,16 +26,20 @@ namespace NSpec.Domain.Formatters
 
             contexts.Do(c => this.BuildContext(xmlWrapper, c));
             xml.WriteEndElement();
+            xml.Flush();
             var results = sb.ToString();
             bool didWriteToFile = false;
             if (Options.ContainsKey("file"))
             {
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), Options["file"]);
 
-                using (StreamWriter ostream = File.CreateText(filePath))
+                using (var fs = new FileStream(filePath, FileMode.Create))
                 {
-                    ostream.WriteLine(results);
-                    Console.WriteLine("Test results published to: {0}".With(filePath));
+                    using (StreamWriter ostream = new StreamWriter(fs, Encoding.Unicode))
+                    {
+                        ostream.WriteLine(results);
+                        Console.WriteLine("Test results published to: {0}".With(filePath));
+                    }
                 }
                 didWriteToFile = true;
             }
