@@ -15,7 +15,7 @@ skip_commits:
   message: /docs\(.*\):/
   files:
   - '*.md'
-  - 'examples/**'
+  - examples/**
 
 install:
 - ps: sln\Set-BuildVersion.ps1
