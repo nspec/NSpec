@@ -61,15 +61,21 @@ PM> Install-Package FluentAssertions
 
 - Then run the tests using `NSpecRunner.exe`:
 
-```console
-PM> NSpecRunner.exe YourClassLibraryName\bin\debug\YourClassLibraryName.dll
-my first spec
-  asserts at the method level
-  describe nesting
-    asserts in a method
-    more nesting
-      also asserts in a lambda
-```
+  ```console
+  PM> NSpecRunner.exe YourClassLibraryProject\bin\debug\YourClassLibraryProject.dll
+  my first spec
+    asserts at the method level
+    describe nesting
+      asserts in a method
+      more nesting
+        also asserts in a lambda
+  ```
+
+  If you're not in Package Manager Console, but just in a regular command or PowerShell prompt, move to your solution directory and invoke runner by its full path:
+
+  ```console
+  > packages\NSpec.x.y.z\tools\net451\win7-x64\NSpecRunner.exe YourClassLibraryProject\bin\debug\YourClassLibraryProject.dll
+  ```
 
 ### .NET Core
 
