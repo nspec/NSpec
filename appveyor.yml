@@ -13,7 +13,9 @@ shallow_clone: true
 
 skip_commits:
   message: /docs\(.*\):/
-  files: '*.md'
+  files:
+  - '*.md'
+  - 'examples/**'
 
 install:
 - ps: sln\Set-BuildVersion.ps1
