@@ -41,6 +41,7 @@ namespace NSpec.Domain.Formatters
                     writer.WriteLine(results);
                     Console.WriteLine("Test results published to: {0}".With(filePath));
                 }
+
                 didWriteToFile = true;
             }
             if (didWriteToFile && Options.ContainsKey("console"))

@@ -3,10 +3,10 @@ using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using NSpec.Tests.WhenRunningSpecs;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace NSpec.Tests
 {
@@ -73,9 +73,26 @@ namespace NSpec.Tests
         [Test]
         public void all_output_is_flushed_to_file()
         {
-            string content = File.ReadAllText(outFilePath);
+            string actual = File.ReadAllText(outFilePath);
 
-            content.Should().EndWith("</testsuite></testsuites>\r\n");
+            actual.Should().EndWith("</testsuite></testsuites>\r\n");
+        }
+
+        [Test]
+        public void output_file_starts_with_utf16_bom()
+        {
+            var utf16Encoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: true);
+
+            byte[] expected = utf16Encoding.GetPreamble();
+
+            byte[] actual = new byte[expected.Length];
+
+            using (var fstream = new FileStream(outFilePath, FileMode.Open))
+            {
+                fstream.Read(actual, 0, actual.Length);
+
+                actual.ShouldBeEquivalentTo(expected);
+            }
         }
 
         XUnitFormatter formatter;
