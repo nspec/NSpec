@@ -25,21 +25,21 @@ namespace NSpec.Domain.Formatters
             xml.WriteAttributeString("skip", contexts.Pendings().Count().ToString());
 
             contexts.Do(c => this.BuildContext(xmlWrapper, c));
+
             xml.WriteEndElement();
             xml.Flush();
+
             var results = sb.ToString();
             bool didWriteToFile = false;
             if (Options.ContainsKey("file"))
             {
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), Options["file"]);
 
-                using (var fs = new FileStream(filePath, FileMode.Create))
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var writer = new StreamWriter(stream, Encoding.Unicode))
                 {
-                    using (StreamWriter ostream = new StreamWriter(fs, Encoding.Unicode))
-                    {
-                        ostream.WriteLine(results);
-                        Console.WriteLine("Test results published to: {0}".With(filePath));
-                    }
+                    writer.WriteLine(results);
+                    Console.WriteLine("Test results published to: {0}".With(filePath));
                 }
                 didWriteToFile = true;
             }
