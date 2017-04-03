@@ -2,6 +2,7 @@
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -9,10 +10,9 @@ using System.Text;
 
 namespace NSpec.Tests
 {
-    [TestFixture]
-    public class describe_XUnitFormatter
+    public abstract class describe_XUnitFormatter_base
     {
-        class xunit_formatter_sample_spec : nspec
+        protected class xunit_formatter_sample_spec : nspec
         {
             void a_context_with_a_pending_example()
             {
@@ -29,7 +29,11 @@ namespace NSpec.Tests
 
             void a_context_without_an_example() { }
         }
+    }
 
+    [TestFixture]
+    public class describe_XUnitFormatter : describe_XUnitFormatter_base
+    {
         [SetUp]
         public void Setup()
         {
@@ -97,5 +101,39 @@ namespace NSpec.Tests
         XUnitFormatter formatter;
         string outFilePath;
         ContextCollection contexts;
+    }
+
+    [TestFixture]
+    public class describe_XUnitFormatter_without_options : describe_XUnitFormatter_base
+    {
+        [SetUp]
+        public void Setup()
+        {
+            formatter = new XUnitFormatter();
+
+            Run(typeof(xunit_formatter_sample_spec));
+        }
+
+        [Test]
+        public void writing_does_not_throw()
+        {
+            formatter.Write(contextCollection);
+        }
+
+        // TODO refactor this with WhenRunningSpecs.when_running_specs
+
+        protected void Run(params Type[] types)
+        {
+            var tagsFilter = new Tags().Parse("");
+
+            var builder = new ContextBuilder(new SpecFinder(types), tagsFilter, new DefaultConventions());
+
+            contextCollection = builder.Contexts();
+
+            contextCollection.Build();
+        }
+
+        XUnitFormatter formatter;
+        ContextCollection contextCollection;
     }
 }

@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
 
 namespace NSpec.Domain.Formatters
 {
     public class XUnitFormatter : IFormatter
     {
+        public XUnitFormatter()
+        {
+            Options = new Dictionary<string, string>();
+        }
+
         public void Write(ContextCollection contexts)
         {
             StringBuilder sb = new StringBuilder();
