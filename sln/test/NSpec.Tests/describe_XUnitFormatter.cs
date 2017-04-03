@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
-using NSpec.Tests.WhenRunningSpecs;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
@@ -53,7 +52,7 @@ namespace NSpec.Tests
             };
 
             var invocation = new RunnerInvocation(
-                dll: typeof(describe_LiveFormatter_with_context_filter).GetTypeInfo().Assembly.Location,
+                dll: typeof(describe_XUnitFormatter).GetTypeInfo().Assembly.Location,
                 tags: typeof(xunit_formatter_sample_spec).Name,
                 formatter: formatter,
                 failFast: false);
