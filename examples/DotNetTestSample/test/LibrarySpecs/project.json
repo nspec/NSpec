@@ -8,7 +8,7 @@
     "LibraryUnderTest": {
       "target": "project"
     },
-    "NSpec": "3.0.6",
+    "NSpec": "3.0.7",
     "Shouldly": "2.8.2"
   },
 
