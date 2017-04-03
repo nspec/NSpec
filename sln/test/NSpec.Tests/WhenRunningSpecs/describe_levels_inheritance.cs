@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace NSpec.Tests.WhenRunningSpecs
 {
-    public class describe_Levels_Inheritance : when_running_specs
+    public class describe_levels_inheritance : when_running_specs
     {
         class parent_context : nspec { }
 
