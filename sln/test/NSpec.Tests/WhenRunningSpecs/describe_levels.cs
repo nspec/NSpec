@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace NSpec.Tests.WhenRunningSpecs
 {
-    public class describe_Levels : when_running_specs
+    public class describe_levels : when_running_specs
     {
         class describe_numbers : nspec
         {

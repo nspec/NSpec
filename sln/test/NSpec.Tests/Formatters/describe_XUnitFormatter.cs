@@ -8,7 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace NSpec.Tests
+namespace NSpec.Tests.Formatters
 {
     public abstract class describe_XUnitFormatter_base
     {
