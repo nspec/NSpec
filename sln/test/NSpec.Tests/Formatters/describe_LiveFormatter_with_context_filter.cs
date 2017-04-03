@@ -5,7 +5,7 @@ using NSpec.Domain.Formatters;
 using NUnit.Framework;
 using FluentAssertions;
 
-namespace NSpec.Tests.WhenRunningSpecs
+namespace NSpec.Tests.Formatters
 {
     [TestFixture]
     public class describe_LiveFormatter_with_context_filter
@@ -86,34 +86,5 @@ namespace NSpec.Tests.WhenRunningSpecs
 
         FormatterStub formatter;
         ContextCollection contexts;
-    }
-
-    public class FormatterStub : IFormatter, ILiveFormatter
-    {
-        public List<Context> WrittenContexts;
-        public List<ExampleBase> WrittenExamples;
-
-        public FormatterStub()
-        {
-            WrittenContexts = new List<Context>();
-            WrittenExamples = new List<ExampleBase>();
-        }
-
-        public void Write(ContextCollection contexts)
-        {
-        }
-
-        public IDictionary<string, string> Options { get; set; }
-
-
-        public void Write(Context context)
-        {
-            WrittenContexts.Add(context);
-        }
-
-        public void Write(ExampleBase example, int level)
-        {
-            WrittenExamples.Add(example);
-        }
     }
 }
