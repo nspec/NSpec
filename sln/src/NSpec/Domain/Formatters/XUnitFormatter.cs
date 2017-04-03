@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
 
 namespace NSpec.Domain.Formatters
 {
     public class XUnitFormatter : IFormatter
     {
+        public XUnitFormatter()
+        {
+            Options = new Dictionary<string, string>();
+        }
+
         public void Write(ContextCollection contexts)
         {
             StringBuilder sb = new StringBuilder();
@@ -25,18 +29,23 @@ namespace NSpec.Domain.Formatters
             xml.WriteAttributeString("skip", contexts.Pendings().Count().ToString());
 
             contexts.Do(c => this.BuildContext(xmlWrapper, c));
+
             xml.WriteEndElement();
+            xml.Flush();
+
             var results = sb.ToString();
             bool didWriteToFile = false;
             if (Options.ContainsKey("file"))
             {
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), Options["file"]);
 
-                using (StreamWriter ostream = File.CreateText(filePath))
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var writer = new StreamWriter(stream, Encoding.Unicode))
                 {
-                    ostream.WriteLine(results);
+                    writer.WriteLine(results);
                     Console.WriteLine("Test results published to: {0}".With(filePath));
                 }
+
                 didWriteToFile = true;
             }
             if (didWriteToFile && Options.ContainsKey("console"))
