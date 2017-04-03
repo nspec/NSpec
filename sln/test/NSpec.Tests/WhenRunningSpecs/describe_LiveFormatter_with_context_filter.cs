@@ -8,7 +8,7 @@ using FluentAssertions;
 namespace NSpec.Tests.WhenRunningSpecs
 {
     [TestFixture]
-    public class describe_LiveFormatter_with_context_filter : when_running_specs
+    public class describe_LiveFormatter_with_context_filter
     {
         class liveconsole_sample_spec : nspec
         {
@@ -33,7 +33,11 @@ namespace NSpec.Tests.WhenRunningSpecs
         {
             formatter = new FormatterStub();
 
-            var invocation = new RunnerInvocation(typeof(describe_LiveFormatter_with_context_filter).GetTypeInfo().Assembly.Location, typeof(liveconsole_sample_spec).Name, formatter, false);
+            var invocation = new RunnerInvocation(
+                dll: typeof(describe_LiveFormatter_with_context_filter).GetTypeInfo().Assembly.Location,
+                tags: typeof(liveconsole_sample_spec).Name,
+                formatter: formatter,
+                failFast: false);
 
             contexts = invocation.Run();
         }
@@ -79,6 +83,9 @@ namespace NSpec.Tests.WhenRunningSpecs
         {
             formatter.WrittenExamples.Should().Contain(contexts.FindExample("pending example"));
         }
+
+        FormatterStub formatter;
+        ContextCollection contexts;
     }
 
     public class FormatterStub : IFormatter, ILiveFormatter
