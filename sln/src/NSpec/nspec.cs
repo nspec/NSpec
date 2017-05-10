@@ -288,6 +288,20 @@ namespace NSpec
         /// </summary>
         public readonly Func<Task> todoAsync = () => Task.Run(() => { });
 
+        public Action expectNoExceptions
+        {
+            get
+            {
+                var specContext = Context;
+
+                return () =>
+                {
+                    if (specContext.Exception != null)
+                        throw specContext.Exception;
+                };
+            }
+        }
+
         /// <summary>
         /// Set up an expectation for a particular exception type to be thrown before expectation.
         /// <para>For Example:</para>
