@@ -45,19 +45,19 @@ namespace NSpec.Tests.Formatters
         [Test]
         public void it_writes_the_example()
         {
-            formatter.WrittenExamples.Should().Contain(contexts.FindExample("liveconsole: 1 is 1"));
+            formatter.WrittenExamples.Should().Contain(e => e.Spec == "liveconsole: 1 is 1");
         }
 
         [Test]
         public void it_writes_contexts_with_examples()
         {
-            formatter.WrittenContexts.Should().Contain(contexts.Find("a context with an example"));
+            formatter.WrittenContexts.Should().Contain(c => c.Name == "a context with an example");
         }
 
         [Test]
         public void it_writes_context_with_grandchild_examples()
         {
-            formatter.WrittenContexts.Should().Contain(contexts.Find("a context with a grandchild example"));
+            formatter.WrittenContexts.Should().Contain(c => c.Name == "a context with a grandchild example");
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace NSpec.Tests.Formatters
         [Test]
         public void it_writes_the_pending_example()
         {
-            formatter.WrittenExamples.Should().Contain(contexts.FindExample("pending example"));
+            formatter.WrittenExamples.Should().Contain(e => e.Spec == "pending example");
         }
 
         FormatterStub formatter;

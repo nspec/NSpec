@@ -18,12 +18,15 @@ namespace NSpec.Domain.Formatters
         {
             Console.ForegroundColor = ConsoleColor.Red;
             WriteLineDelegate(FailureSummary(contexts));
+
             Console.ForegroundColor = ConsoleColor.White;
             WriteLineDelegate(Summary(contexts));
+
             Console.ResetColor();
         }
 
         public IDictionary<string, string> Options { get; set; }
+
         public void Write(Context context)
         {
             if (context.Level == 1) WriteLineDelegate("");
@@ -33,6 +36,7 @@ namespace NSpec.Domain.Formatters
             if (!string.IsNullOrEmpty(context.CapturedOutput))
             {
                 WriteLineDelegate(indent.Times(context.Level - 1) + "//Console output");
+
                 foreach (var l in context.CapturedOutput.TrimEnd('\n').Split('\n'))
                 {
                     WriteLineDelegate(indent.Times(context.Level - 1) + l);
@@ -44,11 +48,14 @@ namespace NSpec.Domain.Formatters
         {
             var noFailure = e.Exception == null;
 
-            var failureMessage = noFailure ? "" : " - FAILED - {0}".With(e.Exception.CleanMessage());
+            var failureMessage = noFailure
+                ? ""
+                : " - FAILED - {0}".With(e.Exception.CleanMessage());
 
             var whiteSpace = indent.Times(level);
 
             string duration;
+
             if (e.Duration.TotalMinutes > 1)
             {
                 duration = string.Format(" ({0}min {1}s)", e.Duration.Minutes, e.Duration.Seconds);
@@ -62,7 +69,9 @@ namespace NSpec.Domain.Formatters
                 duration = string.Format(" ({0:F0}ms)", e.Duration.TotalMilliseconds);
             }
 
-            var result = e.Pending ? whiteSpace + e.Spec + " - PENDING" : whiteSpace + e.Spec + duration + failureMessage;
+            var result = e.Pending
+                ? whiteSpace + e.Spec + " - PENDING"
+                : whiteSpace + e.Spec + duration + failureMessage;
 
             Console.ForegroundColor = ConsoleColor.Green;
 
@@ -77,6 +86,7 @@ namespace NSpec.Domain.Formatters
             if (!string.IsNullOrWhiteSpace(e.CapturedOutput))
             {
                 WriteLineDelegate(indent.Times(level + 1) + "//Console output");
+
                 foreach (var line in e.CapturedOutput.TrimEnd('\n').Split('\n'))
                 {
                     WriteLineDelegate(indent.Times(level + 1) + line);

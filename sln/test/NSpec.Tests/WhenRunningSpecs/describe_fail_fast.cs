@@ -63,9 +63,9 @@ namespace NSpec.Tests.WhenRunningSpecs
 
             formatter.WrittenExamples.Count.Should().Be(2);
 
-            formatter.WrittenExamples.First().FullName().Should().Contain("this one isn't a failure");
+            formatter.WrittenExamples.First().FullName.Should().Contain("this one isn't a failure");
 
-            formatter.WrittenExamples.Last().FullName().Should().Contain("this one is a failure");
+            formatter.WrittenExamples.Last().FullName.Should().Contain("this one is a failure");
         }
     }
 }
