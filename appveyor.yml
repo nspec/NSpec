@@ -1,5 +1,7 @@
 ﻿version: '{build}'
 
+image: Visual Studio 2015
+
 branches:
   only:
   - master
@@ -27,7 +29,7 @@ test: off
 
 artifacts:
 - path: sln\src\NSpec\publish\*.nupkg
-  name: NSpec
+  name: NuGet package
 
 deploy:
 - provider: NuGet
