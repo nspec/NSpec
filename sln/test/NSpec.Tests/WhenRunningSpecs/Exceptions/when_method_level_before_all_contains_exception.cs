@@ -6,11 +6,9 @@ using FluentAssertions;
 
 namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 {
-    [TestFixture]
-    [Category("RunningSpecs")]
-    public class when_method_level_before_all_contains_exception : when_running_specs
+    static class MethodBeforeAllThrows
     {
-        class MethodBeforeAllThrowsSpecClass : nspec
+        public class SpecClass : nspec
         {
             void before_all()
             {
@@ -28,10 +26,23 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
             }
         }
 
+        public class ChildSpecClass : SpecClass
+        {
+            void it_should_fail_because_of_parent()
+            {
+                Assert.That(true, Is.True);
+            }
+        }
+    }
+
+    [TestFixture]
+    [Category("RunningSpecs")]
+    public class when_method_level_before_all_contains_exception : when_running_specs
+    {
         [SetUp]
         public void setup()
         {
-            Run(typeof(MethodBeforeAllThrowsSpecClass));
+            Run(typeof(MethodBeforeAllThrows.SpecClass));
         }
 
         [Test]
@@ -45,11 +56,36 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [Test]
         public void the_second_example_should_fail_with_framework_exception()
         {
-            var example = classContext.AllExamples().Last();
+            var example = classContext.AllExamples().Skip(1).First();
 
             example.Exception.Should().BeAssignableTo<ExampleFailureException>();
         }
+    }
 
-        class BeforeAllException : Exception { }
+    [TestFixture]
+    [Category("RunningSpecs")]
+    public class when_parent_method_level_before_all_contains_exception : when_running_specs
+    {
+        [SetUp]
+        public void setup()
+        {
+            Run(typeof(MethodBeforeAllThrows.ChildSpecClass));
+        }
+
+        [Test]
+        public void the_example_level_failure_should_indicate_a_context_failure()
+        {
+            var example = TheExample("it should fail because of parent");
+
+            example.Exception.Should().BeOfType<ExampleFailureException>();
+        }
+
+        [Test]
+        public void examples_with_only_before_all_failure_should_fail_because_of_before_all()
+        {
+            var example = TheExample("it should fail because of parent");
+
+            example.Exception.InnerException.Should().BeOfType<BeforeAllException>();
+        }
     }
 }
