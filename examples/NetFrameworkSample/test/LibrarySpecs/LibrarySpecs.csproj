@@ -61,7 +61,6 @@
   <ItemGroup>
     <Compile Include="DebuggerShim.cs" />
     <Compile Include="describe_ConstantGenerator.cs" />
-    <Compile Include="describe_parent_before_all_throwing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
