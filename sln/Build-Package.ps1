@@ -40,7 +40,7 @@ function CleanProject([string]$projectPath) {
 	) | ForEach-Object { CleanContent $_ }
 }
 
-function GetVersionOptions([string]$nuSpecPath) {
+function GetVersionOptions() {
 	$isContinuous = [bool]$env:APPVEYOR
 	$isProduction = [bool]$env:APPVEYOR_REPO_TAG_NAME
 
@@ -64,12 +64,38 @@ function GetVersionOptions([string]$nuSpecPath) {
 	return $versionOpts
 }
 
+# Toolchain commands
+
+function RestoreProject([string]$projectPath) {
+	Exec { & dotnet restore $projectPath } "Restoring $projectPath"
+}
+
+function BuildProject([string]$projectPath) {
+	Exec { & dotnet build -c Release $projectPath } "Building $projectPath"
+}
+
+function TestProject([string]$projectPath) {
+	Exec { & dotnet test -c Release $projectPath } "Testing $projectPath"
+}
+
+function PackageProject([string]$projectPath, [string[]]$versionOpts) {
+	$projName = Split-Path $projectPath -Leaf
+	$nuspecFile = Join-Path $projectPath "$projName.nuspec"
+	$publishDir = Join-Path $projectPath "publish"
+
+	Exec {
+		& nuget pack $nuspecFile $versionOpts -outputdirectory $publishDir -properties Configuration=Release
+
+	} "Packaging $_"
+}
+
 ###
 
 # Main
 
 # move to global.json directory
 Push-Location sln
+
 
 # Clean
 @(
@@ -82,7 +108,8 @@ Push-Location sln
 
 ) | ForEach-Object { CleanProject $_ }
 
-# Initialize
+
+# Restore
 @(
 	"src\NSpec", `
 	"src\NSpecRunner", `
@@ -91,7 +118,7 @@ Push-Location sln
 	"test\Samples\SampleSpecsApi", `
 	"test\Samples\SampleSpecsFocus"
 
-) | ForEach-Object { Exec { & dotnet restore $_ } }
+) | ForEach-Object { RestoreProject $_ }
 
 
 # Build
@@ -100,23 +127,23 @@ Push-Location sln
 	"src\NSpecRunner", `
 	"test\NSpec.Tests"
 
-) | ForEach-Object { Exec { & dotnet build -c Release $_ } }
+) | ForEach-Object { BuildProject $_ }
 
 
 # Test
 @(
 	"test\NSpec.Tests"
 
-) | ForEach-Object { Exec { & dotnet test -c Release $_ } }
+) | ForEach-Object { TestProject $_ }
+
 
 # Package
-$versionOpts = GetVersionOptions "src\NSpec\NSpec.nuspec"
+$versionOpts = GetVersionOptions
 
-Exec {
-	& nuget pack src\NSpec\NSpec.nuspec `
-		$versionOpts `
-		-outputdirectory src\NSpec\publish\ `
-		-properties Configuration=Release
-}
+@(
+	"src\NSpec"
+
+) | ForEach-Object { PackageProject $_ $versionOpts }
+
 
 Pop-Location
