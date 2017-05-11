@@ -16,19 +16,33 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 
             void should_fail_this_example()
             {
-                it["should fail"] = () => Assert.That("hello", Is.EqualTo("hello"));
+                it["should fail"] = () =>
+                {
+                    CountTestThatShouldNotRun++;
+
+                    Assert.That("hello", Is.EqualTo("hello"));
+                };
             }
 
             void should_also_fail_this_example()
             {
-                it["should also fail"] = () => Assert.That("hello", Is.EqualTo("hello"));
+                it["should also fail"] = () =>
+                {
+                    CountTestThatShouldNotRun++;
+
+                    Assert.That("hello", Is.EqualTo("hello"));
+                };
             }
+
+            public static int CountTestThatShouldNotRun = 0;
         }
 
         public class ChildSpecClass : SpecClass
         {
             void it_should_fail_because_of_parent()
             {
+                CountTestThatShouldNotRun++;
+
                 Assert.That(true, Is.True);
             }
         }
@@ -60,6 +74,12 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         public void examples_should_fail_for_formatter()
         {
             formatter.WrittenExamples.Should().OnlyContain(e => e.Failed);
+        }
+
+        [Test]
+        public void examples_body_should_not_run()
+        {
+            MethodBeforeAllThrows.SpecClass.CountTestThatShouldNotRun.Should().Be(0);
         }
     }
 
@@ -93,6 +113,12 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         public void examples_should_fail_for_formatter()
         {
             formatter.WrittenExamples.Should().OnlyContain(e => e.Failed);
+        }
+
+        [Test]
+        public void examples_body_should_not_run()
+        {
+            MethodBeforeAllThrows.ChildSpecClass.CountTestThatShouldNotRun.Should().Be(0);
         }
     }
 }
