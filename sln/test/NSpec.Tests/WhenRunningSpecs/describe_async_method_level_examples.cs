@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using NSpec.Domain;
 using NUnit.Framework;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NSpec.Tests.WhenRunningSpecs
@@ -74,7 +75,7 @@ namespace NSpec.Tests.WhenRunningSpecs
         [Test]
         public void async_example_with_result_should_fail()
         {
-            var example = classContext.Examples[0];
+            var example = contexts.Examples().First();
 
             example.HasRun.Should().BeTrue();
 
@@ -86,7 +87,7 @@ namespace NSpec.Tests.WhenRunningSpecs
         [Test]
         public void async_example_with_void_should_fail()
         {
-            var example = classContext.Examples[1];
+            var example = contexts.Examples().Last();
 
             example.HasRun.Should().BeTrue();
 

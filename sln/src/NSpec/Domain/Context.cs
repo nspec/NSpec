@@ -226,13 +226,13 @@ namespace NSpec.Domain
         }
 
         /// <summary>
-        /// Test execution happens in two phases: this is the first phase.
+        /// Test execution happens in three phases: this is the first phase.
         /// </summary>
         /// <remarks>
         /// Here all contexts and all their examples are run, collecting distinct exceptions
         /// from context itself (befores/ acts/ it/ afters), beforeAll, afterAll.
         /// </remarks>
-        public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null, bool recurse = true)
+        public virtual void Run(bool failFast, nspec instance = null, bool recurse = true)
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
@@ -256,26 +256,19 @@ namespace NSpec.Domain
                 {
                     Exercise(example, nspec);
                 }
-
-                if (example.HasRun && !alreadyWritten)
-                {
-                    WriteAncestors(formatter);
-                    alreadyWritten = true;
-                }
-
-                if (example.HasRun) formatter.Write(example, Level);
             }
 
             if (recurse)
             {
-                Contexts.Do(c => c.Run(formatter, failFast, nspec));
+                Contexts.Do(c => c.Run(failFast, nspec, recurse));
             }
 
+            // TODO wrap this as well in a ConsoleCatcher, not before adding tests about it
             if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref ExceptionAfterAll);
         }
 
         /// <summary>
-        /// Test execution happens in two phases: this is the second phase.
+        /// Test execution happens in three phases: this is the second phase.
         /// </summary>
         /// <remarks>
         /// Here all contexts and all their examples are traversed again to set proper exception
@@ -310,6 +303,35 @@ namespace NSpec.Domain
             if (recurse)
             {
                 Contexts.Do(c => c.AssignExceptions(inheritedBeforeAllException, inheritedAfterAllException, recurse));
+            }
+        }
+
+        /// <summary>
+        /// Test execution happens in three phases: this is the third phase.
+        /// </summary>
+        /// <remarks>
+        /// Here all examples are written out to formatter, together with their contexts,
+        /// befores, acts, afters, beforeAll, afterAll.
+        /// </remarks>
+        public virtual void Write(ILiveFormatter formatter, bool recurse = true)
+        {
+            for (int i = 0; i < Examples.Count; i++)
+            {
+                var example = Examples[i];
+
+                if (example.HasRun && !alreadyWritten)
+                {
+                    WriteAncestors(formatter);
+                    // TODO consider modifying WriteAncestors() so that alreadyWritten is set within it
+                    alreadyWritten = true;
+                }
+
+                if (example.HasRun) formatter.Write(example, Level);
+            }
+
+            if (recurse)
+            {
+                Contexts.Do(c => c.Write(formatter, recurse));
             }
         }
 

@@ -49,13 +49,13 @@ namespace NSpec.Tests.WhenRunningSpecs
         [Test]
         public void the_class_context_should_contain_a_class_level_example()
         {
-            classContext.Examples.Count.Should().Be(2);
+            contexts.Examples().Count().Should().Be(2);
         }
 
         [Test]
         public void there_should_be_only_one_failure()
         {
-            classContext.Failures().Count().Should().Be(1);
+            contexts.Failures().Count().Should().Be(1);
         }
 
         [Test]
@@ -73,13 +73,13 @@ namespace NSpec.Tests.WhenRunningSpecs
         [Test]
         public void the_last_example_should_be_failing()
         {
-            classContext.Examples.Last().Exception.Should().BeAssignableTo<NUnit.Framework.AssertionException>();
+            contexts.Examples().Last().Exception.Should().BeAssignableTo<NUnit.Framework.AssertionException>();
         }
 
         [Test]
         public void the_stack_trace_for_last_example_should_be_the_the_original_stack_trace()
         {
-            classContext.Examples.Last().Exception.StackTrace.Should().NotMatch("^.*at NSpec.Domain.Example");
+            contexts.Examples().Last().Exception.StackTrace.Should().NotMatch("^.*at NSpec.Domain.Example");
         }
     }
 
@@ -93,13 +93,13 @@ namespace NSpec.Tests.WhenRunningSpecs
 
             var contextBuilder = new ContextBuilder(new SpecFinder(reflector.Object), new DefaultConventions());
 
-            classContext = contextBuilder.Contexts().First();
+            contexts = contextBuilder.Contexts();
 
-            classContext.Build();
+            contexts.Build();
 
-            classContext.Run(new SilentLiveFormatter(), failFast: false);
+            contexts.Run(new SilentLiveFormatter(), failFast: false);
         }
 
-        protected Context classContext;
+        protected ContextCollection contexts;
     }
 }
