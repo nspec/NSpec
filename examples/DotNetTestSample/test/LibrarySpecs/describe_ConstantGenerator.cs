@@ -1,4 +1,5 @@
-﻿using LibraryUnderTest;
+﻿/*
+using LibraryUnderTest;
 using NSpec;
 using Shouldly;
 
@@ -28,3 +29,4 @@ namespace LibrarySpecs
         }
     }
 }
+*/
