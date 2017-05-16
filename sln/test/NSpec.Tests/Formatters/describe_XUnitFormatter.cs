@@ -76,9 +76,10 @@ namespace NSpec.Tests.Formatters
         [Test]
         public void all_output_is_flushed_to_file()
         {
-            string actual = File.ReadAllText(outFilePath);
+            string actual = File.ReadAllText(outFilePath).TrimEnd(
+                Environment.NewLine.ToCharArray());
 
-            actual.Should().EndWith("</testsuite></testsuites>\r\n");
+            actual.Should().EndWith("</testsuite></testsuites>");
         }
 
         [Test]

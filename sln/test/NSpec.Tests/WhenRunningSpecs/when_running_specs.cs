@@ -90,7 +90,6 @@ namespace NSpec.Tests.WhenRunningSpecs
         protected ClassContext classContext;
         protected bool failFast;
         protected Context methodContext;
-        protected ContextCollection contexts;
         protected FormatterStub formatter;
         ContextRunner runner;
         protected Type[] types;
