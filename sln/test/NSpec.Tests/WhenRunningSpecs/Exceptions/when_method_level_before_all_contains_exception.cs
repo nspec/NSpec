@@ -20,8 +20,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
                 it["should fail"] = () =>
                 {
                     ExamplesRun.Add("should fail");
-
-                    Assert.That("hello", Is.EqualTo("hello"));
+                    Assert.That(true, Is.True);
                 };
             }
 
@@ -30,8 +29,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
                 it["should also fail"] = () =>
                 {
                     ExamplesRun.Add("should also fail");
-                    
-                    Assert.That("hello", Is.EqualTo("hello"));
+                    Assert.That(true, Is.True);
                 };
             }
 
@@ -43,7 +41,6 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
             void it_should_fail_because_of_parent()
             {
                 ExamplesRun.Add("it_should_fail_because_of_parent");
-
                 Assert.That(true, Is.True);
             }
         }

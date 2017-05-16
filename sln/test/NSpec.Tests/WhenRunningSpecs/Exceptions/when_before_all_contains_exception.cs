@@ -1,6 +1,7 @@
 ﻿using NSpec.Domain;
 using NUnit.Framework;
 using FluentAssertions;
+using System.Collections.Generic;
 
 namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 {
@@ -17,38 +18,68 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
                 // just by its presence, this will enforce tests as it should never be reported
                 afterAll = () => { throw new AfterAllException(); };
 
-                it["should fail this example because of beforeAll"] = () => Assert.That(true, Is.True);
+                it["should fail this example because of beforeAll"] = () =>
+                {
+                    ExamplesRun.Add("should fail this example because of beforeAll");
+                    Assert.That(true, Is.True);
+                };
 
-                it["should also fail this example because of beforeAll"] = () => Assert.That(true, Is.True);
+                it["should also fail this example because of beforeAll"] = () =>
+                {
+                    ExamplesRun.Add("should also fail this example because of beforeAll");
+                    Assert.That(true, Is.True);
+                };
 
-                it["overrides exception from same level it"] = () => { throw new ItException(); };
+                it["overrides exception from same level it"] = () =>
+                {
+                    ExamplesRun.Add("overrides exception from same level it");
+                    throw new ItException();
+                };
 
                 context["exception thrown by both beforeAll and nested before"] = () =>
                 {
                     before = () => { throw new BeforeException(); };
 
-                    it["overrides exception from nested before"] = () => Assert.That(true, Is.True);
+                    it["overrides exception from nested before"] = () =>
+                    {
+                        ExamplesRun.Add("overrides exception from nested before");
+                        Assert.That(true, Is.True);
+                    };
                 };
 
                 context["exception thrown by both beforeAll and nested act"] = () =>
                 {
                     act = () => { throw new ActException(); };
 
-                    it["overrides exception from nested act"] = () => Assert.That(true, Is.True);
+                    it["overrides exception from nested act"] = () =>
+                    {
+                        ExamplesRun.Add("verrides exception from nested act");
+                        Assert.That(true, Is.True);
+                    };
                 };
 
                 context["exception thrown by both beforeAll and nested it"] = () =>
                 {
-                    it["overrides exception from nested it"] = () => { throw new ItException(); };
+                    it["overrides exception from nested it"] = () =>
+                    {
+                        ExamplesRun.Add("overrides exception from nested it");
+                        throw new ItException();
+                    };
                 };
 
                 context["exception thrown by both beforeAll and nested after"] = () =>
                 {
-                    it["overrides exception from nested after"] = () => Assert.That(true, Is.True);
+                    it["overrides exception from nested after"] = () =>
+                    {
+                        ExamplesRun.Add("exception thrown by both beforeAll and nested after");
+                        Assert.That(true, Is.True);
+                    };
 
                     after = () => { throw new AfterException(); };
                 };
             }
+
+            public static List<string> ExamplesRun = new List<string>();
         }
 
         [SetUp]
@@ -118,6 +149,18 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         {
             TheExample("overrides exception from nested after")
                 .Exception.InnerException.Should().BeOfType<BeforeAllException>();
+        }
+
+        [Test]
+        public void examples_should_fail_for_formatter()
+        {
+            formatter.WrittenExamples.Should().OnlyContain(e => e.Failed);
+        }
+
+        [Test]
+        public void examples_body_should_not_run()
+        {
+            BeforeAllThrowsSpecClass.ExamplesRun.Should().BeEmpty();
         }
     }
 }
