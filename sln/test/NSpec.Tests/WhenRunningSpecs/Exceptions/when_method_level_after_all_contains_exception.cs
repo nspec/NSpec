@@ -23,8 +23,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
                 it["should fail"] = () =>
                 {
                     ExamplesRun.Add("should fail");
-
-                    Assert.That("hello", Is.EqualTo("hello"));
+                    Assert.That(true, Is.True);
                 };
             }
 
@@ -33,8 +32,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
                 it["should also fail"] = () =>
                 {
                     ExamplesRun.Add("should also fail");
-                    
-                    Assert.That("hello", Is.EqualTo("hello"));
+                    Assert.That(true, Is.True);
                 };
             }
 
