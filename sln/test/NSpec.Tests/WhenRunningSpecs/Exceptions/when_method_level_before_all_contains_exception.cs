@@ -2,6 +2,7 @@
 using NSpec.Domain;
 using NUnit.Framework;
 using FluentAssertions;
+using System.Collections.Generic;
 
 namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 {
@@ -18,7 +19,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
             {
                 it["should fail"] = () =>
                 {
-                    CountTestThatShouldNotRun++;
+                    ExamplesRun.Add("should fail");
 
                     Assert.That("hello", Is.EqualTo("hello"));
                 };
@@ -28,20 +29,20 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
             {
                 it["should also fail"] = () =>
                 {
-                    CountTestThatShouldNotRun++;
-
+                    ExamplesRun.Add("should also fail");
+                    
                     Assert.That("hello", Is.EqualTo("hello"));
                 };
             }
 
-            public static int CountTestThatShouldNotRun = 0;
+            public static List<string> ExamplesRun = new List<string>();
         }
 
         public class ChildSpecClass : SpecClass
         {
             void it_should_fail_because_of_parent()
             {
-                CountTestThatShouldNotRun++;
+                ExamplesRun.Add("it_should_fail_because_of_parent");
 
                 Assert.That(true, Is.True);
             }
@@ -55,6 +56,8 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
+            MethodBeforeAllThrows.SpecClass.ExamplesRun.Clear();
+
             Run(typeof(MethodBeforeAllThrows.SpecClass));
         }
 
@@ -65,9 +68,9 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         }
 
         [Test]
-        public void examples_with_only_before_all_failure_should_fail_because_of_before_all()
+        public void examples_with_only_before_all_failure_should_fail_because_of_that()
         {
-            classContext.AllExamples().Should().OnlyContain(e => e.Exception.InnerException is BeforeAllException);
+           classContext.AllExamples().Should().OnlyContain(e => e.Exception.InnerException is BeforeAllException);
         }
 
         [Test]
@@ -79,7 +82,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [Test]
         public void examples_body_should_not_run()
         {
-            MethodBeforeAllThrows.SpecClass.CountTestThatShouldNotRun.Should().Be(0);
+            MethodBeforeAllThrows.SpecClass.ExamplesRun.Should().BeEmpty();
         }
     }
 
@@ -90,6 +93,8 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
+            MethodBeforeAllThrows.ChildSpecClass.ExamplesRun.Clear();
+            
             Run(typeof(MethodBeforeAllThrows.ChildSpecClass));
         }
 
@@ -118,7 +123,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [Test]
         public void examples_body_should_not_run()
         {
-            MethodBeforeAllThrows.ChildSpecClass.CountTestThatShouldNotRun.Should().Be(0);
+            MethodBeforeAllThrows.ChildSpecClass.ExamplesRun.Should().BeEmpty();
         }
     }
 }
