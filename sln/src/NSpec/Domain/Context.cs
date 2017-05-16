@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace NSpec.Domain
 {
@@ -236,9 +237,11 @@ namespace NSpec.Domain
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
+            bool anyBeforeAllThrew = AnyBeforeAllThrew();
+
             var nspec = savedInstance ?? instance;
 
-            bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec);
+            bool runBeforeAfterAll = !anyBeforeAllThrew && AnyUnfilteredExampleInSubTree(nspec);
 
             using (new ConsoleCatcher(output => this.CapturedOutput = output))
             {
@@ -254,7 +257,7 @@ namespace NSpec.Domain
 
                 using (new ConsoleCatcher(output => example.CapturedOutput = output))
                 {
-                    Exercise(example, nspec);
+                    Exercise(example, nspec, anyBeforeAllThrew);
                 }
             }
 
@@ -373,7 +376,7 @@ namespace NSpec.Domain
             return hasThrown;
         }
 
-        public void Exercise(ExampleBase example, nspec nspec)
+        public void Exercise(ExampleBase example, nspec nspec, bool anyBeforeAllThrew)
         {
             if (example.ShouldSkip(nspec.tagsFilter))
             {
@@ -382,6 +385,16 @@ namespace NSpec.Domain
 
             example.HasRun = true;
 
+            Stopwatch stopWatch;
+
+            if (anyBeforeAllThrew)
+            {
+                stopWatch = example.StartTiming();
+                example.StopTiming(stopWatch);
+
+                return;
+            }
+
             if (example.Pending)
             {
                 RunAndHandleException(example.RunPending, nspec, ref example.Exception);
@@ -389,7 +402,7 @@ namespace NSpec.Domain
                 return;
             }
 
-            var stopWatch = example.StartTiming();
+            stopWatch = example.StartTiming();
 
             RunAndHandleException(RunBefores, nspec, ref Exception);
 
@@ -446,13 +459,20 @@ namespace NSpec.Domain
             Contexts.Do(c => c.TrimSkippedDescendants());
         }
 
-        bool AnyUnfilteredExampleInSubTree(nspec nspec)
+        bool AnyUnfilteredExampleInSubTree(nspec instance)
         {
-            Func<ExampleBase, bool> shouldNotSkip = e => e.ShouldNotSkip(nspec.tagsFilter);
+            Func<ExampleBase, bool> shouldNotSkip = e => e.ShouldNotSkip(instance.tagsFilter);
 
             bool anyExampleOrSubExample = Examples.Any(shouldNotSkip) || Contexts.Examples().Any(shouldNotSkip);
 
             return anyExampleOrSubExample;
+        }
+
+        bool AnyBeforeAllThrew()
+        {
+            return
+                ExceptionBeforeAll != null ||
+                (Parent != null && Parent.AnyBeforeAllThrew());
         }
 
         public override string ToString()
