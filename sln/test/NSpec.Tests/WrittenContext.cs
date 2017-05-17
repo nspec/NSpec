@@ -15,7 +15,8 @@ namespace NSpec.Tests
             Level = context.Level;
             Tags = new List<string>(context.Tags);
             ExceptionBeforeAll = context.ExceptionBeforeAll;
-            Exception = context.Exception;
+            ExceptionBeforeAct = context.ExceptionBeforeAct;
+            ExceptionAfter = context.ExceptionAfter;
             ExceptionAfterAll = context.ExceptionAfterAll;
             ClearExpectedException = context.ClearExpectedException;
             CapturedOutput = context.CapturedOutput;
@@ -33,7 +34,9 @@ namespace NSpec.Tests
 
         public Exception ExceptionBeforeAll { get; private set; }
 
-        public Exception Exception { get; private set; }
+        public Exception ExceptionBeforeAct { get; private set; }
+
+        public Exception ExceptionAfter { get; private set; }
 
         public Exception ExceptionAfterAll { get; private set; }
 

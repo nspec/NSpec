@@ -289,10 +289,11 @@ namespace NSpec.Domain
             inheritedBeforeAllException = inheritedBeforeAllException ?? ExceptionBeforeAll;
             inheritedAfterAllException = ExceptionAfterAll ?? inheritedAfterAllException;
 
-            // if thrown exception was correctly expected, ignore this context Exception
-            Exception unexpectedException = ClearExpectedException ? null : Exception;
+            // if an exception was thrown before the example (either `before` or `act`) but was expected, ignore it
+            Exception unexpectedException = ClearExpectedException ? null : ExceptionBeforeAct;
 
-            Exception contextException = (inheritedBeforeAllException ?? unexpectedException) ?? inheritedAfterAllException;
+            Exception previousException = inheritedBeforeAllException ?? unexpectedException;
+            Exception followingException = ExceptionAfter ?? inheritedAfterAllException;
 
             for (int i = 0; i < Examples.Count; i++)
             {
@@ -300,7 +301,7 @@ namespace NSpec.Domain
 
                 if (!example.Pending)
                 {
-                    example.AssignProperException(contextException);
+                    example.AssignProperException(previousException, followingException);
                 }
             }
 
@@ -353,7 +354,7 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        public bool RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
+        static bool RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
         {
             bool hasThrown = false;
 
@@ -394,16 +395,19 @@ namespace NSpec.Domain
             }
 
             var stopWatch = example.StartTiming();
-            
+
             if (!anyBeforeAllThrew)
             {
-                RunAndHandleException(RunBefores, nspec, ref Exception);
+                bool exceptionThrownInBefores = RunAndHandleException(RunBefores, nspec, ref ExceptionBeforeAct);
 
-                RunAndHandleException(RunActs, nspec, ref Exception);
+                if (!exceptionThrownInBefores)
+                {
+                    RunAndHandleException(RunActs, nspec, ref ExceptionBeforeAct);
 
-                RunAndHandleException(example.Run, nspec, ref example.Exception);
+                    RunAndHandleException(example.Run, nspec, ref example.Exception);
+                }
 
-                bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref Exception);
+                bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref ExceptionAfter);
 
                 // when an expected exception is thrown and is set to be cleared by 'expect<>',
                 // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
@@ -471,9 +475,17 @@ namespace NSpec.Domain
 
         public override string ToString()
         {
-            string exceptionText = (Exception != null ? ", " + Exception.GetType().Name : String.Empty);
+            string levelText = $"L{Level}";
+            string exampleText = $"{Examples.Count} exm";
+            string contextText = $"{Contexts.Count} exm";
 
-            return String.Format("{0}, L{1}, {2} exm, {3} ctx{4}", Name, Level, Examples.Count, Contexts.Count, exceptionText);
+            var exception = ExceptionBeforeAct ?? ExceptionAfter;
+            string exceptionText = exception?.GetType().Name ?? String.Empty;
+
+            return String.Join(",", new []
+            {
+               Name, levelText, exampleText, contextText, exceptionText, 
+            });
         }
 
         void RecurseAncestors(Action<Context> ancestorAction)
@@ -511,7 +523,7 @@ namespace NSpec.Domain
         public Func<Task> BeforeAsync, ActAsync, AfterAsync, BeforeAllAsync, AfterAllAsync;
         public Action<nspec> BeforeInstanceAsync, ActInstanceAsync, AfterInstanceAsync, BeforeAllInstanceAsync, AfterAllInstanceAsync;
         public Context Parent;
-        public Exception ExceptionBeforeAll, Exception, ExceptionAfterAll;
+        public Exception ExceptionBeforeAll, ExceptionBeforeAct, ExceptionAfter, ExceptionAfterAll;
         public bool ClearExpectedException;
         public string CapturedOutput;
 

@@ -296,8 +296,8 @@ namespace NSpec
 
                 return () =>
                 {
-                    if (specContext.Exception != null)
-                        throw specContext.Exception;
+                    if (specContext.ExceptionBeforeAct != null)
+                        throw specContext.ExceptionBeforeAct;
                 };
             }
         }
@@ -323,10 +323,10 @@ namespace NSpec
 
             return () =>
             {
-                if (specContext.Exception == null)
+                if (specContext.ExceptionBeforeAct == null)
                     throw new ExceptionNotThrown(IncorrectType<T>());
 
-                AssertExpectedException<T>(specContext.Exception, expectedMessage);
+                AssertExpectedException<T>(specContext.ExceptionBeforeAct, expectedMessage);
 
                 // do not clear exception right now, during first phase, but leave a note for second phase
                 specContext.ClearExpectedException = true;
