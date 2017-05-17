@@ -237,16 +237,17 @@ namespace NSpec.Domain
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
-            bool anyBeforeAllThrew = AnyBeforeAllThrew();
-
             var nspec = savedInstance ?? instance;
 
-            bool runBeforeAfterAll = !anyBeforeAllThrew && AnyUnfilteredExampleInSubTree(nspec);
+            bool runBeforeAfterAll = !AnyBeforeAllThrew() && AnyUnfilteredExampleInSubTree(nspec);
 
             using (new ConsoleCatcher(output => this.CapturedOutput = output))
             {
                 if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref ExceptionBeforeAll);
             }
+
+            // evaluate again, after running this context `beforeAll`
+            bool anyBeforeAllThrew = AnyBeforeAllThrew();
 
             // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
@@ -385,16 +386,6 @@ namespace NSpec.Domain
 
             example.HasRun = true;
 
-            Stopwatch stopWatch;
-
-            if (anyBeforeAllThrew)
-            {
-                stopWatch = example.StartTiming();
-                example.StopTiming(stopWatch);
-
-                return;
-            }
-
             if (example.Pending)
             {
                 RunAndHandleException(example.RunPending, nspec, ref example.Exception);
@@ -402,22 +393,25 @@ namespace NSpec.Domain
                 return;
             }
 
-            stopWatch = example.StartTiming();
+            var stopWatch = example.StartTiming();
+            
+            if (!anyBeforeAllThrew)
+            {
+                RunAndHandleException(RunBefores, nspec, ref Exception);
 
-            RunAndHandleException(RunBefores, nspec, ref Exception);
+                RunAndHandleException(RunActs, nspec, ref Exception);
 
-            RunAndHandleException(RunActs, nspec, ref Exception);
+                RunAndHandleException(example.Run, nspec, ref example.Exception);
 
-            RunAndHandleException(example.Run, nspec, ref example.Exception);
+                bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref Exception);
 
-            bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref Exception);
+                // when an expected exception is thrown and is set to be cleared by 'expect<>',
+                // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
+
+                if (exceptionThrownInAfters) ClearExpectedException = false;
+            }
 
             example.StopTiming(stopWatch);
-
-            // when an expected exception is thrown and is set to be cleared by 'expect<>',
-            // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
-
-            if (exceptionThrownInAfters) ClearExpectedException = false;
         }
 
         public virtual bool IsSub(Type baseType)
