@@ -89,7 +89,13 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [Test]
         public void the_example_level_failure_should_indicate_a_context_failure()
         {
-            classContext.AllExamples().Should().OnlyContain(e => e.Exception is ExampleFailureException);
+            classContext.AllExamples()
+                .Where(e => !new []
+                {
+                    "preserves exception from same level it",
+                    "preserves exception from nested it",
+                }.Contains(e.Spec))
+                .Should().OnlyContain(e => e.Exception is ExampleFailureException);
         }
 
         [Test]
@@ -108,7 +114,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         public void it_should_throw_exception_from_same_level_it_not_from_after_all()
         {
             TheExample("preserves exception from same level it")
-                .Exception.InnerException.Should().BeOfType<ItException>();
+                .Exception.Should().BeOfType<ItException>();
         }
 
         [Test]
@@ -129,7 +135,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         public void it_should_throw_exception_from_nested_it_not_from_after_all()
         {
             TheExample("preserves exception from nested it")
-                .Exception.InnerException.Should().BeOfType<ItException>();
+                .Exception.Should().BeOfType<ItException>();
         }
 
         [Test]
