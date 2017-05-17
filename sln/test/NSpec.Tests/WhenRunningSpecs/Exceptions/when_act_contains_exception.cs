@@ -146,9 +146,19 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         }
 
         [Test]
-        public void examples_body_should_not_run()
+        public void examples_body_should_still_run()
         {
-            ActThrowsSpecClass.ExamplesRun.Should().BeEmpty();
+            string[] expecteds = new[]
+            {
+                "should fail this example because of act",
+                "should also fail this example because of act",
+                "overrides exception from same level it",
+                "overrides exception from nested act",
+                "overrides exception from nested it",
+                "overrides exception from nested after",
+            };
+
+            ActThrowsSpecClass.ExamplesRun.ShouldBeEquivalentTo(expecteds);
         }
     }
 }

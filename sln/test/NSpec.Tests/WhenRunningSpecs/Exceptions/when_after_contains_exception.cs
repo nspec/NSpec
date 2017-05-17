@@ -153,6 +153,7 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
                 "should fail this example because of after",
                 "should also fail this example because of after",
                 "preserves exception from same level it",
+                "preserves exception from nested act",
                 "preserves exception from nested it",
                 "preserves exception from nested after",
             };
