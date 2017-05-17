@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using FluentAssertions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 {
@@ -88,29 +89,19 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [Test]
         public void the_example_level_failure_should_indicate_a_context_failure()
         {
-            TheExample("should fail this example because of act")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("should also fail this example because of act")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("overrides exception from same level it")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("preserves exception from nested before")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("overrides exception from nested act")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("overrides exception from nested it")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("overrides exception from nested after")
-                .Exception.Should().BeOfType<ExampleFailureException>();
+            classContext.AllExamples().Should().OnlyContain(e => e.Exception is ExampleFailureException);
         }
 
         [Test]
         public void examples_with_only_act_failure_should_fail_because_of_act()
         {
-            TheExample("should fail this example because of act").Exception
-                .InnerException.Should().BeOfType<ActException>();
-            TheExample("should also fail this example because of act").Exception
-                .InnerException.Should().BeOfType<ActException>();
+            classContext.AllExamples()
+                .Where(e => new []
+                {
+                    "should fail this example because of act",
+                    "should also fail this example because of act",
+                }.Contains(e.Spec))
+                .Should().OnlyContain(e => e.Exception.InnerException is ActException);
         }
 
         [Test]

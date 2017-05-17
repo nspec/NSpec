@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using FluentAssertions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 {
@@ -27,9 +28,9 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
                     Assert.That(true, Is.True);
                 };
 
-                it["overrides exception from same level it"] = () =>
+                it["preserves exception from same level it"] = () =>
                 {
-                    ExamplesRun.Add("overrides exception from same level it");
+                    ExamplesRun.Add("preserves exception from same level it");
                     throw new ItException();
                 };
 
@@ -57,9 +58,9 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 
                 context["exception thrown by both after and nested it"] = () =>
                 {
-                    it["overrides exception from nested it"] = () => 
+                    it["preserves exception from nested it"] = () => 
                     {
-                        ExamplesRun.Add("overrides exception from nested it");
+                        ExamplesRun.Add("preserves exception from nested it");
                         throw new ItException();
                     };
                 };
@@ -88,36 +89,26 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [Test]
         public void the_example_level_failure_should_indicate_a_context_failure()
         {
-            TheExample("should fail this example because of after")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("should also fail this example because of after")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("overrides exception from same level it")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("preserves exception from nested before")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("preserves exception from nested act")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("overrides exception from nested it")
-                .Exception.Should().BeOfType<ExampleFailureException>();
-            TheExample("preserves exception from nested after")
-                .Exception.Should().BeOfType<ExampleFailureException>();
+            classContext.AllExamples().Should().OnlyContain(e => e.Exception is ExampleFailureException);
         }
 
         [Test]
         public void examples_with_only_after_failure_should_fail_because_of_after()
         {
-            TheExample("should fail this example because of after")
-                .Exception.InnerException.Should().BeOfType<AfterException>();
-            TheExample("should also fail this example because of after")
-                .Exception.InnerException.Should().BeOfType<AfterException>();
+            classContext.AllExamples()
+                .Where(e => new []
+                {
+                    "should fail this example because of after",
+                    "should also fail this example because of after",
+                }.Contains(e.Spec))
+                .Should().OnlyContain(e => e.Exception.InnerException is AfterException);
         }
 
         [Test]
-        public void it_should_throw_exception_from_after_not_from_same_level_it()
+        public void it_should_throw_exception_from_same_level_it_not_from_after()
         {
-            TheExample("overrides exception from same level it")
-                .Exception.InnerException.Should().BeOfType<AfterException>();
+            TheExample("preserves exception from same level it")
+                .Exception.InnerException.Should().BeOfType<ItException>();
         }
 
         [Test]
@@ -135,10 +126,10 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         }
 
         [Test]
-        public void it_should_throw_exception_from_after_not_from_nested_it()
+        public void it_should_throw_exception_from_nested_it_not_from_after()
         {
-            TheExample("overrides exception from nested it")
-                .Exception.InnerException.Should().BeOfType<AfterException>();
+            TheExample("preserves exception from nested it")
+                .Exception.InnerException.Should().BeOfType<ItException>();
         }
 
         [Test]
@@ -161,10 +152,8 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
             {
                 "should fail this example because of after",
                 "should also fail this example because of after",
-                "overrides exception from same level it",
-                "preserves exception from nested before",
-                "preserves exception from nested act",
-                "overrides exception from nested it",
+                "preserves exception from same level it",
+                "preserves exception from nested it",
                 "preserves exception from nested after",
             };
 
