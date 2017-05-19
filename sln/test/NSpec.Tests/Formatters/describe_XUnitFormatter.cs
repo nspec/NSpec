@@ -39,7 +39,7 @@ namespace NSpec.Tests.Formatters
         {
             formatter = new XUnitFormatter();
 
-            string outDirPath = Path.Combine(
+            outDirPath = Path.Combine(
                 Path.GetTempPath(),
                 "NSpec.Tests",
                 nameof(describe_XUnitFormatter));
@@ -67,9 +67,9 @@ namespace NSpec.Tests.Formatters
         [TearDown]
         public void TearDown()
         {
-            if (File.Exists(outFilePath))
+            if (Directory.Exists(outDirPath))
             {
-                File.Delete(outFilePath);
+                Directory.Delete(outDirPath, recursive: true);
             }
         }
 
@@ -100,6 +100,7 @@ namespace NSpec.Tests.Formatters
         }
 
         XUnitFormatter formatter;
+        string outDirPath;
         string outFilePath;
         ContextCollection contexts;
     }
