@@ -172,30 +172,6 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        static bool RunAndHandleException(Action<nspec> action, nspec instance, ref Exception exceptionToSet)
-        {
-            bool hasThrown = false;
-
-            try
-            {
-                action(instance);
-            }
-            catch (TargetInvocationException invocationException)
-            {
-                if (exceptionToSet == null) exceptionToSet = instance.ExceptionToReturn(invocationException.InnerException);
-
-                hasThrown = true;
-            }
-            catch (Exception exception)
-            {
-                if (exceptionToSet == null) exceptionToSet = instance.ExceptionToReturn(exception);
-
-                hasThrown = true;
-            }
-
-            return hasThrown;
-        }
-
         public void Exercise(ExampleBase example, nspec nspec, bool anyBeforeAllThrew)
         {
             if (example.ShouldSkip(nspec.tagsFilter))
@@ -207,7 +183,7 @@ namespace NSpec.Domain
 
             if (example.Pending)
             {
-                RunAndHandleException(example.RunPending, nspec, ref example.Exception);
+                ChainUtils.RunAndHandleException(example.RunPending, nspec, ref example.Exception);
 
                 return;
             }
@@ -216,16 +192,16 @@ namespace NSpec.Domain
 
             if (!anyBeforeAllThrew)
             {
-                bool exceptionThrownInBefores = RunAndHandleException(BeforeChain.Run, nspec, ref ExceptionBeforeAct);
+                bool exceptionThrownInBefores = ChainUtils.RunAndHandleException(BeforeChain.Run, nspec, ref ExceptionBeforeAct);
 
                 if (!exceptionThrownInBefores)
                 {
-                    RunAndHandleException(ActChain.Run, nspec, ref ExceptionBeforeAct);
+                    ChainUtils.RunAndHandleException(ActChain.Run, nspec, ref ExceptionBeforeAct);
 
-                    RunAndHandleException(example.Run, nspec, ref example.Exception);
+                    ChainUtils.RunAndHandleException(example.Run, nspec, ref example.Exception);
                 }
 
-                bool exceptionThrownInAfters = RunAndHandleException(AfterChain.Run, nspec, ref ExceptionAfter);
+                bool exceptionThrownInAfters = ChainUtils.RunAndHandleException(AfterChain.Run, nspec, ref ExceptionAfter);
 
                 // when an expected exception is thrown and is set to be cleared by 'expect<>',
                 // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
