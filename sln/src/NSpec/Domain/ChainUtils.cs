@@ -15,5 +15,29 @@ namespace NSpec.Domain
                 .Where(m => m != null)
                 .ToList();
         }
+
+        public static bool RunAndHandleException(Action<nspec> action, nspec instance, ref Exception exceptionToSet)
+        {
+            bool hasThrown = false;
+
+            try
+            {
+                action(instance);
+            }
+            catch (TargetInvocationException invocationException)
+            {
+                if (exceptionToSet == null) exceptionToSet = instance.ExceptionToReturn(invocationException.InnerException);
+
+                hasThrown = true;
+            }
+            catch (Exception exception)
+            {
+                if (exceptionToSet == null) exceptionToSet = instance.ExceptionToReturn(exception);
+
+                hasThrown = true;
+            }
+
+            return hasThrown;
+        }
     }
 }

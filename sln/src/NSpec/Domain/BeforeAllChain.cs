@@ -28,6 +28,14 @@ namespace NSpec.Domain
 
         public void Run(nspec instance)
         {
+            if (CanRun(instance))
+            {
+                ChainUtils.RunAndHandleException(RunHooks, instance, ref Exception);
+            }
+        }
+
+        void RunHooks(nspec instance)
+        {
             // context-level
 
             if (Hook != null && AsyncHook != null)
@@ -59,10 +67,36 @@ namespace NSpec.Domain
             AsyncClassHook.SafeInvoke(instance);
         }
 
+        bool CanRun(nspec instance)
+        {
+            return AncestorBeforeAllsThrew()
+                ? false
+                : context.AnyUnfilteredExampleInSubTree(instance);
+        }
+
+        public bool AnyBeforeAllsThrew()
+        {
+            return (Exception != null || AncestorBeforeAllsThrew());
+        }
+
+        bool AncestorBeforeAllsThrew()
+        {
+            return (context.Parent?.BeforeAllChain.AnyBeforeAllsThrew() ?? false);
+        }
+
+        public BeforeAllChain(Context context)
+        {
+            this.context = context;
+        }
+
         public Action Hook;
         public Func<Task> AsyncHook;
         
         public Action<nspec> ClassHook { get; private set; }
         public Action<nspec> AsyncClassHook { get; private set; }
+
+        public Exception Exception;
+
+        readonly Context context;
     }
 }

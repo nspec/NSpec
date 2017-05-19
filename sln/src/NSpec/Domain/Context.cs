@@ -59,17 +59,15 @@ namespace NSpec.Domain
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
-            var nspec = savedInstance ?? instance;
-
-            bool runBeforeAfterAll = !AnyBeforeAllThrew() && AnyUnfilteredExampleInSubTree(nspec);
+            var nspec = builtInstance ?? instance;
 
             using (new ConsoleCatcher(output => this.CapturedOutput = output))
             {
-                if (runBeforeAfterAll) RunAndHandleException(BeforeAllChain.Run, nspec, ref ExceptionBeforeAll);
+                BeforeAllChain.Run(nspec);
             }
 
             // evaluate again, after running this context `beforeAll`
-            bool anyBeforeAllThrew = AnyBeforeAllThrew();
+            bool anyBeforeAllThrew = BeforeAllChain.AnyBeforeAllsThrew();
 
             // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
@@ -90,7 +88,7 @@ namespace NSpec.Domain
             }
 
             // TODO wrap this as well in a ConsoleCatcher, not before adding tests about it
-            if (runBeforeAfterAll) RunAndHandleException(AfterAllChain.Run, nspec, ref ExceptionAfterAll);
+            AfterAllChain.Run(nspec);
         }
 
         /// <summary>
@@ -108,8 +106,8 @@ namespace NSpec.Domain
 
         protected virtual void AssignExceptions(Exception inheritedBeforeAllException, Exception inheritedAfterAllException, bool recurse)
         {
-            inheritedBeforeAllException = inheritedBeforeAllException ?? ExceptionBeforeAll;
-            inheritedAfterAllException = ExceptionAfterAll ?? inheritedAfterAllException;
+            inheritedBeforeAllException = inheritedBeforeAllException ?? BeforeAllChain.Exception;
+            inheritedAfterAllException = AfterAllChain.Exception ?? inheritedAfterAllException;
 
             // if an exception was thrown before the example (either `before` or `act`) but was expected, ignore it
             Exception unexpectedException = ClearExpectedException ? null : ExceptionBeforeAct;
@@ -164,7 +162,7 @@ namespace NSpec.Domain
         {
             instance.Context = this;
 
-            savedInstance = instance;
+            builtInstance = instance;
 
             Contexts.Do(c => c.Build(instance));
         }
@@ -174,23 +172,23 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        static bool RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
+        static bool RunAndHandleException(Action<nspec> action, nspec instance, ref Exception exceptionToSet)
         {
             bool hasThrown = false;
 
             try
             {
-                action(nspec);
+                action(instance);
             }
             catch (TargetInvocationException invocationException)
             {
-                if (exceptionToSet == null) exceptionToSet = nspec.ExceptionToReturn(invocationException.InnerException);
+                if (exceptionToSet == null) exceptionToSet = instance.ExceptionToReturn(invocationException.InnerException);
 
                 hasThrown = true;
             }
             catch (Exception exception)
             {
-                if (exceptionToSet == null) exceptionToSet = nspec.ExceptionToReturn(exception);
+                if (exceptionToSet == null) exceptionToSet = instance.ExceptionToReturn(exception);
 
                 hasThrown = true;
             }
@@ -245,7 +243,7 @@ namespace NSpec.Domain
 
         public nspec GetInstance()
         {
-            return savedInstance ?? Parent.GetInstance();
+            return builtInstance ?? Parent.GetInstance();
         }
 
         public IEnumerable<Context> AllContexts()
@@ -277,20 +275,15 @@ namespace NSpec.Domain
             Contexts.Do(c => c.TrimSkippedDescendants());
         }
 
-        bool AnyUnfilteredExampleInSubTree(nspec instance)
+        public bool AnyUnfilteredExampleInSubTree(nspec instance)
         {
             Func<ExampleBase, bool> shouldNotSkip = e => e.ShouldNotSkip(instance.tagsFilter);
 
-            bool anyExampleOrSubExample = Examples.Any(shouldNotSkip) || Contexts.Examples().Any(shouldNotSkip);
+            bool anyExampleOrSubExample =
+                Examples.Any(shouldNotSkip) ||
+                Contexts.Examples().Any(shouldNotSkip);
 
             return anyExampleOrSubExample;
-        }
-
-        bool AnyBeforeAllThrew()
-        {
-            return
-                ExceptionBeforeAll != null ||
-                (Parent != null && Parent.AnyBeforeAllThrew());
         }
 
         public override string ToString()
@@ -455,11 +448,11 @@ namespace NSpec.Domain
             Examples = new List<ExampleBase>();
             Contexts = new ContextCollection();
 
-            BeforeAllChain = new BeforeAllChain();
+            BeforeAllChain = new BeforeAllChain(this);
             BeforeChain = new BeforeChain(this);
             ActChain = new ActChain(this);
             AfterChain = new AfterChain(this);
-            AfterAllChain = new AfterAllChain();
+            AfterAllChain = new AfterAllChain(this);
         }
 
         public string Name;
@@ -472,12 +465,12 @@ namespace NSpec.Domain
         public ActChain ActChain;
         public AfterChain AfterChain;
         public AfterAllChain AfterAllChain;
-        public Exception ExceptionBeforeAll, ExceptionBeforeAct, ExceptionAfter, ExceptionAfterAll;
+        public Exception ExceptionBeforeAct, ExceptionAfter;
         public bool ClearExpectedException;
         public string CapturedOutput;
         public Context Parent;
         
-        nspec savedInstance;
+        nspec builtInstance;
         bool alreadyWritten, isPending;
     }
 }
