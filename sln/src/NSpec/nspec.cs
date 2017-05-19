@@ -65,8 +65,8 @@ namespace NSpec
         /// </summary>
         public virtual Action before
         {
-            get { return Context.Before; }
-            set { Context.Before = value; }
+            get { return Context.BeforeChain.Hook; }
+            set { Context.BeforeChain.Hook = value; }
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace NSpec
         /// </summary>
         public virtual Func<Task> beforeAsync
         {
-            get { return Context.BeforeAsync; }
-            set { Context.BeforeAsync = value; }
+            get { return Context.BeforeChain.AsyncHook; }
+            set { Context.BeforeChain.AsyncHook = value; }
         }
 
         /// <summary>
@@ -89,8 +89,8 @@ namespace NSpec
         /// </summary>
         public virtual Action beforeEach
         {
-            get { return Context.Before; }
-            set { Context.Before = value; }
+            get { return Context.BeforeChain.Hook; }
+            set { Context.BeforeChain.Hook = value; }
         }
 
         /// <summary>
@@ -101,8 +101,8 @@ namespace NSpec
         /// </summary>
         public virtual Func<Task> beforeEachAsync
         {
-            get { return Context.BeforeAsync; }
-            set { Context.BeforeAsync = value; }
+            get { return Context.BeforeChain.AsyncHook; }
+            set { Context.BeforeChain.AsyncHook = value; }
         }
 
         /// <summary>
@@ -113,8 +113,8 @@ namespace NSpec
         /// </summary>
         public virtual Action beforeAll
         {
-            get { return Context.BeforeAll; }
-            set { Context.BeforeAll = value; }
+            get { return Context.BeforeAllChain.Hook; }
+            set { Context.BeforeAllChain.Hook = value; }
         }
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace NSpec
         /// </summary>
         public virtual Func<Task> beforeAllAsync
         {
-            get { return Context.BeforeAllAsync; }
-            set { Context.BeforeAllAsync = value; }
+            get { return Context.BeforeAllChain.AsyncHook; }
+            set { Context.BeforeAllChain.AsyncHook = value; }
         }
 
         /// <summary>
@@ -137,8 +137,8 @@ namespace NSpec
         /// </summary>
         public virtual Action after
         {
-            get { return Context.After; }
-            set { Context.After = value; }
+            get { return Context.AfterChain.Hook; }
+            set { Context.AfterChain.Hook = value; }
         }
 
         /// <summary>
@@ -149,8 +149,8 @@ namespace NSpec
         /// </summary>
         public virtual Func<Task> afterAsync
         {
-            get { return Context.AfterAsync; }
-            set { Context.AfterAsync = value; }
+            get { return Context.AfterChain.AsyncHook; }
+            set { Context.AfterChain.AsyncHook = value; }
         }
 
         /// <summary>
@@ -161,8 +161,8 @@ namespace NSpec
         /// </summary>
         public virtual Action afterEach
         {
-            get { return Context.After; }
-            set { Context.After = value; }
+            get { return Context.AfterChain.Hook; }
+            set { Context.AfterChain.Hook = value; }
         }
 
         /// <summary>
@@ -173,8 +173,8 @@ namespace NSpec
         /// </summary>
         public virtual Func<Task> afterEachAsync
         {
-            get { return Context.AfterAsync; }
-            set { Context.AfterAsync = value; }
+            get { return Context.AfterChain.AsyncHook; }
+            set { Context.AfterChain.AsyncHook = value; }
         }
 
         /// <summary>
@@ -185,8 +185,8 @@ namespace NSpec
         /// </summary>
         public virtual Action afterAll
         {
-            get { return Context.AfterAll; }
-            set { Context.AfterAll = value; }
+            get { return Context.AfterAllChain.Hook; }
+            set { Context.AfterAllChain.Hook = value; }
         }
 
         /// <summary>
@@ -197,8 +197,8 @@ namespace NSpec
         /// </summary>
         public virtual Func<Task> afterAllAsync
         {
-            get { return Context.AfterAllAsync; }
-            set { Context.AfterAllAsync = value; }
+            get { return Context.AfterAllChain.AsyncHook; }
+            set { Context.AfterAllChain.AsyncHook = value; }
         }
 
         /// <summary>
@@ -207,8 +207,8 @@ namespace NSpec
         /// </summary>
         public virtual Action act
         {
-            get { return Context.Act; }
-            set { Context.Act = value; }
+            get { return Context.ActChain.Hook; }
+            set { Context.ActChain.Hook = value; }
         }
 
         /// <summary>
@@ -217,8 +217,8 @@ namespace NSpec
         /// </summary>
         public virtual Func<Task> actAsync
         {
-            get { return Context.ActAsync; }
-            set { Context.ActAsync = value; }
+            get { return Context.ActChain.AsyncHook; }
+            set { Context.ActChain.AsyncHook = value; }
         }
 
         /// <summary>

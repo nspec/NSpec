@@ -11,184 +11,6 @@ namespace NSpec.Domain
 {
     public class Context
     {
-        public void RunBefores(nspec instance)
-        {
-            // parent chain
-
-            RecurseAncestors(c => c.RunBefores(instance));
-
-            // class (method-level)
-
-            if (BeforeInstance != null && BeforeInstanceAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A spec class with all its ancestors cannot set both sync and async " +
-                    "class-level 'before_each' hooks, they should either be all sync or all async");
-            }
-
-            BeforeInstance.SafeInvoke(instance);
-
-            BeforeInstanceAsync.SafeInvoke(instance);
-
-            // context-level
-
-            if (Before != null && BeforeAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A single context cannot set both a 'before' and an 'beforeAsync', please pick one of the two");
-            }
-
-            if (Before != null && Before.IsAsync())
-            {
-                throw new AsyncMismatchException(
-                    "'before' cannot be set to an async delegate, please use 'beforeAsync' instead");
-            }
-
-            Before.SafeInvoke();
-
-            BeforeAsync.SafeInvoke();
-        }
-
-        void RunBeforeAll(nspec instance)
-        {
-            // context-level
-
-            if (BeforeAll != null && BeforeAllAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A single context cannot set both a 'beforeAll' and an 'beforeAllAsync', please pick one of the two");
-            }
-
-            if (BeforeAll != null && BeforeAll.IsAsync())
-            {
-                throw new AsyncMismatchException(
-                    "'beforeAll' cannot be set to an async delegate, please use 'beforeAllAsync' instead");
-            }
-
-            BeforeAll.SafeInvoke();
-
-            BeforeAllAsync.SafeInvoke();
-
-            // class (method-level)
-
-            if (BeforeAllInstance != null && BeforeAllInstanceAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A spec class with all its ancestors cannot set both sync and async class-level 'before_all' hooks, they should either be all sync or all async");
-            }
-
-            BeforeAllInstance.SafeInvoke(instance);
-
-            BeforeAllInstanceAsync.SafeInvoke(instance);
-        }
-
-        public void RunActs(nspec instance)
-        {
-            // parent chain
-
-            RecurseAncestors(c => c.RunActs(instance));
-
-            // class (method-level)
-
-            if (ActInstance != null && ActInstanceAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A spec class with all its ancestors cannot set both sync and async class-level 'act_each' hooks, they should either be all sync or all async");
-            }
-
-            ActInstance.SafeInvoke(instance);
-
-            ActInstanceAsync.SafeInvoke(instance);
-
-            // context-level
-
-            if (Act != null && ActAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A single context cannot set both an 'act' and an 'actAsync', please pick one of the two");
-            }
-
-            if (Act != null && Act.IsAsync())
-            {
-                throw new AsyncMismatchException(
-                    "'act' cannot be set to an async delegate, please use 'actAsync' instead");
-            }
-
-            Act.SafeInvoke();
-
-            ActAsync.SafeInvoke();
-        }
-
-        public void RunAfters(nspec instance)
-        {
-            // context-level
-
-            if (After != null && AfterAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A single context cannot set both an 'after' and an 'afterAsync', please pick one of the two");
-            }
-
-            if (After != null && After.IsAsync())
-            {
-                throw new AsyncMismatchException(
-                    "'after' cannot be set to an async delegate, please use 'afterAsync' instead");
-            }
-
-            After.SafeInvoke();
-
-            AfterAsync.SafeInvoke();
-
-            // class (method-level)
-
-            if (AfterInstance != null && AfterInstanceAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A spec class with all its ancestors cannot set both sync and async class-level 'after_each' hooks, they should either be all sync or all async");
-            }
-
-            AfterInstance.SafeInvoke(instance);
-
-            AfterInstanceAsync.SafeInvoke(instance);
-
-            // parent chain
-
-            RecurseAncestors(c => c.RunAfters(instance));
-        }
-
-        public void RunAfterAll(nspec instance)
-        {
-            // context-level
-
-            if (AfterAll != null && AfterAllAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A single context cannot set both an 'afterAll' and an 'afterAllAsync', please pick one of the two");
-            }
-
-            if (AfterAll != null && AfterAll.IsAsync())
-            {
-                throw new AsyncMismatchException(
-                    "'afterAll' cannot be set to an async delegate, please use 'afterAllAsync' instead");
-            }
-
-            AfterAll.SafeInvoke();
-
-            AfterAllAsync.SafeInvoke();
-
-            // class (method-level)
-
-            if (AfterAllInstance != null && AfterAllInstanceAsync != null)
-            {
-                throw new AsyncMismatchException(
-                    "A spec class with all its ancestors cannot set both sync and async class-level 'after_all' hooks, they should either be all sync or all async");
-            }
-
-            AfterAllInstance.SafeInvoke(instance);
-
-            AfterAllInstanceAsync.SafeInvoke(instance);
-        }
-
         public void AddExample(ExampleBase example)
         {
             example.Context = this;
@@ -243,7 +65,7 @@ namespace NSpec.Domain
 
             using (new ConsoleCatcher(output => this.CapturedOutput = output))
             {
-                if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref ExceptionBeforeAll);
+                if (runBeforeAfterAll) RunAndHandleException(BeforeAllChain.Run, nspec, ref ExceptionBeforeAll);
             }
 
             // evaluate again, after running this context `beforeAll`
@@ -268,7 +90,7 @@ namespace NSpec.Domain
             }
 
             // TODO wrap this as well in a ConsoleCatcher, not before adding tests about it
-            if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref ExceptionAfterAll);
+            if (runBeforeAfterAll) RunAndHandleException(AfterAllChain.Run, nspec, ref ExceptionAfterAll);
         }
 
         /// <summary>
@@ -396,16 +218,16 @@ namespace NSpec.Domain
 
             if (!anyBeforeAllThrew)
             {
-                bool exceptionThrownInBefores = RunAndHandleException(RunBefores, nspec, ref ExceptionBeforeAct);
+                bool exceptionThrownInBefores = RunAndHandleException(BeforeChain.Run, nspec, ref ExceptionBeforeAct);
 
                 if (!exceptionThrownInBefores)
                 {
-                    RunAndHandleException(RunActs, nspec, ref ExceptionBeforeAct);
+                    RunAndHandleException(ActChain.Run, nspec, ref ExceptionBeforeAct);
 
                     RunAndHandleException(example.Run, nspec, ref example.Exception);
                 }
 
-                bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref ExceptionAfter);
+                bool exceptionThrownInAfters = RunAndHandleException(AfterChain.Run, nspec, ref ExceptionAfter);
 
                 // when an expected exception is thrown and is set to be cleared by 'expect<>',
                 // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
@@ -486,7 +308,7 @@ namespace NSpec.Domain
             });
         }
 
-        void RecurseAncestors(Action<Context> ancestorAction)
+        public void RecurseAncestors(Action<Context> ancestorAction)
         {
             if (Parent != null) ancestorAction(Parent);
         }
@@ -506,13 +328,138 @@ namespace NSpec.Domain
             alreadyWritten = true;
         }
 
+        // Context-level hook wrappers
+
+        public Action BeforeAll
+        {
+            get { return BeforeAllChain.Hook; }
+            //set { BeforeAllChain.Hook = value; }
+        }
+
+        public Action Before
+        {
+            get { return BeforeChain.Hook; }
+            //set { BeforeChain.Hook = value; }
+        }
+
+        public Action Act
+        {
+            get { return ActChain.Hook; }
+            //set { ActChain.Hook = value; }
+        }
+
+        public Action After
+        {
+            get { return AfterChain.Hook; }
+            //set { AfterChain.Hook = value; }
+        }
+
+        public Action AfterAll
+        {
+            get { return AfterAllChain.Hook; }
+            //set { AfterAllChain.Hook = value; }
+        }
+
+        // Class/method-level hook wrappers
+
+        public Action<nspec> BeforeAllInstance
+        {
+            get { return BeforeAllChain.ClassHook; }
+        }
+
+        public Action<nspec> BeforeInstance
+        {
+            get { return BeforeChain.ClassHook; }
+        }
+
+        public Action<nspec> ActInstance
+        {
+            get { return ActChain.ClassHook; }
+        }
+
+        public Action<nspec> AfterInstance
+        {
+            get { return AfterChain.ClassHook; }
+        }
+
+        public Action<nspec> AfterAllInstance
+        {
+            get { return AfterAllChain.ClassHook; }
+        }
+
+        // Context-level async hook wrappers
+
+        public Func<Task> BeforeAllAsync
+        {
+            get { return BeforeAllChain.AsyncHook; }
+            //set { BeforeAllChain.AsyncHook = value; }
+        }
+
+        public Func<Task> BeforeAsync
+        {
+            get { return BeforeChain.AsyncHook; }
+            //set { BeforeChain.AsyncHook = value; }
+        }
+
+        public Func<Task> ActAsync
+        {
+            get { return ActChain.AsyncHook; }
+            //set { ActChain.AsyncHook = value; }
+        }
+
+        public Func<Task> AfterAsync
+        {
+            get { return AfterChain.AsyncHook; }
+            //set { AfterChain.AsyncHook = value; }
+        }
+
+        public Func<Task> AfterAllAsync
+        {
+            get { return AfterChain.AsyncHook; }
+            //set { AfterChain.AsyncHook = value; }
+        }
+
+        // Class/method-level async hook wrappers
+
+        public Action<nspec> BeforeAllInstanceAsync
+        {
+            get { return BeforeAllChain.AsyncClassHook; }
+        }
+
+        public Action<nspec> BeforeInstanceAsync
+        {
+            get { return BeforeChain.AsyncClassHook; }
+        }
+
+        public Action<nspec> ActInstanceAsync
+        {
+            get { return ActChain.AsyncClassHook; }
+        }
+
+        public Action<nspec> AfterInstanceAsync
+        {
+            get { return AfterChain.AsyncClassHook; }
+        }
+
+        public Action<nspec> AfterAllInstanceAsync
+        {
+            get { return AfterAllChain.AsyncClassHook; }
+        }
+
         public Context(string name = "", string tags = null, bool isPending = false)
         {
             Name = name.Replace("_", " ");
-            Examples = new List<ExampleBase>();
-            Contexts = new ContextCollection();
             Tags = Domain.Tags.ParseTags(tags);
             this.isPending = isPending;
+            
+            Examples = new List<ExampleBase>();
+            Contexts = new ContextCollection();
+
+            BeforeAllChain = new BeforeAllChain();
+            BeforeChain = new BeforeChain(this);
+            ActChain = new ActChain(this);
+            AfterChain = new AfterChain(this);
+            AfterAllChain = new AfterAllChain();
         }
 
         public string Name;
@@ -520,15 +467,16 @@ namespace NSpec.Domain
         public List<string> Tags;
         public List<ExampleBase> Examples;
         public ContextCollection Contexts;
-        public Action Before, Act, After, BeforeAll, AfterAll;
-        public Action<nspec> BeforeInstance, ActInstance, AfterInstance, BeforeAllInstance, AfterAllInstance;
-        public Func<Task> BeforeAsync, ActAsync, AfterAsync, BeforeAllAsync, AfterAllAsync;
-        public Action<nspec> BeforeInstanceAsync, ActInstanceAsync, AfterInstanceAsync, BeforeAllInstanceAsync, AfterAllInstanceAsync;
-        public Context Parent;
+        public BeforeAllChain BeforeAllChain;
+        public BeforeChain BeforeChain;
+        public ActChain ActChain;
+        public AfterChain AfterChain;
+        public AfterAllChain AfterAllChain;
         public Exception ExceptionBeforeAll, ExceptionBeforeAct, ExceptionAfter, ExceptionAfterAll;
         public bool ClearExpectedException;
         public string CapturedOutput;
-
+        public Context Parent;
+        
         nspec savedInstance;
         bool alreadyWritten, isPending;
     }

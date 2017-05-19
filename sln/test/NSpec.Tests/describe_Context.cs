@@ -76,7 +76,7 @@ namespace NSpec.Tests
         [Test]
         public void should_run_the_acts_in_the_right_order()
         {
-            childContext.RunActs(instance);
+            childContext.ActChain.Run(instance);
 
             instance.actResult.Should().Be("parentchild");
         }
@@ -178,7 +178,7 @@ namespace NSpec.Tests
         [Test]
         public void should_run_the_befores_in_the_proper_order()
         {
-            childContext.RunBefores(instance);
+            childContext.BeforeChain.Run(instance);
 
             instance.beforeResult.Should().Be("parentchild");
         }
