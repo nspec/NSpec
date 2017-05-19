@@ -3,6 +3,8 @@
   
   "files.exclude": {
     "packages/**": true,
+    "**/bin/**": true,
+    "**/obj/**": true,
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,
