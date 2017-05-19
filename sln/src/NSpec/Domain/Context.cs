@@ -327,8 +327,6 @@ namespace NSpec.Domain
                 if (example.HasRun && !alreadyWritten)
                 {
                     WriteAncestors(formatter);
-                    // TODO consider modifying WriteAncestors() so that alreadyWritten is set within it
-                    alreadyWritten = true;
                 }
 
                 if (example.HasRun) formatter.Write(example, Level);
@@ -495,7 +493,11 @@ namespace NSpec.Domain
 
         void WriteAncestors(ILiveFormatter formatter)
         {
-            if (Parent == null) return;
+            if (Parent == null)
+            {
+                alreadyWritten = true;
+                return;
+            }
 
             Parent.WriteAncestors(formatter);
 
