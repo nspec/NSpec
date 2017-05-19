@@ -79,7 +79,7 @@ namespace NSpec.Domain
             return (Exception != null || AncestorBeforeAllsThrew());
         }
 
-        bool AncestorBeforeAllsThrew()
+        public bool AncestorBeforeAllsThrew()
         {
             return (context.Parent?.BeforeAllChain.AnyBeforeAllsThrew() ?? false);
         }

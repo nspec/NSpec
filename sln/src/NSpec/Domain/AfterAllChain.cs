@@ -73,19 +73,9 @@ namespace NSpec.Domain
 
         bool CanRun(nspec instance)
         {
-            return AncestorBeforeAllsThrew()
+            return context.BeforeAllChain.AncestorBeforeAllsThrew()
                 ? false
                 : context.AnyUnfilteredExampleInSubTree(instance);
-        }
-
-        bool AnyBeforeAllsThrew()
-        {
-            return (Exception != null || AncestorBeforeAllsThrew());
-        }
-
-        bool AncestorBeforeAllsThrew()
-        {
-            return (context.Parent?.AfterAllChain.AnyBeforeAllsThrew() ?? false);
         }
 
         public AfterAllChain(Context context)
