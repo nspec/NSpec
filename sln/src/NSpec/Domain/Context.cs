@@ -333,31 +333,31 @@ namespace NSpec.Domain
         public Action BeforeAll
         {
             get { return BeforeAllChain.Hook; }
-            //set { BeforeAllChain.Hook = value; }
+            set { BeforeAllChain.Hook = value; }
         }
 
         public Action Before
         {
             get { return BeforeChain.Hook; }
-            //set { BeforeChain.Hook = value; }
+            set { BeforeChain.Hook = value; }
         }
 
         public Action Act
         {
             get { return ActChain.Hook; }
-            //set { ActChain.Hook = value; }
+            set { ActChain.Hook = value; }
         }
 
         public Action After
         {
             get { return AfterChain.Hook; }
-            //set { AfterChain.Hook = value; }
+            set { AfterChain.Hook = value; }
         }
 
         public Action AfterAll
         {
             get { return AfterAllChain.Hook; }
-            //set { AfterAllChain.Hook = value; }
+            set { AfterAllChain.Hook = value; }
         }
 
         // Class/method-level hook wrappers
@@ -392,31 +392,31 @@ namespace NSpec.Domain
         public Func<Task> BeforeAllAsync
         {
             get { return BeforeAllChain.AsyncHook; }
-            //set { BeforeAllChain.AsyncHook = value; }
+            set { BeforeAllChain.AsyncHook = value; }
         }
 
         public Func<Task> BeforeAsync
         {
             get { return BeforeChain.AsyncHook; }
-            //set { BeforeChain.AsyncHook = value; }
+            set { BeforeChain.AsyncHook = value; }
         }
 
         public Func<Task> ActAsync
         {
             get { return ActChain.AsyncHook; }
-            //set { ActChain.AsyncHook = value; }
+            set { ActChain.AsyncHook = value; }
         }
 
         public Func<Task> AfterAsync
         {
             get { return AfterChain.AsyncHook; }
-            //set { AfterChain.AsyncHook = value; }
+            set { AfterChain.AsyncHook = value; }
         }
 
         public Func<Task> AfterAllAsync
         {
             get { return AfterAllChain.AsyncHook; }
-            //set { AfterAllChain.AsyncHook = value; }
+            set { AfterAllChain.AsyncHook = value; }
         }
 
         // Class/method-level async hook wrappers
