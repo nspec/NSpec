@@ -1,0 +1,15 @@
+// Inserire le impostazioni in questo file per sovrascrivere quelle utente e predefinite.
+{
+  
+  "files.exclude": {
+    "packages/**": true,
+    "**/bin/**": true,
+    "**/obj/**": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  }
+
+}
