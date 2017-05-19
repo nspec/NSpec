@@ -25,7 +25,7 @@ namespace NSpec.Tests.WhenRunningSpecs
                 };
             }
 
-            void another_context()
+            void a_context_that_should_not_run()
             {
                 it["does not run because of failure on line 20"] = () => Assert.That(true, Is.True);
 
@@ -49,23 +49,43 @@ namespace NSpec.Tests.WhenRunningSpecs
         [Test]
         public void only_two_examples_are_executed_one_will_be_a_failure()
         {
-            AllExamples().Where(s => s.HasRun).Count().Should().Be(2);
+            var expecteds = new[]
+            {
+                "this one isn't a failure",
+                "this one is a failure",
+            };
 
-            TheExample("this one isn't a failure").HasRun.Should().BeTrue();
+            var actuals = AllExamples().Where(e => e.HasRun).Select(e => e.Spec);
 
-            TheExample("this one is a failure").HasRun.Should().BeTrue();
+            actuals.ShouldBeEquivalentTo(expecteds);
+        }
+
+        [Test]
+        public void only_executed_contexts_are_printed()
+        {
+            var expecteds = new[]
+            {
+                "SpecClass",
+                "given a spec with multiple failures",
+            };
+
+            var actuals = formatter.WrittenContexts.Select(c => c.Name);
+
+            actuals.ShouldBeEquivalentTo(expecteds);
         }
 
         [Test]
         public void only_executed_examples_are_printed()
         {
-            formatter.WrittenContexts.First().Name.Should().Be("SpecClass");
+            var expecteds = new[]
+            {
+                "this one isn't a failure",
+                "this one is a failure",
+            };
 
-            formatter.WrittenExamples.Count.Should().Be(2);
+            var actuals = formatter.WrittenExamples.Select(e => e.Spec);
 
-            formatter.WrittenExamples.First().FullName.Should().Contain("this one isn't a failure");
-
-            formatter.WrittenExamples.Last().FullName.Should().Contain("this one is a failure");
+            actuals.ShouldBeEquivalentTo(expecteds);
         }
     }
 }
