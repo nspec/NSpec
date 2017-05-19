@@ -18,15 +18,11 @@ namespace NSpec.Tests.WhenRunningSpecs
 
         protected when_running_specs Run(params Type[] types)
         {
-            //if (types.Count() == 1) tags = types.First().Name;
-
             this.types = types;
 
             var tagsFilter = new Tags().Parse(tags);
 
             builder = new ContextBuilder(new SpecFinder(types), tagsFilter, new DefaultConventions());
-
-            runner = new ContextRunner(tagsFilter, formatter, failFast);
 
             contextCollection = builder.Contexts();
 
@@ -39,6 +35,8 @@ namespace NSpec.Tests.WhenRunningSpecs
                 .FirstOrDefault(c => types.Contains(c.SpecType));
 
             methodContext = contextCollection.AllContexts().FirstOrDefault(c => c is MethodContext);
+
+            runner = new ContextRunner(tagsFilter, formatter, failFast);
 
             runner.Run(contextCollection);
 

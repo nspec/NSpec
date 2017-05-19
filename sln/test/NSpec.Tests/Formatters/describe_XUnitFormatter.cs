@@ -121,8 +121,6 @@ namespace NSpec.Tests.Formatters
             formatter.Write(contextCollection);
         }
 
-        // TODO refactor this with WhenRunningSpecs.when_running_specs
-
         protected void Run(params Type[] types)
         {
             var tagsFilter = new Tags().Parse("");
