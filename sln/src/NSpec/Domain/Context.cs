@@ -415,8 +415,8 @@ namespace NSpec.Domain
 
         public Func<Task> AfterAllAsync
         {
-            get { return AfterChain.AsyncHook; }
-            //set { AfterChain.AsyncHook = value; }
+            get { return AfterAllChain.AsyncHook; }
+            //set { AfterAllChain.AsyncHook = value; }
         }
 
         // Class/method-level async hook wrappers
