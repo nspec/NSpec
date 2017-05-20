@@ -76,10 +76,7 @@ namespace NSpec.Domain
 
                 if (failFast && example.Context.HasAnyFailures()) return;
 
-                using (new ConsoleCatcher(output => example.CapturedOutput = output))
-                {
-                    Exercise(example, nspec, anyBeforeAllThrew);
-                }
+                Exercise(example, nspec, anyBeforeAllThrew);
             }
 
             if (recurse)
@@ -192,16 +189,22 @@ namespace NSpec.Domain
 
             if (!anyBeforeAllThrew)
             {
-                bool exceptionThrownInBefores = ChainUtils.RunAndHandleException(BeforeChain.Run, nspec, ref ExceptionBeforeAct);
+                bool exceptionThrownInBefores;
+                bool exceptionThrownInAfters;
 
-                if (!exceptionThrownInBefores)
+                using (new ConsoleCatcher(output => example.CapturedOutput = output))
                 {
-                    ChainUtils.RunAndHandleException(ActChain.Run, nspec, ref ExceptionBeforeAct);
+                    exceptionThrownInBefores = ChainUtils.RunAndHandleException(BeforeChain.Run, nspec, ref ExceptionBeforeAct);
 
-                    ChainUtils.RunAndHandleException(example.Run, nspec, ref example.Exception);
+                    if (!exceptionThrownInBefores)
+                    {
+                        ChainUtils.RunAndHandleException(ActChain.Run, nspec, ref ExceptionBeforeAct);
+
+                        ChainUtils.RunAndHandleException(example.Run, nspec, ref example.Exception);
+                    }
+
+                    exceptionThrownInAfters = ChainUtils.RunAndHandleException(AfterChain.Run, nspec, ref ExceptionAfter);
                 }
-
-                bool exceptionThrownInAfters = ChainUtils.RunAndHandleException(AfterChain.Run, nspec, ref ExceptionAfter);
 
                 // when an expected exception is thrown and is set to be cleared by 'expect<>',
                 // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
