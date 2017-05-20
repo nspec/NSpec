@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace NSpec.Domain
 {
@@ -226,24 +227,27 @@ namespace NSpec.Domain
         }
 
         /// <summary>
-        /// Test execution happens in two phases: this is the first phase.
+        /// Test execution happens in three phases: this is the first phase.
         /// </summary>
         /// <remarks>
         /// Here all contexts and all their examples are run, collecting distinct exceptions
         /// from context itself (befores/ acts/ it/ afters), beforeAll, afterAll.
         /// </remarks>
-        public virtual void Run(ILiveFormatter formatter, bool failFast, nspec instance = null, bool recurse = true)
+        public virtual void Run(bool failFast, nspec instance = null, bool recurse = true)
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
             var nspec = savedInstance ?? instance;
 
-            bool runBeforeAfterAll = AnyUnfilteredExampleInSubTree(nspec);
+            bool runBeforeAfterAll = !AnyBeforeAllThrew() && AnyUnfilteredExampleInSubTree(nspec);
 
             using (new ConsoleCatcher(output => this.CapturedOutput = output))
             {
                 if (runBeforeAfterAll) RunAndHandleException(RunBeforeAll, nspec, ref ExceptionBeforeAll);
             }
+
+            // evaluate again, after running this context `beforeAll`
+            bool anyBeforeAllThrew = AnyBeforeAllThrew();
 
             // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
@@ -254,28 +258,21 @@ namespace NSpec.Domain
 
                 using (new ConsoleCatcher(output => example.CapturedOutput = output))
                 {
-                    Exercise(example, nspec);
+                    Exercise(example, nspec, anyBeforeAllThrew);
                 }
-
-                if (example.HasRun && !alreadyWritten)
-                {
-                    WriteAncestors(formatter);
-                    alreadyWritten = true;
-                }
-
-                if (example.HasRun) formatter.Write(example, Level);
             }
 
             if (recurse)
             {
-                Contexts.Do(c => c.Run(formatter, failFast, nspec));
+                Contexts.Do(c => c.Run(failFast, nspec, recurse));
             }
 
+            // TODO wrap this as well in a ConsoleCatcher, not before adding tests about it
             if (runBeforeAfterAll) RunAndHandleException(RunAfterAll, nspec, ref ExceptionAfterAll);
         }
 
         /// <summary>
-        /// Test execution happens in two phases: this is the second phase.
+        /// Test execution happens in three phases: this is the second phase.
         /// </summary>
         /// <remarks>
         /// Here all contexts and all their examples are traversed again to set proper exception
@@ -292,10 +289,11 @@ namespace NSpec.Domain
             inheritedBeforeAllException = inheritedBeforeAllException ?? ExceptionBeforeAll;
             inheritedAfterAllException = ExceptionAfterAll ?? inheritedAfterAllException;
 
-            // if thrown exception was correctly expected, ignore this context Exception
-            Exception unexpectedException = ClearExpectedException ? null : Exception;
+            // if an exception was thrown before the example (either `before` or `act`) but was expected, ignore it
+            Exception unexpectedException = ClearExpectedException ? null : ExceptionBeforeAct;
 
-            Exception contextException = (inheritedBeforeAllException ?? unexpectedException) ?? inheritedAfterAllException;
+            Exception previousException = inheritedBeforeAllException ?? unexpectedException;
+            Exception followingException = ExceptionAfter ?? inheritedAfterAllException;
 
             for (int i = 0; i < Examples.Count; i++)
             {
@@ -303,13 +301,40 @@ namespace NSpec.Domain
 
                 if (!example.Pending)
                 {
-                    example.AssignProperException(contextException);
+                    example.AssignProperException(previousException, followingException);
                 }
             }
 
             if (recurse)
             {
                 Contexts.Do(c => c.AssignExceptions(inheritedBeforeAllException, inheritedAfterAllException, recurse));
+            }
+        }
+
+        /// <summary>
+        /// Test execution happens in three phases: this is the third phase.
+        /// </summary>
+        /// <remarks>
+        /// Here all examples are written out to formatter, together with their contexts,
+        /// befores, acts, afters, beforeAll, afterAll.
+        /// </remarks>
+        public virtual void Write(ILiveFormatter formatter, bool recurse = true)
+        {
+            for (int i = 0; i < Examples.Count; i++)
+            {
+                var example = Examples[i];
+
+                if (example.HasRun && !alreadyWritten)
+                {
+                    WriteAncestors(formatter);
+                }
+
+                if (example.HasRun) formatter.Write(example, Level);
+            }
+
+            if (recurse)
+            {
+                Contexts.Do(c => c.Write(formatter, recurse));
             }
         }
 
@@ -327,7 +352,7 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        public bool RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
+        static bool RunAndHandleException(Action<nspec> action, nspec nspec, ref Exception exceptionToSet)
         {
             bool hasThrown = false;
 
@@ -351,7 +376,7 @@ namespace NSpec.Domain
             return hasThrown;
         }
 
-        public void Exercise(ExampleBase example, nspec nspec)
+        public void Exercise(ExampleBase example, nspec nspec, bool anyBeforeAllThrew)
         {
             if (example.ShouldSkip(nspec.tagsFilter))
             {
@@ -369,20 +394,26 @@ namespace NSpec.Domain
 
             var stopWatch = example.StartTiming();
 
-            RunAndHandleException(RunBefores, nspec, ref Exception);
+            if (!anyBeforeAllThrew)
+            {
+                bool exceptionThrownInBefores = RunAndHandleException(RunBefores, nspec, ref ExceptionBeforeAct);
 
-            RunAndHandleException(RunActs, nspec, ref Exception);
+                if (!exceptionThrownInBefores)
+                {
+                    RunAndHandleException(RunActs, nspec, ref ExceptionBeforeAct);
 
-            RunAndHandleException(example.Run, nspec, ref example.Exception);
+                    RunAndHandleException(example.Run, nspec, ref example.Exception);
+                }
 
-            bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref Exception);
+                bool exceptionThrownInAfters = RunAndHandleException(RunAfters, nspec, ref ExceptionAfter);
+
+                // when an expected exception is thrown and is set to be cleared by 'expect<>',
+                // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
+
+                if (exceptionThrownInAfters) ClearExpectedException = false;
+            }
 
             example.StopTiming(stopWatch);
-
-            // when an expected exception is thrown and is set to be cleared by 'expect<>',
-            // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
-
-            if (exceptionThrownInAfters) ClearExpectedException = false;
         }
 
         public virtual bool IsSub(Type baseType)
@@ -424,20 +455,35 @@ namespace NSpec.Domain
             Contexts.Do(c => c.TrimSkippedDescendants());
         }
 
-        bool AnyUnfilteredExampleInSubTree(nspec nspec)
+        bool AnyUnfilteredExampleInSubTree(nspec instance)
         {
-            Func<ExampleBase, bool> shouldNotSkip = e => e.ShouldNotSkip(nspec.tagsFilter);
+            Func<ExampleBase, bool> shouldNotSkip = e => e.ShouldNotSkip(instance.tagsFilter);
 
             bool anyExampleOrSubExample = Examples.Any(shouldNotSkip) || Contexts.Examples().Any(shouldNotSkip);
 
             return anyExampleOrSubExample;
         }
 
+        bool AnyBeforeAllThrew()
+        {
+            return
+                ExceptionBeforeAll != null ||
+                (Parent != null && Parent.AnyBeforeAllThrew());
+        }
+
         public override string ToString()
         {
-            string exceptionText = (Exception != null ? ", " + Exception.GetType().Name : String.Empty);
+            string levelText = $"L{Level}";
+            string exampleText = $"{Examples.Count} exm";
+            string contextText = $"{Contexts.Count} exm";
 
-            return String.Format("{0}, L{1}, {2} exm, {3} ctx{4}", Name, Level, Examples.Count, Contexts.Count, exceptionText);
+            var exception = ExceptionBeforeAct ?? ExceptionAfter;
+            string exceptionText = exception?.GetType().Name ?? String.Empty;
+
+            return String.Join(",", new []
+            {
+               Name, levelText, exampleText, contextText, exceptionText, 
+            });
         }
 
         void RecurseAncestors(Action<Context> ancestorAction)
@@ -447,7 +493,11 @@ namespace NSpec.Domain
 
         void WriteAncestors(ILiveFormatter formatter)
         {
-            if (Parent == null) return;
+            if (Parent == null)
+            {
+                alreadyWritten = true;
+                return;
+            }
 
             Parent.WriteAncestors(formatter);
 
@@ -475,7 +525,7 @@ namespace NSpec.Domain
         public Func<Task> BeforeAsync, ActAsync, AfterAsync, BeforeAllAsync, AfterAllAsync;
         public Action<nspec> BeforeInstanceAsync, ActInstanceAsync, AfterInstanceAsync, BeforeAllInstanceAsync, AfterAllInstanceAsync;
         public Context Parent;
-        public Exception ExceptionBeforeAll, Exception, ExceptionAfterAll;
+        public Exception ExceptionBeforeAll, ExceptionBeforeAct, ExceptionAfter, ExceptionAfterAll;
         public bool ClearExpectedException;
         public string CapturedOutput;
 

@@ -21,6 +21,11 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         public NestedBeforeException() : base("NestedBeforeException") { }
     }
 
+    class BeforeEachException : Exception
+    {
+        public BeforeEachException() : base("BeforeEachException") { }
+    }
+
     class ActException : Exception
     {
         public ActException() : base("ActException") { }
@@ -44,6 +49,11 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
     class NestedAfterException : Exception
     {
         public NestedAfterException() : base("NestedAfterException") { }
+    }
+
+    class AfterEachException : Exception
+    {
+        public AfterEachException() : base("AfterEachException") { }
     }
 
     class AfterAllException : Exception

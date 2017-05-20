@@ -3,6 +3,7 @@ using System.Linq;
 using NSpec.Domain;
 using NUnit.Framework;
 using FluentAssertions;
+using System.Collections.Generic;
 
 namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 {
@@ -19,8 +20,23 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 
             void should_fail_this_example()
             {
-                it["should fail"] = () => Assert.That("hello", Is.EqualTo("hello"));
+                it["should fail"] = () =>
+                {
+                    ExamplesRun.Add("should fail");
+                    Assert.That(true, Is.True);
+                };
             }
+
+            void should_also_fail_this_example()
+            {
+                it["should also fail"] = () =>
+                {
+                    ExamplesRun.Add("should also fail");
+                    Assert.That(true, Is.True);
+                };
+            }
+
+            public static List<string> ExamplesRun = new List<string>();
         }
 
         [SetUp]
@@ -30,14 +46,33 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         }
 
         [Test]
-        public void the_example_should_fail_with_framework_exception()
+        public void examples_should_fail_with_framework_exception()
         {
-            classContext.AllExamples()
-                        .First()
-                        .Exception
-                        .Should().BeAssignableTo<ExampleFailureException>();
+            classContext.AllExamples().Should().OnlyContain(e => e.Exception is ExampleFailureException);
         }
 
-        class AfterEachException : Exception { }
+        [Test]
+        public void examples_with_only_after_failure_should_fail_because_of_that()
+        {
+           classContext.AllExamples().Should().OnlyContain(e => e.Exception.InnerException is AfterEachException);
+        }
+
+        [Test]
+        public void examples_should_fail_for_formatter()
+        {
+            formatter.WrittenExamples.Should().OnlyContain(e => e.Failed);
+        }
+
+        [Test]
+        public void examples_body_should_still_run()
+        {
+            string[] expecteds = new[]
+            {
+                "should fail",
+                "should also fail",
+            };
+
+            MethodAfterThrowsSpecClass.ExamplesRun.ShouldBeEquivalentTo(expecteds);
+        }
     }
 }

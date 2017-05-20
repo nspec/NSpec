@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NSpec.Domain;
 using NUnit.Framework;
 using FluentAssertions;
+using System.Collections.Generic;
 
 namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 {
@@ -17,19 +17,30 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 
             void should_fail_this_example()
             {
-                it["should fail"] = () => Assert.That("hello", Is.EqualTo("hello"));
+                it["should fail"] = () =>
+                {
+                    ExamplesRun.Add("should fail");
+                    Assert.That(true, Is.True);
+                };
             }
 
             void should_also_fail_this_example()
             {
-                it["should also fail"] = () => Assert.That("hello", Is.EqualTo("hello"));
+                it["should also fail"] = () =>
+                {
+                    ExamplesRun.Add("should also fail");
+                    Assert.That(true, Is.True);
+                };
             }
+
+            public static List<string> ExamplesRun = new List<string>();
         }
 
         public class ChildSpecClass : SpecClass
         {
             void it_should_fail_because_of_parent()
             {
+                ExamplesRun.Add("it_should_fail_because_of_parent");
                 Assert.That(true, Is.True);
             }
         }
@@ -42,23 +53,33 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
+            MethodBeforeAllThrows.SpecClass.ExamplesRun.Clear();
+
             Run(typeof(MethodBeforeAllThrows.SpecClass));
         }
 
         [Test]
-        public void the_first_example_should_fail_with_framework_exception()
+        public void examples_should_fail_with_framework_exception()
         {
-            var example = classContext.AllExamples().First();
-
-            example.Exception.Should().BeAssignableTo<ExampleFailureException>();
+            classContext.AllExamples().Should().OnlyContain(e => e.Exception is ExampleFailureException);
         }
 
         [Test]
-        public void the_second_example_should_fail_with_framework_exception()
+        public void examples_with_only_before_all_failure_should_fail_because_of_that()
         {
-            var example = classContext.AllExamples().Skip(1).First();
+           classContext.AllExamples().Should().OnlyContain(e => e.Exception.InnerException is BeforeAllException);
+        }
 
-            example.Exception.Should().BeAssignableTo<ExampleFailureException>();
+        [Test]
+        public void examples_should_fail_for_formatter()
+        {
+            formatter.WrittenExamples.Should().OnlyContain(e => e.Failed);
+        }
+
+        [Test]
+        public void examples_body_should_not_run()
+        {
+            MethodBeforeAllThrows.SpecClass.ExamplesRun.Should().BeEmpty();
         }
     }
 
@@ -69,11 +90,13 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         [SetUp]
         public void setup()
         {
+            MethodBeforeAllThrows.ChildSpecClass.ExamplesRun.Clear();
+            
             Run(typeof(MethodBeforeAllThrows.ChildSpecClass));
         }
 
         [Test]
-        public void the_example_level_failure_should_indicate_a_context_failure()
+        public void examples_should_fail_with_framework_exception()
         {
             var example = TheExample("it should fail because of parent");
 
@@ -86,6 +109,18 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
             var example = TheExample("it should fail because of parent");
 
             example.Exception.InnerException.Should().BeOfType<BeforeAllException>();
+        }
+
+        [Test]
+        public void examples_should_fail_for_formatter()
+        {
+            formatter.WrittenExamples.Should().OnlyContain(e => e.Failed);
+        }
+
+        [Test]
+        public void examples_body_should_not_run()
+        {
+            MethodBeforeAllThrows.ChildSpecClass.ExamplesRun.Should().BeEmpty();
         }
     }
 }

@@ -155,7 +155,7 @@ namespace NSpec.Domain
             this.AddExample(failingExample);
         }
 
-        public override void Run(Formatters.ILiveFormatter formatter, bool failFast, nspec instance = null, bool recurse = true)
+        public override void Run(bool failFast, nspec instance = null, bool recurse = true)
         {
             if (cantCreateInstance)
             {
@@ -165,7 +165,7 @@ namespace NSpec.Domain
             }
             else
             {
-                base.Run(formatter, failFast, instance, recurse);
+                base.Run(failFast, instance, recurse);
             }
         }
 

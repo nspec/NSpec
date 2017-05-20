@@ -70,15 +70,43 @@ namespace NSpec.Domain
             Duration = stopWatch.Elapsed;
         }
 
-        public void AssignProperException(Exception contextException)
+        public void AssignProperException(Exception previousException, Exception followingException)
         {
-            if (contextException == null) return; //stick with whatever Exception may or may not be set on this Example
+            if (previousException == null && followingException == null)
+            {
+                // stick with whatever exception may or may not be set on this example
+                return;
+            }
 
-            if (Exception != null && Exception.GetType() != typeof(ExceptionNotThrown))
-                Exception = new ExampleFailureException("Context Failure: " + contextException.Message + ", Example Failure: " + Exception.Message, contextException);
+            if (previousException != null)
+            {
+                var contextException = previousException;
 
-            if (Exception == null)
-                Exception = new ExampleFailureException("Context Failure: " + contextException.Message, contextException);
+                if (Exception != null && Exception.GetType() != typeof(ExceptionNotThrown))
+                {
+                    Exception = new ExampleFailureException(
+                        "Context Failure: " + contextException.Message + ", Example Failure: " + Exception.Message,
+                        contextException);
+                }
+
+                if (Exception == null)
+                {
+                    Exception = new ExampleFailureException(
+                        "Context Failure: " + contextException.Message,
+                        contextException);
+                }
+            }
+            else
+            {
+                var contextException = followingException;
+
+                if (Exception == null)
+                {
+                    Exception = new ExampleFailureException(
+                        "Context Failure: " + contextException.Message,
+                        contextException);
+                }
+            }
         }
 
         public bool ShouldSkip(Tags tagsFilter)

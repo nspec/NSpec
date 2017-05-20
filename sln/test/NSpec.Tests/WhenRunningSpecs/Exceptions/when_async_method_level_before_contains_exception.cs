@@ -3,6 +3,7 @@ using NSpec.Domain;
 using NUnit.Framework;
 using System.Threading.Tasks;
 using FluentAssertions;
+using System.Collections.Generic;
 
 namespace NSpec.Tests.WhenRunningSpecs.Exceptions
 {
@@ -17,13 +18,28 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
             {
                 await Task.Delay(0);
 
-                throw new BeforeException();
+                throw new BeforeEachException();
             }
 
             void should_fail_this_example()
             {
-                it["should fail"] = () => Assert.That("hello", Is.EqualTo("hello"));
+                it["should fail"] = () =>
+                {
+                    ExamplesRun.Add("should fail");
+                    Assert.That(true, Is.True);
+                };
             }
+
+            void should_also_fail_this_example()
+            {
+                it["should also fail"] = () =>
+                {
+                    ExamplesRun.Add("should also fail");
+                    Assert.That(true, Is.True);
+                };
+            }
+
+            public static List<string> ExamplesRun = new List<string>();
         }
 
         [SetUp]
@@ -33,12 +49,27 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         }
 
         [Test]
-        public void the_example_should_fail_with_ContextFailureException()
+        public void examples_should_fail_with_framework_exception()
         {
-            classContext.AllExamples()
-                        .First()
-                        .Exception
-                        .Should().BeAssignableTo<ExampleFailureException>();
+            classContext.AllExamples().Should().OnlyContain(e => e.Exception is ExampleFailureException);
+        }
+
+        [Test]
+        public void examples_with_only_before_failure_should_fail_because_of_that()
+        {
+           classContext.AllExamples().Should().OnlyContain(e => e.Exception.InnerException is BeforeEachException);
+        }
+
+        [Test]
+        public void examples_should_fail_for_formatter()
+        {
+            formatter.WrittenExamples.Should().OnlyContain(e => e.Failed);
+        }
+
+        [Test]
+        public void examples_body_should_not_run()
+        {
+            AsyncMethodBeforeThrowsSpecClass.ExamplesRun.Should().BeEmpty();
         }
     }
 }

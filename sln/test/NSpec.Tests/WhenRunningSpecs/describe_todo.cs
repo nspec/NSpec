@@ -208,6 +208,40 @@ namespace NSpec.Tests.WhenRunningSpecs
     [TestFixture]
     [Category("RunningSpecs")]
     [Category("Pending")]
+    public class using_todo_with_throwing_before_all : describe_todo
+    {
+        class TodoClass : nspec
+        {
+            void method_level_context()
+            {
+                beforeAll = () => { throw new KnownException(); };
+
+                it["should be pending"] = todo;
+            }
+        }
+
+        [Test]
+        public void example_should_be_pending()
+        {
+            var example = ExampleFrom(typeof(TodoClass));
+
+            example.HasRun.Should().BeTrue();
+
+            example.Pending.Should().BeTrue();
+        }
+
+        [Test]
+        public void example_should_not_throw()
+        {
+            var example = ExampleFrom(typeof(TodoClass));
+
+            example.Exception.Should().BeNull();
+        }
+    }
+
+    [TestFixture]
+    [Category("RunningSpecs")]
+    [Category("Pending")]
     public class using_todo_with_throwing_before : describe_todo
     {
         class TodoClass : nspec
@@ -215,6 +249,40 @@ namespace NSpec.Tests.WhenRunningSpecs
             void method_level_context()
             {
                 before = () => { throw new KnownException(); };
+
+                it["should be pending"] = todo;
+            }
+        }
+
+        [Test]
+        public void example_should_be_pending()
+        {
+            var example = ExampleFrom(typeof(TodoClass));
+
+            example.HasRun.Should().BeTrue();
+
+            example.Pending.Should().BeTrue();
+        }
+
+        [Test]
+        public void example_should_not_throw()
+        {
+            var example = ExampleFrom(typeof(TodoClass));
+
+            example.Exception.Should().BeNull();
+        }
+    }
+
+    [TestFixture]
+    [Category("RunningSpecs")]
+    [Category("Pending")]
+    public class using_todo_with_throwing_act : describe_todo
+    {
+        class TodoClass : nspec
+        {
+            void method_level_context()
+            {
+                act = () => { throw new KnownException(); };
 
                 it["should be pending"] = todo;
             }

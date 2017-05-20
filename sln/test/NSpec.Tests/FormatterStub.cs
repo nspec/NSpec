@@ -6,13 +6,13 @@ namespace NSpec.Tests
 {
     public class FormatterStub : IFormatter, ILiveFormatter
     {
-        public List<Context> WrittenContexts;
-        public List<ExampleBase> WrittenExamples;
+        public List<WrittenContext> WrittenContexts;
+        public List<WrittenExample> WrittenExamples;
 
         public FormatterStub()
         {
-            WrittenContexts = new List<Context>();
-            WrittenExamples = new List<ExampleBase>();
+            WrittenContexts = new List<WrittenContext>();
+            WrittenExamples = new List<WrittenExample>();
         }
 
         public void Write(ContextCollection contexts)
@@ -21,15 +21,14 @@ namespace NSpec.Tests
 
         public IDictionary<string, string> Options { get; set; }
 
-
         public void Write(Context context)
         {
-            WrittenContexts.Add(context);
+            WrittenContexts.Add(new WrittenContext(context));
         }
 
         public void Write(ExampleBase example, int level)
         {
-            WrittenExamples.Add(example);
+            WrittenExamples.Add(new WrittenExample(example));
         }
     }
 }

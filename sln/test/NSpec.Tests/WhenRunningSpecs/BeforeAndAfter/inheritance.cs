@@ -29,7 +29,7 @@ namespace NSpec.Tests.WhenRunningSpecs.BeforeAndAfter
             }
         }
 
-        class DerivedClass : BaseSpec
+        class DerivedSpec : BaseSpec
         {
             void a_context()
             {
@@ -46,19 +46,19 @@ namespace NSpec.Tests.WhenRunningSpecs.BeforeAndAfter
         [SetUp]
         public void setup()
         {
-            Run(typeof(DerivedClass));
+            Run(typeof(DerivedSpec));
         }
 
         [Test]
         public void before_alls_at_every_level_run_before_before_eaches_from_the_outside_in()
         {
-            DerivedClass.sequence.Should().StartWith("ABCD");
+            DerivedSpec.sequence.Should().StartWith("ABCD");
         }
 
         [Test]
         public void after_alls_at_every_level_run_after_after_eaches_from_the_inside_out()
         {
-            DerivedClass.sequence.Should().EndWith("EFGH");
+            DerivedSpec.sequence.Should().EndWith("EFGH");
         }
     }
 }

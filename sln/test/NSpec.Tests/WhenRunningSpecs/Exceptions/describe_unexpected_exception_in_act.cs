@@ -15,12 +15,12 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
                 {
                     act = () =>
                     {
-                        throw new KnownException("unexpected failure");
+                        throw new ActException();
                     };
 
-                    it["reports example level failure and act failure"] = () =>
+                    it["reports act failure and example failure"] = () =>
                     {
-                        throw new KnownException("example level failure");
+                        throw new ItException();
                     };
                 };
             }
@@ -33,10 +33,10 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         }
 
         [Test]
-        public void should_report_both_method_level_failure_and_act_level_failure()
+        public void should_report_both_act_failure_and_example_failure()
         {
-            TheExample("reports example level failure and act failure")
-                .Exception.Message.Should().Be("Context Failure: unexpected failure, Example Failure: example level failure");
+            TheExample("reports act failure and example failure")
+                .Exception.Message.Should().Be("Context Failure: ActException, Example Failure: ItException");
         }
     }
 
@@ -47,16 +47,16 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                context["when exception thrown from act and example itself has a failure"] = () =>
+                context["when exception thrown from act but not from example"] = () =>
                 {
                     act = () =>
                     {
-                        throw new KnownException("unexpected failure");
+                        throw new ActException();
                     };
 
-                    it["reports example level failure and act failure"] = () =>
+                    it["reports act failure only"] = () =>
                     {
-                        "expected".Should().Be("expected");
+                        Assert.That(true, Is.True);
                     };
                 };
             }
@@ -69,14 +69,14 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         }
 
         [Test]
-        public void should_report_both_method_level_failure_and_act_level_failure()
+        public void should_report_act_failure_only()
         {
-            TheExample("reports example level failure and act failure")
-                .Exception.Message.Should().Be("Context Failure: unexpected failure");
+            TheExample("reports act failure only")
+                .Exception.Message.Should().Be("Context Failure: ActException");
         }
     }
     [TestFixture]
-    public class describe_unexpected_exception_in_async_act_and_in_example : when_running_specs
+    public class describe_unexpected_exception_in_async_act_and_in_async_example : when_running_specs
     {
         private class SpecClass : nspec
         {
@@ -86,12 +86,12 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
                 {
                     actAsync = async () => await Task.Run(() =>
                     {
-                        throw new KnownException("unexpected failure");
+                        throw new ActException();
                     });
 
-                    itAsync["reports example level failure and act failure"] = async () => await Task.Run(() =>
+                    itAsync["reports act failure and example failure"] = async () => await Task.Run(() =>
                     {
-                        throw new KnownException("example level failure");
+                        throw new ItException();
                     });
                 };
             }
@@ -104,32 +104,32 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         }
 
         [Test]
-        public void should_report_both_method_level_failure_and_act_level_failure()
+        public void should_report_both_act_failure_and_example_failure()
         {
-            TheExample("reports example level failure and act failure")
-                .Exception.Message.Should().Be("Context Failure: unexpected failure, Example Failure: example level failure");
+            TheExample("reports act failure and example failure")
+                .Exception.Message.Should().Be("Context Failure: ActException, Example Failure: ItException");
         }
     }
 
     [TestFixture]
-    public class describe_unexpected_exception_in_async_act_but_not_example : when_running_specs
+    public class describe_unexpected_exception_in_async_act_but_not_async_example : when_running_specs
     {
         private class SpecClass : nspec
         {
             void method_level_context()
             {
-                context["when exception thrown from act and example itself has a failure"] = () =>
+                context["when exception thrown from act but not from example"] = () =>
                 {
                     actAsync = async () => await Task.Run(() =>
                     {
-                        throw new KnownException("unexpected failure");
+                        throw new ActException();
                     });
 
-                    itAsync["reports example level failure and act failure"] = async () =>
+                    itAsync["reports act failure only"] = async () =>
                     {
                         await Task.Delay(0);
 
-                        "expected".Should().Be("expected");
+                        Assert.That(true, Is.True);
                     };
                 };
             }
@@ -142,10 +142,10 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         }
 
         [Test]
-        public void should_report_both_method_level_failure_and_act_level_failure()
+        public void should_report_act_failure_only()
         {
-            TheExample("reports example level failure and act failure")
-                .Exception.Message.Should().Be("Context Failure: unexpected failure");
+            TheExample("reports act failure only")
+                .Exception.Message.Should().Be("Context Failure: ActException");
         }
     }
 }

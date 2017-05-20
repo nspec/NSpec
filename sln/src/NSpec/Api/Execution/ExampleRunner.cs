@@ -78,12 +78,15 @@ namespace NSpec.Api.Execution
             var instance = context.GetInstance();
 
             context.Run(
-                formatter: this,
                 failFast: false,
                 instance: instance,
                 recurse: false);
 
             context.AssignExceptions(
+                recurse: false);
+
+            context.Write(
+                formatter: this,
                 recurse: false);
         }
 
