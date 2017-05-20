@@ -59,11 +59,11 @@ namespace NSpec.Domain
         {
             if (failFast && Parent.HasAnyFailures()) return;
 
-            var nspec = builtInstance ?? instance;
+            var runningInstance = builtInstance ?? instance;
 
             using (new ConsoleCatcher(output => this.CapturedOutput = output))
             {
-                BeforeAllChain.Run(nspec);
+                BeforeAllChain.Run(runningInstance);
             }
 
             // intentionally using for loop to prevent collection was modified error in sample specs
@@ -73,16 +73,16 @@ namespace NSpec.Domain
 
                 if (failFast && example.Context.HasAnyFailures()) return;
 
-                Exercise(example, nspec);
+                Exercise(example, runningInstance);
             }
 
             if (recurse)
             {
-                Contexts.Do(c => c.Run(failFast, nspec, recurse));
+                Contexts.Do(c => c.Run(failFast, runningInstance, recurse));
             }
 
             // TODO wrap this as well in a ConsoleCatcher, not before adding tests about it
-            AfterAllChain.Run(nspec);
+            AfterAllChain.Run(runningInstance);
         }
 
         /// <summary>
@@ -166,9 +166,9 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        public void Exercise(ExampleBase example, nspec nspec)
+        public void Exercise(ExampleBase example, nspec instance)
         {
-            if (example.ShouldSkip(nspec.tagsFilter))
+            if (example.ShouldSkip(instance.tagsFilter))
             {
                 return;
             }
@@ -177,7 +177,7 @@ namespace NSpec.Domain
 
             if (example.Pending)
             {
-                HookChainBase.RunAndHandleException(example.RunPending, nspec, ref example.Exception);
+                HookChainBase.RunAndHandleException(example.RunPending, instance, ref example.Exception);
 
                 return;
             }
@@ -186,13 +186,13 @@ namespace NSpec.Domain
 
             using (new ConsoleCatcher(output => example.CapturedOutput = output))
             {
-                BeforeChain.Run(nspec);
+                BeforeChain.Run(instance);
 
-                ActChain.Run(nspec);
+                ActChain.Run(instance);
 
-                RunExample(example, nspec);
+                RunExample(example, instance);
 
-                AfterChain.Run(nspec);
+                AfterChain.Run(instance);
             }
 
             // when an expected exception is thrown and is set to be cleared by 'expect<>',
@@ -203,13 +203,13 @@ namespace NSpec.Domain
             example.StopTiming(stopWatch);
         }
 
-        void RunExample(ExampleBase example, nspec nspec)
+        void RunExample(ExampleBase example, nspec instance)
         {
             if (BeforeAllChain.AnyBeforeAllsThrew()) return;
 
             if (BeforeChain.Exception != null) return;
 
-            HookChainBase.RunAndHandleException(example.Run, nspec, ref example.Exception);
+            HookChainBase.RunAndHandleException(example.Run, instance, ref example.Exception);
         }
 
         public virtual bool IsSub(Type baseType)
