@@ -69,6 +69,8 @@ namespace NSpec.Domain
             ClassHook.SafeInvoke(instance);
 
             AsyncClassHook.SafeInvoke(instance);
+
+            // do NOT traverse parent chain
         }
 
         bool CanRun(nspec instance)

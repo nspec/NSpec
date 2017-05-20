@@ -66,9 +66,6 @@ namespace NSpec.Domain
                 BeforeAllChain.Run(nspec);
             }
 
-            // evaluate again, after running this context `beforeAll`
-            bool anyBeforeAllThrew = BeforeAllChain.AnyBeforeAllsThrew();
-
             // intentionally using for loop to prevent collection was modified error in sample specs
             for (int i = 0; i < Examples.Count; i++)
             {
@@ -76,7 +73,7 @@ namespace NSpec.Domain
 
                 if (failFast && example.Context.HasAnyFailures()) return;
 
-                Exercise(example, nspec, anyBeforeAllThrew);
+                Exercise(example, nspec);
             }
 
             if (recurse)
@@ -107,10 +104,10 @@ namespace NSpec.Domain
             inheritedAfterAllException = AfterAllChain.Exception ?? inheritedAfterAllException;
 
             // if an exception was thrown before the example (either `before` or `act`) but was expected, ignore it
-            Exception unexpectedException = ClearExpectedException ? null : ExceptionBeforeAct;
+            Exception unexpectedException = ClearExpectedException ? null : BeforeChain.Exception ?? ActChain.Exception;
 
             Exception previousException = inheritedBeforeAllException ?? unexpectedException;
-            Exception followingException = ExceptionAfter ?? inheritedAfterAllException;
+            Exception followingException = AfterChain.Exception ?? inheritedAfterAllException;
 
             for (int i = 0; i < Examples.Count; i++)
             {
@@ -169,7 +166,7 @@ namespace NSpec.Domain
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
         }
 
-        public void Exercise(ExampleBase example, nspec nspec, bool anyBeforeAllThrew)
+        public void Exercise(ExampleBase example, nspec nspec)
         {
             if (example.ShouldSkip(nspec.tagsFilter))
             {
@@ -187,32 +184,32 @@ namespace NSpec.Domain
 
             var stopWatch = example.StartTiming();
 
-            if (!anyBeforeAllThrew)
+            using (new ConsoleCatcher(output => example.CapturedOutput = output))
             {
-                bool exceptionThrownInBefores;
-                bool exceptionThrownInAfters;
+                BeforeChain.Run(nspec);
 
-                using (new ConsoleCatcher(output => example.CapturedOutput = output))
-                {
-                    exceptionThrownInBefores = ChainUtils.RunAndHandleException(BeforeChain.Run, nspec, ref ExceptionBeforeAct);
+                ActChain.Run(nspec);
 
-                    if (!exceptionThrownInBefores)
-                    {
-                        ChainUtils.RunAndHandleException(ActChain.Run, nspec, ref ExceptionBeforeAct);
+                RunExample(example, nspec);
 
-                        ChainUtils.RunAndHandleException(example.Run, nspec, ref example.Exception);
-                    }
-
-                    exceptionThrownInAfters = ChainUtils.RunAndHandleException(AfterChain.Run, nspec, ref ExceptionAfter);
-                }
-
-                // when an expected exception is thrown and is set to be cleared by 'expect<>',
-                // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
-
-                if (exceptionThrownInAfters) ClearExpectedException = false;
+                AfterChain.Run(nspec);
             }
 
+            // when an expected exception is thrown and is set to be cleared by 'expect<>',
+            // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
+
+            if (AfterChain.Exception != null) ClearExpectedException = false;
+
             example.StopTiming(stopWatch);
+        }
+
+        void RunExample(ExampleBase example, nspec nspec)
+        {
+            if (BeforeAllChain.AnyBeforeAllsThrew()) return;
+
+            if (BeforeChain.Exception != null) return;
+
+            ChainUtils.RunAndHandleException(example.Run, nspec, ref example.Exception);
         }
 
         public virtual bool IsSub(Type baseType)
@@ -271,7 +268,7 @@ namespace NSpec.Domain
             string exampleText = $"{Examples.Count} exm";
             string contextText = $"{Contexts.Count} exm";
 
-            var exception = ExceptionBeforeAct ?? ExceptionAfter;
+            var exception = BeforeChain.Exception ?? ActChain.Exception ?? AfterChain.Exception;
             string exceptionText = exception?.GetType().Name ?? String.Empty;
 
             return String.Join(",", new []
@@ -444,7 +441,6 @@ namespace NSpec.Domain
         public ActChain ActChain;
         public AfterChain AfterChain;
         public AfterAllChain AfterAllChain;
-        public Exception ExceptionBeforeAct, ExceptionAfter;
         public bool ClearExpectedException;
         public string CapturedOutput;
         public Context Parent;

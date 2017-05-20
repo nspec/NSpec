@@ -36,6 +36,8 @@ namespace NSpec.Domain
 
         void RunHooks(nspec instance)
         {
+            // do NOT traverse parent chain
+
             // context-level
 
             if (Hook != null && AsyncHook != null)
