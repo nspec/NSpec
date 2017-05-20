@@ -5,11 +5,11 @@ using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {
-    public class AfterAllChain
+    public class AfterAllChain : HookChainBase
     {
-        public void BuildMethodLevel(Conventions conventions, List<Type> classHierarchy)
+        public override void BuildMethodLevel(Conventions conventions, List<Type> classHierarchy)
         {
-            var methods = ChainUtils.GetMethodsFromHierarchy(
+            var methods = GetMethodsFromHierarchy(
                 classHierarchy, conventions.GetMethodLevelAfterAll);
 
             methods.Reverse();
@@ -19,7 +19,7 @@ namespace NSpec.Domain
                 ClassHook = instance => methods.Do(m => m.Invoke(instance, null));
             }
 
-            var asyncMethods = ChainUtils.GetMethodsFromHierarchy(
+            var asyncMethods = GetMethodsFromHierarchy(
                 classHierarchy, conventions.GetAsyncMethodLevelAfterAll);
 
             asyncMethods.Reverse();
@@ -30,15 +30,7 @@ namespace NSpec.Domain
             }
         }
 
-        public void Run(nspec instance)
-        {
-            if (CanRun(instance))
-            {
-                ChainUtils.RunAndHandleException(RunHooks, instance, ref Exception);
-            }
-        }
-
-        void RunHooks(nspec instance)
+        protected override void RunHooks(nspec instance)
         {
             // context-level
 
@@ -73,26 +65,14 @@ namespace NSpec.Domain
             // do NOT traverse parent chain
         }
 
-        bool CanRun(nspec instance)
+        protected override bool CanRun(nspec instance)
         {
             return context.BeforeAllChain.AncestorBeforeAllsThrew()
                 ? false
                 : context.AnyUnfilteredExampleInSubTree(instance);
         }
 
-        public AfterAllChain(Context context)
-        {
-            this.context = context;
-        }
-
-        public Action Hook;
-        public Func<Task> AsyncHook;
-        
-        public Action<nspec> ClassHook { get; private set; }
-        public Action<nspec> AsyncClassHook { get; private set; }
-
-        public Exception Exception;
-
-        readonly Context context;
+        public AfterAllChain(Context context) : base(context)
+        { }
     }
 }

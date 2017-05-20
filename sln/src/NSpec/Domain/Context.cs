@@ -177,7 +177,7 @@ namespace NSpec.Domain
 
             if (example.Pending)
             {
-                ChainUtils.RunAndHandleException(example.RunPending, nspec, ref example.Exception);
+                HookChainBase.RunAndHandleException(example.RunPending, nspec, ref example.Exception);
 
                 return;
             }
@@ -209,7 +209,7 @@ namespace NSpec.Domain
 
             if (BeforeChain.Exception != null) return;
 
-            ChainUtils.RunAndHandleException(example.Run, nspec, ref example.Exception);
+            HookChainBase.RunAndHandleException(example.Run, nspec, ref example.Exception);
         }
 
         public virtual bool IsSub(Type baseType)
@@ -275,11 +275,6 @@ namespace NSpec.Domain
             {
                Name, levelText, exampleText, contextText, exceptionText, 
             });
-        }
-
-        public void RecurseAncestors(Action<Context> ancestorAction)
-        {
-            if (Parent != null) ancestorAction(Parent);
         }
 
         void WriteAncestors(ILiveFormatter formatter)
