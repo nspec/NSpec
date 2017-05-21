@@ -8,16 +8,6 @@ namespace NSpec.Domain
 {
     public class BeforeChain : HookChainBase
     {
-        protected override Func<Type, MethodInfo> GetMethodSelector(Conventions conventions)
-        {
-            return conventions.GetMethodLevelBefore;
-        }
-
-        protected override Func<Type, MethodInfo> GetAsyncMethodSelector(Conventions conventions)
-        {
-            return conventions.GetAsyncMethodLevelBefore;
-        }
-
         protected override void RunHooks(nspec instance)
         {
             // parent chain
@@ -35,8 +25,11 @@ namespace NSpec.Domain
             return !context.BeforeAllChain.AnyBeforeAllsThrew();
         }
 
-        public BeforeChain(Context context) : base(context,
-            "before", "beforeAsync", "before_each")
-        { }
+        public BeforeChain(Context context, Conventions conventions)
+            : base(context, "before", "beforeAsync", "before_each")
+        {
+            methodSelector = conventions.GetMethodLevelBefore;
+            asyncMethodSelector = conventions.GetAsyncMethodLevelBefore;
+        }
     }
 }

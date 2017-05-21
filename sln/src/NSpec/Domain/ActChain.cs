@@ -8,16 +8,6 @@ namespace NSpec.Domain
 {
     public class ActChain : HookChainBase
     {
-        protected override Func<Type, MethodInfo> GetMethodSelector(Conventions conventions)
-        {
-            return conventions.GetMethodLevelAct;
-        }
-
-        protected override Func<Type, MethodInfo> GetAsyncMethodSelector(Conventions conventions)
-        {
-            return conventions.GetAsyncMethodLevelAct;
-        }
-
         protected override void RunHooks(nspec instance)
         {
             // parent chain
@@ -37,8 +27,11 @@ namespace NSpec.Domain
                 : (context.BeforeChain.Exception == null);
         }
 
-        public ActChain(Context context) : base(context,
-            "act", "actAsync", "act_each")
-        { }
+        public ActChain(Context context, Conventions conventions)
+            : base(context, "act", "actAsync", "act_each")
+        {
+            methodSelector = conventions.GetMethodLevelAct;
+            asyncMethodSelector = conventions.GetAsyncMethodLevelAct;
+        }
     }
 }

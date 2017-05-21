@@ -10,15 +10,15 @@ namespace NSpec.Domain
     {
         public override void Build(nspec unused = null)
         {
-            BeforeAllChain.BuildMethodLevel(conventions, classHierarchy);
+            BeforeAllChain.BuildMethodLevel(classHierarchy);
 
-            BeforeChain.BuildMethodLevel(conventions, classHierarchy);
+            BeforeChain.BuildMethodLevel(classHierarchy);
 
-            ActChain.BuildMethodLevel(conventions, classHierarchy);
+            ActChain.BuildMethodLevel(classHierarchy);
 
-            AfterChain.BuildMethodLevel(conventions, classHierarchy);
+            AfterChain.BuildMethodLevel(classHierarchy);
 
-            AfterAllChain.BuildMethodLevel(conventions, classHierarchy);
+            AfterAllChain.BuildMethodLevel(classHierarchy);
 
             try
             {
@@ -85,11 +85,9 @@ namespace NSpec.Domain
         }
 
         public ClassContext(Type type, Conventions conventions = null, Tags tagsFilter = null, string tags = null)
-            : base(type.CleanName(), tags)
+            : base(type.CleanName(), tags, false, conventions)
         {
             this.SpecType = type;
-
-            this.conventions = conventions ?? new DefaultConventions().Initialize();
 
             this.tagsFilter = tagsFilter;
 
@@ -102,7 +100,6 @@ namespace NSpec.Domain
 
         Tags tagsFilter;
         List<Type> classHierarchy;
-        Conventions conventions;
         bool cantCreateInstance = false;
     }
 }

@@ -8,16 +8,6 @@ namespace NSpec.Domain
 {
     public class AfterChain : HookChainBase
     {
-        protected override Func<Type, MethodInfo> GetMethodSelector(Conventions conventions)
-        {
-            return conventions.GetMethodLevelAfter;
-        }
-
-        protected override Func<Type, MethodInfo> GetAsyncMethodSelector(Conventions conventions)
-        {
-            return conventions.GetAsyncMethodLevelAfter;
-        }
-
         protected override bool ReverseClassMethods()
         {
             return true;
@@ -40,8 +30,11 @@ namespace NSpec.Domain
             return !context.BeforeAllChain.AnyBeforeAllsThrew();
         }
 
-        public AfterChain(Context context) : base(context,
-            "after", "afterAsync", "after_each")
-        { }
+        public AfterChain(Context context, Conventions conventions)
+            : base(context, "after", "afterAsync", "after_each")
+        {
+            methodSelector = conventions.GetMethodLevelAfter;
+            asyncMethodSelector = conventions.GetAsyncMethodLevelAfter;
+        }
     }
 }

@@ -410,7 +410,7 @@ namespace NSpec.Domain
             get { return AfterAllChain.AsyncClassHook; }
         }
 
-        public Context(string name = "", string tags = null, bool isPending = false)
+        public Context(string name = "", string tags = null, bool isPending = false, Conventions conventions = null)
         {
             Name = name.Replace("_", " ");
             Tags = Domain.Tags.ParseTags(tags);
@@ -419,11 +419,13 @@ namespace NSpec.Domain
             Examples = new List<ExampleBase>();
             Contexts = new ContextCollection();
 
-            BeforeAllChain = new BeforeAllChain(this);
-            BeforeChain = new BeforeChain(this);
-            ActChain = new ActChain(this);
-            AfterChain = new AfterChain(this);
-            AfterAllChain = new AfterAllChain(this);
+            if (conventions == null) conventions = new DefaultConventions().Initialize();
+
+            BeforeAllChain = new BeforeAllChain(this, conventions);
+            BeforeChain = new BeforeChain(this, conventions);
+            ActChain = new ActChain(this, conventions);
+            AfterChain = new AfterChain(this, conventions);
+            AfterAllChain = new AfterAllChain(this, conventions);
         }
 
         public string Name;

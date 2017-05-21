@@ -9,10 +9,9 @@ namespace NSpec.Domain
 {
     public abstract class HookChainBase
     {
-        public void BuildMethodLevel(Conventions conventions, List<Type> classHierarchy)
+        public void BuildMethodLevel(List<Type> classHierarchy)
         {
-            var selector = GetMethodSelector(conventions);
-            var methods = GetMethodsFromHierarchy(classHierarchy, selector);
+            var methods = GetMethodsFromHierarchy(classHierarchy, methodSelector);
 
             if (ReverseClassMethods())
             {
@@ -24,8 +23,7 @@ namespace NSpec.Domain
                 ClassHook = instance => methods.Do(m => m.Invoke(instance, null));
             }
 
-            var asyncSelector = GetAsyncMethodSelector(conventions);
-            var asyncMethods = GetMethodsFromHierarchy(classHierarchy, asyncSelector);
+            var asyncMethods = GetMethodsFromHierarchy(classHierarchy, asyncMethodSelector);
 
             if (ReverseClassMethods())
             {
@@ -37,10 +35,6 @@ namespace NSpec.Domain
                 AsyncClassHook = instance => asyncMethods.Do(m => new AsyncMethodLevelBefore(m).Run(instance));
             }
         }
-
-        protected abstract Func<Type, MethodInfo> GetMethodSelector(Conventions conventions);
-
-        protected abstract Func<Type, MethodInfo> GetAsyncMethodSelector(Conventions conventions);
 
         protected virtual bool ReverseClassMethods()
         {
@@ -134,7 +128,8 @@ namespace NSpec.Domain
                 .ToList();
         }
 
-        public HookChainBase(Context context, string hookName, string asyncHookName, string classHookName)
+        public HookChainBase(
+            Context context, string hookName, string asyncHookName, string classHookName)
         {
             this.context = context;
             this.hookName = hookName;
@@ -150,8 +145,10 @@ namespace NSpec.Domain
 
         public Exception Exception;
 
-        protected readonly Context context;
+        protected Func<Type, MethodInfo> methodSelector;
+        protected Func<Type, MethodInfo> asyncMethodSelector;
 
+        protected readonly Context context;
         protected readonly string hookName;
         protected readonly string asyncHookName;
         protected readonly string classHookName;
