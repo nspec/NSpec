@@ -168,7 +168,7 @@ namespace NSpec.Domain
 
             if (example.Pending)
             {
-                HookChainBase.RunAndHandleException(example.RunPending, instance, ref example.Exception);
+                ContextUtils.RunAndHandleException(example.RunPending, instance, ref example.Exception);
 
                 return;
             }
@@ -200,7 +200,7 @@ namespace NSpec.Domain
 
             if (BeforeChain.Exception != null) return;
 
-            HookChainBase.RunAndHandleException(example.Run, instance, ref example.Exception);
+            ContextUtils.RunAndHandleException(example.Run, instance, ref example.Exception);
         }
 
         public virtual bool IsSub(Type baseType)

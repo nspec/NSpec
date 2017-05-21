@@ -11,7 +11,7 @@ namespace NSpec.Domain
     {
         public void BuildMethodLevel(List<Type> classHierarchy)
         {
-            var methods = GetMethodsFromHierarchy(classHierarchy, methodSelector);
+            var methods = ContextUtils.GetMethodsFromHierarchy(classHierarchy, methodSelector);
 
             if (reversed) 
             {
@@ -23,7 +23,7 @@ namespace NSpec.Domain
                 ClassHook = instance => methods.Do(m => m.Invoke(instance, null));
             }
 
-            var asyncMethods = GetMethodsFromHierarchy(classHierarchy, asyncMethodSelector);
+            var asyncMethods = ContextUtils.GetMethodsFromHierarchy(classHierarchy, asyncMethodSelector);
 
             if (reversed)
             {
@@ -42,44 +42,20 @@ namespace NSpec.Domain
         {
             if (CanRun(instance))
             {
-                RunAndHandleException(RunHooks, instance, ref Exception);
+                ContextUtils.RunAndHandleException(InvokeHooks, instance, ref Exception);
             }
         }
 
-        protected virtual void RunHooks(nspec instance)
+        protected virtual void InvokeHooks(nspec instance)
         {
             // class (method-level)
-            RunClassHooks(instance);
+            InvokeClassHooks(instance);
 
             // context-level
-            RunContextHooks();
+            InvokeContextHooks();
         }
 
-        public static bool RunAndHandleException(Action<nspec> action, nspec instance, ref Exception exceptionToSet)
-        {
-            bool hasThrown = false;
-
-            try
-            {
-                action(instance);
-            }
-            catch (TargetInvocationException invocationException)
-            {
-                if (exceptionToSet == null) exceptionToSet = instance.ExceptionToReturn(invocationException.InnerException);
-
-                hasThrown = true;
-            }
-            catch (Exception exception)
-            {
-                if (exceptionToSet == null) exceptionToSet = instance.ExceptionToReturn(exception);
-
-                hasThrown = true;
-            }
-
-            return hasThrown;
-        }
-
-        protected void RunClassHooks(nspec instance)
+        protected void InvokeClassHooks(nspec instance)
         {
             // class (method-level)
 
@@ -95,7 +71,7 @@ namespace NSpec.Domain
             AsyncClassHook.SafeInvoke(instance);
         }
 
-        protected void RunContextHooks()
+        protected void InvokeContextHooks()
         {
             // context-level
 
@@ -114,15 +90,6 @@ namespace NSpec.Domain
             Hook.SafeInvoke();
 
             AsyncHook.SafeInvoke();
-        }
-
-        protected static List<MethodInfo> GetMethodsFromHierarchy(
-            List<Type> classHierarchy, Func<Type, MethodInfo> selectMethod)
-        {
-            return classHierarchy
-                .Select(selectMethod)
-                .Where(m => m != null)
-                .ToList();
         }
 
         public HookChainBase(Context context,
@@ -151,37 +118,5 @@ namespace NSpec.Domain
         protected readonly string hookName;
         protected readonly string asyncHookName;
         protected readonly string classHookName;
-    }
-
-    public abstract class TraversingHookChain : HookChainBase
-    {
-        protected override void RunHooks(nspec instance)
-        {
-            // parent chain
-            if (!reversed)
-            {
-                RecurseAncestors(c => chainSelector(c).RunHooks(instance));
-            }
-
-            base.RunHooks(instance);
-
-            // parent chain, reverse order
-            if (reversed)
-            {
-                RecurseAncestors(c => chainSelector(c).RunHooks(instance));
-            }
-        }
-
-        protected void RecurseAncestors(Action<Context> ancestorAction)
-        {
-            if (context.Parent != null) ancestorAction(context.Parent);
-        }
-
-        public TraversingHookChain(Context context,
-            string hookName, string asyncHookName, string classHookName, bool reversed = false)
-            : base(context, hookName, asyncHookName, classHookName, reversed)
-        { }
-
-        protected Func<Context, TraversingHookChain> chainSelector;
     }
 }
