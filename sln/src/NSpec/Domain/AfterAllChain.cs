@@ -16,11 +16,10 @@ namespace NSpec.Domain
         }
 
         public AfterAllChain(Context context, Conventions conventions)
-            : base(context, false, true, "afterAll", "afterAllAsync", "after_all")
+            : base(context, "afterAll", "afterAllAsync", "after_all", reversed: true)
         {
             methodSelector = conventions.GetMethodLevelAfterAll;
             asyncMethodSelector = conventions.GetAsyncMethodLevelAfterAll;
-            //chainSelector = c => c.AfterAllChain;
         }
     }
 }

@@ -46,25 +46,13 @@ namespace NSpec.Domain
             }
         }
 
-        protected void RunHooks(nspec instance)
+        protected virtual void RunHooks(nspec instance)
         {
-            // parent chain
-            if (!reversed && traverse)
-            {
-                RecurseAncestors(c => chainSelector(c).RunHooks(instance));
-            }
-
             // class (method-level)
             RunClassHooks(instance);
 
             // context-level
             RunContextHooks();
-
-            // parent chain, reverse order
-            if (reversed && traverse)
-            {
-                RecurseAncestors(c => chainSelector(c).RunHooks(instance));
-            }
         }
 
         public static bool RunAndHandleException(Action<nspec> action, nspec instance, ref Exception exceptionToSet)
@@ -128,11 +116,6 @@ namespace NSpec.Domain
             AsyncHook.SafeInvoke();
         }
 
-        protected void RecurseAncestors(Action<Context> ancestorAction)
-        {
-            if (context.Parent != null) ancestorAction(context.Parent);
-        }
-
         protected static List<MethodInfo> GetMethodsFromHierarchy(
             List<Type> classHierarchy, Func<Type, MethodInfo> selectMethod)
         {
@@ -142,16 +125,14 @@ namespace NSpec.Domain
                 .ToList();
         }
 
-        public HookChainBase(
-            Context context, bool traverse, bool reversed,
-            string hookName, string asyncHookName, string classHookName)
+        public HookChainBase(Context context,
+            string hookName, string asyncHookName, string classHookName, bool reversed = false)
         {
             this.context = context;
-            this.traverse = traverse;
-            this.reversed = reversed;
             this.hookName = hookName;
             this.asyncHookName = asyncHookName;
             this.classHookName = classHookName;
+            this.reversed = reversed;
         }
 
         public Action Hook;
@@ -164,13 +145,43 @@ namespace NSpec.Domain
 
         protected Func<Type, MethodInfo> methodSelector;
         protected Func<Type, MethodInfo> asyncMethodSelector;
-        protected Func<Context, HookChainBase> chainSelector;
 
         protected readonly Context context;
-        protected readonly bool traverse;
         protected readonly bool reversed;
         protected readonly string hookName;
         protected readonly string asyncHookName;
         protected readonly string classHookName;
+    }
+
+    public abstract class TraversingHookChain : HookChainBase
+    {
+        protected override void RunHooks(nspec instance)
+        {
+            // parent chain
+            if (!reversed)
+            {
+                RecurseAncestors(c => chainSelector(c).RunHooks(instance));
+            }
+
+            base.RunHooks(instance);
+
+            // parent chain, reverse order
+            if (reversed)
+            {
+                RecurseAncestors(c => chainSelector(c).RunHooks(instance));
+            }
+        }
+
+        protected void RecurseAncestors(Action<Context> ancestorAction)
+        {
+            if (context.Parent != null) ancestorAction(context.Parent);
+        }
+
+        public TraversingHookChain(Context context,
+            string hookName, string asyncHookName, string classHookName, bool reversed = false)
+            : base(context, hookName, asyncHookName, classHookName, reversed)
+        { }
+
+        protected Func<Context, TraversingHookChain> chainSelector;
     }
 }

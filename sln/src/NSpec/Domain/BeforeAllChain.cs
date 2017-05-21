@@ -26,7 +26,7 @@ namespace NSpec.Domain
         }
 
         public BeforeAllChain(Context context, Conventions conventions)
-            : base(context, false, false, "beforeAll", "beforeAllAsync", "before_all")
+            : base(context, "beforeAll", "beforeAllAsync", "before_all")
         {
             methodSelector = conventions.GetMethodLevelBeforeAll;
             asyncMethodSelector = conventions.GetAsyncMethodLevelBeforeAll;

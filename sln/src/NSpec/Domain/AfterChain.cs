@@ -6,7 +6,7 @@ using NSpec.Domain.Extensions;
 
 namespace NSpec.Domain
 {
-    public class AfterChain : HookChainBase
+    public class AfterChain : TraversingHookChain
     {
         protected override bool CanRun(nspec instance)
         {
@@ -14,7 +14,7 @@ namespace NSpec.Domain
         }
 
         public AfterChain(Context context, Conventions conventions)
-            : base(context, true, true, "after", "afterAsync", "after_each")
+            : base(context, "after", "afterAsync", "after_each", reversed: true)
         {
             methodSelector = conventions.GetMethodLevelAfter;
             asyncMethodSelector = conventions.GetAsyncMethodLevelAfter;
