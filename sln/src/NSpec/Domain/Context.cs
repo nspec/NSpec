@@ -366,19 +366,19 @@ namespace NSpec.Domain
             AfterAllChain = new AfterAllChain(this, conventions);
         }
 
-        public string Name;
-        public int Level;
-        public List<string> Tags;
-        public List<ExampleBase> Examples;
-        public ContextCollection Contexts;
-        public BeforeAllChain BeforeAllChain;
-        public BeforeChain BeforeChain;
-        public ActChain ActChain;
-        public AfterChain AfterChain;
-        public AfterAllChain AfterAllChain;
+        public string Name { get; protected set; }
+        public int Level { get; protected set; }
+        public List<string> Tags { get; protected set; }
+        public List<ExampleBase> Examples { get; protected set; }
+        public ContextCollection Contexts { get; protected set; }
+        public BeforeAllChain BeforeAllChain { get; protected set; }
+        public BeforeChain BeforeChain { get; protected set; }
+        public ActChain ActChain { get; protected set; }
+        public AfterChain AfterChain { get; protected set; }
+        public AfterAllChain AfterAllChain { get; protected set; }
         public bool ClearExpectedException;
-        public string CapturedOutput;
-        public Context Parent;
+        public string CapturedOutput { get; protected set; }
+        public Context Parent { get; protected set; }
         
         protected List<RunnableExample> runnables;
 

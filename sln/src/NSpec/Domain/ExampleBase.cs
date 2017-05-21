@@ -106,12 +106,12 @@ namespace NSpec.Domain
         }
 
         public TimeSpan Duration { get; protected set; }
-        public string CapturedOutput { get; set; }
+        public string CapturedOutput;
         public bool Pending { get; protected set; }
         public bool HasRun;
-        public string Spec;
-        public List<string> Tags;
+        public string Spec { get; protected set; }
+        public List<string> Tags { get; protected set; }
         public Exception Exception;
-        public Context Context;
+        public Context Context { get; protected set; }
     }
 }
