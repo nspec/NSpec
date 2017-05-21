@@ -8,17 +8,6 @@ namespace NSpec.Domain
 {
     public class BeforeAllChain : HookChainBase
     {
-        protected override void RunHooks(nspec instance)
-        {
-            // do NOT traverse parent chain
-
-            // class (method-level)
-            RunClassHooks(instance);
-
-            // context-level
-            RunContextHooks();
-        }
-
         protected override bool CanRun(nspec instance)
         {
             return AncestorBeforeAllsThrew()
@@ -37,7 +26,7 @@ namespace NSpec.Domain
         }
 
         public BeforeAllChain(Context context, Conventions conventions)
-            : base(context, "beforeAll", "beforeAllAsync", "before_all")
+            : base(context, false, false, "beforeAll", "beforeAllAsync", "before_all")
         {
             methodSelector = conventions.GetMethodLevelBeforeAll;
             asyncMethodSelector = conventions.GetAsyncMethodLevelBeforeAll;

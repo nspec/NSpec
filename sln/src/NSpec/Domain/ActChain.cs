@@ -8,18 +8,6 @@ namespace NSpec.Domain
 {
     public class ActChain : HookChainBase
     {
-        protected override void RunHooks(nspec instance)
-        {
-            // parent chain
-            RecurseAncestors(c => c.ActChain.RunHooks(instance));
-
-            // class (method-level)
-            RunClassHooks(instance);
-
-            // context-level
-            RunContextHooks();
-        }
-
         protected override bool CanRun(nspec instance)
         {
             return context.BeforeAllChain.AnyBeforeAllsThrew()
@@ -28,10 +16,11 @@ namespace NSpec.Domain
         }
 
         public ActChain(Context context, Conventions conventions)
-            : base(context, "act", "actAsync", "act_each")
+            : base(context, true, false, "act", "actAsync", "act_each")
         {
             methodSelector = conventions.GetMethodLevelAct;
             asyncMethodSelector = conventions.GetAsyncMethodLevelAct;
+            chainSelector = c => c.ActChain;
         }
     }
 }

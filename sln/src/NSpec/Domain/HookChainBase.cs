@@ -13,7 +13,7 @@ namespace NSpec.Domain
         {
             var methods = GetMethodsFromHierarchy(classHierarchy, methodSelector);
 
-            if (ReverseClassMethods())
+            if (reversed) 
             {
                 methods.Reverse();
             }
@@ -25,7 +25,7 @@ namespace NSpec.Domain
 
             var asyncMethods = GetMethodsFromHierarchy(classHierarchy, asyncMethodSelector);
 
-            if (ReverseClassMethods())
+            if (reversed)
             {
                 asyncMethods.Reverse();
             }
@@ -36,20 +36,34 @@ namespace NSpec.Domain
             }
         }
 
-        protected virtual bool ReverseClassMethods()
-        {
-            return false;
-        }
-
         protected abstract bool CanRun(nspec instance);
-
-        protected abstract void RunHooks(nspec instance);
 
         public void Run(nspec instance)
         {
             if (CanRun(instance))
             {
                 RunAndHandleException(RunHooks, instance, ref Exception);
+            }
+        }
+
+        protected void RunHooks(nspec instance)
+        {
+            // parent chain
+            if (!reversed && traverse)
+            {
+                RecurseAncestors(c => chainSelector(c).RunHooks(instance));
+            }
+
+            // class (method-level)
+            RunClassHooks(instance);
+
+            // context-level
+            RunContextHooks();
+
+            // parent chain, reverse order
+            if (reversed && traverse)
+            {
+                RecurseAncestors(c => chainSelector(c).RunHooks(instance));
             }
         }
 
@@ -129,9 +143,12 @@ namespace NSpec.Domain
         }
 
         public HookChainBase(
-            Context context, string hookName, string asyncHookName, string classHookName)
+            Context context, bool traverse, bool reversed,
+            string hookName, string asyncHookName, string classHookName)
         {
             this.context = context;
+            this.traverse = traverse;
+            this.reversed = reversed;
             this.hookName = hookName;
             this.asyncHookName = asyncHookName;
             this.classHookName = classHookName;
@@ -147,8 +164,11 @@ namespace NSpec.Domain
 
         protected Func<Type, MethodInfo> methodSelector;
         protected Func<Type, MethodInfo> asyncMethodSelector;
+        protected Func<Context, HookChainBase> chainSelector;
 
         protected readonly Context context;
+        protected readonly bool traverse;
+        protected readonly bool reversed;
         protected readonly string hookName;
         protected readonly string asyncHookName;
         protected readonly string classHookName;
