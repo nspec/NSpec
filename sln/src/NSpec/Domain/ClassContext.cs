@@ -46,11 +46,6 @@ namespace NSpec.Domain
             return baseType == SpecType;
         }
 
-        IEnumerable<MethodInfo> GetMethodsFromHierarchy(Func<Type, MethodInfo> methodAccessor)
-        {
-            return classHierarchy.Select(methodAccessor).Where(mi => mi != null);
-        }
-
         void AddFailingExample(Exception targetEx)
         {
             var reportedEx = (targetEx.InnerException != null)

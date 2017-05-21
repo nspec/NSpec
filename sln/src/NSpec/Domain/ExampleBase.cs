@@ -36,6 +36,15 @@ namespace NSpec.Domain
             return Parse(exp.Body);
         }
 
+        public void AddTo(Context context)
+        {
+            Context = context;
+
+            Tags.AddRange(context.Tags);
+
+            Pending |= context.IsPending();
+        }
+
         public abstract void Run(nspec nspec);
         public abstract void RunPending(nspec nspec);
 

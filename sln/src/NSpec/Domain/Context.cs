@@ -13,13 +13,9 @@ namespace NSpec.Domain
     {
         public void AddExample(ExampleBase example)
         {
-            example.Context = this;
-
-            example.Tags.AddRange(Tags);
+            example.AddTo(this);
 
             Examples.Add(example);
-
-            example.Pending |= IsPending();
         }
 
         public IEnumerable<ExampleBase> AllExamples()
@@ -43,7 +39,7 @@ namespace NSpec.Domain
 
             child.Parent = this;
 
-            child.Tags.AddRange(child.Parent.Tags);
+            child.Tags.AddRange(Tags);
 
             Contexts.Add(child);
         }
