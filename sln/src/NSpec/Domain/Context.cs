@@ -16,6 +16,8 @@ namespace NSpec.Domain
             example.AddTo(this);
 
             Examples.Add(example);
+
+            runnables.Add(new RunnableExample(this, example));
         }
 
         public IEnumerable<ExampleBase> AllExamples()
@@ -63,13 +65,11 @@ namespace NSpec.Domain
             }
 
             // intentionally using for loop to prevent collection was modified error in sample specs
-            for (int i = 0; i < Examples.Count; i++)
+            for (int i = 0; i < runnables.Count; i++)
             {
-                var example = Examples[i];
+                if (failFast && HasAnyFailures()) return;
 
-                if (failFast && example.Context.HasAnyFailures()) return;
-
-                Exercise(example, runningInstance);
+                runnables[i].Exercise(runningInstance);
             }
 
             if (recurse)
@@ -91,20 +91,12 @@ namespace NSpec.Domain
         /// </remarks>
         public virtual void AssignExceptions(bool recurse = true)
         {
-            // if an exception was thrown before the example (only in `act`) but was expected, ignore it
-            Exception unexpectedException = ClearExpectedException ? null : ActChain.AnyException();
+            var beforeAllException = BeforeAllChain.AnyException();
+            var afterAllException = AfterAllChain.AnyException();
 
-            Exception previousException = BeforeAllChain.AnyException() ?? BeforeChain.AnyException() ?? unexpectedException;
-            Exception followingException = AfterChain.AnyException() ?? AfterAllChain.AnyException();
-
-            for (int i = 0; i < Examples.Count; i++)
+            for (int i = 0; i < runnables.Count; i++)
             {
-                var example = Examples[i];
-
-                if (!example.Pending)
-                {
-                    example.AssignProperException(previousException, followingException);
-                }
+                runnables[i].AssignException(beforeAllException, afterAllException);
             }
 
             if (recurse)
@@ -124,14 +116,7 @@ namespace NSpec.Domain
         {
             for (int i = 0; i < Examples.Count; i++)
             {
-                var example = Examples[i];
-
-                if (example.HasRun && !alreadyWritten)
-                {
-                    WriteAncestors(formatter);
-                }
-
-                if (example.HasRun) formatter.Write(example, Level);
+                runnables[i].Write(formatter);
             }
 
             if (recurse)
@@ -152,52 +137,6 @@ namespace NSpec.Domain
         public string FullContext()
         {
             return Parent != null ? Parent.FullContext() + ". " + Name : Name;
-        }
-
-        public void Exercise(ExampleBase example, nspec instance)
-        {
-            if (example.ShouldSkip(instance.tagsFilter))
-            {
-                return;
-            }
-
-            example.HasRun = true;
-
-            if (example.Pending)
-            {
-                ContextUtils.RunAndHandleException(example.RunPending, instance, ref example.Exception);
-
-                return;
-            }
-
-            var stopWatch = example.StartTiming();
-
-            using (new ConsoleCatcher(output => example.CapturedOutput = output))
-            {
-                BeforeChain.Run(instance);
-
-                ActChain.Run(instance);
-
-                RunExample(example, instance);
-
-                AfterChain.Run(instance);
-            }
-
-            // when an expected exception is thrown and is set to be cleared by 'expect<>',
-            // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
-
-            if (AfterChain.AnyThrew()) ClearExpectedException = false;
-
-            example.StopTiming(stopWatch);
-        }
-
-        void RunExample(ExampleBase example, nspec instance)
-        {
-            if (BeforeAllChain.AnyThrew()) return;
-
-            if (BeforeChain.AnyThrew()) return;
-
-            ContextUtils.RunAndHandleException(example.Run, instance, ref example.Exception);
         }
 
         public virtual bool IsSub(Type baseType)
@@ -254,9 +193,15 @@ namespace NSpec.Domain
         {
             string levelText = $"L{Level}";
             string exampleText = $"{Examples.Count} exm";
-            string contextText = $"{Contexts.Count} exm";
+            string contextText = $"{Contexts.Count} ctx";
 
-            var exception = BeforeChain.AnyException() ?? ActChain.AnyException() ?? AfterChain.AnyException();
+            var exception =
+                BeforeAllChain.AnyException() ??
+                BeforeChain.AnyException() ??
+                ActChain.AnyException() ??
+                AfterChain.AnyException() ??
+                AfterAllChain.AnyException();
+
             string exceptionText = exception?.GetType().Name ?? String.Empty;
 
             return String.Join(",", new []
@@ -265,8 +210,11 @@ namespace NSpec.Domain
             });
         }
 
-        void WriteAncestors(ILiveFormatter formatter)
+        public void WriteAncestors(ILiveFormatter formatter)
         {
+            if (alreadyWritten) return;
+
+            // when hitting root `nspec` context, skip it
             if (Parent == null)
             {
                 alreadyWritten = true;
@@ -275,7 +223,7 @@ namespace NSpec.Domain
 
             Parent.WriteAncestors(formatter);
 
-            if (!alreadyWritten) formatter.Write(this);
+            formatter.Write(this);
 
             alreadyWritten = true;
         }
@@ -409,6 +357,8 @@ namespace NSpec.Domain
 
             if (conventions == null) conventions = new DefaultConventions().Initialize();
 
+            runnables = new List<RunnableExample>();
+
             BeforeAllChain = new BeforeAllChain(this, conventions);
             BeforeChain = new BeforeChain(this, conventions);
             ActChain = new ActChain(this, conventions);
@@ -430,6 +380,8 @@ namespace NSpec.Domain
         public string CapturedOutput;
         public Context Parent;
         
+        protected List<RunnableExample> runnables;
+
         nspec builtInstance;
         bool alreadyWritten, isPending;
     }
