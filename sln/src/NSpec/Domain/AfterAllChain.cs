@@ -15,6 +15,13 @@ namespace NSpec.Domain
                 : context.AnyUnfilteredExampleInSubTree(instance);
         }
 
+        public Exception AnyAfterAllException()
+        {
+            // give precedence to Exception closer in the chain
+
+            return Exception ?? context.Parent?.AfterAllChain.AnyAfterAllException();
+        }
+
         public AfterAllChain(Context context, Conventions conventions)
             : base(context, "afterAll", "afterAllAsync", "after_all", reversed: true)
         {

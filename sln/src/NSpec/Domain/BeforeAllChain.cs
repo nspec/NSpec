@@ -15,14 +15,21 @@ namespace NSpec.Domain
                 : context.AnyUnfilteredExampleInSubTree(instance);
         }
 
-        public bool AnyBeforeAllsThrew()
+        public bool AnyBeforeAllThrew()
         {
             return (Exception != null || AncestorBeforeAllsThrew());
         }
 
         public bool AncestorBeforeAllsThrew()
         {
-            return (context.Parent?.BeforeAllChain.AnyBeforeAllsThrew() ?? false);
+            return (context.Parent?.BeforeAllChain.AnyBeforeAllThrew() ?? false);
+        }
+
+        public Exception AnyBeforeAllException()
+        {
+            // give precedence to Exception farther up in the chain
+
+            return context.Parent?.BeforeAllChain.AnyBeforeAllException() ?? Exception;
         }
 
         public BeforeAllChain(Context context, Conventions conventions)

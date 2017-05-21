@@ -91,19 +91,14 @@ namespace NSpec.Domain
         /// </remarks>
         public virtual void AssignExceptions(bool recurse = true)
         {
-            AssignExceptions(null, null, recurse);
-        }
+            var anyBeforeAllException = BeforeAllChain.AnyBeforeAllException();
+            var anyAfterAllException = AfterAllChain.AnyAfterAllException();
 
-        protected virtual void AssignExceptions(Exception inheritedBeforeAllException, Exception inheritedAfterAllException, bool recurse)
-        {
-            inheritedBeforeAllException = inheritedBeforeAllException ?? BeforeAllChain.Exception;
-            inheritedAfterAllException = AfterAllChain.Exception ?? inheritedAfterAllException;
+            // if an exception was thrown before the example (only in `act`) but was expected, ignore it
+            Exception unexpectedException = ClearExpectedException ? null : ActChain.Exception;
 
-            // if an exception was thrown before the example (either `before` or `act`) but was expected, ignore it
-            Exception unexpectedException = ClearExpectedException ? null : BeforeChain.Exception ?? ActChain.Exception;
-
-            Exception previousException = inheritedBeforeAllException ?? unexpectedException;
-            Exception followingException = AfterChain.Exception ?? inheritedAfterAllException;
+            Exception previousException = anyBeforeAllException ?? BeforeChain.Exception ?? unexpectedException;
+            Exception followingException = AfterChain.Exception ?? anyAfterAllException;
 
             for (int i = 0; i < Examples.Count; i++)
             {
@@ -117,7 +112,7 @@ namespace NSpec.Domain
 
             if (recurse)
             {
-                Contexts.Do(c => c.AssignExceptions(inheritedBeforeAllException, inheritedAfterAllException, recurse));
+                Contexts.Do(c => c.AssignExceptions(recurse));
             }
         }
 
@@ -201,7 +196,7 @@ namespace NSpec.Domain
 
         void RunExample(ExampleBase example, nspec instance)
         {
-            if (BeforeAllChain.AnyBeforeAllsThrew()) return;
+            if (BeforeAllChain.AnyBeforeAllThrew()) return;
 
             if (BeforeChain.Exception != null) return;
 
