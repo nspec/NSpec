@@ -10,15 +10,10 @@ namespace NSpec.Tests
     /// </summary>
     class ExampleBaseWrap : ExampleBase
     {
-        public ExampleBaseWrap(string name)
-            : base(name)
+        public ExampleBaseWrap(string name = "", bool pending = false)
+            : base(name, pending: pending)
         {
         }
-
-        public ExampleBaseWrap()
-        {
-        }
-
         public override void Run(nspec nspec)
         {
             throw new NotImplementedException();

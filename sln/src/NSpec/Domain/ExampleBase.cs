@@ -146,7 +146,7 @@ namespace NSpec.Domain
             Pending = pending;
         }
 
-        public bool Pending;
+        public bool Pending { get; protected set; }
         public bool HasRun;
         public string Spec;
         public List<string> Tags;
