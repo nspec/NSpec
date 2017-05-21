@@ -42,7 +42,7 @@ namespace NSpec.Domain
         {
             if (CanRun(instance))
             {
-                ContextUtils.RunAndHandleException(InvokeHooks, instance, ref Exception);
+                ContextUtils.RunAndHandleException(InvokeHooks, instance, ref exception);
             }
         }
 
@@ -92,6 +92,14 @@ namespace NSpec.Domain
             AsyncHook.SafeInvoke();
         }
 
+        public Exception Exception
+        {
+            get { return exception; }
+            protected set { exception = value; }
+        }
+
+        public abstract Exception AnyException();
+
         public HookChainBase(Context context,
             string hookName, string asyncHookName, string classHookName, bool reversed = false)
         {
@@ -108,8 +116,7 @@ namespace NSpec.Domain
         public Action<nspec> ClassHook { get; protected set; }
         public Action<nspec> AsyncClassHook { get; protected set; }
 
-        public Exception Exception;
-
+        protected Exception exception;
         protected Func<Type, MethodInfo> methodSelector;
         protected Func<Type, MethodInfo> asyncMethodSelector;
 

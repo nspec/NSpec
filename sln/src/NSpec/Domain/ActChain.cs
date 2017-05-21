@@ -10,9 +10,9 @@ namespace NSpec.Domain
     {
         protected override bool CanRun(nspec instance)
         {
-            return context.BeforeAllChain.AnyBeforeAllThrew()
+            return context.BeforeAllChain.AnyThrew()
                 ? false
-                : (context.BeforeChain.Exception == null);
+                : !context.BeforeChain.AnyThrew();
         }
 
         public ActChain(Context context, Conventions conventions)

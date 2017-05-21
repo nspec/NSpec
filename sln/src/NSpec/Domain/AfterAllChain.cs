@@ -10,16 +10,22 @@ namespace NSpec.Domain
     {
         protected override bool CanRun(nspec instance)
         {
-            return context.BeforeAllChain.AncestorBeforeAllsThrew()
+            return context.BeforeAllChain.AncestorsThrew()
                 ? false
                 : context.AnyUnfilteredExampleInSubTree(instance);
         }
 
-        public Exception AnyAfterAllException()
+        public bool AnyThrew()
         {
-            // give precedence to Exception closer in the chain
+            return (AnyException() != null);
+        }
 
-            return Exception ?? context.Parent?.AfterAllChain.AnyAfterAllException();
+        public override Exception AnyException()
+        {
+            // when hook chain is NOT traversed, build up exceptions along ancestor chain
+
+            // give precedence to Exception closer in the chain
+            return Exception ?? context.Parent?.AfterAllChain.AnyException();
         }
 
         public AfterAllChain(Context context, Conventions conventions)

@@ -15,10 +15,15 @@ namespace NSpec.Tests
             Level = context.Level;
             Tags = new List<string>(context.Tags);
             BeforeAllException = context.BeforeAllChain.Exception;
+            AnyBeforeAllException = context.BeforeAllChain.AnyException();
             BeforeException = context.BeforeChain.Exception;
+            AnyBeforeException = context.BeforeChain.AnyException();
             ActException = context.ActChain.Exception;
+            AnyActException = context.ActChain.AnyException();
             AfterException = context.AfterChain.Exception;
+            AnyAfterException = context.AfterChain.AnyException();
             AfterAllException = context.AfterAllChain.Exception;
+            AnyAfterAllException = context.AfterAllChain.AnyException();
             ClearExpectedException = context.ClearExpectedException;
             CapturedOutput = context.CapturedOutput;
             IsPending = context.IsPending();
@@ -34,14 +39,19 @@ namespace NSpec.Tests
         public List<string> Tags { get; private set; }
 
         public Exception BeforeAllException { get; private set; }
+        public Exception AnyBeforeAllException { get; private set; }
 
         public Exception BeforeException { get; private set; }
+        public Exception AnyBeforeException { get; private set; }
 
         public Exception ActException { get; private set; }
+        public Exception AnyActException { get; private set; }
 
         public Exception AfterException { get; private set; }
+        public Exception AnyAfterException { get; private set; }
 
         public Exception AfterAllException { get; private set; }
+        public Exception AnyAfterAllException { get; private set; }
 
         public bool ClearExpectedException { get; private set; }
 

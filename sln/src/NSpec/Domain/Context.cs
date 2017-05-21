@@ -91,14 +91,11 @@ namespace NSpec.Domain
         /// </remarks>
         public virtual void AssignExceptions(bool recurse = true)
         {
-            var anyBeforeAllException = BeforeAllChain.AnyBeforeAllException();
-            var anyAfterAllException = AfterAllChain.AnyAfterAllException();
-
             // if an exception was thrown before the example (only in `act`) but was expected, ignore it
-            Exception unexpectedException = ClearExpectedException ? null : ActChain.Exception;
+            Exception unexpectedException = ClearExpectedException ? null : ActChain.AnyException();
 
-            Exception previousException = anyBeforeAllException ?? BeforeChain.Exception ?? unexpectedException;
-            Exception followingException = AfterChain.Exception ?? anyAfterAllException;
+            Exception previousException = BeforeAllChain.AnyException() ?? BeforeChain.AnyException() ?? unexpectedException;
+            Exception followingException = AfterChain.AnyException() ?? AfterAllChain.AnyException();
 
             for (int i = 0; i < Examples.Count; i++)
             {
@@ -189,16 +186,16 @@ namespace NSpec.Domain
             // when an expected exception is thrown and is set to be cleared by 'expect<>',
             // a subsequent exception thrown in 'after' hooks would go unnoticed, so do not clear in this case
 
-            if (AfterChain.Exception != null) ClearExpectedException = false;
+            if (AfterChain.AnyThrew()) ClearExpectedException = false;
 
             example.StopTiming(stopWatch);
         }
 
         void RunExample(ExampleBase example, nspec instance)
         {
-            if (BeforeAllChain.AnyBeforeAllThrew()) return;
+            if (BeforeAllChain.AnyThrew()) return;
 
-            if (BeforeChain.Exception != null) return;
+            if (BeforeChain.AnyThrew()) return;
 
             ContextUtils.RunAndHandleException(example.Run, instance, ref example.Exception);
         }
@@ -259,7 +256,7 @@ namespace NSpec.Domain
             string exampleText = $"{Examples.Count} exm";
             string contextText = $"{Contexts.Count} exm";
 
-            var exception = BeforeChain.Exception ?? ActChain.Exception ?? AfterChain.Exception;
+            var exception = BeforeChain.AnyException() ?? ActChain.AnyException() ?? AfterChain.AnyException();
             string exceptionText = exception?.GetType().Name ?? String.Empty;
 
             return String.Join(",", new []

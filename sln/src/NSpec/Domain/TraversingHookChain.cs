@@ -26,6 +26,20 @@ namespace NSpec.Domain
             if (context.Parent != null) ancestorAction(context.Parent);
         }
 
+        public override Exception AnyException()
+        {
+            // when hook chain is traversed, this chain exception holds any ancestor exception
+
+            return Exception;
+        }
+
+        public bool AnyThrew()
+        {
+            // when hook chain is traversed, this chain exception holds any ancestor exception
+
+            return (Exception != null);
+        }
+
         public TraversingHookChain(Context context,
             string hookName, string asyncHookName, string classHookName, bool reversed = false)
             : base(context, hookName, asyncHookName, classHookName, reversed)
