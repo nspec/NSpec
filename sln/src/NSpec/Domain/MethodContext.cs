@@ -19,12 +19,6 @@ namespace NSpec.Domain
             }
         }
 
-        public MethodContext(MethodInfo method, string tags = null)
-            : base(method.Name, tags)
-        {
-            this.method = method;
-        }
-
         static void AddFailingExample(nspec instance, Exception targetEx)
         {
             var reportedEx = (targetEx.InnerException != null)
@@ -34,6 +28,12 @@ namespace NSpec.Domain
             string exampleName = "Method context body throws an exception of type '{0}'".With(reportedEx.GetType().Name);
 
             instance.it[exampleName] = () => { throw new ContextBareCodeException(reportedEx); };
+        }
+
+        public MethodContext(MethodInfo method, string tags = null)
+            : base(method.Name, tags)
+        {
+            this.method = method;
         }
 
         MethodInfo method;

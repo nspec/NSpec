@@ -381,8 +381,8 @@ namespace NSpec.Domain
         public Context Parent { get; protected set; }
         
         protected List<RunnableExample> runnables;
-
-        nspec builtInstance;
-        bool alreadyWritten, isPending;
+        protected nspec builtInstance;
+        protected bool alreadyWritten;
+        protected bool isPending;
     }
 }

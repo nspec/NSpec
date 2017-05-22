@@ -59,6 +59,9 @@ namespace NSpec.Domain
 
             var failingExample = new Example(exampleName, action: emptyAction)
             {
+                // flag the one and only failing example as being run;
+                // nothing else is needed: no parents, no childs, no before/after hooks
+                HasRun = true,
                 Exception = new ContextBareCodeException(reportedEx),
             };
 
@@ -67,16 +70,9 @@ namespace NSpec.Domain
 
         public override void Run(bool failFast, nspec instance = null, bool recurse = true)
         {
-            if (cantCreateInstance)
-            {
-                // flag the one and only failing example as being run;
-                // nothing else is needed: no parents, no childs, no before/after hooks
-                Examples.Single().HasRun = true;
-            }
-            else
-            {
-                base.Run(failFast, instance, recurse);
-            }
+            if (cantCreateInstance) return;
+
+            base.Run(failFast, instance, recurse);
         }
 
         public ClassContext(Type type, Conventions conventions = null, Tags tagsFilter = null, string tags = null)
@@ -89,12 +85,14 @@ namespace NSpec.Domain
             this.classHierarchy = (type == typeof(nspec))
                 ? new List<Type>()
                 : new List<Type>(type.GetAbstractBaseClassChainWithClass());
+
+            cantCreateInstance = false;
         }
 
         public Type SpecType;
 
         Tags tagsFilter;
         List<Type> classHierarchy;
-        bool cantCreateInstance = false;
+        bool cantCreateInstance;
     }
 }

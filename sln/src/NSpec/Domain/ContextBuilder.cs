@@ -33,7 +33,7 @@ namespace NSpec.Domain
 
             type.GetAbstractBaseClassChainWithClass()
                 .Where(s => s != type)
-                .Each(s => tagAttributes.Add(new TagAttribute(s.Name)));
+                .Do(s => tagAttributes.Add(new TagAttribute(s.Name)));
 
             var tags = TagStringFor(tagAttributes);
 
