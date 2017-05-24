@@ -15,13 +15,13 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         {
             void method_level_context()
             {
-                it["passes if no exception thrown"] = expectNoExceptions;
+                it["passes if no exception thrown"] = () => { };
 
                 context["when exception thrown from act"] = () =>
                 {
-                    act = () => { throw new KnownException("unexpected failure"); };
+                    act = () => { throw new KnownException("some unexpected failure"); };
 
-                    it["rethrows the exception from act"] = expectNoExceptions;
+                    it["rethrows the exception from act"] = () => { };
                 };
             }
         }
@@ -52,9 +52,10 @@ namespace NSpec.Tests.WhenRunningSpecs.Exceptions
         public void rethrows_the_exception_from_act()
         {
             var exception = TheExample("rethrows the exception from act").Exception;
-            
+
             exception.Should().BeOfType<ExampleFailureException>();
-            exception.Message.Should().Be("Context Failure: unexpected failure, Example Failure: unexpected failure");
+            exception.InnerException.Should().BeOfType<KnownException>();
+            exception.Message.Should().Contain("some unexpected failure");
         }
     }
 }
