@@ -565,3 +565,15 @@ ReSharper test runner) or on a CI server using the NUnit console runner. To do t
 install the [NSpecInNUnit](https://www.nuget.org/packages/NSpecInNUnit/) package and
 extend a special base class. Full usage instructions are at the [project site](https://github.com/provegard/NSpecInNUnit)
 for NSpecInNUnit.
+
+### NSpec Visual Studio Adapter
+
+NSpec.VsAdapter is a test adapter to run NSpec tests from Test Explorer in 
+Visual Studio. It runs tests in VS 2013, 2015 and 2017 from projects 
+targeting classic .NET Framework.
+
+It is available both as a [Visual Studio Extension](https://marketplace.visualstudio.com/items?itemName=GiuseppePiscopo.NSpecVSAdapter)
+as well as a [NuGet Package](https://www.nuget.org/packages/NSpec.VsAdapter).
+
+Please check [project home](https://github.com/nspec/NSpec.VsAdapter) 
+for further details and instructions.
