@@ -27,7 +27,7 @@ namespace NSpec.Api
         {
             var exampleSelector = new ExampleSelector(testAssemblyPath);
 
-            var discoveredExamples = exampleSelector.Select();
+            var discoveredExamples = exampleSelector.Start();
 
             string serialized = JsonConvert.SerializeObject(discoveredExamples);
 

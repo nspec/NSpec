@@ -25,7 +25,7 @@ namespace NSpec.Tests.Api.Discovery
         {
             selector = new ExampleSelector(testAssemblyPath);
 
-            actuals = selector.Select();
+            actuals = selector.Start();
         }
 
         [Test]

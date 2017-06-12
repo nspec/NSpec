@@ -15,7 +15,7 @@ namespace NSpec.Api.Discovery
             debugInfoProvider = new DebugInfoProvider(testAssemblyPath);
         }
 
-        public IEnumerable<DiscoveredExample> Select()
+        public IEnumerable<DiscoveredExample> Start()
         {
             var selector = new ContextSelector();
 
