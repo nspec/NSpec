@@ -6,17 +6,20 @@ namespace NSpec.Domain
     {
         protected override void InvokeHooks(nspec instance)
         {
-            // parent chain
             if (!reversed)
             {
+                // parent chain first, then current chain
+
                 RecurseAncestors(c => chainSelector(c).InvokeHooks(instance));
+
+                base.InvokeHooks(instance);
             }
-
-            base.InvokeHooks(instance);
-
-            // parent chain, reverse order
-            if (reversed)
+            else
             {
+                // current chain first, then parent chain
+
+                base.InvokeHooks(instance);
+
                 RecurseAncestors(c => chainSelector(c).InvokeHooks(instance));
             }
         }
