@@ -12,21 +12,17 @@ namespace NSpec.Domain
         {
             var methods = ContextUtils.GetMethodsFromHierarchy(classHierarchy, methodSelector);
 
+            var asyncMethods = ContextUtils.GetMethodsFromHierarchy(classHierarchy, asyncMethodSelector);
+
             if (reversed)
             {
                 methods.Reverse();
+                asyncMethods.Reverse();
             }
 
             if (methods.Count > 0)
             {
                 ClassHook = instance => methods.Do(m => m.Invoke(instance, null));
-            }
-
-            var asyncMethods = ContextUtils.GetMethodsFromHierarchy(classHierarchy, asyncMethodSelector);
-
-            if (reversed)
-            {
-                asyncMethods.Reverse();
             }
 
             if (asyncMethods.Count > 0)
