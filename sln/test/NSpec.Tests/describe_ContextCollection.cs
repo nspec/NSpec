@@ -21,7 +21,7 @@ namespace NSpec.Tests
 
             context.AddExample(new ExampleBaseWrap());
 
-            context.AddExample(new ExampleBaseWrap { Pending = true });
+            context.AddExample(new ExampleBaseWrap(pending: true));
 
             context.AddExample(new ExampleBaseWrap { Exception = new KnownException() });
 

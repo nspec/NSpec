@@ -309,10 +309,11 @@ namespace NSpec
 
             return () =>
             {
-                if (specContext.ExceptionBeforeAct == null)
-                    throw new ExceptionNotThrown(IncorrectType<T>());
+                var actException = specContext.ActChain.AnyException();
 
-                AssertExpectedException<T>(specContext.ExceptionBeforeAct, expectedMessage);
+                if (actException == null) throw new ExceptionNotThrown(IncorrectType<T>());
+
+                AssertExpectedException<T>(actException, expectedMessage);
 
                 // do not clear exception right now, during first phase, but leave a note for second phase
                 specContext.ClearExpectedException = true;

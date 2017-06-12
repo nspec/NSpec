@@ -24,6 +24,7 @@ namespace NSpec.Domain
             {
                 sentence = Regex.Replace(sentence, parensPattern, @"$1");
             }
+
             sentence = Regex.Replace(sentence, otherSeparatorsPattern, " ");
             sentence = Regex.Replace(sentence, commmasPattern, ",");
             sentence = Regex.Replace(sentence, multiSpacesPattern, " ");
@@ -36,14 +37,20 @@ namespace NSpec.Domain
             return Parse(exp.Body);
         }
 
+        public void AddTo(Context context)
+        {
+            Context = context;
+
+            Tags.AddRange(context.Tags);
+
+            Pending |= context.IsPending();
+        }
+
         public abstract void Run(nspec nspec);
         public abstract void RunPending(nspec nspec);
 
         public abstract bool IsAsync { get; }
         public abstract MethodInfo BodyMethodInfo { get; }
-
-        public TimeSpan Duration { get; set; }
-        public string CapturedOutput { get; set; }
 
         public string FullName()
         {
@@ -68,45 +75,6 @@ namespace NSpec.Domain
             stopWatch.Stop();
 
             Duration = stopWatch.Elapsed;
-        }
-
-        public void AssignProperException(Exception previousException, Exception followingException)
-        {
-            if (previousException == null && followingException == null)
-            {
-                // stick with whatever exception may or may not be set on this example
-                return;
-            }
-
-            if (previousException != null)
-            {
-                var contextException = previousException;
-
-                if (Exception != null && Exception.GetType() != typeof(ExceptionNotThrown))
-                {
-                    Exception = new ExampleFailureException(
-                        "Context Failure: " + contextException.Message + ", Example Failure: " + Exception.Message,
-                        contextException);
-                }
-
-                if (Exception == null)
-                {
-                    Exception = new ExampleFailureException(
-                        "Context Failure: " + contextException.Message,
-                        contextException);
-                }
-            }
-            else
-            {
-                var contextException = followingException;
-
-                if (Exception == null)
-                {
-                    Exception = new ExampleFailureException(
-                        "Context Failure: " + contextException.Message,
-                        contextException);
-                }
-            }
         }
 
         public bool ShouldSkip(Tags tagsFilter)
@@ -137,11 +105,13 @@ namespace NSpec.Domain
             Pending = pending;
         }
 
-        public bool Pending;
+        public TimeSpan Duration { get; protected set; }
+        public string CapturedOutput;
+        public bool Pending { get; protected set; }
         public bool HasRun;
-        public string Spec;
-        public List<string> Tags;
+        public string Spec { get; protected set; }
+        public List<string> Tags { get; protected set; }
         public Exception Exception;
-        public Context Context;
+        public Context Context { get; protected set; }
     }
 }
