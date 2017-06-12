@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using NSpec.Domain.Extensions;
@@ -13,7 +12,7 @@ namespace NSpec.Domain
         {
             var methods = ContextUtils.GetMethodsFromHierarchy(classHierarchy, methodSelector);
 
-            if (reversed) 
+            if (reversed)
             {
                 methods.Reverse();
             }
@@ -63,7 +62,7 @@ namespace NSpec.Domain
             {
                 throw new AsyncMismatchException(
                     $"A spec class with all its ancestors cannot set both sync and async " +
-                    "class-level '{classHookName}' hooks, they should either be all sync or all async");
+                    $"class-level '{classHookName}' hooks, they should either be all sync or all async");
             }
 
             ClassHook.SafeInvoke(instance);
@@ -112,7 +111,7 @@ namespace NSpec.Domain
 
         public Action Hook;
         public Func<Task> AsyncHook;
-        
+
         public Action<nspec> ClassHook { get; protected set; }
         public Action<nspec> AsyncClassHook { get; protected set; }
 
