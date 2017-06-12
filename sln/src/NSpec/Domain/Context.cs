@@ -1,11 +1,8 @@
-﻿using NSpec.Domain.Extensions;
-using NSpec.Domain.Formatters;
+﻿using NSpec.Domain.Formatters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace NSpec.Domain
 {
@@ -206,7 +203,7 @@ namespace NSpec.Domain
 
             return String.Join(",", new []
             {
-               Name, levelText, exampleText, contextText, exceptionText, 
+               Name, levelText, exampleText, contextText, exceptionText,
             });
         }
 
@@ -351,7 +348,7 @@ namespace NSpec.Domain
             Name = name.Replace("_", " ");
             Tags = Domain.Tags.ParseTags(tags);
             this.isPending = isPending;
-            
+
             Examples = new List<ExampleBase>();
             Contexts = new ContextCollection();
 
@@ -379,7 +376,7 @@ namespace NSpec.Domain
         public bool ClearExpectedException;
         public string CapturedOutput { get; protected set; }
         public Context Parent { get; protected set; }
-        
+
         protected List<RunnableExample> runnables;
         protected nspec builtInstance;
         protected bool alreadyWritten;

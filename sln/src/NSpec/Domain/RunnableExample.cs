@@ -65,11 +65,11 @@ namespace NSpec.Domain
                 beforeAllException ??
                 context.BeforeChain.AnyException() ??
                 unexpectedException;
-            
+
             Exception followingException =
                 context.AfterChain.AnyException() ??
                 afterAllException;
-            
+
             if (previousException == null && followingException == null)
             {
                 // stick with whatever exception may or may not be set on this example

@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
-using NSpec.Domain.Extensions;
-
 namespace NSpec.Domain
 {
     public class AfterChain : TraversingHookChain

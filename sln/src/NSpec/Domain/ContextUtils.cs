@@ -15,7 +15,7 @@ namespace NSpec.Domain
                 .Where(m => m != null)
                 .ToList();
         }
-        
+
         public static bool RunAndHandleException(Action<nspec> action, nspec instance, ref Exception targetException)
         {
             bool hasThrown = false;
