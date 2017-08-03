@@ -23,7 +23,7 @@ Removed support for .NET Framework 4.5. Minimum required version is now .NET 4.5
 
 #### Reason
 
-In order to have a single .NET Core project targeting both .NET Core and .NET Frameowrk.
+In order to have a single .NET Core project targeting both .NET Core and .NET Framework.
 
 #### Workaround
 
