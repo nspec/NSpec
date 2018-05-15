@@ -37,6 +37,7 @@ title: NSpec - A testing framework that's like Mocha and RSpec, but for C#
 - [Setup examples](#setup-examples)
 - [Extensions](#extensions)
   * [NSpec in NUnit](#nspecinnunit)
+  * [NSpec Visual Studio Adapter](#nspecvisualstudioadapter)
 
 ## Getting Started ##
 
